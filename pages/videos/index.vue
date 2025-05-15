@@ -21,16 +21,7 @@ const years = [
 ]
 
 const filter = ref({ years: years, type: 'video' })
-const yearAll = computed({
-    get: () => filter.value.years.length === years.length,
-    set: (value) => {
-        if (value) {
-            filter.value.years = years
-        } else {
-            filter.value.years = []
-        }
-    },
-})
+const yearAll = computed(() => filter.value.years.length === years.length)
 const yearOptions = ref<CheckboxGroupItem[]>(years)
 const typeOptions = ref<RadioGroupItem[]>([
     {
