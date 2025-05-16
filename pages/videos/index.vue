@@ -3,7 +3,7 @@ import { VIDEOS_MOCK } from '~/data/videos.mock'
 import type { CheckboxGroupItem } from '~/node_modules/@nuxt/ui/dist/runtime/components/CheckboxGroup.vue'
 import type { RadioGroupItem } from '~/node_modules/@nuxt/ui/dist/runtime/components/RadioGroup.vue'
 
-const years = [
+const years = ref([
     '2025',
     '2024',
     '2023',
@@ -18,11 +18,17 @@ const years = [
     '2014',
     '2013',
     '2012',
-]
+])
+const filterDefault = ref({
+    years: years.value.slice(0, 3),
+    type: 'video',
+})
 
-const filter = ref({ years: years, type: 'video' })
-const yearAll = computed(() => filter.value.years.length === years.length)
-const yearOptions = ref<CheckboxGroupItem[]>(years)
+const filter = ref(filterDefault.value)
+const yearAllSelected = computed(
+    () => filter.value.years.length === years.value.length,
+)
+const yearOptions = ref<CheckboxGroupItem[]>(years.value)
 const typeOptions = ref<RadioGroupItem[]>([
     {
         label: 'Videos',
@@ -35,8 +41,8 @@ const typeOptions = ref<RadioGroupItem[]>([
 ])
 
 const toggleAllYears = () => {
-    if (!yearAll.value) {
-        filter.value.years = years
+    if (!yearAllSelected.value) {
+        filter.value.years = years.value
     } else {
         filter.value.years = []
     }
@@ -54,52 +60,44 @@ const filteredVideos = computed(() => {
 </script>
 
 <template>
-    <div class="flex gap-4">
-        <div>
-            <h2>Filter options</h2>
+    <Container>
+        <div class="flex">
+            <div class="border-black-400 w-[200px] border-r-1">
+                <div class="sticky top-0">
+                    <div class="border-black-400 mb-4 border-b-1 py-4">
+                        <h2 class="text-xl font-semibold">Filter</h2>
+                    </div>
 
-            <div class="flex flex-col gap-4">
-                <div>
-                    <h3>Year</h3>
-                    <UCheckbox
-                        v-model="yearAll"
-                        @click="toggleAllYears()"
-                        label="All"
-                        class="mb-1"
-                    />
-                    <UCheckboxGroup
-                        v-model="filter.years"
-                        :items="yearOptions"
-                    />
-                </div>
+                    <div class="flex flex-col gap-4">
+                        <div>
+                            <h3 class="text-lg font-semibold">Year</h3>
+                            <div class="pt-2 pl-2">
+                                <UCheckbox
+                                    v-model="yearAllSelected"
+                                    @click="toggleAllYears()"
+                                    label="All"
+                                    class="mb-1"
+                                />
+                                <UCheckboxGroup
+                                    v-model="filter.years"
+                                    :items="yearOptions"
+                                />
+                            </div>
+                        </div>
 
-                <div>
-                    <h3>type</h3>
-                    <URadioGroup v-model="filter.type" :items="typeOptions" />
+                        <div>
+                            <h3 class="text-lg font-semibold">Type</h3>
+                            <URadioGroup
+                                class="pt-2 pl-2"
+                                v-model="filter.type"
+                                :items="typeOptions"
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="flex-1">
-            <h2>videos</h2>
-            <div
-                class="grid gap-4"
-                style="
-                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                "
-            >
-                <NuxtLink
-                    v-for="video in filteredVideos"
-                    :key="video.id"
-                    class="flex flex-col rounded-lg bg-slate-800 p-4"
-                    :to="`/videos/${video.id}`"
-                >
-                    <h3>title: {{ video.title }}</h3>
-                    <p>description: {{ video.description }}</p>
-                    <p>Year: {{ video.year }}</p>
-                    <p>Type: {{ video.type }}</p>
-                </NuxtLink>
-            </div>
+            <Videos :videos="filteredVideos" />
         </div>
-    </div>
+    </Container>
 </template>

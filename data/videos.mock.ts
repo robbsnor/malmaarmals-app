@@ -5,6 +5,6 @@ export const VIDEOS_MOCK = [
         description: `Description for ${i}`,
         thumbnail: 'https://cataas.com/cat?type=square',
         year: 2012 + ((i - 1) % 14), // cycles years 2012-2025
-        type: 'video',
+        type: i === 222 ? 'playlist' : 'video',
     })),
 ]

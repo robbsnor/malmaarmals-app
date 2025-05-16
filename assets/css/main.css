@@ -1,2 +1,74 @@
-@import "tailwindcss";
-@import "@nuxt/ui";
+@import 'tailwindcss';
+@import '@nuxt/ui';
+
+@theme {
+    /* fonts */
+    --font-roboto: 'Roboto', sans-serif;
+
+    /* linear */
+    --color-brand-100: #16161d;
+    --color-brand-200: #181921;
+    --color-brand-300: #191a23;
+    --color-brand-400: #2c2e3b;
+    --color-brand-500: #1f202b;
+
+    /* pruple */
+    /* --color-brand-100: #10002b;
+    --color-brand-200: #240046;
+    --color-brand-300: #3c096c;
+    --color-brand-400: #5a189a;
+    --color-brand-500: #7b2cbf;
+    --color-brand-600: #9d4edd;
+    --color-brand-700: #c77dff;
+    --color-brand-800: #e0aaff; */
+
+    /* black */
+    --color-black-100: #050505;
+    --color-black-150: #0a0a0a;
+    --color-black-200: #101010;
+    --color-black-250: #121212;
+    --color-black-300: #151515;
+    --color-black-350: #171717;
+    --color-black-400: #202020;
+    --color-black-450: #222222;
+    --color-black-500: #252525;
+    --color-black-600: #303030;
+    --color-black-700: #353535;
+    --color-black-800: #404040;
+    --color-black-900: #454545;
+    --color-black-1000: #505050;
+    --color-black-1100: #555555;
+}
+
+body {
+    @apply bg-black;
+    font-family: 'Lato', 'Comic Sans MS', cursive;
+}
+
+/* Webkit-based browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    border: solid 8px transparent;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border: solid 3px transparent;
+    background-color: #dfdfdf;
+    background-clip: content-box;
+    /* Apply background only to content */
+    border-radius: 999px;
+    opacity: 1;
+    margin: 3px !important;
+    transition: opacity 0.3s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    box-shadow: inset 0 0 8px 8px #acaeb1;
+    /* Show the thumb on hover */
+}

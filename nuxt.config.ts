@@ -3,5 +3,11 @@ export default defineNuxtConfig({
     compatibilityDate: '2024-11-01',
     modules: ['@nuxt/ui', '@formkit/auto-animate/nuxt'],
     css: ['~/assets/css/main.css'],
+    components: [
+        {
+            path: '~/components',
+            pathPrefix: false,
+        },
+    ],
     devtools: { enabled: true },
 })
