@@ -3,8 +3,6 @@ import { VIDEOS_MOCK } from '~/data/videos.mock'
 import type { CheckboxGroupItem } from '~/node_modules/@nuxt/ui/dist/runtime/components/CheckboxGroup.vue'
 import type { RadioGroupItem } from '~/node_modules/@nuxt/ui/dist/runtime/components/RadioGroup.vue'
 
-const thumbnails = await useFetch('/api/thumbnails')
-
 const years = ref([
     '2025',
     '2024',
@@ -59,14 +57,17 @@ const filteredVideos = computed(() => {
         return isYearMatch && isTypeMatch
     })
 })
+
+const res = await $fetch('/api/thumbnails')
 </script>
 
 <template>
     <Container>
         <code>
             <pre>
-                {{ thumbnails }}
-            </pre>
+            {{ res }}
+        </pre
+            >
         </code>
         <div class="flex">
             <div class="border-black-400 w-[200px] border-r-1">

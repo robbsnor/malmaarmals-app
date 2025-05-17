@@ -1,14 +1,9 @@
-import { supabaseServerClient } from "~/server/utils/supabase";
+import { serverSupabaseClient } from "#supabase/server";
 
-export default defineEventHandler(async (event) => {
-    const supabase = supabaseServerClient();
+export default eventHandler(async (event) => {
+	const client = await serverSupabaseClient(event);
 
-    const { data, error } = await supabase.storage.from("thumbnails").list();
-    console.log(data, error);
-    return "2";
-    // if (error) {
-    //     return { error: error.message }
-    // }
+	const buckets = await client.storage.from("thumbnails").list();
 
-    // return { data }
+	return buckets;
 });
