@@ -3,6 +3,7 @@ import { VIDEOS_MOCK } from '~/data/videos.mock'
 import type { CheckboxGroupItem } from '~/node_modules/@nuxt/ui/dist/runtime/components/CheckboxGroup.vue'
 import type { RadioGroupItem } from '~/node_modules/@nuxt/ui/dist/runtime/components/RadioGroup.vue'
 
+const supabase = useSupabaseClient()
 const years = ref([
     '2025',
     '2024',
@@ -40,6 +41,17 @@ const typeOptions = ref<RadioGroupItem[]>([
     },
 ])
 
+const videos = ref([])
+onMounted(async () => {
+    const { data: videosData, error: videoError } = await supabase
+        .from('videos')
+        .select('*')
+
+    if (videoError) return console.error('Error fetching videos:', videoError)
+
+    videos.value = videosData
+})
+
 const toggleAllYears = () => {
     if (!yearAllSelected.value) {
         filter.value.years = years.value
@@ -48,7 +60,6 @@ const toggleAllYears = () => {
     }
 }
 
-const videos = ref(VIDEOS_MOCK)
 const filteredVideos = computed(() => {
     return videos.value.filter((video) => {
         const isYearMatch = filter.value.years.includes(video.year.toString())
@@ -63,12 +74,6 @@ const res = await $fetch('/api/thumbnails')
 
 <template>
     <Container>
-        <code>
-            <pre>
-            {{ res }}
-        </pre
-            >
-        </code>
         <div class="flex">
             <div class="border-black-400 w-[200px] border-r-1">
                 <div class="sticky top-0">
@@ -105,7 +110,7 @@ const res = await $fetch('/api/thumbnails')
                 </div>
             </div>
 
-            <Videos :videos="filteredVideos" />
+            <Videos :videos="videos" />
         </div>
     </Container>
 </template>

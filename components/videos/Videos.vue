@@ -1,10 +1,7 @@
 <script setup lang="ts">
-const props = withDefaults(
-    defineProps<{
-        videos: any[]
-    }>(),
-    {},
-)
+const props = defineProps<{
+    videos: any[]
+}>()
 </script>
 
 <template>
@@ -12,7 +9,7 @@ const props = withDefaults(
         <div
             v-if="videos.length"
             class="grid gap-4 px-4"
-            style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))"
+            style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))"
         >
             <NuxtLink
                 v-for="video in videos"
@@ -20,10 +17,8 @@ const props = withDefaults(
                 class="bg-brand-100 border-brand-300 hover:bg-brand-300 hover:border-brand-500 flex flex-col rounded-lg border p-4 transition-all"
                 :to="`/videos/${video.id}`"
             >
-                <h3>title: {{ video.title }}</h3>
-                <p>description: {{ video.description }}</p>
-                <p>Year: {{ video.year }}</p>
-                <p>Type: {{ video.type }}</p>
+                <h3 class="text-lg font-bold">{{ video.title }}</h3>
+                <p v-if="video.description">{{ video.description }}</p>
             </NuxtLink>
         </div>
 

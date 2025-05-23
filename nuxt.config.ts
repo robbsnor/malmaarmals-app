@@ -10,6 +10,9 @@ export default defineNuxtConfig({
     supabase: {
         redirect: false,
     },
+    devServer: {
+        port: 3030,
+    },
     components: [
         {
             path: "~/components",
