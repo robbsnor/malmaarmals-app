@@ -41,6 +41,14 @@ const getMessages = async () => {
     messages.value = messagesResult.data
 }
 
+const date = computed(() => {
+    return new Date(videoInfo.value.date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    })
+})
+
 onMounted(async () => {
     getVideoInfo()
     getVideoUrl()
@@ -58,17 +66,15 @@ onMounted(async () => {
 
 <template>
     <div
-        v-if="videoInfo"
-        class="grid h-screen gap-4 p-4"
-        style="grid-template-columns: auto 350px"
+        class="grid-flow-colf 4xl:grid-cols-[1fr_600px] grid h-screen gap-4 p-4 xl:grid-cols-[1fr_360px]"
     >
-        <div class="pr-0">
-            <div class="relative">
+        <div v-if="videoInfo">
+            <div class="relative flex-1">
                 <UButton
                     icon="i-lucide-chevron-left"
                     color="primary"
                     to="/videos"
-                    class="absolute top-4 left-4"
+                    class="absolute top-4 left-4 z-10"
                 >
                     Back to videos
                 </UButton>
@@ -76,17 +82,17 @@ onMounted(async () => {
                     v-if="videoUrl"
                     controls
                     :src="videoUrl"
-                    class="aspect-video w-full rounded-md"
+                    class="aspect-video h-full w-full rounded-md"
                 ></video>
             </div>
-
             <div class="p-4">
-                <h2 class="text-xl font-bold">🌹 {{ videoInfo.title }}</h2>
+                <h2 class="text-xl font-bold">{{ videoInfo.title }}</h2>
                 <h3>{{ videoInfo.description }}</h3>
+                <h3>{{ date }}</h3>
             </div>
         </div>
 
-        <div v-if="messages" style="overflow-y: auto">
+        <div v-if="messages" class="overflow-y-auto rounded-md">
             <ul class="flex flex-col gap-[2px]">
                 <li v-for="message in messages" :key="message.id">
                     <span

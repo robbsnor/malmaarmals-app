@@ -38,6 +38,10 @@
     --color-black-900: #454545;
     --color-black-1000: #505050;
     --color-black-1100: #555555;
+
+    --breakpoint-3xl: 120rem;
+    --breakpoint-4xl: 140rem;
+    --breakpoint-5xl: 160rem;
 }
 
 body {
