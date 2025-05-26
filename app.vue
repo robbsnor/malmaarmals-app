@@ -1,7 +1,10 @@
 <template>
     <UApp>
-        <!-- <div class="bg-black-450 h-[80px]"></div> -->
-        <NuxtPage />
-        <NuxtRouteAnnouncer />
+        <Header ref="header"> </Header>
+
+        <NuxtLayout>
+            <NuxtPage />
+            <NuxtRouteAnnouncer />
+        </NuxtLayout>
     </UApp>
 </template>

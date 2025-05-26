@@ -76,7 +76,7 @@ const res = await $fetch('/api/thumbnails')
     <Container>
         <div class="flex">
             <div class="border-black-400 w-[200px] border-r-1">
-                <div class="sticky top-0 h-screen">
+                <div class="sticky top-0 h-full">
                     <div class="border-black-400 mb-4 border-b-1 py-4">
                         <h2 class="text-xl font-semibold">Filter</h2>
                     </div>
@@ -91,6 +91,7 @@ const res = await $fetch('/api/thumbnails')
                                     label="All"
                                     class="mb-1"
                                 />
+
                                 <UCheckboxGroup
                                     v-model="filter.years"
                                     :items="yearOptions"

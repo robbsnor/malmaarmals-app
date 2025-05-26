@@ -5,10 +5,14 @@ export default defineNuxtConfig({
         "@nuxt/ui",
         "@formkit/auto-animate/nuxt",
         "@nuxtjs/supabase",
+        "@pinia/nuxt",
     ],
     css: ["~/assets/css/main.css"],
     supabase: {
-        redirect: false,
+        redirectOptions: {
+            login: "/",
+            callback: "/confirm",
+        },
     },
     devServer: {
         port: 3030,
