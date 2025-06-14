@@ -4,32 +4,39 @@ const supabase = useSupabaseClient()
 
 const videoId = route.params.id
 const videoInfo = ref()
-const videoUrl = ref()
-const messages = ref<any>()
+const messages = ref<any[]>([])
+const videoRef = ref(null)
+const currentTime = ref(0)
+
+const messageList = computed(() => {
+    // Find messages at current time and previous 500 messages (by offset_sec)
+    const current = currentTime.value
+    // Filter messages with offset_sec <= current time, sort by offset_sec descending, take last 500, then sort ascending
+    const filtered = messages.value
+        .filter((msg) => msg.offset_sec <= current)
+        .sort((a, b) => b.offset_sec - a.offset_sec)
+        .slice(0, 20)
+        .sort((a, b) => a.offset_sec - b.offset_sec)
+    return filtered
+})
 
 const getVideoInfo = async () => {
     const { data: videoData, error: videoError } = await supabase
         .from('videos')
         .select('*')
-        .eq('id', videoId)
+        .eq('video_id', videoId)
         .single()
 
     if (videoError) return console.error('Error fetching videos:', videoError)
 
     videoInfo.value = videoData
 }
-const getVideoUrl = async () => {
-    const res = supabase.storage
-        .from('videos')
-        .getPublicUrl(`${videoId}_video.mp4`)
-
-    videoUrl.value = res.data.publicUrl
-}
 const getMessages = async () => {
     const messagesResult = await supabase
         .from('messages')
         .select('*')
         .eq('video_id', videoId)
+        .order('date', { ascending: true })
 
     if (messagesResult.error) {
         return console.error(
@@ -49,9 +56,13 @@ const date = computed(() => {
     })
 })
 
+const updateCurrentTime = () => {
+    if (!videoRef.value) return
+    currentTime.value = Math.floor(videoRef.value.currentTime)
+}
+
 onMounted(async () => {
     getVideoInfo()
-    getVideoUrl()
     getMessages()
 
     // const { data: categorymappin, error: videoError } = await supabase
@@ -70,36 +81,31 @@ onMounted(async () => {
     >
         <div v-if="videoInfo">
             <div class="relative flex-1">
-                <UButton
-                    icon="i-lucide-chevron-left"
-                    color="primary"
-                    to="/videos"
-                    class="absolute top-4 left-4 z-10"
-                >
-                    Back to videos
-                </UButton>
                 <video
-                    v-if="videoUrl"
+                    ref="videoRef"
                     controls
-                    :src="videoUrl"
+                    :src="`http://localhost:8000/videos/${videoInfo.video_id}`"
                     class="aspect-video h-full w-full rounded-md"
+                    @timeupdate="updateCurrentTime()"
                 ></video>
             </div>
             <div class="p-4">
                 <h2 class="text-xl font-bold">{{ videoInfo.title }}</h2>
+                {{ currentTime }}s
                 <h3>{{ videoInfo.description }}</h3>
                 <h3>{{ date }}</h3>
+                {{ messages ? messages.length : 0 }}
             </div>
         </div>
 
         <div v-if="messages" class="overflow-y-auto rounded-md">
-            <ul class="flex flex-col gap-[2px]">
-                <li v-for="message in messages" :key="message.id">
+            <ul v-auto-animate class="flex flex-col gap-[2px]">
+                <li v-for="message in messageList" :key="message.id">
                     <span
                         :style="{
                             color: message.user_color
                                 ? message.user_color
-                                : '#691bb1',
+                                : '#2e8b57',
                         }"
                         class="font-bold"
                     >

@@ -9,13 +9,11 @@ export default defineNuxtConfig({
     ],
     css: ["~/assets/css/main.css"],
     supabase: {
-        redirectOptions: {
-            login: "/",
-            callback: "/confirm",
-        },
-    },
-    devServer: {
-        port: 3030,
+        redirect: false,
+        // redirectOptions: {
+        //     login: "/",
+        //     callback: "/confirm",
+        // },
     },
     components: [
         {
