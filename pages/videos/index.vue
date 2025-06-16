@@ -46,6 +46,7 @@ onMounted(async () => {
     const { data: videosData, error: videoError } = await supabase
         .from('videos')
         .select('*')
+        .order('recorded_at', { ascending: false })
 
     if (videoError) return console.error('Error fetching videos:', videoError)
 

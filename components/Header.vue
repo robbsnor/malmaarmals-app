@@ -35,7 +35,7 @@ const items = ref<DropdownMenuItem[]>([
 <template>
     <div
         ref="header"
-        class="border-black-400 top-0 right-0 left-0 z-100 mb-4 flex h-[60px] items-center justify-between border-b-1 bg-black p-4"
+        class="border-black-400 top-0 right-0 left-0 z-100 flex h-[60px] items-center justify-between border-b-1 bg-black p-4"
     >
         <div class="flex items-center gap-8">
             <RouterLink to="/" class="flex flex-col gap-[2px]">

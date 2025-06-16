@@ -2,10 +2,11 @@
 export default defineNuxtConfig({
     compatibilityDate: "2024-11-01",
     modules: [
-        "@nuxt/ui",
-        "@formkit/auto-animate/nuxt",
-        "@nuxtjs/supabase",
-        "@pinia/nuxt",
+      "@nuxt/ui",
+      "@formkit/auto-animate/nuxt",
+      "@nuxtjs/supabase",
+      "@pinia/nuxt",
+      "@nuxt/fonts",
     ],
     css: ["~/assets/css/main.css"],
     supabase: {
@@ -21,5 +22,8 @@ export default defineNuxtConfig({
             pathPrefix: false,
         },
     ],
+    devServer: {
+        port: 4000,
+    },
     devtools: { enabled: true },
 });

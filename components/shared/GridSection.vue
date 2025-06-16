@@ -6,15 +6,12 @@ const props = withDefaults(
     defineProps<{
         title: string
         cols?: number
+        to: string
     }>(),
     {
         cols: 4,
     },
 )
-
-const emit = defineEmits<{
-    (e: 'click-view-all'): void
-}>()
 
 const visibleChildren = computed(() => {
     const children = slots.default!()[0].children ?? []
@@ -30,13 +27,13 @@ const visibleChildren = computed(() => {
                     {{ title }}
                 </h2>
             </div>
-            <button
-                @click="emit('click-view-all')"
+            <NuxtLink
+                :to="props.to"
                 class="text-primary hover:bg-black-600 flex cursor-pointer items-center gap-1 rounded-md py-0.5 pr-1 pl-2 text-sm transition-all"
             >
                 View all
                 <UIcon name="i-lucide-chevron-right" size="14" />
-            </button>
+            </NuxtLink>
         </div>
 
         <div

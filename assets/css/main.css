@@ -3,7 +3,7 @@
 
 @theme {
     /* fonts */
-    --font-roboto: 'Roboto', sans-serif;
+    --font-open-sans: 'Open Sans ', sans-serif;
 
     /* linear */
     --color-brand-100: #16161d;
@@ -45,8 +45,7 @@
 }
 
 body {
-    @apply bg-black;
-    font-family: 'Lato', 'Comic Sans MS', cursive;
+    @apply font-open-sans bg-black;
 }
 
 /* Webkit-based browsers (Chrome, Safari) */

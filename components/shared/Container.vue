@@ -4,7 +4,7 @@ const props = withDefaults(
         width?: string
     }>(),
     {
-        width: '1440px',
+        width: '1920px',
     },
 )
 </script>

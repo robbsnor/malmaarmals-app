@@ -5,29 +5,36 @@ const props = defineProps<{
 </script>
 
 <template>
-    <div class="flex-1 py-4">
-        <div
-            v-if="videos.length"
-            class="grid gap-4 px-4"
-            style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))"
-        >
-            <NuxtLink
-                v-for="video in videos"
-                :key="video.id"
-                class="bg-brand-100 border-brand-300 hover:bg-brand-300 hover:border-brand-500 flex flex-col rounded-lg border p-4 transition-all"
-                :to="`/videos/${video.id}`"
-            >
-                <h3 class="text-lg font-bold">{{ video.title }}</h3>
-                <p v-if="video.description">{{ video.description }}</p>
-            </NuxtLink>
-        </div>
+    <NuxtLink
+        v-for="video in props.videos"
+        :key="video.video_id"
+        :to="`/videos/${video.video_id}`"
+    >
+        <img
+            :src="`http://localhost:8000/thumbnails/${video.video_id}`"
+            alt=""
+            class="mb-2 rounded-md"
+        />
+        <h2 class="text-md font-bold">{{ video.title }}</h2>
+        <p v-if="video.description" class="text-black-700 text-sm">
+            {{ video.description }}
+        </p>
+        <p class="text-sm text-gray-500">
+            {{ new Date(video.recorded_at).toLocaleString() }}
+        </p>
 
-        <div
-            v-else
-            class="flex flex-col items-center justify-center py-16 text-center text-gray-500"
-        >
-            <h3 class="mb-2 text-lg font-semibold">No videos found</h3>
-            <p class="mb-4">Try adjusting your filters.</p>
-        </div>
-    </div>
+        <template v-if="video.categories.length">
+            <div
+                v-for="category in video.categories"
+                :key="category.id"
+                class="mt-2 flex items-center gap-2"
+            >
+                <img :src="category.image_url" alt="" class="rounded-md" />
+
+                <span class="text-sm text-gray-500">
+                    {{ category.title }}
+                </span>
+            </div>
+        </template>
+    </NuxtLink>
 </template>
