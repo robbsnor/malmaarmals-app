@@ -25,7 +25,7 @@ const daysAgo = computed(() => {
             :class="props.isFirst ? 'opacity-40' : 'opacity-20'"
             :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
             alt=""
-            class="absolute -z-10 aspect-video scale-200 rounded-[99%] object-cover blur-2xl select-none"
+            class="pointer-events-none absolute -z-10 aspect-video scale-200 overflow-hidden rounded-[99%] object-cover blur-2xl select-none"
         />
         <img
             :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"

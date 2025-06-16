@@ -45,7 +45,7 @@
 }
 
 body {
-    @apply font-open-sans bg-black;
+    @apply font-open-sans overflow-x-hidden bg-black;
 }
 
 /* Webkit-based browsers (Chrome, Safari) */
