@@ -30,10 +30,10 @@ const daysAgo = computed(() => {
         <img
             :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
             alt=""
-            class="relative mb-2 aspect-video w-full transition-all group-hover:scale-102"
+            class="relative mb-2 aspect-video w-full transition-all group-hover:scale-102 group-hover:shadow-2xl"
             :class="props.isFirst ? 'rounded-2xl' : 'rounded-md'"
         />
-        <div class="transition-all group-hover:opacity-50">
+        <div class="transition-all">
             <h2
                 class="truncate font-black uppercase"
                 :class="props.isFirst ? 'text-2xl' : 'text-lg'"

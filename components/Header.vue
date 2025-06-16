@@ -35,7 +35,8 @@ const items = ref<DropdownMenuItem[]>([
 <template>
     <div
         ref="header"
-        class="border-black-400 top-0 right-0 left-0 z-100 flex h-[60px] items-center justify-between border-b-1 bg-black p-4"
+        class="top-0 right-0 left-0 z-100 grid h-[60px] bg-black/75 px-4 py-2 backdrop-blur-2xl"
+        style="grid-template-columns: 1fr auto 1fr"
     >
         <div class="flex items-center gap-8">
             <RouterLink to="/" class="flex flex-col gap-[2px]">
@@ -55,7 +56,9 @@ const items = ref<DropdownMenuItem[]>([
             </div>
         </div>
 
-        <div>
+        <Search />
+
+        <div class="flex items-center justify-end">
             <template v-if="user">
                 <UDropdownMenu
                     arrow
