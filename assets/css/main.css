@@ -61,8 +61,8 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
+    @apply bg-black-800;
     border: solid 3px transparent;
-    background-color: #dfdfdf;
     background-clip: content-box;
     /* Apply background only to content */
     border-radius: 999px;

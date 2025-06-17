@@ -42,7 +42,7 @@ function truncateStringArray(titles: string[], maxLength: number = 20): string {
                 <div
                     class="flex items-center gap-2 font-black text-gray-500 text-shadow-md"
                 >
-                    <div>Newest Video</div>
+                    <div>Latest stream</div>
                     <div class="text-sm italic">
                         ({{ daysAgo(props.video.recorded_at) }} days ago)
                     </div>
