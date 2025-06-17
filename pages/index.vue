@@ -1,38 +1,72 @@
 <script setup lang="ts">
-const router = useRouter()
 const supabase = useSupabaseClient()
-const videos = ref<any[]>([])
-const videosError = ref<string>()
 
-onMounted(async () => {
-    await fetchVideos()
-})
+const { data: videos, error } = await supabase
+    .from('videos')
+    .select('*, categories: video_category_mapping(...categories(*))')
+    .order('recorded_at', { ascending: false })
+    .range(0, 1000)
 
-const fetchVideos = async () => {
-    const { data, error } = await supabase
-        .from('videos')
-        .select('*, categories: video_category_mapping(...categories(*))')
-        .order('recorded_at', { ascending: false })
-        .limit(4)
+const firstVideo = computed(() => videos?.[0])
+const otherVideos = computed(() => videos?.slice(1))
+const fakePlaylist = computed(() => videos?.slice(13, 20))
 
-    if (error) {
-        console.error('Error fetching videos:', error)
-        videosError.value = error.message
-    }
-    videos.value = data
+const { data: categories } = await supabase.from('categories').select('*')
+const catImg = (url: string) => {
+    return url.replace('40x53', '240x318')
 }
 </script>
 
 <template>
-    <VideoSection title="Latest Videos">
-        <div class="grid grid-cols-15 items-center gap-8">
-            <Video
-                v-for="(video, idx) in videos"
-                :key="video.video_id"
-                :video="video"
-                :class="idx < 1 ? 'col-span-6' : 'col-span-3'"
-                :is-first="idx < 1"
-            />
+    <div>
+        <LatestVideo v-if="firstVideo" :video="firstVideo" />
+
+        <div class="pb-1g flex flex-col gap-16">
+            <Container>
+                <GridSection v-if="otherVideos" title="Recent Videos">
+                    <Video
+                        v-for="video in otherVideos"
+                        :key="video.video_id"
+                        :video="video"
+                    />
+                </GridSection>
+            </Container>
+
+            <BackGroundGradient class="py-16">
+                <Container>
+                    <GridSection
+                        v-if="categories"
+                        title="Popular Categories"
+                        :cols="8"
+                    >
+                        <div
+                            v-for="category in categories"
+                            :key="category.id"
+                            class="relative"
+                        >
+                            <img
+                                :src="catImg(category.image_url)"
+                                class="pointer-events-none absolute -z-10 w-full scale-200 overflow-hidden rounded-[99%] object-cover opacity-20 blur-2xl select-none"
+                            />
+                            <img
+                                :src="catImg(category.image_url)"
+                                alt=""
+                                class="w-full rounded-md"
+                            />
+                        </div>
+                    </GridSection>
+                </Container>
+            </BackGroundGradient>
+
+            <Container>
+                <GridSection v-if="otherVideos" title="Playlists">
+                    <Video
+                        v-for="video in fakePlaylist"
+                        :key="video.video_id"
+                        :video="video"
+                    />
+                </GridSection>
+            </Container>
         </div>
-    </VideoSection>
+    </div>
 </template>

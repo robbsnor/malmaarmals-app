@@ -1,76 +1,26 @@
 <script setup lang="ts">
-import { VIDEOS_MOCK } from '~/data/videos.mock'
-import type { CheckboxGroupItem } from '~/node_modules/@nuxt/ui/dist/runtime/components/CheckboxGroup.vue'
-import type { RadioGroupItem } from '~/node_modules/@nuxt/ui/dist/runtime/components/RadioGroup.vue'
-
 const supabase = useSupabaseClient()
-const years = ref([
-    '2025',
-    '2024',
-    '2023',
-    '2022',
-    '2021',
-    '2020',
-    '2019',
-    '2018',
-    '2017',
-    '2016',
-    '2015',
-    '2014',
-    '2013',
-    '2012',
-])
-const filterDefault = ref({
-    years: years.value.slice(0, 3),
-    type: 'video',
-})
+const videos = ref<{ data: any[]; error: any }>()
 
-const filter = ref(filterDefault.value)
-const yearAllSelected = computed(
-    () => filter.value.years.length === years.value.length,
-)
-const yearOptions = ref<CheckboxGroupItem[]>(years.value)
-const typeOptions = ref<RadioGroupItem[]>([
-    {
-        label: 'Videos',
-        value: 'video',
-    },
-    {
-        label: 'Playlists',
-        value: 'playlist',
-    },
-])
-
-const videos = ref([])
 onMounted(async () => {
-    const { data: videosData, error: videoError } = await supabase
-        .from('videos')
-        .select('*')
-        .order('recorded_at', { ascending: false })
-
-    if (videoError) return console.error('Error fetching videos:', videoError)
-
-    videos.value = videosData
+    videos.value = await fetchVideos()
 })
 
-const toggleAllYears = () => {
-    if (!yearAllSelected.value) {
-        filter.value.years = years.value
-    } else {
-        filter.value.years = []
-    }
+const fetchVideos = () => {
+    return supabase
+        .from('videos')
+        .select('*, categories: video_category_mapping(...categories(*))')
+        .order('recorded_at', { ascending: false })
+        .limit(1000)
 }
 
-const filteredVideos = computed(() => {
-    return videos.value.filter((video) => {
-        const isYearMatch = filter.value.years.includes(video.year.toString())
-        const isTypeMatch = video.type === filter.value.type
-
-        return isYearMatch && isTypeMatch
+const formattedDate = (date: string) => {
+    return new Date(date).toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
     })
-})
-
-const res = await $fetch('/api/thumbnails')
+}
 </script>
 
 <template>
@@ -83,7 +33,7 @@ const res = await $fetch('/api/thumbnails')
                     </div>
 
                     <div class="flex flex-col gap-4">
-                        <div>
+                        <!-- <div>
                             <h3 class="text-lg font-semibold">Year</h3>
                             <div class="pt-2 pl-2">
                                 <UCheckbox
@@ -107,12 +57,60 @@ const res = await $fetch('/api/thumbnails')
                                 v-model="filter.type"
                                 :items="typeOptions"
                             />
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
 
-            <Videos :videos="videos" />
+            {{ videos?.data.length }}
+            <div
+                v-if="videos?.data"
+                class="grid grid-cols-5 items-center gap-8 p-4"
+            >
+                <NuxtLink
+                    v-for="video in videos.data"
+                    :key="video.video_id"
+                    :to="`/videos/${video.video_id}`"
+                >
+                    <div class="relative">
+                        <img
+                            :src="`http://localhost:8000/thumbnails/${video.video_id}`"
+                            alt=""
+                            class="pointer-events-none absolute -z-10 aspect-video scale-300 overflow-hidden rounded-[99%] object-cover opacity-10 blur-2xl select-none"
+                        />
+                        <img
+                            :src="`http://localhost:8000/thumbnails/${video.video_id}`"
+                            alt=""
+                            class="mb-2 rounded-md"
+                        />
+                    </div>
+                    <h2 class="text-md font-bold">{{ video.title }}</h2>
+                    <p v-if="video.description" class="text-black-700 text-sm">
+                        {{ video.description }}
+                    </p>
+                    <p class="text-sm text-gray-500">
+                        {{ formattedDate(video.recorded_at) }}
+                    </p>
+
+                    <!-- <template v-if="video.categories.length">
+                        <div
+                            v-for="category in video.categories"
+                            :key="category.id"
+                            class="mt-2 flex items-center gap-2"
+                        >
+                            <img
+                                :src="category.image_url"
+                                alt=""
+                                class="rounded-md"
+                            />
+
+                            <span class="text-sm text-gray-500">
+                                {{ category.title }}
+                            </span>
+                        </div>
+                    </template> -->
+                </NuxtLink>
+            </div>
         </div>
     </Container>
 </template>

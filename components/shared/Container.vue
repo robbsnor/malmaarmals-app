@@ -10,7 +10,7 @@ const props = withDefaults(
 </script>
 
 <template>
-    <div class="mx-auto w-full px-4" :style="{ maxWidth: props.width }">
+    <div class="mx-auto w-full px-4 lg:px-8" :style="{ maxWidth: props.width }">
         <slot></slot>
     </div>
 </template>

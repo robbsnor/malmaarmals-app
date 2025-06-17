@@ -17,7 +17,7 @@ const props = withDefaults(
             type="text"
             v-model="props.items"
             placeholder="Search..."
-            class="bg-black-300 focus:ring-primary-500 relative z-20 w-[300px] rounded-md px-4 py-2 text-white transition-all focus:ring-2 focus:outline-none"
+            class="bg-black-300 focus:ring-primary-500 relative z-20 w-[420px] rounded-md px-4 py-2 text-white transition-all focus:ring-2 focus:outline-none"
         />
 
         <!-- <div

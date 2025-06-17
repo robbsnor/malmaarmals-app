@@ -37,7 +37,7 @@ const visibleChildren = computed(() => {
         </div>
 
         <div
-            class="grid gap-4"
+            class="grid gap-8"
             :class="{
                 'grid-cols-1': cols === 1,
                 'grid-cols-2': cols === 2,
@@ -45,6 +45,8 @@ const visibleChildren = computed(() => {
                 'grid-cols-4': cols === 4,
                 'grid-cols-5': cols === 5,
                 'grid-cols-6': cols === 6,
+                'grid-cols-7': cols === 7,
+                'grid-cols-8': cols === 8,
             }"
         >
             <template v-for="(item, index) in visibleChildren" :key="index">
