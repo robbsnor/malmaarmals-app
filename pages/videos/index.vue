@@ -92,7 +92,7 @@ const formattedDate = (date: string) => {
                         {{ formattedDate(video.recorded_at) }}
                     </p>
 
-                    <template v-if="video.categories.length">
+                    <!-- <template v-if="video.categories.length">
                         <div
                             v-for="category in video.categories"
                             :key="category.id"
@@ -108,7 +108,7 @@ const formattedDate = (date: string) => {
                                 {{ category.title }}
                             </span>
                         </div>
-                    </template>
+                    </template> -->
                 </NuxtLink>
             </div>
         </div>
