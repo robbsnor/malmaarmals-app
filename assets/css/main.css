@@ -4,6 +4,7 @@
 @theme {
     /* fonts */
     --font-open-sans: 'Open Sans ', sans-serif;
+    --font-space-grotesk: 'Space Grotesk', sans-serif;
 
     /* linear */
     --color-brand-100: #16161d;
@@ -49,7 +50,7 @@
 }
 
 body {
-    @apply font-open-sans overflow-x-hidden bg-black;
+    @apply font-space-grotesk overflow-x-hidden bg-black;
 }
 
 /* Webkit-based browsers (Chrome, Safari) */
