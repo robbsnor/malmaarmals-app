@@ -11,6 +11,14 @@ const signIn = async () => {
     })
 }
 
+const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen()
+    } else {
+        document.exitFullscreen()
+    }
+}
+
 const items = ref<DropdownMenuItem[]>([
     {
         label: 'Account',
@@ -19,7 +27,7 @@ const items = ref<DropdownMenuItem[]>([
     },
     {
         label: 'Settings',
-        icon: 'i-lucide-cog',
+        icon: 'i-lucidde-cog',
         to: '/settings',
     },
     {
@@ -35,7 +43,7 @@ const items = ref<DropdownMenuItem[]>([
 <template>
     <div ref="header" class="top-0 right-0 left-0 z-100 bg-black/75 px-4">
         <div
-            class="grid h-[60px] py-2 backdrop-blur-2xl"
+            class="grid h-(--header-height) py-2 backdrop-blur-2xl"
             style="grid-template-columns: 1fr auto 1fr"
         >
             <div class="flex items-center gap-8">
@@ -59,6 +67,15 @@ const items = ref<DropdownMenuItem[]>([
             <Search />
 
             <div class="flex items-center justify-end">
+                <UButton
+                    icon="i-lucide-maximize"
+                    size="md"
+                    color="primary"
+                    variant="soft"
+                    @click="toggleFullscreen"
+                    class="mr-2"
+                />
+
                 <template v-if="user">
                     <UDropdownMenu
                         arrow

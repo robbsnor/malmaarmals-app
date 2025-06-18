@@ -5,7 +5,7 @@ const { data: videos, error } = await supabase
     .from('videos')
     .select('*, categories: video_category_mapping(...categories(*))')
     .order('recorded_at', { ascending: false })
-    .range(120, 1000)
+    .range(0, 1000)
 
 const firstVideo = computed(() => videos?.[0])
 const otherVideos = computed(() => videos?.slice(1))
@@ -21,7 +21,7 @@ const catImg = (url: string) => {
     <div>
         <LatestVideo v-if="firstVideo" :video="firstVideo" />
 
-        <div class="pb-1g flex flex-col gap-16">
+        <div class="pb-1g flex flex-col gap-16 pb-32">
             <Container>
                 <GridSection v-if="otherVideos" title="Recent streams">
                     <Video
@@ -60,7 +60,7 @@ const catImg = (url: string) => {
             </BackGroundGradient>
 
             <Container>
-                <GridSection v-if="otherVideos" title="Playlists">
+                <GridSection v-if="otherVideos" title="Playlists" :cols="5">
                     <Video
                         v-for="video in fakePlaylist"
                         :key="video.video_id"

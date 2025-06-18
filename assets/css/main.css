@@ -44,6 +44,10 @@
     --breakpoint-5xl: 160rem;
 }
 
+:root {
+    --header-height: 60px;
+}
+
 body {
     @apply font-open-sans overflow-x-hidden bg-black;
 }
@@ -64,7 +68,6 @@ body {
     @apply bg-black-800;
     border: solid 3px transparent;
     background-clip: content-box;
-    /* Apply background only to content */
     border-radius: 999px;
     opacity: 1;
     margin: 3px !important;
@@ -73,5 +76,4 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
     box-shadow: inset 0 0 8px 8px #acaeb1;
-    /* Show the thumb on hover */
 }

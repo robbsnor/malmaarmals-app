@@ -6,7 +6,21 @@ const videoId = route.params.id
 const videoInfo = ref()
 const messages = ref<any[]>([])
 const videoRef = ref<HTMLVideoElement>()
+const croppedMessages = ref<any[]>([])
 const currentTime = ref(0)
+
+onMounted(async () => {
+    getVideoInfo()
+    getMessages()
+})
+
+const date = computed(() => {
+    return new Date(videoInfo.value.recorded_at).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    })
+})
 
 const getVideoInfo = async () => {
     const { data: videoData, error: videoError } = await supabase
@@ -19,78 +33,107 @@ const getVideoInfo = async () => {
 
     videoInfo.value = videoData
 }
+
 const getMessages = async () => {
-    const messagesResult = await supabase
-        .from('messages')
-        .select()
-        .eq('video_id', videoId)
-        .order('date', { ascending: true })
-        .limit(1000)
+    let from = 0
+    let to = 999
+    let hasMore = true
 
-    if (messagesResult.error) {
-        return console.error(
-            'Error fetching video category mapping:',
-            messagesResult.error,
-        )
+    while (hasMore) {
+        const { data, error, count } = await supabase
+            .from('messages')
+            .select('user_id,user_name,user_color,text,offset_sec,id', {
+                count: 'exact',
+            })
+            .eq('video_id', videoId)
+            .order('date', { ascending: true })
+            .range(from, to)
+
+        console.log(count)
+
+        if (error) {
+            return console.error('Error fetching messages:', error)
+        }
+
+        if (data && data.length > 0) {
+            messages.value = [...messages.value, ...data]
+            from += 1000
+            to += 1000
+            hasMore = data.length === 1000
+        } else {
+            hasMore = false
+        }
     }
-
-    messages.value = messagesResult.data
 }
-
-const date = computed(() => {
-    return new Date(videoInfo.value.date).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-    })
-})
 
 const updateCurrentTime = () => {
     if (!videoRef.value) return
     currentTime.value = Math.floor(videoRef.value.currentTime)
 }
 
-onMounted(async () => {
-    getVideoInfo()
-    getMessages()
-
-    // const { data: categorymappin, error: videoError } = await supabase
-    //     .from('video_category_mapping')
-    //     .select('category_id(*), video_id(*)')
-    //     // .select('*')
-    //     .eq('video_id', data.id)
-
-    // console.log('categorymappin', categorymappin)
-})
+const onTimeChange = () => {
+    updateCurrentTime()
+    croppedMessages.value = messages.value.filter(
+        (message) =>
+            message.offset_sec >= currentTime.value - 200 &&
+            message.offset_sec <= currentTime.value,
+    )
+}
 </script>
 
 <template>
     <div
-        style="height: calc(100vh - 60px)"
-        class="4xl:grid-cols-[1fr_600px] grid grid-flow-col gap-4 p-4 xl:grid-cols-[1fr_360px]"
+        class="4xl:grid-cols-[1fr_600px] grid grid-flow-col grid-cols-[1fr_300px] gap-4 overflow-hidden p-4"
+        style="height: calc(100vh - var(--header-height))"
     >
-        <div v-if="videoInfo">
-            <div class="relative flex-1">
-                <video
-                    ref="videoRef"
-                    controls
-                    :src="`http://localhost:8000/videos/${videoInfo.video_id}`"
-                    class="aspect-video h-full w-full rounded-md"
-                    @timeupdate="updateCurrentTime()"
-                ></video>
-            </div>
-            <div class="p-4">
-                <h2 class="text-xl font-bold">{{ videoInfo.title }}</h2>
-                {{ currentTime }}s
-                <h3>{{ videoInfo.description }}</h3>
-                <h3>{{ date }}</h3>
-                {{ messages ? messages.length : 0 }}
-            </div>
-        </div>
+        <div class="overflow-auto rounded-md">
+            <template v-if="videoInfo">
+                <div
+                    class="relative flex-1 rounded-md"
+                    style="
+                        max-height: calc(100vh - var(--header-height) - 120px);
+                    "
+                >
+                    <video
+                        muted
+                        autoplay
+                        style="
+                            max-height: calc(
+                                100vh - var(--header-height) - 120px
+                            );
+                        "
+                        ref="videoRef"
+                        controls
+                        :src="`http://localhost:8000/videos/${videoInfo.video_id}`"
+                        class="aspect-video w-full rounded-md"
+                        @timeupdate="onTimeChange()"
+                    ></video>
+                </div>
 
-        <div v-if="messages" class="h-full overflow-y-auto rounded-md">
-            <ul v-auto-animate class="flex flex-col gap-[3px]">
-                <li v-for="message in messages" :key="message.id">
+                <div class="p-4">
+                    <h2 class="text-2xl font-black">
+                        {{ videoInfo.title }} | {{ currentTime }}s
+                    </h2>
+                    <h3 class="text-black-500 font-black">
+                        {{ videoInfo.description }}
+                    </h3>
+                    <h3 class="text-black-500 font-black">{{ date }}</h3>
+                    {{ messages ? messages.length : 0 }}
+                </div>
+            </template>
+        </div>
+        <div
+            v-if="messages"
+            class="flex h-full flex-col-reverse overflow-y-auto"
+        >
+            <ul
+                v-auto-animateFF="{
+                    duration: 100,
+                    easing: 'linear',
+                }"
+                class="flex flex-col gap-[3px] rounded-md"
+            >
+                <li v-for="message in croppedMessages" :key="message.id">
                     <span
                         :style="{
                             color: message.user_color
@@ -99,6 +142,7 @@ onMounted(async () => {
                         }"
                         class="font-bold"
                     >
+                        ({{ message.offset_sec }}s)
                         {{ message.user_name }}
                     </span>
                     <span class="break-words text-gray-300">
