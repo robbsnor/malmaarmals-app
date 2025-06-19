@@ -83,25 +83,22 @@ const onTimeChange = () => {
 
 <template>
     <div
-        class="4xl:grid-cols-[1fr_600px] grid grid-flow-col grid-cols-[1fr_300px] gap-4 overflow-hidden p-4"
+        class="4xl:grid-cols-[1fr_600px] grid grid-flow-col grid-cols-[1fr_300px] gap-4 overflow-hidden bg-amber-100 p-4"
         style="height: calc(100vh - var(--header-height))"
     >
-        <div class="overflow-auto rounded-md">
+        <div class="scrollbar-invisible overflow-auto rounded-md bg-red-300">
             <template v-if="videoInfo">
-                <div
-                    class="relative flex-1 rounded-md"
-                    style="
-                        max-height: calc(100vh - var(--header-height) - 120px);
-                    "
-                >
+                <div class="relative flex-1 rounded-md bg-blue-300">
+                    <!-- Your media element (video, audio, iframe) goes here -->
                     <video
-                        muted
-                        autoplay
                         style="
                             max-height: calc(
-                                100vh - var(--header-height) - 120px
+                                100vh - var(--header-height) -
+                                    (var(--spacing) * 4 * 2)
                             );
                         "
+                        muted
+                        autoplay
                         ref="videoRef"
                         controls
                         :src="`http://localhost:8000/videos/${videoInfo.video_id}`"
@@ -110,7 +107,7 @@ const onTimeChange = () => {
                     ></video>
                 </div>
 
-                <div class="p-4">
+                <div class="mt-4 rounded-md bg-pink-500 p-4">
                     <h2 class="text-2xl font-black">
                         {{ videoInfo.title }} | {{ currentTime }}s
                     </h2>
@@ -122,9 +119,10 @@ const onTimeChange = () => {
                 </div>
             </template>
         </div>
+
         <div
             v-if="messages"
-            class="flex h-full flex-col-reverse overflow-y-auto"
+            class="flex h-full flex-col-reverse overflow-y-auto rounded-md bg-pink-500"
         >
             <ul
                 v-auto-animateFF="{
