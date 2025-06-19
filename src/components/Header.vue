@@ -2,18 +2,12 @@
 import Search from './Search.vue';
 import { supabase } from '../supabase';
 
-// const signIn = async () => {
-//     await supabase.auth.signInWithOAuth({
-//         provider: 'twitch',
-//     });
-// };
-
 const toggleFullscreen = () => {
-    if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-    } else {
-        document.exitFullscreen();
-    }
+    // if (!document.fullscreenElement) {
+    //     document.documentElement.requestFullscreen();
+    // } else {
+    //     document.exitFullscreen();
+    // }
 };
 </script>
 
