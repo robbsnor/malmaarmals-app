@@ -1,26 +1,22 @@
 <script setup lang="ts">
 const props = withDefaults(
     defineProps<{
-        video: any
+        video: any;
     }>(),
-    {},
-)
+    {}
+);
 
 const daysAgo = (date: string) => {
-    const recordedDate = new Date(date)
-    const now = new Date()
-    const diffTime = Math.abs(now.getTime() - recordedDate.getTime())
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-}
+    const recordedDate = new Date(date);
+    const now = new Date();
+    const diffTime = Math.abs(now.getTime() - recordedDate.getTime());
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+};
 
 function truncateStringArray(titles: string[], maxLength: number = 20): string {
     return titles
-        .map((title) =>
-            title.length > maxLength
-                ? title.slice(0, maxLength).trim() + '...'
-                : title,
-        )
-        .join(', ')
+        .map((title) => (title.length > maxLength ? title.slice(0, maxLength).trim() + '...' : title))
+        .join(', ');
 }
 </script>
 
@@ -39,34 +35,24 @@ function truncateStringArray(titles: string[], maxLength: number = 20): string {
             </div>
 
             <div class="z-10">
-                <div
-                    class="flex items-center gap-2 font-black text-gray-500 text-shadow-md"
-                >
+                <div class="flex items-center gap-2 font-black text-gray-500 text-shadow-md">
                     <div>Latest stream</div>
-                    <div class="text-sm italic">
-                        ({{ daysAgo(props.video.recorded_at) }} days ago)
-                    </div>
+                    <div class="text-sm italic">({{ daysAgo(props.video.recorded_at) }} days ago)</div>
                 </div>
 
                 <div class="pt-2 text-5xl font-black">
                     {{ props.video.title }}
                 </div>
 
-                <div
-                    v-if="props.video.description"
-                    class="text-3xl font-black text-gray-400"
-                >
+                <div v-if="props.video.description" class="text-3xl font-black text-gray-400">
                     {{ props.video.description }}
                 </div>
 
-                <div
-                    v-if="props.video.categories.length"
-                    class="text-md flexf pt-2 font-semibold text-gray-500"
-                >
+                <div v-if="props.video.categories.length" class="text-md flexf pt-2 font-semibold text-gray-500">
                     {{
                         truncateStringArray(
                             props.video.categories.map((c) => c.title),
-                            20,
+                            20
                         )
                     }}
                 </div>

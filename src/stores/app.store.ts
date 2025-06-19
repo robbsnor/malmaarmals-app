@@ -1,3 +1,6 @@
+import { defineStore } from 'pinia';
+import { computed, ref } from 'vue';
+
 export const useAppStore = defineStore('appStore', () => {
     const header = ref<HTMLElement | null>(null);
 
