@@ -1,26 +1,28 @@
 <script setup lang="ts">
-const supabase = useSupabaseClient()
-const videos = ref<{ data: any[]; error: any }>()
+import { ref, onMounted } from 'vue';
+import { supabase } from '../supabase';
+const videos = ref<{ data: any[]; error: any }>();
 
 onMounted(async () => {
-    videos.value = await fetchVideos()
-})
+    videos.value = await fetchVideos();
+});
 
-const fetchVideos = () => {
-    return supabase
+const fetchVideos = async () => {
+    const { data, error } = await supabase
         .from('videos')
         .select('*, categories: video_category_mapping(...categories(*))')
         .order('recorded_at', { ascending: false })
-        .limit(1000)
-}
+        .limit(1000);
+    return { data, error };
+};
 
 const formattedDate = (date: string) => {
     return new Date(date).toLocaleDateString('en-GB', {
         day: 'numeric',
         month: 'long',
         year: 'numeric',
-    })
-}
+    });
+};
 </script>
 
 <template>
@@ -63,15 +65,8 @@ const formattedDate = (date: string) => {
             </div>
 
             {{ videos?.data.length }}
-            <div
-                v-if="videos?.data"
-                class="grid grid-cols-5 items-center gap-8 p-4"
-            >
-                <NuxtLink
-                    v-for="video in videos.data"
-                    :key="video.video_id"
-                    :to="`/videos/${video.video_id}`"
-                >
+            <div v-if="videos?.data" class="grid grid-cols-5 items-center gap-8 p-4">
+                <RouterLink v-for="video in videos.data" :key="video.video_id" :to="`/videos/${video.video_id}`">
                     <div class="relative">
                         <img
                             :src="`http://localhost:8000/thumbnails/${video.video_id}`"
@@ -109,7 +104,7 @@ const formattedDate = (date: string) => {
                             </span>
                         </div>
                     </template> -->
-                </NuxtLink>
+                </RouterLink>
             </div>
         </div>
     </Container>

@@ -1,43 +1,49 @@
 <script setup lang="ts">
-const route = useRoute()
-const supabase = useSupabaseClient()
+import { ref, onMounted, computed } from 'vue';
+import { supabase } from '../supabase';
+import { useRoute } from 'vue-router';
 
-const videoId = route.params.id
-const videoInfo = ref()
-const messages = ref<any[]>([])
-const videoRef = ref<HTMLVideoElement>()
-const croppedMessages = ref<any[]>([])
-const currentTime = ref(0)
+const route = useRoute();
+
+const videoId = route.params.id;
+
+const videoInfo = ref();
+const messages = ref<any[]>([]);
+const videoRef = ref<HTMLVideoElement>();
+const croppedMessages = ref<any[]>([]);
+const currentTime = ref(0);
 
 onMounted(async () => {
-    getVideoInfo()
-    getMessages()
-})
+    console.log('Mounted Video Page');
+    console.log(route);
+    getVideoInfo();
+    getMessages();
+});
 
 const date = computed(() => {
     return new Date(videoInfo.value.recorded_at).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
-    })
-})
+    });
+});
 
 const getVideoInfo = async () => {
     const { data: videoData, error: videoError } = await supabase
         .from('videos')
         .select('*')
         .eq('video_id', videoId)
-        .single()
+        .single();
 
-    if (videoError) return console.error('Error fetching videos:', videoError)
+    if (videoError) return console.error('Error fetching videos:', videoError);
 
-    videoInfo.value = videoData
-}
+    videoInfo.value = videoData;
+};
 
 const getMessages = async () => {
-    let from = 0
-    let to = 999
-    let hasMore = true
+    let from = 0;
+    let to = 999;
+    let hasMore = true;
 
     while (hasMore) {
         const { data, error, count } = await supabase
@@ -47,38 +53,37 @@ const getMessages = async () => {
             })
             .eq('video_id', videoId)
             .order('date', { ascending: true })
-            .range(from, to)
+            .range(from, to);
 
-        console.log(count)
+        console.log(count);
 
         if (error) {
-            return console.error('Error fetching messages:', error)
+            return console.error('Error fetching messages:', error);
         }
 
         if (data && data.length > 0) {
-            messages.value = [...messages.value, ...data]
-            from += 1000
-            to += 1000
-            hasMore = data.length === 1000
+            messages.value = [...messages.value, ...data];
+            from += 1000;
+            to += 1000;
+            hasMore = data.length === 1000;
         } else {
-            hasMore = false
+            hasMore = false;
         }
     }
-}
+};
 
 const updateCurrentTime = () => {
-    if (!videoRef.value) return
-    currentTime.value = Math.floor(videoRef.value.currentTime)
-}
+    if (!videoRef.value) return;
+    currentTime.value = Math.floor(videoRef.value.currentTime);
+};
 
 const onTimeChange = () => {
-    updateCurrentTime()
+    updateCurrentTime();
+
     croppedMessages.value = messages.value.filter(
-        (message) =>
-            message.offset_sec >= currentTime.value - 200 &&
-            message.offset_sec <= currentTime.value,
-    )
-}
+        (message) => message.offset_sec >= currentTime.value - 200 && message.offset_sec <= currentTime.value
+    );
+};
 </script>
 
 <template>
@@ -90,13 +95,13 @@ const onTimeChange = () => {
             <template v-if="videoInfo">
                 <div class="relative flex-1 rounded-md bg-blue-300">
                     <!-- Your media element (video, audio, iframe) goes here -->
+
+                    <!-- <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
+                        <source :src="`http://localhost:8000/videos/${videoInfo.video_id}`" type="video/mp4" />
+                    </video> -->
+
                     <video
-                        style="
-                            max-height: calc(
-                                100vh - var(--header-height) -
-                                    (var(--spacing) * 4 * 2)
-                            );
-                        "
+                        style="max-height: calc(100vh - var(--header-height) - (var(--spacing) * 4 * 2))"
                         muted
                         autoplay
                         ref="videoRef"
@@ -108,9 +113,7 @@ const onTimeChange = () => {
                 </div>
 
                 <div class="mt-4 rounded-md bg-pink-500 p-4">
-                    <h2 class="text-2xl font-black">
-                        {{ videoInfo.title }} | {{ currentTime }}s
-                    </h2>
+                    <h2 class="text-2xl font-black">{{ videoInfo.title }} | {{ currentTime }}s</h2>
                     <h3 class="text-black-500 font-black">
                         {{ videoInfo.description }}
                     </h3>
@@ -120,10 +123,7 @@ const onTimeChange = () => {
             </template>
         </div>
 
-        <div
-            v-if="messages"
-            class="flex h-full flex-col-reverse overflow-y-auto rounded-md bg-pink-500"
-        >
+        <div v-if="messages" class="flex h-full flex-col-reverse overflow-y-auto rounded-md bg-pink-500">
             <ul
                 v-auto-animateFF="{
                     duration: 100,
@@ -134,18 +134,14 @@ const onTimeChange = () => {
                 <li v-for="message in croppedMessages" :key="message.id">
                     <span
                         :style="{
-                            color: message.user_color
-                                ? message.user_color
-                                : '#2e8b57',
+                            color: message.user_color ? message.user_color : '#2e8b57',
                         }"
                         class="font-bold"
                     >
                         ({{ message.offset_sec }}s)
                         {{ message.user_name }}
                     </span>
-                    <span class="break-words text-gray-300">
-                        : {{ message.text }}
-                    </span>
+                    <span class="break-words text-gray-300"> : {{ message.text }} </span>
                 </li>
             </ul>
         </div>

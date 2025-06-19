@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from 'vue';
 
 const props = withDefaults(
     defineProps<{
-        video: any
-        isFirst?: boolean
+        video: any;
+        isFirst?: boolean;
     }>(),
     {
         isFirst: false,
-    },
-)
+    }
+);
 
 const daysAgo = computed(() => {
-    const recordedAt = new Date(props.video.recorded_at)
-    const now = new Date()
-    const diffTime = Math.abs(now.getTime() - recordedAt.getTime())
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-})
+    const recordedAt = new Date(props.video.recorded_at);
+    const now = new Date();
+    const diffTime = Math.abs(now.getTime() - recordedAt.getTime());
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+});
 </script>
 
 <template>
-    <NuxtLink :to="`/videos/${props.video.video_id}`" class="group relative">
+    <RouterLink :to="`/videos/${props.video.video_id}`" class="group relative">
         <!-- <img
             :class="props.isFirst ? 'opacity-40' : 'opacity-20'"
             :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
@@ -34,18 +34,13 @@ const daysAgo = computed(() => {
             :class="props.isFirst ? 'rounded-2xl' : 'rounded-md'"
         />
         <div class="transition-all">
-            <h2
-                class="truncate font-black uppercase"
-                :class="props.isFirst ? 'text-2xl' : 'text-lg'"
-            >
+            <h2 class="truncate font-black uppercase" :class="props.isFirst ? 'text-2xl' : 'text-lg'">
                 {{ props.video.title }}
             </h2>
             <p v-if="props.video.description" class="text-black-700 text-sm">
                 {{ props.video.description }}
             </p>
-            <p class="text-md font-semibold text-gray-500">
-                {{ daysAgo }} days ago
-            </p>
+            <p class="text-md font-semibold text-gray-500">{{ daysAgo }} days ago</p>
 
             <!-- <template v-if="props.video.categories.length">
             <div
@@ -61,5 +56,5 @@ const daysAgo = computed(() => {
             </div>
         </template> -->
         </div>
-    </NuxtLink>
+    </RouterLink>
 </template>
