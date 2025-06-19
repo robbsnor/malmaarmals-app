@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { useSlots, computed } from 'vue'
-const slots = useSlots()
+import { useSlots, computed } from 'vue';
+const slots = useSlots();
 
 const props = withDefaults(
     defineProps<{
-        title: string
-        cols?: number
-        to: string
+        title: string;
+        cols?: number;
+        to: string;
     }>(),
     {
         cols: 4,
-    },
-)
+    }
+);
 
 const visibleChildren = computed(() => {
-    const children = slots.default!()[0].children ?? []
-    return children.slice(0, props.cols)
-})
+    const children = slots.default!()[0].children ?? [];
+    return children.slice(0, props.cols);
+});
 </script>
 
 <template>
@@ -27,13 +27,13 @@ const visibleChildren = computed(() => {
                     {{ title }}
                 </h2>
             </div>
-            <NuxtLink
+            <RouterLink
                 :to="props.to"
                 class="text-primary hover:bg-black-600 flex cursor-pointer items-center gap-1 rounded-md py-0.5 pr-1 pl-2 text-sm transition-all"
             >
                 View all
                 <UIcon name="i-lucide-chevron-right" size="14" />
-            </NuxtLink>
+            </RouterLink>
         </div>
 
         <div

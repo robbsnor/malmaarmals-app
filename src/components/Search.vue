@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed } from 'vue';
 
 const props = withDefaults(
     defineProps<{
@@ -7,15 +7,14 @@ const props = withDefaults(
     }>(),
     {
         // items: "test",
-    },
-)
+    }
+);
 </script>
 
 <template>
     <div class="relative flex items-center">
         <input
             type="text"
-            v-model="props.items"
             placeholder="Search..."
             class="bg-black-300 focus:ring-primary-500 relative z-20 w-[420px] rounded-md px-4 py-2 text-white transition-all focus:ring-2 focus:outline-none"
         />
