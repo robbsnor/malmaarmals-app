@@ -54,7 +54,7 @@ const catImg = (url: string) => {
 
         <div class="pb-1g flex flex-col gap-16 pb-32">
             <Container>
-                <GridSection v-if="otherVideos" title="Recent streams">
+                <GridSection v-if="!!otherVideos" title="Recent streams">
                     <Video v-for="video in otherVideos" :key="video.video_id" :video="video" />
                 </GridSection>
             </Container>

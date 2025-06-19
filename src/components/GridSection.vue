@@ -6,7 +6,7 @@ const props = withDefaults(
     defineProps<{
         title: string;
         cols?: number;
-        to: string;
+        to?: string;
     }>(),
     {
         cols: 4,
@@ -15,6 +15,7 @@ const props = withDefaults(
 
 const visibleChildren = computed(() => {
     const children = slots.default!()[0].children ?? [];
+    // @ts-ignore
     return children.slice(0, props.cols);
 });
 </script>

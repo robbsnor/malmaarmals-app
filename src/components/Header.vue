@@ -35,14 +35,7 @@ const toggleFullscreen = () => {
             <Search />
 
             <div class="flex items-center justify-end">
-                <RouterLink
-                    icon="i-lucide-maximize"
-                    size="md"
-                    color="primary"
-                    variant="soft"
-                    @click="toggleFullscreen"
-                    class="mr-2"
-                />
+                <div @click="toggleFullscreen" class="mr-2">log in or something</div>
             </div>
         </div>
     </div>
