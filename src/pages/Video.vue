@@ -89,7 +89,7 @@ const onTimeChange = () => {
 <template>
     <div
         class="4xl:grid-cols-[1fr_600px] grid grid-flow-col grid-cols-[1fr_300px] gap-4 overflow-hidden bg-amber-100 p-4"
-        style="height: calc(100vh - var(--header-height))"
+        style="height: calc(100vh - var(--header-height)); margin-top: var(--header-height)"
     >
         <div class="scrollbar-invisible overflow-auto rounded-md bg-red-300">
             <template v-if="videoInfo">
@@ -113,17 +113,17 @@ const onTimeChange = () => {
                 </div>
 
                 <div class="mt-4 rounded-md bg-pink-500 p-4">
-                    <h2 class="text-2xl font-black">{{ videoInfo.title }} | {{ currentTime }}s</h2>
-                    <h3 class="text-black-500 font-black">
+                    <h2 class="text-2xl font-bold">{{ videoInfo.title }} | {{ currentTime }}s</h2>
+                    <h3 class="text-black-500 font-bold">
                         {{ videoInfo.description }}
                     </h3>
-                    <h3 class="text-black-500 font-black">{{ date }}</h3>
+                    <h3 class="text-black-500 font-bold">{{ date }}</h3>
                     {{ messages ? messages.length : 0 }}
                 </div>
             </template>
         </div>
 
-        <div v-if="messages" class="flex h-full flex-col-reverse overflow-y-auto rounded-md bg-pink-500">
+        <div v-if="messages" class="flex h-full flex-col-reverse overflow-y-auto rounded-md bg-pink-500 p-4">
             <ul
                 v-auto-animateFF="{
                     duration: 100,

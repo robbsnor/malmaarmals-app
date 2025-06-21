@@ -17,44 +17,61 @@ const daysAgo = computed(() => {
     const diffTime = Math.abs(now.getTime() - recordedAt.getTime());
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 });
+
+const formattedDuration = computed(() => {
+    const duration = props.video.length_sec;
+    const hours = Math.floor(duration / 3600);
+    const minutes = Math.floor((duration % 3600) / 60);
+    const seconds = duration % 60;
+    if (hours > 0) {
+        return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+});
 </script>
 
 <template>
-    <RouterLink :to="`/videos/${props.video.video_id}`" class="group relative">
-        <!-- <img
-            :class="props.isFirst ? 'opacity-40' : 'opacity-20'"
-            :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
-            alt=""
-            class="pointer-events-none absolute -z-10 aspect-video scale-200 overflow-hidden rounded-[99%] object-cover blur-2xl select-none"
-        /> -->
+    <RouterLink
+        :to="`/videos/${props.video.video_id}`"
+        class="group relative hover:bg-bg-normal transition-all duration-200 rounded-md"
+    >
         <img
             :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
             alt=""
-            class="relative mb-2 aspect-video w-full transition-all group-hover:scale-102 group-hover:shadow-2xl"
-            :class="props.isFirst ? 'rounded-2xl' : 'rounded-md'"
+            class="-z-10 pointer-events-none aspect-video absolute top-0 right-0 left-0 w-full blur-3xl opacity-0 group-hover:opacity-30 transition-all duration-200 group-hover:scale-150"
         />
-        <div class="transition-all">
-            <h2 class="truncate font-black uppercase" :class="props.isFirst ? 'text-2xl' : 'text-lg'">
+        <div class="relative transition-all duration-200 group-hover:scale-104">
+            <img
+                :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
+                alt=""
+                class="relative mb-2 aspect-video w-full rounded-md"
+            />
+            <div class="absolute right-2 bottom-2 bg-bg-normal leading-none p-1.5 text-text-muted text-sm rounded-md">
+                {{ formattedDuration }}
+            </div>
+        </div>
+
+        <div class="transition-all duration-200 px-4 pt-1 pb-3 z-10 relative group-hover:translate-y-0.5">
+            <h2 class="truncate font-bold uppercase text-lg">
                 {{ props.video.title }}
             </h2>
-            <p v-if="props.video.description" class="text-black-700 text-sm">
-                {{ props.video.description }}
-            </p>
-            <p class="text-md font-semibold text-gray-500">{{ daysAgo }} days ago</p>
+            <p class="text-text-muted">Super Mario Kart World</p>
+            <p class="text-text-muted">{{ daysAgo }} days ago</p>
 
-            <!-- <template v-if="props.video.categories.length">
             <div
-                v-for="category in props.video.categories"
-                :key="category.id"
-                class="mt-2 flex items-center gap-2"
+                v-if="props.video.categories.length"
+                class="absolute top-full max-h-[200px] overflow-auto duration-200 pointer-events-none group-hover:pointer-events-auto -mt-2 left-0 right-0 bg-bg-normal flex flex-col gap-2 p-4 pt-1 rounded-b-md opacity-0 group-hover:opacity-100 transition-all"
             >
-                <img :src="category.image_url" alt="" class="rounded-md" />
+                <!-- <template v-for="item in 3"> -->
+                <div v-for="category in props.video.categories" :key="category.id" class="flex items-center gap-2 pt-1">
+                    <img :src="category.image_url" alt="" class="rounded-md w-6" />
 
-                <span class="text-sm text-gray-500">
-                    {{ category.title }}
-                </span>
+                    <span class="text-sm text-text-muted">
+                        {{ category.title }}
+                    </span>
+                </div>
+                <!-- </template> -->
             </div>
-        </template> -->
         </div>
     </RouterLink>
 </template>

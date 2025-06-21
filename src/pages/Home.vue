@@ -7,6 +7,11 @@ import GridSection from '../components/GridSection.vue';
 import Container from '../components/Container.vue';
 import BackGroundGradient from '../components/BackGroundGradient.vue';
 
+// Big most recent video
+// smaller latest videos
+// playlists
+// populair categories
+
 const videos = ref([]);
 const categories = ref([]);
 
@@ -24,13 +29,14 @@ const fetchVideos = async () => {
         .from('videos')
         .select('*, categories: video_category_mapping(...categories(*))')
         .order('recorded_at', { ascending: false })
-        .range(0, 1000);
+        .range(0, 80);
 
     if (error) {
         console.error('Error fetching videos:', error);
-    } else {
-        videos.value = data;
+        return;
     }
+
+    videos.value = data;
 };
 
 const fetchCategories = async () => {
@@ -38,9 +44,9 @@ const fetchCategories = async () => {
 
     if (error) {
         console.error('Error fetching categories:', error);
-    } else {
-        return data;
+        return;
     }
+    categories.value = data;
 };
 
 const catImg = (url: string) => {
@@ -50,34 +56,40 @@ const catImg = (url: string) => {
 
 <template>
     <div>
-        <LatestVideo v-if="firstVideo" :video="firstVideo" />
+        <!-- <Container v-if="firstVideo">
+            <Card :padding="0" style="overflow: hidden">
+                <div class="relative h-[600px]">
+                    <div class="absolute top-0 right-0 bottom-0 left-0">
+                        <img
+                            class="w-full h-full object-cover"
+                            :src="`http://localhost:8000/thumbnails/${firstVideo.video_id}`"
+                            alt=""
+                        />
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black to-transparent"
+                        ></div>
+                    </div>
 
-        <div class="pb-1g flex flex-col gap-16 pb-32">
-            <Container>
-                <GridSection v-if="!!otherVideos" title="Recent streams">
-                    <Video v-for="video in otherVideos" :key="video.video_id" :video="video" />
-                </GridSection>
-            </Container>
-
-            <BackGroundGradient class="py-20">
-                <Container>
-                    <GridSection v-if="categories" title="Popular Categories" :cols="8" class="py-20f">
-                        <div v-for="category in categories" :key="category.id" class="relative">
-                            <img
-                                :src="catImg(category.image_url)"
-                                class="pointer-events-none absolute -z-10 w-full scale-200 overflow-hidden rounded-[99%] object-cover opacity-20 blur-2xl select-none"
-                            />
-                            <img :src="catImg(category.image_url)" alt="" class="w-full rounded-md" />
+                    <div class="relative z-10 flex h-full w-full flex-col justify-end gap-4 p-8">
+                        <h2 class="re bottom-4 left-4 text-3xl font-bold text-white">
+                            {{ firstVideo.title }}
+                        </h2>
+                        <p class="text-lg text-gray-300">
+                            {{ firstVideo.description }}
+                        </p>
+                        <div class="text-sm text-gray-400">
+                            {{ firstVideo.categories.map((c) => c.title).join(', ') }}
                         </div>
-                    </GridSection>
-                </Container>
-            </BackGroundGradient>
+                    </div>
+                </div>
+            </Card>
+        </Container> -->
 
-            <Container>
-                <GridSection v-if="otherVideos" title="Playlists" :cols="5">
-                    <Video v-for="video in fakePlaylist" :key="video.video_id" :video="video" />
-                </GridSection>
-            </Container>
-        </div>
+        <Container class="font-bold mt-[60px]">
+            <h3 class="uppercase pb-8 text-5xl">Latest Videos</h3>
+            <div class="grid grid-cols-4 gap-8">
+                <Video v-for="video in otherVideos" :key="video.video_id" :video="video" />
+            </div>
+        </Container>
     </div>
 </template>
