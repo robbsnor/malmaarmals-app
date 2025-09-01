@@ -46,10 +46,10 @@ const getMessages = async () => {
     while (hasMore) {
         const { data, error, count } = await supabase
             .from('messages')
-            .select('user_name,user_color,text,offset_sec,id', {
+            .select('user_login,user_name,user_color,text,offset_sec,id', {
                 count: 'exact',
             })
-            .eq('video_id', props.videoId)
+            .eq('video_id', Number(props.videoId))
             .order('offset_sec', { ascending: true })
             .range(from, to);
 
@@ -139,6 +139,15 @@ const emotesMap = {
                     >:
                     <template v-for="word in message.text.split(' ')" :key="word">
                         <img v-if="emotesMap[word]" alt="emote" :src="emotesMap[word]" class="inline h-7" />
+                        <b v-else-if="word.startsWith('@')">{{ word }}</b>
+                        <a
+                            class="underline text-primary-lighter hover:text-primary-light"
+                            v-else-if="word.startsWith('http') || word.startsWith('https')"
+                            :href="word"
+                            target="_blank"
+                        >
+                            {{ word }}
+                        </a>
                         <template v-else>{{ word }}</template>
                         {{ ' ' }}
                     </template>

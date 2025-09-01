@@ -1,14 +1,13 @@
 import { createApp } from 'vue';
-import './style.css';
 import App from './App.vue';
 import router from './router/router';
 import { createPinia } from 'pinia';
+import VuePlyr from 'vue-plyr';
+import 'vue-plyr/dist/vue-plyr.css';
+import './style.css';
 
 import Card from './components/Card.vue';
 import Video from './components/Video.vue';
-
-import VuePlyr from 'vue-plyr';
-import 'vue-plyr/dist/vue-plyr.css';
 
 const app = createApp(App);
 const pinia = createPinia();

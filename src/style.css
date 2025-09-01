@@ -70,6 +70,7 @@
 
 :root {
     --header-height: 60px;
+    --plyr-color-main: var(--color-primary);
 }
 
 body {
