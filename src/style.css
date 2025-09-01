@@ -30,11 +30,11 @@
     --color-text-muted: hsl(0, 0%, 70%);
 
     /* linear */
-    --color-brand-100: #16161d;
+    /* --color-brand-100: #16161d;
     --color-brand-200: #181921;
     --color-brand-300: #191a23;
     --color-brand-400: #2c2e3b;
-    --color-brand-500: #1f202b;
+    --color-brand-500: #1f202b; */
 
     /* pruple */
     /* --color-brand-100: #10002b;
@@ -73,7 +73,7 @@
 }
 
 body {
-    @apply font-space-grotesk overflow-x-hidden bg-black text-white;
+    @apply font-space-grotesk overflow-x-hidden bg-black text-text-normal;
 }
 
 /* Webkit-based browsers (Chrome, Safari) */

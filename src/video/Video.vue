@@ -4,7 +4,6 @@ import { supabase } from '../supabase';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
-
 const videoId = route.params.id;
 
 const videoInfo = ref();
@@ -48,7 +47,7 @@ const getMessages = async () => {
     while (hasMore) {
         const { data, error, count } = await supabase
             .from('messages')
-            .select('user_id,user_name,user_color,text,offset_sec,id', {
+            .select('user_name,user_color,text,offset_sec,id', {
                 count: 'exact',
             })
             .eq('video_id', videoId)
@@ -88,18 +87,12 @@ const onTimeChange = () => {
 
 <template>
     <div
-        class="4xl:grid-cols-[1fr_600px] grid grid-flow-col grid-cols-[1fr_300px] gap-4 overflow-hidden bg-amber-100 p-4"
+        class="4xl:grid-cols-[1fr_600px] grid grid-flow-col grid-cols-[1fr_300px] gap-4 overflow-hidden bg-amber-100f p-4"
         style="height: calc(100vh - var(--header-height)); margin-top: var(--header-height)"
     >
-        <div class="scrollbar-invisible overflow-auto rounded-md bg-red-300">
+        <div class="scrollbar-invisible overflow-auto rounded-md bg-red-300f">
             <template v-if="videoInfo">
                 <div class="relative flex-1 rounded-md bg-blue-300">
-                    <!-- Your media element (video, audio, iframe) goes here -->
-
-                    <!-- <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
-                        <source :src="`http://localhost:8000/videos/${videoInfo.video_id}`" type="video/mp4" />
-                    </video> -->
-
                     <video
                         style="max-height: calc(100vh - var(--header-height) - (var(--spacing) * 4 * 2))"
                         muted
@@ -112,25 +105,22 @@ const onTimeChange = () => {
                     ></video>
                 </div>
 
-                <div class="mt-4 rounded-md bg-pink-500 p-4">
+                <div class="mt-4 rounded-md bg-pink-500f bg-neutral-900a p-4">
                     <h2 class="text-2xl font-bold">{{ videoInfo.title }} | {{ currentTime }}s</h2>
-                    <h3 class="text-black-500 font-bold">
+                    <h3 class="text-text-muted font-bold">
                         {{ videoInfo.description }}
                     </h3>
-                    <h3 class="text-black-500 font-bold">{{ date }}</h3>
+                    <h3 class="text-text-muted font-bold">{{ date }}</h3>
                     {{ messages ? messages.length : 0 }}
                 </div>
             </template>
         </div>
 
-        <div v-if="messages" class="flex h-full flex-col-reverse overflow-y-auto rounded-md bg-pink-500 p-4">
-            <ul
-                v-auto-animateFF="{
-                    duration: 100,
-                    easing: 'linear',
-                }"
-                class="flex flex-col gap-[3px] rounded-md"
-            >
+        <div
+            v-if="messages"
+            class="flex h-full flex-col-reverse overflow-y-auto rounded-md bg-pink-500a bg-neutral-900a p-2"
+        >
+            <ul class="flex flex-col gap-[3px] rounded-md">
                 <li v-for="message in croppedMessages" :key="message.id">
                     <span
                         :style="{
