@@ -19,6 +19,23 @@ onMounted(async () => {
     getMessages();
 });
 
+const videoOptions = {
+    controls: [
+        'play-large',
+        'play',
+        'progress',
+        'current-time',
+        'mute',
+        'volume',
+        'settings',
+        'pip',
+        'airplay',
+        'fullscreen',
+    ],
+    volume: 0.75,
+    autoplay: true,
+};
+
 const date = computed(() => {
     return new Date(videoInfo.value.recorded_at).toLocaleDateString('en-US', {
         year: 'numeric',
@@ -146,34 +163,30 @@ const emotesMap = {
         <div class="scrollbar-invisible overflow-auto rounded-md bg-red-300f">
             <template v-if="videoInfo">
                 <div class="relative flex-1 rounded-md bg-blue-300">
-                    <video
-                        style="max-height: calc(100vh - var(--header-height) - (var(--spacing) * 4 * 2))"
-                        muted
-                        autoplay
-                        ref="videoRef"
-                        controls
-                        :src="`http://localhost:8000/videos/${videoInfo.video_id}`"
-                        class="aspect-video w-full rounded-md"
-                        @timeupdate="onTimeChange()"
-                    ></video>
+                    <VuePlyr :options="videoOptions">
+                        <video
+                            style="max-height: calc(100vh - var(--header-height) - (var(--spacing) * 4 * 2))"
+                            ref="videoRef"
+                            class="aspect-video w-full rounded-md"
+                            @timeupdate="onTimeChange()"
+                        >
+                            <source :src="`http://localhost:8000/videos/${videoInfo.video_id}`" type="video/mp4" />
+                        </video>
+                    </VuePlyr>
                 </div>
 
                 <div class="mt-4 rounded-md bg-pink-500f bg-neutral-900a p-4">
-                    <h2 class="text-2xl font-bold">{{ videoInfo.title }} | {{ currentTime }}s</h2>
+                    <h2 class="text-2xl font-bold">{{ videoInfo.title }}</h2>
                     <h3 class="text-text-muted font-bold">
                         {{ videoInfo.description }}
                     </h3>
                     <h3 class="text-text-muted font-bold">{{ date }}</h3>
-                    {{ messages ? messages.length : 0 }}
                 </div>
             </template>
         </div>
 
-        <div
-            v-if="messages"
-            class="flex h-full flex-col-reverse overflow-y-auto rounded-md bg-pink-500a bg-neutral-900a p-2"
-        >
-            <ul class="flex flex-col gap-[3px] rounded-md">
+        <div v-if="messages" class="flex h-full flex-col-reverse overflow-y-auto rounded-md bg-pink-500a p-2">
+            <ul class="flex flex-col gap-[3px]">
                 <li v-for="message in croppedMessages" :key="message.id">
                     <!-- {{ message.offset_sec }}s -->
                     <span
@@ -188,14 +201,13 @@ const emotesMap = {
                         >:
                         <template v-for="word in message.text.split(' ')" :key="word">
                             <template v-if="emotesMap[word]">
-                                <img alt="emote" :src="emotesMap[word]" class="inline h-6 w-6" />
+                                <img alt="emote" :src="emotesMap[word]" class="inline h-7 mr-1" />
                             </template>
                             <template v-else>
                                 {{ `${word} ` }}
                             </template>
                         </template>
                     </span>
-                    <!-- <img src="https://static-cdn.jtvnw.net/emoticons/v2/320048/default/dark/2.0" /> -->
                 </li>
             </ul>
         </div>
