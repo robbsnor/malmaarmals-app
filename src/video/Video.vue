@@ -100,6 +100,6 @@ const onTimeChange = () => {
             </template>
         </div>
 
-        <Chat :videoId="videoId" :videoTime="videoTime" />
+        <Chat :videoId="Number(videoId)" :videoTime="videoTime" />
     </div>
 </template>

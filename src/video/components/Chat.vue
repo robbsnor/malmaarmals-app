@@ -5,7 +5,7 @@ import { supabase } from '../../supabase';
 const props = withDefaults(
     defineProps<{
         videoTime: number;
-        videoId: string;
+        videoId: number;
     }>(),
     {}
 );
