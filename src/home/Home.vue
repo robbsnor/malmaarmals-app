@@ -5,7 +5,6 @@ import LatestVideo from '../components/LatestVideo.vue';
 import Video from '../components/Video.vue';
 import GridSection from '../components/GridSection.vue';
 import Container from '../components/Container.vue';
-import BackGroundGradient from '../components/BackGroundGradient.vue';
 
 // Big most recent video
 // smaller latest videos
