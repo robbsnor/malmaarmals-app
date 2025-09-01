@@ -11,7 +11,7 @@ const props = withDefaults(
 );
 
 const messages = ref<any[]>([]);
-const croppedMessages = computed(() => {
+const renderedMessages = computed(() => {
     // Find the index of the last message within videoTime using binary search
     let left = 0;
     let right = messages.value.length - 1;
@@ -125,7 +125,7 @@ const emotesMap = {
 <template>
     <div v-if="messages" class="flex h-full flex-col-reverse overflow-y-auto rounded-md bg-pink-500a p-2">
         <ul class="flex flex-col gap-1">
-            <li v-for="message in croppedMessages" :key="message.id">
+            <li v-for="message in renderedMessages" :key="message.id">
                 <!-- {{ message.offset_sec }}s -->
                 <span
                     :style="{
@@ -138,12 +138,9 @@ const emotesMap = {
                 <span class="break-words text-gray-300"
                     >:
                     <template v-for="word in message.text.split(' ')" :key="word">
-                        <template v-if="emotesMap[word]">
-                            <img alt="emote" :src="emotesMap[word]" class="inline h-7 mr-1" />
-                        </template>
-                        <template v-else>
-                            {{ `${word} ` }}
-                        </template>
+                        <img v-if="emotesMap[word]" alt="emote" :src="emotesMap[word]" class="inline h-7" />
+                        <template v-else>{{ word }}</template>
+                        {{ ' ' }}
                     </template>
                 </span>
             </li>
