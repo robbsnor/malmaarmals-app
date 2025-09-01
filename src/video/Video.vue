@@ -3,6 +3,7 @@ import { ref, onMounted, computed } from 'vue';
 import { supabase } from '../supabase';
 import { useRoute } from 'vue-router';
 import Chat from './components/Chat.vue';
+import type Plyr from 'plyr';
 
 const route = useRoute();
 const videoId = route.params.id as string;
@@ -15,12 +16,13 @@ onMounted(async () => {
     await getVideoInfo();
 });
 
-const videoOptions = {
+const videoOptions: Plyr.Options = {
     controls: [
         'play-large',
         'play',
         'progress',
         'current-time',
+        'duration',
         'mute',
         'volume',
         'settings',
@@ -28,6 +30,17 @@ const videoOptions = {
         'airplay',
         'fullscreen',
     ],
+    // settings: ['captions', 'quality', 'speed', 'loop'],
+    // markers: {
+    //     enabled: true,
+    //     points: [
+    //         { time: 1, label: 'foo' },
+    //         { time: 20, label: 'buz' },
+    //         { time: 300, label: 'bar' },
+    //         { time: 400, label: 'abaa' },
+    //     ],
+    // },
+    disableContextMenu: false,
     volume: 0.75,
     autoplay: true,
 };
@@ -41,15 +54,10 @@ const date = computed(() => {
 });
 
 const getVideoInfo = async () => {
-    const { data: videoData, error: videoError } = await supabase
-        .from('videos')
-        .select('*')
-        .eq('video_id', videoId)
-        .single();
+    const { data, error } = await supabase.from('videos').select('*').eq('video_id', Number(videoId)).single();
+    if (error) return console.error('Error fetching videos:', error);
 
-    if (videoError) return console.error('Error fetching videos:', videoError);
-
-    videoInfo.value = videoData;
+    videoInfo.value = data;
 };
 
 const updateVideoTime = () => {
