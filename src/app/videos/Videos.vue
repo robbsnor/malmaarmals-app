@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { supabase } from '../supabase';
+import { supabase } from '../../supabase';
 const videos = ref<{ data: any[]; error: any }>();
 
 onMounted(async () => {

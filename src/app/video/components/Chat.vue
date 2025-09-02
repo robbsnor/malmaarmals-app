@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import { supabase } from '../../supabase';
+import { supabase } from '../../../supabase';
 
 const props = withDefaults(
     defineProps<{
@@ -137,6 +137,7 @@ const emotesMap = {
                 >
                     {{ message.user_name }}
                 </span>
+
                 <span class="break-words text-gray-300"
                     >:
                     <template v-for="word in message.text.split(' ')" :key="word">
