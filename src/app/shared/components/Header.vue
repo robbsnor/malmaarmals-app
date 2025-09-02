@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Search from './Search.vue';
-import { supabase } from '../supabase';
+import { supabase } from '../../../supabase';
 
 const toggleFullscreen = () => {
     // if (!document.fullscreenElement) {

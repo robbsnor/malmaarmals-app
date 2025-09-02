@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, ref, onMounted } from 'vue';
-import { supabase } from '../supabase';
-import LatestVideo from '../components/LatestVideo.vue';
-import Video from '../components/Video.vue';
-import GridSection from '../components/GridSection.vue';
-import Container from '../components/Container.vue';
+import { supabase } from '../../supabase';
+import LatestVideo from '../../app/shared/components/LatestVideo.vue';
+import Video from '../app/../shared/components/Video.vue';
+import GridSection from '../../app/shared/components/GridSection.vue';
+import Container from '../../app/shared/components/Container.vue';
 
 // Big most recent video
 // smaller latest videos

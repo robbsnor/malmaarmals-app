@@ -7,8 +7,8 @@ import VuePlyr from 'vue-plyr';
 import 'vue-plyr/dist/vue-plyr.css';
 import './style.css';
 
-import Card from './components/Card.vue';
-import Video from './components/Video.vue';
+import Card from './app/shared/components/Card.vue';
+import Video from './app/shared/components/Video.vue';
 
 const app = createApp(App);
 const pinia = createPinia();

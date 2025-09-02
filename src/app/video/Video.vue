@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
-import { supabase } from '../supabase';
+import { supabase } from '../../supabase';
 import { useRoute } from 'vue-router';
 import Chat from './components/Chat.vue';
 import type Plyr from 'plyr';
