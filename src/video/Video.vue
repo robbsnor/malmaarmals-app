@@ -8,12 +8,16 @@ import type Plyr from 'plyr';
 const route = useRoute();
 const videoId = route.params.id as string;
 
+const loading = ref(true);
 const videoInfo = ref();
 const videoRef = ref<HTMLVideoElement>();
 const videoTime = ref(0);
+const videoNotFound = ref(false);
 
 onMounted(async () => {
+    await new Promise((resolve) => setTimeout(resolve, 1200));
     await getVideoInfo();
+    loading.value = false;
 });
 
 const videoOptions: Plyr.Options = {
@@ -71,35 +75,49 @@ const onTimeChange = () => {
 </script>
 
 <template>
-    <div
-        class="4xl:grid-cols-[1fr_600px] grid grid-flow-col grid-cols-[1fr_300px] gap-4 overflow-hidden bg-amber-100f p-4"
-        style="height: calc(100vh - var(--header-height)); margin-top: var(--header-height)"
-    >
-        <div class="scrollbar-invisible overflow-auto rounded-md bg-red-300f">
-            <template v-if="videoInfo">
-                <div class="relative flex-1 rounded-md bg-blue-300">
-                    <VuePlyr :options="videoOptions">
-                        <video
-                            style="max-height: calc(100vh - var(--header-height) - (var(--spacing) * 4 * 2))"
-                            ref="videoRef"
-                            class="aspect-video w-full rounded-md"
-                            @timeupdate="onTimeChange()"
-                        >
-                            <source :src="`http://localhost:8000/videos/${videoInfo.video_id}`" type="video/mp4" />
-                        </video>
-                    </VuePlyr>
-                </div>
+    <div v-if="!loading">
+        <div
+            v-if="!videoNotFound"
+            class="h-available 4xl:grid-cols-[1fr_600px] grid grid-flow-col grid-cols-[1fr_300px] gap-4 overflow-hidden bg-amber-100f p-4"
+        >
+            <div class="scrollbar-invisible overflow-auto rounded-md bg-red-300f">
+                <template v-if="videoInfo">
+                    <div class="relative flex-1 rounded-md bg-blue-300">
+                        <VuePlyr :options="videoOptions">
+                            <video
+                                style="max-height: calc(100vh - var(--header-height) - (var(--spacing) * 4 * 2))"
+                                ref="videoRef"
+                                class="aspect-video w-full rounded-md"
+                                @timeupdate="onTimeChange()"
+                            >
+                                <source
+                                    :src="`http://localhost:8000/videos/${videoInfo.video_id}`"
+                                    type="video/mp4"
+                                    @error="videoNotFound = true"
+                                />
+                            </video>
+                        </VuePlyr>
+                    </div>
 
-                <div class="mt-4 rounded-md bg-pink-500f bg-neutral-900a p-4">
-                    <h2 class="text-2xl font-bold">{{ videoInfo.title }}</h2>
-                    <h3 class="text-text-muted font-bold">
-                        {{ videoInfo.description }}
-                    </h3>
-                    <h3 class="text-text-muted">{{ date }}</h3>
-                </div>
-            </template>
+                    <div class="mt-4 rounded-md bg-pink-500f bg-neutral-900a p-4">
+                        <h2 class="text-2xl font-bold">{{ videoInfo.title }}</h2>
+                        <h3 class="text-text-muted font-bold">
+                            {{ videoInfo.description }}
+                        </h3>
+                        <h3 class="text-text-muted">{{ date }}</h3>
+                    </div>
+                </template>
+            </div>
+
+            <Chat :videoId="Number(videoId)" :videoTime="videoTime" />
         </div>
+    </div>
 
-        <Chat :videoId="Number(videoId)" :videoTime="videoTime" />
+    <div v-else class="h-available 4xl:grid-cols-[1fr_600px] grid grid-flow-col grid-cols-[1fr_300px] gap-4 p-4">
+        <div class="flex flex-col gap-4">
+            <USkeleton class="rounded-md flex-1" />
+            <USkeleton class="rounded-md h-20" />
+        </div>
+        <USkeleton class="rounded-md" />
     </div>
 </template>

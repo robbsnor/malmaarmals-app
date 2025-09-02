@@ -119,6 +119,8 @@ const emotesMap = {
         'https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_b556f5f4cd2244c5a9794bc8c533e8f3/default/dark/2.0',
     lekkerRobson:
         'https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_d39724a20ea74561a3f4a1e3bfb90a17/default/dark/2.0',
+
+    lekkerHoor: 'https://static-cdn.jtvnw.net/emoticons/v2/178075/default/dark/2.0',
 };
 </script>
 

@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import '@nuxt/ui';
 
 @theme {
     /* fonts */
@@ -66,6 +67,8 @@
     --breakpoint-3xl: 120rem;
     --breakpoint-4xl: 140rem;
     --breakpoint-5xl: 160rem;
+
+    --height-available: calc(100vh - var(--header-height));
 }
 
 :root {

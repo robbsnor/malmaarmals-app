@@ -3,7 +3,11 @@ import Header from './components/Header.vue';
 </script>
 
 <template>
-    <Header> </Header>
+    <Header />
 
-    <RouterView />
+    <div style="margin-top: var(--header-height)">
+        <UApp>
+            <RouterView />
+        </UApp>
+    </div>
 </template>
