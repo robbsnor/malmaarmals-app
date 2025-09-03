@@ -29,6 +29,7 @@
     /* text */
     --color-text-normal: hsl(0, 0%, 95%);
     --color-text-muted: hsl(0, 0%, 70%);
+    --color-text-muted-more: hsl(0, 0%, 50%);
 
     /* linear */
     /* --color-brand-100: #16161d;

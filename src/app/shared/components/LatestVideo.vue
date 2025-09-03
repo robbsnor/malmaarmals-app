@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
 import Container from './Container.vue';
 
 const props = withDefaults(
@@ -21,11 +20,26 @@ function truncateStringArray(titles: string[], maxLength: number = 20): string {
         .map((title) => (title.length > maxLength ? title.slice(0, maxLength).trim() + '...' : title))
         .join(', ');
 }
+
+const getTimeAgo = (date: string) => {
+    const recorded = new Date(date);
+    const now = new Date();
+    const diffMs = now.getTime() - recorded.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+
+    if (diffMins < 60) return `${diffMins} min ago`;
+    const diffHours = Math.floor(diffMins / 60);
+
+    if (diffHours < 24) return `${diffHours} hours ago`;
+    const diffDays = Math.floor(diffHours / 24);
+
+    return `${diffDays} days ago`;
+};
 </script>
 
 <template>
-    <Container>
-        <div class="grid grid-cols-2 items-center gap-8 py-30">
+    <Container class="flex justify-center py-20">
+        <div class="grid grid-cols-2 items-center gap-10 max-w-5/6">
             <div class="relative">
                 <img
                     :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
@@ -38,29 +52,18 @@ function truncateStringArray(titles: string[], maxLength: number = 20): string {
             </div>
 
             <div class="z-10">
-                <div class="flex items-center gap-2 font-bold text-gray-500 text-shadow-md">
+                <div class="flex items-center gap-2 font-bold text-text-muted-more text-shadow-md">
                     <div>Latest stream</div>
-                    <div class="text-sm italic">({{ daysAgo(props.video.recorded_at) }} days ago)</div>
+                    <div class="text-sm italic">({{ getTimeAgo(props.video.recorded_at) }})</div>
                 </div>
 
                 <div class="pt-2 text-5xl font-bold">
                     {{ props.video.title }}
                 </div>
 
-                <div v-if="props.video.description" class="text-3xl font-bold text-gray-400">
-                    {{ props.video.description }}
+                <div class="font-bold text-text-muted text-xl">
+                    {{ truncateStringArray(['Mario Kart World', 'Just Chatting']) }}
                 </div>
-
-                <div v-if="props.video.categories.length" class="text-md flexf pt-2 font-semibold text-gray-500">
-                    {{
-                        truncateStringArray(
-                            props.video.categories.map((c) => c.title),
-                            20
-                        )
-                    }}
-                </div>
-
-                <div></div>
             </div>
         </div>
     </Container>
