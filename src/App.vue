@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Header from './app/shared/components/Header.vue';
-import Footer from './app/shared/components/Footer.vue';
+import Header from './app/layout/components/Header.vue';
+import Footer from './app/layout/components/Footer.vue';
 </script>
 
 <template>
@@ -12,5 +12,5 @@ import Footer from './app/shared/components/Footer.vue';
         </UApp>
     </div>
 
-    <Footer />
+    <!-- <Footer /> -->
 </template>
