@@ -5,6 +5,7 @@ import Video from '../app/../shared/components/Video.vue';
 import Section from '../../app/home/components/Section.vue';
 import Stats from '../../app/home/components/Stats.vue';
 import type { QueryData } from '@supabase/supabase-js';
+import LatestVideo from '../shared/components/LatestVideo.vue';
 
 const videosQuery = supabase
     .from('videos')
@@ -92,45 +93,11 @@ const fetchCategories = async () => {
 
     categories.value = data;
 };
-
-const getTimeAgo = (date: string) => {
-    const recorded = new Date(date);
-    const now = new Date();
-    const diffMs = now.getTime() - recorded.getTime();
-    const diffMins = Math.floor(diffMs / 60000);
-
-    if (diffMins < 60) return `${diffMins} min ago`;
-    const diffHours = Math.floor(diffMins / 60);
-
-    if (diffHours < 24) return `${diffHours} hours ago`;
-    const diffDays = Math.floor(diffHours / 24);
-
-    return `${diffDays} days ago`;
-};
 </script>
 
 <template>
     <div>
-        <Section :show-gradient="false" v-if="firstVideo">
-            <div class="flex justify-center">
-                <div class="grid grid-cols-2 gap-10 max-w-5/6">
-                    <RouterLink :to="`/videos/${firstVideo.video_id}`">
-                        <img
-                            :src="`http://localhost:8000/thumbnails/${firstVideo.video_id}`"
-                            :alt="`Thumbnail for ${firstVideo.title}`"
-                            class="rounded-md"
-                        />
-                    </RouterLink>
-
-                    <div>
-                        <h2 class="text-6xl font-bold">{{ firstVideo.title }}</h2>
-                        <div>
-                            {{ getTimeAgo(firstVideo.recorded_at) }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </Section>
+        <LatestVideo v-if="firstVideo" :video="firstVideo" />
 
         <Section title="Streams">
             <div class="grid grid-cols-5 gap-8">
