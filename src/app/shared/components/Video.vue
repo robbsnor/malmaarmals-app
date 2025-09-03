@@ -44,12 +44,12 @@ const formattedDuration = computed(() => {
             <div
                 class="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-all duration-200 flex justify-center items-center"
             >
-                <UIcon name="i-lucide-chevron-right" size="14" />
+                <UIcon name="i-lucide-play" class="size-8" />
             </div>
         </RouterLink>
 
         <div class="pt-1">
-            <h2 class="font-bold uppercase text-md">
+            <h2 class="font-bold text-md">
                 {{ props.video.title }}
             </h2>
             <p class="text-text-muted text-sm font-medium">Super Mario Kart World</p>
