@@ -21,8 +21,8 @@ const toggleFullscreen = () => {
                 </RouterLink>
 
                 <div class="flex items-center gap-2">
-                    <RouterLink variant="soft" size="xl" to="/">Home</RouterLink>
-                    <RouterLink variant="soft" size="xl" to="/videos"> Videos </RouterLink>
+                    <UButton variant="soft" to="/">Home</UButton>
+                    <UButton variant="soft" to="/videos"> Videos </UButton>
                 </div>
             </div>
 
