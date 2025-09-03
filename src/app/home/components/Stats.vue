@@ -43,11 +43,7 @@ onMounted(async () => {
     <Section>
         <Container>
             <div class="flex justify-center pb-19">
-                <div
-                    class="leading-none inline-block uppercase text-8xl font-bold text-transparent bg-gradient-to-r from-secondary to-primary bg-clip-text"
-                >
-                    Statistics
-                </div>
+                <GradientText text="Statistics" />
             </div>
             <div class="grid gap-8">
                 <StatsNumber title="VODS" stat="965" class="vods" />
