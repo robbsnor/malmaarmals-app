@@ -11,6 +11,7 @@ import Card from './app/shared/components/Card.vue';
 import Video from './app/shared/components/Video.vue';
 import Container from './app/shared/components/Container.vue';
 import GridSection from './app/shared/components/GridSection.vue';
+import GradientText from './app/shared/components/GradientText.vue';
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -20,6 +21,7 @@ app.component('Card', Card);
 app.component('Video', Video);
 app.component('Container', Container);
 app.component('GridSection', GridSection);
+app.component('GradientText', GradientText);
 
 // plugins
 app.use(router);
