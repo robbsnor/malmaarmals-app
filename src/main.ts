@@ -12,6 +12,7 @@ import Video from './app/shared/components/Video.vue';
 import Container from './app/shared/components/Container.vue';
 import GridSection from './app/shared/components/GridSection.vue';
 import GradientText from './app/shared/components/GradientText.vue';
+import VideoThumbnail from './app/shared/components/VideoThumbnail.vue';
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -22,6 +23,7 @@ app.component('Video', Video);
 app.component('Container', Container);
 app.component('GridSection', GridSection);
 app.component('GradientText', GradientText);
+app.component('VideoThumbnail', VideoThumbnail);
 
 // plugins
 app.use(router);
