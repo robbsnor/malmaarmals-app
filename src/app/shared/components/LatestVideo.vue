@@ -64,7 +64,14 @@ const getTimeAgo = (date: string) => {
                 </div>
 
                 <div class="font-bold text-text-muted text-xl">
-                    {{ truncateStringArray(['Mario Kart World', 'Just Chatting']) }}
+                    {{ truncateStringArray(['Super Mario Kart World', 'Just Chatting'], 9999) }}
+                </div>
+
+                <div class="flex gap-4">
+                    <UButton :to="`/videos/${props.video.video_id}`" size="lg" class="mt-6">Watch now</UButton>
+                    <UButton variant="outline" :to="`/playlists/foo`" size="lg" class="mt-6">
+                        Add to Watch Later
+                    </UButton>
                 </div>
             </div>
         </div>
