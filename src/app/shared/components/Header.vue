@@ -12,7 +12,7 @@ const toggleFullscreen = () => {
 </script>
 
 <template>
-    <div ref="header" class="top-0 right-0 left-0 z-100 bg-black fixed px-4 border-b border-gray-800">
+    <div ref="header" class="top-0 right-0 left-0 z-100 bg-black fixed px-4 border-bf border-gray-800">
         <div class="grid h-(--header-height) py-2" style="grid-template-columns: 1fr auto 1fr">
             <div class="flex items-center gap-8">
                 <RouterLink to="/" class="flex flex-col gap-[2px]">

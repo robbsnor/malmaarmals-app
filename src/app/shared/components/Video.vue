@@ -35,7 +35,7 @@ const formattedDuration = computed(() => {
         <RouterLink :to="`/videos/${props.video.video_id}`" class="relative transition-all duration-200 group">
             <img
                 :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
-                alt=""
+                :alt="`Thumbnail for ${props.video.title}`"
                 class="relative mb-2 aspect-video w-full rounded-md"
             />
             <div class="absolute right-2 bottom-2 bg-bg-normal leading-none p-1.5 text-text-muted text-sm rounded-md">
