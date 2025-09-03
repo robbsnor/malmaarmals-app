@@ -4,15 +4,19 @@ import { supabase } from '../../supabase';
 import Video from '../app/../shared/components/Video.vue';
 import Section from '../../app/home/components/Section.vue';
 import Stats from '../../app/home/components/Stats.vue';
+import type { QueryData } from '@supabase/supabase-js';
 
-// recent streams
-// playlists
-// stats
-// populair categories
+const videosQuery = supabase
+    .from('videos')
+    .select('*, categories: video_category_mapping(...categories(*))')
+    .order('recorded_at', { ascending: false })
+    .range(0, 5);
 
-const videos = ref([]);
+type Videos = QueryData<typeof videosQuery>;
+
+const allVideos = ref<Videos>();
 const categories = ref([]);
-const chapters = ref([
+const playlists = ref([
     {
         title: 'Peter VS Timon',
         episodes: 38,
@@ -60,27 +64,22 @@ const chapters = ref([
     },
 ]);
 
-const firstVideo = computed(() => videos.value?.[0]);
-const fakePlaylist = computed(() => videos.value?.slice(13, 20));
+const firstVideo = computed(() => allVideos.value?.[0]);
+const videos = computed(() => allVideos.value?.slice(1));
 
 onMounted(async () => {
-    fetchVideos();
-    fetchCategories();
+    await fetchVideos();
+    await fetchCategories();
 });
 
 const fetchVideos = async () => {
-    const { data, error } = await supabase
-        .from('videos')
-        .select('*, categories: video_category_mapping(...categories(*))')
-        .order('recorded_at', { ascending: false })
-        .range(0, 4);
+    const { data, error } = await videosQuery;
 
     if (error) {
-        console.error('Error fetching videos:', error);
-        return;
+        return console.error('Error fetching videos:', error);
     }
 
-    videos.value = data;
+    allVideos.value = data;
 };
 
 const fetchCategories = async () => {
@@ -93,29 +92,66 @@ const fetchCategories = async () => {
 
     categories.value = data;
 };
+
+const getTimeAgo = (date: string) => {
+    const recorded = new Date(date);
+    const now = new Date();
+    const diffMs = now.getTime() - recorded.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+
+    if (diffMins < 60) return `${diffMins} min ago`;
+    const diffHours = Math.floor(diffMins / 60);
+
+    if (diffHours < 24) return `${diffHours} hours ago`;
+    const diffDays = Math.floor(diffHours / 24);
+
+    return `${diffDays} days ago`;
+};
 </script>
 
 <template>
     <div>
-        <Section title="Latest Streams">
+        <Section :show-gradient="false" v-if="firstVideo">
+            <div class="flex justify-center">
+                <div class="grid grid-cols-2 gap-10 max-w-5/6">
+                    <RouterLink :to="`/videos/${firstVideo.video_id}`">
+                        <img
+                            :src="`http://localhost:8000/thumbnails/${firstVideo.video_id}`"
+                            :alt="`Thumbnail for ${firstVideo.title}`"
+                            class="rounded-md"
+                        />
+                    </RouterLink>
+
+                    <div>
+                        <h2 class="text-6xl font-bold">{{ firstVideo.title }}</h2>
+                        <div>
+                            {{ getTimeAgo(firstVideo.recorded_at) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Section>
+
+        <Section title="Streams">
             <div class="grid grid-cols-5 gap-8">
                 <Video v-for="video in videos" :key="video.video_id" :video="video" />
             </div>
         </Section>
 
         <Section title="Playlists">
-            <div class="grid grid-cols-5 gap-8">
+            <div class="grid grid-cols-5 gap-8 pt-4">
                 <div
-                    v-for="chapter in chapters"
-                    :key="chapter.title"
+                    v-for="playlist in playlists"
+                    :key="playlist.title"
                     class="relative transition-all duration-200 rounded-md"
                 >
                     <RouterLink :to="`/playlists/foo`" class="relative transition-all duration-200 group">
                         <img
-                            v-for="(thumbnail, i) in chapter.thumbnails"
+                            v-for="(thumbnail, i) in playlist.thumbnails"
                             :key="i"
                             class="absolute inset-0 rounded-md origin-top transition-all"
                             :src="thumbnail"
+                            aria-hidden="true"
                             :class="[
                                 i === 2
                                     ? '-top-2 scale-95 opacity-60 group-hover:-translate-y-1 group-hover:opacity-30'
@@ -126,7 +162,11 @@ const fetchCategories = async () => {
                             ]"
                         />
 
-                        <img :src="chapter.thumbnails[0]" alt="" class="relative mb-2 aspect-video w-full rounded-md" />
+                        <img
+                            :src="playlist.thumbnails[0]"
+                            alt=""
+                            class="relative mb-2 aspect-video w-full rounded-md"
+                        />
                         <div
                             class="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-all duration-200 flex justify-center items-center"
                         >
@@ -135,8 +175,8 @@ const fetchCategories = async () => {
                     </RouterLink>
 
                     <div class="pt-1">
-                        <h2 class="font-bold text-md">{{ chapter.title }}</h2>
-                        <p class="text-text-muted text-sm font-medium">{{ chapter.episodes }} Episodes</p>
+                        <h2 class="font-bold text-md">{{ playlist.title }}</h2>
+                        <p class="text-text-muted text-sm font-medium">{{ playlist.episodes }} Episodes</p>
                     </div>
                 </div>
             </div>

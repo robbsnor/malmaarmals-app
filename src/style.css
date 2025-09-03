@@ -22,9 +22,9 @@
     --color-secondary-darker: hsl(168, 100%, 50%);
 
     /* bg */
-    --color-bg-dark: hsl(0, 0%, 0%);
-    --color-bg-normal: hsl(0, 0%, 5%);
-    --color-bg-light: hsl(0, 0%, 10%);
+    --color-bg-dark: hsl(0, 0%, 3%);
+    --color-bg-normal: hsl(0, 0%, 6%);
+    --color-bg-light: hsl(0, 0%, 9%);
 
     /* text */
     --color-text-normal: hsl(0, 0%, 95%);
@@ -48,7 +48,7 @@
     --color-brand-800: #e0aaff; */
 
     /* black */
-    /* --color-black-100: #050505;
+    --color-black-100: #050505;
     --color-black-150: #0a0a0a;
     --color-black-200: #101010;
     --color-black-250: #121212;
@@ -62,7 +62,7 @@
     --color-black-800: #404040;
     --color-black-900: #454545;
     --color-black-1000: #505050;
-    --color-black-1100: #555555; */
+    --color-black-1100: #555555;
 
     --breakpoint-3xl: 120rem;
     --breakpoint-4xl: 140rem;

@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue';
 import Section from './Section.vue';
 import { supabase } from '../../../supabase';
 import StatCard from './StatCard.vue';
+import StatsNumber from './StatsNumber.vue';
 
 const props = withDefaults(
     defineProps<{
@@ -41,7 +42,7 @@ onMounted(async () => {
 <template>
     <Section>
         <Container>
-            <div class="flex justify-center pb-6">
+            <div class="flex justify-center pb-19">
                 <div
                     class="leading-none inline-block uppercase text-8xl font-bold text-transparent bg-gradient-to-r from-secondary to-primary bg-clip-text"
                 >
@@ -49,15 +50,17 @@ onMounted(async () => {
                 </div>
             </div>
             <div class="grid gap-8">
-                <StatCard class="vods">vods</StatCard>
-                <StatCard class="hours">hours</StatCard>
-                <StatCard class="chat">chat</StatCard>
+                <StatsNumber title="VODS" stat="965" class="vods" />
+                <StatsNumber title="Hours" stat="2.625" class="hours" />
+                <StatsNumber title="Chat Messages" stat="7.428.922" class="chat" />
+
                 <StatCard class="chat-rank">
+                    <div class="font-bold text-text-muted text-4xl">Most Active Chatters</div>
                     <div class="flex flex-col gap-2">
                         <div v-for="(chatter, i) in topChatters" :key="chatter.user_id">
                             <div
                                 class="font-bold"
-                                :class="i === 0 ? 'text-3xl' : i === 1 ? 'text-2xl' : i === 2 ? 'text-xl' : ''"
+                                :class="i === 0 ? 'text-4xl' : i === 1 ? 'text-3xl' : i === 2 ? 'text-2xl' : ''"
                             >
                                 #{{ i + 1 }} {{ chatter.user_name }}
                             </div>
