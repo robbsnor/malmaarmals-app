@@ -46,14 +46,14 @@ onMounted(async () => {
                 <GradientText text="Statistics" />
             </div>
             <div class="grid gap-8">
-                <StatsNumber title="VODS" stat="965" class="vods" />
+                <StatsNumber title="Streams" stat="965" class="streams" />
                 <StatsNumber title="Hours" stat="2.625" class="hours" />
                 <StatsNumber title="Chat Messages" stat="7.428.922" class="chat" />
 
                 <StatCard class="chat-rank">
-                    <div class="font-bold text-text-muted text-4xl">Most Active Chatters</div>
+                    <div class="font-bold text-text-muted text-4xl pb-2">Most Active Chatters</div>
                     <div class="flex flex-col gap-2">
-                        <div v-for="(chatter, i) in topChatters" :key="chatter.user_id">
+                        <div v-for="(chatter, i) in topChatters" :key="chatter.user_id" class="flex gap-4 items-end">
                             <div
                                 class="font-bold"
                                 :class="i === 0 ? 'text-4xl' : i === 1 ? 'text-3xl' : i === 2 ? 'text-2xl' : ''"
@@ -72,12 +72,12 @@ onMounted(async () => {
 <style scoped>
 .grid {
     grid-template-areas:
-        'vods   hours   chat-rank'
-        'chat   chat    chat-rank';
+        'streams   hours   chat-rank'
+        'chat      chat    chat-rank';
 }
 
-.vods {
-    grid-area: vods;
+.streams {
+    grid-area: streams;
 }
 
 .hours {

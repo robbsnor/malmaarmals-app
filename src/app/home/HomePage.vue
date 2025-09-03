@@ -112,11 +112,11 @@ const fetchCategories = async () => {
                     :key="playlist.title"
                     class="relative transition-all duration-200 rounded-md"
                 >
-                    <RouterLink :to="`/playlists/foo`" class="relative transition-all duration-200 group">
+                    <div class="relative transition-all duration-200 group">
                         <img
                             v-for="(thumbnail, i) in playlist.thumbnails"
                             :key="i"
-                            class="absolute inset-0 rounded-md origin-top transition-all"
+                            class="absolute inset-0 rounded-md origin-top transition-all pointer-events-none"
                             :src="thumbnail"
                             aria-hidden="true"
                             :class="[
@@ -129,17 +129,14 @@ const fetchCategories = async () => {
                             ]"
                         />
 
-                        <img
+                        <VideoThumbnail
+                            :to="`/playlists/foo`"
                             :src="playlist.thumbnails[0]"
-                            alt=""
-                            class="relative mb-2 aspect-video w-full rounded-md"
-                        />
-                        <div
-                            class="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-all duration-200 flex justify-center items-center"
+                            icon="i-lucide-list-video"
+                            class="mb-2"
                         >
-                            <UIcon name="i-lucide-list-video" class="size-8" />
-                        </div>
-                    </RouterLink>
+                        </VideoThumbnail>
+                    </div>
 
                     <div class="pt-1">
                         <h2 class="font-bold text-md">{{ playlist.title }}</h2>

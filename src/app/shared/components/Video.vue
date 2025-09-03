@@ -32,21 +32,14 @@ const formattedDuration = computed(() => {
 
 <template>
     <div class="relative transition-all duration-200 rounded-md">
-        <RouterLink :to="`/videos/${props.video.video_id}`" class="relative transition-all duration-200 group">
-            <img
-                :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
-                :alt="`Thumbnail for ${props.video.title}`"
-                class="relative mb-2 aspect-video w-full rounded-md"
-            />
+        <VideoThumbnail
+            :to="`/videos/${props.video.video_id}`"
+            :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
+        >
             <div class="absolute right-2 bottom-2 bg-bg-normal leading-none p-1.5 text-text-muted text-sm rounded-md">
                 {{ formattedDuration }}
             </div>
-            <div
-                class="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-all duration-200 flex justify-center items-center"
-            >
-                <UIcon name="i-lucide-play" class="size-8" />
-            </div>
-        </RouterLink>
+        </VideoThumbnail>
 
         <div class="pt-1">
             <h2 class="font-bold text-md">
