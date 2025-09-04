@@ -56,6 +56,7 @@ onMounted(async () => {
             <div class="flex justify-center pb-19">
                 <GradientText text="Statistics" />
             </div>
+
             <div class="grid gap-8">
                 <StatsNumber title="Streams" stat="965" class="streams" />
                 <StatsNumber title="Hours" stat="2.625" class="hours" />

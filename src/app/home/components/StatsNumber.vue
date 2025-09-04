@@ -12,10 +12,12 @@ const props = withDefaults(
 </script>
 
 <template>
-    <StatCard class="flex flex-col gap-2 items-center justify-center h-full p-6">
-        <div class="font-bold text-text-muted text-4xl">{{ title }}</div>
-        <div class="text-6xl font-bold">
-            {{ stat }}
+    <StatCard>
+        <div class="flex flex-col gap-2 items-center justify-center h-full w-full">
+            <div class="font-bold text-text-muted text-4xl">{{ title }}</div>
+            <div class="text-6xl font-bold">
+                {{ stat }}
+            </div>
         </div>
     </StatCard>
 </template>

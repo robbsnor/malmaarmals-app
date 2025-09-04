@@ -60,7 +60,7 @@ const getTimeAgo = (date: string) => {
                         <div class="text-sm italic">({{ getTimeAgo(props.video.recorded_at) }})</div>
                     </div> -->
 
-                    <!-- <UBadge color="secondary" variant="soft" class="mb-1">New Stream</UBadge> -->
+                    <UBadge color="primary" variant="subtle" class="mb-1">Latest Stream</UBadge>
 
                     <div class="pt-2 text-5xl font-bold leading-[1.2]">
                         {{ props.video.title }}
