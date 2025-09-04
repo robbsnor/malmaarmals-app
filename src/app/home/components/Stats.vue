@@ -57,22 +57,29 @@ onMounted(async () => {
                 <GradientText text="Statistics" />
             </div>
 
-            <div class="grid gap-8">
+            <div class="grid-main grid gap-8">
                 <StatsNumber title="Streams" stat="965" class="streams" />
                 <StatsNumber title="Hours" stat="2.625" class="hours" />
                 <StatsNumber title="Chat Messages" stat="7.428.922" class="chat" />
 
                 <StatCard class="chat-rank">
-                    <div class="font-bold text-text-muted text-4xl pb-2">Most Active Chatters</div>
-                    <div class="flex flex-col gap-2">
-                        <div v-for="(chatter, i) in topChatters" :key="chatter.user_id" class="flex gap-2 items-end">
+                    <div class="p-8">
+                        <div class="font-bold text-text-muted text-4xl pb-4">Most Active Chatters</div>
+
+                        <div class="flex flex-col gap-2">
                             <div
-                                class="font-bold"
-                                :class="i === 0 ? 'text-4xl' : i === 1 ? 'text-3xl' : i === 2 ? 'text-2xl' : ''"
+                                v-for="(chatter, i) in topChatters"
+                                :key="chatter.user_id"
+                                class="flex gap-2 items-end"
                             >
-                                #{{ i + 1 }} {{ chatter.user_name }}
+                                <div
+                                    class="font-bold"
+                                    :class="i === 0 ? 'text-4xl' : i === 1 ? 'text-3xl' : i === 2 ? 'text-2xl' : ''"
+                                >
+                                    #{{ i + 1 }} {{ chatter.user_name }}
+                                </div>
+                                <div class="font-bold text-gray-500">{{ chatter.message_count }}</div>
                             </div>
-                            <div class="font-bold text-gray-500">{{ chatter.message_count }}</div>
                         </div>
                     </div>
                 </StatCard>
@@ -82,7 +89,7 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.grid {
+.grid-main {
     grid-template-areas:
         'streams   hours   chat-rank'
         'chat      chat    chat-rank';
