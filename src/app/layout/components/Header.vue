@@ -12,7 +12,10 @@ const toggleFullscreen = () => {
 </script>
 
 <template>
-    <div ref="header" class="top-0 right-0 left-0 z-100 bg-black fixed px-4 border-bf border-gray-800">
+    <div
+        ref="header"
+        class="top-0 right-0 left-0 z-100 bg-black/90 fixed px-4 border-bf border-gray-800 backdrop-blur-md"
+    >
         <div class="grid h-(--header-height) py-2" style="grid-template-columns: 1fr auto 1fr">
             <div class="flex items-center gap-8">
                 <RouterLink to="/" class="flex flex-col gap-[2px]">
@@ -22,14 +25,17 @@ const toggleFullscreen = () => {
 
                 <div class="flex items-center gap-2">
                     <UButton variant="soft" to="/">Home</UButton>
-                    <UButton variant="soft" to="/videos"> Videos </UButton>
+                    <UButton variant="soft" to="/videos">Videos</UButton>
+                    <UButton variant="soft" to="/about">About</UButton>
                 </div>
             </div>
 
             <Search />
 
             <div class="flex items-center justify-end">
-                <div @click="toggleFullscreen" class="mr-2">log in or something</div>
+                <UButton @click="toggleFullscreen" class="mr-2" color="secondary" trailing-icon="i-lucide-twitch">
+                    Login with Twitch
+                </UButton>
             </div>
         </div>
     </div>

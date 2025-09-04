@@ -4,6 +4,7 @@ import Section from './Section.vue';
 import { supabase } from '../../../supabase';
 import StatCard from './StatCard.vue';
 import StatsNumber from './StatsNumber.vue';
+import { DotLottieVue } from '@lottiefiles/dotlottie-vue';
 
 const props = withDefaults(
     defineProps<{
@@ -41,6 +42,16 @@ onMounted(async () => {
 
 <template>
     <Section>
+        <!-- <template #background>
+            <DotLottieVue
+                style="width: 100%; display: block"
+                class="scale-200 opacity-30 blur-md"
+                autoplay
+                loop
+                src="https://lottie.host/5f51ad36-0699-47c9-a92e-afc0e31dbeca/uGyJqLVlca.lottie"
+            />
+        </template> -->
+
         <Container>
             <div class="flex justify-center pb-19">
                 <GradientText text="Statistics" />
@@ -53,7 +64,7 @@ onMounted(async () => {
                 <StatCard class="chat-rank">
                     <div class="font-bold text-text-muted text-4xl pb-2">Most Active Chatters</div>
                     <div class="flex flex-col gap-2">
-                        <div v-for="(chatter, i) in topChatters" :key="chatter.user_id" class="flex gap-4 items-end">
+                        <div v-for="(chatter, i) in topChatters" :key="chatter.user_id" class="flex gap-2 items-end">
                             <div
                                 class="font-bold"
                                 :class="i === 0 ? 'text-4xl' : i === 1 ? 'text-3xl' : i === 2 ? 'text-2xl' : ''"

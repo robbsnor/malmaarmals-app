@@ -38,42 +38,46 @@ const getTimeAgo = (date: string) => {
 </script>
 
 <template>
-    <Container class="flex justify-center py-20">
-        <div class="grid grid-cols-2 items-center gap-10 max-w-5/6">
-            <div class="relative">
-                <img
-                    aria-hidden="true"
-                    :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
-                    class="pointer-events-none absolute -z-10 aspect-video scale-200 overflow-hidden rounded-[99%] object-cover opacity-20 blur-2xl select-none"
-                />
-                <VideoThumbnail
-                    :to="`/videos/${props.video.video_id}`"
-                    :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
-                    class="aspect-video w-full rounded-4xl shadow-[0_0_150px_rgba(0,0,0,1)] transition-all"
-                />
+    <div class="flex justify-center py-20 bg-primary/8">
+        <Container class="flex justify-center">
+            <div class="grid grid-cols-2 items-center gap-10 max-w-5/6">
+                <div class="relative">
+                    <img
+                        aria-hidden="true"
+                        :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
+                        class="pointer-events-none absolute -z-10 aspect-video scale-300 rounded-[99%] object-cover opacity-20 blur-md select-none"
+                    />
+                    <VideoThumbnail
+                        :to="`/videos/${props.video.video_id}`"
+                        :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
+                        border-radius="rounded-2xl"
+                        class="w-full rounded-4xl shadow-[0_0_150px_rgba(255,0,0,1)] transition-all"
+                    />
+                </div>
+
+                <div>
+                    <!-- <div class="flex items-center gap-2 font-bold text-text-muted-more text-shadow-md">
+                        <div class="text-sm italic">({{ getTimeAgo(props.video.recorded_at) }})</div>
+                    </div> -->
+
+                    <!-- <UBadge color="secondary" variant="soft" class="mb-1">New Stream</UBadge> -->
+
+                    <div class="pt-2 text-5xl font-bold leading-[1.2]">
+                        {{ props.video.title }}
+                    </div>
+
+                    <div class="font-bold text-text-muted text-xl">
+                        {{ truncateStringArray(['Super Mario Kart World', 'Just Chatting'], 9999) }}
+                    </div>
+
+                    <div class="flex gap-4 pt-6">
+                        <UButton :to="`/videos/${props.video.video_id}`" size="xl" color="primary">Watch now</UButton>
+                        <!-- <UButton variant="outline" :to="`/playlists/foo`" size="lg" color="primary">
+                            Add to Watch Later
+                        </UButton> -->
+                    </div>
+                </div>
             </div>
-
-            <div class="z-10">
-                <div class="flex items-center gap-2 font-bold text-text-muted-more text-shadow-md">
-                    <div>Latest stream</div>
-                    <div class="text-sm italic">({{ getTimeAgo(props.video.recorded_at) }})</div>
-                </div>
-
-                <div class="pt-2 text-5xl font-bold">
-                    {{ props.video.title }}
-                </div>
-
-                <div class="font-bold text-text-muted text-xl">
-                    {{ truncateStringArray(['Super Mario Kart World', 'Just Chatting'], 9999) }}
-                </div>
-
-                <div class="flex gap-4">
-                    <UButton :to="`/videos/${props.video.video_id}`" size="lg" class="mt-6">Watch now</UButton>
-                    <UButton variant="outline" :to="`/playlists/foo`" size="lg" class="mt-6">
-                        Add to Watch Later
-                    </UButton>
-                </div>
-            </div>
-        </div>
-    </Container>
+        </Container>
+    </div>
 </template>

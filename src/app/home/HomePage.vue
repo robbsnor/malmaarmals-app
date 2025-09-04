@@ -65,7 +65,29 @@ const playlists = ref([
     },
 ]);
 
-const firstVideo = computed(() => allVideos.value?.[0]);
+const number = ref(0);
+const handleArrow = (event: KeyboardEvent) => {
+    if (!allVideos.value) return;
+    if (event.key === 'ArrowRight') {
+        if (number.value < allVideos.value.length - 1) {
+            number.value++;
+        }
+    } else if (event.key === 'ArrowLeft') {
+        if (number.value > 0) {
+            number.value--;
+        }
+    }
+};
+
+onMounted(() => {
+    window.addEventListener('keydown', handleArrow);
+});
+
+import { onUnmounted } from 'vue';
+onUnmounted(() => {
+    window.removeEventListener('keydown', handleArrow);
+});
+const firstVideo = computed(() => allVideos.value?.[number.value]);
 const videos = computed(() => allVideos.value?.slice(1));
 
 onMounted(async () => {
@@ -99,7 +121,7 @@ const fetchCategories = async () => {
     <div>
         <LatestVideo v-if="firstVideo" :video="firstVideo" />
 
-        <Section title="Streams">
+        <Section title="Previous Streams">
             <div class="grid grid-cols-5 gap-8">
                 <Video v-for="video in videos" :key="video.video_id" :video="video" />
             </div>
@@ -138,10 +160,8 @@ const fetchCategories = async () => {
                         </VideoThumbnail>
                     </div>
 
-                    <div class="pt-1">
-                        <h2 class="font-bold text-md">{{ playlist.title }}</h2>
-                        <p class="text-text-muted text-sm font-medium">{{ playlist.episodes }} Episodes</p>
-                    </div>
+                    <h2 class="font-bold text-md pt-2">{{ playlist.title }}</h2>
+                    <p class="text-text-muted text-sm font-medium">{{ playlist.episodes }} Episodes</p>
                 </div>
             </div>
         </Section>

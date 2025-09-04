@@ -7,22 +7,24 @@ const props = withDefaults(
         to: string;
         icon?: string;
         iconSize?: string;
+        borderRadius?: string;
     }>(),
     {
         icon: 'i-lucide-play',
         iconSize: 'size-8',
+        borderRadius: 'rounded-md',
     }
 );
 </script>
 
 <template>
-    <RouterLink :to="props.to" class="relative transition-all duration-200 group">
-        <img :src="props.src" class="relative mb-2 aspect-video w-full rounded-md" aria-hidden="true" />
-        <slot></slot>
+    <RouterLink :to="props.to" class="relative transition-all duration-200 group overflow-hidden">
+        <img :src="props.src" class="relative aspect-video w-full" :class="props.borderRadius" aria-hidden="true" />
         <div
-            class="absolute inset-0 bg-black/0 opacity-0 group-hover:bg-black/50 group-hover:opacity-100 transition-all duration-200 flex justify-center items-center"
+            class="absolute z-10 top-0 right-0 bottom-0 left-0 bg-black/0 opacity-0 group-hover:bg-black/50 group-hover:opacity-100 transition-all duration-200 flex justify-center items-center"
         >
             <UIcon :name="props.icon" :class="props.iconSize" />
         </div>
+        <slot></slot>
     </RouterLink>
 </template>

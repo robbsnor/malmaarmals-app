@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-
 const props = withDefaults(
     defineProps<{
         title?: string;
@@ -11,8 +9,12 @@ const props = withDefaults(
 
 <template>
     <section class="relative py-20">
+        <div class="absolute inset-0 overflow-hidden">
+            <slot name="background" />
+        </div>
+
         <div
-            class="absolute top-0 left-0 right-0 h-150"
+            class="absolute top-0 h-150 w-full left-1/2 -translate-x-1/2"
             style="background: radial-gradient(farthest-side at top center, var(--color-black-200), transparent)"
         ></div>
 

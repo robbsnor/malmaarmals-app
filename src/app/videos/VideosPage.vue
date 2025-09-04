@@ -35,6 +35,9 @@ const formattedDate = (date: string) => {
                     </div>
 
                     <div class="flex flex-col gap-4">
+                        <UFormField label="Title">
+                            <UInput placeholder="Enter video title" />
+                        </UFormField>
                         <!-- <div>
                             <h3 class="text-lg font-semibold">Year</h3>
                             <div class="pt-2 pl-2">
