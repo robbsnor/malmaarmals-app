@@ -1,5 +1,7 @@
 <template>
-    <div class="relative p-4 rounded-xl border border-black-400 from-black to-black-200 bg-radial-[at_50%_0%]">
-        <slot></slot>
+    <div class="relative rounded-[20px] p-[1px] bg-gradient-to-br from-secondary/20 to-primary/20">
+        <div class="p-4 bg-black-150 w-full h-full rounded-[19px]">
+            <slot></slot>
+        </div>
     </div>
 </template>
