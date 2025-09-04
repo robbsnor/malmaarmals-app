@@ -72,12 +72,12 @@ const formattedDate = (date: string) => {
                 <RouterLink v-for="video in videos.data" :key="video.video_id" :to="`/videos/${video.video_id}`">
                     <div class="relative">
                         <img
-                            :src="`http://localhost:8000/thumbnails/${video.video_id}`"
+                            :src="`http://192.168.2.41:8000/thumbnails/${video.video_id}`"
                             alt=""
                             class="pointer-events-none absolute -z-10 aspect-video scale-300 overflow-hidden rounded-[99%] object-cover opacity-10 blur-2xl select-none"
                         />
                         <img
-                            :src="`http://localhost:8000/thumbnails/${video.video_id}`"
+                            :src="`http://192.168.2.41:8000/thumbnails/${video.video_id}`"
                             alt=""
                             class="mb-2 rounded-md"
                         />

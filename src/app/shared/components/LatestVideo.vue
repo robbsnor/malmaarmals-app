@@ -44,12 +44,12 @@ const getTimeAgo = (date: string) => {
                 <div class="relative">
                     <img
                         aria-hidden="true"
-                        :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
+                        :src="`http://192.168.2.41:8000/thumbnails/${props.video.video_id}`"
                         class="pointer-events-none absolute -z-10 aspect-video scale-300 rounded-[99%] object-cover opacity-20 blur-md select-none"
                     />
                     <VideoThumbnail
                         :to="`/videos/${props.video.video_id}`"
-                        :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
+                        :src="`http://192.168.2.41:8000/thumbnails/${props.video.video_id}`"
                         border-radius="rounded-2xl"
                         class="w-full rounded-4xl shadow-[0_0_150px_rgba(255,0,0,1)] transition-all"
                     />

@@ -91,7 +91,7 @@ const onTimeChange = () => {
                                 @timeupdate="onTimeChange()"
                             >
                                 <source
-                                    :src="`http://localhost:8000/videos/${videoInfo.video_id}`"
+                                    :src="`http://192.168.2.41:8000/videos/${videoInfo.video_id}`"
                                     type="video/mp4"
                                     @error="videoNotFound = true"
                                 />
