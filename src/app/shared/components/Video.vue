@@ -31,7 +31,7 @@ const formattedDuration = computed(() => {
 </script>
 
 <template>
-    <div class="relative transition-all duration-200 rounded-md">
+    <div>
         <VideoThumbnail
             :to="`/videos/${props.video.video_id}`"
             :src="`http://192.168.2.41:8000/thumbnails/${props.video.video_id}`"
@@ -48,5 +48,23 @@ const formattedDuration = computed(() => {
         </h2>
         <p class="text-text-muted text-sm font-medium">Super Mario Kart World</p>
         <p class="text-text-muted-more text-sm font-medium">{{ daysAgo }} days ago</p>
+
+        <!-- <template v-if="video.categories.length">
+            <div
+                v-for="category in video.categories"
+                :key="category.id"
+                class="mt-2 flex items-center gap-2"
+            >
+                <img
+                    :src="category.image_url"
+                    alt=""
+                    class="rounded-md"
+                />
+
+                <span class="text-sm text-gray-500">
+                    {{ category.title }}
+                </span>
+            </div>
+        </template> -->
     </div>
 </template>
