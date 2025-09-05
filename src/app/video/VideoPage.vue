@@ -13,6 +13,7 @@ const videoInfo = ref();
 const videoTime = ref(0);
 const playerRef = useTemplateRef<InstanceType<typeof Player>>('playerRef');
 const videoNotFound = ref(false);
+const open = ref(true);
 
 const options = computed(() => ({
     markers: {
@@ -25,7 +26,6 @@ const options = computed(() => ({
 }));
 
 function seekToChapter(seconds: number) {
-    console.log(playerRef.value.videoRef);
     playerRef.value.videoRef.currentTime = seconds;
     playerRef.value.videoRef.play();
 }
@@ -34,32 +34,32 @@ const chapters = ref([
     {
         start_s: 0,
         title: 'Intro',
-        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/23894_IGDB-285x380.jpg',
+        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/493388_IGDB-100x133.jpg',
     },
     {
         start_s: 332,
         title: 'Getting started',
-        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/23894_IGDB-285x380.jpg',
+        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/493388_IGDB-100x133.jpg',
     },
     {
         start_s: 765,
         title: 'Main topic',
-        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/23894_IGDB-285x380.jpg',
+        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/493388_IGDB-100x133.jpg',
     },
     {
         start_s: 1510,
         title: 'Q&A',
-        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/23894_IGDB-285x380.jpg',
+        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/493388_IGDB-100x133.jpg',
     },
     {
         start_s: 2700,
         title: 'Conclusion',
-        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/23894_IGDB-285x380.jpg',
+        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/493388_IGDB-100x133.jpg',
     },
     {
         start_s: 6000,
         title: 'Credits',
-        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/23894_IGDB-285x380.jpg',
+        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/493388_IGDB-100x133.jpg',
     },
 ]);
 
@@ -122,13 +122,21 @@ const updateVideoTime = (e: any) => {
                     </div>
 
                     <div>
-                        <UPopover :content="{ avoidCollisions: true, modal: true, side: 'top', align: 'end' }">
-                            <UButton label="Chapters" trailing-icon="i-lucide-chevron-down" />
+                        <UPopover
+                            v-model:open="open"
+                            :content="{ avoidCollisions: true, modal: true, side: 'top', align: 'end' }"
+                        >
+                            <template #anchor>
+                                <UButton label="Chapters" trailing-icon="i-lucide-chevron-down" @click="open = !open" />
+                            </template>
 
                             <template #content>
                                 <div class="p-2 flex flex-col gap-1">
                                     <button
-                                        @click="seekToChapter(chapter.start_s)"
+                                        @click="
+                                            seekToChapter(chapter.start_s);
+                                            open = false;
+                                        "
                                         v-for="chapter in chapters"
                                         class="flex gap-2 p-2 pr-2 items-center text-left cursor-pointer hover:bg-black-400 rounded-md"
                                     >
