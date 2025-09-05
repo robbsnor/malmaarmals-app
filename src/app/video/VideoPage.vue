@@ -13,7 +13,7 @@ const videoInfo = ref();
 const videoTime = ref(0);
 const playerRef = useTemplateRef<InstanceType<typeof Player>>('playerRef');
 const videoNotFound = ref(false);
-const open = ref(true);
+const open = ref(false);
 
 const options = computed(() => ({
     markers: {
