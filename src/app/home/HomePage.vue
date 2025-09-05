@@ -152,7 +152,7 @@ const fetchCategories = async () => {
                         />
 
                         <VideoThumbnail
-                            :to="`/playlists/foo`"
+                            :to="`/about`"
                             :src="playlist.thumbnails[0]"
                             icon="i-lucide-list-video"
                             class="mb-2"
@@ -167,5 +167,11 @@ const fetchCategories = async () => {
         </Section>
 
         <Stats />
+
+        <Section title="Populair Categories">
+            <div class="grid grid-cols-5 gap-8">
+                <Video v-for="video in videos" :key="video.video_id" :video="video" />
+            </div>
+        </Section>
     </div>
 </template>
