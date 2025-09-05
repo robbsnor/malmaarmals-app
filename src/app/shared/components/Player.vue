@@ -14,12 +14,7 @@ const props = withDefaults(
 const attrs = useAttrs();
 
 const player = ref<Plyr>();
-
-// Ref for the video element
 const videoRef = useTemplateRef<HTMLVideoElement>('videoRef');
-
-// Expose videoRef to parent
-defineExpose({ videoRef });
 
 const opt = computed(() => {
     const defaultOptions = {
@@ -49,6 +44,8 @@ onMounted(() => {
         player.value = new Plyr(videoRef.value, opt.value);
     }
 });
+
+defineExpose({ videoRef });
 </script>
 
 <template>
