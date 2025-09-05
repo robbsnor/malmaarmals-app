@@ -5,8 +5,8 @@ import { supabase } from '../../../supabase';
 import { useRouter } from 'vue-router';
 import { useDebounceFn } from '@vueuse/core';
 
-export const useAppStore = defineStore('app', () => {
-    const searchQuery = ref('');
+export const useSearchStore = defineStore('search', () => {
+    const query = ref('');
     const videos = ref<Tables<'videos'>[]>();
     const router = useRouter();
 
@@ -14,7 +14,7 @@ export const useAppStore = defineStore('app', () => {
         const { data, error } = await supabase
             .from('videos')
             .select('*, categories: video_category_mapping(...categories(*))')
-            .or(`title.ilike.%${searchQuery.value}%,description.ilike.%${searchQuery.value}%`)
+            .or(`title.ilike.%${query.value}%,description.ilike.%${query.value}%`)
             .order('recorded_at', { ascending: false });
         // .limit(50);
 
@@ -27,7 +27,7 @@ export const useAppStore = defineStore('app', () => {
     };
     const debouncedFetchVideos = useDebounceFn(fetchVideos, 500);
 
-    watch(searchQuery, () => {
+    watch(query, () => {
         if (router.currentRoute.value.path !== '/videos') {
             router.push({ name: 'videos' });
         }
@@ -39,5 +39,5 @@ export const useAppStore = defineStore('app', () => {
         fetchVideos();
     });
 
-    return { searchQuery, videos };
+    return { query, videos };
 });
