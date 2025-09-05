@@ -6,11 +6,11 @@ import Footer from './app/layout/components/Footer.vue';
 <template>
     <Header />
 
-    <div style="margin-top: var(--header-height)">
+    <div style="margin-top: var(--header-height)" class="min-h-available">
         <UApp>
             <RouterView />
         </UApp>
     </div>
 
-    <!-- <Footer /> -->
+    <Footer />
 </template>

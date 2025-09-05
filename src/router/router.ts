@@ -15,8 +15,13 @@ const router = createRouter({
         },
         {
             path: '/videos/:id',
-            name: 'video-details',
+            name: 'video',
             component: () => import('../app/video/VideoPage.vue'),
+        },
+        {
+            path: '/about',
+            name: 'about',
+            component: () => import('../app/about/AboutPage.vue'),
         },
         //     path: '/:pathMatch(.*)*',
         //     name: 'NotFound',

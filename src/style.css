@@ -71,11 +71,21 @@
     --breakpoint-5xl: 160rem;
 
     --height-available: calc(100vh - var(--header-height));
+
+    --ui-primary: var(--color-primary);
+    --ui-secondary: var(--color-secondary);
+
+    --background-color-default: var(--color-black);
+
+    --ring-color-default: var(--color-black);
 }
 
 :root {
     --header-height: 60px;
     --plyr-color-main: var(--color-primary);
+
+    /* nuxt ui */
+    --ui-bg: var(--color-black);
 }
 
 body {
