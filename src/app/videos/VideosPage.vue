@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { useAppStore } from '../shared/stores/app.store';
+import { useSearchStore } from '../shared/stores/search.store';
 import Video from '../shared/components/Video.vue';
 
-const appStore = useAppStore();
-const { videos } = storeToRefs(appStore);
+const searchStore = useSearchStore();
+const { videos } = storeToRefs(searchStore);
 </script>
 
 <template>

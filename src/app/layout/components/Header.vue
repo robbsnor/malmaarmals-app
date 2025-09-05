@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useAppStore } from '../../shared/stores/app.store';
+import { useSearchStore } from '../../shared/stores/search.store';
 
-const appStore = useAppStore();
+const searchStore = useSearchStore();
 </script>
 
 <template>
@@ -22,7 +22,7 @@ const appStore = useAppStore();
                 </div>
 
                 <UInput
-                    v-model="appStore.searchQuery"
+                    v-model="searchStore.query"
                     class="w-100"
                     variant="soft"
                     placeholder="Search..."
