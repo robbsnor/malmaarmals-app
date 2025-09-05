@@ -21,7 +21,14 @@ const appStore = useAppStore();
                     </div>
                 </div>
 
-                <UInput v-model="appStore.searchQuery" />
+                <UInput
+                    v-model="appStore.searchQuery"
+                    class="w-100"
+                    variant="soft"
+                    placeholder="Search..."
+                    trailing-icon="i-lucide-search"
+                    size="lg"
+                />
 
                 <div class="flex items-center justify-end">
                     <UButton class="mr-2" color="secondary" trailing-icon="i-lucide-twitch">
