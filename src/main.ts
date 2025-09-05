@@ -10,7 +10,7 @@ import Container from './app/shared/components/Container.vue';
 import GradientText from './app/shared/components/GradientText.vue';
 import GridSection from './app/shared/components/GridSection.vue';
 import Player from './app/shared/components/Player.vue';
-import Video from './app/shared/components/Video.vue';
+// import Video from './app/shared/components/Video.vue';
 import VideoThumbnail from './app/shared/components/VideoThumbnail.vue';
 
 const app = createApp(App);
@@ -22,7 +22,7 @@ app.component('Container', Container);
 app.component('GradientText', GradientText);
 app.component('GridSection', GridSection);
 app.component('Player', Player);
-app.component('Video', Video);
+// app.component('Video', Video);
 app.component('VideoThumbnail', VideoThumbnail);
 
 // plugins

@@ -1,18 +1,25 @@
 <script setup lang="ts">
 import Plyr from 'plyr';
 import 'plyr/dist/plyr.css';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, useAttrs, defineExpose, useTemplateRef } from 'vue';
 import { merge } from 'lodash';
-
-const player = ref<Plyr>();
 
 const props = withDefaults(
     defineProps<{
-        src: string;
         options?: any;
     }>(),
     {}
 );
+
+const attrs = useAttrs();
+
+const player = ref<Plyr>();
+
+// Ref for the video element
+const videoRef = useTemplateRef<HTMLVideoElement>('videoRef');
+
+// Expose videoRef to parent
+defineExpose({ videoRef });
 
 const opt = computed(() => {
     const defaultOptions = {
@@ -38,19 +45,14 @@ const opt = computed(() => {
 });
 
 onMounted(() => {
-    player.value = new Plyr('video', opt.value);
+    if (videoRef.value) {
+        player.value = new Plyr(videoRef.value, opt.value);
+    }
 });
 </script>
 
 <template>
-    <video
-        id="video"
-        controls
-        style="max-height: calc(100vh - var(--header-height) - (var(--spacing) * 4 * 2))"
-        ref="videoRef"
-        class="aspect-video w-full rounded-md"
-        playsinline
-    >
-        <source :src="props.src" type="video/mp4" />
+    <video v-bind="attrs" id="video" controls class="aspect-video w-full rounded-md" playsinline ref="videoRef">
+        <slot></slot>
     </video>
 </template>
