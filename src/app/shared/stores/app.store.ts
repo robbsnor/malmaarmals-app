@@ -15,7 +15,8 @@ export const useAppStore = defineStore('app', () => {
             .from('videos')
             .select('*, categories: video_category_mapping(...categories(*))')
             .or(`title.ilike.%${searchQuery.value}%,description.ilike.%${searchQuery.value}%`)
-            .limit(50);
+            .order('recorded_at', { ascending: false });
+        // .limit(50);
 
         if (error) {
             console.error(error);
