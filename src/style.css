@@ -66,6 +66,12 @@
     --color-black-1000: #505050;
     --color-black-1100: #555555;
 
+    /* --breakpoint-sm: (max-width: 639px);
+    --breakpoint-md: (max-width: 767px);
+    --breakpoint-lg: (max-width: 1023px);
+    --breakpoint-xl: (max-width: 1279px);
+    --breakpoint-2xl: (max-width: 1535px); */
+
     --breakpoint-3xl: 120rem;
     --breakpoint-4xl: 140rem;
     --breakpoint-5xl: 160rem;
