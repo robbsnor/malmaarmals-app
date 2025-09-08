@@ -72,10 +72,7 @@ const getTimeAgo = (date: string) => {
                     </div>
 
                     <div class="flex gap-4 pt-6">
-                        <UButton :to="`/videos/${props.video.video_id}`" size="xl" color="primary">Watch now</UButton>
-                        <!-- <UButton variant="outline" :to="`/playlists/foo`" size="lg" color="primary">
-                            Add to Watch Later
-                        </UButton> -->
+                        <v-btn :to="`/videos/${props.video.video_id}`">Watch now</v-btn>
                     </div>
                 </div>
             </div>

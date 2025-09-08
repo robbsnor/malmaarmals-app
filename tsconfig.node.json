@@ -19,11 +19,7 @@
         "noUnusedParameters": false,
         "erasableSyntaxOnly": false,
         "noFallthroughCasesInSwitch": false,
-        "noUncheckedSideEffectImports": false,
-
-        "paths": {
-            "#build/ui": ["./node_modules/@nuxt/ui/.nuxt/ui"]
-        }
+        "noUncheckedSideEffectImports": false
     },
     "include": ["vite.config.ts"]
 }
