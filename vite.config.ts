@@ -3,7 +3,7 @@ import { fileURLToPath, URL } from 'node:url';
 import vue from '@vitejs/plugin-vue';
 import tailwindcss from '@tailwindcss/vite';
 import vueDevTools from 'vite-plugin-vue-devtools';
-import ui from '@nuxt/ui/vite';
+import vuetify from 'vite-plugin-vuetify';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -11,11 +11,10 @@ export default defineConfig({
         vue(),
         tailwindcss(),
         vueDevTools(),
-        ui({
-            ui: {
-                skeleton: {
-                    base: 'bg-bg-light',
-                },
+        vuetify({
+            // styles: 'none',
+            styles: {
+                configFile: 'src/vite.config.scss',
             },
         }),
     ],
