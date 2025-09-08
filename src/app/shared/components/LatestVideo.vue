@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import type { Tables } from '../types/database.types';
 import Container from './Container.vue';
 
 const props = withDefaults(
     defineProps<{
-        video: any;
+        video: Tables<'videos'>;
     }>(),
     {}
 );
@@ -51,7 +52,7 @@ const getTimeAgo = (date: string) => {
                         :to="`/videos/${props.video.video_id}`"
                         :src="`http://192.168.2.41:8000/thumbnails/${props.video.video_id}`"
                         border-radius="rounded-2xl"
-                        class="w-full rounded-4xl shadow-[0_0_150px_rgba(255,0,0,1)] transition-all"
+                        class="w-full rounded-4xl shadow-[0_0_150px_rgba(0,0,0,1)] transition-all"
                     />
                 </div>
 

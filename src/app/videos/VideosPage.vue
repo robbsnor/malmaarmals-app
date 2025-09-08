@@ -1,16 +1,25 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { useSearchStore } from '../shared/stores/search.store';
 import Video from '../shared/components/Video.vue';
+import { useAppStore } from '../shared/stores/app.store';
+import { computed, ref } from 'vue';
 
-const searchStore = useSearchStore();
-const { videos } = storeToRefs(searchStore);
+const appStore = useAppStore();
+const { filteredVideos } = storeToRefs(appStore);
+
+const amountToShow = ref(200);
+const lessVideos = computed(() => filteredVideos?.value.slice(0, amountToShow.value));
+const loadMore = () => {
+    amountToShow.value += 200;
+};
 </script>
 
 <template>
-    <Container>
-        <div v-if="videos" class="grid grid-cols-5 items-center gap-8">
-            <Video v-for="video in videos" :key="video.video_id" :video="video" />
+    <Container v-if="filteredVideos">
+        <div class="grid grid-cols-5 items-center gap-8">
+            <Video v-for="video in lessVideos" :key="video.video_id" :video="video" />
         </div>
+
+        <UButton v-if="filteredVideos.length > amountToShow" @click="loadMore">Load More</UButton>
     </Container>
 </template>

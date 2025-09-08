@@ -1,22 +1,16 @@
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue';
-import { supabase } from '../../supabase';
-import Video from '../app/../shared/components/Video.vue';
+import { storeToRefs } from 'pinia';
+import { computed, onMounted, ref } from 'vue';
 import Section from '../../app/home/components/Section.vue';
 import Stats from '../../app/home/components/Stats.vue';
-import type { QueryData } from '@supabase/supabase-js';
+import Video from '../app/../shared/components/Video.vue';
 import LatestVideo from '../shared/components/LatestVideo.vue';
+import { useAppStore } from '../shared/stores/app.store';
 
-const videosQuery = supabase
-    .from('videos')
-    .select('*, categories: video_category_mapping(...categories(*))')
-    .order('recorded_at', { ascending: false })
-    .range(0, 5);
+const appStore = useAppStore();
+const { videos } = storeToRefs(appStore);
 
-type Videos = QueryData<typeof videosQuery>;
-
-const allVideos = ref<Videos>();
-const categories = ref([]);
+const number = ref(0);
 const playlists = ref([
     {
         title: 'Peter VS Timon',
@@ -65,11 +59,13 @@ const playlists = ref([
     },
 ]);
 
-const number = ref(0);
+const firstVideo = computed(() => videos?.value[number.value]);
+const previousVideos = computed(() => videos?.value.slice(1, 6));
+
 const handleArrow = (event: KeyboardEvent) => {
-    if (!allVideos.value) return;
+    if (!videos?.value) return;
     if (event.key === 'ArrowRight') {
-        if (number.value < allVideos.value.length - 1) {
+        if (number.value < videos?.value.length - 1) {
             number.value++;
         }
     } else if (event.key === 'ArrowLeft') {
@@ -82,48 +78,15 @@ const handleArrow = (event: KeyboardEvent) => {
 onMounted(() => {
     window.addEventListener('keydown', handleArrow);
 });
-
-import { onUnmounted } from 'vue';
-onUnmounted(() => {
-    window.removeEventListener('keydown', handleArrow);
-});
-const firstVideo = computed(() => allVideos.value?.[number.value]);
-const videos = computed(() => allVideos.value?.slice(1));
-
-onMounted(async () => {
-    await fetchVideos();
-    await fetchCategories();
-});
-
-const fetchVideos = async () => {
-    const { data, error } = await videosQuery;
-
-    if (error) {
-        return console.error('Error fetching videos:', error);
-    }
-
-    allVideos.value = data;
-};
-
-const fetchCategories = async () => {
-    const { data, error } = await supabase.from('categories').select('*');
-
-    if (error) {
-        console.error('Error fetching categories:', error);
-        return;
-    }
-
-    categories.value = data;
-};
 </script>
 
 <template>
-    <div>
-        <LatestVideo v-if="firstVideo" :video="firstVideo" />
+    <div v-if="videos">
+        <LatestVideo :video="firstVideo" />
 
         <Section title="Previous Streams">
             <div class="grid grid-cols-5 gap-8">
-                <Video v-for="video in videos" :key="video.video_id" :video="video" />
+                <Video v-for="video in previousVideos" :key="video.video_id" :video="video" />
             </div>
         </Section>
 
@@ -170,7 +133,7 @@ const fetchCategories = async () => {
 
         <Section title="Populair Categories">
             <div class="grid grid-cols-5 gap-8">
-                <Video v-for="video in videos" :key="video.video_id" :video="video" />
+                <Video v-for="video in previousVideos" :key="video.video_id" :video="video" />
             </div>
         </Section>
     </div>

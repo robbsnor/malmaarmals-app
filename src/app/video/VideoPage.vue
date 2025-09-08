@@ -32,21 +32,6 @@ function seekToChapter(seconds: number) {
 
 const chapters = ref([
     {
-        start_s: 0,
-        title: 'Intro',
-        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/493388_IGDB-100x133.jpg',
-    },
-    {
-        start_s: 332,
-        title: 'Getting started',
-        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/493388_IGDB-100x133.jpg',
-    },
-    {
-        start_s: 765,
-        title: 'Main topic',
-        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/493388_IGDB-100x133.jpg',
-    },
-    {
         start_s: 1510,
         title: 'Q&A',
         image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/493388_IGDB-100x133.jpg',
@@ -56,17 +41,14 @@ const chapters = ref([
         title: 'Conclusion',
         image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/493388_IGDB-100x133.jpg',
     },
-    {
-        start_s: 6000,
-        title: 'Credits',
-        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/493388_IGDB-100x133.jpg',
-    },
 ]);
 
 onMounted(async () => {
     // await new Promise((resolve) => setTimeout(resolve, 1200));
     await getVideoInfo();
     loading.value = false;
+    await new Promise((resolve) => setTimeout(resolve, 8000));
+    chapters.value.pop();
 });
 
 const date = computed(() => {
@@ -103,10 +85,10 @@ const updateVideoTime = (e: any) => {
 </script>
 
 <template>
-    <div class="h-available lg:flex gap-4 p-4">
+    <div class="h-available md:flex gap-4 p-4">
         <template v-if="videoInfo">
             <div class="grow overflow-auto scrollbar-invisible">
-                <div class="aspect-video" style="max-height: calc(100% - 0.4rem * 12)">
+                <div class="aspect-video mx-auto" style="max-height: calc(100% - 0.4rem * 12)">
                     <Player :options="options" @timeupdate="updateVideoTime" ref="playerRef">
                         <source :src="`http://192.168.2.41:8000/videos/${videoInfo.video_id}`" type="video/mp4" />
                     </Player>
@@ -122,10 +104,7 @@ const updateVideoTime = (e: any) => {
                     </div>
 
                     <div>
-                        <UPopover
-                            v-model:open="open"
-                            :content="{ avoidCollisions: true, modal: true, side: 'top', align: 'end' }"
-                        >
+                        <UPopover v-model:open="open" :content="{ avoidCollisions: true, side: 'top', align: 'end' }">
                             <template #anchor>
                                 <UButton label="Chapters" trailing-icon="i-lucide-chevron-down" @click="open = !open" />
                             </template>
@@ -155,7 +134,7 @@ const updateVideoTime = (e: any) => {
                 </div>
             </div>
 
-            <div class="lg:w-[300px] shrink-0">
+            <div class="md:w-[300px] shrink-0">
                 <Chat :videoId="Number(videoId)" :videoTime="videoTime" />
             </div>
         </template>
