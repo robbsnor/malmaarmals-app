@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Plyr from 'plyr';
 import 'plyr/dist/plyr.css';
-import { computed, onMounted, ref, useAttrs, defineExpose, useTemplateRef } from 'vue';
+import { computed, onMounted, ref, useAttrs, defineExpose, useTemplateRef, watch } from 'vue';
 import { merge } from 'lodash';
 
 const props = withDefaults(
@@ -18,6 +18,7 @@ const videoRef = useTemplateRef<HTMLVideoElement>('videoRef');
 
 const opt = computed(() => {
     const defaultOptions = {
+        debug: true,
         controls: [
             'play-large',
             'play',
@@ -40,12 +41,10 @@ const opt = computed(() => {
 });
 
 onMounted(() => {
-    if (videoRef.value) {
-        player.value = new Plyr(videoRef.value, opt.value);
-    }
+    player.value = new Plyr(videoRef.value, opt.value);
 });
 
-defineExpose({ videoRef });
+defineExpose({ videoRef, player });
 </script>
 
 <template>
