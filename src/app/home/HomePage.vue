@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { computed, onMounted, ref } from 'vue';
-import Section from '../../app/home/components/Section.vue';
 import Stats from '../../app/home/components/Stats.vue';
 import Video from '../app/../shared/components/Video.vue';
 import LatestVideo from './components/LatestVideo.vue';
