@@ -51,18 +51,17 @@ const getTimeAgo = (date: string) => {
                         :to="`/videos/${props.video.video_id}`"
                         :src="`http://192.168.2.41:8000/thumbnails/${props.video.video_id}`"
                         border-radius="rounded-2xl"
-                        class="w-full rounded-4xl shadow-[0_0_150px_rgba(0,0,0,1)] transition-all"
+                        class="rounded-4xl shadow-[0_0_150px_rgba(0,0,0,1)] transition-all"
+                        :icon-size="60"
                     />
                 </div>
 
-                <div>
+                <div class="z-10">
                     <!-- <div class="flex items-center gap-2 font-bold text-text-muted-more text-shadow-md">
                         <div class="text-sm italic">({{ getTimeAgo(props.video.recorded_at) }})</div>
                     </div> -->
 
-                    <!-- <v-date-picker></v-date-picker> -->
-
-                    <UBadge color="primary" variant="subtle" class="mb-1">Latest Stream</UBadge>
+                    <!-- <v-chip color="secondary" variant="tonal" class="mb-1">New</v-chip> -->
 
                     <div class="pt-2 text-5xl font-bold leading-[1.2]">
                         {{ props.video.title }}
