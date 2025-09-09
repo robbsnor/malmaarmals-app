@@ -12,7 +12,6 @@ export default defineConfig({
         tailwindcss(),
         vueDevTools(),
         vuetify({
-            // styles: 'none',
             styles: {
                 configFile: 'src/vite.config.scss',
             },

@@ -28,7 +28,7 @@ const props = withDefaults(
                     {{ props.title }}
                 </h2>
 
-                <UButton to="/videos" variant="ghost">view all</UButton>
+                <v-btn to="/videos" variant="ghost">view all</v-btn>
             </div>
 
             <slot />

@@ -15,25 +15,22 @@ const appStore = useAppStore();
                     </RouterLink>
 
                     <div class="flex items-center gap-2">
-                        <UButton variant="soft" to="/">Home</UButton>
-                        <UButton variant="soft" to="/videos">Videos</UButton>
-                        <UButton variant="soft" to="/about">About</UButton>
+                        <v-btn to="/">Home</v-btn>
+                        <v-btn to="/videos">Videos</v-btn>
+                        <v-btn to="/about">About</v-btn>
                     </div>
                 </div>
 
                 <UInput
                     v-model="appStore.query"
                     class="w-100"
-                    variant="soft"
                     placeholder="Search..."
                     trailing-icon="i-lucide-search"
                     size="lg"
                 />
 
                 <div class="flex items-center justify-end">
-                    <UButton class="mr-2" color="secondary" trailing-icon="i-lucide-twitch">
-                        Login with Twitch
-                    </UButton>
+                    <v-btn class="mr-2" color="secondary"> Login with Twitch </v-btn>
                 </div>
             </div>
         </Container>

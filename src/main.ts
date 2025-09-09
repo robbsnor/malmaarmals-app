@@ -2,12 +2,6 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router/router';
 import { createPinia } from 'pinia';
-
-// Vuetify
-import { createVuetify } from 'vuetify';
-import 'vuetify/styles';
-
-import './style.css';
 import Card from './app/shared/components/Card.vue';
 import Container from './app/shared/components/Container.vue';
 import GradientText from './app/shared/components/GradientText.vue';
@@ -15,10 +9,11 @@ import GridSection from './app/shared/components/GridSection.vue';
 import Player from './app/shared/components/Player.vue';
 // import Video from './app/shared/components/Video.vue';
 import VideoThumbnail from './app/shared/components/VideoThumbnail.vue';
+import { vuetify } from './vuetify.config';
+import './style.css';
 
 const app = createApp(App);
 const pinia = createPinia();
-const vuetify = createVuetify({});
 
 // components
 app.component('Card', Card);
