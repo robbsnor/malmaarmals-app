@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { Tables } from '../types/database.types';
-import Container from './Container.vue';
+import type { Tables } from '../../shared/types/database.types';
+import Section from './Section.vue';
 
 const props = withDefaults(
     defineProps<{
@@ -39,7 +39,7 @@ const getTimeAgo = (date: string) => {
 </script>
 
 <template>
-    <div class="flex justify-center py-20 bg-primary/8">
+    <Section :show-top-fade="false">
         <Container class="flex justify-center">
             <div class="grid grid-cols-2 items-center gap-10 max-w-5/6">
                 <div class="relative">
@@ -61,7 +61,7 @@ const getTimeAgo = (date: string) => {
                         <div class="text-sm italic">({{ getTimeAgo(props.video.recorded_at) }})</div>
                     </div> -->
 
-                    <v-date-picker></v-date-picker>
+                    <!-- <v-date-picker></v-date-picker> -->
 
                     <UBadge color="primary" variant="subtle" class="mb-1">Latest Stream</UBadge>
 
@@ -79,5 +79,5 @@ const getTimeAgo = (date: string) => {
                 </div>
             </div>
         </Container>
-    </div>
+    </Section>
 </template>
