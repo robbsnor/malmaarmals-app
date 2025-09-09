@@ -1,0 +1,5 @@
+@forward 'vuetify/settings' with (
+    $layers: false,
+    $reset: false,
+    $utilities: false
+);

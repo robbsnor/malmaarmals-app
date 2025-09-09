@@ -9,9 +9,7 @@ import { onMounted } from 'vue';
     <Header />
 
     <div style="margin-top: var(--header-height)" class="min-h-available bg-pink-400f">
-        <UApp>
-            <RouterView />
-        </UApp>
+        <RouterView />
     </div>
 
     <!-- <Footer /> -->
