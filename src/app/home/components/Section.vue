@@ -19,7 +19,7 @@ const props = withDefaults(
         <div
             v-if="props.showTopFade"
             class="absolute top-0 h-150 w-full left-1/2 -translate-x-1/2"
-            style="background: radial-gradient(farthest-side at top center, var(--color-black-200), transparent)"
+            style="background: radial-gradient(farthest-side at top center, var(--color-black-200), var(--color-black))"
         ></div>
 
         <Container class="relative z-10">
