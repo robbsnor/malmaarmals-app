@@ -39,7 +39,7 @@ watch(keys['Meta+K'], () => searchRef.value.focus());
                 <!-- <UInput trailing-icon="i-lucide-search" size="lg" /> -->
 
                 <div class="flex items-center justify-end">
-                    <v-btn class="mr-2" color="secondary"> Login with Twitch </v-btn>
+                    <v-btn class="mr-2" append-icon="mdi-twitch" color="secondary"> Login with Twitch </v-btn>
                 </div>
             </div>
         </Container>
