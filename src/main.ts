@@ -7,6 +7,7 @@ import Container from './app/shared/components/Container.vue';
 import GradientText from './app/shared/components/GradientText.vue';
 import GridSection from './app/shared/components/GridSection.vue';
 import Player from './app/shared/components/Player.vue';
+import Section from './app/shared/components/Section.vue';
 // import Video from './app/shared/components/Video.vue';
 import VideoThumbnail from './app/shared/components/VideoThumbnail.vue';
 import { vuetify } from './vuetify.config';
@@ -21,6 +22,7 @@ app.component('Container', Container);
 app.component('GradientText', GradientText);
 app.component('GridSection', GridSection);
 app.component('Player', Player);
+app.component('Section', Section);
 // app.component('Video', Video);
 app.component('VideoThumbnail', VideoThumbnail);
 

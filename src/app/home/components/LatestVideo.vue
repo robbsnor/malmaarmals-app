@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Tables } from '../../shared/types/database.types';
-import Section from './Section.vue';
 
 const props = withDefaults(
     defineProps<{
