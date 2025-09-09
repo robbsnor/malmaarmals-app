@@ -9,8 +9,8 @@ export const vuetify = createVuetify({
             ripple: false,
         },
         VBtn: {
-            variant: 'tonal',
-            color: 'primary',
+            // variant: 'tonal',
+            // color: 'primary',
         },
         VBtnToggle: {
             color: 'primary',
