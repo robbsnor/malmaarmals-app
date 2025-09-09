@@ -103,7 +103,7 @@ const updateVideoTime = (e: any) => {
         </div>
 
         <div>
-            <template>
+            <!-- <template>
                 <v-card>
                     <v-tabs v-model="tab" bg-color="primary">
                         <v-tab value="one">Item One</v-tab>
@@ -121,7 +121,7 @@ const updateVideoTime = (e: any) => {
                         </v-tabs-window>
                     </v-card-text>
                 </v-card>
-            </template>
+            </template> -->
         </div>
         <Chat :videoId="Number(videoId)" :videoTime="videoTime" />
 
