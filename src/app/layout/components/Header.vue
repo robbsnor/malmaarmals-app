@@ -1,7 +1,14 @@
 <script setup lang="ts">
+import { onKeyStroke, templateRef, useMagicKeys } from '@vueuse/core';
 import { useAppStore } from '../../shared/stores/app.store';
+import { useTemplateRef, watch } from 'vue';
 
 const appStore = useAppStore();
+
+const keys = useMagicKeys();
+const searchRef = useTemplateRef<HTMLDivElement>('searchRef');
+
+watch(keys['Meta+K'], () => searchRef.value.focus());
 </script>
 
 <template>
@@ -21,13 +28,15 @@ const appStore = useAppStore();
                     </div>
                 </div>
 
-                <UInput
+                <v-text-field
+                    ref="searchRef"
                     v-model="appStore.query"
                     class="w-100"
+                    hide-details
+                    append-inner-icon="mdi-magnify"
                     placeholder="Search..."
-                    trailing-icon="i-lucide-search"
-                    size="lg"
-                />
+                ></v-text-field>
+                <!-- <UInput trailing-icon="i-lucide-search" size="lg" /> -->
 
                 <div class="flex items-center justify-end">
                     <v-btn class="mr-2" color="secondary"> Login with Twitch </v-btn>
