@@ -20,6 +20,6 @@ const loadMore = () => {
             <Video v-for="video in lessVideos" :key="video.video_id" :video="video" />
         </div>
 
-        <UButton v-if="filteredVideos.length > amountToShow" @click="loadMore">Load More</UButton>
+        <v-btn v-if="filteredVideos.length > amountToShow" @click="loadMore">Load More</v-btn>
     </Container>
 </template>

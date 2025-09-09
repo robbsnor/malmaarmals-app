@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import Section from './Section.vue';
 import { supabase } from '../../../supabase';
 import StatCard from './StatCard.vue';
 import StatsNumber from './StatsNumber.vue';
-import { DotLottieVue } from '@lottiefiles/dotlottie-vue';
 
 const props = withDefaults(
     defineProps<{
@@ -48,7 +46,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <Section :show-top-fade="true">
+    <Section :show-top-fade="false">
         <template #background>
             <div
                 class="absolute inset-0"

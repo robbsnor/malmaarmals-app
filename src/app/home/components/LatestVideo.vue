@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { Tables } from '../types/database.types';
-import Container from './Container.vue';
+import type { Tables } from '../../shared/types/database.types';
 
 const props = withDefaults(
     defineProps<{
@@ -39,7 +38,7 @@ const getTimeAgo = (date: string) => {
 </script>
 
 <template>
-    <div class="flex justify-center py-20 bg-primary/8">
+    <Section :show-top-fade="false">
         <Container class="flex justify-center">
             <div class="grid grid-cols-2 items-center gap-10 max-w-5/6">
                 <div class="relative">
@@ -61,6 +60,8 @@ const getTimeAgo = (date: string) => {
                         <div class="text-sm italic">({{ getTimeAgo(props.video.recorded_at) }})</div>
                     </div> -->
 
+                    <!-- <v-date-picker></v-date-picker> -->
+
                     <UBadge color="primary" variant="subtle" class="mb-1">Latest Stream</UBadge>
 
                     <div class="pt-2 text-5xl font-bold leading-[1.2]">
@@ -72,13 +73,10 @@ const getTimeAgo = (date: string) => {
                     </div>
 
                     <div class="flex gap-4 pt-6">
-                        <UButton :to="`/videos/${props.video.video_id}`" size="xl" color="primary">Watch now</UButton>
-                        <!-- <UButton variant="outline" :to="`/playlists/foo`" size="lg" color="primary">
-                            Add to Watch Later
-                        </UButton> -->
+                        <v-btn :to="`/videos/${props.video.video_id}`">Watch now</v-btn>
                     </div>
                 </div>
             </div>
         </Container>
-    </div>
+    </Section>
 </template>

@@ -106,7 +106,7 @@ const updateVideoTime = (e: any) => {
                     <div>
                         <UPopover v-model:open="open" :content="{ avoidCollisions: true, side: 'top', align: 'end' }">
                             <template #anchor>
-                                <UButton label="Chapters" trailing-icon="i-lucide-chevron-down" @click="open = !open" />
+                                <v-btn label="Chapters" trailing-icon="i-lucide-chevron-down" @click="open = !open" />
                             </template>
 
                             <template #content>
