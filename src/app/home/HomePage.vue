@@ -34,7 +34,6 @@ onMounted(() => {
 </script>
 
 <template>
-    <Dev>Is dev</Dev>
     <div v-if="videos">
         <LatestVideo :video="firstVideo" />
 
