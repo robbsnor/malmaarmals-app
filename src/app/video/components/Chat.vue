@@ -125,7 +125,7 @@ const emotesMap = {
 </script>
 
 <template>
-    <div v-if="messages" class="flex h-full flex-col-reverse overflow-y-auto rounded-md bg-pink-500a">
+    <div v-if="messages" class="bg-blue-200 grow overflow-auto rounded-md md:w-[300px]">
         <ul class="flex flex-col gap-1">
             <li v-for="message in renderedMessages" :key="message.id">
                 <!-- {{ message.offset_sec }}s -->
