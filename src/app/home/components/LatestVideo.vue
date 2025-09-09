@@ -73,7 +73,7 @@ const getTimeAgo = (date: string) => {
                     </div>
 
                     <div class="flex gap-4 pt-6">
-                        <v-btn :to="`/videos/${props.video.video_id}`">Watch now</v-btn>
+                        <v-btn :to="`/videos/${props.video.video_id}`" variant="flat">Watch now</v-btn>
                     </div>
                 </div>
             </div>
