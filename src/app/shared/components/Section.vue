@@ -11,7 +11,7 @@ const props = withDefaults(
 </script>
 
 <template>
-    <section class="relative py-20">
+    <section class="relative py-20 overflow-hidden">
         <div class="absolute inset-0 overflow-hidden">
             <slot name="background" />
         </div>
