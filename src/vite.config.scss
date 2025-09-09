@@ -1,5 +1,5 @@
 @forward 'vuetify/settings' with (
-    $layers: true
+    $layers: false,
+    $reset: false,
+    $utilities: false
 );
-
-@layer base, vuetify;
