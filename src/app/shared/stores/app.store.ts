@@ -39,10 +39,8 @@ export const useAppStore = defineStore('app', () => {
     });
 
     watch(query, () => {
-        console.log(router);
-        if (route.name !== 'videos') {
-            router.push({ name: 'videos' });
-        }
+        if (route.name === 'videos') return;
+        router.push({ name: 'videos' });
     });
 
     return {
