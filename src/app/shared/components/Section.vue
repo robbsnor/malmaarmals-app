@@ -28,7 +28,7 @@ const props = withDefaults(
                     {{ props.title }}
                 </h2>
 
-                <v-btn to="/videos">view all</v-btn>
+                <v-btn to="/videos" variant="text">view all</v-btn>
             </div>
 
             <slot />

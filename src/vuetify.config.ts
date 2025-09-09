@@ -42,6 +42,7 @@ export const vuetify = createVuetify({
         },
         VTextField: {
             clearable: true,
+            density: 'compact',
             variant: 'solo',
         },
         VTooltip: {

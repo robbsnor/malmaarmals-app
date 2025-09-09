@@ -1,9 +1,13 @@
+import { useRoute, useRouter } from 'vue-router';
 import { defineStore } from 'pinia';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../types/database.types';
 
 export const useAppStore = defineStore('app', () => {
+    const route = useRoute();
+    const router = useRouter();
+
     const query = ref<string>('');
     const videos = ref<Tables<'videos'>[]>(null);
 
@@ -32,6 +36,13 @@ export const useAppStore = defineStore('app', () => {
 
             return titleMatch || descriptionMatch || idMatch;
         });
+    });
+
+    watch(query, () => {
+        console.log(router);
+        if (route.name !== 'videos') {
+            router.push({ name: 'videos' });
+        }
     });
 
     return {
