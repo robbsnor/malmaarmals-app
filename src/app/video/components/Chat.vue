@@ -9,7 +9,7 @@ const props = withDefaults(
     }>(),
     {}
 );
-
+const tab = ref();
 const messages = ref<any[]>([]);
 const renderedMessages = computed(() => {
     // Find the index of the last message within videoTime using binary search
@@ -125,37 +125,34 @@ const emotesMap = {
 </script>
 
 <template>
-    <div v-if="messages" class="bg-blue-200 grow overflow-auto rounded-md md:w-[300px]">
-        <ul class="flex flex-col gap-1">
-            <li v-for="message in renderedMessages" :key="message.id">
-                <!-- {{ message.offset_sec }}s -->
-                <span
-                    :style="{
-                        color: message.user_color ? message.user_color : '#2e8b57',
-                    }"
-                    class="font-bold"
-                >
-                    {{ message.user_name }}
-                </span>
+    <ul v-if="messages" class="flex flex-col gap-1 p-4">
+        <li v-for="message in renderedMessages" :key="message.id">
+            <span
+                :style="{
+                    color: message.user_color ? message.user_color : '#2e8b57',
+                }"
+                class="font-bold"
+            >
+                {{ message.user_name }}
+            </span>
 
-                <span class="break-words text-gray-300"
-                    >:
-                    <template v-for="word in message.text.split(' ')" :key="word">
-                        <img v-if="emotesMap[word]" alt="emote" :src="emotesMap[word]" class="inline h-7" />
-                        <b v-else-if="word.startsWith('@')">{{ word }}</b>
-                        <a
-                            class="underline text-primary-lighter hover:text-primary-light"
-                            v-else-if="word.startsWith('http') || word.startsWith('https')"
-                            :href="word"
-                            target="_blank"
-                        >
-                            {{ word }}
-                        </a>
-                        <template v-else>{{ word }}</template>
-                        {{ ' ' }}
-                    </template>
-                </span>
-            </li>
-        </ul>
-    </div>
+            <span class="break-words text-gray-300"
+                >:
+                <template v-for="word in message.text.split(' ')" :key="word">
+                    <img v-if="emotesMap[word]" alt="emote" :src="emotesMap[word]" class="inline h-7" />
+                    <b v-else-if="word.startsWith('@')">{{ word }}</b>
+                    <a
+                        class="underline text-primary-lighter hover:text-primary-light"
+                        v-else-if="word.startsWith('http') || word.startsWith('https')"
+                        :href="word"
+                        target="_blank"
+                    >
+                        {{ word }}
+                    </a>
+                    <template v-else>{{ word }}</template>
+                    {{ ' ' }}
+                </template>
+            </span>
+        </li>
+    </ul>
 </template>

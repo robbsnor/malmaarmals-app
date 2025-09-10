@@ -13,10 +13,10 @@ export const vuetify = createVuetify({
             // color: 'primary',
         },
         VBtnToggle: {
-            color: 'primary',
+            // color: 'primary',
         },
         VCheckbox: {
-            color: 'primary',
+            // color: 'primary',
         },
         VCombobox: {
             clearable: true,
