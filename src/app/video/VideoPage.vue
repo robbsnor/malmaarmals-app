@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, useTemplateRef } from 'vue';
+import { ref, onMounted, computed, useTemplateRef, watch } from 'vue';
 import { supabase } from '../../supabase';
 import { useRoute } from 'vue-router';
 import Chat from './components/Chat.vue';
 import Player from '../shared/components/Player.vue';
 import { playerDefaultOptions } from '../shared/data/player.data';
+import { useDisplay } from 'vuetify';
 
 const route = useRoute();
+const { mdAndDown, mdAndUp } = useDisplay();
 const videoId = route.params.id as string;
 
 const loading = ref(true);
@@ -27,6 +29,8 @@ const options = computed(() => ({
         })),
     },
 }));
+
+watch(mdAndUp, (newVal) => (tab.value = 'chat'));
 
 function seekToChapter(seconds: number) {
     playerRef.value.videoRef.currentTime = seconds;
@@ -96,19 +100,19 @@ const updateVideoTime = (e: any) => {
 </script>
 
 <template>
-    <div v-if="videoInfo" class="h-screen flex flex-col">
+    <div v-if="videoInfo" class="h-screen flex flex-col md:flex-row">
         <Player :options="options" @timeupdate="updateVideoTime" ref="playerRef">
             <source :src="`http://192.168.2.41:8000/videos/${videoInfo.video_id}`" type="video/mp4" />
         </Player>
 
-        <div class="flex-1 overflow-auto scroll-hidden">
-            <v-tabs color="red" grow density="compact" v-model="tab" bg-color="#202020">
+        <div class="flex-1 overflow-hidden md:shrink-0 md:basis-[300px]">
+            <v-tabs v-if="!mdAndUp" color="red" grow density="compact" v-model="tab" bg-color="#202020">
                 <v-tab value="chat">Chat</v-tab>
                 <v-tab value="info">Info</v-tab>
             </v-tabs>
 
             <v-tabs-window v-model="tab" class="h-full">
-                <v-tabs-window-item value="chat">
+                <v-tabs-window-item value="chat" class="h-full">
                     <Chat :videoId="Number(videoId)" :videoTime="videoTime" />
                 </v-tabs-window-item>
 

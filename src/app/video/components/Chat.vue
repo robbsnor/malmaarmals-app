@@ -125,7 +125,7 @@ const emotesMap = {
 </script>
 
 <template>
-    <ul v-if="messages" class="flex flex-col gap-1 p-4">
+    <ul v-if="messages" class="flex flex-col gap-1 p-4 overflow-auto h-full">
         <li v-for="message in renderedMessages" :key="message.id">
             <span
                 :style="{
