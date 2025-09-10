@@ -49,6 +49,15 @@ export const vuetify = createVuetify({
             location: 'top',
         },
     },
+    display: {
+        thresholds: {
+            xs: 0,
+            sm: 640,
+            md: 768,
+            lg: 1024,
+            xl: 1280,
+        },
+    },
     theme: {
         defaultTheme: 'twitch-dashboard-dark',
         themes: {
