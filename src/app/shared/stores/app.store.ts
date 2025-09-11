@@ -1,8 +1,9 @@
 import { useRoute, useRouter } from 'vue-router';
 import { defineStore } from 'pinia';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, useTemplateRef, watch, type ShallowRef, type TemplateRef } from 'vue';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../types/database.types';
+import { type UseElementSizeReturn } from '@vueuse/core';
 
 export const useAppStore = defineStore('app', () => {
     const route = useRoute();
@@ -10,10 +11,16 @@ export const useAppStore = defineStore('app', () => {
 
     const query = ref<string>('');
     const videos = ref<Tables<'videos'>[]>(null);
+    const showHeader = ref(true);
+    const headerSize = ref<UseElementSizeReturn | undefined>();
+    const menuOpen = ref(false);
 
     onMounted(async () => {
         await fetchVideos();
     });
+
+    const toggleMenu = () => (menuOpen.value = !menuOpen.value);
+    const closeMenu = () => (menuOpen.value = false);
 
     const fetchVideos = async () => {
         const { data, error } = await supabase
@@ -48,5 +55,10 @@ export const useAppStore = defineStore('app', () => {
         fetchVideos,
         filteredVideos,
         query,
+        showHeader,
+        headerSize,
+        menuOpen,
+        toggleMenu,
+        closeMenu,
     };
 });

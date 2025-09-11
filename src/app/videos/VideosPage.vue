@@ -16,7 +16,7 @@ const loadMore = () => {
 
 <template>
     <Container v-if="filteredVideos">
-        <div class="grid grid-cols-5 items-center gap-8">
+        <div class="grid grid-cols-5 pt-8 gap-8">
             <Video v-for="video in lessVideos" :key="video.video_id" :video="video" />
         </div>
 
