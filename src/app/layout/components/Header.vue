@@ -1,47 +1,121 @@
 <script setup lang="ts">
-import { onKeyStroke, templateRef, useMagicKeys } from '@vueuse/core';
+import { useElementSize, useMagicKeys } from '@vueuse/core';
+import { computed, useTemplateRef, watch } from 'vue';
 import { useAppStore } from '../../shared/stores/app.store';
-import { useTemplateRef, watch } from 'vue';
 
 const appStore = useAppStore();
 
 const keys = useMagicKeys();
 const searchRef = useTemplateRef<HTMLDivElement>('searchRef');
+const headerRef = useTemplateRef<HTMLDivElement>('headerRef');
+
+appStore.headerSize = useElementSize(headerRef);
+
+const cssClass = computed(() => {
+    return {
+        hamburger: true,
+        'is-open': appStore.menuOpen,
+    };
+});
 
 watch(keys['Meta+K'], () => searchRef.value.focus());
 </script>
 
 <template>
-    <div ref="header" class="top-0 right-0 left-0 z-100 bg-black/80 fixed backdrop-blur-md">
+    <div
+        ref="headerRef"
+        class="top-0 right-0 left-0 z-100 bg-black/70 fixed backdrop-blur-md transition-transform ease-linear"
+        :class="{ 'translate-y-[-100%]': !appStore.showHeader }"
+    >
         <Container>
-            <div class="grid h-(--header-height) py-2 gap-4" style="grid-template-columns: 1fr auto 1fr">
-                <div class="flex items-center gap-8">
+            <div class="h-header flex justify-between items-center py-2 gap-4">
+                <div class="flex items-center gap-4">
+                    <button class="cursor-pointer -ml-4" :class="cssClass" @click="appStore.toggleMenu">
+                        <span class="sr-only">Menu</span>
+                        <div class="hamburger__stroke"></div>
+                        <div class="hamburger__stroke"></div>
+                    </button>
+
                     <RouterLink to="/" class="flex flex-col gap-[2px]">
-                        <div class="text-2xl leading-[1] font-bold uppercase">malmaarmals</div>
+                        <div class="text-2xl leading-[1] font-bold uppercase">MMM</div>
                         <div class="text-sm leading-[1] text-gray-500">lekkerspelen archive</div>
                     </RouterLink>
-
-                    <div class="flex items-center gap-2">
-                        <v-btn to="/">Home</v-btn>
-                        <v-btn to="/videos">Videos</v-btn>
-                        <v-btn to="/about">About</v-btn>
-                    </div>
                 </div>
 
-                <v-text-field
-                    ref="searchRef"
-                    v-model="appStore.query"
-                    class="w-100"
-                    hide-details
-                    append-inner-icon="mdi-magnify"
-                    placeholder="Search..."
-                ></v-text-field>
-                <!-- <UInput trailing-icon="i-lucide-search" size="lg" /> -->
+                <div class="flex items-center gap-4">
+                    <!-- <v-text-field
+                        ref="searchRef"
+                        v-model="appStore.query"
+                        class="w-100"
+                        hide-details
+                        append-inner-icon="mdi-magnify"
+                        placeholder="Search..."
+                    ></v-text-field> -->
 
-                <div class="flex items-center justify-end">
-                    <v-btn class="mr-2" append-icon="mdi-twitch" color="secondary"> Login with Twitch </v-btn>
+                    <v-icon icon="mdi-magnify" />
+
+                    <v-btn append-icon="mdi-twitch" color="primary">Login</v-btn>
                 </div>
             </div>
         </Container>
     </div>
+
+    <div
+        class="fixed group invisible opacity-0 transition-full z-30 inset-0 transition-all"
+        :class="{ 'visible opacity-100': appStore.menuOpen }"
+    >
+        <button @click="appStore.toggleMenu" class="absolute top-0 right-0 h-full bg-black/50 w-full">
+            <span class="sr-only">Close menu</span>
+        </button>
+
+        <div class="bg-black pt-[var(--height-header)] min-h-100">
+            <Container> yolo </Container>
+        </div>
+    </div>
 </template>
+
+<style scoped lang="scss">
+.hamburger {
+    $self: &;
+    padding: 20px;
+
+    &__stroke {
+        height: 2px;
+        width: 17px;
+        background-color: white;
+        transition: transform 0.1s cubic-bezier(0.25, 0, 0.75, 1.3);
+
+        &:first-of-type {
+            width: 25px;
+            margin-bottom: 5px;
+        }
+    }
+
+    &:hover {
+        #{ $self }__stroke {
+            &:first-of-type {
+                transform: translateX(2px);
+            }
+
+            &:last-of-type {
+                transform: translateX(-2px);
+            }
+        }
+    }
+
+    &.is-open {
+        #{ $self }__stroke {
+            width: 25px;
+
+            &:first-of-type {
+                transform: rotate(-45deg);
+                margin-bottom: -2px;
+            }
+
+            &:last-of-type {
+                transform: rotate(45deg);
+            }
+        }
+    }
+}
+</style>
