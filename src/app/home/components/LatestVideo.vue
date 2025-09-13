@@ -38,44 +38,47 @@ const getTimeAgo = (date: string) => {
 </script>
 
 <template>
-    <Section :show-top-fade="false">
-        <Container class="flex justify-center">
-            <div class="grid grid-cols-2 items-center gap-10 max-w-5/6">
-                <div class="relative">
-                    <img
-                        aria-hidden="true"
-                        :src="`http://192.168.2.41:8000/thumbnails/${props.video.video_id}`"
-                        class="pointer-events-none absolute -z-10 aspect-video scale-300 rounded-[99%] object-cover opacity-20 blur-md select-none"
-                    />
-                    <VideoThumbnail
-                        :to="`/videos/${props.video.video_id}`"
-                        :src="`http://192.168.2.41:8000/thumbnails/${props.video.video_id}`"
-                        border-radius="rounded-2xl"
-                        class="rounded-4xl shadow-[0_0_150px_rgba(0,0,0,1)] transition-all"
-                        :icon-size="60"
-                    />
-                </div>
+    <Section size="large" :show-top-fade="false" :view-more="false" title="Latest Stream">
+        <!-- <div class="flex justify-center pb-8">
+            <GradientText text="Latest Video" />
+        </div> -->
 
-                <div class="z-10">
-                    <!-- <div class="flex items-center gap-2 font-bold text-text-muted-more text-shadow-md">
+        <div class="flex flex-col gap-4 lg:flex-row lg:gap-8 lg:items-center xl:max-w-4/5 xl:mx-auto">
+            <div class="relative flex-1">
+                <img
+                    aria-hidden="true"
+                    :src="`http://192.168.2.41:8000/thumbnails/${props.video.video_id}`"
+                    class="pointer-events-none absolute -z-10 aspect-video scale-300 rounded-[99%] object-cover opacity-20 blur-md select-none"
+                />
+                <VideoThumbnail
+                    type="large"
+                    :to="`/videos/${props.video.video_id}`"
+                    :src="`http://192.168.2.41:8000/thumbnails/${props.video.video_id}`"
+                    :icon-size="60"
+                >
+                    <div class="absolute top-4 right-4">
+                        <!-- <v-chip color="secondary" variant="elevated">Latest Video</v-chip> -->
+                    </div>
+                </VideoThumbnail>
+            </div>
+
+            <div class="z-10 flex-1">
+                <!-- <div class="flex items-center gap-2 font-bold text-text-muted-more text-shadow-md">
                         <div class="text-sm italic">({{ getTimeAgo(props.video.recorded_at) }})</div>
                     </div> -->
 
-                    <!-- <v-chip color="secondary" variant="tonal" class="mb-1">New</v-chip> -->
+                <div class="text-3xl md:text-4xl font-bold leading-[1.2]">
+                    {{ props.video.title }}
+                </div>
 
-                    <div class="pt-2 text-5xl font-bold leading-[1.2]">
-                        {{ props.video.title }}
-                    </div>
+                <div class="text-md font-bold text-text-muted md:text-xl">
+                    {{ truncateStringArray(['Super Mario Kart World', 'Just Chatting'], 9999) }}
+                </div>
 
-                    <div class="font-bold text-text-muted text-xl">
-                        {{ truncateStringArray(['Super Mario Kart World', 'Just Chatting'], 9999) }}
-                    </div>
-
-                    <div class="flex gap-4 pt-6">
-                        <v-btn :to="`/videos/${props.video.video_id}`" variant="flat">Watch now</v-btn>
-                    </div>
+                <div class="flex gap-4 pt-4">
+                    <v-btn :to="`/videos/${props.video.video_id}`" variant="flat" color="primary">Watch now</v-btn>
                 </div>
             </div>
-        </Container>
+        </div>
     </Section>
 </template>
