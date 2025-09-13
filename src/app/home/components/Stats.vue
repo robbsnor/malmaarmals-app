@@ -46,7 +46,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <Section :show-top-fade="false">
+    <Section :show-top-fade="true">
         <template #background>
             <div
                 class="absolute inset-0"

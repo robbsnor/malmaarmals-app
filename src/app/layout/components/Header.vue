@@ -58,6 +58,7 @@ watch(keys['Meta+K'], () => searchRef.value.focus());
                 </div>
             </div>
         </Container>
+        <div class="absolute bottom-0 left-0 right-0 h-[1px] bg-radial from-black-800 to-transparent"></div>
     </div>
 
     <div
