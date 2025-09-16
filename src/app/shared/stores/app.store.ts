@@ -45,10 +45,11 @@ export const useAppStore = defineStore('app', () => {
         });
     });
 
-    watch(query, () => {
+    const focusSearch = () => {
+        console.log('foo');
         if (route.name === 'videos') return;
         router.push({ name: 'videos' });
-    });
+    };
 
     return {
         videos,
@@ -59,6 +60,7 @@ export const useAppStore = defineStore('app', () => {
         headerSize,
         menuOpen,
         toggleMenu,
+        focusSearch,
         closeMenu,
     };
 });

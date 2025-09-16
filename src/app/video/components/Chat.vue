@@ -34,6 +34,13 @@ const renderedMessages = computed(() => {
     return messages.value.slice(start, idx + 1);
 });
 
+setInterval(() => {
+    const chatList = document.querySelector('ul');
+    if (chatList) {
+        chatList.scrollTop = chatList.scrollHeight;
+    }
+}, 100);
+
 onMounted(async () => {
     await getMessages();
 });
@@ -125,7 +132,7 @@ const emotesMap = {
 </script>
 
 <template>
-    <ul v-if="messages" class="flex flex-col gap-1 p-4 overflow-auto h-full">
+    <ul v-if="messages" class="flex flex-col gap-1 p-4 overflow-auto h-full scroll-hidden">
         <li v-for="message in renderedMessages" :key="message.id">
             <span
                 :style="{
