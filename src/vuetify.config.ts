@@ -13,10 +13,10 @@ export const vuetify = createVuetify({
             // color: 'primary',
         },
         VBtnToggle: {
-            color: 'primary',
+            // color: 'primary',
         },
         VCheckbox: {
-            color: 'primary',
+            // color: 'primary',
         },
         VCombobox: {
             clearable: true,
@@ -42,11 +42,19 @@ export const vuetify = createVuetify({
         },
         VTextField: {
             clearable: true,
-            density: 'compact',
             variant: 'solo',
         },
         VTooltip: {
             location: 'top',
+        },
+    },
+    display: {
+        thresholds: {
+            xs: 0,
+            sm: 640,
+            md: 768,
+            lg: 1024,
+            xl: 1280,
         },
     },
     theme: {
