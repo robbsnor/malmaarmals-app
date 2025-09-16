@@ -20,7 +20,7 @@ const open = ref(false);
 const tab = ref('chat');
 
 const options = computed(() => ({
-    controls: playerDefaultOptions.controls.filter((item: any) => !['pip', 'volume', 'mute'].includes(item)),
+    controls: playerDefaultOptions.controls.filter((item: any) => !['pip', 'volfume', 'mute'].includes(item)),
     markers: {
         enabled: true,
         points: chapters.value.map((chapter) => ({

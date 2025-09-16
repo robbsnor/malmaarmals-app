@@ -6,7 +6,6 @@ import { useAppStore } from '../../shared/stores/app.store';
 const appStore = useAppStore();
 
 const keys = useMagicKeys();
-const searchRef = useTemplateRef<HTMLDivElement>('searchRef');
 const headerRef = useTemplateRef<HTMLDivElement>('headerRef');
 
 appStore.headerSize = useElementSize(headerRef);
@@ -18,7 +17,7 @@ const cssClass = computed(() => {
     };
 });
 
-watch(keys['Meta+K'], () => searchRef.value.focus());
+watch(keys['Meta+K'], () => appStore.focusSearch());
 </script>
 
 <template>
@@ -43,17 +42,7 @@ watch(keys['Meta+K'], () => searchRef.value.focus());
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <!-- <v-text-field
-                        ref="searchRef"
-                        v-model="appStore.query"
-                        class="w-100"
-                        hide-details
-                        append-inner-icon="mdi-magnify"
-                        placeholder="Search..."
-                    ></v-text-field> -->
-
-                    <v-icon icon="mdi-magnify" />
-
+                    <v-icon @click="appStore.focusSearch" icon="mdi-magnify" />
                     <v-btn append-icon="mdi-twitch" color="primary">Login</v-btn>
                 </div>
             </div>
