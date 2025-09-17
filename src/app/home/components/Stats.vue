@@ -47,7 +47,7 @@ onMounted(async () => {
 
 <template>
     <Section :show-top-fade="true">
-        <template #background>
+        <!-- <template #background>
             <div
                 class="absolute inset-0"
                 :style="`
@@ -57,7 +57,7 @@ onMounted(async () => {
                     `"
             ></div>
             <div class="absolute inset-0 bg-gradient-to-b from-black/100 to-black/80 backdrop-blur-xs"></div>
-        </template>
+        </template> -->
 
         <div class="flex justify-center pb-19">
             <GradientText text="Statistics" />

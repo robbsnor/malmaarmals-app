@@ -11,7 +11,7 @@ const props = withDefaults(
 
 <template>
     <div
-        class="leading-none inline-block uppercase text-8xl font-bold text-transparent bg-gradient-to-r from-secondary to-primary bg-clip-text"
+        class="leading-none inline-block uppercase text-8xl font-bold text-center text-transparent bg-gradient-to-r from-secondary to-primary bg-clip-text"
     >
         {{ props.text }}
     </div>

@@ -6,6 +6,9 @@ import Chat from './components/Chat.vue';
 import Player from '../shared/components/Player.vue';
 import { playerDefaultOptions } from '../shared/data/player.data';
 import { useDisplay } from 'vuetify';
+import { TitleHelper } from '../shared/helpers/title.helper';
+
+TitleHelper.setTitle('video');
 
 const route = useRoute();
 const { mdAndDown, mdAndUp } = useDisplay();
@@ -92,6 +95,7 @@ const getVideoInfo = async () => {
     if (error) return console.error('Error fetching videos:', error);
 
     videoInfo.value = data;
+    TitleHelper.setTitle(data.title);
 };
 
 const updateVideoTime = (e: any) => {

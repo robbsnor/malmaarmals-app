@@ -6,6 +6,9 @@ import Video from '../app/../shared/components/Video.vue';
 import LatestVideo from './components/LatestVideo.vue';
 import Playlists from './components/Playlists.vue';
 import { useAppStore } from '../shared/stores/app.store';
+import { TitleHelper } from '../shared/helpers/title.helper';
+
+TitleHelper.setTitle('Home');
 
 const appStore = useAppStore();
 const { videos } = storeToRefs(appStore);
