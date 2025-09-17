@@ -5,11 +5,13 @@ const props = withDefaults(
     defineProps<{
         title?: string;
         showTopFade?: boolean;
+        showTopStroke?: boolean;
         viewMore?: boolean;
         size?: 'large';
     }>(),
     {
         showTopFade: true,
+        showTopStroke: true,
         viewMore: true,
     }
 );
@@ -31,7 +33,7 @@ const props = withDefaults(
         ></div>
 
         <div
-            v-if="props.showTopFade"
+            v-if="props.showTopFade && props.showTopStroke"
             class="absolute top-0 left-0 right-0 h-[1px] bg-radial from-black-800 to-transparent"
         ></div>
 
