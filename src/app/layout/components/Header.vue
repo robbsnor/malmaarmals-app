@@ -28,17 +28,23 @@ watch(keys['Meta+K'], () => appStore.focusSearch());
     >
         <Container>
             <div class="h-header flex justify-between items-center py-2 gap-4">
-                <div class="flex items-center gap-4">
-                    <button class="cursor-pointer -ml-4" :class="cssClass" @click="appStore.toggleMenu">
+                <div class="flex items-center gap-4 md:gap-8">
+                    <button class="cursor-pointer -ml-4 md:hidden" :class="cssClass" @click="appStore.toggleMenu">
                         <span class="sr-only">Menu</span>
                         <div class="hamburger__stroke"></div>
                         <div class="hamburger__stroke"></div>
                     </button>
 
                     <RouterLink to="/" class="flex flex-col gap-[2px]">
-                        <div class="text-2xl leading-[1] font-bold uppercase">MMM</div>
+                        <div class="text-2xl leading-[1] font-bold uppercase">MalMaarMals</div>
                         <div class="text-sm leading-[1] text-gray-500">lekkerspelen archive</div>
                     </RouterLink>
+
+                    <div class="hidden md:flex gap-4 items-center">
+                        <RouterLink to="/videos">Videos</RouterLink>
+                        <RouterLink to="/playlists">Playlists</RouterLink>
+                        <RouterLink to="/about">About</RouterLink>
+                    </div>
                 </div>
 
                 <div class="flex items-center gap-4">

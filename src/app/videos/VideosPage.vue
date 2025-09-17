@@ -4,6 +4,9 @@ import Video from '../shared/components/Video.vue';
 import { useAppStore } from '../shared/stores/app.store';
 import { computed, onMounted, ref, useTemplateRef } from 'vue';
 import Container from '../shared/components/Container.vue';
+import { TitleHelper } from '../shared/helpers/title.helper';
+
+TitleHelper.setTitle('videos');
 
 const appStore = useAppStore();
 const { filteredVideos } = storeToRefs(appStore);
@@ -16,36 +19,30 @@ const loadMore = () => {
 };
 
 onMounted(() => {
-    searchRef.value.focus();
+    searchRef.value?.focus();
 });
 </script>
 
 <template>
-    <div>
-        <Section>
-            <Container>
-                <div class="flex justify-center flex-col gap-8 items-center">
-                    <GradientText text="Search Videos" />
-                    <v-text-field
-                        ref="searchRef"
-                        v-model="appStore.query"
-                        class="w-100"
-                        hide-details
-                        append-inner-icon="mdi-magnify"
-                        placeholder="Search..."
-                    ></v-text-field>
-                </div>
-            </Container>
-        </Section>
+    <Section>
+        <Container v-if="filteredVideos">
+            <div class="flex justify-center flex-col gap-8 items-center pb-20">
+                <GradientText text="Search Videos" />
+                <v-text-field
+                    ref="searchRef"
+                    v-model="appStore.query"
+                    class="w-100"
+                    hide-details
+                    append-inner-icon="mdi-magnify"
+                    placeholder="Search..."
+                ></v-text-field>
+            </div>
 
-        <Section>
-            <Container v-if="filteredVideos">
-                <div class="grid grid-cols-5 pt-8 gap-8">
-                    <Video v-for="video in lessVideos" :key="video.video_id" :video="video" />
-                </div>
+            <div class="grid grid-cols-5 gap-8">
+                <Video v-for="video in lessVideos" :key="video.video_id" :video="video" />
+            </div>
 
-                <v-btn v-if="filteredVideos.length > amountToShow" @click="loadMore">Load More</v-btn>
-            </Container>
-        </Section>
-    </div>
+            <v-btn v-if="filteredVideos.length > amountToShow" @click="loadMore">Load More</v-btn>
+        </Container>
+    </Section>
 </template>
