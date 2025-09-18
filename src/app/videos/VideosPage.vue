@@ -24,25 +24,23 @@ onMounted(() => {
 </script>
 
 <template>
-    <Section :show-top-stroke="false">
-        <Container v-if="filteredVideos">
-            <div class="flex justify-center flex-col gap-8 items-center pb-20">
-                <GradientText text="Search Videos" />
-                <v-text-field
-                    ref="searchRef"
-                    v-model="appStore.query"
-                    class="w-100"
-                    hide-details
-                    append-inner-icon="mdi-magnify"
-                    placeholder="Search..."
-                ></v-text-field>
-            </div>
+    <Section :show-top-stroke="false" v-if="filteredVideos">
+        <div class="flex justify-center flex-col gap-8 items-center pb-20">
+            <GradientText text="Search Videos" />
+            <v-text-field
+                ref="searchRef"
+                v-model="appStore.query"
+                class="w-100"
+                hide-details
+                append-inner-icon="mdi-magnify"
+                placeholder="Search..."
+            ></v-text-field>
+        </div>
 
-            <div class="grid grid-cols-5 gap-8">
-                <Video v-for="video in lessVideos" :key="video.video_id" :video="video" />
-            </div>
+        <div class="grid grid-cols-5 gap-8">
+            <Video v-for="video in lessVideos" :key="video.video_id" :video="video" />
+        </div>
 
-            <v-btn v-if="filteredVideos.length > amountToShow" @click="loadMore">Load More</v-btn>
-        </Container>
+        <v-btn v-if="filteredVideos.length > amountToShow" @click="loadMore">Load More</v-btn>
     </Section>
 </template>
