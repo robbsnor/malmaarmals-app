@@ -18,14 +18,14 @@ const props = withDefaults(
 </script>
 
 <template>
-    <section :class="twMerge('relative py-12 md:py-20 overflow-hidden', props.size === 'large' && 'py-20 xl:py-40')">
-        <div class="absolute inset-0 overflow-hidden">
+    <section :class="twMerge('relative py-12 md:py-20 overflow-hidden ', props.size === 'large' && 'py-20 xl:py-40')">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
             <slot name="background" />
         </div>
 
         <div
             v-if="props.showTopFade"
-            class="absolute top-0 h-150 w-full left-1/2 -translate-x-1/2"
+            class="absolute top-0 h-150 w-full left-1/2 -translate-x-1/2 pointer-events-none"
             style="
                 background: radial-gradient(farthest-side at top center, var(--color-black-300), transparent);
                 /* background: linear-gradient(to bottom, var(--color-black-200), transparent); */
