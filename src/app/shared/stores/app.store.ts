@@ -1,6 +1,6 @@
 import { useRoute, useRouter } from 'vue-router';
 import { defineStore } from 'pinia';
-import { computed, onMounted, ref, useTemplateRef, watch, type ShallowRef, type TemplateRef } from 'vue';
+import { computed, onMounted, ref, useTemplateRef, watch, watchEffect, type ShallowRef, type TemplateRef } from 'vue';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../types/database.types';
 import { type UseElementSizeReturn } from '@vueuse/core';
@@ -45,11 +45,12 @@ export const useAppStore = defineStore('app', () => {
         });
     });
 
-    const focusSearch = () => {
-        console.log('foo');
+    const goToVideosPage = () => {
         if (route.name === 'videos') return;
         router.push({ name: 'videos' });
     };
+
+    watch(query, () => goToVideosPage());
 
     return {
         videos,
@@ -60,7 +61,7 @@ export const useAppStore = defineStore('app', () => {
         headerSize,
         menuOpen,
         toggleMenu,
-        focusSearch,
+        goToVideosPage,
         closeMenu,
     };
 });

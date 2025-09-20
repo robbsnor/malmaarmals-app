@@ -17,7 +17,7 @@ const cssClass = computed(() => {
     };
 });
 
-watch(keys['Meta+K'], () => appStore.focusSearch());
+watch(keys['Meta+K'], () => appStore.goToVideosPage());
 </script>
 
 <template>
@@ -27,9 +27,11 @@ watch(keys['Meta+K'], () => appStore.focusSearch());
         :class="{ 'translate-y-[-100%]': !appStore.showHeader }"
     >
         <Container>
-            <div class="h-header flex justify-between items-center py-2 gap-4">
-                <div class="flex items-center gap-4 md:gap-8">
-                    <button class="cursor-pointer -ml-4 md:hidden" :class="cssClass" @click="appStore.toggleMenu">
+            <div
+                class="grid grid-cols-[auto_auto] md:grid-cols-[1fr_auto_auto] xl:grid-cols-[1fr_auto_1fr] justify-between items-center gap-4 h-header py-2"
+            >
+                <div class="flex items-center lg:gap-4">
+                    <button class="cursor-pointer -ml-4" :class="cssClass" @click="appStore.toggleMenu">
                         <span class="sr-only">Menu</span>
                         <div class="hamburger__stroke"></div>
                         <div class="hamburger__stroke"></div>
@@ -39,16 +41,18 @@ watch(keys['Meta+K'], () => appStore.focusSearch());
                         <div class="text-2xl leading-[1] font-bold uppercase">MalMaarMals</div>
                         <div class="text-sm leading-[1] text-gray-500">lekkerspelen archive</div>
                     </RouterLink>
-
-                    <div class="hidden md:flex gap-4 items-center">
-                        <RouterLink to="/videos">Videos</RouterLink>
-                        <RouterLink to="/playlists">Playlists</RouterLink>
-                        <RouterLink to="/about">About</RouterLink>
-                    </div>
                 </div>
 
-                <div class="flex items-center gap-4">
-                    <v-icon @click="appStore.focusSearch" icon="mdi-magnify" />
+                <div class="hidden w-80 md:flex bg-black-350 rounded-full xl:w-100 items-center gap-2">
+                    <input type="text" v-model="appStore.query" placeholder="Search..." class="w-full py-2 px-4" />
+                    <v-icon icon="mdi-magnify" class="px-4 mr-2" color="var(--color-text-muted-more)"></v-icon>
+                </div>
+
+                <div class="flex items-center justify-end gap-4">
+                    <div class="md:hidden">
+                        <v-icon @click="appStore.goToVideosPage" icon="mdi-magnify" color="#ccc" />
+                    </div>
+
                     <v-btn append-icon="mdi-twitch" color="primary">Login</v-btn>
                 </div>
             </div>
@@ -57,7 +61,7 @@ watch(keys['Meta+K'], () => appStore.focusSearch());
     </div>
 
     <div
-        class="fixed group invisible opacity-0 transition-full z-30 inset-0 transition-all"
+        class="fixed group invisible opacity-0 transition-full z-30 inset-0 transition-all backdrop-blur-md"
         :class="{ 'visible opacity-100': appStore.menuOpen }"
     >
         <button @click="appStore.toggleMenu" class="absolute top-0 right-0 h-full bg-black/50 w-full">

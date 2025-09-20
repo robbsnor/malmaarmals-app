@@ -25,7 +25,7 @@ onMounted(() => {
 
 <template>
     <Section :show-top-stroke="false" v-if="filteredVideos">
-        <div class="flex justify-center flex-col gap-8 items-center pb-20">
+        <div class="flex justify-center flex-col gap-8 items-center pb-20 md:hidden">
             <GradientText text="Search Videos" />
             <v-text-field
                 ref="searchRef"

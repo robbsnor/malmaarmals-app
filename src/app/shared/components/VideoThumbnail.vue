@@ -27,7 +27,7 @@ const props = withDefaults(
             )
         "
     >
-        <img
+        <v-img
             :src="props.src"
             class="relative aspect-video w-full group-hover:scale-102 transition-all"
             aria-hidden="true"
