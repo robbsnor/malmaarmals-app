@@ -7,11 +7,13 @@ import LatestVideo from './components/LatestVideo.vue';
 import Playlists from './components/Playlists.vue';
 import { useAppStore } from '../shared/stores/app.store';
 import { TitleHelper } from '../shared/helpers/title.helper';
+import { useVideoStore } from '../video/stores/videos.store';
 
 TitleHelper.setTitle('Home');
 
 const appStore = useAppStore();
-const { videos } = storeToRefs(appStore);
+const videoStore = useVideoStore();
+const { videos } = storeToRefs(videoStore);
 
 const number = ref(0);
 
