@@ -15,7 +15,7 @@ const searchRef = useTemplateRef<HTMLDivElement>('searchRef');
 
 const amountToShow = ref(100);
 const lessVideos = computed(() => filteredVideos?.value.slice(0, amountToShow.value));
-const loadMore = () => (amountToShow.value += 9999);
+const showAll = () => (amountToShow.value = filteredVideos.value.length);
 </script>
 
 <template>
@@ -38,6 +38,8 @@ const loadMore = () => (amountToShow.value += 9999);
             <Video v-for="video in lessVideos" :key="video.video_id" :video="video" />
         </div>
 
-        <v-btn v-if="filteredVideos.length > amountToShow" @click="loadMore">Load More</v-btn>
+        <div class="flex justify-center pt-12">
+            <v-btn v-if="filteredVideos.length > amountToShow" @click="showAll" color="primary">Show all</v-btn>
+        </div>
     </Section>
 </template>

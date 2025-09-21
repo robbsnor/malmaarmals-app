@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useElementSize, useMagicKeys } from '@vueuse/core';
-import { computed, useTemplateRef, watch } from 'vue';
+import { computed, ref, useTemplateRef, watch } from 'vue';
 import { useAppStore } from '../../shared/stores/app.store';
 import { useVideosStore } from '../../video/stores/videos.store';
 
@@ -11,6 +11,8 @@ const keys = useMagicKeys();
 const headerRef = useTemplateRef<HTMLDivElement>('headerRef');
 
 appStore.headerSize = useElementSize(headerRef);
+
+const loggedIn = ref(true);
 
 const cssClass = computed(() => {
     return {
@@ -30,7 +32,7 @@ watch(keys['Meta+K'], () => videosStore.goToVideosPage());
     >
         <Container>
             <div
-                class="grid grid-cols-[auto_auto] md:grid-cols-[1fr_auto_auto] xl:grid-cols-[1fr_auto_1fr] justify-between items-center gap-4 h-header py-2"
+                class="grid grid-cols-[auto_auto] md:grid-cols-[1fr_auto_auto] xl:grid-cols-[1fr_auto_1fr] justify-between items-center gap- h-header py-2"
             >
                 <div class="flex items-center lg:gap-4">
                     <button class="cursor-pointer -ml-4" :class="cssClass" @click="appStore.toggleMenu">
@@ -45,7 +47,7 @@ watch(keys['Meta+K'], () => videosStore.goToVideosPage());
                     </RouterLink>
                 </div>
 
-                <div class="hidden md:block">
+                <div class="hidden md:flex items-center justify-center gap-2">
                     <v-text-field
                         type="text"
                         v-model="videosStore.query"
@@ -54,20 +56,30 @@ watch(keys['Meta+K'], () => videosStore.goToVideosPage());
                         :density="'compact'"
                         hide-details="auto"
                         append-inner-icon="mdi-magnify"
-                        class="w-80"
+                        class="w-80 xl:w-100"
                     />
+                    <v-btn icon="mdi-filter-variant " variant="text" color="#BCBCBC" class="cursor-pointer"></v-btn>
                 </div>
 
-                <div class="flex items-center justify-end gap-[28px]">
+                <div class="flex items-center justify-end gap-4">
                     <div class="md:hidden -mt-[2px]">
                         <v-icon @click="videosStore.goToVideosPage" icon="mdi-magnify" color="#ccc" />
                     </div>
 
-                    <v-btn append-icon="mdi-twitch" color="primary">Login</v-btn>
+                    <div v-if="loggedIn" class="rounded-full border-2 border-primary p-1">
+                        <img
+                            src="https://static-cdn.jtvnw.net/jtv_user_pictures/e346d390-fe98-4c2a-baae-327288c8c55b-profile_image-300x300.png"
+                            alt="Twitch Logo"
+                            class="h-8 rounded-full"
+                        />
+                    </div>
+
+                    <v-btn v-else append-icon="mdi-twitch" color="primary">Login</v-btn>
                 </div>
             </div>
         </Container>
-        <div class="absolute bottom-0 left-0 right-0 h-[1px] bg-radial from-black-800 to-transparent"></div>
+
+        <Stroke class="absolute bottom-0 left-0 right-0"></Stroke>
     </div>
 
     <div
