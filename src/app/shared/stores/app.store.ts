@@ -54,7 +54,6 @@ export const useAppStore = defineStore('app', () => {
 
     return {
         videos,
-        fetchVideos,
         filteredVideos,
         query,
         showHeader,
