@@ -9,7 +9,7 @@ import { useAppStore } from '../shared/stores/app.store';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import { useVideosStore } from '../video/stores/videos.store';
 
-TitleHelper.setTitle('Home');
+TitleHelper.setTitle('home');
 
 const appStore = useAppStore();
 const videosStore = useVideosStore();
