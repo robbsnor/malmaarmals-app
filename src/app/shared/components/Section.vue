@@ -32,10 +32,7 @@ const props = withDefaults(
             "
         ></div>
 
-        <div
-            v-if="props.showTopFade && props.showTopStroke"
-            class="absolute top-0 left-0 right-0 h-[1px] bg-radial from-black-800 to-transparent"
-        ></div>
+        <Stroke v-if="props.showTopFade && props.showTopStroke" class="absolute top-0 left-0 right-0"></Stroke>
 
         <Container class="relative z-10">
             <div v-if="props.title" class="flex justify-between items-end pb-4">
