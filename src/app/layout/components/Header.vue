@@ -91,7 +91,7 @@ watch(keys['Meta+K'], () => videosStore.goToVideosPage());
         </button>
 
         <div class="bg-black pt-[var(--height-header)] min-h-100">
-            <Container> My little menue </Container>
+            <Container> My little menu </Container>
         </div>
     </div>
 </template>
