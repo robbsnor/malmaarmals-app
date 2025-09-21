@@ -12,29 +12,29 @@ const appStore = useAppStore();
 const { filteredVideos } = storeToRefs(appStore);
 const searchRef = useTemplateRef<HTMLDivElement>('searchRef');
 
-const amountToShow = ref(200);
+const amountToShow = ref(100);
 const lessVideos = computed(() => filteredVideos?.value.slice(0, amountToShow.value));
 const loadMore = () => {
-    amountToShow.value += 200;
+    amountToShow.value += 9999;
 };
 
-onMounted(() => {
-    searchRef.value?.focus();
-});
+onMounted(() => {});
 </script>
 
 <template>
     <Section :show-top-stroke="false" v-if="filteredVideos">
         <div class="flex justify-center flex-col gap-8 items-center pb-20 md:hidden">
-            <GradientText text="Search Videos" />
             <v-text-field
                 ref="searchRef"
                 v-model="appStore.query"
-                class="w-100"
-                hide-details
-                append-inner-icon="mdi-magnify"
+                :rounded="true"
                 placeholder="Search..."
-            ></v-text-field>
+                :density="'compact'"
+                autofocus
+                hide-details="auto"
+                append-inner-icon="mdi-magnify"
+                class="w-full max-w-120"
+            />
         </div>
 
         <div class="grid grid-cols-5 gap-8">

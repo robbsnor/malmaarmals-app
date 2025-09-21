@@ -43,13 +43,21 @@ watch(keys['Meta+K'], () => appStore.goToVideosPage());
                     </RouterLink>
                 </div>
 
-                <div class="hidden w-80 md:flex bg-black-350 rounded-full xl:w-100 items-center gap-2">
-                    <input type="text" v-model="appStore.query" placeholder="Search..." class="w-full py-2 px-4" />
-                    <v-icon icon="mdi-magnify" class="px-4 mr-2" color="var(--color-text-muted-more)"></v-icon>
+                <div class="hidden md:block">
+                    <v-text-field
+                        type="text"
+                        v-model="appStore.query"
+                        :rounded="true"
+                        placeholder="Search..."
+                        :density="'compact'"
+                        hide-details="auto"
+                        append-inner-icon="mdi-magnify"
+                        class="w-80"
+                    />
                 </div>
 
-                <div class="flex items-center justify-end gap-4">
-                    <div class="md:hidden">
+                <div class="flex items-center justify-end gap-[28px]">
+                    <div class="md:hidden -mt-[2px]">
                         <v-icon @click="appStore.goToVideosPage" icon="mdi-magnify" color="#ccc" />
                     </div>
 
@@ -69,7 +77,7 @@ watch(keys['Meta+K'], () => appStore.goToVideosPage());
         </button>
 
         <div class="bg-black pt-[var(--height-header)] min-h-100">
-            <Container> yolo </Container>
+            <Container> My little menue </Container>
         </div>
     </div>
 </template>
