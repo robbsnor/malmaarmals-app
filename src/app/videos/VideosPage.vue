@@ -5,11 +5,13 @@ import { useAppStore } from '../shared/stores/app.store';
 import { computed, onMounted, ref, useTemplateRef } from 'vue';
 import Container from '../shared/components/Container.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
+import { useVideoStore } from '../video/stores/videos.store';
 
 TitleHelper.setTitle('videos');
 
 const appStore = useAppStore();
-const { filteredVideos } = storeToRefs(appStore);
+const videoStore = useVideoStore();
+const { filteredVideos } = storeToRefs(videoStore);
 const searchRef = useTemplateRef<HTMLDivElement>('searchRef');
 
 const amountToShow = ref(100);
@@ -26,7 +28,7 @@ onMounted(() => {});
         <div class="flex justify-center flex-col gap-8 items-center pb-20 md:hidden">
             <v-text-field
                 ref="searchRef"
-                v-model="appStore.query"
+                v-model="videoStore.query"
                 :rounded="true"
                 placeholder="Search..."
                 :density="'compact'"
