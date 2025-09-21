@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../../shared/types/database.types';
 
-export const useVideoStore = defineStore('app', () => {
+export const useVideosStore = defineStore('videos', () => {
     const route = useRoute();
     const router = useRouter();
 
@@ -12,6 +12,7 @@ export const useVideoStore = defineStore('app', () => {
     const videos = ref<Tables<'videos'>[]>(null);
 
     onMounted(async () => {
+        console.log('Fetching videos...');
         await fetchVideos();
     });
 

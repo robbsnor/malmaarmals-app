@@ -2,10 +2,10 @@
 import { useElementSize, useMagicKeys } from '@vueuse/core';
 import { computed, useTemplateRef, watch } from 'vue';
 import { useAppStore } from '../../shared/stores/app.store';
-import { useVideoStore } from '../../video/stores/videos.store';
+import { useVideosStore } from '../../video/stores/videos.store';
 
 const appStore = useAppStore();
-const videoStore = useVideoStore();
+const videosStore = useVideosStore();
 
 const keys = useMagicKeys();
 const headerRef = useTemplateRef<HTMLDivElement>('headerRef');
@@ -19,7 +19,7 @@ const cssClass = computed(() => {
     };
 });
 
-watch(keys['Meta+K'], () => videoStore.goToVideosPage());
+watch(keys['Meta+K'], () => videosStore.goToVideosPage());
 </script>
 
 <template>
@@ -48,7 +48,7 @@ watch(keys['Meta+K'], () => videoStore.goToVideosPage());
                 <div class="hidden md:block">
                     <v-text-field
                         type="text"
-                        v-model="videoStore.query"
+                        v-model="videosStore.query"
                         :rounded="true"
                         placeholder="Search..."
                         :density="'compact'"
@@ -60,7 +60,7 @@ watch(keys['Meta+K'], () => videoStore.goToVideosPage());
 
                 <div class="flex items-center justify-end gap-[28px]">
                     <div class="md:hidden -mt-[2px]">
-                        <v-icon @click="videoStore.goToVideosPage" icon="mdi-magnify" color="#ccc" />
+                        <v-icon @click="videosStore.goToVideosPage" icon="mdi-magnify" color="#ccc" />
                     </div>
 
                     <v-btn append-icon="mdi-twitch" color="primary">Login</v-btn>

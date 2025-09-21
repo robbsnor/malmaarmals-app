@@ -5,22 +5,17 @@ import { useAppStore } from '../shared/stores/app.store';
 import { computed, onMounted, ref, useTemplateRef } from 'vue';
 import Container from '../shared/components/Container.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
-import { useVideoStore } from '../video/stores/videos.store';
+import { useVideosStore } from '../video/stores/videos.store';
 
 TitleHelper.setTitle('videos');
 
-const appStore = useAppStore();
-const videoStore = useVideoStore();
-const { filteredVideos } = storeToRefs(videoStore);
+const videosStore = useVideosStore();
+const { filteredVideos } = storeToRefs(videosStore);
 const searchRef = useTemplateRef<HTMLDivElement>('searchRef');
 
 const amountToShow = ref(100);
 const lessVideos = computed(() => filteredVideos?.value.slice(0, amountToShow.value));
-const loadMore = () => {
-    amountToShow.value += 9999;
-};
-
-onMounted(() => {});
+const loadMore = () => (amountToShow.value += 9999);
 </script>
 
 <template>
@@ -28,7 +23,7 @@ onMounted(() => {});
         <div class="flex justify-center flex-col gap-8 items-center pb-20 md:hidden">
             <v-text-field
                 ref="searchRef"
-                v-model="videoStore.query"
+                v-model="videosStore.query"
                 :rounded="true"
                 placeholder="Search..."
                 :density="'compact'"
