@@ -66,7 +66,7 @@ watch(keys['Meta+K'], () => videosStore.goToVideosPage());
                         <v-icon @click="videosStore.goToVideosPage" icon="mdi-magnify" color="#ccc" />
                     </div>
 
-                    <div v-if="loggedIn" class="rounded-full border-2 border-primary p-1">
+                    <div v-if="loggedIn" class="rounded-full border-2 border-primary p-0.5">
                         <img
                             src="https://static-cdn.jtvnw.net/jtv_user_pictures/e346d390-fe98-4c2a-baae-327288c8c55b-profile_image-300x300.png"
                             alt="Twitch Logo"
