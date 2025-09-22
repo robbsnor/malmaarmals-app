@@ -38,17 +38,13 @@ const getTimeAgo = (date: string) => {
 </script>
 
 <template>
-    <Section size="large" :show-top-fade="false" :view-more="false" title="Latest Stream">
-        <!-- <div class="flex justify-center pb-8">
-            <GradientText text="Latest Video" />
-        </div> -->
-
-        <div class="flex flex-col gap-4 lg:flex-row lg:gap-8 lg:items-center xl:max-w-4/5 xl:mx-auto">
+    <Container>
+        <div class="relative flex flex-col gap-4 py-40 lg:flex-row lg:gap-8 lg:items-center xl:max-w-4/5 xl:mx-auto">
             <div class="relative flex-1">
                 <img
                     aria-hidden="true"
                     :src="`http://192.168.2.41:8000/thumbnails/${props.video.video_id}`"
-                    class="pointer-events-none absolute -z-10 aspect-video scale-300 rounded-[99%] object-cover opacity-20 blur-md select-none"
+                    class="pointer-events-none absolute aspect-video scale-300 rounded-[99%] object-cover opacity-20 blur-md select-none"
                 />
                 <VideoThumbnail
                     type="large"
@@ -80,5 +76,5 @@ const getTimeAgo = (date: string) => {
                 </div>
             </div>
         </div>
-    </Section>
+    </Container>
 </template>
