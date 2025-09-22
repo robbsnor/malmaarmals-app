@@ -117,7 +117,10 @@ const updateVideoTime = (e: any) => {
 
             <v-tabs-window v-model="tab" class="h-full">
                 <v-tabs-window-item value="chat" class="h-full">
-                    <Chat :videoId="Number(videoId)" :videoTime="videoTime" />
+                    <div class="flex h-full">
+                        <Stroke direction="vertical" class="hidden md:block h-auto" />
+                        <Chat :videoId="Number(videoId)" :videoTime="videoTime" />
+                    </div>
                 </v-tabs-window-item>
 
                 <v-tabs-window-item value="info">

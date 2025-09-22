@@ -2,12 +2,12 @@
 import { storeToRefs } from 'pinia';
 import { computed, onMounted, ref } from 'vue';
 import Stats from '../../app/home/components/Stats.vue';
-import Video from '../app/../shared/components/Video.vue';
 import LatestVideo from './components/LatestVideo.vue';
 import Playlists from './components/Playlists.vue';
 import { useAppStore } from '../shared/stores/app.store';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import { useVideosStore } from '../video/stores/videos.store';
+import PrevStreams from './components/PrevStreams.vue';
 
 TitleHelper.setTitle('home');
 
@@ -42,11 +42,7 @@ onMounted(() => {
     <div v-if="videos">
         <LatestVideo :video="firstVideo" />
 
-        <Section title="Previous Streams">
-            <div class="grid grid-cols-5 gap-8">
-                <Video v-for="video in previousVideos" :key="video.video_id" :video="video" />
-            </div>
-        </Section>
+        <PrevStreams :videos="previousVideos" />
 
         <Playlists />
 
