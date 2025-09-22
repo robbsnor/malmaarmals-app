@@ -19,7 +19,7 @@ const showAll = () => (amountToShow.value = filteredVideos.value.length);
 </script>
 
 <template>
-    <Section :show-top-stroke="false" v-if="filteredVideos">
+    <Section title="Video's" :show-top-stroke="false" v-if="filteredVideos">
         <div class="flex justify-center flex-col gap-8 items-center pb-20 md:hidden">
             <v-text-field
                 ref="searchRef"

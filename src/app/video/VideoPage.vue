@@ -104,12 +104,12 @@ const updateVideoTime = (e: any) => {
 </script>
 
 <template>
-    <div v-if="videoInfo" class="h-available flex flex-col md:flex-row md:gap-4">
+    <div v-if="videoInfo" class="h-available flex flex-col md:flex-row">
         <Player :options="options" @timeupdate="updateVideoTime" ref="playerRef">
             <source :src="`http://192.168.2.41:8000/videos/${videoInfo.video_id}`" type="video/mp4" />
         </Player>
 
-        <div class="flex-1 overflow-hidden md:shrink-0 md:basis-[300px]">
+        <div class="flex-1 overflow-hidden md:shrink-0 md:basis-[320px]">
             <v-tabs v-if="!mdAndUp" color="red" grow density="compact" v-model="tab" bg-color="#202020">
                 <v-tab value="chat">Chat</v-tab>
                 <v-tab value="info">Info</v-tab>

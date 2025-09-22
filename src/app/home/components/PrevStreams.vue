@@ -15,5 +15,9 @@ const props = withDefaults(
         <div class="grid grid-cols sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
             <Video v-for="video in props.videos" :key="video.video_id" :video="video" />
         </div>
+
+        <template #actions>
+            <v-btn to="/videos" variant="text">view all</v-btn>
+        </template>
     </Section>
 </template>

@@ -6,13 +6,11 @@ const props = withDefaults(
         title?: string;
         showTopFade?: boolean;
         showTopStroke?: boolean;
-        viewMore?: boolean;
         size?: 'large';
     }>(),
     {
         showTopFade: true,
         showTopStroke: true,
-        viewMore: true,
     }
 );
 </script>
@@ -39,8 +37,7 @@ const props = withDefaults(
                 <h2 class="text-4xl font-bold">
                     {{ props.title }}
                 </h2>
-
-                <v-btn v-if="props.viewMore" to="/videos" variant="text">view all</v-btn>
+                <slot name="actions" />
             </div>
 
             <slot />

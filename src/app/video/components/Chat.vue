@@ -81,7 +81,11 @@ const getMessages = async () => {
 
 <template>
     <ul v-if="messages" class="flex flex-col gap-1 p-4 overflow-auto h-full w-full self-stretch scroll-hidden">
-        <li v-for="message in renderedMessages" :key="message.id">
+        <li
+            v-for="message in renderedMessages"
+            :key="message.id"
+            :class="{ ' bg-black-350 p-2 rounded-md': message.user_login === 'striddums' }"
+        >
             <span
                 :style="{
                     color: message.user_color ? message.user_color : '#2e8b57',
