@@ -35,7 +35,7 @@ watch(keys['Meta+K'], () => videosStore.goToVideosPage());
                 class="grid grid-cols-[auto_auto] md:grid-cols-[1fr_auto_auto] xl:grid-cols-[1fr_auto_1fr] justify-between items-center gap- h-header py-2"
             >
                 <div class="flex items-center lg:gap-4">
-                    <button class="cursor-pointer -ml-4" :class="cssClass" @click="appStore.toggleMenu">
+                    <button class="cursor-pointer -ml-2" :class="cssClass" @click="appStore.toggleMenu">
                         <span class="sr-only">Menu</span>
                         <div class="hamburger__stroke"></div>
                         <div class="hamburger__stroke"></div>
@@ -99,7 +99,7 @@ watch(keys['Meta+K'], () => videosStore.goToVideosPage());
 <style scoped lang="scss">
 .hamburger {
     $self: &;
-    padding: 20px;
+    padding: 10px;
 
     &__stroke {
         height: 2px;
