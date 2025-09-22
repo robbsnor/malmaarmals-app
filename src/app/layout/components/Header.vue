@@ -34,7 +34,7 @@ watch(keys['Meta+K'], () => videosStore.goToVideosPage());
             <div
                 class="grid grid-cols-[auto_auto] md:grid-cols-[1fr_auto_auto] xl:grid-cols-[1fr_auto_1fr] justify-between items-center gap-2 h-header py-2"
             >
-                <div class="flex items-center lg:gap-4">
+                <div class="flex items-center gap-4">
                     <button class="cursor-pointer -ml-2" :class="cssClass" @click="appStore.toggleMenu">
                         <span class="sr-only">Menu</span>
                         <div class="hamburger__stroke"></div>

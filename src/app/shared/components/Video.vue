@@ -37,7 +37,7 @@ const formattedDuration = computed(() => {
             :src="`http://192.168.2.41:8000/thumbnails/${props.video.video_id}`"
         >
             <div
-                class="absolute right-2 bottom-2 bg-black/20 border border-black/20 leading-none py-1.5 px-2 backdrop-blur-2xl text-text-normal text-sm rounded-md"
+                class="absolute right-2 bottom-2 bg-black/20 leading-none py-1.5 px-2 backdrop-blur-2xl text-text-normal text-sm rounded-md"
             >
                 {{ formattedDuration }}
             </div>
