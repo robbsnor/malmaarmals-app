@@ -1,15 +1,46 @@
 <script setup lang="ts">
-import { useDisplay } from 'vuetify';
+import { gsap } from 'gsap';
+import { onMounted, ref } from 'vue';
 
-const display = useDisplay();
+const repeatCount = 4; // Adjust for more/less repetitions
+const words = Array(repeatCount).fill('malmaarmals');
+const textRow = ref<HTMLElement | null>(null);
+
+onMounted(() => {
+    const el = textRow.value;
+    if (!el) return;
+    const textWidth = el.scrollWidth;
+    gsap.fromTo(
+        el,
+        { x: 0 },
+        {
+            x: -textWidth / 2,
+            duration: 5,
+            ease: 'none',
+            repeat: -1,
+            repeatRefresh: true,
+            onStart: () => {
+                console.log('Animation started');
+                console.log(-textWidth / 2);
+            },
+            onRepeat: () => {
+                gsap.set(el, { x: -textWidth / 2 });
+            },
+        }
+    );
+});
 </script>
 
 <template>
-    <div class="hidden sm:block">sm</div>
-    <div class="hidden md:block">md</div>
-    <div class="hidden lg:block">lg</div>
-    <div class="hidden xl:block">xl</div>
-    <div class="hidden 2xl:block">2xl</div>
-    <hr />
-    {{ display.name }}
+    <div class="overflow-hidden w-full h-screen flex items-center">
+        <div ref="textRow" class="flex whitespace-nowrap" style="will-change: transform">
+            <span
+                v-for="(word, i) in words"
+                :key="i"
+                class="text text-9xl font-black uppercase mx-8 text-white select-none"
+            >
+                {{ word }}
+            </span>
+        </div>
+    </div>
 </template>
