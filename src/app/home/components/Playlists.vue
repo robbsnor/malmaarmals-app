@@ -5,27 +5,27 @@ const playlists = ref([
     {
         title: 'Peter VS Timon',
         episodes: 72,
-        thumbnail: 'http://192.168.2.41:8000/thumbnails/2206408041',
+        thumbnail: 'http://localhost:8000/thumbnails/2206408041',
     },
     {
         title: 'Teken streams',
         episodes: 3,
-        thumbnail: 'http://192.168.2.41:8000/thumbnails/1732461290',
+        thumbnail: 'http://localhost:8000/thumbnails/1732461290',
     },
     {
         title: 'LEKKERSPELEN ORIGINS',
         episodes: 4,
-        thumbnail: 'http://192.168.2.41:8000/thumbnails/2170491752',
+        thumbnail: 'http://localhost:8000/thumbnails/2170491752',
     },
     {
         title: 'Reclames kijken',
         episodes: 44,
-        thumbnail: 'http://192.168.2.41:8000/thumbnails/1925255803',
+        thumbnail: 'http://localhost:8000/thumbnails/1925255803',
     },
     {
         title: 'Resident Evil 7',
         episodes: 6,
-        thumbnail: 'http://192.168.2.41:8000/thumbnails/1777474430',
+        thumbnail: 'http://localhost:8000/thumbnails/1777474430',
     },
 ]);
 </script>

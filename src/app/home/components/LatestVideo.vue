@@ -43,13 +43,13 @@ const getTimeAgo = (date: string) => {
             <div class="relative flex-1">
                 <img
                     aria-hidden="true"
-                    :src="`http://192.168.2.41:8000/thumbnails/${props.video.video_id}`"
+                    :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
                     class="pointer-events-none absolute aspect-video scale-300 rounded-[99%] object-cover opacity-20 blur-md select-none"
                 />
                 <VideoThumbnail
                     type="large"
                     :to="`/videos/${props.video.video_id}`"
-                    :src="`http://192.168.2.41:8000/thumbnails/${props.video.video_id}`"
+                    :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
                     :icon-size="60"
                 >
                     <div class="absolute top-4 right-4">
