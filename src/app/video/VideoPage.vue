@@ -9,6 +9,7 @@ import { useDisplay } from 'vuetify';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import type { Tables } from '../shared/types/database.types';
 import Info from './components/Info.vue';
+import InfoDesktop from './components/InfoDesktop.vue';
 import { useAppStore } from '../shared/stores/app.store';
 
 TitleHelper.setTitle('video');
@@ -69,7 +70,11 @@ const chapters = ref([
 ]);
 
 onMounted(async () => {
-    appStore.hideHeader();
+    if (lgAndUp.value) {
+        appStore.showHeader();
+    } else {
+        appStore.hideHeader();
+    }
     // await new Promise((resolve) => setTimeout(resolve, 1200));
     await getVideoInfo();
     loading.value = false;
@@ -101,13 +106,21 @@ const updateVideoTime = (e: any) => {
 
 <template>
     <div v-if="videoInfo" class="h-available overflow-hidden flex flex-col md:flex-row">
-        <div class="flex justify-center items-center">
+        <div class="flex flex-col justify-center items-center">
             <Player :options="options" @timeupdate="updateVideoTime" ref="playerRef">
                 <source :src="`http://localhost:8000/videos/${videoInfo.video_id}`" type="video/mp4" />
             </Player>
+
+            <InfoDesktop
+                class="piss"
+                :showInfo="showInfo"
+                :videoInfo="videoInfo"
+                :chapters="chapters"
+                @clickChapter="seekToChapter($event.start_s)"
+            />
         </div>
 
-        <div class="relative flex-1 overflow-hidden md:basis-[260px]">
+        <div class="relative overflow-hidden grow-1 md:w-[220px] md:shrink-0">
             <Info
                 :showInfo="showInfo"
                 :videoInfo="videoInfo"
