@@ -11,6 +11,7 @@ import type { Tables } from '../shared/types/database.types';
 import Info from './components/Info.vue';
 import InfoDesktop from './components/InfoDesktop.vue';
 import { useAppStore } from '../shared/stores/app.store';
+import { useScreenOrientation } from '@vueuse/core';
 
 TitleHelper.setTitle('video');
 
@@ -24,6 +25,7 @@ const videoInfo = ref<Tables<'videos'>>();
 const videoTime = ref(0);
 const playerRef = useTemplateRef<InstanceType<typeof Player>>('playerRef');
 const showInfo = ref(false);
+const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
 
 const options = computed(() => ({
     controls: playerDefaultOptions.controls.filter((item: any) => !['pip', 'volfume', 'mute'].includes(item)),
@@ -70,6 +72,11 @@ const chapters = ref([
 ]);
 
 onMounted(async () => {
+    console.log('go');
+    lockOrientation('landscape').catch((err) => {
+        console.warn('Could not lock orientation:', err);
+    });
+    console.log('fdsfkldfak');
     if (lgAndUp.value) {
         appStore.showHeader();
     } else {
