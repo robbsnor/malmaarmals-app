@@ -11,7 +11,7 @@ export const useAppStore = defineStore('app', () => {
 
     const hideHeader = () => {
         headerShown.value = false;
-        document.documentElement.style.setProperty('--height-header', '0');
+        document.documentElement.style.setProperty('--height-header', '0px');
     };
 
     const showHeader = () => {

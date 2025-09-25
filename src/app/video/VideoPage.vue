@@ -15,14 +15,14 @@ TitleHelper.setTitle('video');
 
 const route = useRoute();
 const appStore = useAppStore();
-const { mdAndDown, mdAndUp } = useDisplay();
+const { mdAndDown, mdAndUp, lgAndUp } = useDisplay();
 const videoId = route.params.id as string;
 
 const loading = ref(true);
 const videoInfo = ref<Tables<'videos'>>();
 const videoTime = ref(0);
 const playerRef = useTemplateRef<InstanceType<typeof Player>>('playerRef');
-const showInfo = ref(false);
+const showInfo = ref(true);
 
 const options = computed(() => ({
     controls: playerDefaultOptions.controls.filter((item: any) => !['pip', 'volfume', 'mute'].includes(item)),
@@ -35,7 +35,10 @@ const options = computed(() => ({
     },
 }));
 
-watch(mdAndUp, (isMdAndUp) => (isMdAndUp ? appStore.showHeader() : appStore.hideHeader()));
+watch(lgAndUp, (isTrue) => {
+    console.log(isTrue);
+    isTrue ? appStore.showHeader() : appStore.hideHeader();
+});
 
 function seekToChapter(seconds: number) {
     playerRef.value.videoRef.currentTime = seconds;
@@ -59,7 +62,7 @@ const chapters = ref([
         image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/489401_IGDB-100x133.jpg',
     },
     {
-        start_s: 2700,
+        start_s: 8720,
         title: 'SilkSong',
         image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/511391_IGDB-100x133.jpg',
     },
@@ -75,26 +78,13 @@ onMounted(async () => {
         showInfo.value = true;
     });
     playerRef.value.player.on('controlshidden', () => {
-        showInfo.value = false;
+        // showInfo.value = false;
     });
 });
 
 onUnmounted(() => {
     appStore.showHeader();
 });
-
-function formatSeconds(seconds: number): string {
-    const hrs = Math.floor(seconds / 3600);
-    const mins = Math.floor((seconds % 3600) / 60);
-    const secs = Math.floor(seconds % 60);
-
-    const parts = [];
-    if (hrs > 0) parts.push(hrs);
-    parts.push(hrs > 0 ? String(mins).padStart(2, '0') : mins);
-    parts.push(String(secs).padStart(2, '0'));
-
-    return parts.join(':');
-}
 
 const getVideoInfo = async () => {
     const { data, error } = await supabase.from('videos').select('*').eq('video_id', Number(videoId)).single();
@@ -110,10 +100,12 @@ const updateVideoTime = (e: any) => {
 </script>
 
 <template>
-    <div v-if="videoInfo" class="h-available flex flex-col md:flex-row">
-        <Player :options="options" @timeupdate="updateVideoTime" ref="playerRef">
-            <source :src="`http://localhost:8000/videos/${videoInfo.video_id}`" type="video/mp4" />
-        </Player>
+    <div v-if="videoInfo" class="h-available overflow-hidden flex flex-col md:flex-row">
+        <div>
+            <Player :options="options" @timeupdate="updateVideoTime" ref="playerRef">
+                <source :src="`http://localhost:8000/videos/${videoInfo.video_id}`" type="video/mp4" />
+            </Player>
+        </div>
 
         <div class="relative flex-1 overflow-hidden md:shrink-0 md:basis-[320px]">
             <Info
