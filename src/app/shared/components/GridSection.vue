@@ -21,7 +21,7 @@ const visibleChildren = computed(() => {
 </script>
 
 <template>
-    <div class="flex flex-col gap-4 bg-gradient-to-b from-bg-light to-bg-dark">
+    <div class="flex flex-col gap-4">
         <div class="flex items-end justify-between">
             <div>
                 <h2 class="text-2xl font-bold">

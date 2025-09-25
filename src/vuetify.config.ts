@@ -63,7 +63,7 @@ export const vuetify = createVuetify({
             'twitch-dashboard-dark': {
                 colors: {
                     background: '#000000',
-                    primary: 'hsl(252, 100%, 64%)',
+                    primary: '#ca79a5',
                     secondary: 'hsl(168, 100%, 70%)',
                 },
                 dark: true,

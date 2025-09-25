@@ -107,7 +107,7 @@ const updateVideoTime = (e: any) => {
             </Player>
         </div>
 
-        <div class="relative flex-1 overflow-hidden md:shrink-0 md:basis-[260px] lg:basis-[320px]">
+        <div class="relative flex-1 overflow-hidden md:basis-[260px]">
             <Info
                 :showInfo="showInfo"
                 :videoInfo="videoInfo"

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Plyr from 'plyr';
 import 'plyr/dist/plyr.css';
-import { computed, onMounted, ref, useAttrs, defineExpose, useTemplateRef, watch } from 'vue';
+import { computed, onMounted, ref, useAttrs, useTemplateRef, watch } from 'vue';
 import { merge } from 'lodash';
 import { playerDefaultOptions } from '../data/player.data';
 
