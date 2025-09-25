@@ -106,14 +106,16 @@ const updateVideoTime = (e: any) => {
 
 <template>
     <div v-if="videoInfo" class="h-available overflow-hidden flex flex-col md:flex-row">
-        <div class="flex flex-col justify-center items-center">
-            <Player :options="options" @timeupdate="updateVideoTime" ref="playerRef">
-                <source :src="`http://localhost:8000/videos/${videoInfo.video_id}`" type="video/mp4" />
-            </Player>
+        <div class="md:overflow-auto">
+            <div class="flex flex-col justify-center items-center md:grow-0 md:overflow-hidden">
+                <Player :options="options" @timeupdate="updateVideoTime" ref="playerRef">
+                    <source :src="`http://localhost:8000/videos/${videoInfo.video_id}`" type="video/mp4" />
+                </Player>
+            </div>
 
-            <InfoDesktop
-                class="piss"
-                :showInfo="showInfo"
+            <Info
+                class="hidden md:block"
+                :showInfo="true"
                 :videoInfo="videoInfo"
                 :chapters="chapters"
                 @clickChapter="seekToChapter($event.start_s)"
@@ -122,6 +124,7 @@ const updateVideoTime = (e: any) => {
 
         <div class="relative overflow-hidden grow-1 md:w-[220px] md:shrink-0">
             <Info
+                class="absolute top-0 left-0 right-0 md:hidden"
                 :showInfo="showInfo"
                 :videoInfo="videoInfo"
                 :chapters="chapters"

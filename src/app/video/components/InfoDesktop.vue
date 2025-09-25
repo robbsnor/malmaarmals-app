@@ -37,10 +37,7 @@ const prettyTime = (seconds: number) => {
 </script>
 
 <template>
-    <div
-        class="invisible -translate-y-2 transition-all shadow-2xl opacity-0 absolute top-0 left-0 right-0 bg-black-300 bordder border-b border-black-400"
-        :class="{ 'visible translate-y-0 opacity-100': props.showInfo }"
-    >
+    <div class="hidden md:block bg-black-300 border-b border-black-400 overflow-hidden">
         <div class="flex gap-4 pb-4 p-4">
             <img
                 :src="`http://localhost:8000/thumbnails/${videoInfo.video_id}`"
@@ -53,7 +50,7 @@ const prettyTime = (seconds: number) => {
             </div>
         </div>
 
-        <div class="flex gap-4 overflow-auto flex-nowrap p-4 bg-black-200">
+        <div class="flex gap-4 overflow-auto p-4 bg-black-200">
             <button
                 v-for="chapter in chapters"
                 :key="chapter.start_s"
