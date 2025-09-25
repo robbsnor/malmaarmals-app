@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch, watchEffect } from 'vue';
+import { computed, onMounted, ref, watch, watchEffect, nextTick, useTemplateRef } from 'vue';
 import { supabase } from '../../../supabase';
 import { emotesMap } from '../../shared/data/emotes.data';
 
@@ -11,8 +11,8 @@ const props = withDefaults(
     {}
 );
 
-const tab = ref();
 const messages = ref<any[]>([]);
+const chatRef = useTemplateRef<HTMLElement>('chatRef');
 
 onMounted(async () => {
     await getMessages();
@@ -41,11 +41,10 @@ const renderedMessages = computed(() => {
     return messages.value.slice(start, idx + 1);
 });
 
-watchEffect(() => {
+watchEffect(async () => {
     props.videoTime; // Depend on videoTime
-    const chatList = document.querySelector('ul');
-    if (!chatList) return;
-    chatList.scrollTop = chatList.scrollHeight;
+    await nextTick();
+    chatRef.value.scrollTop = chatRef.value.scrollHeight;
 });
 
 const getMessages = async () => {
@@ -80,15 +79,20 @@ const getMessages = async () => {
 </script>
 
 <template>
-    <ul v-if="messages" class="flex flex-col gap-1 p-4 overflow-auto h-full w-full self-stretch scroll-hidden">
+    <ul
+        v-if="messages"
+        ref="chatRef"
+        class="flex flex-col gap-1 p-4 md:pr-2 overflow-auto h-full w-full self-stretch scroll-hidden"
+    >
         <li
             v-for="message in renderedMessages"
             :key="message.id"
             :class="{
-                'bg-black-350 p-2 rounded-md':
-                    message.user_login === 'striddums' ||
-                    message.user_login === 'JuulWasBezet' ||
-                    message.user_login === 'Malmaarmal',
+                'bg-black-350 py-1 px-2 -mx-2 rounded-md':
+                    message.user_name === 'striddums' ||
+                    message.user_name === 'JuulWasBezet' ||
+                    message.user_name === 'Roekeloos' ||
+                    message.user_name === 'Malmaarmal',
             }"
         >
             <span

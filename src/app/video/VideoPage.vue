@@ -22,7 +22,7 @@ const loading = ref(true);
 const videoInfo = ref<Tables<'videos'>>();
 const videoTime = ref(0);
 const playerRef = useTemplateRef<InstanceType<typeof Player>>('playerRef');
-const showInfo = ref(true);
+const showInfo = ref(false);
 
 const options = computed(() => ({
     controls: playerDefaultOptions.controls.filter((item: any) => !['pip', 'volfume', 'mute'].includes(item)),
@@ -78,7 +78,7 @@ onMounted(async () => {
         showInfo.value = true;
     });
     playerRef.value.player.on('controlshidden', () => {
-        // showInfo.value = false;
+        showInfo.value = false;
     });
 });
 
@@ -101,13 +101,13 @@ const updateVideoTime = (e: any) => {
 
 <template>
     <div v-if="videoInfo" class="h-available overflow-hidden flex flex-col md:flex-row">
-        <div>
+        <div class="flex justify-center items-center">
             <Player :options="options" @timeupdate="updateVideoTime" ref="playerRef">
                 <source :src="`http://localhost:8000/videos/${videoInfo.video_id}`" type="video/mp4" />
             </Player>
         </div>
 
-        <div class="relative flex-1 overflow-hidden md:shrink-0 md:basis-[320px]">
+        <div class="relative flex-1 overflow-hidden md:shrink-0 md:basis-[260px] lg:basis-[320px]">
             <Info
                 :showInfo="showInfo"
                 :videoInfo="videoInfo"
