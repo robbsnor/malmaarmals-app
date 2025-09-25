@@ -8,8 +8,11 @@ import { playerDefaultOptions } from '../data/player.data';
 const props = withDefaults(
     defineProps<{
         options?: any;
+        stretchHeight?: boolean;
     }>(),
-    {}
+    {
+        stretchHeight: false,
+    }
 );
 
 const attrs = useAttrs();
@@ -27,7 +30,13 @@ defineExpose({ videoRef, player });
 </script>
 
 <template>
-    <video v-bind="attrs" id="video" controls class="aspect-video w-full" playsinline ref="videoRef">
+    <video v-bind="attrs" controls playsinline ref="videoRef">
         <slot></slot>
     </video>
 </template>
+
+<style lang="scss">
+.plyr {
+    width: 100%;
+}
+</style>
