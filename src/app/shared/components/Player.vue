@@ -30,13 +30,31 @@ defineExpose({ videoRef, player });
 </script>
 
 <template>
-    <video v-bind="attrs" controls playsinline ref="videoRef">
-        <slot></slot>
-    </video>
+    <div class="piss player" :class="{ 'player--stretch-height': stretchHeight }">
+        <video v-bind="attrs" controls playsinline ref="videoRef">
+            <slot></slot>
+        </video>
+    </div>
 </template>
 
 <style lang="scss">
 .plyr {
     width: 100%;
+    height: 100%;
+}
+
+.player {
+    .plyr {
+        width: 100%;
+        height: 100%;
+    }
+
+    &--stretch-height {
+        height: 100%;
+
+        .plyr {
+            height: 100%;
+        }
+    }
 }
 </style>
