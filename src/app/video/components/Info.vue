@@ -38,7 +38,7 @@ const prettyTime = (seconds: number) => {
 
 <template>
     <div
-        class="invisible -translate-y-4 duration-200 ease-linear transition-all shadow-2xl opacity-0 absolute top-0 left-0 right-0 bg-black-300 bordder border-b border-black-400 md:hidden"
+        class="invisible -translate-y-2 transition-all shadow-2xl opacity-0 absolute top-0 left-0 right-0 bg-black-300 bordder border-b border-black-400 md:hidden"
         :class="{ 'visible  translate-y-0 opacity-100': props.showInfo }"
     >
         <div class="flex gap-4 pb-4 p-4">
