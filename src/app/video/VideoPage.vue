@@ -35,13 +35,7 @@ const options = computed(() => ({
     },
 }));
 
-watch(mdAndUp, (isMdAndUp) => {
-    if (isMdAndUp) {
-        appStore.showHeader();
-    } else {
-        appStore.hideHeader();
-    }
-});
+watch(mdAndUp, (isMdAndUp) => (isMdAndUp ? appStore.showHeader() : appStore.hideHeader()));
 
 function seekToChapter(seconds: number) {
     playerRef.value.videoRef.currentTime = seconds;
