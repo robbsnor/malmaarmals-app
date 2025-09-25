@@ -39,7 +39,7 @@ const date = computed(() => {
                 v-for="chapter in chapters"
                 :key="chapter.start_s"
                 @click="$emit('seekToChapter', chapter)"
-                class="flex min-w-7/12 gap-2 p-3 bg-black-400 rounded-md shrink-0 cursor-pointer text-left transition-all hover:bg-black-500"
+                class="flex min-w-[300px] gap-2 p-3 bg-black-400 rounded-md shrink-0 cursor-pointer text-left transition-all hover:bg-black-500"
             >
                 <img :src="chapter.image_url" alt="chapter image" class="inline h-12 mr-2 rounded-md" />
                 <div>

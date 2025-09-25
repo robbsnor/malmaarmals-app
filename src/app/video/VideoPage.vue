@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, useTemplateRef, watch } from 'vue';
+import { ref, onMounted, computed, useTemplateRef, watch, onUnmounted } from 'vue';
 import { supabase } from '../../supabase';
 import { useRoute } from 'vue-router';
 import Chat from './components/Chat.vue';
@@ -9,10 +9,12 @@ import { useDisplay } from 'vuetify';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import type { Tables } from '../shared/types/database.types';
 import Info from './components/Info.vue';
+import { useAppStore } from '../shared/stores/app.store';
 
 TitleHelper.setTitle('video');
 
 const route = useRoute();
+const appStore = useAppStore();
 const { mdAndDown, mdAndUp } = useDisplay();
 const videoId = route.params.id as string;
 
@@ -20,10 +22,7 @@ const loading = ref(true);
 const videoInfo = ref<Tables<'videos'>>();
 const videoTime = ref(0);
 const playerRef = useTemplateRef<InstanceType<typeof Player>>('playerRef');
-const videoNotFound = ref(false);
 const showInfo = ref(false);
-const open = ref(false);
-const tab = ref('chat');
 
 const options = computed(() => ({
     controls: playerDefaultOptions.controls.filter((item: any) => !['pip', 'volfume', 'mute'].includes(item)),
@@ -36,7 +35,13 @@ const options = computed(() => ({
     },
 }));
 
-watch(mdAndUp, (newVal) => (tab.value = 'chat'));
+watch(mdAndUp, (isMdAndUp) => {
+    if (isMdAndUp) {
+        appStore.showHeader();
+    } else {
+        appStore.hideHeader();
+    }
+});
 
 function seekToChapter(seconds: number) {
     playerRef.value.videoRef.currentTime = seconds;
@@ -67,6 +72,7 @@ const chapters = ref([
 ]);
 
 onMounted(async () => {
+    appStore.hideHeader();
     // await new Promise((resolve) => setTimeout(resolve, 1200));
     await getVideoInfo();
     loading.value = false;
@@ -77,6 +83,10 @@ onMounted(async () => {
     playerRef.value.player.on('controlshidden', () => {
         showInfo.value = false;
     });
+});
+
+onUnmounted(() => {
+    appStore.showHeader();
 });
 
 function formatSeconds(seconds: number): string {

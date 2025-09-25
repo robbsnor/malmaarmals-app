@@ -19,8 +19,8 @@ const showAll = () => (amountToShow.value = filteredVideos.value.length);
 </script>
 
 <template>
-    <Section title="Video's" :show-top-stroke="false" v-if="filteredVideos">
-        <div class="flex justify-center flex-col gap-8 items-center pb-20 md:hidden">
+    <Section title="Previous Streams" :show-top-stroke="false" v-if="filteredVideos">
+        <div class="flex justify-center flex-col gap-8 items-center pb-8 md:hidden">
             <v-text-field
                 ref="searchRef"
                 v-model="videosStore.query"
@@ -30,7 +30,7 @@ const showAll = () => (amountToShow.value = filteredVideos.value.length);
                 autofocus
                 hide-details="auto"
                 append-inner-icon="mdi-magnify"
-                class="w-full max-w-120"
+                class="w-full"
             />
         </div>
 

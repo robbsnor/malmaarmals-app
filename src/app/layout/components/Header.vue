@@ -10,8 +10,6 @@ const videosStore = useVideosStore();
 const keys = useMagicKeys();
 const headerRef = useTemplateRef<HTMLDivElement>('headerRef');
 
-appStore.headerSize = useElementSize(headerRef);
-
 const loggedIn = ref(true);
 
 const cssClass = computed(() => {
@@ -26,9 +24,10 @@ watch(keys['Meta+K'], () => videosStore.goToVideosPage());
 
 <template>
     <div
+        v-if="appStore.headerShown"
         ref="headerRef"
-        class="top-0 right-0 left-0 z-100 bg-black/70 fixed backdrop-blur-md transition-transform ease-linear"
-        :class="{ 'translate-y-[-100%]': !appStore.showHeader }"
+        class="top-0 right-0 left-0 z-100 bg-black/70 fixed backdrop-blur-md transition-transform"
+        :class="{ 'translate-y-[-100%]': !appStore.headerShown }"
     >
         <Container>
             <div
