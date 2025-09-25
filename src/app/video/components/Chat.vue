@@ -84,7 +84,9 @@ const getMessages = async () => {
         <li
             v-for="message in renderedMessages"
             :key="message.id"
-            :class="{ ' bg-black-350 p-2 rounded-md': message.user_login === 'striddums' }"
+            :class="{
+                'bg-black-350 p-2 rounded-md': message.user_login === 'striddums',
+            }"
         >
             <span
                 :style="{

@@ -110,7 +110,7 @@ const updateVideoTime = (e: any) => {
         </Player>
 
         <div class="flex-1 overflow-hidden md:shrink-0 md:basis-[320px]">
-            <v-tabs v-if="!mdAndUp" color="red" grow density="compact" v-model="tab" bg-color="#202020">
+            <v-tabs v-if="!mdAndUp" grow density="compact" v-model="tab" bg-color="#202020">
                 <v-tab value="chat">Chat</v-tab>
                 <v-tab value="info">Info</v-tab>
             </v-tabs>
