@@ -5,7 +5,6 @@ import type { Tables } from '../../shared/types/database.types';
 const props = withDefaults(
     defineProps<{
         videoInfo: Tables<'videos'>;
-        showInfo: boolean;
         chapters: {
             start_s: number;
             title: string;
