@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch, watchEffect, nextTick, useTemplateRef } from 'vue';
 import { supabase } from '../../../supabase';
-import { emotesMap } from '../../shared/data/emotes.data';
+import Message from './Message.vue';
 
 const props = withDefaults(
     defineProps<{
@@ -84,43 +84,6 @@ const getMessages = async () => {
         ref="chatRef"
         class="flex flex-col gap-1 p-4 md:pr-2 overflow-auto h-full w-full self-stretch scroll-hidden"
     >
-        <li
-            v-for="message in renderedMessages"
-            :key="message.id"
-            :class="{
-                'bg-black-350 py-1 px-2 -mx-2 rounded-md':
-                    message.user_name === 'striddums' ||
-                    message.user_name === 'JuulWasBezet' ||
-                    message.user_name === 'Roekeloos' ||
-                    message.user_name === 'Malmaarmal',
-            }"
-        >
-            <span
-                :style="{
-                    color: message.user_color ? message.user_color : '#2e8b57',
-                }"
-                class="font-bold"
-            >
-                {{ message.user_name }}
-            </span>
-
-            <span class="break-words text-gray-300"
-                >:
-                <template v-for="word in message.text.split(' ')" :key="word">
-                    <img v-if="emotesMap[word]" alt="emote" :src="emotesMap[word]" class="inline h-7" />
-                    <b v-else-if="word.startsWith('@')">{{ word }}</b>
-                    <a
-                        class="underline text-primary-lighter hover:text-primary-light"
-                        v-else-if="word.startsWith('http') || word.startsWith('https')"
-                        :href="word"
-                        target="_blank"
-                    >
-                        {{ word }}
-                    </a>
-                    <template v-else>{{ word }}</template>
-                    {{ ' ' }}
-                </template>
-            </span>
-        </li>
+        <Message v-for="message in renderedMessages" :key="message.id" :message="message" />
     </ul>
 </template>
