@@ -38,7 +38,7 @@ const prettyTime = (seconds: number) => {
 
 <template>
     <div
-        class="invisible -translate-y-2 transition-all shadow-2xl opacity-0 absolute top-0 left-0 right-0 bg-black-300 bordder border-b border-black-400 md:hidden"
+        class="invisible -translate-y-2 transition-all shadow-2xl opacity-0 absolute top-0 left-0 right-0 bg-russian-violet-200 bordder border-b border-black-400 md:hidden"
         :class="{ 'visible  translate-y-0 opacity-100': props.showInfo }"
     >
         <div class="flex gap-4 pb-4 p-4">
@@ -53,12 +53,12 @@ const prettyTime = (seconds: number) => {
             </div>
         </div>
 
-        <div class="flex gap-4 overflow-auto flex-nowrap p-4 bg-black-200">
+        <div class="flex gap-4 overflow-auto flex-nowrap p-4 bg-russian-violet-200">
             <button
                 v-for="chapter in chapters"
                 :key="chapter.start_s"
                 @click="$emit('seekToChapter', chapter)"
-                class="flex min-w-[300px] gap-2 p-3 bg-black-400 rounded-md shrink-0 cursor-pointer text-left transition-all hover:bg-black-500"
+                class="flex min-w-[300px] gap-2 p-3 bg-ultra-violet-200 rounded-md shrink-0 cursor-pointer text-left transition-all hover:bg-black-500"
             >
                 <img :src="chapter.image_url" alt="chapter image" class="inline h-12 mr-2 rounded-md" />
                 <div>
