@@ -7,6 +7,7 @@ import Player from '../shared/components/Player.vue';
 import { playerDefaultOptions } from '../shared/data/player.data';
 import { useDisplay } from 'vuetify';
 import { TitleHelper } from '../shared/helpers/title.helper';
+import type { Tables } from '../shared/types/database.types';
 
 TitleHelper.setTitle('video');
 
@@ -15,10 +16,11 @@ const { mdAndDown, mdAndUp } = useDisplay();
 const videoId = route.params.id as string;
 
 const loading = ref(true);
-const videoInfo = ref();
+const videoInfo = ref<Tables<'videos'>>();
 const videoTime = ref(0);
 const playerRef = useTemplateRef<InstanceType<typeof Player>>('playerRef');
 const videoNotFound = ref(false);
+const showInfo = ref(false);
 const open = ref(false);
 const tab = ref('chat');
 
@@ -67,6 +69,13 @@ onMounted(async () => {
     // await new Promise((resolve) => setTimeout(resolve, 1200));
     await getVideoInfo();
     loading.value = false;
+
+    playerRef.value.player.on('controlsshown', () => {
+        showInfo.value = true;
+    });
+    playerRef.value.player.on('controlshidden', () => {
+        showInfo.value = false;
+    });
 });
 
 const date = computed(() => {
@@ -109,44 +118,33 @@ const updateVideoTime = (e: any) => {
             <source :src="`http://localhost:8000/videos/${videoInfo.video_id}`" type="video/mp4" />
         </Player>
 
-        <div class="flex-1 overflow-hidden md:shrink-0 md:basis-[320px]">
-            <v-tabs v-if="!mdAndUp" grow density="compact" v-model="tab" bg-color="#202020">
-                <v-tab value="chat">Chat</v-tab>
-                <v-tab value="info">Info</v-tab>
-            </v-tabs>
+        <div class="relative flex-1 overflow-hidden md:shrink-0 md:basis-[320px]">
+            <div
+                class="invisible -translate-y-4 duration-500 transition-all opacity-0 absolute top-0 left-0 right-0 bg-black-300 bordder border-b border-black-400"
+                :class="{ 'visible  translate-y-0 opacity-100': showInfo }"
+            >
+                <div class="pb-4 p-4">
+                    <div class="font-bold text-lg">{{ videoInfo.title }}</div>
+                    <div class="text-text-muted">{{ date }}</div>
+                </div>
 
-            <v-tabs-window v-model="tab" class="h-full">
-                <v-tabs-window-item value="chat" class="h-full">
-                    <div class="flex h-full">
-                        <Stroke direction="vertical" class="hidden md:block h-auto" />
-                        <Chat :videoId="Number(videoId)" :videoTime="videoTime" />
-                    </div>
-                </v-tabs-window-item>
+                <div class="flex gap-4 overflow-auto flex-nowrap p-4 bg-black-200">
+                    <button
+                        v-for="chapter in chapters"
+                        :key="chapter.start_s"
+                        @click="seekToChapter(chapter.start_s)"
+                        class="flex min-w-7/12 gap-2 p-3 bg-black-400 rounded-md shrink-0 cursor-pointer text-left transition-all hover:bg-black-600"
+                    >
+                        <img :src="chapter.image_url" alt="chapter image" class="inline h-12 mr-2 rounded-md" />
+                        <div>
+                            <div class="font-bold pr-2">{{ chapter.title }}</div>
+                            <div class="text-text-muted text-sm">{{ chapter.start_s }}</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
 
-                <v-tabs-window-item value="info">
-                    <div class="p-4">
-                        <h2 class="text-2xl font-bold">{{ videoInfo.title }}</h2>
-                        <h3 class="text-text-muted font-bold">
-                            {{ videoInfo.description }}
-                        </h3>
-                        <h3 class="text-text-muted">{{ date }}</h3>
-                    </div>
-
-                    <div class="flex flex-col gap-4 p-4 border-t border-black-700">
-                        <a
-                            class="flex items-center gap-4"
-                            v-for="chapter in chapters"
-                            @click="seekToChapter(chapter.start_s)"
-                        >
-                            <img :src="chapter.image_url" alt="Chapter Image" class="w-10" />
-                            <div>
-                                <h4 class="font-bold truncate">{{ chapter.title }}</h4>
-                                <div class="text-sm text-text-muted">{{ formatSeconds(chapter.start_s) }}</div>
-                            </div>
-                        </a>
-                    </div>
-                </v-tabs-window-item>
-            </v-tabs-window>
+            <Chat :videoId="Number(videoId)" :videoTime="videoTime" />
         </div>
     </div>
 </template>
