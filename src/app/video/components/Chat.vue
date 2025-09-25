@@ -85,7 +85,10 @@ const getMessages = async () => {
             v-for="message in renderedMessages"
             :key="message.id"
             :class="{
-                'bg-black-350 p-2 rounded-md': message.user_login === 'striddums',
+                'bg-black-350 p-2 rounded-md':
+                    message.user_login === 'striddums' ||
+                    message.user_login === 'JuulWasBezet' ||
+                    message.user_login === 'Malmaarmal',
             }"
         >
             <span

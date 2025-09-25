@@ -22,16 +22,35 @@ const date = computed(() => {
         day: 'numeric',
     });
 });
+const prettyTime = (seconds: number) => {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+
+    const parts = [];
+    if (hrs > 0) parts.push(hrs);
+    parts.push(hrs > 0 ? String(mins).padStart(2, '0') : mins);
+    parts.push(String(secs).padStart(2, '0'));
+
+    return parts.join(':');
+};
 </script>
 
 <template>
     <div
-        class="invisible -translate-y-4 duration-200 ease-linear transition-all opacity-0 absolute top-0 left-0 right-0 bg-black-300 bordder border-b border-black-400 md:hidden"
+        class="invisible -translate-y-4 duration-200 ease-linear transition-all shadow-2xl opacity-0 absolute top-0 left-0 right-0 bg-black-300 bordder border-b border-black-400 md:hidden"
         :class="{ 'visible  translate-y-0 opacity-100': props.showInfo }"
     >
-        <div class="pb-4 p-4">
-            <div class="font-bold text-lg">{{ videoInfo.title }}</div>
-            <div class="text-text-muted">{{ date }}</div>
+        <div class="flex gap-4 pb-4 p-4">
+            <img
+                :src="`http://localhost:8000/thumbnails/${videoInfo.video_id}`"
+                alt="video thumbnail"
+                class="inline h-12 rounded-md"
+            />
+            <div>
+                <div class="font-bold text-lg">{{ videoInfo.title }}</div>
+                <div class="text-text-muted">{{ date }}</div>
+            </div>
         </div>
 
         <div class="flex gap-4 overflow-auto flex-nowrap p-4 bg-black-200">
@@ -44,7 +63,7 @@ const date = computed(() => {
                 <img :src="chapter.image_url" alt="chapter image" class="inline h-12 mr-2 rounded-md" />
                 <div>
                     <div class="font-bold pr-2">{{ chapter.title }}</div>
-                    <div class="text-text-muted text-sm">{{ chapter.start_s }}</div>
+                    <div class="text-text-muted text-sm">{{ prettyTime(chapter.start_s) }}</div>
                 </div>
             </button>
         </div>
