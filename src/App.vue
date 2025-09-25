@@ -2,20 +2,13 @@
 import Header from './app/layout/components/Header.vue';
 import Footer from './app/layout/components/Footer.vue';
 import { useAppStore } from './app/shared/stores/app.store';
-
-const appStore = useAppStore();
 </script>
 
 <template>
     <v-app>
         <Header />
 
-        <div
-            class="transition-all ease-linear"
-            :style="{
-                paddingTop: appStore.showHeader ? appStore.headerSize?.height + 'px' : '0px',
-            }"
-        >
+        <div class="transition-all ease-linear pt-(--height-header)">
             <RouterView />
         </div>
 
