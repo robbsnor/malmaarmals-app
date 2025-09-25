@@ -40,8 +40,11 @@ export const useVideosStore = defineStore('videos', () => {
     });
 
     const goToVideosPage = () => {
-        if (route.name === 'videos') return;
-        router.push({ name: 'videos' });
+        if (route.name !== 'videos') {
+            router.push({ name: 'videos' });
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     watch(query, () => goToVideosPage());
