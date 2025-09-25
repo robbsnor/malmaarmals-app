@@ -38,16 +38,9 @@ const prettyTime = (seconds: number) => {
 
 <template>
     <div class="hidden md:block bg-black-300 border-b border-black-400 overflow-hidden">
-        <div class="flex gap-4 pb-4 p-4">
-            <img
-                :src="`http://localhost:8000/thumbnails/${videoInfo.video_id}`"
-                alt="video thumbnail"
-                class="inline h-12 rounded-md"
-            />
-            <div>
-                <div class="font-bold text-lg">{{ videoInfo.title }}</div>
-                <div class="text-text-muted">{{ date }}</div>
-            </div>
+        <div class="pb-4 p-4">
+            <div class="font-bold text-lg">{{ videoInfo.title }}</div>
+            <div class="text-text-muted">{{ date }}</div>
         </div>
 
         <div class="flex gap-4 overflow-auto p-4 bg-black-200">

@@ -41,11 +41,11 @@ const renderedMessages = computed(() => {
     return messages.value.slice(start, idx + 1);
 });
 
-watchEffect(async () => {
-    props.videoTime; // Depend on videoTime
-    await nextTick();
-    chatRef.value.scrollTop = chatRef.value.scrollHeight;
-});
+// watchEffect(async () => {
+//     props.videoTime; // Depend on videoTime
+//     await nextTick();
+//     chatRef.value.scrollTop = chatRef.value.scrollHeight;
+// });
 
 const getMessages = async () => {
     let from = 0;
