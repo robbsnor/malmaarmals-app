@@ -12,6 +12,6 @@ const props = withDefaults(
 <template>
     <div
         :class="{ 'h-[1px]': props.direction === 'horizontal', 'w-[1px] hf-full': props.direction === 'vertical' }"
-        class="poopie___ bg-radial from-primary-200 to-transparent"
+        class="poopie___ bg-radial from-black-900 to-transparent"
     ></div>
 </template>

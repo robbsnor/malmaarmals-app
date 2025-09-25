@@ -9,17 +9,17 @@
 
     /* purple and blue */
     /* --color-purple-blue: hsl(249, 98%, 86%); */
-    /* --color-primary-lighter: hsl(252, 100%, 84%);
-    --color-primary-light: hsl(252, 100%, 74%);
-    --color-primary: hsl(252, 100%, 64%);
-    --color-primary-dark: hsl(252, 100%, 54%);
-    --color-primary-darker: hsl(252, 100%, 44%);
+    --color-pipipink-lighter: hsl(252, 100%, 84%);
+    --color-pipipink-light: hsl(252, 100%, 74%);
+    --color-pipipink: hsl(252, 100%, 64%);
+    --color-pipipink-dark: hsl(252, 100%, 54%);
+    --color-pipipink-darker: hsl(252, 100%, 44%);
 
-    --color-secondary-lighter: hsl(168, 100%, 90%);
-    --color-secondary-light: hsl(168, 100%, 80%);
-    --color-secondary: hsl(168, 100%, 70%);
-    --color-secondary-dark: hsl(168, 100%, 60%);
-    --color-secondary-darker: hsl(168, 100%, 50%); */
+    --color-bbblue-lighter: hsl(168, 100%, 90%);
+    --color-bbblue-light: hsl(168, 100%, 80%);
+    --color-bbblue: hsl(168, 100%, 70%);
+    --color-bbblue-dark: hsl(168, 100%, 60%);
+    --color-bbblue-darker: hsl(168, 100%, 50%);
 
     --color-rich-black-100: #000204;
     --color-rich-black-200: #000308;
@@ -121,7 +121,7 @@
     --color-pink-lavender-800: #f3e0eb;
     --color-pink-lavender-900: #f9f0f5;
 
-    --color-primary: var(--color-lilac-500);
+    --color-primary: var(--color-pipipink);
     --color-primary-100: var(--color-pink-100);
     --color-primary-200: var(--color-pink-200);
     --color-primary-300: var(--color-pink-300);
@@ -181,6 +181,15 @@
     --color-black-900: #454545;
     --color-black-1000: #505050;
     --color-black-1100: #555555;
+    --color-black-1200: #606060;
+    --color-black-1300: #656565;
+    --color-black-1400: #707070;
+    --color-black-1500: #757575;
+    --color-black-1600: #808080;
+    --color-black-1700: #858585;
+    --color-black-1800: #909090;
+    --color-black-1900: #959595;
+    --color-black-2000: #a0a0a0;
 
     --height-header: 4rem;
     --height-available: calc(100vh - var(--height-header));
