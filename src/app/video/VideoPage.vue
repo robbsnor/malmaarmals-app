@@ -135,7 +135,7 @@ const updateVideoTime = (e: any | any) => {
             />
         </div>
 
-        <div class="relative overflow-hidden grow-1 md:grow-0 md:basis-[220px] lg:basis-[300px]">
+        <div class="relative overflow-hidden grow-1 shrink-0 md:grow-0 md:basis-[220px] lg:basis-[320px]">
             <Info
                 :showInfo="showInfo"
                 :videoInfo="videoInfo"
