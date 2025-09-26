@@ -16,6 +16,7 @@ import VideoThumbnail from './app/shared/components/VideoThumbnail.vue';
 
 import { vuetify } from './vuetify.config';
 import './style.css';
+import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -36,5 +37,6 @@ app.component('VideoThumbnail', VideoThumbnail);
 app.use(router);
 app.use(vuetify);
 app.use(pinia);
+app.use(autoAnimatePlugin);
 
 app.mount('#app');
