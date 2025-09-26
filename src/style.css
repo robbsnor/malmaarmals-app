@@ -122,6 +122,7 @@
     --color-pink-lavender-900: #f9f0f5;
 
     --color-primary: var(--color-pipipink);
+    --color-primary: var(--color-pink-lavender-800);
     --color-primary-100: var(--color-pink-100);
     --color-primary-200: var(--color-pink-200);
     --color-primary-300: var(--color-pink-300);

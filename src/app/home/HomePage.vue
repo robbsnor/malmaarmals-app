@@ -36,7 +36,7 @@ const handleArrow = (event: KeyboardEvent) => {
 };
 
 onMounted(() => {
-    lockOrientation('landscape').catch((err) => {
+    lockOrientation('landscape-primary').catch((err) => {
         console.warn('Could not lock orientation:', err);
     });
 
