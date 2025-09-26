@@ -55,7 +55,7 @@ const playlists = ref([
                 </div>
 
                 <h2 class="font-bold text-md pt-2">{{ playlist.title }}</h2>
-                <p class="text-text-muted text-sm font-medium">{{ playlist.episodes }} Video's</p>
+                <p class="text-muted text-sm font-medium">{{ playlist.episodes }} Video's</p>
             </div>
         </div>
 

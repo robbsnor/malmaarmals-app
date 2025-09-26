@@ -70,7 +70,7 @@ onMounted(async () => {
 
             <StatCard class="chat-rank">
                 <div class="p-8">
-                    <div class="font-bold text-text-muted text-4xl pb-4">Most Active Chatters</div>
+                    <div class="font-bold text-muted text-4xl pb-4">Most Active Chatters</div>
 
                     <div class="flex flex-col gap-2">
                         <div v-for="(chatter, i) in topChatters" :key="chatter.user_id" class="flex gap-2 items-end">

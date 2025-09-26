@@ -37,7 +37,7 @@ const formattedDuration = computed(() => {
             :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
         >
             <div
-                class="absolute right-2 bottom-2 bg-black/20 leading-none py-1.5 px-2 backdrop-blur-2xl text-text-normal text-sm rounded-md"
+                class="absolute right-2 bottom-2 bg-black/20 leading-none py-1.5 px-2 backdrop-blur-2xl text-normal text-sm rounded-md"
             >
                 {{ formattedDuration }}
             </div>
@@ -46,8 +46,8 @@ const formattedDuration = computed(() => {
         <h2 class="font-bold text-md pt-2">
             {{ props.video.title }}
         </h2>
-        <p class="text-text-muted text-sm font-medium">Super Mario Kart World</p>
-        <p class="text-text-muted-more text-sm font-medium">{{ daysAgo }} days ago</p>
+        <p class="text-muted text-sm font-medium">Super Mario Kart World</p>
+        <p class="text-muted-more text-sm font-medium">{{ daysAgo }} days ago</p>
 
         <!-- <template v-if="video.categories.length">
             <div

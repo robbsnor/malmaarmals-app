@@ -24,7 +24,7 @@ const isMyMessage = computed(() => {
 <template>
     <li
         :class="{
-            'bg-black-350 py-1 px-2 -mx-2 rounded-md': isMyMessage,
+            'bg-black-400 py-1 px-2 -mx-2 rounded-md': isMyMessage,
         }"
     >
         <span
@@ -41,12 +41,7 @@ const isMyMessage = computed(() => {
             <template v-for="word in message.text.split(' ')" :key="word">
                 <img v-if="emotesMap[word]" alt="emote" :src="emotesMap[word]" class="inline h-7" />
                 <b v-else-if="word.startsWith('@')">{{ word }}</b>
-                <a
-                    class="underline text-primary-800 hover:text-primary-700"
-                    v-else-if="word.startsWith('http') || word.startsWith('https')"
-                    :href="word"
-                    target="_blank"
-                >
+                <a v-else-if="word.startsWith('http') || word.startsWith('https')" :href="word" target="_blank">
                     {{ word }}
                 </a>
                 <template v-else>{{ word }}</template>
