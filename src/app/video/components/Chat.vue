@@ -82,7 +82,7 @@ const getMessages = async () => {
     <ul
         v-if="messages"
         ref="chatRef"
-        class="flex flex-col gap-1 p-4 md:pr-2 overflow-y-auto overflow-x-hidden h-full w-full self-stretch scroll-hidden"
+        class="flex flex-col gap-1 p-4 overflow-y-auto overflow-x-hidden h-full w-full self-stretch scroll-hidden md:pr-2 lg:p-4"
     >
         <Message v-for="message in renderedMessages" :key="message.id" :message="message" />
     </ul>
