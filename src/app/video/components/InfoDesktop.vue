@@ -21,6 +21,7 @@ const date = computed(() => {
         day: 'numeric',
     });
 });
+
 const prettyTime = (seconds: number) => {
     const hrs = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
@@ -48,7 +49,7 @@ const prettyTime = (seconds: number) => {
                 v-for="chapter in chapters"
                 :key="chapter.start_s"
                 @click="$emit('seekToChapter', chapter)"
-                class="flex min-w-[300px] gap-2 p-3 border border-black-500 rounded-md shrink-0 cursor-pointer text-left transition-all hover:bg-black-500"
+                class="flex min-w-[300px] gap-2 p-3 border border-black-500 rounded-md shrink-0 cursor-pointer text-left transition-all hover:bg-black-300"
             >
                 <img :src="chapter.image_url" alt="chapter image" class="inline h-12 mr-2 rounded-md" />
                 <div>
