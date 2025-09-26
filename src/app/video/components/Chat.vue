@@ -41,11 +41,11 @@ const renderedMessages = computed(() => {
     return messages.value.slice(start, idx + 1);
 });
 
-// watchEffect(async () => {
-//     props.videoTime; // Depend on videoTime
-//     await nextTick();
-//     chatRef.value.scrollTop = chatRef.value.scrollHeight;
-// });
+watchEffect(async () => {
+    props.videoTime; // Depend on videoTime
+    await nextTick();
+    chatRef.value.scrollTop = chatRef.value.scrollHeight;
+});
 
 const getMessages = async () => {
     let from = 0;
@@ -82,7 +82,7 @@ const getMessages = async () => {
     <ul
         v-if="messages"
         ref="chatRef"
-        class="flex flex-col gap-1 p-4 md:pr-2 overflow-auto h-full w-full self-stretch scroll-hidden"
+        class="flex flex-col gap-1 p-4 md:pr-2 overflow-y-auto overflow-x-hidden h-full w-full self-stretch scroll-hidden"
     >
         <Message v-for="message in renderedMessages" :key="message.id" :message="message" />
     </ul>

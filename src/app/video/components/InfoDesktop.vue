@@ -36,7 +36,7 @@ const prettyTime = (seconds: number) => {
 </script>
 
 <template>
-    <div class="hidden md:block bg-black-300 border-b border-black-400 overflow-hidden">
+    <div class="hidden md:block bg-black-300 overflow-hidden lg:mt-4 rounded-md">
         <div class="pb-4 p-4">
             <div class="font-bold text-lg">{{ videoInfo.title }}</div>
             <div class="text-text-muted">{{ date }}</div>
