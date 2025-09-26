@@ -43,8 +43,8 @@ const formattedDuration = computed(() => {
             <h2 class="font-bold text-md">
                 {{ props.video.title }}
             </h2>
-            <p class="text-text-muted text-sm font-medium">Super Mario Kart World</p>
-            <p class="text-text-muted-more text-sm font-medium">{{ daysAgo }} days ago</p>
+            <p class="text-muted text-sm font-medium">Super Mario Kart World</p>
+            <p class="text-muted-more text-sm font-medium">{{ daysAgo }} days ago</p>
         </div>
     </div>
 </template>

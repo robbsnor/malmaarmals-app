@@ -144,9 +144,9 @@
     --color-secondary-900: var(--color-pink-900);
 
     /* text */
-    --color-text-normal: hsl(0, 0%, 95%);
-    --color-text-muted: hsl(0, 0%, 70%);
-    --color-text-muted-more: hsl(0, 0%, 40%);
+    --color-normal: hsl(0, 0%, 95%);
+    --color-muted: hsl(0, 0%, 70%);
+    --color-muted-more: hsl(0, 0%, 40%);
 
     /* linear */
     /* --color-brand-100: #16161d;
@@ -194,21 +194,11 @@
     --height-header: 4rem;
     --height-available: calc(100vh - var(--height-header));
 
-    /* --breakpoint-sm: (max-width: 639px);
-    --breakpoint-md: (max-width: 767px);
-    --breakpoint-lg: (max-width: 1023px);
-    --breakpoint-xl: (max-width: 1279px);
-    --breakpoint-2xl: (max-width: 1535px); */
-
     --breakpoint-3xl: 120rem;
     --breakpoint-4xl: 140rem;
     --breakpoint-5xl: 160rem;
 
-    --ui-primary: var(--color-primary);
-    --ui-secondary: var(--color-secondary);
-
     --background-color-default: var(--color-black);
-
     --ring-color-default: var(--color-black);
 }
 
@@ -217,11 +207,15 @@
 }
 
 body {
-    @apply font-space-grotesk overflow-x-hidden bg-black text-text-normal;
+    @apply font-space-grotesk overflow-x-hidden bg-black text-normal;
+}
+
+a:not([class]) {
+    @apply underline text-primary hover:text-pipipink-light;
 }
 
 .scroll-hidden {
-    overflow: auto;
+    @apply overflow-auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }

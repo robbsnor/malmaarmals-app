@@ -69,6 +69,21 @@ const chapters = ref([
         title: 'SilkSong',
         image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/511391_IGDB-100x133.jpg',
     },
+    {
+        start_s: 12000,
+        title: 'Hollow Knight',
+        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/511391_IGDB-100x133.jpg',
+    },
+    {
+        start_s: 15000,
+        title: 'Among Us',
+        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/513510_IGDB-100x133.jpg',
+    },
+    {
+        start_s: 18000,
+        title: 'Just Chatting',
+        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/509658-100x133.jpg',
+    },
 ]);
 
 onMounted(async () => {
@@ -115,7 +130,7 @@ const updateVideoTime = (e: any | any) => {
 <template>
     <div v-if="videoInfo" class="h-available overflow-hidden flex flex-col md:flex-row">
         <div class="grow md:overflow-auto lg:p-4 lg:pr-0 xl:pr-2">
-            <div class="h-full lg:h-auto xl:h-[calc(var(--height-available)-48px-84px)]">
+            <div class="h-full lg:h-auto xl:h-[calc(var(--height-available)-48fpx-84px)]">
                 <Player
                     :options="options"
                     @timeupdate="updateVideoTime"

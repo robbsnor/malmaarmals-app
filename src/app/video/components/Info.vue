@@ -43,7 +43,7 @@ const prettyTime = (seconds: number) => {
     >
         <div class="pb-4 p-4">
             <div class="font-bold text-lg">{{ videoInfo.title }}</div>
-            <div class="text-text-muted">{{ date }}</div>
+            <div class="text-muted">{{ date }}</div>
         </div>
 
         <div class="flex gap-4 overflow-auto flex-nowrap p-4 bg-black-200">
@@ -56,7 +56,7 @@ const prettyTime = (seconds: number) => {
                 <img :src="chapter.image_url" alt="chapter image" class="inline h-12 mr-2 rounded-md" />
                 <div>
                     <div class="font-bold pr-2">{{ chapter.title }}</div>
-                    <div class="text-text-muted text-sm">{{ prettyTime(chapter.start_s) }}</div>
+                    <div class="text-muted text-sm">{{ prettyTime(chapter.start_s) }}</div>
                 </div>
             </button>
         </div>

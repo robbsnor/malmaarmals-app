@@ -36,23 +36,24 @@ const prettyTime = (seconds: number) => {
 </script>
 
 <template>
-    <div class="hidden md:block bg-black-400 overflow-hidden lg:mt-4 rounded-md">
-        <div class="pb-4 p-4">
+    <div class="hidden md:block overflow-hidden lg:mt-4 rounded-md">
+        <div class="pb-4 p-4 border-fb border-black-400">
             <div class="font-bold text-lg">{{ videoInfo.title }}</div>
-            <div class="text-text-muted">{{ date }}</div>
+            <div class="text-muted">{{ date }}</div>
         </div>
+        <Stroke />
 
-        <div class="flex gap-4 overflow-auto p-4 bg-black-200">
+        <div class="flex gap-4 overflow-auto p-4">
             <button
                 v-for="chapter in chapters"
                 :key="chapter.start_s"
                 @click="$emit('seekToChapter', chapter)"
-                class="flex min-w-[300px] gap-2 p-3 bg-black-400 rounded-md shrink-0 cursor-pointer text-left transition-all hover:bg-black-500"
+                class="flex min-w-[300px] gap-2 p-3 border border-black-500 rounded-md shrink-0 cursor-pointer text-left transition-all hover:bg-black-500"
             >
                 <img :src="chapter.image_url" alt="chapter image" class="inline h-12 mr-2 rounded-md" />
                 <div>
                     <div class="font-bold pr-2">{{ chapter.title }}</div>
-                    <div class="text-text-muted text-sm">{{ prettyTime(chapter.start_s) }}</div>
+                    <div class="text-muted text-sm">{{ prettyTime(chapter.start_s) }}</div>
                 </div>
             </button>
         </div>
