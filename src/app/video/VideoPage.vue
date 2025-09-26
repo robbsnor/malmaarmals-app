@@ -114,10 +114,18 @@ const updateVideoTime = (e: any | any) => {
 
 <template>
     <div v-if="videoInfo" class="h-available overflow-hidden flex flex-col md:flex-row">
-        <div class="md:overflow-auto">
-            <Player :options="options" @timeupdate="updateVideoTime" ref="playerRef" :stretchHeight="true">
-                <source :src="`http://localhost:8000/videos/${videoInfo.video_id}`" type="video/mp4" />
-            </Player>
+        <div class="md:overflow-auto lg:p-4 lg:pr-0">
+            <div class="h-full lg:h-auto lg:bg-red-200">
+                <Player
+                    :options="options"
+                    @timeupdate="updateVideoTime"
+                    ref="playerRef"
+                    :stretchHeight="!lgAndUp"
+                    class="lg:rounded-md overflow-hidden"
+                >
+                    <source :src="`http://localhost:8000/videos/${videoInfo.video_id}`" type="video/mp4" />
+                </Player>
+            </div>
 
             <InfoDesktop
                 v-if="mdAndUp"
@@ -127,7 +135,7 @@ const updateVideoTime = (e: any | any) => {
             />
         </div>
 
-        <div class="relative overflow-hidden grow-1 md:w-[220px] md:shrink-0">
+        <div class="relative overflow-hidden grow-1 md:w-[220px] md:shrink-0 lg:w-[320px] xl:w-[360px]">
             <Info
                 :showInfo="showInfo"
                 :videoInfo="videoInfo"
