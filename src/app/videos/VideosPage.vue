@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
+import { ref, useTemplateRef } from 'vue';
 import Video from '../shared/components/Video.vue';
-import { useAppStore } from '../shared/stores/app.store';
-import { computed, onMounted, ref, useTemplateRef } from 'vue';
-import Container from '../shared/components/Container.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import { useVideosStore } from '../video/stores/videos.store';
 
@@ -14,8 +12,6 @@ const { filteredVideos } = storeToRefs(videosStore);
 const searchRef = useTemplateRef<HTMLDivElement>('searchRef');
 
 const amountToShow = ref(100);
-const lessVideos = computed(() => filteredVideos?.value.slice(0, amountToShow.value));
-const showAll = () => (amountToShow.value = filteredVideos.value.length);
 </script>
 
 <template>
@@ -35,11 +31,7 @@ const showAll = () => (amountToShow.value = filteredVideos.value.length);
         </div>
 
         <div class="grid grid-cols sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
-            <Video v-for="video in lessVideos" :key="video.video_id" :video="video" />
-        </div>
-
-        <div class="flex justify-center pt-12">
-            <v-btn v-if="filteredVideos.length > amountToShow" @click="showAll" color="primary">Show all</v-btn>
+            <Video v-for="video in filteredVideos" :key="video.video_id" :video="video" />
         </div>
     </Section>
 </template>
