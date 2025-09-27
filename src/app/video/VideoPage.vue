@@ -52,8 +52,11 @@ const getVideoInfo = async () => {
 };
 
 const updateVideoTime = (e: any | any) => {
-    if (!e || !e.target.currentTime) return;
-    videoTime.value = Math.floor(e.target.currentTime);
+    const time = Math.floor(e.target.currentTime);
+    if (!e || !time) return; // bc 2 different events
+    if (videoTime.value === time) return;
+
+    videoTime.value = time;
 };
 
 watch(lgAndUp, (isTrue) => {

@@ -28,6 +28,7 @@ const renderedMessages = computed(() => {
 
     while (left <= right) {
         const mid = Math.floor((left + right) / 2);
+        console.log('foo');
         if (messages.value[mid].offset_sec <= props.videoTime) {
             idx = mid;
             left = mid + 1;
