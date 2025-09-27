@@ -11,21 +11,21 @@ import type { Tables } from '../shared/types/database.types';
 import Info from './components/Info.vue';
 import InfoDesktop from './components/InfoDesktop.vue';
 import { useAppStore } from '../shared/stores/app.store';
-import { useScreenOrientation } from '@vueuse/core';
+import { CHAPTERS_MOCK } from './data/chapters.mock';
 
 TitleHelper.setTitle('video');
 
 const route = useRoute();
 const appStore = useAppStore();
-const { mdAndDown, mdAndUp, lgAndUp } = useDisplay();
+const { mdAndUp, lgAndUp } = useDisplay();
 const videoId = route.params.id as string;
 
-const loading = ref(true);
 const videoInfo = ref<Tables<'videos'>>();
 const videoTime = ref(0);
 const playerRef = useTemplateRef<InstanceType<typeof Player>>('playerRef');
 const showInfo = ref(false);
-const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
+
+const chapters = ref(CHAPTERS_MOCK);
 
 const options = computed(() => ({
     controls: playerDefaultOptions.controls.filter((item: any) => !['pip', 'volfume', 'mute'].includes(item)),
@@ -38,80 +38,10 @@ const options = computed(() => ({
     },
 }));
 
-watch(lgAndUp, (isTrue) => {
-    console.log(isTrue);
-    isTrue ? appStore.showHeader() : appStore.hideHeader();
-});
-
-function seekToChapter(seconds: number) {
+const seekToChapter = (seconds: number) => {
     playerRef.value.videoRef.currentTime = seconds;
     playerRef.value.videoRef.play();
-}
-
-const chapters = ref([
-    {
-        start_s: 1510,
-        title: 'Just Chatting',
-        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/509658-100x133.jpg',
-    },
-    {
-        start_s: 1800,
-        title: 'Mario Kart World',
-        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/1826300051_IGDB-100x133.jpg',
-    },
-    {
-        start_s: 2400,
-        title: 'Call of Duty: Black II',
-        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/489401_IGDB-100x133.jpg',
-    },
-    {
-        start_s: 8720,
-        title: 'SilkSong',
-        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/511391_IGDB-100x133.jpg',
-    },
-    {
-        start_s: 12000,
-        title: 'Hollow Knight',
-        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/511391_IGDB-100x133.jpg',
-    },
-    {
-        start_s: 15000,
-        title: 'Among Us',
-        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/513510_IGDB-100x133.jpg',
-    },
-    {
-        start_s: 18000,
-        title: 'Just Chatting but a long name that is even longer',
-        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/509658-100x133.jpg',
-    },
-]);
-
-onMounted(async () => {
-    console.log('go');
-    lockOrientation('landscape').catch((err) => {
-        console.warn('Could not lock orientation:', err);
-    });
-    console.log('fdsfkldfak');
-    if (lgAndUp.value) {
-        appStore.showHeader();
-    } else {
-        appStore.hideHeader();
-    }
-    // await new Promise((resolve) => setTimeout(resolve, 1200));
-    await getVideoInfo();
-    loading.value = false;
-
-    playerRef.value.player.on('controlsshown', () => {
-        showInfo.value = true;
-    });
-    playerRef.value.player.on('controlshidden', () => {
-        showInfo.value = false;
-    });
-});
-
-onUnmounted(() => {
-    appStore.showHeader();
-});
+};
 
 const getVideoInfo = async () => {
     const { data, error } = await supabase.from('videos').select('*').eq('video_id', Number(videoId)).single();
@@ -125,6 +55,32 @@ const updateVideoTime = (e: any | any) => {
     if (!e || !e.target.currentTime) return;
     videoTime.value = Math.floor(e.target.currentTime);
 };
+
+watch(lgAndUp, (isTrue) => {
+    console.log(isTrue);
+    isTrue ? appStore.showHeader() : appStore.hideHeader();
+});
+
+onMounted(async () => {
+    if (lgAndUp.value) {
+        appStore.showHeader();
+    } else {
+        appStore.hideHeader();
+    }
+
+    await getVideoInfo();
+
+    playerRef.value.player.on('controlsshown', () => {
+        showInfo.value = true;
+    });
+    playerRef.value.player.on('controlshidden', () => {
+        showInfo.value = false;
+    });
+});
+
+onUnmounted(() => {
+    appStore.showHeader();
+});
 </script>
 
 <template>
