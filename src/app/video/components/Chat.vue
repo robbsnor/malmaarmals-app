@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch, watchEffect, nextTick, useTemplateRef } from 'vue';
+import { computed, nextTick, onMounted, ref, useTemplateRef, watchEffect } from 'vue';
 import { supabase } from '../../../supabase';
+import type { Tables } from '../../shared/types/database.types';
 import Message from './Message.vue';
 
 const props = withDefaults(
@@ -11,7 +12,8 @@ const props = withDefaults(
     {}
 );
 
-const messages = ref<any[]>([]);
+const messages = ref<Tables<'messages'>[]>([]);
+const isFetchingMessages = ref(true);
 const chatRef = useTemplateRef<HTMLElement>('chatRef');
 
 onMounted(async () => {
@@ -41,11 +43,7 @@ const renderedMessages = computed(() => {
     return messages.value.slice(start, idx + 1);
 });
 
-watchEffect(async () => {
-    props.videoTime; // Depend on videoTime
-    await nextTick();
-    chatRef.value.scrollTop = chatRef.value.scrollHeight;
-});
+const subCount = computed(() => messages.value.filter((m) => m.text.includes('subscribed')).length);
 
 const getMessages = async () => {
     let from = 0;
@@ -63,10 +61,12 @@ const getMessages = async () => {
             .range(from, to);
 
         if (error) {
+            isFetchingMessages.value = false;
             return console.error('Error fetching messages:', error);
         }
 
         if (data && data.length > 0) {
+            // @ts-ignore
             messages.value = [...messages.value, ...data];
             from += 1000;
             to += 1000;
@@ -75,7 +75,15 @@ const getMessages = async () => {
             hasMore = false;
         }
     }
+
+    isFetchingMessages.value = false;
 };
+
+watchEffect(async () => {
+    props.videoTime; // Depend on videoTime
+    await nextTick();
+    chatRef.value.scrollTop = chatRef.value.scrollHeight;
+});
 </script>
 
 <template>
