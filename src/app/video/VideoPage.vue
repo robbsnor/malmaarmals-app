@@ -85,7 +85,7 @@ onUnmounted(() => {
 
 <template>
     <div v-if="videoInfo" class="h-available overflow-hidden flex flex-col md:flex-row">
-        <div class="grow md:overflow-auto lg:p-4 lg:pr-0 xl:pr-2">
+        <div class="relative md:grow md:overflow-auto lg:p-4 lg:pr-0 xl:pr-2">
             <div class="h-full lg:h-auto xl:h-[calc(var(--height-available)-48fpx-84px)]">
                 <Player
                     :options="options"
@@ -98,8 +98,9 @@ onUnmounted(() => {
                 </Player>
             </div>
 
-            <InfoDesktop
-                v-if="mdAndUp"
+            <InfoDesktop :videoInfo="videoInfo" :chapters="chapters" @clickChapter="seekToChapter($event.start_s)" />
+            <Info
+                :showInfo="showInfo"
                 :videoInfo="videoInfo"
                 :chapters="chapters"
                 @clickChapter="seekToChapter($event.start_s)"
@@ -107,12 +108,6 @@ onUnmounted(() => {
         </div>
 
         <div class="relative overflow-hidden grow-1 shrink-0 md:grow-0 md:basis-[220px] lg:basis-[320px]">
-            <Info
-                :showInfo="showInfo"
-                :videoInfo="videoInfo"
-                :chapters="chapters"
-                @clickChapter="seekToChapter($event.start_s)"
-            />
             <Chat :videoId="Number(videoId)" :videoTime="videoTime" />
         </div>
     </div>
