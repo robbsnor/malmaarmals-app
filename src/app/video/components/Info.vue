@@ -22,6 +22,7 @@ const date = computed(() => {
         day: 'numeric',
     });
 });
+
 const prettyTime = (seconds: number) => {
     const hrs = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
@@ -38,7 +39,7 @@ const prettyTime = (seconds: number) => {
 
 <template>
     <div
-        class="invisible -translate-y-2 transition-all opacity-0 absolute top-0 left-0 right-0 md:hidden shadow-2xl bg-black-300 border-b border-black-400"
+        class="invisible -translate-y-2 transition-all opacity-0 absolute top-full z-10 left-0 right-0 md:hidden shadow-2xl bg-black-300 border-b border-black-400"
         :class="{ 'visible translate-y-0 opacity-100': props.showInfo }"
     >
         <div class="pb-4 p-4">
