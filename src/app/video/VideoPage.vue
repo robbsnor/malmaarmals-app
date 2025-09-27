@@ -81,7 +81,7 @@ const chapters = ref([
     },
     {
         start_s: 18000,
-        title: 'Just Chatting',
+        title: 'Just Chatting but a long name that is even longer',
         image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/509658-100x133.jpg',
     },
 ]);
