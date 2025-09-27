@@ -3,7 +3,7 @@ import { storeToRefs } from 'pinia';
 import { ref, useTemplateRef } from 'vue';
 import Video from '../shared/components/Video.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
-import { useVideosStore } from '../video/stores/videos.store';
+import { useVideosStore } from './stores/videos.store';
 
 TitleHelper.setTitle('videos');
 
