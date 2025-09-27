@@ -2,7 +2,7 @@
 import { useElementSize, useMagicKeys } from '@vueuse/core';
 import { computed, ref, useTemplateRef, watch } from 'vue';
 import { useAppStore } from '../../shared/stores/app.store';
-import { useVideosStore } from '../../video/stores/videos.store';
+import { useVideosStore } from '../../videos/stores/videos.store';
 
 const appStore = useAppStore();
 const videosStore = useVideosStore();

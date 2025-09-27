@@ -6,7 +6,7 @@ import LatestVideo from './components/LatestVideo.vue';
 import Playlists from './components/Playlists.vue';
 import { useAppStore } from '../shared/stores/app.store';
 import { TitleHelper } from '../shared/helpers/title.helper';
-import { useVideosStore } from '../video/stores/videos.store';
+import { useVideosStore } from '../videos/stores/videos.store';
 import PrevStreams from './components/PrevStreams.vue';
 import { useScreenOrientation } from '@vueuse/core';
 
