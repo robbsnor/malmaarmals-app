@@ -22,6 +22,7 @@ const props = withDefaults(
         </div>
 
         <template #actions>
+            <RouterLink class="link" to="/videos">view all</RouterLink>
             <v-btn to="/videos" variant="text">view all</v-btn>
         </template>
     </Section>
