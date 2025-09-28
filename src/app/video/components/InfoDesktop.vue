@@ -46,7 +46,12 @@ const prettyTime = (seconds: number) => {
 
             <v-menu location="top right">
                 <template v-slot:activator="{ props }">
-                    <v-btn color="var(--color-black-500)" v-bind="props" prepend-icon="mdi-format-list-bulleted"
+                    <v-btn
+                        variant="tonal"
+                        color="primary"
+                        text-color="red"
+                        v-bind="props"
+                        prepend-icon="mdi-format-list-bulleted"
                         >chapters</v-btn
                     >
                 </template>
