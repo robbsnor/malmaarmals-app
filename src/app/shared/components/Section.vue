@@ -20,7 +20,10 @@ const props = withDefaults(
                 <h2 class="text-4xl font-bold">
                     {{ props.title }}
                 </h2>
-                <slot name="actions" />
+
+                <div>
+                    <slot name="actions" />
+                </div>
             </div>
 
             <slot />
