@@ -73,9 +73,10 @@ watch(videoTime, (newValue) => {
     localStorage.setItem(videoId, JSON.stringify(obj));
 });
 
-const setOldVideoTime = () => {
+const setRememberedVideoTime = () => {
     const timeObj: VideoTimeProgression = JSON.parse(localStorage.getItem(videoId));
     if (!timeObj) return;
+    if (timeObj.percentage > 90) return;
 
     playerRef.value.videoRef.currentTime = Number(timeObj.current_time_s);
 };
@@ -88,7 +89,7 @@ onMounted(async () => {
     }
 
     await getVideoInfo();
-    setOldVideoTime();
+    setRememberedVideoTime();
 
     playerRef.value.player.on('controlsshown', () => {
         showInfo.value = true;

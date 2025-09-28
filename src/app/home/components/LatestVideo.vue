@@ -54,6 +54,7 @@ const getTimeAgo = (date: string) => {
                         :to="`/videos/${props.video.video_id}`"
                         :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
                         :icon-size="60"
+                        :videoId="props.video.video_id"
                     >
                         <div class="absolute top-4 right-4">
                             <!-- <v-chip color="secondary" variant="elevated">Latest Video</v-chip> -->
