@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { twMerge, twJoin } from 'tailwind-merge';
 import { computed } from 'vue';
-import type { VideoTimeProgression } from '../../video/models/VideoTimeProgression.model';
+import type { VideoProgression } from '../../video/models/VideoProgression.model';
 
 const props = withDefaults(
     defineProps<{
@@ -19,7 +19,7 @@ const props = withDefaults(
 );
 
 const time = computed(() => {
-    return JSON.parse(localStorage.getItem(props.videoId?.toString())) as VideoTimeProgression;
+    return JSON.parse(localStorage.getItem(props.videoId?.toString())) as VideoProgression;
 });
 </script>
 

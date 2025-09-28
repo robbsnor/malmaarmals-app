@@ -33,14 +33,14 @@ const formattedDuration = computed(() => {
 <template>
     <div class="flex gap-4">
         <VideoThumbnail
-            class="w-30"
+            class="w-30 shrink-0"
             :to="`/videos/${props.video.video_id}`"
             :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
         >
         </VideoThumbnail>
 
         <div>
-            <h2 class="font-bold text-md">
+            <h2 class="font-bold text-md wrap-anywhere">
                 {{ props.video.title }}
             </h2>
             <p class="text-muted text-sm font-medium">Super Mario Kart World</p>

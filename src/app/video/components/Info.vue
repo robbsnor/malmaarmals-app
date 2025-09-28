@@ -1,22 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import type { Tables } from '../../shared/types/database.types';
+import { useVideoStore } from '../stores/video.store';
 
-const props = withDefaults(
-    defineProps<{
-        videoInfo: Tables<'videos'>;
-        showInfo: boolean;
-        chapters: {
-            start_s: number;
-            title: string;
-            image_url: string;
-        }[];
-    }>(),
-    {}
-);
+const videoStore = useVideoStore();
 
 const date = computed(() => {
-    return new Date(props.videoInfo.recorded_at).toLocaleDateString('en-US', {
+    return new Date(videoStore.videoInfo.recorded_at).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -40,16 +30,16 @@ const prettyTime = (seconds: number) => {
 <template>
     <div
         class="invisible -translate-y-2 transition-all opacity-0 absolute top-full z-10 left-0 right-0 md:hidden shadow-2xl bg-black-300 border-b border-black-400"
-        :class="{ 'visible translate-y-0 opacity-100': props.showInfo }"
+        :class="{ 'visible translate-y-0 opacity-100': videoStore.showInfo }"
     >
         <div class="pb-4 p-4">
-            <div class="font-bold text-lg">{{ videoInfo.title }}</div>
+            <div class="font-bold text-lg">{{ videoStore.videoInfo.title }}</div>
             <div class="text-muted">{{ date }}</div>
         </div>
 
         <div class="flex gap-4 overflow-auto flex-nowrap p-4 bg-black-200">
             <button
-                v-for="chapter in chapters"
+                v-for="chapter in videoStore.chapters"
                 :key="chapter.start_s"
                 @click="$emit('seekToChapter', chapter)"
                 class="flex min-w-[300px] gap-2 p-3 bg-black-400 rounded-md shrink-0 cursor-pointer text-left transition-all hover:bg-black-500"

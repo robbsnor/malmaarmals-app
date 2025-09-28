@@ -17,6 +17,7 @@
     "@tsconfig/node20": "^20.1.6",
     "@types/node": "^24.0.3",
     "@vueuse/core": "^13.9.0",
+    "@vueuse/router": "^13.9.0",
     "gsap": "^3.13.0",
     "lodash": "^4.17.21",
     "pinia": "^3.0.3",
