@@ -90,7 +90,11 @@ watch(keys['Meta+K'], () => videosStore.goToVideosPage());
         </button>
 
         <div class="bg-black pt-[var(--height-header)] min-h-100">
-            <Container> My little menu </Container>
+            <Container>
+                <div class="flex justify-center gap-4 p-30">
+                    <div v-for="n in 2" class="p-20 bg-red-500 rounded-xl">Previouse Streams</div>
+                </div>
+            </Container>
         </div>
     </div>
 </template>

@@ -18,9 +18,11 @@ import VideoThumbnail from './app/shared/components/VideoThumbnail.vue';
 import { vuetify } from './vuetify.config';
 import './style.css';
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 
 const app = createApp(App);
 const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 
 // components
 app.component('Card', Card);

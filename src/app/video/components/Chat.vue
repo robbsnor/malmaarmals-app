@@ -88,6 +88,7 @@ watchEffect(async () => {
 </script>
 
 <template>
+    <div class="absolute top-0 w-full p-2 bg-black-1000">{{ subCount }} subs, {{ messages.length }}</div>
     <ul
         v-if="messages"
         ref="chatRef"
