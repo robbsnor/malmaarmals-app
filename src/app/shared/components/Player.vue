@@ -16,14 +16,14 @@ const props = withDefaults(
 );
 
 const attrs = useAttrs();
-
-const player = ref<Plyr>();
 const videoRef = useTemplateRef<HTMLVideoElement>('videoRef');
 
-const opt = computed(() => merge(playerDefaultOptions, props.options));
+const player = ref<Plyr>();
+
+const options = computed(() => merge(playerDefaultOptions, props.options));
 
 onMounted(() => {
-    player.value = new Plyr(videoRef.value, opt.value);
+    player.value = new Plyr(videoRef.value, options.value);
 });
 
 defineExpose({ videoRef, player });

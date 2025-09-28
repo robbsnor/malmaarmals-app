@@ -1,4 +1,4 @@
-export interface VideoTimeProgression {
+export interface VideoProgression {
     current_time_s: number;
     total_time_s: number;
     percentage: number;

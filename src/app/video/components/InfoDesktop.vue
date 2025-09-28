@@ -1,21 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import type { Tables } from '../../shared/types/database.types';
+import { useVideoStore } from '../stores/video.store';
 
-const props = withDefaults(
-    defineProps<{
-        videoInfo: Tables<'videos'>;
-        chapters: {
-            start_s: number;
-            title: string;
-            image_url: string;
-        }[];
-    }>(),
-    {}
-);
+const videoStore = useVideoStore();
 
 const date = computed(() => {
-    return new Date(props.videoInfo.recorded_at).toLocaleDateString('en-US', {
+    return new Date(videoStore.videoInfo.recorded_at).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -40,8 +31,10 @@ const prettyTime = (seconds: number) => {
     <div class="hidden md:block overflow-hidden rounded-md">
         <div class="flex justify-between items-center gap-4 pb-4 p-4">
             <div class="">
-                <div class="font-bold text-lg">{{ videoInfo.title }}</div>
-                <div class="text-muted">{{ date }}</div>
+                <div class="font-bold text-lg">{{ videoStore.videoInfo.title }}</div>
+                <div class="text-muted">{{ date }} {{ videoStore.videoId }}</div>
+
+                {{ videoStore.subCount }} subs, {{ videoStore.messages.length }} messages
             </div>
 
             <v-menu location="top right">
@@ -61,7 +54,7 @@ const prettyTime = (seconds: number) => {
                     class="flex flex-col gap-2 bg-black-200 border border-black-400 h-100 rounded-xl overflow-auto p-2"
                 >
                     <button
-                        v-for="chapter in chapters"
+                        v-for="chapter in videoStore.chapters"
                         :key="chapter.start_s"
                         @click="$emit('seekToChapter', chapter)"
                         class="flex w-[300px] gap-2 p-3 bg-black-300 border border-black-500 rounded-md shrink-0 cursor-pointer text-left transition-all hover:bg-black-400"
