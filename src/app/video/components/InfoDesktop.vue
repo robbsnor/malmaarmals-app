@@ -52,12 +52,13 @@ const prettyTime = (seconds: number) => {
                         text-color="red"
                         v-bind="props"
                         prepend-icon="mdi-format-list-bulleted"
-                        >chapters</v-btn
                     >
+                        chapters
+                    </v-btn>
                 </template>
 
                 <div
-                    class="flex flex-col gap-2 bg-black-200 border border-black-400 h-100 rounded-md overflow-auto p-2"
+                    class="flex flex-col gap-2 bg-black-200 border border-black-400 h-100 rounded-xl overflow-auto p-2"
                 >
                     <button
                         v-for="chapter in chapters"
@@ -74,21 +75,7 @@ const prettyTime = (seconds: number) => {
                 </div>
             </v-menu>
         </div>
-        <Stroke />
 
-        <!-- <div class="flex gap-4 overflow-auto p-4">
-            <button
-                v-for="chapter in chapters"
-                :key="chapter.start_s"
-                @click="$emit('seekToChapter', chapter)"
-                class="flex min-w-[300px] gap-2 p-3 border border-black-500 rounded-md shrink-0 cursor-pointer text-left transition-all hover:bg-black-300"
-            >
-                <img :src="chapter.image_url" alt="chapter image" class="inline h-12 mr-2 rounded-md" />
-                <div>
-                    <div class="font-bold pr-2">{{ chapter.title }}</div>
-                    <div class="text-muted text-sm">{{ prettyTime(chapter.start_s) }}</div>
-                </div>
-            </button>
-        </div> -->
+        <Stroke />
     </div>
 </template>
