@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { twMerge, twJoin } from 'tailwind-merge';
 import { computed } from 'vue';
+import type { VideoTimeProgression } from '../../video/models/VideoTimeProgression.model';
 
 const props = withDefaults(
     defineProps<{
@@ -9,12 +10,17 @@ const props = withDefaults(
         icon?: string;
         iconSize?: string | number;
         type?: 'large';
+        videoId?: number;
     }>(),
     {
         icon: '$play',
         iconSize: 40,
     }
 );
+
+const time = computed(() => {
+    return JSON.parse(localStorage.getItem(props.videoId?.toString())) as VideoTimeProgression;
+});
 </script>
 
 <template>
@@ -39,5 +45,9 @@ const props = withDefaults(
         </div>
 
         <slot></slot>
+
+        <div v-if="time && time.percentage < 95" class="absolute bottom-0 right-0 left-0 h-1 bg-black-400">
+            <div class="bg-primary h-full" :style="{ width: `${time.percentage}%` }"></div>
+        </div>
     </RouterLink>
 </template>

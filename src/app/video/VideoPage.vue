@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import { ref, onMounted, computed, useTemplateRef, watch, onUnmounted } from 'vue';
-import { supabase } from '../../supabase';
+import { computed, onMounted, onUnmounted, ref, useTemplateRef, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import Chat from './components/Chat.vue';
+import { useDisplay } from 'vuetify';
+import { supabase } from '../../supabase';
 import Player from '../shared/components/Player.vue';
 import { playerDefaultOptions } from '../shared/data/player.data';
-import { useDisplay } from 'vuetify';
 import { TitleHelper } from '../shared/helpers/title.helper';
+import { useAppStore } from '../shared/stores/app.store';
 import type { Tables } from '../shared/types/database.types';
+import Chat from './components/Chat.vue';
 import Info from './components/Info.vue';
 import InfoDesktop from './components/InfoDesktop.vue';
-import { useAppStore } from '../shared/stores/app.store';
 import { CHAPTERS_MOCK } from './data/chapters.mock';
+import type { VideoTimeProgression } from './models/VideoTimeProgression.model';
 
 TitleHelper.setTitle('video');
 
@@ -60,9 +61,24 @@ const updateVideoTime = (e: any | any) => {
 };
 
 watch(lgAndUp, (isTrue) => {
-    console.log(isTrue);
     isTrue ? appStore.showHeader() : appStore.hideHeader();
 });
+
+watch(videoTime, (newValue) => {
+    const obj: VideoTimeProgression = {
+        current_time_s: newValue,
+        total_time_s: videoInfo.value.length_sec,
+        percentage: Math.round((100 / videoInfo.value.length_sec) * videoTime.value),
+    };
+    localStorage.setItem(videoId, JSON.stringify(obj));
+});
+
+const setOldVideoTime = () => {
+    const timeObj: VideoTimeProgression = JSON.parse(localStorage.getItem(videoId));
+    if (!timeObj) return;
+
+    playerRef.value.videoRef.currentTime = Number(timeObj.current_time_s);
+};
 
 onMounted(async () => {
     if (lgAndUp.value) {
@@ -72,6 +88,7 @@ onMounted(async () => {
     }
 
     await getVideoInfo();
+    setOldVideoTime();
 
     playerRef.value.player.on('controlsshown', () => {
         showInfo.value = true;

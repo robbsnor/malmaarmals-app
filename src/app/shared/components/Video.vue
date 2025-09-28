@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import type { Tables } from '../types/database.types';
 
 const props = withDefaults(
     defineProps<{
-        video: any;
+        video: Tables<'videos'>;
         isFirst?: boolean;
     }>(),
     {
@@ -35,6 +36,7 @@ const formattedDuration = computed(() => {
         <VideoThumbnail
             :to="`/videos/${props.video.video_id}`"
             :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
+            :videoId="props.video.video_id"
         >
             <div
                 class="absolute right-2 bottom-2 bg-black/20 leading-none py-1.5 px-2 backdrop-blur-2xl text-normal text-sm rounded-md"
