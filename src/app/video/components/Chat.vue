@@ -44,7 +44,9 @@ const renderedMessages = computed(() => {
     return messages.value.slice(start, idx + 1);
 });
 
-const subCount = computed(() => messages.value.filter((m) => m.text.includes('subscribed')).length);
+const subCount = computed(
+    () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
+);
 
 const getMessages = async () => {
     let from = 0;
@@ -88,7 +90,9 @@ watchEffect(async () => {
 </script>
 
 <template>
-    <div class="absolute top-0 w-full p-2 bg-black-1000">{{ subCount }} subs, {{ messages.length }}</div>
+    <div class="absolute right-0 top-4 left-0 px-4 py-2 mx-4 bg-black-400 rounded-md border border-black-600">
+        {{ subCount }} subs, {{ messages.length }} messages
+    </div>
     <ul
         v-if="messages"
         ref="chatRef"

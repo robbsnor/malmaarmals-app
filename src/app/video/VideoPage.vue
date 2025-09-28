@@ -106,8 +106,8 @@ onUnmounted(() => {
 
 <template>
     <div v-if="videoInfo" class="h-available overflow-hidden flex flex-col md:flex-row">
-        <div class="relative md:grow md:overflow-auto lg:p-4 lg:pr-0 xl:pr-2">
-            <div class="h-full lg:h-auto xl:h-[calc(var(--height-available)-48fpx-84px)]">
+        <div class="relative md:grow md:overflow-auto lg:p-4 lg:pr-0">
+            <div class="h-full lg:h-auto xl:max-h-[calc(var(--height-available)-48fpx-84px)]">
                 <Player
                     :options="options"
                     @timeupdate="updateVideoTime"
