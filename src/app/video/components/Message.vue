@@ -12,11 +12,11 @@ const props = withDefaults(
 
 const isMyMessage = computed(() => {
     return (
-        props.message.user_name === 'striddums' ||
-        props.message.user_name === 'JuulWasBezet' ||
-        props.message.user_name === 'Roekeloos' ||
-        props.message.user_name === 'Robbsnor' ||
-        props.message.user_name === 'Malmaarmal'
+        // props.message.user_name === 'striddums' ||
+        // props.message.user_name === 'JuulWasBezet' ||
+        // props.message.user_name === 'Roekeloos' ||
+        // props.message.user_name === 'Malmaarmal' ||
+        props.message.user_name === 'Robbsnor'
     );
 });
 </script>
@@ -24,7 +24,7 @@ const isMyMessage = computed(() => {
 <template>
     <li
         :class="{
-            'bg-black-400 py-1 px-2 -mx-2 rounded-md': isMyMessage,
+            'bg-african-violet-400-400 py-1 px-2 -mx-2 rounded-md': isMyMessage,
         }"
     >
         <span
