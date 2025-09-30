@@ -26,6 +26,7 @@ const isMyMessage = computed(() => {
         :class="{
             'bg-african-violet-400-400 py-1 px-2 -mx-2 rounded-md': isMyMessage,
         }"
+        :data-id="message.id"
     >
         <span
             :style="{

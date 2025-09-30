@@ -33,8 +33,8 @@ const prettyTime = (seconds: number) => {
             <div class="">
                 <div class="font-bold text-lg">{{ videoStore.videoInfo.title }}</div>
                 <div class="text-muted">{{ date }} {{ videoStore.videoId }}</div>
-
-                {{ videoStore.subCount }} subs, {{ videoStore.messages.length }} messages
+                <div class="text-muted-more">{{ videoStore.subCount }} subs</div>
+                <div class="text-muted-more">{{ videoStore.messages.length }} messages</div>
             </div>
 
             <v-menu location="top right">
