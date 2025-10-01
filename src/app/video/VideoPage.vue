@@ -89,7 +89,7 @@ onUnmounted(() => {
 
 <template>
     <div v-if="videoStore.videoInfo" class="h-available overflow-hidden flex flex-col md:flex-row">
-        <div class="relative md:grow md:overflow-auto lg:p-4 lg:pr-0">
+        <div class="relative md:grow md:overflow-auto lg:p-4 lg:pr-0 scroll-hidden">
             <div class="h-full lg:h-auto xl:max-h-[calc(var(--height-available)-48fpx-84px)]">
                 <Player
                     :options="options"

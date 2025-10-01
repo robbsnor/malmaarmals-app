@@ -58,11 +58,11 @@ export const vuetify = createVuetify({
         },
     },
     theme: {
-        defaultTheme: 'twitch-dashboard-dark',
+        defaultTheme: 'malmaarmals',
         themes: {
-            'twitch-dashboard-dark': {
+            malmaarmals: {
                 colors: {
-                    background: '#000000',
+                    background: '#101010',
                     primary: 'hsl(252, 100%, 64%)',
                     secondary: 'hsl(168, 100%, 70%)',
                 },
