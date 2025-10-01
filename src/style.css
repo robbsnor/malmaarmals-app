@@ -207,7 +207,7 @@
 }
 
 body {
-    @apply font-space-grotesk overflow-x-hidden bg-red-500 text-normal;
+    @apply font-space-grotesk overflow-x-hidden text-normal;
 }
 
 a.link,
@@ -215,7 +215,7 @@ a:not([class]) {
     @apply underline text-primary hover:text-pipipink-light;
 }
 
-.scroll-hidden {
+@utility scroll-hidden {
     @apply overflow-auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
