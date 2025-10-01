@@ -207,7 +207,7 @@
 }
 
 body {
-    @apply font-space-grotesk overflow-x-hidden bg-black text-normal;
+    @apply font-space-grotesk overflow-x-hidden bg-red-500 text-normal;
 }
 
 a.link,
