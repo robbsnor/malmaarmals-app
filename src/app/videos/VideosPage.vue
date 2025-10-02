@@ -19,6 +19,8 @@ const amountToShow = ref(100);
 
 <template>
     <Section title="Previous Streams" :show-top-stroke="false" v-if="filteredVideos">
+        <template #actions v-if="videosStore.videos.length"> {{ videosStore.videos.length }} videos </template>
+
         <div class="flex justify-center flex-col gap-8 items-center pb-8 md:hidden">
             <v-text-field
                 ref="searchRef"
@@ -36,7 +38,7 @@ const amountToShow = ref(100);
         <div class="grid grid-cols sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
             <template v-for="video in filteredVideos">
                 <Video v-if="smAndUp" :key="video.video_id" :video="video" />
-                <VideoSmall v-else :key="`${video.video_id}2`" :video="video" />
+                <VideoSmall v-else :key="`${video.video_id}_small`" :video="video" />
             </template>
         </div>
     </Section>

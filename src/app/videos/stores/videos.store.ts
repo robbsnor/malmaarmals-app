@@ -9,7 +9,7 @@ export const useVideosStore = defineStore('videos', () => {
     const router = useRouter();
 
     const query = ref<string>('');
-    const videos = ref<Tables<'videos'>[]>(null);
+    const videos = ref<Tables<'videos'>[]>([]);
 
     onMounted(async () => {
         console.log('Fetching videos...');
