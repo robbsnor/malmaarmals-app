@@ -46,7 +46,10 @@ const time = computed(() => {
 
         <slot></slot>
 
-        <div v-if="time && time.percentage < 95" class="absolute bottom-0 right-0 left-0 h-1 bg-black-400">
+        <div
+            v-if="time && time.percentage < 95 && time.percentage > 5"
+            class="absolute bottom-0 right-0 left-0 h-1 bg-black-400"
+        >
             <div class="bg-primary h-full" :style="{ width: `${time.percentage}%` }"></div>
         </div>
     </RouterLink>
