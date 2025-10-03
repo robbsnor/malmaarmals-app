@@ -8,6 +8,7 @@ import { TitleHelper } from '../shared/helpers/title.helper';
 import { useAppStore } from '../shared/stores/app.store';
 import Chat from './components/Chat.vue';
 import Info from './components/Info.vue';
+import Back from './components/Back.vue';
 import InfoDesktop from './components/InfoDesktop.vue';
 import type { VideoProgression } from './models/VideoProgression.model';
 import { useVideoStore } from './stores/video.store';
@@ -102,6 +103,7 @@ onUnmounted(() => {
                 </Player>
             </div>
 
+            <Back />
             <InfoDesktop @clickChapter="seekToChapter($event.start_s)" />
             <Info @clickChapter="seekToChapter($event.start_s)" />
         </div>

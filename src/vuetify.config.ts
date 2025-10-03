@@ -62,7 +62,7 @@ export const vuetify = createVuetify({
         themes: {
             malmaarmals: {
                 colors: {
-                    background: '#101010',
+                    background: '#000',
                     primary: 'hsl(252, 100%, 64%)',
                     secondary: 'hsl(168, 100%, 70%)',
                 },
