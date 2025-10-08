@@ -16,12 +16,11 @@ export const useVideoStore = defineStore('video', () => {
     const messages = ref<Tables<'messages'>[]>([]);
     const videoRef = ref<HTMLVideoElement>();
     const mediaControls = useMediaControls(videoRef);
-
+    const videoSrc = computed(() => `http://localhost:8000/videos/${videoId.value}`);
     const subCount = computed(
         () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
     );
 
-    const videoSrc = computed(() => `http://localhost:8000/videos/${videoId.value}`);
     const fetchVideoInfo = async () => {
         const { data, error } = await supabase
             .from('videos')
@@ -66,11 +65,6 @@ export const useVideoStore = defineStore('video', () => {
         }
     };
 
-    const seekToTime = (seconds: number) => {
-        // playerRef.value.videoRef.currentTime = seconds;
-        // playerRef.value.videoRef.play();
-    };
-
     const setVideoRef = (el: HTMLVideoElement) => {
         videoRef.value = el;
     };
@@ -102,15 +96,12 @@ export const useVideoStore = defineStore('video', () => {
         chapters,
         videoSrc,
         showInfo,
-
         mediaControls,
-
         messages,
         subCount,
 
         fetchVideoInfo,
         fetchMessages,
-        seekToTime,
         setVideoRef,
         loadVideoProgression,
     };
