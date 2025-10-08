@@ -44,7 +44,7 @@ export const useVideoStore = defineStore('video', () => {
         while (hasMore) {
             const { data, error, count } = await supabase
                 .from('messages')
-                .select('user_login,user_name,user_color,text,offset_sec,id', {
+                .select('*', {
                     count: 'exact',
                 })
                 .eq('video_id', Number(videoId.value))
@@ -56,8 +56,7 @@ export const useVideoStore = defineStore('video', () => {
             }
 
             if (data && data.length > 0) {
-                // @ts-ignore
-                // messages.value = [...messages.value, ...data];
+                messages.value = [...messages.value, ...data];
                 from += 1000;
                 to += 1000;
                 hasMore = data.length === 1000;
@@ -76,15 +75,26 @@ export const useVideoStore = defineStore('video', () => {
         videoRef.value = el;
     };
 
-    // watch(videoTime, (newValue) => {
-    //     const obj: VideoProgression = {
-    //         current_time_s: newValue,
-    //         total_time_s: videoInfo.value.length_sec,
-    //         percentage: Math.round((100 / videoInfo.value.length_sec) * videoTime.value),
-    //     };
+    const saveVideoProgression = (newTime: number) => {
+        const obj: VideoProgression = {
+            current_time_s: newTime,
+            total_time_s: videoInfo.value.length_sec,
+            percentage: Math.round((100 / videoInfo.value.length_sec) * mediaControls.currentTime.value),
+        };
 
-    //     localStorage.setItem(videoId.value, JSON.stringify(obj));
-    // });
+        localStorage.setItem(videoId.value, JSON.stringify(obj));
+    };
+
+    const loadVideoProgression = () => {
+        const timeObj: VideoProgression = JSON.parse(localStorage.getItem(videoId.value));
+        if (!timeObj) return;
+
+        mediaControls.currentTime.value = Number(timeObj.current_time_s);
+    };
+
+    watch(mediaControls.currentTime, (newTime) => {
+        saveVideoProgression(newTime);
+    });
 
     return {
         videoInfo,
@@ -102,5 +112,6 @@ export const useVideoStore = defineStore('video', () => {
         fetchMessages,
         seekToTime,
         setVideoRef,
+        loadVideoProgression,
     };
 });

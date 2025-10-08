@@ -17,12 +17,12 @@ const renderedMessages = computed(() => {
     while (left <= right) {
         const mid = Math.floor((left + right) / 2);
 
-        // if (videoStore.messages[mid].offset_sec <= videoStore.mediaControls.currentTime) {
-        //     idx = mid;
-        //     left = mid + 1;
-        // } else {
-        //     right = mid - 1;
-        // }
+        if (videoStore.messages[mid].offset_sec <= videoStore.mediaControls.currentTime) {
+            idx = mid;
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
     }
 
     if (idx === -1) return [];

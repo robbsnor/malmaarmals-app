@@ -22,14 +22,6 @@ const { lgAndUp } = useDisplay();
 
 watch(lgAndUp, (isTrue) => (isTrue ? appStore.showHeader() : appStore.hideHeader()));
 
-// const setRememberedVideoTime = () => {
-//     const timeObj: VideoProgression = JSON.parse(localStorage.getItem(videoStore.videoId));
-//     if (!timeObj) return;
-//     if (timeObj.percentage > 90) return;
-
-//     playerRef.value.videoRef.currentTime = Number(timeObj.current_time_s);
-// };
-
 onMounted(async () => {
     videoStore.videoId = route.params.id as string;
 
@@ -40,6 +32,7 @@ onMounted(async () => {
     }
 
     await videoStore.fetchVideoInfo();
+    videoStore.loadVideoProgression();
     await videoStore.fetchMessages();
 });
 
