@@ -2,7 +2,7 @@
 import { computed, nextTick, onMounted, onUnmounted, ref, useTemplateRef, watch, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
 import { useDisplay } from 'vuetify';
-import Player from '../shared/components/Player.vue';
+import Player from './components/Player.vue';
 import { playerDefaultOptions } from '../shared/data/player.data';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import { useAppStore } from '../shared/stores/app.store';

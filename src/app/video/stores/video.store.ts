@@ -15,7 +15,7 @@ export const useVideoStore = defineStore('video', () => {
     const showInfo = ref(false);
     const messages = ref<Tables<'messages'>[]>([]);
     const videoRef = ref<HTMLVideoElement>();
-    const { playing, currentTime, duration, volume } = useMediaControls(videoRef);
+    const mediaControls = useMediaControls(videoRef);
 
     const subCount = computed(
         () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
@@ -93,10 +93,7 @@ export const useVideoStore = defineStore('video', () => {
         videoSrc,
         showInfo,
 
-        playing,
-        currentTime,
-        duration,
-        volume,
+        mediaControls,
 
         messages,
         subCount,
