@@ -17,7 +17,7 @@ const renderedMessages = computed(() => {
     while (left <= right) {
         const mid = Math.floor((left + right) / 2);
 
-        if (videoStore.messages[mid].offset_sec <= videoStore.mediaControls.currentTime) {
+        if (videoStore.messages[mid].offset_sec <= videoStore.currentTime) {
             idx = mid;
             left = mid + 1;
         } else {

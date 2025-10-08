@@ -81,10 +81,7 @@ watch(keys['Meta+K'], () => videosStore.goToVideosPage());
         <Stroke class="absolute bottom-0 left-0 right-0"></Stroke>
     </div>
 
-    <div
-        class="fixed group invisible opacity-0 transition-full z-30 inset-0 transition-all backdrop-blur-md"
-        :class="{ 'visible opacity-100': appStore.menuOpen }"
-    >
+    <div v-visible="appStore.menuOpen" class="fixed group z-30 inset-0 backdrop-blur-md">
         <button @click="appStore.toggleMenu" class="absolute top-0 right-0 h-full bg-black/50 w-full">
             <span class="sr-only">Close menu</span>
         </button>
