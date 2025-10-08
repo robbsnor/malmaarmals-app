@@ -35,7 +35,7 @@ const time = computed(() => {
     >
         <v-img
             :src="props.src"
-            class="relative aspect-video w-full group-hover:scale-102 transition-all"
+            class="relative aspect-video w-full group-hover:scale-102f transition-all"
             aria-hidden="true"
         />
         <div
