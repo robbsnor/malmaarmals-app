@@ -1,60 +1,18 @@
 <script setup lang="ts">
-import Plyr from 'plyr';
-import 'plyr/dist/plyr.css';
-import { computed, onMounted, ref, useAttrs, useTemplateRef, watch } from 'vue';
-import { merge } from 'lodash';
-import { playerDefaultOptions } from '../data/player.data';
-
-const props = withDefaults(
-    defineProps<{
-        options?: any;
-        stretchHeight?: boolean;
-    }>(),
-    {
-        stretchHeight: false,
-    }
-);
+import { onMounted, useAttrs, useTemplateRef } from 'vue';
+import { useVideoStore } from '../../video/stores/video.store';
 
 const attrs = useAttrs();
+const videoStore = useVideoStore();
 const videoRef = useTemplateRef<HTMLVideoElement>('videoRef');
 
-const player = ref<Plyr>();
-
-const options = computed(() => merge(playerDefaultOptions, props.options));
-
 onMounted(() => {
-    player.value = new Plyr(videoRef.value, options.value);
+    videoStore.setVideoRef(videoRef.value);
 });
-
-defineExpose({ videoRef, player });
 </script>
 
 <template>
-    <div class="piss player" :class="{ 'player--stretch-height': stretchHeight }">
-        <video v-bind="attrs" controls playsinline ref="videoRef">
-            <slot></slot>
-        </video>
+    <div class="relative lg:rounded-md">
+        <video v-bind="attrs" controls class="aspect-video w-full" ref="videoRef" :src="videoStore.videoSrc"></video>
     </div>
 </template>
-
-<style lang="scss">
-.plyr {
-    width: 100%;
-    height: 100%;
-}
-
-.player {
-    .plyr {
-        width: 100%;
-        height: 100%;
-    }
-
-    &--stretch-height {
-        height: 100%;
-
-        .plyr {
-            height: 100%;
-        }
-    }
-}
-</style>

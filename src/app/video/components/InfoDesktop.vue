@@ -56,7 +56,7 @@ const prettyTime = (seconds: number) => {
                     <button
                         v-for="chapter in videoStore.chapters"
                         :key="chapter.start_s"
-                        @click="$emit('seekToChapter', chapter)"
+                        @click="videoStore.seekToTime(chapter.start_s)"
                         class="flex w-[300px] gap-2 p-3 bg-black-300 border border-black-500 rounded-md shrink-0 cursor-pointer text-left transition-all hover:bg-black-400"
                     >
                         <img :src="chapter.image_url" alt="chapter image" class="inline h-10 mr-2 rounded-md" />

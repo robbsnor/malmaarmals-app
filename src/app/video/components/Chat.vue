@@ -5,16 +5,7 @@ import type { Tables } from '../../shared/types/database.types';
 import Message from './Message.vue';
 import { useVideoStore } from '../stores/video.store';
 
-const props = withDefaults(
-    defineProps<{
-        videoTime: number;
-        videoId: number;
-    }>(),
-    {}
-);
-
 const videoStore = useVideoStore();
-
 const chatRef = useTemplateRef<HTMLElement>('chatRef');
 
 const renderedMessages = computed(() => {
@@ -26,12 +17,12 @@ const renderedMessages = computed(() => {
     while (left <= right) {
         const mid = Math.floor((left + right) / 2);
 
-        if (videoStore.messages[mid].offset_sec <= props.videoTime) {
-            idx = mid;
-            left = mid + 1;
-        } else {
-            right = mid - 1;
-        }
+        // if (videoStore.messages[mid].offset_sec <= videoStore.mediaControls.currentTime) {
+        //     idx = mid;
+        //     left = mid + 1;
+        // } else {
+        //     right = mid - 1;
+        // }
     }
 
     if (idx === -1) return [];
@@ -41,11 +32,11 @@ const renderedMessages = computed(() => {
     return videoStore.messages.slice(start, idx + 1);
 });
 
-watchEffect(async () => {
-    props.videoTime; // Depend on videoTime
-    await nextTick();
-    chatRef.value.scrollTop = chatRef.value.scrollHeight;
-});
+// watchEffect(async () => {
+//     videoStore.currentTime; // Depend on videoTime
+//     await nextTick();
+//     chatRef.value.scrollTop = chatRef.value.scrollHeight;
+// });
 </script>
 
 <template>
