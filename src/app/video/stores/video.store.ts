@@ -7,6 +7,7 @@ import type { VideoProgression } from '../models/VideoProgression.model';
 import { TitleHelper } from '../../shared/helpers/title.helper';
 import { CHAPTERS_MOCK } from '../data/chapters.mock';
 import { useMediaControls } from '@vueuse/core';
+import { TimeHelper } from '../../shared/helpers/time.helper';
 
 export const useVideoStore = defineStore('video', () => {
     const videoInfo = ref<Tables<'videos'>>();
@@ -15,8 +16,11 @@ export const useVideoStore = defineStore('video', () => {
     const showInfo = ref(false);
     const messages = ref<Tables<'messages'>[]>([]);
     const videoRef = ref<HTMLVideoElement>();
-    const mediaControls = useMediaControls(videoRef);
+    const { currentTime, duration, waiting, seeking, ended, stalled, buffered, playing, rate, volume, muted } =
+        useMediaControls(videoRef);
     const videoSrc = computed(() => `http://localhost:8000/videos/${videoId.value}`);
+    const prettyCurrentTime = computed(() => TimeHelper.formatTime(currentTime.value));
+    const prettyDuration = computed(() => TimeHelper.formatTime(duration.value));
     const subCount = computed(
         () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
     );
@@ -41,11 +45,9 @@ export const useVideoStore = defineStore('video', () => {
         let hasMore = true;
 
         while (hasMore) {
-            const { data, error, count } = await supabase
+            const { data, error } = await supabase
                 .from('messages')
-                .select('*', {
-                    count: 'exact',
-                })
+                .select('*')
                 .eq('video_id', Number(videoId.value))
                 .order('offset_sec', { ascending: true })
                 .range(from, to);
@@ -73,7 +75,7 @@ export const useVideoStore = defineStore('video', () => {
         const obj: VideoProgression = {
             current_time_s: newTime,
             total_time_s: videoInfo.value.length_sec,
-            percentage: Math.round((100 / videoInfo.value.length_sec) * mediaControls.currentTime.value),
+            percentage: Math.round((100 / videoInfo.value.length_sec) * currentTime.value),
         };
 
         localStorage.setItem(videoId.value, JSON.stringify(obj));
@@ -83,10 +85,10 @@ export const useVideoStore = defineStore('video', () => {
         const timeObj: VideoProgression = JSON.parse(localStorage.getItem(videoId.value));
         if (!timeObj) return;
 
-        mediaControls.currentTime.value = Number(timeObj.current_time_s);
+        currentTime.value = Number(timeObj.current_time_s);
     };
 
-    watch(mediaControls.currentTime, (newTime) => {
+    watch(currentTime, (newTime) => {
         saveVideoProgression(newTime);
     });
 
@@ -96,9 +98,23 @@ export const useVideoStore = defineStore('video', () => {
         chapters,
         videoSrc,
         showInfo,
-        mediaControls,
         messages,
         subCount,
+        prettyCurrentTime,
+        prettyDuration,
+
+        // mediaControls
+        currentTime,
+        duration,
+        waiting,
+        seeking,
+        ended,
+        stalled,
+        buffered,
+        playing,
+        rate,
+        volume,
+        muted,
 
         fetchVideoInfo,
         fetchMessages,

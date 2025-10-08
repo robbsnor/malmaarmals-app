@@ -13,6 +13,7 @@ import Skeleton from './app/shared/components/Skeleton.vue';
 import Stroke from './app/shared/components/Stroke.vue';
 // import Video from './app/shared/components/Video.vue';
 import VideoThumbnail from './app/shared/components/VideoThumbnail.vue';
+import { visible } from './app/shared/directives/visible.directive';
 
 import { vuetify } from './vuetify.config';
 import './style.css';
@@ -34,6 +35,9 @@ app.component('Skeleton', Skeleton);
 app.component('Stroke', Stroke);
 // app.component('Video', Video);
 app.component('VideoThumbnail', VideoThumbnail);
+
+// directives
+app.directive('visible', visible);
 
 // plugins
 app.use(router);

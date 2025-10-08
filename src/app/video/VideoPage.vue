@@ -48,7 +48,6 @@ onUnmounted(() => {
                 <Player />
             </div>
 
-            <Back />
             <InfoDesktop />
             <Info />
         </div>
