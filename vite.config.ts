@@ -12,7 +12,12 @@ export default defineConfig({
         vue(),
         tailwindcss(),
         vueDevTools(),
-        VitePWA({ registerType: 'autoUpdate' }),
+        VitePWA({
+            registerType: 'autoUpdate',
+            devOptions: {
+                enabled: true,
+            },
+        }),
         vuetify({
             styles: {
                 configFile: 'src/vite.config.scss',
