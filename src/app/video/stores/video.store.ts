@@ -27,6 +27,8 @@ export const useVideoStore = defineStore('video', () => {
     );
 
     const fetchVideoInfo = async () => {
+        videoInfo.value = null;
+
         const { data, error } = await supabase
             .from('videos')
             .select('*')
