@@ -51,7 +51,7 @@ const goBack = () => {
                     size="64"
                     @click="videoStore.playing = !videoStore.playing"
                 />
-                <v-icon icon="mdi-fast-forward-30" size="24" @click="videoStore.currentTime += 30" />
+                <v-icon icon="mdi-fast-forward-60" size="24" @click="videoStore.currentTime += 60" />
             </div>
 
             <div class="relative flex justify-between items-center px-2 py-1">
