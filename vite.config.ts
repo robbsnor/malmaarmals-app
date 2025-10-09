@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue';
 import tailwindcss from '@tailwindcss/vite';
 import vueDevTools from 'vite-plugin-vue-devtools';
 import vuetify from 'vite-plugin-vuetify';
+import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -11,6 +12,7 @@ export default defineConfig({
         vue(),
         tailwindcss(),
         vueDevTools(),
+        VitePWA({ registerType: 'autoUpdate' }),
         vuetify({
             styles: {
                 configFile: 'src/vite.config.scss',
