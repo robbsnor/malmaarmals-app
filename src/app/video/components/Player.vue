@@ -38,7 +38,10 @@ const goBack = () => {
 
             <div class="flex justify-between gap-4 p-2">
                 <v-icon icon="mdi-chevron-left" @click="goBack()" />
-                <v-icon icon="mdi-cog-outline" @click="toggle()" />
+                <div class="flex gap-4">
+                    <v-icon icon="mdi-cog-outline" />
+                    <v-icon icon="mdi-fullscreen" @click="toggle()" />
+                </div>
             </div>
 
             <div class="flex justify-center items-center gap-4 grow p-2">
