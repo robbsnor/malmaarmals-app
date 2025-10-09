@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { nextTick, onMounted, ref, useTemplateRef } from 'vue';
+import { useRouter } from 'vue-router';
 import { useVideoStore } from '../stores/video.store';
 
 const videoStore = useVideoStore();
 const videoRef = useTemplateRef<HTMLVideoElement>('videoRef');
+const router = useRouter();
 
 onMounted(async () => {
     videoStore.playing = false;
@@ -12,6 +14,10 @@ onMounted(async () => {
     videoStore.setVideoRef(videoRef.value);
     videoStore.playing = true;
 });
+
+const goBack = () => {
+    router.back();
+};
 </script>
 
 <template>
@@ -29,7 +35,7 @@ onMounted(async () => {
             <div class="absolute inset-0 bg-black/50" @click="videoStore.showMobileControls = false"></div>
 
             <div class="flex justify-between gap-4 p-2">
-                <v-icon icon="mdi-chevron-left" />
+                <v-icon icon="mdi-chevron-left" @click="goBack()" />
                 <v-icon icon="mdi-cog-outline" />
             </div>
 
