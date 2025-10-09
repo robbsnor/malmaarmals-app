@@ -1,31 +1,32 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { BucketHelper } from '../../shared/helpers/bucket.helper';
 
 const playlists = ref([
     {
         title: 'Peter VS Timon',
         episodes: 72,
-        thumbnail: 'http://localhost:8000/thumbnails/2206408041',
+        thumbnail: BucketHelper.getThumbnailUrl(2206408041),
     },
     {
         title: 'Teken streams',
         episodes: 3,
-        thumbnail: 'http://localhost:8000/thumbnails/1732461290',
+        thumbnail: BucketHelper.getThumbnailUrl(1732461290),
     },
     {
         title: 'LEKKERSPELEN ORIGINS',
         episodes: 4,
-        thumbnail: 'http://localhost:8000/thumbnails/2170491752',
+        thumbnail: BucketHelper.getThumbnailUrl(2170491752),
     },
     {
         title: 'Reclames kijken',
         episodes: 44,
-        thumbnail: 'http://localhost:8000/thumbnails/1925255803',
+        thumbnail: BucketHelper.getThumbnailUrl(1925255803),
     },
     {
         title: 'Resident Evil 7',
         episodes: 6,
-        thumbnail: 'http://localhost:8000/thumbnails/1777474430',
+        thumbnail: BucketHelper.getThumbnailUrl(1777474430),
     },
 ]);
 </script>
