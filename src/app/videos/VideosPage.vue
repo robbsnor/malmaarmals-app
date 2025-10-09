@@ -36,7 +36,7 @@ const amountToShow = ref(200);
         </div>
 
         <div class="grid grid-cols sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
-            <template v-for="video in filteredVideos.splice(0, amountToShow)">
+            <template v-for="video in filteredVideos.slice(0, amountToShow)">
                 <Video v-if="smAndUp" :key="video.video_id" :video="video" />
                 <VideoSmall v-else :key="`${video.video_id}_small`" :video="video" />
             </template>
