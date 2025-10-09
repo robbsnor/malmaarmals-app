@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { BucketHelper } from '../helpers/bucket.helper';
 
 const props = withDefaults(
     defineProps<{
@@ -35,7 +36,7 @@ const formattedDuration = computed(() => {
         <VideoThumbnail
             class="w-30 shrink-0"
             :to="`/videos/${props.video.video_id}`"
-            :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
+            :src="BucketHelper.getThumbnailUrl(props.video.video_id)"
         >
         </VideoThumbnail>
 

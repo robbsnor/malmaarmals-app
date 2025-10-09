@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import type { Tables } from '../../shared/types/database.types';
 
 const props = withDefaults(
@@ -46,13 +47,13 @@ const getTimeAgo = (date: string) => {
                 <div class="relative flex-1">
                     <img
                         aria-hidden="true"
-                        :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
+                        :src="BucketHelper.getThumbnailUrl(props.video.video_id)"
                         class="pointer-events-none absolute aspect-video scale-300 rounded-[99%] object-cover opacity-20 blur-md select-none"
                     />
                     <VideoThumbnail
                         type="large"
                         :to="`/videos/${props.video.video_id}`"
-                        :src="`http://localhost:8000/thumbnails/${props.video.video_id}`"
+                        :src="BucketHelper.getThumbnailUrl(props.video.video_id)"
                         :icon-size="60"
                         :videoId="props.video.video_id"
                     >

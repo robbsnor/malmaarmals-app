@@ -8,6 +8,7 @@ import { TitleHelper } from '../../shared/helpers/title.helper';
 import { CHAPTERS_MOCK } from '../data/chapters.mock';
 import { useMediaControls } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
+import { BucketHelper } from '../../shared/helpers/bucket.helper';
 
 export const useVideoStore = defineStore('video', () => {
     const videoInfo = ref<Tables<'videos'>>();
@@ -19,7 +20,7 @@ export const useVideoStore = defineStore('video', () => {
     const { currentTime, duration, waiting, seeking, ended, stalled, buffered, playing, rate, volume, muted } =
         useMediaControls(videoRef);
     const showMobileControls = ref(false);
-    const videoSrc = computed(() => `http://localhost:8000/videos/${videoId.value}`);
+    const videoSrc = computed(() => BucketHelper.getVideoUrl(Number(videoId.value)));
     const prettyCurrentTime = computed(() => TimeHelper.formatTime(currentTime.value));
     const prettyDuration = computed(() => TimeHelper.formatTime(duration.value));
     const subCount = computed(
