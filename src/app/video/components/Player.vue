@@ -2,10 +2,12 @@
 import { nextTick, onMounted, ref, useTemplateRef } from 'vue';
 import { useRouter } from 'vue-router';
 import { useVideoStore } from '../stores/video.store';
+import { useFullscreen } from '@vueuse/core';
 
 const videoStore = useVideoStore();
 const videoRef = useTemplateRef<HTMLVideoElement>('videoRef');
 const router = useRouter();
+const { isFullscreen, enter, exit, toggle } = useFullscreen();
 
 onMounted(async () => {
     videoStore.playing = false;
@@ -36,7 +38,7 @@ const goBack = () => {
 
             <div class="flex justify-between gap-4 p-2">
                 <v-icon icon="mdi-chevron-left" @click="goBack()" />
-                <v-icon icon="mdi-cog-outline" />
+                <v-icon icon="mdi-cog-outline" @click="toggle()" />
             </div>
 
             <div class="flex justify-center items-center gap-4 grow p-2">
