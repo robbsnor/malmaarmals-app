@@ -14,7 +14,7 @@ const { filteredVideos } = storeToRefs(videosStore);
 const { smAndUp, mdAndUp, lgAndUp } = useDisplay();
 const searchRef = useTemplateRef<HTMLDivElement>('searchRef');
 
-const amountToShow = ref(100);
+const amountToShow = ref(200);
 </script>
 
 <template>
@@ -36,7 +36,7 @@ const amountToShow = ref(100);
         </div>
 
         <div class="grid grid-cols sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
-            <template v-for="video in filteredVideos">
+            <template v-for="video in filteredVideos.splice(0, amountToShow)">
                 <Video v-if="smAndUp" :key="video.video_id" :video="video" />
                 <VideoSmall v-else :key="`${video.video_id}_small`" :video="video" />
             </template>
