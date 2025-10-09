@@ -15,7 +15,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="relative">
+    <div class="h-full relative flex items-center justify-center">
         <video
             @click="videoStore.showMobileControls = !videoStore.showMobileControls"
             controlsf
