@@ -46,11 +46,13 @@ const goBack = () => {
 
             <div class="flex justify-center items-center gap-4 grow p-2">
                 <v-icon icon="mdi-rewind-5" size="24" @click="videoStore.currentTime -= 5" />
+                <v-icon icon="mdi-rewind-30" size="24" @click="videoStore.currentTime -= 30" />
                 <v-icon
                     :icon="videoStore.playing || (!videoStore.playing && videoStore.waiting) ? 'mdi-pause' : 'mdi-play'"
                     size="64"
                     @click="videoStore.playing = !videoStore.playing"
                 />
+                <v-icon icon="mdi-fast-forward-30" size="24" @click="videoStore.currentTime += 30" />
                 <v-icon icon="mdi-fast-forward-60" size="24" @click="videoStore.currentTime += 60" />
             </div>
 
