@@ -84,7 +84,6 @@ export const useVideoStore = defineStore('video', () => {
 
     const loadVideoProgression = () => {
         const timeObj: VideoProgression = JSON.parse(localStorage.getItem(videoId.value));
-        console.log(timeObj);
         if (!timeObj) return;
 
         currentTime.value = Number(timeObj.current_time_s);
