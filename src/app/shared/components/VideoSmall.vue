@@ -32,7 +32,7 @@ const formattedDuration = computed(() => {
 </script>
 
 <template>
-    <div class="flex gap-4">
+    <RouterLink :to="`/videos/${props.video.video_id}`" class="flex gap-4">
         <VideoThumbnail
             class="w-30 shrink-0"
             :to="`/videos/${props.video.video_id}`"
@@ -47,5 +47,5 @@ const formattedDuration = computed(() => {
             <p class="text-muted text-sm font-medium">Super Mario Kart World</p>
             <p class="text-muted-more text-sm font-medium">{{ daysAgo }} days ago</p>
         </div>
-    </div>
+    </RouterLink>
 </template>
