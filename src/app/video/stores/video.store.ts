@@ -19,7 +19,7 @@ export const useVideoStore = defineStore('video', () => {
     const videoRef = ref<HTMLVideoElement>();
     const { currentTime, duration, waiting, seeking, ended, stalled, buffered, playing, rate, volume, muted } =
         useMediaControls(videoRef);
-    const showMobileControls = ref(false);
+    const showMobileControls = ref(true);
     const videoSrc = computed(() => BucketHelper.getVideoUrl(Number(videoId.value)));
     const prettyCurrentTime = computed(() => TimeHelper.formatTime(currentTime.value));
     const prettyDuration = computed(() => TimeHelper.formatTime(duration.value));
