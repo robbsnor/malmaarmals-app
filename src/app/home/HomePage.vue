@@ -52,12 +52,12 @@ onMounted(() => {
 
         <Playlists />
 
-        <Stats />
+        <!-- <Stats /> -->
 
-        <Section title="Populair Categories">
+        <!-- <Section title="Populair Categories">
             <div class="grid grid-cols-5 gap-8">
                 <Video v-for="video in previousVideos" :key="video.video_id" :video="video" />
             </div>
-        </Section>
+        </Section> -->
     </div>
 </template>

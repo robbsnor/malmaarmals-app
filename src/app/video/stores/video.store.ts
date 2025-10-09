@@ -18,6 +18,7 @@ export const useVideoStore = defineStore('video', () => {
     const videoRef = ref<HTMLVideoElement>();
     const { currentTime, duration, waiting, seeking, ended, stalled, buffered, playing, rate, volume, muted } =
         useMediaControls(videoRef);
+    const showMobileControls = ref(false);
     const videoSrc = computed(() => `http://localhost:8000/videos/${videoId.value}`);
     const prettyCurrentTime = computed(() => TimeHelper.formatTime(currentTime.value));
     const prettyDuration = computed(() => TimeHelper.formatTime(duration.value));
@@ -83,6 +84,7 @@ export const useVideoStore = defineStore('video', () => {
 
     const loadVideoProgression = () => {
         const timeObj: VideoProgression = JSON.parse(localStorage.getItem(videoId.value));
+        console.log(timeObj);
         if (!timeObj) return;
 
         currentTime.value = Number(timeObj.current_time_s);
@@ -102,6 +104,7 @@ export const useVideoStore = defineStore('video', () => {
         subCount,
         prettyCurrentTime,
         prettyDuration,
+        showMobileControls,
 
         // mediaControls
         currentTime,

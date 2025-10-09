@@ -32,7 +32,6 @@ onMounted(async () => {
     }
 
     await videoStore.fetchVideoInfo();
-    videoStore.loadVideoProgression();
     await videoStore.fetchMessages();
 });
 
