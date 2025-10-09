@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 import type { Tables } from '../../shared/types/database.types';
 import { emotesMap } from '../../shared/data/emotes.data';
+import { TimeHelper } from '../../shared/helpers/time.helper';
 
 const props = withDefaults(
     defineProps<{
@@ -28,6 +29,7 @@ const isMyMessage = computed(() => {
         }"
         :data-id="message.id"
     >
+        <!-- <span class="text-black-1800 text-xs mr-2"> {{ TimeHelper.formatTime(message.offset_sec) }} </span> -->
         <span
             :style="{
                 color: message.user_color || '#2e8b57',
