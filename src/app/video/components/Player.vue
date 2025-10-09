@@ -1,20 +1,23 @@
 <script setup lang="ts">
-import { onMounted, ref, useTemplateRef } from 'vue';
+import { nextTick, onMounted, ref, useTemplateRef } from 'vue';
 import { useVideoStore } from '../stores/video.store';
 
 const videoStore = useVideoStore();
 const videoRef = useTemplateRef<HTMLVideoElement>('videoRef');
-const showMobileControls = ref(false);
 
-onMounted(() => {
+onMounted(async () => {
+    videoStore.playing = false;
+    videoStore.loadVideoProgression();
+    await nextTick();
     videoStore.setVideoRef(videoRef.value);
+    videoStore.playing = true;
 });
 </script>
 
 <template>
     <div class="relative">
         <video
-            @click="showMobileControls = !showMobileControls"
+            @click="videoStore.showMobileControls = !videoStore.showMobileControls"
             controlsf
             class="aspect-video w-full"
             ref="videoRef"
@@ -22,8 +25,8 @@ onMounted(() => {
         ></video>
 
         <!-- mobile -->
-        <div v-visible="showMobileControls" class="absolute inset-0 flex flex-col gap-4">
-            <div class="absolute inset-0 bg-black/50" @click="showMobileControls = false"></div>
+        <div v-visible="videoStore.showMobileControls" class="absolute inset-0 flex flex-col gap-4">
+            <div class="absolute inset-0 bg-black/50" @click="videoStore.showMobileControls = false"></div>
 
             <div class="flex justify-between gap-4 p-2">
                 <v-icon icon="mdi-chevron-left" />
