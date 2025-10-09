@@ -29,13 +29,13 @@ const props = withDefaults(
             <slot />
         </Container>
 
-        <div
+        <!-- <div
             v-if="props.showTopFade"
             class="absolute top-0 h-150 w-full left-1/2 -translate-x-1/2 pointer-events-none"
             style="
                 background: radial-gradient(farthest-side at top center, var(--color-black-300), transparent);
                 /* background: linear-gradient(to bottom, var(--color-black-200), transparent); */
             "
-        ></div>
+        ></div> -->
     </section>
 </template>
