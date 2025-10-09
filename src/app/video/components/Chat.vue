@@ -41,21 +41,15 @@ const scrollToBottom = async () => {
 
 watch(
     () => videoStore.currentTime,
-    (newTime) => {
+    async (newTime) => {
         if (Math.abs(newTime - prevTime.value) < 1) return;
         newTime = Math.floor(newTime);
         prevTime.value = newTime;
 
         setRenderedMessages(newTime);
-        scrollToBottom();
+        await scrollToBottom();
     }
 );
-
-// watchEffect(async () => {
-//     videoStore.currentTime; // Depend on videoTime
-//     await nextTick();
-//     chatRef.value.scrollTop = chatRef.value.scrollHeight;
-// });
 </script>
 
 <template>
