@@ -10,8 +10,6 @@ import GradientText from './app/shared/components/GradientText.vue';
 import GridSection from './app/shared/components/GridSection.vue';
 import Section from './app/shared/components/Section.vue';
 import Skeleton from './app/shared/components/Skeleton.vue';
-import Stroke from './app/shared/components/Stroke.vue';
-// import Video from './app/shared/components/Video.vue';
 import VideoThumbnail from './app/shared/components/VideoThumbnail.vue';
 import { visible } from './app/shared/directives/visible.directive';
 
@@ -32,8 +30,6 @@ app.component('GradientText', GradientText);
 app.component('GridSection', GridSection);
 app.component('Section', Section);
 app.component('Skeleton', Skeleton);
-app.component('Stroke', Stroke);
-// app.component('Video', Video);
 app.component('VideoThumbnail', VideoThumbnail);
 
 // directives

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { ref, useTemplateRef } from 'vue';
-import Video from '../shared/components/Video.vue';
-import VideoSmall from '../shared/components/VideoSmall.vue';
+import Video from '../shared/components/VideoLarge.vue';
+import VideoSmall from '../shared/components/Video.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import { useVideosStore } from './stores/videos.store';
 import { useDisplay } from 'vuetify';
@@ -14,7 +14,7 @@ const { filteredVideos } = storeToRefs(videosStore);
 const { smAndUp, mdAndUp, lgAndUp } = useDisplay();
 const searchRef = useTemplateRef<HTMLDivElement>('searchRef');
 
-const amountToShow = ref(200);
+const amountToShow = ref(100);
 </script>
 
 <template>
@@ -28,7 +28,6 @@ const amountToShow = ref(200);
                 :rounded="true"
                 placeholder="Search..."
                 :density="'compact'"
-                autofocus
                 hide-details="auto"
                 append-inner-icon="mdi-magnify"
                 class="w-full"

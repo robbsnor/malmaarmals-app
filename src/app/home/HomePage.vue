@@ -46,9 +46,9 @@ onMounted(() => {
 
 <template>
     <div v-if="videos">
-        <LatestVideo :video="firstVideo" />
+        <!-- <LatestVideo :video="firstVideo" /> -->
 
-        <PrevStreams :videos="previousVideos" />
+        <PrevStreams />
 
         <Playlists />
 

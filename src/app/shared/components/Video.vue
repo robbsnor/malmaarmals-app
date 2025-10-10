@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { Tables } from '../types/database.types';
 import { BucketHelper } from '../helpers/bucket.helper';
 
 const props = withDefaults(
     defineProps<{
-        video: Tables<'videos'>;
+        video: any;
         isFirst?: boolean;
     }>(),
     {
@@ -33,41 +32,20 @@ const formattedDuration = computed(() => {
 </script>
 
 <template>
-    <div>
+    <RouterLink :to="`/videos/${props.video.video_id}`" class="flex gap-4">
         <VideoThumbnail
+            class="w-32 shrink-0"
             :to="`/videos/${props.video.video_id}`"
             :src="BucketHelper.getThumbnailUrl(props.video.video_id)"
-            :videoId="props.video.video_id"
         >
-            <div
-                class="absolute right-2 bottom-2 bg-black/20 leading-none py-1.5 px-2 backdrop-blur-2xl text-normal text-sm rounded-md"
-            >
-                {{ formattedDuration }}
-            </div>
         </VideoThumbnail>
 
-        <h2 class="font-bold text-md pt-2">
-            {{ props.video.title }}
-        </h2>
-        <p class="text-muted text-sm font-medium">Super Mario Kart World</p>
-        <p class="text-muted-more text-sm font-medium">{{ daysAgo }} days ago</p>
-
-        <!-- <template v-if="video.categories.length">
-            <div
-                v-for="category in video.categories"
-                :key="category.id"
-                class="mt-2 flex items-center gap-2"
-            >
-                <img
-                    :src="category.image_url"
-                    alt=""
-                    class="rounded-md"
-                />
-
-                <span class="text-sm text-gray-500">
-                    {{ category.title }}
-                </span>
-            </div>
-        </template> -->
-    </div>
+        <div>
+            <h2 class="font-bold text-md">
+                {{ props.video.title }}
+            </h2>
+            <p class="text-muted text-sm font-medium">Super Mario Kart World</p>
+            <p class="text-muted-more text-sm font-medium">{{ daysAgo }} days ago</p>
+        </div>
+    </RouterLink>
 </template>

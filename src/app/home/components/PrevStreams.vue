@@ -1,29 +1,22 @@
 <script setup lang="ts">
 import type { Tables } from '../../shared/types/database.types';
+import VideoLarge from '../../shared/components/VideoLarge.vue';
 import Video from '../../shared/components/Video.vue';
-import VideoSmall from '../../shared/components/VideoSmall.vue';
+import { useVideosStore } from '../../videos/stores/videos.store';
+import { computed } from 'vue';
 
-const props = withDefaults(
-    defineProps<{
-        videos: Tables<'videos'>[];
-    }>(),
-    {}
-);
+const videosStore = useVideosStore();
+const videos = computed(() => videosStore.videos.slice(20, 25));
 </script>
 
 <template>
-    <Section title="Previous Streams">
-        <div class="hidden md:grid md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
-            <Video v-for="video in props.videos" :key="video.video_id" :video="video" />
-        </div>
+    <Section title="Previous Streams" moreLink="/videos">
+        <!-- <div class="hidden md:grid md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
+            <VideoLarge v-for="video in videosStore.videos" :key="video.video_id" :video="video" />
+        </div> -->
 
-        <div class="flex flex-col gap-4 md:hidden">
-            <VideoSmall v-for="video in props.videos" :key="video.video_id" :video="video" />
+        <div class="flex flex-col gap-4">
+            <Video v-for="video in videos" :key="video.video_id" :video="video" />
         </div>
-
-        <template #actions>
-            <RouterLink class="link" to="/videos">view all</RouterLink>
-            <v-btn to="/videos" variant="text">view all</v-btn>
-        </template>
     </Section>
 </template>
