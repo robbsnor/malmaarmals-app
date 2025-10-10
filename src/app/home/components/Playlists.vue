@@ -32,14 +32,14 @@ const playlists = ref([
 </script>
 
 <template>
-    <Section title="Playlists">
+    <Section title="Playlists" moreLink="/playlists">
         <div class="grid grid-cols sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 pt-4">
             <div
                 v-for="playlist in playlists"
                 :key="playlist.title"
-                class="relative transition-all duration-200 rounded-md"
+                class="relative transition-all duration-200 rounded-md flex gap-4"
             >
-                <div class="relative transition-all duration-200 group">
+                <div class="relative transition-all duration-200 group w-32 shrink-0">
                     <div
                         v-for="(thumbnail, i) in playlist.thumbnail"
                         :key="i"
@@ -52,11 +52,13 @@ const playlists = ref([
                         ]"
                     ></div>
 
-                    <VideoThumbnail :to="`/about`" :src="playlist.thumbnail" icon="mdi-playlist-play" class="mb-2" />
+                    <VideoThumbnail :to="`/about`" :src="playlist.thumbnail" icon="mdi-playlist-play" />
                 </div>
 
-                <h2 class="font-bold text-md pt-2">{{ playlist.title }}</h2>
-                <p class="text-muted text-sm font-medium">{{ playlist.episodes }} Video's</p>
+                <div>
+                    <h2 class="font-bold text-md pt-2">{{ playlist.title }}</h2>
+                    <p class="text-muted text-sm font-medium">{{ playlist.episodes }} Video's</p>
+                </div>
             </div>
         </div>
 
