@@ -14,7 +14,7 @@ const videoRef = useTemplateRef<HTMLVideoElement>('videoRef');
 const { isFullscreen, enter, exit, toggle } = useFullscreen();
 
 onMounted(async () => {
-    videoStore.playing = false;
+    // videoStore.playing = false;
     videoStore.loadVideoProgression();
     await nextTick();
     videoStore.setVideoRef(videoRef.value);

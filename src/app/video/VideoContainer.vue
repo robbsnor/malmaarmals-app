@@ -5,9 +5,48 @@ import Chat from './components/Chat.vue';
 import Info from './components/Info.vue';
 import InfoLarge from './components/InfoLarge.vue';
 import { useVideoStore } from './stores/video.store';
+import { nextTick, onMounted, ref, watch } from 'vue';
+import { useScreenOrientation } from '@vueuse/core';
+import { useFullscreen } from '@vueuse/core';
+import { flushCompileCache } from 'module';
+
+const poo = ref(false);
 
 const appStore = useAppStore();
 const videoStore = useVideoStore();
+const {
+    isSupported: isSupportedScreenOrientation,
+    orientation,
+    angle,
+    lockOrientation,
+    unlockOrientation,
+} = useScreenOrientation();
+const { isFullscreen, enter, exit, toggle, isSupported: isSupportedFullscreen } = useFullscreen();
+
+onMounted(() => {
+    handleAutoFullscreen();
+});
+
+const handleAutoFullscreen = async () => {
+    if (!isSupportedScreenOrientation.value && !isSupportedFullscreen.value) return;
+
+    const isLandscape = orientation.value?.includes('landscape');
+
+    if (isLandscape) {
+        await enter();
+        // await lockOrientation('landscape');
+    } else {
+        await exit();
+        // unlockOrientation();
+    }
+};
+
+watch(
+    () => orientation.value,
+    async () => {
+        handleAutoFullscreen();
+    }
+);
 </script>
 
 <template>
