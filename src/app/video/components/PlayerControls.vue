@@ -17,7 +17,7 @@ const goBack = () => {
 <template>
     <div
         v-visible="videoStore.showMobileControls && !appStore.player.isMini"
-        class="absolute inset-0 flex flex-col gap-4"
+        class="absolute inset-0 flex flex-col gap-4 text-white"
     >
         <div class="absolute inset-0 bg-black/50" @click="videoStore.showMobileControls = false"></div>
 
