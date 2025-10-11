@@ -6,7 +6,6 @@ import type { VideoProgression } from '../../video/models/VideoProgression.model
 const props = withDefaults(
     defineProps<{
         src: string;
-        to: string;
         icon?: string;
         iconSize?: string | number;
         type?: 'large';
@@ -24,8 +23,7 @@ const time = computed(() => {
 </script>
 
 <template>
-    <RouterLink
-        :to="props.to"
+    <div
         :class="
             twMerge(
                 'videothumbnail relative transition-all block group overflow-hidden rounded-md',
@@ -52,5 +50,5 @@ const time = computed(() => {
         >
             <div class="bg-primary h-full" :style="{ width: `${time.percentage}%` }"></div>
         </div>
-    </RouterLink>
+    </div>
 </template>
