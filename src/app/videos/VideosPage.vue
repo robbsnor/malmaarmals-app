@@ -18,7 +18,7 @@ const amountToShow = ref(100);
 </script>
 
 <template>
-    <Section title="Previous Streams" :show-top-stroke="false" v-if="filteredVideos">
+    <Section title="Previous Streams" v-if="filteredVideos">
         <template #actions v-if="videosStore.videos.length"> {{ videosStore.videos.length }} </template>
 
         <div class="flex justify-center flex-col gap-8 items-center pb-8 md:hidden">

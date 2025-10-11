@@ -6,7 +6,7 @@ import { useVideosStore } from '../../videos/stores/videos.store';
 import { computed } from 'vue';
 
 const videosStore = useVideosStore();
-const videos = computed(() => videosStore.videos.slice(20, 25));
+const videos = computed(() => videosStore.videos.slice(0, 5));
 </script>
 
 <template>

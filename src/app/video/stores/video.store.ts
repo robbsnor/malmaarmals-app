@@ -72,17 +72,16 @@ export const useVideoStore = defineStore('video', () => {
     };
 
     const setVideoRef = (el: HTMLVideoElement) => {
-        videoRef.value = el;
+        // videoRef.value = el;
     };
 
     const saveVideoProgression = (newTime: number) => {
-        const obj: VideoProgression = {
-            current_time_s: newTime,
-            total_time_s: videoInfo.value.length_sec,
-            percentage: Math.round((100 / videoInfo.value.length_sec) * currentTime.value),
-        };
-
-        localStorage.setItem(videoId.value, JSON.stringify(obj));
+        // const obj: VideoProgression = {
+        //     current_time_s: newTime,
+        //     total_time_s: videoInfo.value.length_sec,
+        //     percentage: Math.round((100 / videoInfo.value.length_sec) * currentTime.value),
+        // };
+        // localStorage.setItem(videoId.value, JSON.stringify(obj));
     };
 
     const loadVideoProgression = () => {

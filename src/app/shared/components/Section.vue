@@ -4,19 +4,14 @@ import type { RouteLocationAsPathGeneric, RouteLocationAsRelativeGeneric } from 
 const props = withDefaults(
     defineProps<{
         title?: string;
-        showTopStroke?: boolean;
         moreLink?: string | RouteLocationAsRelativeGeneric | RouteLocationAsPathGeneric;
     }>(),
-    {
-        showTopStroke: true,
-    }
+    {}
 );
 </script>
 
 <template>
     <section class="relative overflow-hidden py-4 border-b border-black-500">
-        <Stroke v-if="props.showTopStroke" class="absolute top-0 left-0 right-0"></Stroke>
-
         <Container class="relative">
             <h2 v-if="props.title" class="text-2xl font-bold pb-2">
                 {{ props.title }}
