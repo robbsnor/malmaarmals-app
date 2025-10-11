@@ -1,32 +1,32 @@
 <script setup lang="ts">
+import type { RouteLocationAsPathGeneric, RouteLocationAsRelativeGeneric } from 'vue-router';
+
 const props = withDefaults(
     defineProps<{
         title?: string;
-        showTopFade?: boolean;
-        showTopStroke?: boolean;
+        moreLink?: string | RouteLocationAsRelativeGeneric | RouteLocationAsPathGeneric;
     }>(),
-    {
-        showTopFade: true,
-        showTopStroke: true,
-    }
+    {}
 );
 </script>
 
 <template>
-    <section class="relative overflow-hidden">
-        <Container class="relative z-10 py-12 md:py-20">
-            <Stroke v-if="props.showTopFade && props.showTopStroke" class="absolute top-0 left-0 right-0"></Stroke>
-            <div v-if="props.title" class="flex justify-between items-end pb-4">
-                <h2 class="text-4xl font-bold">
-                    {{ props.title }}
-                </h2>
+    <section class="relative overflow-hidden py-6 border-bf border-black-500">
+        <Container class="relative">
+            <h2 v-if="props.title" class="text-2xl font-bold pb-2">
+                {{ props.title }}
+            </h2>
 
-                <div>
-                    <slot name="actions" />
-                </div>
+            <slot></slot>
+
+            <div v-if="props.moreLink" class="flex gap-4 items-center pt-4">
+                <div class="h-[1px] bg-black-400 grow"></div>
+                <RouterLink :to="props.moreLink" class="flex items-center gap-1 text-primary">
+                    view more
+                    <v-icon size="x-small" icon="mdi-chevron-right" class="mt-[3px]" />
+                </RouterLink>
+                <div class="h-[1px] bg-black-400 grow"></div>
             </div>
-
-            <slot />
         </Container>
 
         <!-- <div

@@ -67,7 +67,5 @@ const prettyTime = (seconds: number) => {
                 </div>
             </v-menu>
         </div>
-
-        <Stroke />
     </div>
 </template>

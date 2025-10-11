@@ -1,17 +1,21 @@
 <script setup lang="ts">
+import { useScreenSafeArea } from '@vueuse/core';
 import Header from './app/layout/components/Header.vue';
-import Footer from './app/layout/components/Footer.vue';
-import { useAppStore } from './app/shared/stores/app.store';
+import MobileNavbar from './app/layout/components/MobileNavigation.vue';
+import VideoContainer from './app/video/VideoContainer.vue';
+
+const { top, right, bottom, left } = useScreenSafeArea();
 </script>
 
 <template>
     <v-app>
         <Header />
 
-        <div class="transition-all ease-linear pt-(--height-header)">
+        <div class="fpb-(--height-mobile-navbar) pb-[80px]">
             <RouterView />
         </div>
 
-        <!-- <Footer /> -->
+        <VideoContainer />
+        <MobileNavbar />
     </v-app>
 </template>

@@ -12,7 +12,6 @@ import { useScreenOrientation } from '@vueuse/core';
 
 TitleHelper.setTitle('home');
 
-const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
 const appStore = useAppStore();
 const videosStore = useVideosStore();
 const { videos } = storeToRefs(videosStore);
@@ -34,21 +33,13 @@ const handleArrow = (event: KeyboardEvent) => {
         }
     }
 };
-
-onMounted(() => {
-    lockOrientation('landscape-primary').catch((err) => {
-        console.warn('Could not lock orientation:', err);
-    });
-
-    window.addEventListener('keydown', handleArrow);
-});
 </script>
 
 <template>
     <div v-if="videos">
-        <LatestVideo :video="firstVideo" />
+        <!-- <LatestVideo :video="firstVideo" /> -->
 
-        <PrevStreams :videos="previousVideos" />
+        <PrevStreams />
 
         <Playlists />
 
