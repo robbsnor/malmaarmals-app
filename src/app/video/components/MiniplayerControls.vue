@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import Player from './components/Player.vue';
 import { useVideoStore } from '../stores/video.store';
 import { useAppStore } from '../../shared/stores/app.store';
 
