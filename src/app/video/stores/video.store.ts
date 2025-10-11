@@ -97,10 +97,9 @@ export const useVideoStore = defineStore('video', () => {
     };
 
     const loadVideoProgression = () => {
-        const timeObj: VideoProgression = JSON.parse(localStorage.getItem(videoId.value));
-        if (!timeObj) return;
-
-        currentTime.value = Number(timeObj.current_time_s);
+        // const timeObj: VideoProgression = JSON.parse(localStorage.getItem(videoId.value));
+        // if (!timeObj) return;
+        // currentTime.value = Number(timeObj.current_time_s);
     };
 
     watch(currentTime, (newTime) => {
