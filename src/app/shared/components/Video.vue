@@ -33,11 +33,7 @@ const formattedDuration = computed(() => {
 
 <template>
     <RouterLink :to="`/videos/${props.video.video_id}`" class="flex gap-4">
-        <VideoThumbnail
-            class="w-32 shrink-0"
-            :to="`/videos/${props.video.video_id}`"
-            :src="BucketHelper.getThumbnailUrl(props.video.video_id)"
-        >
+        <VideoThumbnail class="w-32 shrink-0" :src="BucketHelper.getThumbnailUrl(props.video.video_id)">
         </VideoThumbnail>
 
         <div>
