@@ -66,7 +66,7 @@ const goBack = () => {
         </div>
 
         <div class="relative flex justify-between items-center px-2 py-1">
-            <div class="min-w-14">{{ videoStore.prettyCurrentTime }}</div>
+            <div class="min-w-20">{{ videoStore.prettyCurrentTime }}</div>
             <v-slider
                 v-model="videoStore.currentTime"
                 class="grow"
@@ -78,7 +78,7 @@ const goBack = () => {
                 :min="0"
                 :step="1"
             />
-            <div class="min-w-14 text-right">{{ videoStore.prettyDuration }}</div>
+            <div class="min-w-20 text-right">{{ videoStore.prettyDuration }}</div>
         </div>
     </div>
 </template>
