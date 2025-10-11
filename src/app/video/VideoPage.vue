@@ -21,3 +21,5 @@ onUnmounted(() => {
     appStore.player.isMini = true;
 });
 </script>
+
+<template></template>
