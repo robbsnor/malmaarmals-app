@@ -11,7 +11,6 @@ import PlayerControls from './PlayerControls.vue';
 const appStore = useAppStore();
 const videoStore = useVideoStore();
 const videoRef = useTemplateRef<HTMLVideoElement>('videoRef');
-const router = useRouter();
 const { isFullscreen, enter, exit, toggle } = useFullscreen();
 
 onMounted(async () => {

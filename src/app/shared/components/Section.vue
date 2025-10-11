@@ -11,7 +11,7 @@ const props = withDefaults(
 </script>
 
 <template>
-    <section class="relative overflow-hidden py-4 border-b border-black-500">
+    <section class="relative overflow-hidden py-6 border-bf border-black-500">
         <Container class="relative">
             <h2 v-if="props.title" class="text-2xl font-bold pb-2">
                 {{ props.title }}
@@ -20,12 +20,12 @@ const props = withDefaults(
             <slot></slot>
 
             <div v-if="props.moreLink" class="flex gap-4 items-center pt-4">
-                <div class="h-[1px] bg-black-400f grow"></div>
-                <RouterLink :to="props.moreLink" class="flex gap-1 text-primary">
-                    show more
-                    <v-icon icon="mdi-chevron-right" />
+                <div class="h-[1px] bg-black-400 grow"></div>
+                <RouterLink :to="props.moreLink" class="flex items-center gap-1 text-primary">
+                    view more
+                    <v-icon size="x-small" icon="mdi-chevron-right" class="mt-[3px]" />
                 </RouterLink>
-                <div class="h-[1px] bg-black-400f grow"></div>
+                <div class="h-[1px] bg-black-400 grow"></div>
             </div>
         </Container>
 

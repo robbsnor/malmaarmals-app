@@ -34,6 +34,7 @@ const goBack = () => {
                 <v-icon size="28" icon="mdi-chevron-down" />
             </v-btn>
             <div class="flex gap-4">
+                {{ videoStore.waiting }}
                 <v-icon size="28" icon="mdi-cog-outline" />
                 <v-icon size="28" icon="mdi-fullscreen" @click="toggle()" />
             </div>
@@ -48,7 +49,7 @@ const goBack = () => {
                 <v-icon size="28" icon="mdi-rewind-30" />
             </v-btn>
 
-            <v-btn icon variant="plain" size="x-small" @click="videoStore.playing = !videoStore.playing">
+            <v-btn icon variant="plain" size="lage" @click="videoStore.playing = !videoStore.playing">
                 <v-icon
                     :icon="videoStore.playing || (!videoStore.playing && videoStore.waiting) ? 'mdi-pause' : 'mdi-play'"
                     size="64"

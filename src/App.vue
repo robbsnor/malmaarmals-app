@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import Header from './app/layout/components/Header.vue';
-import Footer from './app/layout/components/Footer.vue';
-import MobileNavbar from './app/layout/components/MobileNavigation.vue';
-import { useAppStore } from './app/shared/stores/app.store';
-import VideoContainer from './app/video/VideoContainer.vue';
-
 import { useScreenSafeArea } from '@vueuse/core';
+import Header from './app/layout/components/Header.vue';
+import MobileNavbar from './app/layout/components/MobileNavigation.vue';
+import VideoContainer from './app/video/VideoContainer.vue';
 
 const { top, right, bottom, left } = useScreenSafeArea();
 </script>
@@ -14,11 +11,10 @@ const { top, right, bottom, left } = useScreenSafeArea();
     <v-app>
         <Header />
 
-        <div class="pb-(--height-mobile-navbar)">
+        <div class="fpb-(--height-mobile-navbar) pb-[80px]">
             <RouterView />
         </div>
 
-        <!-- <Footer /> -->
         <VideoContainer />
         <MobileNavbar />
     </v-app>
