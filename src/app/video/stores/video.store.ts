@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { computed, onMounted, ref, useTemplateRef, watch, type ShallowRef } from 'vue';
+import { computed, onMounted, ref, useTemplateRef, watch, watchEffect, type ShallowRef } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../../shared/types/database.types';
@@ -17,8 +17,20 @@ export const useVideoStore = defineStore('video', () => {
     const showInfo = ref(false);
     const messages = ref<Tables<'messages'>[]>([]);
     const videoRef = ref<HTMLVideoElement>();
-    const { currentTime, duration, waiting, seeking, ended, stalled, buffered, playing, rate, volume, muted } =
-        useMediaControls(videoRef);
+    // prettier-ignore
+    const {
+        currentTime,
+        duration,
+        waiting,
+        seeking,
+        ended,
+        stalled,
+        buffered,
+        playing,
+        rate,
+        volume,
+        muted,
+    } = useMediaControls(videoRef);
     const showMobileControls = ref(true);
     const videoSrc = computed(() => BucketHelper.getVideoUrl(Number(videoId.value)));
     const prettyCurrentTime = computed(() => TimeHelper.formatTime(currentTime.value));
@@ -76,24 +88,27 @@ export const useVideoStore = defineStore('video', () => {
     };
 
     const saveVideoProgression = (newTime: number) => {
-        const obj: VideoProgression = {
-            current_time_s: newTime,
-            total_time_s: videoInfo.value.length_sec,
-            percentage: Math.round((100 / videoInfo.value.length_sec) * currentTime.value),
-        };
-
-        localStorage.setItem(videoId.value, JSON.stringify(obj));
+        // const obj: VideoProgression = {
+        //     current_time_s: newTime,
+        //     total_time_s: videoInfo.value.length_sec,
+        //     percentage: Math.round((100 / videoInfo.value.length_sec) * currentTime.value),
+        // };
+        // localStorage.setItem(videoId.value, JSON.stringify(obj));
     };
 
     const loadVideoProgression = () => {
-        const timeObj: VideoProgression = JSON.parse(localStorage.getItem(videoId.value));
-        if (!timeObj) return;
-
-        currentTime.value = Number(timeObj.current_time_s);
+        // const timeObj: VideoProgression = JSON.parse(localStorage.getItem(videoId.value));
+        // if (!timeObj) return;
+        // currentTime.value = Number(timeObj.current_time_s);
     };
 
     watch(currentTime, (newTime) => {
         saveVideoProgression(newTime);
+    });
+
+    watchEffect(() => {
+        // auto play when done loading
+        if (!waiting.value) playing.value = true;
     });
 
     return {
