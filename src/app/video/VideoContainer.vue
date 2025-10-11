@@ -65,6 +65,6 @@ watch(
             <!-- <InfoLarge /> -->
         </div>
 
-        <Chat class="shrink-0 w-full md:w-[280px]" />
+        <Chat class="shrink-0 w-full md:w-[250px]" />
     </div>
 </template>
