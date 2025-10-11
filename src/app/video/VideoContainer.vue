@@ -19,6 +19,7 @@ const appStore = useAppStore();
         <div>
             <Player />
         </div>
+
         <Chat />
     </div>
 </template>
