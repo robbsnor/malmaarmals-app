@@ -23,7 +23,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="h-full relative flex flex-col items-center justify-center">
+    <div class="h-full w-full aspect-video relative flex flex-col items-center justify-center">
         <video
             @click="videoStore.showMobileControls = !videoStore.showMobileControls"
             controlsf
