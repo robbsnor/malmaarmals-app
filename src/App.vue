@@ -3,6 +3,7 @@ import Header from './app/layout/components/Header.vue';
 import Footer from './app/layout/components/Footer.vue';
 import MobileNavbar from './app/layout/components/MobileNavigation.vue';
 import { useAppStore } from './app/shared/stores/app.store';
+import VideoContainer from './app/video/VideoContainer.vue';
 
 import { useScreenSafeArea } from '@vueuse/core';
 
@@ -11,13 +12,14 @@ const { top, right, bottom, left } = useScreenSafeArea();
 
 <template>
     <v-app>
-        <!-- <Header /> -->
+        <Header />
 
         <div class="pb-(--height-mobile-navbar)">
             <RouterView />
         </div>
 
         <!-- <Footer /> -->
+        <VideoContainer />
         <MobileNavbar />
     </v-app>
 </template>

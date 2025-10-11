@@ -33,7 +33,7 @@ const playlists = ref([
 
 <template>
     <Section title="Playlists" moreLink="/playlists">
-        <div class="grid grid-cols sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 pt-4">
+        <div class="flex flex-col gap-8 pt-4">
             <div
                 v-for="playlist in playlists"
                 :key="playlist.title"
@@ -47,8 +47,8 @@ const playlists = ref([
                         :src="thumbnail"
                         aria-hidden="true"
                         :class="[
-                            i === 1 && '-top-4 scale-90 group-hover:-translate-y-2 bg-black-400',
-                            i === 2 && '-top-2 scale-95 group-hover:-translate-y-1 bg-black-800',
+                            i === 1 && '-top-4 scale-90 group-hover:-translate-y-2 bg-black-300',
+                            i === 2 && '-top-2 scale-95 group-hover:-translate-y-1 bg-black-600',
                         ]"
                     ></div>
 

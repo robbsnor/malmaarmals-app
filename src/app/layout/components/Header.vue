@@ -17,7 +17,7 @@ watch(keys['Meta+K'], () => videosStore.goToVideosPage());
     <div
         v-if="appStore.headerShown"
         ref="headerRef"
-        class="top-0 right-0 left-0 z-100 bg-black fixed transition-transform border-b border-black-500"
+        class="top-0 right-0 left-0 z-100 bg-black fixefd transition-transform border-b border-black-500"
         :class="{ 'translate-y-[-100%]': !appStore.headerShown }"
     >
         <Container>
