@@ -203,10 +203,6 @@
     --ring-color-default: var(--color-black);
 }
 
-:root {
-    --plyr-color-main: var(--color-primary);
-}
-
 body {
     @apply font-space-grotesk overflow-x-hidden text-normal;
 }

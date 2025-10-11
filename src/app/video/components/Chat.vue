@@ -53,11 +53,12 @@ watch(
 </script>
 
 <template>
-    <ul
-        v-if="videoStore.messages"
-        ref="chatRef"
-        class="flex flex-col gap-1 px-2 overflow-y-auto overflow-x-hidden h-full w-full self-stretch scroll-hidden md:pr-2 lg:p-4"
-    >
-        <Message v-for="message in renderedMessages" :key="message.id" :message="message" />
-    </ul>
+    <div v-if="videoStore.messages" class="p-2 h-full">
+        <ul
+            ref="chatRef"
+            class="flex flex-col gap-1 overflow-y-auto overflow-x-hidden h-full self-stretch scroll-hidden"
+        >
+            <Message v-for="message in renderedMessages" :key="message.id" :message="message" />
+        </ul>
+    </div>
 </template>
