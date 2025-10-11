@@ -14,7 +14,7 @@ const appStore = useAppStore();
         @click="appStore.player.isMini = false"
         class="absolute inset-0 flex justify-between p-2"
     >
-        <v-btn icon variant="tonal" @click="videoStore.playing = !videoStore.playing">
+        <v-btn icon variant="tonal" @click.stop="videoStore.playing = !videoStore.playing">
             <v-icon
                 size="20"
                 :icon="videoStore.playing || (!videoStore.playing && videoStore.waiting) ? 'mdi-pause' : 'mdi-play'"
