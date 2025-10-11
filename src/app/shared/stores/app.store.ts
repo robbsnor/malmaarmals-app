@@ -1,8 +1,12 @@
 import { type UseElementSizeReturn } from '@vueuse/core';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import { useVideoStore } from '../../video/stores/video.store';
 
 export const useAppStore = defineStore('app', () => {
+    const videoStore = useVideoStore();
+    const router = useRouter();
     const player = ref({
         isActive: false,
         isMini: true,

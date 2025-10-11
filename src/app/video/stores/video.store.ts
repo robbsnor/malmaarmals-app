@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { computed, onMounted, ref, useTemplateRef, watch, type ShallowRef } from 'vue';
+import { computed, onMounted, ref, useTemplateRef, watch, watchEffect, type ShallowRef } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../../shared/types/database.types';
@@ -17,8 +17,20 @@ export const useVideoStore = defineStore('video', () => {
     const showInfo = ref(false);
     const messages = ref<Tables<'messages'>[]>([]);
     const videoRef = ref<HTMLVideoElement>();
-    const { currentTime, duration, waiting, seeking, ended, stalled, buffered, playing, rate, volume, muted } =
-        useMediaControls(videoRef);
+    // prettier-ignore
+    const {
+        currentTime,
+        duration,
+        waiting,
+        seeking,
+        ended,
+        stalled,
+        buffered,
+        playing,
+        rate,
+        volume,
+        muted,
+    } = useMediaControls(videoRef);
     const showMobileControls = ref(true);
     const videoSrc = computed(() => BucketHelper.getVideoUrl(Number(videoId.value)));
     const prettyCurrentTime = computed(() => TimeHelper.formatTime(currentTime.value));
@@ -72,7 +84,7 @@ export const useVideoStore = defineStore('video', () => {
     };
 
     const setVideoRef = (el: HTMLVideoElement) => {
-        // videoRef.value = el;
+        videoRef.value = el;
     };
 
     const saveVideoProgression = (newTime: number) => {
@@ -93,6 +105,11 @@ export const useVideoStore = defineStore('video', () => {
 
     watch(currentTime, (newTime) => {
         saveVideoProgression(newTime);
+    });
+
+    watchEffect(() => {
+        // auto play when done loading
+        if (!waiting.value) playing.value = true;
     });
 
     return {
