@@ -18,7 +18,7 @@ onMounted(async () => {
     videoStore.loadVideoProgression();
     await nextTick();
     videoStore.setVideoRef(videoRef.value);
-    videoStore.playing = true;
+    // videoStore.playing = true;
 });
 </script>
 
