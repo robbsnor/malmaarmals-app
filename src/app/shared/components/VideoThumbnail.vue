@@ -26,7 +26,7 @@ const time = computed(() => {
     <div
         :class="
             twMerge(
-                'videothumbnail relative transition-all block group overflow-hidden rounded-md aspect-video self-start',
+                'videothumbnail relative transition-all block group overflow-hidden rounded-md self-start',
                 props.type === 'large' && 'rounded-2xl'
             )
         "
