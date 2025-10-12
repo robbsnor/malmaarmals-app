@@ -21,13 +21,13 @@ const amountToShow = ref(100);
     <Section title="Streams" v-if="filteredVideos">
         <template #actions v-if="videosStore.videos.length"> {{ videosStore.videos.length }} </template>
 
-        <div class="flex justify-center flex-col gap-8 items-center pb-8 md:hidden">
+        <div class="flex justify-center flex-col gap-4 items-center pb-4">
             <v-text-field
                 ref="searchRef"
                 v-model="videosStore.query"
                 :rounded="true"
                 placeholder="Search..."
-                :density="'compact'"
+                density="comfortable"
                 hide-details="auto"
                 append-inner-icon="mdi-magnify"
                 class="w-full"
