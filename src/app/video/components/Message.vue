@@ -25,7 +25,7 @@ const isMyMessage = computed(() => {
 <template>
     <li
         :class="{
-            'bg-african-violet-400-400 py-1 px-2 -mx-2 rounded-md': isMyMessage,
+            'bg-black-400 py-1 px-2 -mx-2 rounded-md': isMyMessage,
         }"
         class="text-sm"
         :data-id="message.id"

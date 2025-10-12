@@ -12,7 +12,6 @@ export const useVideosStore = defineStore('videos', () => {
     const videos = ref<Tables<'videos'>[]>([]);
 
     onMounted(async () => {
-        console.log('Fetching videos...');
         await fetchVideos();
     });
 
@@ -39,20 +38,9 @@ export const useVideosStore = defineStore('videos', () => {
         });
     });
 
-    const goToVideosPage = () => {
-        if (route.name !== 'videos') {
-            router.push({ name: 'videos' });
-        }
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
-
-    watch(query, () => goToVideosPage());
-
     return {
         videos,
         filteredVideos,
         query,
-        goToVideosPage,
     };
 });
