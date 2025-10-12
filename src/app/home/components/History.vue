@@ -6,11 +6,11 @@ import { useVideosStore } from '../../videos/stores/videos.store';
 import { computed } from 'vue';
 
 const videosStore = useVideosStore();
-const videos = computed(() => videosStore.videos.slice(0, 5));
+const videos = computed(() => videosStore.videos.slice(80, 85));
 </script>
 
 <template>
-    <Section title="Streams" moreLink="/videos" moreText="All Streams">
+    <Section title="History" moreLink="/history" moreText="view all">
         <!-- <div class="hidden md:grid md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
             <VideoLarge v-for="video in videosStore.videos" :key="video.video_id" :video="video" />
         </div> -->

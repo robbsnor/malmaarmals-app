@@ -9,6 +9,7 @@ import { TitleHelper } from '../shared/helpers/title.helper';
 import { useVideosStore } from '../videos/stores/videos.store';
 import PrevStreams from './components/PrevStreams.vue';
 import { useScreenOrientation } from '@vueuse/core';
+import History from './components/History.vue';
 
 TitleHelper.setTitle('home');
 
@@ -42,6 +43,8 @@ const handleArrow = (event: KeyboardEvent) => {
         <PrevStreams />
 
         <Playlists />
+
+        <History />
 
         <!-- <Stats /> -->
 

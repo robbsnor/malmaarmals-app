@@ -5,8 +5,11 @@ const props = withDefaults(
     defineProps<{
         title?: string;
         moreLink?: string | RouteLocationAsRelativeGeneric | RouteLocationAsPathGeneric;
+        moreText?: string;
     }>(),
-    {}
+    {
+        moreText: 'view more',
+    }
 );
 </script>
 
@@ -21,8 +24,8 @@ const props = withDefaults(
 
             <div v-if="props.moreLink" class="flex gap-4 items-center pt-4">
                 <div class="h-[1px] bg-black-400 grow"></div>
-                <RouterLink :to="props.moreLink" class="flex items-center gap-1 text-primary">
-                    view more
+                <RouterLink :to="props.moreLink" class="flex items-center gap-1 text-primary lowercase">
+                    {{ props.moreText }}
                     <v-icon size="x-small" icon="mdi-chevron-right" class="mt-[3px]" />
                 </RouterLink>
                 <div class="h-[1px] bg-black-400 grow"></div>

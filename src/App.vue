@@ -9,7 +9,10 @@ const { top, right, bottom, left } = useScreenSafeArea();
 const appStore = useAppStore();
 
 const groups = [
-    [{ name: 'Prefferences', link: '/settings', icon: 'mdi-cog' }],
+    [
+        { name: 'History', link: '/history', icon: 'mdi-history' },
+        { name: 'Prefferences', link: '/settings', icon: 'mdi-cog' },
+    ],
     [
         { name: 'Statistics', link: '/statistics', icon: 'mdi-chart-line' },
         { name: 'About', link: '/about', icon: 'mdi-information' },

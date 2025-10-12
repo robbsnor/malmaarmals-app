@@ -32,7 +32,7 @@ const playlists = ref([
 </script>
 
 <template>
-    <Section title="Playlists" moreLink="/playlists">
+    <Section title="Playlists" moreLink="/playlists" moreText="All Playlists">
         <div class="flex flex-col gap-8 pt-4">
             <div
                 v-for="playlist in playlists"
