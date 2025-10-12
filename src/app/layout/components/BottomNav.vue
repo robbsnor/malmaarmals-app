@@ -11,12 +11,11 @@ const menuItems = ref([
     { title: 'home', icon: 'mdi-home', to: '/' },
     { title: 'streams', icon: 'mdi-play', to: '/videos' },
     { title: 'playlists', icon: 'mdi-playlist-play', to: '/about' },
-    { title: 'settings', icon: 'mdi-cog', to: '', isSettings: true },
+    { title: 'more', icon: 'mdi-dots-horizontal', to: '', action: 'bottomSheet' },
 ]);
 
-const handleClick = (item: (typeof menuItems.value)[number]) => {
-    console.log(item);
-    if (item.isSettings) {
+const handleClick = (item: any) => {
+    if (item?.action === 'bottomSheet') {
         appStore.bottomSheet = true;
     }
 };
