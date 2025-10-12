@@ -39,7 +39,7 @@ const groups = [
         <VideoContainer />
         <MobileNavbar />
         <v-bottom-sheet v-model="appStore.bottomSheet" inset>
-            <div class="bg-black-200 p-4 rounded-t-md mx-4">
+            <div class="bg-black-200 border border-black-400 p-4 rounded-t-md">
                 <div v-for="group in groups" :key="group.name" class="mb-4">
                     <!-- <div class="text-gray-300 font-semibold mb-2">{{ group.name }}</div> -->
                     <div>
