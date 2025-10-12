@@ -42,7 +42,7 @@ const groups = [
             <div class="bg-black-200 border border-black-400 p-4 rounded-t-md">
                 <div class="flex gap-4 flex-col">
                     <div v-for="group in groups" :key="group.name">
-                        <div class="text-gray-300 font-semibold mb-2">{{ group.name }}</div>
+                        <!-- <div class="text-gray-300 font-semibold mb-2">{{ group.name }}</div> -->
                         <div class="flex flex-col gap-0.5">
                             <button
                                 v-for="item in group.items"
