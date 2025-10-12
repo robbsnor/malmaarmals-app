@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useAppStore } from '../../shared/stores/app.store';
 import { useScreenSafeArea } from '@vueuse/core';
-import { useRouter } from 'vue-router';
+import { useRouter, RouterLink } from 'vue-router';
 
 const router = useRouter();
 const { top, right, bottom, left } = useScreenSafeArea();
@@ -11,7 +11,7 @@ const menuItems = ref([
     { title: 'home', icon: 'mdi-home', to: '/' },
     { title: 'streams', icon: 'mdi-play', to: '/videos' },
     { title: 'playlists', icon: 'mdi-playlist-play', to: '/about' },
-    { title: 'more', icon: 'mdi-dots-horizontal', to: '', action: 'bottomSheet' },
+    { title: 'more', icon: 'mdi-dots-horizontal', action: 'bottomSheet' },
 ]);
 
 const handleClick = (item: any) => {
@@ -29,17 +29,18 @@ const handleClick = (item: any) => {
         :class="{ 'translate-y-[-100%]': !appStore.headerShown }"
     >
         <div class="flex items-center justify-evenly h-[var(--height-mobile-navbar)]">
-            <RouterLink
+            <Component
                 v-for="item in menuItems"
-                activeClass="text-white"
                 :key="item.title"
+                :is="item.to ? RouterLink : 'div'"
                 :to="item.to"
+                activeClass="text-white"
+                class="cursor-pointer flex flex-col justify-center items-center text-muted-more transition-all gap-[2px] py-2 px-6 text-light"
                 @click="handleClick(item)"
-                class="cursor-pointer flex flex-col justify-center items-center text-muted transition-all gap-[2px] py-2 px-6 text-light"
             >
                 <v-icon v-if="item.icon" :icon="item.icon" />
                 <div v-if="item.title" class="capitalize text-sm">{{ item.title }}</div>
-            </RouterLink>
+            </Component>
         </div>
     </div>
 </template>
