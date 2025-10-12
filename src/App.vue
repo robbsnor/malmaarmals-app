@@ -39,7 +39,7 @@ const groups = [
         <BottomNav />
 
         <v-bottom-sheet v-model="appStore.bottomSheet" inset>
-            <div class="bg-black-200 border border-black-400 p-4 rounded-t-md">
+            <div class="bg-black-200 border border-black-400 p-4 rounded-t-md overflow-auto">
                 <div class="flex gap-4 flex-col">
                     <div v-for="group in groups" :key="group.name">
                         <!-- <div class="text-gray-300 font-semibold mb-2">{{ group.name }}</div> -->
