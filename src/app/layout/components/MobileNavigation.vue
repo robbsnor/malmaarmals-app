@@ -9,7 +9,6 @@ const menuItems = ref([
     { title: 'home', icon: 'mdi-home', to: '/' },
     { title: 'streams', icon: 'mdi-play', to: '/videos' },
     { title: 'playlists', icon: 'mdi-playlist-play', to: '/about' },
-    { title: 'statistics', icon: 'mdi-chart-bar', to: '/about' },
 ]);
 </script>
 
