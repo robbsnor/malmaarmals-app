@@ -10,7 +10,10 @@ const appStore = useAppStore();
 
 const groups = [
     {
-        name: 'Other',
+        items: [{ name: 'Prefferences', link: '/settings', icon: 'mdi-cog' }],
+    },
+
+    {
         items: [
             { name: 'Statistics', link: '/statistics', icon: 'mdi-chart-line' },
             { name: 'About', link: '/about', icon: 'mdi-information' },
@@ -18,11 +21,7 @@ const groups = [
         ],
     },
     {
-        name: 'User',
-        items: [
-            { name: 'Prefferences', link: '/settings', icon: 'mdi-cog' },
-            { name: 'Sign out', link: '/sign-out', icon: 'mdi-logout' },
-        ],
+        items: [{ name: 'Sign out', link: '/sign-out', icon: 'mdi-logout' }],
     },
 ];
 </script>
