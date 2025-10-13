@@ -34,7 +34,7 @@ const groups = [
         <BottomNav />
 
         <v-bottom-sheet v-model="appStore.bottomSheet" inset>
-            <div class="bg-black-200 border border-black-400 p-4 rounded-t-md overflow-auto">
+            <BottomSheetContainer>
                 <div class="flex gap-4 flex-col">
                     <div v-for="(group, index) in groups" :key="index">
                         <div class="flex flex-col gap-0.5">
@@ -51,7 +51,7 @@ const groups = [
                         </div>
                     </div>
                 </div>
-            </div>
+            </BottomSheetContainer>
         </v-bottom-sheet>
     </v-app>
 </template>

@@ -42,6 +42,7 @@ export const usePlaylistsStore = defineStore('playlists', () => {
 
     return {
         getPlaylistById,
+        fetchPlaylists,
         playlists,
         filteredPlaylists,
         query,

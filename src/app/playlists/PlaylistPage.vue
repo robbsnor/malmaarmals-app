@@ -24,7 +24,7 @@ const daysAgo = (video: Tables<'videos'>) => {
 
 <template>
     <Container :padding="false">
-        <div class="relative overflow-hidden flex flex-col items-stretch justify-end aspect-[16/6]">
+        <div class="relative overflow-hidden aspect-[16/6]">
             <img
                 :src="BucketHelper.getThumbnailUrl(Number(playlist?.playlist_videos[0]?.video_id))"
                 alt=""
@@ -32,7 +32,18 @@ const daysAgo = (video: Tables<'videos'>) => {
             />
             <div class="absolute inset-0 bg-linear-to-b from-black/20 to-black-200"></div>
 
-            <div class="relative border-b border-black-500 p-4">
+            <div class="absolute top-0 w-full p-4 flex justify-end gap-2">
+                <v-btn variant="tonal" icon="mdi-pencil" size="x-small" class="cursor-pointer" />
+                <v-btn
+                    variant="tonal"
+                    icon="mdi-trash-can-outline"
+                    color="error"
+                    size="x-small"
+                    class="cursor-pointer"
+                />
+            </div>
+
+            <div class="absolute bottom-0 border-b border-black-500 p-4">
                 <h1 class="font-bold text-2xl">{{ playlist?.title }}</h1>
                 <div class="text-muted">{{ playlist?.description }}</div>
             </div>
