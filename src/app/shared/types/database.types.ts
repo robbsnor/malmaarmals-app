@@ -182,18 +182,21 @@ export type Database = {
                     created_at: string;
                     description: string | null;
                     id: string;
+                    position: number | null;
                     title: string;
                 };
                 Insert: {
                     created_at?: string;
                     description?: string | null;
                     id?: string;
+                    position?: number | null;
                     title: string;
                 };
                 Update: {
                     created_at?: string;
                     description?: string | null;
                     id?: string;
+                    position?: number | null;
                     title?: string;
                 };
                 Relationships: [];

@@ -1,14 +1,8 @@
 <script setup lang="ts">
-import { useAppStore } from '../shared/stores/app.store';
-import Player from './components/Player.vue';
-import Chat from './components/Chat.vue';
-import Info from './components/Info.vue';
-import InfoLarge from './components/InfoLarge.vue';
-import { useVideoStore } from './stores/video.store';
-import { nextTick, onMounted, ref, watch } from 'vue';
-import { useScreenOrientation } from '@vueuse/core';
-import { useFullscreen } from '@vueuse/core';
-import { flushCompileCache } from 'module';
+import { useFullscreen, useScreenOrientation } from '@vueuse/core';
+import { onMounted, ref, watch } from 'vue';
+import { useAppStore } from '../../shared/stores/app.store';
+import { useVideoStore } from '../stores/video.store';
 
 const poo = ref(false);
 

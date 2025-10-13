@@ -2,7 +2,7 @@
 import { useScreenSafeArea } from '@vueuse/core';
 import Header from './app/layout/components/Header.vue';
 import BottomNav from './app/layout/components/BottomNav.vue';
-import VideoContainer from './app/video/VideoContainer.vue';
+import VideoContainer from './app/videos/components/VideoContainer.vue';
 import { useAppStore } from './app/shared/stores/app.store';
 
 const { top, right, bottom, left } = useScreenSafeArea();

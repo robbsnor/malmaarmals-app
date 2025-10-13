@@ -1,11 +1,7 @@
 import { defineStore } from 'pinia';
-import { computed, onMounted, ref, watch, type Ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import { supabase } from '../../../supabase';
-import type { QueryData } from '@supabase/supabase-js';
-
-const playlistsQuery = supabase.from('playlists').select('*, playlist_videos(video_id, videos(*))');
-export type Playlists = QueryData<typeof playlistsQuery>;
+import { computed, onMounted, ref, type Ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { playlistsQuery, type Playlists } from '../models/playlist.model';
 
 export const usePlaylistsStore = defineStore('playlists', () => {
     const route = useRoute();
@@ -19,7 +15,12 @@ export const usePlaylistsStore = defineStore('playlists', () => {
     const fetchPlaylists = async () => {
         const { data, error } = await playlistsQuery;
 
-        playlists.value = data;
+        const sorted = data.map((playlist) => {
+            playlist.playlist_videos.sort((a, b) => a.recorded_at.localeCompare(b.recorded_at));
+            return playlist;
+        });
+
+        playlists.value = sorted;
     };
 
     const getPlaylistById = (id: Ref<string>) => {
