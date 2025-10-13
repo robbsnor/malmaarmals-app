@@ -33,6 +33,11 @@ const router = createRouter({
             name: 'about',
             component: () => import('../app/about/AboutPage.vue'),
         },
+        {
+            path: '/history',
+            name: 'history',
+            component: () => import('../app/history/HistoryPage.vue'),
+        },
         //     path: '/:pathMatch(.*)*',
         //     name: 'NotFound',
         //     component: () => import('@/app/base/containers/404.vue'),
