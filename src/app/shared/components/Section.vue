@@ -3,7 +3,7 @@ import type { RouteLocationAsPathGeneric, RouteLocationAsRelativeGeneric } from 
 
 const props = withDefaults(
     defineProps<{
-        title?: string;
+        title: string;
         moreLink?: string | RouteLocationAsRelativeGeneric | RouteLocationAsPathGeneric;
         moreText?: string;
     }>(),
@@ -16,9 +16,10 @@ const props = withDefaults(
 <template>
     <section class="relative overflow-hidden py-6 border-bf border-black-500">
         <Container class="relative">
-            <h2 v-if="props.title" class="text-2xl font-bold pb-2">
-                {{ props.title }}
-            </h2>
+            <div class="flex justify-between gap-4 pb-2">
+                <h2 class="text-2xl font-bold">{{ props.title }}</h2>
+                <slot name="actions"></slot>
+            </div>
 
             <slot></slot>
 

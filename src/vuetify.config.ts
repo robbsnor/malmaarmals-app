@@ -43,6 +43,11 @@ export const vuetify = createVuetify({
         VTextField: {
             clearable: true,
             variant: 'solo',
+            density: 'comfortable',
+        },
+        VNumberInput: {
+            variant: 'solo',
+            density: 'comfortable',
         },
         VTooltip: {
             location: 'top',
