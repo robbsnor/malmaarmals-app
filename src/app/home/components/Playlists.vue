@@ -8,7 +8,11 @@ const playlistsStore = usePlaylistsStore();
 <template>
     <Section title="Playlists" moreLink="/playlists" moreText="All Playlists">
         <div class="flex flex-col gap-8 pt-4">
-            <PlaylistItem v-for="playlist in playlistsStore.playlists" :key="playlist.id" :playlist="playlist" />
+            <PlaylistItem
+                v-for="playlist in playlistsStore.playlists.slice(0, 5)"
+                :key="playlist.id"
+                :playlist="playlist"
+            />
         </div>
     </Section>
 </template>

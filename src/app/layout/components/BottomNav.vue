@@ -11,12 +11,12 @@ const menuItems = ref([
     { title: 'home', icon: 'mdi-home', to: '/' },
     { title: 'streams', icon: 'mdi-play', to: '/videos' },
     { title: 'playlists', icon: 'mdi-playlist-play', to: '/playlists' },
-    { title: 'more', icon: 'mdi-dots-horizontal', action: 'bottomSheet' },
+    { title: 'more', icon: 'mdi-dots-horizontal', action: 'mainDrawer' },
 ]);
 
 const handleClick = (item: any) => {
-    if (item?.action === 'bottomSheet') {
-        appStore.bottomSheet = true;
+    if (item?.action === 'mainDrawer') {
+        appStore.mainDrawer = true;
     }
 };
 </script>
@@ -30,9 +30,9 @@ const handleClick = (item: any) => {
     >
         <div class="flex items-center justify-evenly h-[var(--height-mobile-navbar)]">
             <Component
+                :is="item.to ? RouterLink : 'div'"
                 v-for="item in menuItems"
                 :key="item.title"
-                :is="item.to ? RouterLink : 'div'"
                 :to="item.to"
                 activeClass="text-white"
                 class="cursor-pointer flex flex-col justify-center items-center text-muted-more transition-all gap-[2px] py-2 px-6 text-light"

@@ -11,10 +11,6 @@ export const useVideosStore = defineStore('videos', () => {
     const query = ref<string>('');
     const videos = ref<Tables<'videos'>[]>([]);
 
-    onMounted(async () => {
-        await fetchVideos();
-    });
-
     const fetchVideos = async () => {
         const { data, error } = await supabase
             .from('videos')
@@ -42,5 +38,7 @@ export const useVideosStore = defineStore('videos', () => {
         videos,
         filteredVideos,
         query,
+
+        fetchVideos,
     };
 });

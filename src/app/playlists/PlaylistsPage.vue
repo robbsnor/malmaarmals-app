@@ -4,11 +4,12 @@ import { TitleHelper } from '../shared/helpers/title.helper';
 import { usePlaylistsStore } from './stores/playlists.store';
 import PlaylistItem from './components/PlaylistItem.vue';
 import { supabase } from '../../supabase';
+import { randomNumber } from '../shared/helpers/randomNumber';
 
 const formDefault = {
     title: '',
     description: '',
-    position: 0,
+    position: randomNumber(1, 300),
 };
 
 TitleHelper.setTitle('Playlists');
@@ -16,8 +17,9 @@ TitleHelper.setTitle('Playlists');
 const playlistsStore = usePlaylistsStore();
 const searchRef = useTemplateRef<HTMLDivElement>('searchRef');
 const sheet = ref(false);
-const form = ref(formDefault);
+const form = ref({ ...formDefault });
 const valid = ref(false);
+const loading = ref(false);
 
 const rules = [
     (value) => {
@@ -27,20 +29,19 @@ const rules = [
 ];
 
 const submit = async () => {
-    console.log(form.value);
-    const { data, error } = await supabase
-        .from('playlists')
-        .insert({
-            title: form.value.title,
-            description: form.value.description,
-            position: form.value.position,
-        })
-        .select();
+    loading.value = true;
 
-    if (error) return console.error(error);
+    const { error } = await supabase.from('playlists').insert({
+        title: form.value.title,
+        description: form.value.description,
+        position: form.value.position,
+    });
+
+    loading.value = false;
+    if (error) return;
 
     await playlistsStore.fetchPlaylists();
-    form.value = formDefault;
+    form.value = { ...formDefault, position: randomNumber(1, 300) };
     sheet.value = false;
 };
 </script>
@@ -76,7 +77,9 @@ const submit = async () => {
                 <v-text-field label="Title" :rules="rules" v-model="form.title"></v-text-field>
                 <v-text-field label="Description" v-model="form.description"></v-text-field>
                 <v-number-input label="Position" :rules="rules" v-model="form.position"></v-number-input>
-                <v-btn color="primary" :disabled="!valid" class="w-full" @click="submit">Create</v-btn>
+                <v-btn color="primary" :disabled="!valid" :loading="loading" class="w-full" @click="submit"
+                    >Create</v-btn
+                >
             </v-form>
         </BottomSheetContainer>
     </v-bottom-sheet>

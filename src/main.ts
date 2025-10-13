@@ -7,6 +7,7 @@ import BottomSheetContainer from './app/shared/components/BottomSheetContainer.v
 import Card from './app/shared/components/Card.vue';
 import Container from './app/shared/components/Container.vue';
 import Dev from './app/shared/components/Dev.vue';
+import Dialog from './app/shared/components/Dialog.vue';
 import GradientText from './app/shared/components/GradientText.vue';
 import GridSection from './app/shared/components/GridSection.vue';
 import Section from './app/shared/components/Section.vue';
@@ -28,6 +29,7 @@ app.component('BottomSheetContainer', BottomSheetContainer);
 app.component('Card', Card);
 app.component('Container', Container);
 app.component('Dev', Dev);
+app.component('Dialog', Dialog);
 app.component('GradientText', GradientText);
 app.component('GridSection', GridSection);
 app.component('Section', Section);
