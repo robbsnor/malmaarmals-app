@@ -32,7 +32,9 @@ const close = () => {
     <v-dialog v-model="dialog" :width="props.width">
         <div class="bg-black-200 border border-black-500 p-6 rounded-md flex flex-col gap-4">
             <div class="flex gap-4 items-center">
-                <v-icon v-if="props.icon" :color="props.iconColor" class=" ">{{ props.icon }}</v-icon>
+                <!-- <div v-if="props.icon" class="flex justify-center items-center p-2 bg-black-400 rounded-md">
+                    <v-icon :color="props.iconColor" :icon="props.icon" class=" " />
+                </div> -->
 
                 <div class="  ">
                     <h2 class="text-2xl font-bold">{{ props.title }}</h2>
