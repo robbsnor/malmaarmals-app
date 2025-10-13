@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { Tables } from '../types/database.types';
-import { BucketHelper } from '../helpers/bucket.helper';
+import type { Tables } from '../../shared/types/database.types';
+import { BucketHelper } from '../../shared/helpers/bucket.helper';
 
 const props = withDefaults(
     defineProps<{

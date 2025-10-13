@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import type { Tables } from '../../shared/types/database.types';
+import type { Playlist } from '../models/playlist.model';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
-import { useAttrs } from 'vue';
-
-const attrs = useAttrs();
 
 const props = withDefaults(
     defineProps<{
-        playlist: Tables<'playlists'>;
+        playlist: Playlist;
     }>(),
     {}
 );
@@ -27,16 +24,20 @@ const props = withDefaults(
                 aria-hidden="true"
                 :class="[
                     n === 1 && '-top-4 scale-90 group-hover:-translate-y-2 bg-black-300',
-                    n === 2 && '-top-2 scale-95 group-hover:-translate-y-1 bg-black-600',
+                    n === 2 && '-top-2 scale-95 group-hover:-translate-y-1 bg-black-400',
                 ]"
             ></div>
 
-            <VideoThumbnail :to="`/about`" :src="BucketHelper.getThumbnailUrl(2170491752)" icon="mdi-playlist-play" />
+            <VideoThumbnail
+                :to="`/about`"
+                :src="BucketHelper.getThumbnailUrl(Number(playlist.playlist_videos[0]?.video_id))"
+                icon="mdi-playlist-play"
+            />
         </div>
 
         <div>
             <h2 class="font-bold text-md pt-2">{{ playlist.title }}</h2>
-            <!-- <p class="text-muted text-sm font-medium">{{ playlist.episodes }} Video's</p> -->
+            <p class="text-muted text-sm font-medium">{{ playlist.playlist_videos.length }} Video's</p>
         </div>
     </RouterLink>
 </template>
