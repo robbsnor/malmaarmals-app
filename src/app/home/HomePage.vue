@@ -40,6 +40,15 @@ const handleArrow = (event: KeyboardEvent) => {
     <div v-if="videos">
         <!-- <LatestVideo :video="firstVideo" /> -->
 
+        <Container>
+            <div class="flex items-center justify-center py-12 flex-col gap-2 pb-6">
+                <div class="w-[200px]">
+                    <Logo />
+                </div>
+                <div class="text-muted">Lekker Spelen Twitch Archive</div>
+            </div>
+        </Container>
+
         <PrevStreams />
 
         <Playlists />

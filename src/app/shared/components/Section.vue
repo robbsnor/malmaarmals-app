@@ -23,7 +23,7 @@ const props = withDefaults(
 
             <slot></slot>
 
-            <div v-if="props.moreLink" class="flex gap-4 items-center pt-4">
+            <div v-if="props.moreLink" class="flex gap-4 items-center pt-6">
                 <div class="h-[1px] bg-black-400 grow"></div>
                 <RouterLink :to="props.moreLink" class="flex items-center gap-1 text-primary lowercase">
                     {{ props.moreText }}

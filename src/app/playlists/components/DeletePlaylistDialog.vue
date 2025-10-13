@@ -26,7 +26,7 @@ const deletePlaylist = async () => {
 </script>
 
 <template>
-    <Dialog v-model="dialog" title="Delete playlist?" icon="mdi-alert-circle-outline" icon-color="error">
+    <Dialog v-model="dialog" title="Delete playlist?" icon="mdi-trash-can-outline" icon-color="error">
         <div>
             <div class="text-muted mb-2">Are you sure you want to delete the playlist:</div>
             <div class="font-bold">"{{ props.playlist.title }}"</div>
