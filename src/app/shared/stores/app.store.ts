@@ -2,7 +2,8 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useAppStore = defineStore('app', () => {
-    const bottomSheet = ref(false);
+    const loading = ref(true);
+    const mainDrawer = ref(false);
     const player = ref({
         isActive: false,
         isMini: true,
@@ -25,13 +26,14 @@ export const useAppStore = defineStore('app', () => {
 
     return {
         player,
-        showHeader,
-        hideHeader,
-        headerShown,
-        bottomSheet,
-
         menuOpen,
+        headerShown,
+        mainDrawer,
+        loading,
+
         toggleMenu,
         closeMenu,
+        showHeader,
+        hideHeader,
     };
 });

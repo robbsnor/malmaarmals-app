@@ -6,6 +6,7 @@ import { usePlaylistsStore } from '../playlists/stores/playlists.store';
 import { useRouteParams } from '@vueuse/router';
 import { BucketHelper } from '../shared/helpers/bucket.helper';
 import VideoItem from '../videos/components/VideoItem.vue';
+import DeletePlaylistDialog from './components/DeletePlaylistDialog.vue';
 import type { Tables } from '../shared/types/database.types';
 
 TitleHelper.setTitle('videos');
@@ -20,32 +21,36 @@ const daysAgo = (video: Tables<'videos'>) => {
     const diffTime = Math.abs(now.getTime() - recordedAt.getTime());
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 };
+const dialog = ref(false);
 </script>
 
 <template>
-    <Container :padding="false">
+    <Container v-if="playlist" :padding="false">
         <div class="relative overflow-hidden aspect-[16/6]">
             <img
                 :src="BucketHelper.getThumbnailUrl(Number(playlist?.playlist_videos[0]?.video_id))"
                 alt=""
                 class="absolute w-full h-full object-cover object-center"
             />
-            <div class="absolute inset-0 bg-linear-to-b from-black/20 to-black-200"></div>
+            <div class="absolute inset-0 bg-linear-to-b from-black/50 to-black-100"></div>
 
             <div class="absolute top-0 w-full p-4 flex justify-end gap-2">
                 <v-btn variant="tonal" icon="mdi-pencil" size="x-small" class="cursor-pointer" />
+
                 <v-btn
                     variant="tonal"
                     icon="mdi-trash-can-outline"
                     color="error"
                     size="x-small"
                     class="cursor-pointer"
+                    @click="dialog = true"
                 />
+                <DeletePlaylistDialog :playlist="playlist" v-model="dialog" />
             </div>
 
-            <div class="absolute bottom-0 border-b border-black-500 p-4">
-                <h1 class="font-bold text-2xl">{{ playlist?.title }}</h1>
-                <div class="text-muted">{{ playlist?.description }}</div>
+            <div class="absolute bottom-0 border-b border-black-500 p-4 w-full">
+                <h1 class="font-bold text-2xl">{{ playlist.title }}</h1>
+                <div class="text-muted">{{ playlist.description }}</div>
             </div>
         </div>
     </Container>

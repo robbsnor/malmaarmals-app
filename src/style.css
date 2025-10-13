@@ -218,6 +218,10 @@ a:not([class]) {
     -ms-overflow-style: none;
 }
 
+button {
+    @apply cursor-pointer;
+}
+
 .scroll-hidden::-webkit-scrollbar {
     display: none;
 }

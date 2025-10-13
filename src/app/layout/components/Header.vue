@@ -24,7 +24,7 @@ const loggedIn = ref(true);
                 <button
                     v-if="loggedIn"
                     class="rounded-full border-2 border-primary p-0.5"
-                    @click="appStore.bottomSheet = !appStore.bottomSheet"
+                    @click="appStore.mainDrawer = !appStore.mainDrawer"
                 >
                     <img
                         src="https://static-cdn.jtvnw.net/jtv_user_pictures/e346d390-fe98-4c2a-baae-327288c8c55b-profile_image-300x300.png"

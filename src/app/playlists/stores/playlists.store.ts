@@ -1,16 +1,14 @@
 import { defineStore } from 'pinia';
 import { computed, onMounted, ref, type Ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { playlistsQuery, type Playlists } from '../models/playlist.model';
+import { playlistsQuery, type Playlist, type Playlists } from '../models/playlist.model';
+import { supabase } from '../../../supabase';
+import { sleep } from '../../shared/helpers/sleep';
 
 export const usePlaylistsStore = defineStore('playlists', () => {
     const route = useRoute();
     const query = ref<string>('');
     const playlists = ref<Playlists>([]);
-
-    onMounted(async () => {
-        await fetchPlaylists();
-    });
 
     const fetchPlaylists = async () => {
         const { data, error } = await playlistsQuery;
@@ -29,6 +27,17 @@ export const usePlaylistsStore = defineStore('playlists', () => {
         });
     };
 
+    const deletePlaylist = async (playlist: Playlist) => {
+        await sleep(500);
+        const { error } = await supabase.from('playlists').delete().eq('id', playlist.id);
+
+        if (!error) {
+            await fetchPlaylists();
+        }
+
+        return { error };
+    };
+
     const filteredPlaylists = computed(() => {
         // if (!query.value) return videos.value;
         // return videos.value.filter((video) => {
@@ -43,6 +52,7 @@ export const usePlaylistsStore = defineStore('playlists', () => {
     return {
         getPlaylistById,
         fetchPlaylists,
+        deletePlaylist,
         playlists,
         filteredPlaylists,
         query,

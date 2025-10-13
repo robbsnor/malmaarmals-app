@@ -18,8 +18,6 @@ const amountToShow = ref(100);
 
 <template>
     <Section title="Streams" v-if="filteredVideos">
-        <template #actions v-if="videosStore.videos.length"> {{ videosStore.videos.length }} </template>
-
         <div class="flex justify-center flex-col gap-4 items-center pb-4">
             <v-text-field
                 ref="searchRef"
