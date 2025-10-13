@@ -1,0 +1,43 @@
+<script setup lang="ts">
+import type { Playlist } from '../models/playlist.model';
+import { BucketHelper } from '../../shared/helpers/bucket.helper';
+
+const props = withDefaults(
+    defineProps<{
+        playlist: Playlist;
+    }>(),
+    {}
+);
+</script>
+
+<template>
+    <RouterLink
+        :to="`/playlists/${props.playlist.id}`"
+        class="relative transition-all duration-200 rounded-md flex gap-4"
+    >
+        <div class="relative transition-all duration-200 group w-32 shrink-0">
+            <div
+                v-for="n in 3"
+                :key="n"
+                class="absolute inset-0 rounded-md origin-top transition-all pointer-events-none"
+                :src="n"
+                aria-hidden="true"
+                :class="[
+                    n === 1 && '-top-4 scale-90 group-hover:-translate-y-2 bg-black-300',
+                    n === 2 && '-top-2 scale-95 group-hover:-translate-y-1 bg-black-400',
+                ]"
+            ></div>
+
+            <VideoThumbnail
+                :to="`/about`"
+                :src="BucketHelper.getThumbnailUrl(Number(playlist.playlist_videos[0]?.video_id))"
+                icon="mdi-playlist-play"
+            />
+        </div>
+
+        <div>
+            <h2 class="font-bold text-md pt-2">{{ playlist.title }}</h2>
+            <p class="text-muted text-sm font-medium">{{ playlist.playlist_videos.length }} Video's</p>
+        </div>
+    </RouterLink>
+</template>

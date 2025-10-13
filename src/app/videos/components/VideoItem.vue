@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { BucketHelper } from '../helpers/bucket.helper';
+import { BucketHelper } from '../../shared/helpers/bucket.helper';
+import type { Tables } from '../../shared/types/database.types';
 
 const props = withDefaults(
     defineProps<{
-        video: any;
-        isFirst?: boolean;
+        video: Tables<'videos'>;
     }>(),
-    {
-        isFirst: false,
-    }
+    {}
 );
 
 const daysAgo = computed(() => {

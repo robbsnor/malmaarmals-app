@@ -2,7 +2,7 @@
 import { useScreenSafeArea } from '@vueuse/core';
 import Header from './app/layout/components/Header.vue';
 import BottomNav from './app/layout/components/BottomNav.vue';
-import VideoContainer from './app/video/VideoContainer.vue';
+import VideoContainer from './app/videos/components/VideoContainer.vue';
 import { useAppStore } from './app/shared/stores/app.store';
 
 const { top, right, bottom, left } = useScreenSafeArea();
@@ -37,7 +37,6 @@ const groups = [
             <div class="bg-black-200 border border-black-400 p-4 rounded-t-md overflow-auto">
                 <div class="flex gap-4 flex-col">
                     <div v-for="(group, index) in groups" :key="index">
-                        <!-- <div class="text-gray-300 font-semibold mb-2">{{ group.name }}</div> -->
                         <div class="flex flex-col gap-0.5">
                             <button
                                 v-for="item in group"

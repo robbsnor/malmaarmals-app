@@ -1,69 +1,14 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import { BucketHelper } from '../../shared/helpers/bucket.helper';
+import PlaylistItem from '../../playlists/components/PlaylistItem.vue';
+import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
 
-const playlists = ref([
-    {
-        title: 'Peter VS Timon',
-        episodes: 72,
-        thumbnail: BucketHelper.getThumbnailUrl(2206408041),
-    },
-    {
-        title: 'Teken streams',
-        episodes: 3,
-        thumbnail: BucketHelper.getThumbnailUrl(1732461290),
-    },
-    {
-        title: 'LEKKERSPELEN ORIGINS',
-        episodes: 4,
-        thumbnail: BucketHelper.getThumbnailUrl(2170491752),
-    },
-    {
-        title: 'Reclames kijken',
-        episodes: 44,
-        thumbnail: BucketHelper.getThumbnailUrl(1925255803),
-    },
-    {
-        title: 'Resident Evil 7',
-        episodes: 6,
-        thumbnail: BucketHelper.getThumbnailUrl(1777474430),
-    },
-]);
+const playlistsStore = usePlaylistsStore();
 </script>
 
 <template>
     <Section title="Playlists" moreLink="/playlists" moreText="All Playlists">
         <div class="flex flex-col gap-8 pt-4">
-            <div
-                v-for="playlist in playlists"
-                :key="playlist.title"
-                class="relative transition-all duration-200 rounded-md flex gap-4"
-            >
-                <div class="relative transition-all duration-200 group w-32 shrink-0">
-                    <div
-                        v-for="(thumbnail, i) in playlist.thumbnail"
-                        :key="i"
-                        class="absolute inset-0 rounded-md origin-top transition-all pointer-events-none"
-                        :src="thumbnail"
-                        aria-hidden="true"
-                        :class="[
-                            i === 1 && '-top-4 scale-90 group-hover:-translate-y-2 bg-black-300',
-                            i === 2 && '-top-2 scale-95 group-hover:-translate-y-1 bg-black-600',
-                        ]"
-                    ></div>
-
-                    <VideoThumbnail :to="`/about`" :src="playlist.thumbnail" icon="mdi-playlist-play" />
-                </div>
-
-                <div>
-                    <h2 class="font-bold text-md pt-2">{{ playlist.title }}</h2>
-                    <p class="text-muted text-sm font-medium">{{ playlist.episodes }} Video's</p>
-                </div>
-            </div>
+            <PlaylistItem v-for="playlist in playlistsStore.playlists" :key="playlist.id" :playlist="playlist" />
         </div>
-
-        <template #actions>
-            <v-btn to="/videos" variant="text">view all</v-btn>
-        </template>
     </Section>
 </template>
