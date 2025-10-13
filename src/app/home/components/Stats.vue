@@ -25,14 +25,12 @@ const topChatters = ref<
 const bgPosition = ref(-19);
 
 async function getTopUsers() {
-    const { data, error } = await supabase.rpc('get_top_chatters');
-
-    if (error) {
-        console.error(error);
-        return;
-    }
-
-    topChatters.value = data;
+    // const { data, error } = await supabase.rpc('get_top_chatters');
+    // if (error) {
+    //     console.error(error);
+    //     return;
+    // }
+    // topChatters.value = data;
 }
 
 onMounted(async () => {
