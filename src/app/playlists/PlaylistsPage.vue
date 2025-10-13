@@ -36,6 +36,8 @@ const submit = async () => {
         })
         .select();
 
+    if (error) return console.error(error);
+
     await playlistsStore.fetchPlaylists();
     form.value = formDefault;
     sheet.value = false;
@@ -45,7 +47,7 @@ const submit = async () => {
 <template>
     <Section title="Playlists">
         <template #actions>
-            <v-btn icon="mdi-plus" color="primary" variant="tonal" @click="sheet = true" />
+            <v-btn icon="mdi-plus" color="primary" size="x-small" @click="sheet = true" />
         </template>
 
         <div class="flex justify-center gap-4 items-center pb-4">
@@ -71,7 +73,7 @@ const submit = async () => {
             <div class="font-bold text-lg mb-4">Create Playlist</div>
             <v-form>
                 <v-text-field label="Title" :rules="rules" v-model="form.title"></v-text-field>
-                <v-text-field label="Description" :rules="rules" v-model="form.description"></v-text-field>
+                <v-text-field label="Description" v-model="form.description"></v-text-field>
                 <v-number-input label="Position" :rules="rules" v-model="form.position"></v-number-input>
                 <v-btn color="primary" class="w-full" @click="submit">Create</v-btn>
             </v-form>
