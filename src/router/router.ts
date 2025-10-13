@@ -19,6 +19,16 @@ const router = createRouter({
             component: () => import('../app/video/VideoPage.vue'),
         },
         {
+            path: '/playlists',
+            name: 'playlists',
+            component: () => import('../app/playlists/PlaylistsPage.vue'),
+        },
+        {
+            path: '/playlists/:id',
+            name: 'playlist',
+            component: () => import('../app/playlists/PlaylistPage.vue'),
+        },
+        {
             path: '/about',
             name: 'about',
             component: () => import('../app/about/AboutPage.vue'),

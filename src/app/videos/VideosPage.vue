@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { ref, useTemplateRef } from 'vue';
-import Video from '../shared/components/VideoLarge.vue';
-import VideoSmall from '../shared/components/Video.vue';
+import Video from '../shared/components/Video.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import { useVideosStore } from './stores/videos.store';
 import { useDisplay } from 'vuetify';
@@ -34,11 +33,8 @@ const amountToShow = ref(100);
             />
         </div>
 
-        <div class="grid grid-cols gap-4 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-            <template v-for="video in filteredVideos.slice(0, amountToShow)">
-                <Video v-if="smAndUp" :key="video.video_id" :video="video" />
-                <VideoSmall v-else :key="`${video.video_id}_small`" :video="video" />
-            </template>
+        <div class="grid grid-cols gap-4">
+            <Video v-for="video in filteredVideos.slice(0, amountToShow)" :key="video.video_id" :video="video" />
         </div>
 
         <div v-if="amountToShow < filteredVideos.length" class="flex justify-center mt-8">
