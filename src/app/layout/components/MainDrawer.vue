@@ -36,9 +36,6 @@ const user = {
                         <span class="font-bold">2 months</span>
                     </p>
                 </div>
-                <div class="ml-auto">
-                    <v-btn icon="mdi-logout" size="small" variant="tonal" color="error" />
-                </div>
             </div>
 
             <div class="flex gap-4 flex-col">
@@ -49,7 +46,7 @@ const user = {
                             :key="item.name"
                             @click="appStore.mainDrawer = false"
                             class="w-full text-left px-4 py-3 bg-black-400 hover:bg-black-600 text-normal transition flex gap-3 cursor-pointer items-center first:rounded-t-md last:rounded-b-md"
-                            :class="item.name === 'Sign out' ? 'text-red-500' : ''"
+                            :class="item.icon === 'mdi-logout' ? 'text-red-500' : ''"
                         >
                             <v-icon :icon="item.icon" size="16" />
                             {{ item.name }}
