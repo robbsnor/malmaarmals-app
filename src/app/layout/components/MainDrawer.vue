@@ -31,10 +31,7 @@ const user = {
                 </div>
                 <div>
                     <p class="text-lg font-bold">{{ user.name }}</p>
-                    <p class="text-sm text-muted">
-                        Subscribed for:
-                        <span class="font-bold">2 months</span>
-                    </p>
+                    <p class="text-sm text-muted"><span class="font-bold">82 Months</span> subscribed!</p>
                 </div>
             </div>
 
