@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { supabase } from '../../../supabase';
+import { useAuthStore } from '../../auth/stores/auth.store';
 import { useAppStore } from '../../shared/stores/app.store';
 
 const appStore = useAppStore();
+const authStore = useAuthStore();
 
 const groups = [
     [
@@ -15,22 +18,24 @@ const groups = [
     ],
     [{ name: 'Sign out', link: '/sign-out', icon: 'mdi-logout' }],
 ];
-
-const user = {
-    name: 'Hoppsnor',
-    avatar: 'https://static-cdn.jtvnw.net/jtv_user_pictures/e346d390-fe98-4c2a-baae-327288c8c55b-profile_image-300x300.png',
-};
 </script>
 
 <template>
     <v-bottom-sheet v-model="appStore.mainDrawer" inset>
         <BottomSheetContainer>
-            <div class="flex gap-4 items-center bg-black-400 mb-4 p-4 rounded-md bordfer border-black-400">
-                <div v-if="true" class="rounded-full border-2 border-primary p-0.5">
-                    <img :src="user.avatar" alt="Twitch Logo" class="h-10 rounded-full" />
+            <div
+                v-if="authStore.session"
+                class="flex gap-4 items-center bg-black-400 mb-4 p-4 rounded-md bordfer border-black-400"
+            >
+                <div class="rounded-full border-2 border-primary p-0.5">
+                    <img
+                        :src="authStore.session.user.user_metadata.avatar_url"
+                        alt="Twitch Logo"
+                        class="h-10 rounded-full"
+                    />
                 </div>
                 <div>
-                    <p class="text-lg font-bold">{{ user.name }}</p>
+                    <p class="text-lg font-bold">{{ authStore.session.user.user_metadata.nickname }}</p>
                     <p class="text-sm text-muted"><span class="font-bold">82 Months</span> subscribed!</p>
                 </div>
             </div>

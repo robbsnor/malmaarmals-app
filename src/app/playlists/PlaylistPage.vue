@@ -8,10 +8,12 @@ import { BucketHelper } from '../shared/helpers/bucket.helper';
 import VideoItem from '../videos/components/VideoItem.vue';
 import DeletePlaylistDialog from './components/DeletePlaylistDialog.vue';
 import type { Tables } from '../shared/types/database.types';
+import { useAuthStore } from '../auth/stores/auth.store';
 
 TitleHelper.setTitle('videos');
 
 const playlistStore = usePlaylistsStore();
+const authStore = useAuthStore();
 const id = useRouteParams('id') as Ref<string>;
 const playlist = playlistStore.getPlaylistById(id);
 
@@ -34,7 +36,7 @@ const dialog = ref(false);
             />
             <div class="absolute inset-0 bg-linear-to-b from-black/50 to-black-100"></div>
 
-            <div class="absolute top-0 w-full p-4 flex justify-end gap-2">
+            <div v-if="authStore.isAdmin" class="absolute top-0 w-full p-4 flex justify-end gap-2">
                 <v-btn variant="tonal" icon="mdi-pencil" size="x-small" class="cursor-pointer" />
 
                 <v-btn

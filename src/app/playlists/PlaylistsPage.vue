@@ -3,6 +3,7 @@ import { ref, useTemplateRef } from 'vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import { usePlaylistsStore } from './stores/playlists.store';
 import PlaylistItem from './components/PlaylistItem.vue';
+import { useAuthStore } from '../auth/stores/auth.store';
 import { supabase } from '../../supabase';
 import { randomNumber } from '../shared/helpers/randomNumber';
 
@@ -15,6 +16,7 @@ const formDefault = {
 TitleHelper.setTitle('Playlists');
 
 const playlistsStore = usePlaylistsStore();
+const authStore = useAuthStore();
 const searchRef = useTemplateRef<HTMLDivElement>('searchRef');
 const sheet = ref(false);
 const form = ref({ ...formDefault });
@@ -49,7 +51,14 @@ const submit = async () => {
 <template>
     <Section title="Playlists">
         <template #actions>
-            <v-btn icon="mdi-plus" color="primary" size="x-small" @click="sheet = true" />
+            <v-btn
+                v-if="authStore.isAdmin"
+                variant="tonal"
+                icon="mdi-plus"
+                color="primary"
+                size="x-small"
+                @click="sheet = true"
+            />
         </template>
 
         <div class="flex justify-center gap-4 items-center pb-4">
