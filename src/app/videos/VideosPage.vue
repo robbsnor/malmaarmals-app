@@ -36,7 +36,7 @@ const amountToShow = ref(100);
         </div>
 
         <div v-if="amountToShow < filteredVideos.length" class="flex justify-center mt-8">
-            <v-btn :rounded="true" :elevation="0" variant="outlined" @click="amountToShow += 200"> Load More </v-btn>
+            <v-btn :rounded="true" variant="tonal" color="primary" @click="amountToShow += 200"> Load More </v-btn>
         </div>
     </Section>
 </template>
