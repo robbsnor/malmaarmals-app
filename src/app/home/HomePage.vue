@@ -10,11 +10,14 @@ import { useVideosStore } from '../videos/stores/videos.store';
 import PrevStreams from './components/PrevStreams.vue';
 import { useScreenOrientation } from '@vueuse/core';
 import History from './components/History.vue';
+import { supabase } from '../../supabase';
+import { useAuthStore } from '../auth/stores/auth.store';
 
 TitleHelper.setTitle('home');
 
 const appStore = useAppStore();
 const videosStore = useVideosStore();
+const authStore = useAuthStore();
 const { videos } = storeToRefs(videosStore);
 
 const number = ref(0);
@@ -34,6 +37,21 @@ const handleArrow = (event: KeyboardEvent) => {
         }
     }
 };
+const login = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'twitch',
+        options: {
+            redirectTo: `${window.location.origin}/auth/callback`,
+            scopes: 'user:read:follows user:read:subscriptions moderator:read:followers',
+            skipBrowserRedirect: false,
+        },
+    });
+    if (error) {
+        console.error(error);
+    } else {
+        console.log(data);
+    }
+};
 </script>
 
 <template>
@@ -46,6 +64,16 @@ const handleArrow = (event: KeyboardEvent) => {
                     <Logo />
                 </div>
                 <div class="text-muted">Lekker Spelen Twitch Archive</div>
+                <v-btn
+                    v-if="authStore.session"
+                    variant="tonal"
+                    color="primary"
+                    class="mt-4"
+                    @click="supabase.auth.signOut()"
+                >
+                    Logout
+                </v-btn>
+                <v-btn v-else variant="tonal" color="primary" class="mt-4" @click="login()">Login</v-btn>
             </div>
         </Container>
 
