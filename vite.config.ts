@@ -16,8 +16,8 @@ export default defineConfig({
             registerType: 'autoUpdate',
             includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
             manifest: {
-                name: 'MallMaarMals',
-                short_name: 'MallMaarMals',
+                name: 'MalMaarMals',
+                short_name: 'MalMaarMals',
                 display: 'standalone',
                 theme_color: '#000000',
                 background_color: '#000000',

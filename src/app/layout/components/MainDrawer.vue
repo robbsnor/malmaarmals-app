@@ -21,7 +21,7 @@ const groups = [
 </script>
 
 <template>
-    <v-bottom-sheet v-model="appStore.mainDrawer" inset>
+    <v-bottom-sheet v-model="appStore.mainDrawer" inset eager>
         <BottomSheetContainer>
             <div
                 v-if="authStore.session"
