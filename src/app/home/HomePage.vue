@@ -37,6 +37,7 @@ const handleArrow = (event: KeyboardEvent) => {
         }
     }
 };
+
 const login = async () => {
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'twitch',
