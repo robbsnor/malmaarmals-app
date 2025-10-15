@@ -37,22 +37,6 @@ const handleArrow = (event: KeyboardEvent) => {
         }
     }
 };
-
-const login = async () => {
-    const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'twitch',
-        options: {
-            redirectTo: `${window.location.origin}/auth/callback`,
-            scopes: 'user:read:follows user:read:subscriptions moderator:read:followers',
-            skipBrowserRedirect: false,
-        },
-    });
-    if (error) {
-        console.error(error);
-    } else {
-        console.log(data);
-    }
-};
 </script>
 
 <template>
@@ -74,7 +58,7 @@ const login = async () => {
                 >
                     Logout
                 </v-btn>
-                <v-btn v-else variant="tonal" color="primary" class="mt-4" @click="login()">Login</v-btn>
+                <v-btn v-else variant="tonal" color="primary" class="mt-4" @click="authStore.signIn()">Login</v-btn>
             </div>
         </Container>
 

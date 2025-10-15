@@ -2,22 +2,37 @@
 import { supabase } from '../../../supabase';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { useAppStore } from '../../shared/stores/app.store';
+import { useRouter, RouterLink } from 'vue-router';
+import { computed } from 'vue';
 
 const appStore = useAppStore();
 const authStore = useAuthStore();
 
-const groups = [
-    [
-        { name: 'History', link: '/history', icon: 'mdi-history' },
-        { name: 'Prefferences', link: '/settings', icon: 'mdi-cog' },
-    ],
-    [
-        { name: 'Statistics', link: '/statistics', icon: 'mdi-chart-line' },
-        { name: 'About', link: '/about', icon: 'mdi-information' },
-        { name: 'Donate', link: '/donate', icon: 'mdi-heart' },
-    ],
-    [{ name: 'Sign out', link: '/sign-out', icon: 'mdi-logout' }],
-];
+const groups = computed(() => {
+    const isSignedIn = !!authStore.session;
+    console.log(isSignedIn);
+
+    return [
+        [
+            { name: 'History', icon: 'mdi-history' },
+            { name: 'Prefferences', icon: 'mdi-cog' },
+        ],
+        [
+            { name: 'Statistics', icon: 'mdi-chart-line' },
+            { name: 'About', to: '/about', icon: 'mdi-information' },
+            { name: 'Donate', icon: 'mdi-heart' },
+        ],
+        [{ name: 'Sign out', link: '/sign-out', icon: 'mdi-logout', hidden: !isSignedIn, action: 'sign-out' }],
+    ] as any;
+});
+
+const handleClick = async (item: any) => {
+    if (item?.action === 'sign-out') {
+        await authStore.signOut();
+    }
+
+    appStore.mainDrawer = false;
+};
 </script>
 
 <template>
@@ -43,16 +58,19 @@ const groups = [
             <div class="flex gap-4 flex-col">
                 <div v-for="(group, index) in groups" :key="index">
                     <div class="flex flex-col gap-0.5">
-                        <button
-                            v-for="item in group"
-                            :key="item.name"
-                            @click="appStore.mainDrawer = false"
-                            class="w-full text-left px-4 py-3 bg-black-400 hover:bg-black-600 text-normal transition flex gap-3 cursor-pointer items-center first:rounded-t-md last:rounded-b-md"
-                            :class="item.icon === 'mdi-logout' ? 'text-red-500' : ''"
-                        >
-                            <v-icon :icon="item.icon" size="16" />
-                            {{ item.name }}
-                        </button>
+                        <template v-for="item in group" :key="item.name">
+                            <Component
+                                :is="item.to ? RouterLink : 'button'"
+                                :to="item.to"
+                                v-if="!item.hidden"
+                                @click="handleClick(item)"
+                                class="w-full text-left px-4 py-3 bg-black-400 hover:bg-black-600 text-normal transition flex gap-3 cursor-pointer items-center first:rounded-t-md last:rounded-b-md"
+                                :class="item.icon === 'mdi-logout' ? 'text-red-500' : ''"
+                            >
+                                <v-icon :icon="item.icon" size="16" />
+                                {{ item.name }}
+                            </Component>
+                        </template>
                     </div>
                 </div>
             </div>
