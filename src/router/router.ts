@@ -38,6 +38,12 @@ const router = createRouter({
             name: 'history',
             component: () => import('../app/history/HistoryPage.vue'),
         },
+        {
+            path: '/auth/callback',
+            name: 'callback',
+            component: () => import('../app/auth/Callback.vue'),
+        },
+
         //     path: '/:pathMatch(.*)*',
         //     name: 'NotFound',
         //     component: () => import('@/app/base/containers/404.vue'),

@@ -19,7 +19,7 @@ onMounted(async () => {
 
     // prettier-ignore
     await Promise.all([
-        authStore.getSession(),
+        authStore.upadateSession(),
         videosStore.fetchVideos(),
         playlistsStore.fetchPlaylists(),
     ]);
