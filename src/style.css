@@ -207,6 +207,10 @@ body {
     @apply font-space-grotesk overflow-x-hidden text-normal;
 }
 
+p:not(:last-child) {
+    @apply mb-3;
+}
+
 a.link,
 a:not([class]) {
     @apply underline text-primary hover:text-pipipink-light;

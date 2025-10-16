@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const props = defineProps<{
+    payoff?: boolean;
+}>();
+</script>
 
 <template>
     <svg class="w-full" viewBox="0 0 1308 151" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -47,4 +51,6 @@
             fill="white"
         />
     </svg>
+
+    <div v-if="props.payoff" class="text-muted pt-2">Lekker Spelen Twitch Archive</div>
 </template>
