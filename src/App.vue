@@ -30,7 +30,7 @@ onMounted(async () => {
         authStore.upadateSession(),
         videosStore.fetchVideos(),
         playlistsStore.fetchPlaylists(),
-        new Promise((r, re) => setTimeout(re, 500)),
+        // new Promise((r, re) => setTimeout(re, 500)),
     ]).catch((err) => {
         hasError.value = true;
     });
@@ -79,16 +79,6 @@ onMounted(async () => {
                             alt=""
                         />
                     </div>
-                    <!--
-                        <v-btn
-                            class="mt-6"
-                            variant="tonal"
-                            color="primary"
-                            prepend-icon="mdi-twitch"
-                            href="https://www.twitch.tv/lekkerspelen/videos?filter=all&sort=time"
-                        >
-                            Lekker Spelen
-                        </v-btn> -->
                 </div>
             </div>
         </Container>
