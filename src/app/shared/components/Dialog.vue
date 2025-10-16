@@ -38,7 +38,7 @@ const close = () => {
 
                 <div class="  ">
                     <h2 class="text-2xl font-bold">{{ props.title }}</h2>
-                    <p v-if="props.description" class="text-sm text-muted">{{ props.description }}</p>
+                    <div v-if="props.description" class="text-sm text-muted">{{ props.description }}</div>
                 </div>
 
                 <button v-if="props.showCloseButton" @click="close()" class="ml-auto">

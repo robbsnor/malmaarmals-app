@@ -72,7 +72,7 @@ const dialog = ref(false);
                         <h2 class="font-bold text-md">
                             {{ video.title }}
                         </h2>
-                        <p class="text-muted-more text-sm font-medium">{{ daysAgo(video) }} days ago</p>
+                        <div class="text-muted-more text-sm font-medium">{{ daysAgo(video) }} days ago</div>
                     </div>
                 </RouterLink>
             </div>
