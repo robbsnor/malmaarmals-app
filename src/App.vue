@@ -66,7 +66,7 @@ onMounted(async () => {
                 <div class="w-20 h-[1px] bg-black-500 mx-auto"></div>
 
                 <div class="text-center">
-                    <div class="text-4xl font-bold pb-2">Oops!</div>
+                    <div class="text-4xl font-bold pb-2">Oops,</div>
                     <div class="text-muted">
                         <p>
                             Since this App is partially self hosted, <br />
