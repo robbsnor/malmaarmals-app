@@ -41,7 +41,7 @@ onMounted(async () => {
 
 <template>
     <v-app v-if="!appStore.loading && !hasError">
-        <div class="fpb-(--height-mobile-navbar)">
+        <div class="fpb-(--height-mobile-navbar) pb-18">
             <RouterView />
         </div>
 
