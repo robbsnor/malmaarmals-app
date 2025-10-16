@@ -48,16 +48,6 @@ const handleArrow = (event: KeyboardEvent) => {
                 <div class="w-60">
                     <Logo payoff />
                 </div>
-                <v-btn
-                    v-if="authStore.session"
-                    variant="tonal"
-                    color="primary"
-                    class="mt-4"
-                    @click="supabase.auth.signOut()"
-                >
-                    Logout
-                </v-btn>
-                <v-btn v-else variant="tonal" color="primary" class="mt-4" @click="authStore.signIn()">Login</v-btn>
             </div>
         </Container>
 
