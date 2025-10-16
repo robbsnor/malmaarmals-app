@@ -146,10 +146,10 @@
     /* text */
     --color-normal: hsl(0, 0%, 95%);
     --color-muted: hsl(0, 0%, 70%);
-    --color-muted-more: hsl(0, 0%, 40%);
+    --color-muted-more: var(--color-black-1200);
 
     /* linear */
-    /* --color-brand-100: #16161d;
+    /* --color-brand-100: #16161d;fs
     --color-brand-200: #181921;
     --color-brand-300: #191a23;
     --color-brand-400: #2c2e3b;

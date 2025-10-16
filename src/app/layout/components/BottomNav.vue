@@ -3,15 +3,17 @@ import { ref } from 'vue';
 import { useAppStore } from '../../shared/stores/app.store';
 import { useScreenSafeArea } from '@vueuse/core';
 import { useRouter, RouterLink } from 'vue-router';
+import { useAuthStore } from '../../auth/stores/auth.store';
 
 const router = useRouter();
 const { top, right, bottom, left } = useScreenSafeArea();
 const appStore = useAppStore();
+const authStore = useAuthStore();
 const menuItems = ref([
     { title: 'home', icon: 'mdi-home', to: '/' },
     { title: 'streams', icon: 'mdi-play', to: '/videos' },
     { title: 'playlists', icon: 'mdi-playlist-play', to: '/playlists' },
-    { title: 'more', icon: 'mdi-dots-horizontal', action: 'mainDrawer' },
+    // { title: 'more', icon: 'mdi-dots-horizontal', action: 'mainDrawer' },
 ]);
 
 const handleClick = (item: any) => {
@@ -41,6 +43,19 @@ const handleClick = (item: any) => {
                 <v-icon v-if="item.icon" :icon="item.icon" />
                 <div v-if="item.title" class="capitalize text-sm">{{ item.title }}</div>
             </Component>
+
+            <img
+                v-if="!!authStore.session"
+                :src="authStore.session.user.user_metadata.avatar_url"
+                alt=""
+                class="h-8 rounded-full cursor-pointer"
+                @click="appStore.mainDrawer = true"
+            />
+            <div
+                v-else
+                @click="appStore.mainDrawer = true"
+                class="size-8 bg-black-600 cursor-pointer rounded-full"
+            ></div>
         </div>
     </div>
 </template>
