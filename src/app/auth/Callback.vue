@@ -27,7 +27,7 @@ onMounted(async () => {
                 v-if="authStore.session"
                 class="bg-black-200 border border-black-500 rounded-2xl p-6 flex flex-col gap-1"
             >
-                <CheckItem :success="authStore.session" title="Logged in"></CheckItem>
+                <CheckItem :success="!!authStore.session" title="Logged in"></CheckItem>
                 <CheckItem title="Subscribed to LekkerSpelen"></CheckItem>
                 <CheckItem isLast title="Ready to watch streams LekkerSicko!"></CheckItem>
             </div>
