@@ -37,7 +37,7 @@ const props = withDefaults(
 
         <div>
             <h2 class="font-bold text-md pt-2">{{ playlist.title }}</h2>
-            <p class="text-muted text-sm font-medium">{{ playlist.playlist_videos.length }} Video's</p>
+            <div class="text-muted text-sm font-medium">{{ playlist.playlist_videos.length }} Video's</div>
         </div>
     </RouterLink>
 </template>
