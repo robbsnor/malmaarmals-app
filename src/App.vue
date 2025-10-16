@@ -72,7 +72,7 @@ onMounted(async () => {
                             Since this App is partially self hosted, <br />
                             it is probably down for maintenance or went up in flames.
                         </p>
-                        <p>We'll be back online soon.</p>
+                        <p>We'll be back soon.</p>
                         <img
                             class="inline w-6"
                             src="https://static-cdn.jtvnw.net/emoticons/v2/717918/default/dark/2.0"
