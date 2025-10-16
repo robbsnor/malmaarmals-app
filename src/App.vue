@@ -8,6 +8,7 @@ import { useVideosStore } from './app/videos/stores/videos.store';
 import { usePlaylistsStore } from './app/playlists/stores/playlists.store';
 import { onMounted, ref } from 'vue';
 import { useAuthStore } from './app/auth/stores/auth.store';
+import { sleep } from './app/shared/helpers/sleep';
 
 const appStore = useAppStore();
 const videosStore = useVideosStore();
@@ -31,7 +32,8 @@ onMounted(async () => {
         videosStore.fetchVideos(),
         playlistsStore.fetchPlaylists(),
         // new Promise((r, re) => setTimeout(re, 500)),
-    ]).catch((err) => {
+    ]).catch(async (err) => {
+        await sleep(800);
         hasError.value = true;
     });
 
