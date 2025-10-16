@@ -13,16 +13,16 @@ const groups = computed(() => {
 
     return [
         [
-            { name: 'History', icon: 'mdi-history' },
-            { name: 'Prefferences', icon: 'mdi-cog' },
+            { name: 'History', icon: 'mdi-history', hidden: !isSignedIn },
+            { name: 'Prefferences', icon: 'mdi-cog', hidden: !isSignedIn },
         ],
         [
             { name: 'Statistics', icon: 'mdi-chart-line' },
             { name: 'About', to: '/about', icon: 'mdi-information' },
-            { name: 'Donate', icon: 'mdi-heart' },
+            { name: 'Donate', icon: 'mdi-heart', hidden: !isSignedIn },
         ],
         [{ name: 'Sign out', link: '/sign-out', icon: 'mdi-logout', hidden: !isSignedIn, action: 'sign-out' }],
-    ] as any;
+    ].filter((group) => group.some((item) => !item.hidden)) as any;
 });
 
 const handleClick = async (item: any) => {
@@ -38,7 +38,7 @@ const handleClick = async (item: any) => {
     <v-bottom-sheet v-model="appStore.mainDrawer" inset eager>
         <BottomSheetContainer>
             <div class="mb-4">
-                <div v-if="authStore.session" class="flex gap-4 p-4 rounded-md items-center bg-black-500">
+                <div v-if="authStore.session" class="flex gap-4 p-4 rounded-md items-center bg-black-400">
                     <div class="rounded-full border-2 border-primary p-0.5">
                         <img
                             :src="authStore.session.user.user_metadata.avatar_url"
@@ -53,7 +53,7 @@ const handleClick = async (item: any) => {
                 </div>
 
                 <div v-else class="p-4">
-                    <div class="text-2xl font-bold">You are not logged in</div>
+                    <div class="text-2xl font-bold">You are not logged in,</div>
                     <p class="text-muted">Log in with Twitch to start watching streams</p>
                     <v-btn
                         color="primary"
