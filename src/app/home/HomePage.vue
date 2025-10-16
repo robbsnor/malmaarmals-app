@@ -45,7 +45,7 @@ const handleArrow = (event: KeyboardEvent) => {
 
         <Container>
             <div class="flex items-center justify-center py-12 flex-col gap-2 pb-6">
-                <div class="w-[200px]">
+                <div class="w-60">
                     <Logo payoff />
                 </div>
                 <v-btn
