@@ -6,7 +6,7 @@ const playlistsStore = usePlaylistsStore();
 </script>
 
 <template>
-    <Section title="Playlists" moreLink="/playlists" moreText="All Playlists">
+    <Section title="Playlists" moreLink="/archive?type=playlists" moreText="All Playlists">
         <div class="flex flex-col gap-8 pt-4">
             <PlaylistItem
                 v-for="playlist in playlistsStore.playlists.slice(0, 5)"

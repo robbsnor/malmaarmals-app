@@ -3,12 +3,12 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../../shared/types/database.types';
+import { useArchiveStore } from '../../archive/stores/archive.store';
 
 export const useVideosStore = defineStore('videos', () => {
     const route = useRoute();
     const router = useRouter();
-
-    const query = ref<string>('');
+    const archiveStore = useArchiveStore();
     const videos = ref<Tables<'videos'>[]>([]);
 
     const fetchVideos = async () => {
@@ -22,13 +22,13 @@ export const useVideosStore = defineStore('videos', () => {
     };
 
     const filteredVideos = computed(() => {
-        if (!query.value) return videos.value;
+        if (!archiveStore.query) return videos.value;
 
         return videos.value.filter((video) => {
-            const titleMatch = video.title.toLowerCase().includes(query.value.toLowerCase());
+            const titleMatch = video.title.toLowerCase().includes(archiveStore.query.toLowerCase());
             const descriptionMatch =
-                video.description && video.description.toLowerCase().includes(query.value.toLowerCase());
-            const idMatch = video.video_id.toString().includes(query.value);
+                video.description && video.description.toLowerCase().includes(archiveStore.query.toLowerCase());
+            const idMatch = video.video_id.toString().includes(archiveStore.query);
 
             return titleMatch || descriptionMatch || idMatch;
         });
@@ -37,7 +37,6 @@ export const useVideosStore = defineStore('videos', () => {
     return {
         videos,
         filteredVideos,
-        query,
 
         fetchVideos,
     };

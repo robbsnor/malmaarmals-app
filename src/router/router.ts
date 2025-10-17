@@ -9,14 +9,14 @@ const router = createRouter({
             component: () => import('../app/home/HomePage.vue'),
         },
         {
-            path: '/videos',
-            name: 'videos',
-            component: () => import('../app/videos/VideosPage.vue'),
+            path: '/archive',
+            name: 'archive',
+            component: () => import('../app/archive/ArchivePage.vue'),
         },
         {
-            path: '/videos/:id',
+            path: '/video/:id',
             name: 'video',
-            component: () => import('../app/videos/VideoPage.vue'),
+            component: () => import('../app/video/VideoPage.vue'),
         },
         {
             path: '/playlists',

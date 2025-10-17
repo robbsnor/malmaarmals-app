@@ -11,8 +11,8 @@ const appStore = useAppStore();
 const authStore = useAuthStore();
 const menuItems = ref([
     { title: 'home', icon: 'mdi-home', to: '/' },
-    { title: 'streams', icon: 'mdi-play', to: '/videos' },
-    { title: 'playlists', icon: 'mdi-playlist-play', to: '/playlists' },
+    { title: 'archive', icon: 'mdi-magnify', to: '/archive' },
+    // { title: 'playlists', icon: 'mdi-playlist-play', to: '/playlists' },
     // { title: 'more', icon: 'mdi-dots-horizontal', action: 'mainDrawer' },
 ]);
 
@@ -27,12 +27,11 @@ const handleClick = (item: any) => {
     <div
         ref="mobileNavRef"
         :style="{ paddingBottom: bottom }"
-        class="bottom-0 right-0 left-0 z-10 bg-black fixed transition-transform border-t border-black-500"
+        class="bottom-0 right-0 left-0 z-10 h-[var(--height-mobile-navbar)] bg-black fixed transition-transform border-t border-black-500"
         :class="{ 'translate-y-[-100%]': !appStore.headerShown }"
     >
-        <div class="grid grid-cols-4 items-center justify-evenly h-[var(--height-mobile-navbar)]">
-            <Component
-                :is="item.to ? RouterLink : 'div'"
+        <div class="grid grid-cols-3 items-center justify-evenly h-[var(--height-mobile-navbar)]">
+            <RouterLink
                 v-for="item in menuItems"
                 :key="item.title"
                 :to="item.to"
@@ -41,8 +40,8 @@ const handleClick = (item: any) => {
                 @click="handleClick(item)"
             >
                 <v-icon v-if="item.icon" :icon="item.icon" />
-                <div v-if="item.title" class="capitalize text-sm">{{ item.title }}</div>
-            </Component>
+                <!-- <div v-if="item.title" class="capitalize text-sm">{{ item.title }}</div> -->
+            </RouterLink>
 
             <div
                 @click="appStore.mainDrawer = true"

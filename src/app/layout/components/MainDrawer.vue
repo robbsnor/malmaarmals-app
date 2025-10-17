@@ -48,7 +48,7 @@ const handleClick = async (item: any) => {
                     </div>
                     <div>
                         <div class="text-lg font-bold">{{ authStore.session.user.user_metadata.nickname }}</div>
-                        <div class="text-sm text-muted"><span class="font-bold">82 Months</span> subscribed!</div>
+                        <!-- <div class="text-sm text-muted"><span class="font-bold">82 Months</span> subscribed!</div> -->
                     </div>
                 </div>
 

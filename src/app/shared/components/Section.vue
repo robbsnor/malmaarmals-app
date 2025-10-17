@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { useSlots } from 'vue';
 import type { RouteLocationAsPathGeneric, RouteLocationAsRelativeGeneric } from 'vue-router';
 
+const slots = useSlots();
 const props = withDefaults(
     defineProps<{
-        title: string;
+        title?: string;
         moreLink?: string | RouteLocationAsRelativeGeneric | RouteLocationAsPathGeneric;
         moreText?: string;
     }>(),
@@ -16,7 +18,7 @@ const props = withDefaults(
 <template>
     <section class="relative overflow-hidden py-6 border-bf border-black-500">
         <Container class="relative">
-            <div class="flex justify-between gap-4 pb-2">
+            <div v-if="slots.actions || props.title" class="flex justify-between gap-4 pb-2">
                 <h2 class="text-2xl font-bold">{{ props.title }}</h2>
                 <slot name="actions"></slot>
             </div>
@@ -32,14 +34,5 @@ const props = withDefaults(
                 <div class="h-[1px] bg-black-400 grow"></div>
             </div>
         </Container>
-
-        <!-- <div
-            v-if="props.showTopFade"
-            class="absolute top-0 h-150 w-full left-1/2 -translate-x-1/2 pointer-events-none"
-            style="
-                background: radial-gradient(farthest-side at top center, var(--color-black-300), transparent);
-                /* background: linear-gradient(to bottom, var(--color-black-200), transparent); */
-            "
-        ></div> -->
     </section>
 </template>

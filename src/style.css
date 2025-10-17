@@ -192,8 +192,8 @@
     --color-black-2000: #a0a0a0;
 
     --height-header: 4rem;
-    --height-mobile-navbar: 4rem;
-    --height-available: calc(100vh - var(--height-header));
+    --height-mobile-navbar: 64px;
+    --height-available: calc(100vh - var(--height-mobile-navbar));
 
     --breakpoint-3xl: 120rem;
     --breakpoint-4xl: 140rem;

@@ -3,7 +3,7 @@ import { computed, onMounted, ref, useTemplateRef, watch, watchEffect, type Shal
 import { useRoute, useRouter } from 'vue-router';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../../shared/types/database.types';
-import type { VideoProgression } from '../../videos/models/VideoProgression.model';
+import type { VideoProgression } from '../models/VideoProgression.model';
 import { TitleHelper } from '../../shared/helpers/title.helper';
 import { CHAPTERS_MOCK } from '../data/chapters.mock';
 import { useMediaControls } from '@vueuse/core';
