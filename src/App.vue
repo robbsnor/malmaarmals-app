@@ -1,28 +1,26 @@
 <script setup lang="ts">
-import Header from './app/layout/components/Header.vue';
 import BottomNav from './app/layout/components/BottomNav.vue';
 import VideoContainer from './app/videos/components/VideoContainer.vue';
 import MainDrawer from './app/layout/components/MainDrawer.vue';
-import { useAppStore } from './app/shared/stores/app.store';
 import { useVideosStore } from './app/videos/stores/videos.store';
 import { usePlaylistsStore } from './app/playlists/stores/playlists.store';
 import { onMounted, ref } from 'vue';
 import { useAuthStore } from './app/auth/stores/auth.store';
 import { sleep } from './app/shared/helpers/sleep';
 
-const appStore = useAppStore();
+const loading = ref(true);
 const videosStore = useVideosStore();
 const authStore = useAuthStore();
 const playlistsStore = usePlaylistsStore();
 const hasError = ref(false);
 
 onMounted(async () => {
-    appStore.loading = true;
+    loading.value = true;
 
     setTimeout(() => {
-        if (appStore.loading) {
+        if (loading.value) {
             console.log('failsafe');
-            appStore.loading = false;
+            loading.value = false;
             hasError.value = true;
         }
     }, 8000);
@@ -37,12 +35,12 @@ onMounted(async () => {
         hasError.value = true;
     });
 
-    appStore.loading = false;
+    loading.value = false;
 });
 </script>
 
 <template>
-    <v-app v-if="!appStore.loading && !hasError">
+    <v-app v-if="!loading && !hasError">
         <div class="fpb-(--height-mobile-navbar) pb-18">
             <RouterView />
         </div>
@@ -52,9 +50,9 @@ onMounted(async () => {
         <MainDrawer />
     </v-app>
 
-    <div v-visible="appStore.loading || hasError" class="fixed inset-0 z-100 bg-black">
+    <div v-visible="loading || hasError" class="fixed inset-0 z-100 bg-black">
         <Container class="h-full">
-            <div v-if="appStore.loading" class="h-full w-full flex items-center justify-center">
+            <div v-if="loading" class="h-full w-full flex items-center justify-center">
                 <v-progress-circular indeterminate size="64" color="primary" />
             </div>
 
