@@ -1,14 +1,23 @@
 <script setup lang="ts">
-import { useTemplateRef } from 'vue';
+import { onMounted, onUnmounted, useTemplateRef } from 'vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import { useArchiveStore } from './stores/archive.store';
 import VideosTab from './components/VideosTab.vue';
 import PlaylistsTab from './components/PlaylistsTab.vue';
+import { useRoute } from 'vue-router';
 
 TitleHelper.setTitle('Archive');
 
 const archiveStore = useArchiveStore();
 const searchRef = useTemplateRef<HTMLDivElement>('searchRef');
+const route = useRoute();
+
+onMounted(() => {
+    document.getElementById('bottom-search')?.addEventListener('click', () => {
+        if (route.path !== '/archive') return;
+        searchRef.value?.focus();
+    });
+});
 </script>
 
 <template>
