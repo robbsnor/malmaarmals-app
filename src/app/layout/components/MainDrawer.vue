@@ -62,7 +62,7 @@ const handleClick = async (item: any) => {
                         @click="authStore.signIn()"
                         class="w-full"
                     >
-                        Log in
+                        Login
                     </v-btn>
                 </div>
             </div>
