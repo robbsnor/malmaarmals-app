@@ -38,7 +38,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     const isAdmin = computed(() => {
         const user = session.value?.user;
-        return user?.id === import.meta.env.VITE_ADMIN_USER_ID;
+        return user?.user_metadata.name === 'robbsnor';
     });
 
     return {

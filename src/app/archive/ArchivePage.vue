@@ -3,6 +3,7 @@ import { useTemplateRef } from 'vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import { useArchiveStore } from './stores/archive.store';
 import VideosTab from './components/VideosTab.vue';
+import PlaylistsTab from './components/PlaylistsTab.vue';
 
 TitleHelper.setTitle('Archive');
 
@@ -36,8 +37,8 @@ const searchRef = useTemplateRef<HTMLDivElement>('searchRef');
         <div class="pt-[128px]">
             <div class="py-4">
                 <v-tabs-window v-model="archiveStore.activeTab">
-                    <v-tabs-window-item value="streams"><VideosTab></VideosTab></v-tabs-window-item>
-                    <v-tabs-window-item value="playlists"> playlists </v-tabs-window-item>
+                    <v-tabs-window-item value="streams"><VideosTab /></v-tabs-window-item>
+                    <v-tabs-window-item value="playlists"><PlaylistsTab /></v-tabs-window-item>
                     <v-tabs-window-item value="categories"> categories </v-tabs-window-item>
                 </v-tabs-window>
             </div>
