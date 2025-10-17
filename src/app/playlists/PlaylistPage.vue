@@ -5,7 +5,7 @@ import { supabase } from '../../supabase';
 import { usePlaylistsStore } from '../playlists/stores/playlists.store';
 import { useRouteParams } from '@vueuse/router';
 import { BucketHelper } from '../shared/helpers/bucket.helper';
-import VideoItem from '../videos/components/VideoItem.vue';
+import VideoItem from '../video/components/VideoItem.vue';
 import DeletePlaylistDialog from './components/DeletePlaylistDialog.vue';
 import type { Tables } from '../shared/types/database.types';
 import { useAuthStore } from '../auth/stores/auth.store';

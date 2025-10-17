@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Tables } from '../../shared/types/database.types';
-import VideoItemLarge from '../../videos/components/VideoItemLarge.vue';
-import VideoItem from '../../videos/components/VideoItem.vue';
-import { useVideosStore } from '../../videos/stores/videos.store';
+import VideoItemLarge from '../../video/components/VideoItemLarge.vue';
+import VideoItem from '../../video/components/VideoItem.vue';
+import { useVideosStore } from '../../video/stores/videos.store';
 import { computed } from 'vue';
 
 const videosStore = useVideosStore();
