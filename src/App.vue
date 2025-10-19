@@ -32,7 +32,7 @@ onMounted(async () => {
         playlistsStore.fetchPlaylists(),
         authStore.checkSubscription(),
     ]).catch(async (err) => {
-        await sleep(800);
+        // await sleep(800);
         hasError.value = true;
     });
 
