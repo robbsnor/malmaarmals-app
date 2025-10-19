@@ -36,8 +36,6 @@ export function useTwitch() {
     };
 
     const checkUserSubscription = async (channelId: number) => {
-        if (!authStore.session) return false;
-
         const res = await req(
             `https://api.twitch.tv/helix/subscriptions/user?broadcaster_id=${channelId}&user_id=${authStore.session.user.user_metadata.provider_id}`
         );
