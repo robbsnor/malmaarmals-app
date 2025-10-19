@@ -50,8 +50,8 @@ export const useAuthStore = defineStore('auth', () => {
         if (!session.value) return false;
         if (!twitchAccessToken.value || !twitchRefreshToken.value) return;
 
-        // const res = await twitch.checkUserSubscription(31239503);
-        const res = await twitch.checkUserSubscription(52385053);
+        // const res = await twitch.checkUserSubscription(31239503); // mande
+        const res = await twitch.checkUserSubscription(52385053); //lekkerspelen
         isSubbed.value = res;
     };
 
