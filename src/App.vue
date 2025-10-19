@@ -8,10 +8,10 @@ import { onMounted, ref } from 'vue';
 import { useAuthStore } from './app/auth/stores/auth.store';
 import { sleep } from './app/shared/helpers/sleep';
 
-const loading = ref(true);
 const videosStore = useVideosStore();
 const authStore = useAuthStore();
 const playlistsStore = usePlaylistsStore();
+const loading = ref(true);
 const hasError = ref(false);
 
 onMounted(async () => {
@@ -23,13 +23,14 @@ onMounted(async () => {
             loading.value = false;
             hasError.value = true;
         }
-    }, 8000);
+    }, 20_000);
+
+    await authStore.mirrorSession();
 
     await Promise.all([
-        authStore.upadateSession(),
         videosStore.fetchVideos(),
         playlistsStore.fetchPlaylists(),
-        // new Promise((r, re) => setTimeout(re, 500)),
+        authStore.checkSubscription(),
     ]).catch(async (err) => {
         await sleep(800);
         hasError.value = true;
