@@ -1,33 +1,77 @@
-// import axios, { type InternalAxiosRequestConfig } from 'axios';
-// import { useAuthStore } from '../../auth/stores/auth.store';
-// import type { TwitchGetUsers, TwitchUser } from '../models/twitch/users.model';
-// import type { TwitchGetVideos, TwitchVideo } from '../models/twitch/videos.model';
-// import type { TwitchGetFollowedChannels } from '../models/twitch/followed-channels.model';
-// import type { TwitchCheckUserSubscription } from '../models/twitch/check-user-subscription.model';
-// import type { TwitchGetChannelFollowers } from '../models/twitch/channel-followers.model';
-// import type { VideoTypesModel } from '../models/twitch/video-types.model';
-// import type { TwitchGetStreams } from '../models/twitch/get-streams';
-// import type { TwitchGame, TwitchGetGames } from '../models/twitch/games.model';
-// import type { TwitchFollowedStream, TwitchGetFollowedStreams } from '../models/twitch/followed-streams.model';
-// import type { TwitchFollowedStreamWithUser } from '../models/twitch/followed-streams-with-user.model';
-// import type { TwitchStreamsWithUser } from '../models/twitch/streams-with-user.model';
-// import type { TwitchGetSchedule, TwitchSchedule } from '../models/twitch/schedule.model';
-// import type { TwitchScheduleWithUser } from '../models/twitch/schedule-with-user.model';
+import { useAuthStore } from '../../auth/stores/auth.store';
+import type { TwitchGetUsers, TwitchUser } from '../models/twitch/users.model';
+import type { TwitchGetVideos, TwitchVideo } from '../models/twitch/videos.model';
+import type { TwitchGetFollowedChannels } from '../models/twitch/followed-channels.model';
+import type { TwitchCheckUserSubscription } from '../models/twitch/check-user-subscription.model';
+import type { TwitchGetChannelFollowers } from '../models/twitch/channel-followers.model';
+import type { VideoTypesModel } from '../models/twitch/video-types.model';
+import type { TwitchGetStreams } from '../models/twitch/get-streams';
+import type { TwitchGame, TwitchGetGames } from '../models/twitch/games.model';
+import type { TwitchFollowedStream, TwitchGetFollowedStreams } from '../models/twitch/followed-streams.model';
+import type { TwitchFollowedStreamWithUser } from '../models/twitch/followed-streams-with-user.model';
+import type { TwitchStreamsWithUser } from '../models/twitch/streams-with-user.model';
+import type { TwitchGetSchedule, TwitchSchedule } from '../models/twitch/schedule.model';
+import type { TwitchScheduleWithUser } from '../models/twitch/schedule-with-user.model';
+
+export function useTwitch() {
+    const authStore = useAuthStore();
+
+    const req = async (url: string) => {
+        const res = await fetch(url, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${authStore.twitchAccessToken}`,
+                'Client-Id': import.meta.env.VITE_TWITCH_CLIENT_ID,
+            },
+        });
+
+        if (res.status === 401) {
+            // console.log('refreshing', authStore.twitchAccessToken);
+            console.log('session shit invalid: ', authStore.twitchAccessToken, authStore.twitchRefreshToken);
+            // await authStore.refreshTwitchToken();
+            return;
+        }
+
+        return res;
+    };
+
+    const checkUserSubscription = async (channelId: number) => {
+        if (!authStore.session) return false;
+
+        const res = await req(
+            `https://api.twitch.tv/helix/subscriptions/user?broadcaster_id=${channelId}&user_id=${authStore.session.user.user_metadata.provider_id}`
+        );
+        if (res.status === 404) return false;
+        return !!(await res.json());
+    };
+
+    const getMe = async (): Promise<TwitchUser> => {
+        const url = new URL('https://api.twitch.tv/helix/users');
+        url.searchParams.append('id', authStore.session.user.user_metadata.sub);
+        const res = await req(url.toString());
+        const data: TwitchGetUsers = await res.json();
+        return data.data[0];
+    };
+
+    return {
+        checkUserSubscription,
+        getMe,
+    };
+}
 
 // export class TwitchApiService {
-//     private http = axios.create();
 //     private accessToken: string;
 //     private authStore = useAuthStore();
 
-//     constructor(accessToken?: string) {
-//         this.accessToken = accessToken ?? this.authStore.accessToken!;
+//     // constructor(accessToken?: string) {
+//     //     this.accessToken = accessToken ?? this.authStore.accessToken!;
 
-//         this.http.interceptors.request.use((config) => {
-//             config.headers.set('Authorization', `Bearer ${this.accessToken}`);
-//             config.headers.set('Client-Id', `bpjttmchlxdfo9t47z8g3b7snhr9h4`);
-//             return config;
-//         });
-//     }
+//     //     this.http.interceptors.request.use((config) => {
+//     //         config.headers.set('Authorization', `Bearer ${this.accessToken}`);
+//     //         config.headers.set('Client-Id', `bpjttmchlxdfo9t47z8g3b7snhr9h4`);
+//     //         return config;
+//     //     });
+//     // }
 
 //     // api calls
 //     public async getUsers(user: { ids?: number[]; logins?: string[] }): Promise<TwitchGetUsers> {
@@ -60,11 +104,11 @@
 //         return res.data;
 //     }
 
-//     public async getFollowedStreams(): Promise<TwitchFollowedStream[]> {
+//     public static async getFollowedStreams(): Promise<TwitchFollowedStream[]> {
 //         const url = new URL('https://api.twitch.tv/helix/streams/followed');
-//         const userId = this.authStore.user!.id;
+//         const userId = authStore.session.user.user_metadata.provider_id;
 //         url.searchParams.append('user_id', userId);
-//         const res = await this.http.get<TwitchGetFollowedStreams>(url.toString());
+//         const res = await TwitchApiService.http.get<TwitchGetFollowedStreams>(url.toString());
 //         return res.data.data;
 //     }
 
