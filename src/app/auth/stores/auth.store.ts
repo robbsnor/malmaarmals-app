@@ -47,6 +47,7 @@ export const useAuthStore = defineStore('auth', () => {
     };
 
     const checkSubscription = async () => {
+        if (!session.value) return false;
         if (!twitchAccessToken.value || !twitchRefreshToken.value) return;
 
         // const res = await twitch.checkUserSubscription(31239503);
