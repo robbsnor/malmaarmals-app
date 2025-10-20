@@ -1,9 +1,10 @@
 import { useRouteQuery } from '@vueuse/router';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { useStorage } from '@vueuse/core';
 
 export const useArchiveStore = defineStore('archive', () => {
-    const query = ref<string>('');
+    const query = useStorage<string>('archive-query', '', sessionStorage);
     const activeTab = useRouteQuery<'streams' | 'playlists' | 'categories'>('type', 'streams');
 
     return {
