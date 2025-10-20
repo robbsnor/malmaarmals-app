@@ -42,7 +42,7 @@ onMounted(async () => {
 
 <template>
     <v-app v-if="!loading && !hasError">
-        <div class="h-available overflow-auto">
+        <div class="pb-[var(--height-mobile-navbar)]">
             <RouterView />
         </div>
 
