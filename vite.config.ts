@@ -20,14 +20,9 @@ export default defineConfig({
                 short_name: 'MalMaarMals',
                 display: 'standalone',
                 theme_color: '#000000',
-                background_color: '#000000',
+                background_color: 'transparent',
                 start_url: '/',
                 icons: [
-                    {
-                        src: 'pwa-64x64.png',
-                        sizes: '64x64',
-                        type: 'image/png',
-                    },
                     {
                         src: 'pwa-192x192.png',
                         sizes: '192x192',
@@ -37,13 +32,6 @@ export default defineConfig({
                         src: 'pwa-512x512.png',
                         sizes: '512x512',
                         type: 'image/png',
-                        purpose: 'any',
-                    },
-                    {
-                        src: 'maskable-icon-512x512.png',
-                        sizes: '512x512',
-                        type: 'image/png',
-                        purpose: 'maskable',
                     },
                 ],
             },
