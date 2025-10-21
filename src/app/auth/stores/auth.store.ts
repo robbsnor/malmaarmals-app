@@ -60,26 +60,6 @@ export const useAuthStore = defineStore('auth', () => {
         return user?.user_metadata.name === 'robbsnor';
     });
 
-    async function refreshTwitchToken() {
-        const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/refresh-twitch-token`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                refresh_token: twitchRefreshToken.value,
-            }),
-        });
-
-        const { access_token, refresh_token } = await res.json();
-        console.log({
-            access_token,
-            refresh_token,
-        });
-        twitchAccessToken.value = access_token;
-        twitchRefreshToken.value = refresh_token;
-    }
-
     return {
         session,
         isAdmin,
@@ -90,7 +70,6 @@ export const useAuthStore = defineStore('auth', () => {
         mirrorSession,
         signOut,
         signIn,
-        refreshTwitchToken,
         checkSubscription,
     };
 });
