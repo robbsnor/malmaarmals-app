@@ -43,6 +43,26 @@ export function useTwitch() {
         return !!(await res.json());
     };
 
+    async function refreshTokens() {
+        const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/refresh-twitch-token`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                refresh_token: authStore.twitchRefreshToken,
+            }),
+        });
+
+        const { access_token, refresh_token } = await res.json();
+        console.log({
+            access_token,
+            refresh_token,
+        });
+        authStore.twitchAccessToken = access_token;
+        authStore.twitchRefreshToken = refresh_token;
+    }
+
     const getMe = async (): Promise<TwitchUser> => {
         const url = new URL('https://api.twitch.tv/helix/users');
         url.searchParams.append('id', authStore.session.user.user_metadata.sub);
@@ -53,6 +73,7 @@ export function useTwitch() {
 
     return {
         checkUserSubscription,
+        refreshTokens,
         getMe,
     };
 }
