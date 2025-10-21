@@ -49,19 +49,12 @@ const submit = async () => {
 </script>
 
 <template>
-    <div class="py-4">
-        <PlaylistItem v-for="playlist in playlistsStore.playlists" :key="playlist.id" :playlist="playlist" />
+    <div class="flex flex-col gap-8 py-4">
+        <PlaylistItem v-for="playlist in playlistsStore.filteredPlaylists" :key="playlist.id" :playlist="playlist" />
     </div>
 
     <div class="flex justify-center py-4">
-        <v-btn
-            v-if="authStore.isAdmin"
-            variant="tonal"
-            icon="mdi-plus"
-            color="primary"
-            size="x-small"
-            @click="sheet = true"
-        />
+        <v-btn v-if="authStore.isAdmin" icon="mdi-plus" color="primary" @click="sheet = true" />
     </div>
 
     <v-bottom-sheet v-model="sheet" inset>

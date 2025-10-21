@@ -4,10 +4,11 @@ import { useRoute } from 'vue-router';
 import { playlistsQuery, type Playlist, type Playlists } from '../models/playlist.model';
 import { supabase } from '../../../supabase';
 import { sleep } from '../../shared/helpers/sleep';
+import { useArchiveStore } from '../../archive/stores/archive.store';
 
 export const usePlaylistsStore = defineStore('playlists', () => {
     const route = useRoute();
-    const query = ref<string>('');
+    const archiveStore = useArchiveStore();
     const playlists = ref<Playlists>([]);
 
     const fetchPlaylists = async () => {
@@ -39,14 +40,12 @@ export const usePlaylistsStore = defineStore('playlists', () => {
     };
 
     const filteredPlaylists = computed(() => {
-        // if (!query.value) return videos.value;
-        // return videos.value.filter((video) => {
-        //     const titleMatch = video.title.toLowerCase().includes(query.value.toLowerCase());
-        //     const descriptionMatch =
-        //         video.description && video.description.toLowerCase().includes(query.value.toLowerCase());
-        //     const idMatch = video.video_id.toString().includes(query.value);
-        //     return titleMatch || descriptionMatch || idMatch;
-        // });
+        if (!archiveStore.query) return playlists.value;
+        return playlists.value.filter((playlist) => {
+            const titleMatch = playlist.title.toLowerCase().includes(archiveStore.query.toLowerCase());
+            const descriptionMatch = playlist.description.toLowerCase().includes(archiveStore.query.toLowerCase());
+            return titleMatch || descriptionMatch;
+        });
     });
 
     return {
@@ -55,6 +54,5 @@ export const usePlaylistsStore = defineStore('playlists', () => {
         deletePlaylist,
         playlists,
         filteredPlaylists,
-        query,
     };
 });
