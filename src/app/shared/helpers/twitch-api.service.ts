@@ -44,6 +44,8 @@ export function useTwitch() {
     };
 
     async function refreshTokens() {
+        if (!authStore.twitchRefreshToken || !authStore.twitchAccessToken) return;
+
         const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/refresh-twitch-token`, {
             method: 'POST',
             headers: {
@@ -59,6 +61,7 @@ export function useTwitch() {
             access_token,
             refresh_token,
         });
+
         authStore.twitchAccessToken = access_token;
         authStore.twitchRefreshToken = refresh_token;
     }
