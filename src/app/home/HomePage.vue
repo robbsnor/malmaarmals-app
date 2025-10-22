@@ -12,12 +12,14 @@ import { useScreenOrientation } from '@vueuse/core';
 import History from './components/History.vue';
 import { supabase } from '../../supabase';
 import { useAuthStore } from '../auth/stores/auth.store';
+import { useBitch } from '../shared/helpers/bitch';
 
 TitleHelper.setTitle('home');
 
 const appStore = useAppStore();
 const videosStore = useVideosStore();
 const authStore = useAuthStore();
+const bitch = useBitch();
 const { videos } = storeToRefs(videosStore);
 
 const number = ref(0);
@@ -41,6 +43,11 @@ const handleArrow = (event: KeyboardEvent) => {
 
 <template>
     <div v-if="videos">
+        <code>
+            <pre>
+                {{ bitch }}
+            </pre>
+        </code>
         <!-- <LatestVideo :video="firstVideo" /> -->
 
         <Container>

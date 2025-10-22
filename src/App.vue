@@ -8,6 +8,7 @@ import { onMounted, ref } from 'vue';
 import { useAuthStore } from './app/auth/stores/auth.store';
 import { sleep } from './app/shared/helpers/sleep';
 import { useTwitch } from './app/shared/helpers/twitch-api.service';
+import { useBitch } from './app/shared/helpers/bitch';
 
 const videosStore = useVideosStore();
 const authStore = useAuthStore();
@@ -38,7 +39,7 @@ onMounted(async () => {
         hasError.value = true;
     });
 
-    await twitch.refreshTokens();
+    // await twitch.refreshTokens();
 
     loading.value = false;
 });
