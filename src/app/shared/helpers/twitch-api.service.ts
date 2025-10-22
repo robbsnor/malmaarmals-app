@@ -12,58 +12,94 @@ import type { TwitchFollowedStreamWithUser } from '../models/twitch/followed-str
 import type { TwitchStreamsWithUser } from '../models/twitch/streams-with-user.model';
 import type { TwitchGetSchedule, TwitchSchedule } from '../models/twitch/schedule.model';
 import type { TwitchScheduleWithUser } from '../models/twitch/schedule-with-user.model';
+import { supabase } from '../../../supabase';
+
+type ApiResponse<T> = {
+    data: T | null;
+    error: Error | null;
+};
 
 export function useTwitch() {
     const authStore = useAuthStore();
 
-    const req = async (url: string) => {
-        const res = await fetch(url, {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${authStore.twitchAccessToken}`,
-                'Client-Id': import.meta.env.VITE_TWITCH_CLIENT_ID,
-            },
-        });
+    const req = async <T>(url: string): Promise<ApiResponse<T>> => {
+        const _req = () =>
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${authStore.twitchAccessToken}`,
+                    'Client-Id': import.meta.env.VITE_TWITCH_CLIENT_ID,
+                },
+            });
 
-        if (res.status === 401) {
-            // console.log('refreshing', authStore.twitchAccessToken);
-            console.log('session shit invalid: ', authStore.twitchAccessToken, authStore.twitchRefreshToken);
-            // await authStore.refreshTwitchToken();
-            return;
+        try {
+            let res = await _req();
+
+            // Handle expired token (401)
+            if (res.status === 401) {
+                try {
+                    console.log('Access token expired, refreshing...');
+                    await refreshTokens();
+                } catch (refreshErr) {
+                    console.error('❌ Refresh token failed:', refreshErr);
+                    await supabase.auth.signOut();
+                    return { data: null, error: refreshErr as Error };
+                }
+
+                // Retry request after successful refresh
+                res = await _req();
+            }
+
+            // If still not OK, treat as an API error, res.ok is true for 200-299 status codes
+            if (!res.ok) {
+                const message = `HTTP ${res.status}: ${res.statusText}`;
+                return { data: null, error: new Error(message) };
+            }
+
+            // Parse and return JSON safely
+            const data: T = await res.json();
+            return { data, error: null };
+        } catch (err) {
+            // Catches network errors or unexpected exceptions
+            console.error('❌ Request failed:', err);
+            return { data: null, error: err as Error };
         }
-
-        return res;
     };
 
-    const checkUserSubscription = async (channelId: number) => {
-        const res = await req(
+    const checkUserSubscription = async (channelId: number): Promise<boolean> => {
+        const { data, error } = await req<TwitchCheckUserSubscription>(
             `https://api.twitch.tv/helix/subscriptions/user?broadcaster_id=${channelId}&user_id=${authStore.session.user.user_metadata.provider_id}`
         );
-        if (res.status === 404) return false;
-        return !!(await res.json());
+        return !!data ? true : false;
     };
 
     async function refreshTokens() {
         if (!authStore.twitchRefreshToken || !authStore.twitchAccessToken) return;
+        console.log('Refreshing tokens');
 
-        const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/refresh-twitch-token`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                refresh_token: authStore.twitchRefreshToken,
-            }),
-        });
+        try {
+            const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/refresh-twitch-token`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    refresh_token: authStore.twitchRefreshToken,
+                }),
+            });
 
-        const { access_token, refresh_token } = await res.json();
-        console.log({
-            access_token,
-            refresh_token,
-        });
+            const { access_token, refresh_token } = await res.json();
+            console.log({
+                access_token,
+                refresh_token,
+            });
 
-        authStore.twitchAccessToken = access_token;
-        authStore.twitchRefreshToken = refresh_token;
+            authStore.twitchAccessToken = access_token;
+            authStore.twitchRefreshToken = refresh_token;
+        } catch (err) {
+            console.error(err);
+            throw new Error(err);
+        }
     }
 
     const getMe = async (): Promise<TwitchUser> => {
