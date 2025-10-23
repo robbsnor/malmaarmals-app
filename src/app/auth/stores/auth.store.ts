@@ -18,9 +18,6 @@ export const useAuthStore = defineStore('auth', () => {
     const mirrorSession = async () => {
         supabase.auth.onAuthStateChange((_event, newSession) => {
             session.value = newSession;
-
-            console.log('settings tokens...');
-
             twitchAccessToken.value = session.value?.provider_token;
             twitchRefreshToken.value = session.value?.provider_refresh_token;
         });
