@@ -7,12 +7,9 @@ import { usePlaylistsStore } from './app/playlists/stores/playlists.store';
 import { onMounted, ref } from 'vue';
 import { useAuthStore } from './app/auth/stores/auth.store';
 import { sleep } from './app/shared/helpers/sleep';
-import { useTwitch } from './app/shared/helpers/twitch-api.service';
-import { useBitch } from './app/shared/helpers/bitch';
 
 const videosStore = useVideosStore();
 const authStore = useAuthStore();
-const twitch = useTwitch();
 const playlistsStore = usePlaylistsStore();
 const loading = ref(true);
 const hasError = ref(false);
@@ -30,16 +27,12 @@ onMounted(async () => {
 
     await authStore.mirrorSession();
 
-    await Promise.all([
-        videosStore.fetchVideos(),
-        playlistsStore.fetchPlaylists(),
-        authStore.checkSubscription(),
-    ]).catch(async (err) => {
-        // await sleep(800);
+    await Promise.all([videosStore.fetchVideos(), playlistsStore.fetchPlaylists()]).catch(async (err) => {
+        await sleep(800);
         hasError.value = true;
     });
 
-    // await twitch.refreshTokens();
+    await authStore.updateIsSubscribed();
 
     loading.value = false;
 });
