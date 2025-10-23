@@ -3,8 +3,6 @@ import { onMounted, ref } from 'vue';
 import { sleep } from '../shared/helpers/sleep';
 import { useAuthStore } from './stores/auth.store';
 import { useRouter } from 'vue-router';
-import { randomNumber } from '../shared/helpers/randomNumber';
-import { useTwitch } from '../shared/helpers/twitch-api.service';
 
 const authStore = useAuthStore();
 const loading = ref(true);
@@ -17,12 +15,7 @@ onMounted(async () => {
         return;
     }
 
-    authStore.twitchAccessToken = authStore.session.provider_token;
-    authStore.twitchRefreshToken = authStore.session.provider_refresh_token;
-
-    await authStore.checkSubscription();
-
-    await sleep(randomNumber(2000, 3000));
+    await sleep(1000);
     loading.value = false;
     statusMessage.value = 'Sending you back home...';
 

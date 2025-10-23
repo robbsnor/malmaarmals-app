@@ -1,25 +1,34 @@
 import { defineStore } from 'pinia';
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { supabase } from '../../../supabase';
 import type { Session } from '@supabase/supabase-js';
 import { useStorage } from '@vueuse/core';
-import { useTwitch } from '../../shared/helpers/twitch-api.service';
+import { useTwitch } from '../../shared/composables/twitchAPI.composable';
 
 export const useAuthStore = defineStore('auth', () => {
     const session = ref<Session>();
     const twitchAccessToken = useStorage('twitch_access_token', null);
     const twitchRefreshToken = useStorage('twitch_refresh_token', null);
-    const isSubbed = ref(false);
-
     const twitch = useTwitch();
+    const twitchUserId = computed(() => session.value?.user.user_metadata?.sub as string);
+    const lekkerSpelenUserId = '52385053';
+    const isSubbed = ref(false);
+    const isAdmin = computed(() => session.value?.user?.user_metadata.name === 'robbsnor');
 
     const mirrorSession = async () => {
-        const { data } = await supabase.auth.getSession();
-        session.value = data.session;
-
         supabase.auth.onAuthStateChange((_event, newSession) => {
             session.value = newSession;
+
+            console.log('settings tokens...');
+
+            twitchAccessToken.value = session.value?.provider_token;
+            twitchRefreshToken.value = session.value?.provider_refresh_token;
         });
+    };
+
+    const updateIsSubscribed = async () => {
+        const res = await twitch.checkUserSubscription(lekkerSpelenUserId);
+        isSubbed.value = res.data?.data?.length > 0;
     };
 
     const signIn = async () => {
@@ -27,7 +36,7 @@ export const useAuthStore = defineStore('auth', () => {
             provider: 'twitch',
             options: {
                 redirectTo: `${window.location.origin}/auth/callback`,
-                scopes: 'user:read:subscriptions',
+                scopes: 'user:read:subscriptions user:read:follows',
             },
         });
         if (error) {
@@ -45,30 +54,18 @@ export const useAuthStore = defineStore('auth', () => {
         isSubbed.value = false;
     };
 
-    const checkSubscription = async () => {
-        if (!session.value) return false;
-        if (!twitchAccessToken.value || !twitchRefreshToken.value) return;
-
-        // const res = await twitch.checkUserSubscription(31239503); // mande
-        const res = await twitch.checkUserSubscription(52385053); //lekkerspelen
-        isSubbed.value = res;
-    };
-
-    const isAdmin = computed(() => {
-        const user = session.value?.user;
-        return user?.user_metadata.name === 'robbsnor';
-    });
-
     return {
         session,
         isAdmin,
         twitchAccessToken,
         twitchRefreshToken,
+        twitchUserId,
         isSubbed,
+        twitch,
 
+        updateIsSubscribed,
         mirrorSession,
         signOut,
         signIn,
-        checkSubscription,
     };
 });

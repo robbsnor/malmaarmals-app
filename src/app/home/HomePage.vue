@@ -1,55 +1,16 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
-import { computed, onMounted, ref } from 'vue';
 import Stats from '../../app/home/components/Stats.vue';
 import LatestVideo from './components/LatestVideo.vue';
 import Playlists from './components/Playlists.vue';
-import { useAppStore } from '../shared/stores/app.store';
 import { TitleHelper } from '../shared/helpers/title.helper';
-import { useVideosStore } from '../video/stores/videos.store';
 import PrevStreams from './components/PrevStreams.vue';
-import { useScreenOrientation } from '@vueuse/core';
 import History from './components/History.vue';
-import { supabase } from '../../supabase';
-import { useAuthStore } from '../auth/stores/auth.store';
-import { useBitch } from '../shared/helpers/bitch';
 
 TitleHelper.setTitle('home');
-
-const appStore = useAppStore();
-const videosStore = useVideosStore();
-const authStore = useAuthStore();
-const bitch = useBitch();
-const { videos } = storeToRefs(videosStore);
-
-const number = ref(0);
-
-const firstVideo = computed(() => videos?.value[number.value]);
-const previousVideos = computed(() => videos?.value.slice(1, 6));
-
-const handleArrow = (event: KeyboardEvent) => {
-    if (!videos?.value) return;
-    if (event.key === 'ArrowRight') {
-        if (number.value < videos?.value.length - 1) {
-            number.value++;
-        }
-    } else if (event.key === 'ArrowLeft') {
-        if (number.value > 0) {
-            number.value--;
-        }
-    }
-};
 </script>
 
 <template>
-    <div v-if="videos">
-        <code>
-            <pre>
-                {{ bitch }}
-            </pre>
-        </code>
-        <!-- <LatestVideo :video="firstVideo" /> -->
-
+    <div>
         <Container>
             <div class="flex items-center justify-center py-12 flex-col gap-2 pb-6">
                 <div class="w-60">
@@ -63,13 +24,5 @@ const handleArrow = (event: KeyboardEvent) => {
         <Playlists />
 
         <History />
-
-        <!-- <Stats /> -->
-
-        <!-- <Section title="Populair Categories">
-            <div class="grid grid-cols-5 gap-8">
-                <Video v-for="video in previousVideos" :key="video.video_id" :video="video" />
-            </div>
-        </Section> -->
     </div>
 </template>
