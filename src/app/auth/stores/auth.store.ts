@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 import { supabase } from '../../../supabase';
 import type { Session } from '@supabase/supabase-js';
 import { useStorage } from '@vueuse/core';
-import { useTwitch } from '../../shared/composables/twitchAPI.composable';
+import { useTwitch } from '../../shared/composables/useTwitch.composable';
 
 export const useAuthStore = defineStore('auth', () => {
     const session = ref<Session>();

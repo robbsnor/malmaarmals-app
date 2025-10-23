@@ -1,4 +1,4 @@
-import { useAuthStore } from './../../auth/stores/auth.store';
+import { useAuthStore } from '../../auth/stores/auth.store';
 import { supabase } from '../../../supabase';
 import type { TwitchFollowedStream, TwitchGetFollowedStreams } from '../models/twitch/followed-streams.model';
 import type { TwitchCheckUserSubscription } from '../models/twitch/check-user-subscription.model';
