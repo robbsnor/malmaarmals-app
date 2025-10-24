@@ -16,10 +16,11 @@ export const useAuthStore = defineStore('auth', () => {
     const isAdmin = computed(() => session.value?.user?.user_metadata.name === 'robbsnor');
 
     const mirrorSession = async () => {
+        twitchAccessToken.value = session.value?.provider_token;
+        twitchRefreshToken.value = session.value?.provider_refresh_token;
+
         supabase.auth.onAuthStateChange((_event, newSession) => {
             session.value = newSession;
-            twitchAccessToken.value = session.value?.provider_token;
-            twitchRefreshToken.value = session.value?.provider_refresh_token;
         });
     };
 
