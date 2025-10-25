@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { supabase } from '../../../supabase';
 import type { Session } from '@supabase/supabase-js';
-import { useStorage } from '@vueuse/core';
+import { reactify, useFetch, useStorage } from '@vueuse/core';
 import { useTwitch } from '../../shared/composables/useTwitch.composable';
 
 export const useAuthStore = defineStore('auth', () => {
@@ -14,10 +14,13 @@ export const useAuthStore = defineStore('auth', () => {
     const lekkerSpelenUserId = '52385053';
     const isSubbed = ref(false);
     const isAdmin = computed(() => session.value?.user?.user_metadata.name === 'robbsnor');
+    const followedStreams = twitch.getFollowedStreams();
 
     const mirrorSession = async () => {
-        twitchAccessToken.value = session.value?.provider_token;
-        twitchRefreshToken.value = session.value?.provider_refresh_token;
+        const { data } = await supabase.auth.getSession();
+        session.value = data.session ?? undefined;
+        twitchAccessToken.value = data.session?.provider_token;
+        twitchRefreshToken.value = data.session?.provider_refresh_token;
 
         supabase.auth.onAuthStateChange((_event, newSession) => {
             session.value = newSession;
@@ -25,8 +28,8 @@ export const useAuthStore = defineStore('auth', () => {
     };
 
     const updateIsSubscribed = async () => {
-        const res = await twitch.checkUserSubscription(lekkerSpelenUserId);
-        isSubbed.value = res.data?.data?.length > 0;
+        // const res = await twitch.checkUserSubscription(lekkerSpelenUserId);
+        // isSubbed.value = res.data?.data?.length > 0;
     };
 
     const signIn = async () => {
@@ -61,6 +64,7 @@ export const useAuthStore = defineStore('auth', () => {
         isSubbed,
         twitch,
 
+        followedStreams,
         updateIsSubscribed,
         mirrorSession,
         signOut,
