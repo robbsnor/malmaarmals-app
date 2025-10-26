@@ -27,12 +27,14 @@ onMounted(async () => {
 
     await authStore.mirrorSession();
 
-    await Promise.all([videosStore.fetchVideos(), playlistsStore.fetchPlaylists()]).catch(async (err) => {
+    await Promise.all([
+        authStore.updateIsSubscribed(),
+        videosStore.fetchVideos(),
+        playlistsStore.fetchPlaylists(),
+    ]).catch(async (err) => {
         await sleep(800);
         hasError.value = true;
     });
-
-    await authStore.updateIsSubscribed();
 
     loading.value = false;
 });
