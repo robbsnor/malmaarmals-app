@@ -1,27 +1,32 @@
 <script setup lang="ts">
 import { useVideoStore } from '../stores/video.store';
 import { useAppStore } from '../../shared/stores/app.store';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 
 const videoStore = useVideoStore();
+const router = useRouter();
 function maximizePlayer() {
+    console.log('maximize');
+    router.push({ name: 'video', params: { id: videoStore.videoId } });
     videoStore.player.isMini = false;
 }
 </script>
 
 <template>
-    <RouterLink
+    <button
         v-if="videoStore.player.isMini"
-        :to="{ name: 'video', params: { id: videoStore.videoId } }"
         class="absolute inset-0 flex justify-between p-2"
-        @click="maximizePlayer"
+        @click.self="maximizePlayer"
     >
-        <!-- <v-icon
-            @click.stop="videoStore.playing = !videoStore.playing"
-            size="20"
-            :icon="videoStore.playing || (!videoStore.playing && videoStore.waiting) ? 'mdi-pause' : 'mdi-play'"
-        />
+        <v-btn icon @click="videoStore.playing = !videoStore.playing">
+            <v-icon
+                size="32"
+                :icon="videoStore.playing || (!videoStore.playing && videoStore.waiting) ? 'mdi-pause' : 'mdi-play'"
+            />
+        </v-btn>
 
-        <v-icon @click="appStore.player.isActive = false" icon="mdi-close" size="20" /> -->
-    </RouterLink>
+        <v-btn icon @click="videoStore.reset">
+            <v-icon size="32" icon="mdi-close" />
+        </v-btn>
+    </button>
 </template>
