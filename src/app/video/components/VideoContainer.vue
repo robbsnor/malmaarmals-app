@@ -4,15 +4,18 @@ import Player from './Player.vue';
 import Chat from './Chat.vue';
 import { useVideoStore } from '../stores/video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
+import VideoNotAllowed from './VideoNotAllowed.vue';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
 </script>
 
 <template>
-    <template v-if="authStore.isSubbed">
+    <VideoNotAllowed />
+
+    <div v-if="videoStore.player.isActive">
         <div
-            v-if="videoStore.player.isActive"
+            v-if="authStore.isSubbed"
             class="fixed bg-black z-100 flex flex-col md:flex-row"
             :class="
                 videoStore.player.isMini
@@ -27,24 +30,6 @@ const authStore = useAuthStore();
             </div>
 
             <Chat v-if="!videoStore.player.isMini" class="shrink-0 w-full md:w-[250px]" />
-        </div>
-    </template>
-
-    <div v-else class="fixed inset-0 z-100 flex flex-col gap-4 p-4 md:flex-row h-full bg-red-f200 bg-black">
-        <div class="bg-black-200 rounded-md w-full aspect-video md:aspect-auto"></div>
-        <div class="bg-black-200 rounded-md shrink-0 grow w-full md:w-[250px] md:grow-0"></div>
-
-        <div class="absolute top-1/3 left-0 text-center p-8">
-            <div class="bg-black-300 border border-black-500 rounded-md p-4">
-                <div class="text-center pb-4">You are not subscribed. Subscribe to LekkerSpelen to start watching.</div>
-                <v-btn
-                    color="primary"
-                    href="https://www.twitch.tv/lekkerspelen/"
-                    target="_blank"
-                    class="text-blue-500 underline"
-                    >subscribe</v-btn
-                >
-            </div>
         </div>
     </div>
 </template>
