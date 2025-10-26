@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import type { Tables } from '../../shared/types/database.types';
+import { TimeHelper } from '../../shared/helpers/time.helper';
 
 const props = withDefaults(
     defineProps<{
@@ -31,14 +32,18 @@ const formattedDuration = computed(() => {
 
 <template>
     <RouterLink :to="{ name: 'video', params: { id: props.video.video_id } }" class="flex gap-4">
-        <VideoThumbnail class="w-32 shrink-0" :src="BucketHelper.getThumbnailUrl(props.video.video_id)" />
+        <VideoThumbnail
+            class="w-32 shrink-0"
+            :src="BucketHelper.getThumbnailUrl(props.video.video_id)"
+            :durationS="props.video.length_sec"
+        />
 
         <div>
             <h2 class="font-bold text-md">
                 {{ props.video.title }}
             </h2>
             <div class="text-muted text-sm font-medium">Super Mario Kart World</div>
-            <div class="text-muted-more text-sm font-medium">{{ daysAgo }} days ago</div>
+            <div class="text-muted-more text-sm font-medium">{{ daysAgo }} days ago, {{ formattedDuration }}</div>
         </div>
     </RouterLink>
 </template>

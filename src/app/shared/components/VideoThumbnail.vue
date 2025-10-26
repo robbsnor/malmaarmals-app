@@ -2,6 +2,7 @@
 import { twMerge, twJoin } from 'tailwind-merge';
 import { computed } from 'vue';
 import type { VideoProgression } from '../../video/models/VideoProgression.model';
+import { TimeHelper } from '../helpers/time.helper';
 
 const props = withDefaults(
     defineProps<{
@@ -9,6 +10,7 @@ const props = withDefaults(
         icon?: string;
         iconSize?: string | number;
         type?: 'large';
+        durationS?: number;
         videoId?: number;
     }>(),
     {
@@ -16,6 +18,10 @@ const props = withDefaults(
         iconSize: 40,
     }
 );
+
+const prettyTime = computed(() => {
+    return TimeHelper.formatTime(props.durationS || 0);
+});
 
 const time = computed(() => {
     return JSON.parse(localStorage.getItem(props.videoId?.toString())) as VideoProgression;
@@ -35,8 +41,11 @@ const time = computed(() => {
             :src="props.src"
             class="relative w-full group-hover:scale-102f aspect-video transition-all"
             aria-hidden="true"
-        >
-        </v-img>
+        />
+        <!-- <div class="absolute bottom-1 right-1 bg-black/80 rounded-md text-xs px-1.5 py-0.5">
+            {{ prettyTime }}
+        </div> -->
+
         <div
             class="absolute z-10 top-0 right-0 bottom-0 left-0 bg-black/0 opacity-0 group-hover:bg-black/50 group-hover:opacity-100 foo transition-all duration-200 flex justify-center items-center"
         >
