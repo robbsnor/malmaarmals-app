@@ -22,6 +22,6 @@ const appStore = useAppStore();
             <!-- <InfoLarge /> -->
         </div>
 
-        <Chat class="shrink-0 w-full md:w-[250px]" />
+        <Chat v-if="!appStore.player.isMini" class="shrink-0 w-full md:w-[250px]" />
     </div>
 </template>

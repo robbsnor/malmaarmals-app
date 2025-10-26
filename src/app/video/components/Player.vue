@@ -23,15 +23,16 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="h-full w-full aspect-video relative flex flex-col items-center justify-center">
+    <div class="relative h-full w-full aspect-video flex flex-col items-center justify-center">
         <video
-            @click="videoStore.showMobileControls = !videoStore.showMobileControls"
             controlsf
             class="aspect-video w-full"
             ref="videoRef"
             :src="videoStore.videoSrc"
             :poster="BucketHelper.getThumbnailUrl(Number(videoStore.videoId))"
         ></video>
+
+        <div class="absolute inset-0" @click="videoStore.showMobileControls = !videoStore.showMobileControls"></div>
 
         <!-- controls -->
         <PlayerControls />
