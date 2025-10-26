@@ -16,6 +16,10 @@ export const useVideoStore = defineStore('video', () => {
     const chapters = ref(CHAPTERS_MOCK);
     const showInfo = ref(false);
     const messages = ref<Tables<'messages'>[]>([]);
+    const player = ref({
+        isActive: false,
+        isMini: true,
+    });
     const videoRef = ref<HTMLVideoElement>();
     // prettier-ignore
     const {
@@ -122,6 +126,7 @@ export const useVideoStore = defineStore('video', () => {
         prettyCurrentTime,
         prettyDuration,
         showMobileControls,
+        player,
 
         // mediaControls
         currentTime,

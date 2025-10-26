@@ -4,10 +4,6 @@ import { ref } from 'vue';
 export const useAppStore = defineStore('app', () => {
     const loading = ref(true);
     const mainDrawer = ref(false);
-    const player = ref({
-        isActive: false,
-        isMini: true,
-    });
     const headerShown = ref(true);
     const menuOpen = ref(false);
 
@@ -25,7 +21,6 @@ export const useAppStore = defineStore('app', () => {
     };
 
     return {
-        player,
         menuOpen,
         headerShown,
         mainDrawer,
