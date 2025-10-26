@@ -4,7 +4,6 @@ import { useRouter } from 'vue-router';
 import { useAppStore } from '../../shared/stores/app.store';
 import { useVideoStore } from '../stores/video.store';
 
-const appStore = useAppStore();
 const videoStore = useVideoStore();
 const router = useRouter();
 const { isFullscreen, enter, exit, toggle } = useFullscreen();
@@ -16,7 +15,7 @@ const goBack = () => {
 
 <template>
     <div
-        v-visible="videoStore.showMobileControls && !appStore.player.isMini"
+        v-visible="videoStore.showMobileControls && !videoStore.player.isMini"
         class="absolute inset-0 flex flex-col gap-4"
     >
         <div class="absolute inset-0 bg-black/50" @click="videoStore.showMobileControls = false"></div>
@@ -27,7 +26,7 @@ const goBack = () => {
                 variant="plain"
                 size="x-small"
                 @click="
-                    appStore.player.isMini = true;
+                    videoStore.player.isMini = true;
                     goBack();
                 "
             >
