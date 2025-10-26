@@ -5,6 +5,9 @@ import { RouterLink } from 'vue-router';
 
 const videoStore = useVideoStore();
 const appStore = useAppStore();
+function maximizePlayer() {
+    appStore.player.isMini = false;
+}
 </script>
 
 <template>
@@ -12,7 +15,7 @@ const appStore = useAppStore();
         v-if="appStore.player.isMini"
         :to="{ name: 'video', params: { id: videoStore.videoId } }"
         class="absolute inset-0 flex justify-between p-2"
-        @click="appStore.player.isMini = false"
+        @click="maximizePlayer"
     >
         <v-btn icon variant="tonal" @click.stop="videoStore.playing = !videoStore.playing">
             <v-icon
