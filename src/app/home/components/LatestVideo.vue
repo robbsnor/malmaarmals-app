@@ -52,7 +52,7 @@ const getTimeAgo = (date: string) => {
                     />
                     <VideoThumbnail
                         type="large"
-                        :to="`/videos/${props.video.video_id}`"
+                        :to="{ name: 'video', params: { id: props.video.video_id } }"
                         :src="BucketHelper.getThumbnailUrl(props.video.video_id)"
                         :icon-size="60"
                         :videoId="props.video.video_id"
@@ -77,7 +77,13 @@ const getTimeAgo = (date: string) => {
                     </div>
 
                     <div class="flex gap-4 pt-4">
-                        <v-btn :to="`/videos/${props.video.video_id}`" variant="flat" color="primary">Watch now</v-btn>
+                        <v-btn
+                            :to="{ name: 'video', params: { id: props.video.video_id } }"
+                            variant="flat"
+                            color="primary"
+                        >
+                            Watch now
+                        </v-btn>
                     </div>
                 </div>
             </div>

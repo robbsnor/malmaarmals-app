@@ -61,7 +61,7 @@ const dialog = ref(false);
         <div>
             <div class="flex flex-col gap-4 py-4">
                 <RouterLink
-                    :to="`/videos/${video.video_id}`"
+                    :to="{ name: 'video', params: { id: video.video_id } }"
                     class="flex gap-4"
                     v-for="video in playlist?.playlist_videos"
                     :key="video.id"

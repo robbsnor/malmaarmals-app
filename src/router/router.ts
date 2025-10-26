@@ -14,7 +14,7 @@ const router = createRouter({
             component: () => import('../app/archive/ArchivePage.vue'),
         },
         {
-            path: '/video/:id',
+            path: '/videos/:id',
             name: 'video',
             component: () => import('../app/video/VideoPage.vue'),
         },

@@ -9,10 +9,10 @@ const appStore = useAppStore();
 
 <template>
     <RouterLink
-        :to="`/videos/${videoStore.videoId}`"
         v-if="appStore.player.isMini"
-        @click="appStore.player.isMini = false"
+        :to="{ name: 'video', params: { id: videoStore.videoId } }"
         class="absolute inset-0 flex justify-between p-2"
+        @click="appStore.player.isMini = false"
     >
         <v-btn icon variant="tonal" @click.stop="videoStore.playing = !videoStore.playing">
             <v-icon
