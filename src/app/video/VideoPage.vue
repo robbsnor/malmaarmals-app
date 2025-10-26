@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router';
 import { useAppStore } from '../shared/stores/app.store';
 import { useVideoStore } from './stores/video.store';
 import { useAuthStore } from '../auth/stores/auth.store';
+import VideoNotAllowed from './components/VideoNotAllowed.vue';
 
 const route = useRoute();
 const videoStore = useVideoStore();
@@ -27,4 +28,6 @@ onUnmounted(() => {
 });
 </script>
 
-<template></template>
+<template>
+    <VideoNotAllowed />
+</template>

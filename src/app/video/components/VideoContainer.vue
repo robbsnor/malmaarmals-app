@@ -4,18 +4,14 @@ import Player from './Player.vue';
 import Chat from './Chat.vue';
 import { useVideoStore } from '../stores/video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
-import VideoNotAllowed from './VideoNotAllowed.vue';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
 </script>
 
 <template>
-    <VideoNotAllowed />
-
-    <div v-if="videoStore.player.isActive">
+    <div v-if="videoStore.player.isActive && authStore.canWatch">
         <div
-            v-if="authStore.isSubbed"
             class="fixed bg-black z-100 flex flex-col md:flex-row"
             :class="
                 videoStore.player.isMini

@@ -14,9 +14,13 @@ export const useAuthStore = defineStore('auth', () => {
     const lekkerSpelenUserId = '52385053';
     const isSubbed = ref(false);
     const isAdmin = computed(() => session.value?.user?.user_metadata.name === 'robbsnor');
+    const canWatch = computed(() => isSubbed.value && !!session.value);
 
     const mirrorSession = async () => {
-        const { data } = await supabase.auth.getSession();
+        const { data, error } = await supabase.auth.getSession();
+
+        console.log('-----');
+        console.log(data, error);
         session.value = data.session ?? undefined;
         twitchAccessToken.value = data.session?.provider_token;
         twitchRefreshToken.value = data.session?.provider_refresh_token;
@@ -63,7 +67,7 @@ export const useAuthStore = defineStore('auth', () => {
         twitchRefreshToken,
         twitchUserId,
         isSubbed,
-        twitch,
+        canWatch,
 
         updateIsSubscribed,
         mirrorSession,
