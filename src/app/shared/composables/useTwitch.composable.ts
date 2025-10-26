@@ -43,9 +43,62 @@ export function useTwitch() {
         },
     });
 
+    const req = async <T>(
+        url: string
+    ): Promise<{
+        data: T | null;
+        error: Error | null;
+    }> => {
+        if (!authStore.session || !authStore.twitchAccessToken || !authStore.twitchRefreshToken) {
+            return { data: null, error: new Error('No access token available') };
+        }
+
+        const _req = () =>
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${authStore.twitchAccessToken}`,
+                    'Client-Id': import.meta.env.VITE_TWITCH_CLIENT_ID,
+                },
+            });
+
+        try {
+            let res = await _req();
+
+            // Handle expired token (401)
+            if (res.status === 401) {
+                try {
+                    console.log('Access token expired, refreshing...');
+                    await refreshTokens();
+                } catch (refreshErr) {
+                    console.error('❌ Refresh token failed:', refreshErr);
+                    await supabase.auth.signOut();
+                    return { data: null, error: refreshErr as Error };
+                }
+
+                // Retry request after successful refresh
+                res = await _req();
+            }
+
+            // If still not OK, treat as an API error, res.ok is true for 200-299 status codes
+            if (!res.ok) {
+                const message = `HTTP ${res.status}: ${res.statusText}`;
+                return { data: null, error: new Error(message) };
+            }
+
+            // Parse and return JSON safely
+            const data: T = await res.json();
+            return { data, error: null };
+        } catch (err) {
+            // Catches network errors or unexpected exceptions
+            console.error('❌ Request failed:', err);
+            return { data: null, error: err as Error };
+        }
+    };
+
     function get<T>(url: string) {
         return useFetch<T>(url, {
-            immediate: false,
+            immediate: true,
             async beforeFetch({ url, options, cancel }) {
                 console.log('accesstoken before fetch: ', authStore.twitchAccessToken);
 
@@ -114,14 +167,14 @@ export function useTwitch() {
         const url = new URL('https://api.twitch.tv/helix/streams/followed');
         url.searchParams.set('user_id', '23611469');
         url.searchParams.set('first', '1');
-        return get<TwitchGetFollowedStreams>(url.toString());
+        return req<TwitchGetFollowedStreams>(url.toString());
     }
 
     const checkUserSubscription = (broadcasterId: string) => {
         const url = new URL('https://api.twitch.tv/helix/subscriptions/user');
         url.searchParams.set('broadcaster_id', broadcasterId);
         url.searchParams.set('user_id', authStore.twitchUserId);
-        return get<TwitchCheckUserSubscription>(url.toString());
+        return req<TwitchCheckUserSubscription>(url.toString());
     };
 
     // const getUsers = async (user: { ids?: number[]; logins?: string[] }): Promise<TwitchGetUsers> => {

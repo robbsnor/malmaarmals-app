@@ -27,12 +27,6 @@ const dialog = ref(false);
 </script>
 
 <template>
-    <code>
-        <pre>
-                {{ authStore.followedStreams }}
-            </pre
-        >
-    </code>
     <Container v-if="playlist" :padding="false">
         <div class="relative overflow-hidden aspect-[16/6]">
             <img
