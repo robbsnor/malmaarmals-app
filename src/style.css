@@ -191,15 +191,17 @@
     --color-black-1900: #959595;
     --color-black-2000: #a0a0a0;
 
-    --height-header: 4rem;
     --height-mobile-navbar: 64px;
     --height-available: calc(100vh - var(--height-mobile-navbar));
+
+    --spacing-mobile-navbar: var(--height-mobile-navbar);
 
     --breakpoint-3xl: 120rem;
     --breakpoint-4xl: 140rem;
     --breakpoint-5xl: 160rem;
 
     --background-color-default: var(--color-black);
+
     --ring-color-default: var(--color-black);
 }
 
