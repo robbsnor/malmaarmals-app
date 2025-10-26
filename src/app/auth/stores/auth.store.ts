@@ -27,8 +27,9 @@ export const useAuthStore = defineStore('auth', () => {
     };
 
     const updateIsSubscribed = async () => {
-        const res = await twitch.checkUserSubscription(lekkerSpelenUserId);
-        isSubbed.value = res.data?.data?.length > 0;
+        const { data, error } = await twitch.checkUserSubscription(lekkerSpelenUserId);
+        if (error) return console.log(error);
+        isSubbed.value = data.data.length > 0;
     };
 
     const signIn = async () => {
