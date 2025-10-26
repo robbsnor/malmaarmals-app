@@ -49,7 +49,7 @@ const menuItems = ref([
                 />
                 <div
                     v-else
-                    class="size-8 bg-primary cursor-pointer rounded-full flex items-end justify-center overflow-hidden text-white/50!"
+                    class="size-8 bg-black-400 cursor-pointer rounded-full flex items-end justify-center overflow-hidden text-white/50!"
                 >
                     <svg
                         width="26"
