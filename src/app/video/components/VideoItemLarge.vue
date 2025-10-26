@@ -35,7 +35,7 @@ const formattedDuration = computed(() => {
 <template>
     <div>
         <VideoThumbnail
-            :to="`/videos/${props.video.video_id}`"
+            :to="{ name: 'video', params: { id: props.video.video_id } }"
             :src="BucketHelper.getThumbnailUrl(props.video.video_id)"
             :videoId="props.video.video_id"
         >
