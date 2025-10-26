@@ -8,23 +8,23 @@ const authStore = useAuthStore();
 
 <template>
     <div
-        v-if="videoStore.player.isActive && (!authStore.isSubbed || !authStore.session)"
-        class="fixed top-0 right-0 bottom-mobile-navbar left-0 z-100 flex flex-col gap-4 p-4 md:flex-row bg-red-200f"
+        v-if="videoStore.player.isActive && !authStore.canWatch"
+        class="flex flex-col gap-4 p-4 md:flex-row bg-red-20f0 h-available"
     >
         <div class="bg-black-200 rounded-md w-full aspect-video md:aspect-auto"></div>
         <div class="bg-black-200 rounded-md shrink-0 grow w-full md:w-[250px] md:grow-0"></div>
 
-        <div class="absolute top-1/3 left-0 text-center p-8">
+        <div class="absolute inset-0 p-8 flex items-center justify-center">
             <div class="bg-black-400 border border-black-500 rounded-md p-4">
                 <template v-if="!authStore.session">
-                    <div>You are not logged in. Please log in to start watching.</div>
-
+                    <div class="text-2xl font-bold">You are not logged in,</div>
+                    <p class="text-muted">Log in with Twitch to start watching streams</p>
                     <v-btn
                         color="primary"
                         variant="tonal"
                         prepend-icon="mdi-twitch"
                         @click="authStore.signIn()"
-                        class="w-full mt-4"
+                        class="w-full"
                     >
                         Login
                     </v-btn>
