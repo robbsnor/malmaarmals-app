@@ -91,6 +91,11 @@ export const useVideoStore = defineStore('video', () => {
         videoRef.value = el;
     };
 
+    function reset() {
+        currentTime.value = 0;
+        player.value.isActive = false;
+    }
+
     const saveVideoProgression = (newTime: number) => {
         // const obj: VideoProgression = {
         //     current_time_s: newTime,
@@ -145,5 +150,6 @@ export const useVideoStore = defineStore('video', () => {
         fetchMessages,
         setVideoRef,
         loadVideoProgression,
+        reset,
     };
 });

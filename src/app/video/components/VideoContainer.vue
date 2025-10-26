@@ -4,7 +4,6 @@ import Player from './Player.vue';
 import Chat from './Chat.vue';
 import { useVideoStore } from '../stores/video.store';
 
-const appStore = useAppStore();
 const videoStore = useVideoStore();
 </script>
 
