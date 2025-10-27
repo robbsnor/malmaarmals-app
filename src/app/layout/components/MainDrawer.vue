@@ -66,6 +66,9 @@ const handleClick = async (item: any) => {
                             <div v-else>Subscribed</div>
                         </div>
                     </div>
+                    <div class="bg-black-40f0 size-f12 rounded-full ml-auto flex justify-center items-center">
+                        <v-icon icon="mdi-star-four-points" size="32" class="mr-2 text-black-800" />
+                    </div>
                 </div>
 
                 <div v-else class="p-4">
