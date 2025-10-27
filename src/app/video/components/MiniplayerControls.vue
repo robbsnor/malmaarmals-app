@@ -9,7 +9,6 @@ const router = useRouter();
 
 function maximizePlayer() {
     router.push({ name: 'video', params: { id: videoStore.videoId } });
-    videoStore.player.isMini = false;
 }
 
 function togglePlay() {

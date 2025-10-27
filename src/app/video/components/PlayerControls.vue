@@ -34,6 +34,12 @@ const goBack = () => {
             </v-btn>
             <div class="flex gap-4">
                 <div class="relative">{{ videoStore.stalled }}, {{ videoStore.waiting }}</div>
+                <v-progress-circular
+                    class="relative"
+                    v-if="videoStore.waiting || videoStore.stalled"
+                    indeterminate
+                    size="28"
+                />
                 <v-icon size="28" icon="mdi-cog-outline" />
                 <v-icon size="28" icon="mdi-fullscreen" @click="toggle()" />
             </div>
