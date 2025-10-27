@@ -20,9 +20,7 @@ export const useAuthStore = defineStore('auth', () => {
     const mirrorSession = async () => {
         const { data, error } = await supabase.auth.getSession();
 
-        console.log('-----');
-        console.log(data, error);
-        session.value = data.session ?? undefined;
+        session.value = data.session;
         twitchAccessToken.value = data.session?.provider_token;
         twitchRefreshToken.value = data.session?.provider_refresh_token;
 
@@ -34,7 +32,6 @@ export const useAuthStore = defineStore('auth', () => {
     const updateIsSubscribed = async () => {
         const { data, error } = await twitch.checkUserSubscription(lekkerSpelenUserId);
         if (error) return console.log(error);
-        return;
         isSubbed.value = data.data.length > 0;
     };
 
