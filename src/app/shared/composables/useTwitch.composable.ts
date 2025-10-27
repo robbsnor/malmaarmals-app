@@ -50,7 +50,7 @@ export function useTwitch() {
         error: Error | null;
     }> => {
         if (!authStore.session || !authStore.twitchAccessToken || !authStore.twitchRefreshToken) {
-            return { data: null, error: new Error('No access token available') };
+            return { data: null, error: new Error('Not logged in, or has missing tokens') };
         }
 
         const _req = () =>
