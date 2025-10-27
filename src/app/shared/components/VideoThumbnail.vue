@@ -42,9 +42,9 @@ const time = computed(() => {
             class="relative w-full group-hover:scale-102f aspect-video transition-all"
             aria-hidden="true"
         />
-        <!-- <div class="absolute bottom-1 right-1 bg-black/80 rounded-md text-xs px-1.5 py-0.5">
+        <div class="absolute bottom-1 right-1 bg-black/80 rounded-md text-xs px-1.5 py-0.5">
             {{ prettyTime }}
-        </div> -->
+        </div>
 
         <div
             class="absolute z-10 top-0 right-0 bottom-0 left-0 bg-black/0 opacity-0 group-hover:bg-black/50 group-hover:opacity-100 foo transition-all duration-200 flex justify-center items-center"
