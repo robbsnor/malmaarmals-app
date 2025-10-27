@@ -20,7 +20,8 @@ const props = withDefaults(
 );
 
 const prettyTime = computed(() => {
-    return TimeHelper.formatTime(props.durationS || 0);
+    if (!props.durationS) return;
+    return TimeHelper.formatTime(props.durationS);
 });
 
 const time = computed(() => {
@@ -42,7 +43,7 @@ const time = computed(() => {
             class="relative w-full group-hover:scale-102f aspect-video transition-all"
             aria-hidden="true"
         />
-        <div class="absolute bottom-1 right-1 bg-black/80 rounded-md text-xs px-1.5 py-0.5">
+        <div v-if="prettyTime" class="absolute bottom-1 right-1 bg-black/80 rounded-md text-xs px-1.5 py-0.5">
             {{ prettyTime }}
         </div>
 

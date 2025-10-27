@@ -61,12 +61,16 @@ const dialog = ref(false);
         <div>
             <div class="flex flex-col gap-4 py-4">
                 <RouterLink
-                    :to="{ name: 'video', params: { id: video.video_id } }"
-                    class="flex gap-4"
                     v-for="video in playlist?.playlist_videos"
                     :key="video.id"
+                    :to="{ name: 'video', params: { id: video.video_id } }"
+                    class="flex gap-4"
                 >
-                    <VideoThumbnail class="w-32 shrink-0" :src="BucketHelper.getThumbnailUrl(video.video_id)" />
+                    <VideoThumbnail
+                        class="w-32 shrink-0"
+                        :src="BucketHelper.getThumbnailUrl(video.video_id)"
+                        :durationS="video.length_sec"
+                    />
 
                     <div>
                         <h2 class="font-bold text-md">
