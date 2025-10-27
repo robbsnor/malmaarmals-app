@@ -93,6 +93,7 @@ export const useVideoStore = defineStore('video', () => {
 
     function reset() {
         currentTime.value = 0;
+        duration.value = 0;
         player.value.isActive = false;
     }
 
