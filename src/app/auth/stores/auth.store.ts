@@ -14,15 +14,18 @@ export const useAuthStore = defineStore('auth', () => {
     const lekkerSpelenUserId = '52385053';
     const isSubbed = ref(false);
     const isAdmin = computed(() => session.value?.user?.user_metadata.name === 'robbsnor');
-    // const canWatch = computed(() => isSubbed.value && !!session.value);
-    const canWatch = ref(true);
+    const canWatch = computed(() => isSubbed.value && !!session.value);
+    // const canWatch = ref(true);
 
     const mirrorSession = async () => {
         const { data, error } = await supabase.auth.getSession();
-
         session.value = data.session;
-        twitchAccessToken.value = data.session?.provider_token;
-        twitchRefreshToken.value = data.session?.provider_refresh_token;
+
+        if (!data.session) return;
+        if (data.session.provider_refresh_token && data.session.provider_token) {
+            twitchAccessToken.value = data.session.provider_token;
+            twitchRefreshToken.value = data.session.provider_refresh_token;
+        }
 
         supabase.auth.onAuthStateChange((_event, newSession) => {
             session.value = newSession;
