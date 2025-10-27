@@ -54,7 +54,8 @@ export const useAuthStore = defineStore('auth', () => {
     };
 
     const signOut = async () => {
-        await supabase.auth.signOut();
+        const { error } = await supabase.auth.signOut();
+        if (error) return console.error(error);
 
         twitchAccessToken.value = null;
         twitchRefreshToken.value = null;
