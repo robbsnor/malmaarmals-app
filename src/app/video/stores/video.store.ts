@@ -14,7 +14,7 @@ export const useVideoStore = defineStore('video', () => {
     const videoInfo = ref<Tables<'videos'>>();
     const videoId = ref('');
     const chapters = ref(CHAPTERS_MOCK);
-    const showInfo = ref(false);
+    const showControllsAndInfo = ref(true);
     const messages = ref<Tables<'messages'>[]>([]);
     const player = ref({
         isActive: false,
@@ -126,7 +126,7 @@ export const useVideoStore = defineStore('video', () => {
         videoId,
         chapters,
         videoSrc,
-        showInfo,
+        showControllsAndInfo,
         messages,
         subCount,
         prettyCurrentTime,

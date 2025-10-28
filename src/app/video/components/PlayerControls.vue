@@ -15,10 +15,10 @@ const goBack = () => {
 
 <template>
     <div
-        v-visible="videoStore.showMobileControls && !videoStore.player.isMini"
+        v-visible="videoStore.showControllsAndInfo && !videoStore.player.isMini"
         class="absolute inset-0 flex flex-col gap-4"
     >
-        <div class="absolute inset-0 bg-black/50" @click="videoStore.showMobileControls = false"></div>
+        <div class="absolute inset-0 bg-black/50" @click="videoStore.showControllsAndInfo = false"></div>
 
         <div class="flex justify-between gap-4 p-2">
             <v-btn
