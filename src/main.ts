@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router/router';
 import { createPinia } from 'pinia';
 
+import Auth from './app/shared/components/Auth.vue';
 import BottomSheetContainer from './app/shared/components/BottomSheetContainer.vue';
 import Card from './app/shared/components/Card.vue';
 import Container from './app/shared/components/Container.vue';
@@ -27,6 +28,7 @@ const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
 
 // components
+app.component('Auth', Auth);
 app.component('BottomSheetContainer', BottomSheetContainer);
 app.component('Card', Card);
 app.component('Container', Container);
