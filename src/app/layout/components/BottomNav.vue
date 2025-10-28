@@ -41,12 +41,19 @@ const menuItems = ref([
                 @click="appStore.mainDrawer = true"
                 class="cursor-pointer flex flex-col justify-center items-center text-muted-more transition-all gap-[2px] py-2 px-6 text-light"
             >
-                <img
-                    v-if="!!authStore.session"
-                    :src="authStore.session.user.user_metadata.avatar_url"
-                    alt=""
-                    class="h-8 rounded-full cursor-pointer"
-                />
+                <div v-if="!!authStore.session" class="relative">
+                    <img
+                        :src="authStore.session.user.user_metadata.avatar_url"
+                        alt=""
+                        class="h-8 rounded-full cursor-pointer"
+                    />
+                    <div
+                        v-if="!authStore.isSubbed"
+                        class="absolute -bottom-2 -right-2 bg-black rounded-full size-5 flex items-center justify-center"
+                    >
+                        <v-icon icon=" mdi-lock" color="var(--color-red-500)" size="14" />
+                    </div>
+                </div>
                 <div
                     v-else
                     class="size-8 bg-black-400 cursor-pointer rounded-full flex items-end justify-center overflow-hidden text-white/50!"

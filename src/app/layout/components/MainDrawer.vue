@@ -47,7 +47,7 @@ const handleClick = async (item: any) => {
                         />
                     </div>
                     <div>
-                        <div class="text-lg font-bold leading-none">
+                        <div class="text-lg font-bold leading-none pb-0.5">
                             {{ authStore.session.user.user_metadata.nickname }}
                         </div>
                         <div class="flex items-center text-sm text-muted">
@@ -55,16 +55,16 @@ const handleClick = async (item: any) => {
                                 v-if="!authStore.isSubbed"
                                 href="https://www.twitch.tv/lekkerspelen/"
                                 target="_blank"
-                                class="underline hover:text-red-400 text-red-500"
+                                class="underline italic"
                             >
-                                Not Subscribed
+                                Not subscribed
                             </a>
                             <div v-else>Subscribed</div>
                             <v-icon
-                                :icon="authStore.isSubbed ? 'mdi-check' : 'mdi-alert'"
+                                :icon="authStore.isSubbed ? 'mdi-check' : 'mdi-lock'"
                                 :color="authStore.isSubbed ? 'success' : 'var(--color-red-500)'"
                                 size="14"
-                                class="inline-block ml-1"
+                                class="inline-block ml-1 mt-0.5"
                             />
                         </div>
                     </div>
