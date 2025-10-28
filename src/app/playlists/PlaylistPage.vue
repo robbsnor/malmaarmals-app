@@ -36,19 +36,21 @@ const dialog = ref(false);
             />
             <div class="absolute inset-0 bg-linear-to-b from-black/50 to-black-100"></div>
 
-            <div v-if="authStore.isAdmin" class="absolute top-0 w-full p-4 flex justify-end gap-2">
-                <v-btn variant="tonal" icon="mdi-pencil" size="x-small" class="cursor-pointer" />
+            <Auth>
+                <div class="absolute top-0 w-full p-4 flex justify-end gap-2">
+                    <!-- <v-btn variant="tonal" icon="mdi-pencil" size="x-small" class="cursor-pointer" /> -->
 
-                <v-btn
-                    variant="tonal"
-                    icon="mdi-trash-can-outline"
-                    color="error"
-                    size="x-small"
-                    class="cursor-pointer"
-                    @click="dialog = true"
-                />
-                <DeletePlaylistDialog :playlist="playlist" v-model="dialog" />
-            </div>
+                    <v-btn
+                        variant="tonal"
+                        icon="mdi-trash-can-outline"
+                        color="error"
+                        size="x-small"
+                        class="cursor-pointer"
+                        @click="dialog = true"
+                    />
+                    <DeletePlaylistDialog :playlist="playlist" v-model="dialog" />
+                </div>
+            </Auth>
 
             <div class="absolute bottom-0 border-b border-black-500 p-4 w-full">
                 <h1 class="font-bold text-2xl">{{ playlist.title }}</h1>
