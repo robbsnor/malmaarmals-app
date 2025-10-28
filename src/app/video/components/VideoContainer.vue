@@ -5,6 +5,7 @@ import Chat from './Chat.vue';
 import { useVideoStore } from '../stores/video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import Info from './Info.vue';
+import InfoLarge from './InfoLarge.vue';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
@@ -23,7 +24,7 @@ const authStore = useAuthStore();
             <div v-if="!!videoStore.videoInfo" class="md:overflow-auto md:scroll-hidden">
                 <Player />
                 <Info />
-                <!-- <InfoLarge /> -->
+                <InfoLarge />
             </div>
 
             <Chat v-if="!videoStore.player.isMini" class="shrink-0 w-full md:w-[250px]" />
