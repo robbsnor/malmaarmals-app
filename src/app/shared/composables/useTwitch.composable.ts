@@ -72,7 +72,7 @@ export function useTwitch() {
                     await refreshTokens();
                 } catch (refreshErr) {
                     console.error('❌ Refresh token failed:', refreshErr);
-                    await supabase.auth.signOut();
+                    await authStore.signOut();
                     return { data: null, error: refreshErr as Error };
                 }
 
