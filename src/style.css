@@ -205,6 +205,19 @@
     --ring-color-default: var(--color-black);
 }
 
+.fs h1,
+.fs h2,
+.fs h3,
+.fs h4,
+.fs h5,
+.fs h6 {
+    @apply text-normal font-bold text-2xl mb-1 mt-4;
+}
+
+.fs p {
+    @apply text-muted;
+}
+
 body {
     @apply font-space-grotesk overflow-x-hidden text-normal;
 }
@@ -230,4 +243,14 @@ button {
 
 .scroll-hidden::-webkit-scrollbar {
     display: none;
+}
+
+/* vuetify overwrites */
+/* expansion panel */
+.v-expansion-panel--active > .v-expansion-panel-title:not(.v-expansion-panel-title--static) {
+    min-height: inherit !important;
+}
+
+.v-expansion-panel-text {
+    @apply text-muted;
 }
