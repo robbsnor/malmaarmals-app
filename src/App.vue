@@ -43,6 +43,8 @@ onMounted(async () => {
 <template>
     <v-app v-if="!loading && !hasError">
         <div class="pb-[var(--height-mobile-navbar)]">
+            <div>accessToken: {{ authStore.twitchAccessToken }}</div>
+            <div>refreshToken: {{ authStore.twitchRefreshToken }}</div>
             <RouterView />
         </div>
 
