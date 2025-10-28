@@ -32,7 +32,7 @@ onMounted(async () => {
             :poster="BucketHelper.getThumbnailUrl(Number(videoStore.videoId))"
         ></video>
 
-        <div class="absolute inset-0" @click="videoStore.showMobileControls = !videoStore.showMobileControls"></div>
+        <div class="absolute inset-0" @click="videoStore.showControllsAndInfo = !videoStore.showControllsAndInfo"></div>
 
         <!-- controls -->
         <PlayerControls />

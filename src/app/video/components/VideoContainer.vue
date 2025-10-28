@@ -4,6 +4,7 @@ import Player from './Player.vue';
 import Chat from './Chat.vue';
 import { useVideoStore } from '../stores/video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
+import Info from './Info.vue';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
@@ -19,9 +20,9 @@ const authStore = useAuthStore();
                     : 'top-0 right-0 bottom-0 left-0'
             "
         >
-            <div class="md:overflow-auto md:scroll-hidden">
+            <div v-if="!!videoStore.videoInfo" class="md:overflow-auto md:scroll-hidden">
                 <Player />
-                <!-- <Info /> -->
+                <Info />
                 <!-- <InfoLarge /> -->
             </div>
 

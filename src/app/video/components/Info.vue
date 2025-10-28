@@ -29,8 +29,8 @@ const prettyTime = (seconds: number) => {
 
 <template>
     <div
-        class="invisible -translate-y-2 transition-all opacity-0 absolute top-full z-10 left-0 right-0 md:hidden shadow-2xl bg-black-300 border-b border-black-400"
-        :class="{ 'visible translate-y-0 opacity-100': videoStore.showInfo }"
+        class="invisible f-translate-y-2 transition-all opacity-0 absolute z-10 left-0 right-0 md:hidden shadow-2xl bg-black-300 border-b border-black-400"
+        :class="{ 'visible ftranslate-y-0 opacity-100': videoStore.showControllsAndInfo }"
     >
         <div class="pb-4 p-4">
             <div class="font-bold text-lg">{{ videoStore.videoInfo.title }}</div>
