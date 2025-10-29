@@ -24,7 +24,7 @@ const goBack = () => {
     >
         <div class="absolute inset-0 bg-black/50" @click="videoStore.showControllsAndInfo = false"></div>
 
-        <div class="flex justify-between gap-4 p-4">
+        <div class="flex justify-between gap-4 p-2">
             <v-icon
                 @click="
                     videoStore.player.isMini = true;
@@ -66,7 +66,7 @@ const goBack = () => {
             </v-btn>
         </div>
 
-        <div class="flex flex-col px-4">
+        <div class="flex flex-col px-2">
             <div class="flex items-end justify-between gap-4">
                 <div class="relative flex items-center gap-4 leading-tight">
                     <div :style="{ width: `${width}pfx` }">{{ videoStore.prettyCurrentTime }}</div>
