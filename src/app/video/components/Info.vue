@@ -39,7 +39,7 @@ const prettyTime = (seconds: number) => {
         </div>
 
         <div class="shrink-0">
-            <ChaptersMenu />
+            <ChaptersMenu size="small" />
         </div>
 
         <!-- <div class="flex gap-4 overflow-auto flex-nowrap p-4 bg-black-200">
