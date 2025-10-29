@@ -2,6 +2,15 @@
 import { computed, ref } from 'vue';
 import { useVideoStore } from '../stores/video.store';
 
+const props = withDefaults(
+    defineProps<{
+        size?: 'big' | 'small';
+    }>(),
+    {
+        size: 'big',
+    }
+);
+
 const videoStore = useVideoStore();
 
 const prettyTime = (seconds: number) => {
@@ -22,13 +31,25 @@ const prettyTime = (seconds: number) => {
     <v-menu location="top right">
         <template v-slot:activator="{ props }">
             <v-btn
+                v-if="size === 'small'"
+                variant="tonal"
+                color="primary"
+                v-bind="props"
+                min-width="unset"
+                class="w-10"
+            >
+                <v-icon>mdi-format-list-bulleted</v-icon>
+            </v-btn>
+
+            <v-btn
+                v-if="size === 'big'"
                 variant="tonal"
                 color="primary"
                 text-color="red"
                 v-bind="props"
                 prepend-icon="mdi-format-list-bulleted"
             >
-                chapters
+                Chapters
             </v-btn>
         </template>
 
