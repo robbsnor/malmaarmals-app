@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import type { Tables } from '../../shared/types/database.types';
 import { useVideoStore } from '../stores/video.store';
-import ChaptersMenu from './ChaptersMenu.vue';
 
 const videoStore = useVideoStore();
 
@@ -30,16 +28,12 @@ const prettyTime = (seconds: number) => {
 
 <template>
     <div
-        class="invisible transition-all opacity-0 absolute z-10 left-0 right-0 md:hidden shadow-2xl bg-black-300 border-b p-4 border-black-400 flex gap-4 items-center justify-between"
+        class="invisible transition-all opacity-0 absolute z-10 left-0 right-0 md:hidden shadow-2xl bg-black-200 border-b p-4 border-black-400"
         :class="{ 'visible  opacity-100': videoStore.showControllsAndInfo }"
     >
         <div>
             <div class="font-bold text-lg">{{ videoStore.videoInfo.title }}</div>
             <div class="text-muted">{{ date }}</div>
-        </div>
-
-        <div class="shrink-0">
-            <ChaptersMenu size="small" />
         </div>
 
         <!-- <div class="flex gap-4 overflow-auto flex-nowrap p-4 bg-black-200">
