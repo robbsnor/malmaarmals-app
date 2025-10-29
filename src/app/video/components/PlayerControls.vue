@@ -41,13 +41,17 @@ const goBack = () => {
         </div>
 
         <div class="flex justify-center items-center gap-4 grow p-2">
-            <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime -= 5">
+            <!-- <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime -= 5">
                 <v-icon size="28" icon="mdi-rewind-5" />
+            </v-btn> -->
+
+            <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime -= 10">
+                <v-icon size="28" icon="mdi-rewind-10" />
             </v-btn>
 
-            <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime -= 30">
+            <!-- <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime -= 30">
                 <v-icon size="28" icon="mdi-rewind-30" />
-            </v-btn>
+            </v-btn> -->
 
             <v-progress-circular class="relative" v-if="videoStore.waiting" indeterminate size="64" />
             <v-btn v-else icon variant="plain" size="lage" @click="videoStore.playing = !videoStore.playing">
@@ -61,9 +65,9 @@ const goBack = () => {
                 <v-icon size="28" icon="mdi-fast-forward-30" />
             </v-btn>
 
-            <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime += 60">
+            <!-- <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime += 60">
                 <v-icon size="28" icon="mdi-fast-forward-60" />
-            </v-btn>
+            </v-btn> -->
         </div>
 
         <div class="flex flex-col px-2">
