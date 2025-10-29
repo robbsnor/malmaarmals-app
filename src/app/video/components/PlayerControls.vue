@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router';
 import { useAppStore } from '../../shared/stores/app.store';
 import { useVideoStore } from '../stores/video.store';
 import { useTemplateRef } from 'vue';
+import ChaptersMenu from './ChaptersMenu.vue';
 
 const videoStore = useVideoStore();
 const router = useRouter();
@@ -44,6 +45,7 @@ const goBack = () => {
                     size="28"
                 />
                 <v-icon size="28" icon="mdi-cog-outline" />
+                <ChaptersMenu size="small" />
                 <v-icon size="28" icon="mdi-fullscreen" @click="toggle()" />
             </div>
         </div>
