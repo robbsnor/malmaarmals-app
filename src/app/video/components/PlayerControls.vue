@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { useFullscreen } from '@vueuse/core';
+import { useElementSize, useFullscreen } from '@vueuse/core';
 import { useRouter } from 'vue-router';
 import { useAppStore } from '../../shared/stores/app.store';
 import { useVideoStore } from '../stores/video.store';
+import { useTemplateRef } from 'vue';
 
 const videoStore = useVideoStore();
 const router = useRouter();
 const { isFullscreen, enter, exit, toggle } = useFullscreen();
+const durationEl = useTemplateRef<HTMLDivElement>('durationEl');
+const { width, height } = useElementSize(durationEl);
 
 const goBack = () => {
     router.back();
@@ -31,6 +34,7 @@ const goBack = () => {
                 "
             >
                 <v-icon size="28" icon="mdi-chevron-down" />
+                {{ width }}
             </v-btn>
             <div class="flex gap-4">
                 <div class="relative">{{ videoStore.stalled }}, {{ videoStore.waiting }}</div>
@@ -70,8 +74,8 @@ const goBack = () => {
             </v-btn>
         </div>
 
-        <div class="relative flex justify-between items-center px-2 py-1">
-            <div class="min-w-20">{{ videoStore.prettyCurrentTime }}</div>
+        <div class="relative flex justify-between items-center px-2 py-1 gap-4">
+            <div :style="{ width: `${width}px` }">{{ videoStore.prettyCurrentTime }}</div>
             <v-slider
                 v-model="videoStore.currentTime"
                 class="grow"
@@ -83,7 +87,7 @@ const goBack = () => {
                 :min="0"
                 :step="1"
             />
-            <div class="min-w-20 text-right">{{ videoStore.prettyDuration }}</div>
+            <div ref="durationEl" class="text-right">{{ videoStore.prettyDuration }}</div>
         </div>
     </div>
 </template>
