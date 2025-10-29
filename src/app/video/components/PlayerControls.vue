@@ -34,7 +34,6 @@ const goBack = () => {
                 "
             >
                 <v-icon size="28" icon="mdi-chevron-down" />
-                {{ width }}
             </v-btn>
             <div class="flex gap-4">
                 <div class="relative">{{ videoStore.stalled }}, {{ videoStore.waiting }}</div>
