@@ -20,7 +20,7 @@ export const useVideoStore = defineStore('video', () => {
         isActive: false,
         isMini: true,
     });
-    const { idle, lastActive } = useIdle(5 * 1000); // 5 sec
+    const { idle, lastActive } = useIdle(7 * 1000);
     const videoRef = ref<HTMLVideoElement>();
     // prettier-ignore
     const {
