@@ -95,6 +95,9 @@ export const useVideoStore = defineStore('video', () => {
     function reset() {
         currentTime.value = 0;
         duration.value = 0;
+        messages.value = [];
+        videoInfo.value = null;
+        playing.value = false;
         player.value.isActive = false;
     }
 
