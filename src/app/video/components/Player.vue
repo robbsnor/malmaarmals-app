@@ -26,6 +26,7 @@ onMounted(async () => {
     <div class="relative h-full w-full aspect-video flex flex-col items-center justify-center">
         <video
             controlsf
+            preload="metadata"
             class="aspect-video w-full"
             ref="videoRef"
             :src="videoStore.videoSrc"

@@ -14,6 +14,11 @@ function maximizePlayer() {
 function togglePlay() {
     videoStore.playing = !videoStore.playing;
 }
+
+function close() {
+    videoStore.reset();
+    videoStore.player.isActive = false;
+}
 </script>
 
 <template>
@@ -29,7 +34,7 @@ function togglePlay() {
             />
         </VideoButton>
 
-        <VideoButton @click="videoStore.reset">
+        <VideoButton @click="close">
             <v-icon size="24" icon="mdi-close" />
         </VideoButton>
     </button>
