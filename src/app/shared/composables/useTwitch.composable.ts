@@ -49,8 +49,13 @@ export function useTwitch() {
         data: T | null;
         error: Error | null;
     }> => {
-        if (!authStore.session || !authStore.twitchAccessToken || !authStore.twitchRefreshToken) {
+        if (!authStore.session) {
             return { data: null, error: new Error('Not logged in, or has missing tokens') };
+        }
+
+        if (!authStore.twitchAccessToken || !authStore.twitchRefreshToken) {
+            await authStore.signOut();
+            return { data: null, error: new Error('Missing Twitch tokens') };
         }
 
         const _req = () =>
