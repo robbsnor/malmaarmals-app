@@ -98,7 +98,6 @@ export const useVideoStore = defineStore('video', () => {
         messages.value = [];
         videoInfo.value = null;
         playing.value = false;
-        player.value.isActive = false;
     }
 
     const saveVideoProgression = (newTime: number) => {
