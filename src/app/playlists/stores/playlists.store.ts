@@ -13,9 +13,11 @@ export const usePlaylistsStore = defineStore('playlists', () => {
 
     const fetchPlaylists = async () => {
         const { data, error } = await playlistsQuery;
+        if (error) return console.log(error);
 
         const sorted = data.map((playlist) => {
-            playlist.playlist_videos.sort((a, b) => a.recorded_at.localeCompare(b.recorded_at));
+            // order videos by recorded_at desc
+            playlist.playlist_videos.sort((a, b) => b.recorded_at.localeCompare(a.recorded_at));
             return playlist;
         });
 

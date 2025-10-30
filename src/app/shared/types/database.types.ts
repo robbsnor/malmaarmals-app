@@ -140,24 +140,18 @@ export type Database = {
             };
             playlist_videos: {
                 Row: {
-                    added_at: string;
                     id: string;
                     playlist_id: string;
-                    position: number;
                     video_id: string;
                 };
                 Insert: {
-                    added_at?: string;
                     id?: string;
                     playlist_id: string;
-                    position: number;
                     video_id: string;
                 };
                 Update: {
-                    added_at?: string;
                     id?: string;
                     playlist_id?: string;
-                    position?: number;
                     video_id?: string;
                 };
                 Relationships: [
