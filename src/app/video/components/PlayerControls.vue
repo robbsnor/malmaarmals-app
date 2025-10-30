@@ -5,6 +5,7 @@ import { useAppStore } from '../../shared/stores/app.store';
 import { useVideoStore } from '../stores/video.store';
 import { useTemplateRef } from 'vue';
 import ChaptersMenu from './ChaptersMenu.vue';
+import AddToPlaylist from './AddToPlaylist.vue';
 
 const videoStore = useVideoStore();
 const router = useRouter();
@@ -30,27 +31,28 @@ const goBack = () => {
                     videoStore.player.isMini = true;
                     goBack();
                 "
-                size="28"
+                size="24"
                 icon="mdi-chevron-down"
             />
 
             <div class="flex gap-4">
-                <v-icon size="28" icon="mdi-fullscreen" @click="toggle()" />
-                <v-icon size="28" icon="mdi-cog-outline" />
+                <v-icon size="24" icon="mdi-fullscreen" @click="toggle()" />
+                <AddToPlaylist />
+                <v-icon size="24" icon="mdi-cog-outline" />
             </div>
         </div>
 
         <div class="flex justify-center items-center gap-4 grow p-2">
             <!-- <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime -= 5">
-                <v-icon size="28" icon="mdi-rewind-5" />
+                <v-icon size="24" icon="mdi-rewind-5" />
             </v-btn> -->
 
             <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime -= 10">
-                <v-icon size="28" icon="mdi-rewind-10" />
+                <v-icon size="24" icon="mdi-rewind-10" />
             </v-btn>
 
             <!-- <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime -= 30">
-                <v-icon size="28" icon="mdi-rewind-30" />
+                <v-icon size="24" icon="mdi-rewind-30" />
             </v-btn> -->
 
             <v-progress-circular class="relative" v-if="videoStore.waiting" indeterminate size="64" />
@@ -62,11 +64,11 @@ const goBack = () => {
             </v-btn>
 
             <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime += 30">
-                <v-icon size="28" icon="mdi-fast-forward-30" />
+                <v-icon size="24" icon="mdi-fast-forward-30" />
             </v-btn>
 
             <!-- <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime += 60">
-                <v-icon size="28" icon="mdi-fast-forward-60" />
+                <v-icon size="24" icon="mdi-fast-forward-60" />
             </v-btn> -->
         </div>
 

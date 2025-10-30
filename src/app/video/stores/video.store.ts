@@ -6,7 +6,7 @@ import type { Tables } from '../../shared/types/database.types';
 import type { VideoProgression } from '../models/VideoProgression.model';
 import { TitleHelper } from '../../shared/helpers/title.helper';
 import { CHAPTERS_MOCK } from '../data/chapters.mock';
-import { useMediaControls } from '@vueuse/core';
+import { useIdle, useMediaControls } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 
@@ -20,6 +20,7 @@ export const useVideoStore = defineStore('video', () => {
         isActive: false,
         isMini: true,
     });
+    const { idle, lastActive } = useIdle(5 * 1000); // 5 sec
     const videoRef = ref<HTMLVideoElement>();
     // prettier-ignore
     const {
@@ -114,6 +115,12 @@ export const useVideoStore = defineStore('video', () => {
 
     watch(currentTime, (newTime) => {
         saveVideoProgression(newTime);
+    });
+
+    watch(idle, (isIdle) => {
+        if (!playing.value) return;
+        if (!isIdle) return;
+        showControllsAndInfo.value = false;
     });
 
     watchEffect(() => {
