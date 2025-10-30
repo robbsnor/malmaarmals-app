@@ -55,11 +55,6 @@ const submit = async () => {
 
         <BottomSheetContainer>
             <div class="font-bold text-lg mb-4">Add to playlist</div>
-            <code>
-                <pre>
-                    {{ form }}
-                </pre>
-            </code>
             <v-form v-model="valid" class="flex flex-col gap-4">
                 <v-select
                     :rules="rules"
@@ -77,7 +72,7 @@ const submit = async () => {
                     @click="submit"
                     prepend-icon="mdi-plus"
                 >
-                    Add
+                    Add to playlist
                 </v-btn>
             </v-form>
         </BottomSheetContainer>
