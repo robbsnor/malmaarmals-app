@@ -18,7 +18,7 @@ const date = computed(() => {
 <template>
     <div class="hidden md:block overflow-hidden rounded-md">
         <div class="flex justify-between items-center gap-4 pb-4 p-4">
-            <div class="">
+            <div class="p-8">
                 <div class="font-bold text-lg">{{ videoStore.videoInfo.title }}</div>
                 <div class="text-muted">{{ date }} {{ videoStore.videoId }}</div>
                 <div class="text-muted-more">{{ videoStore.subCount }} subs</div>
