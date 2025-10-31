@@ -28,7 +28,7 @@ const dialog = ref(false);
 
 <template>
     <Container v-if="playlist" :padding="false">
-        <div class="relative overflow-hidden aspect-[16/6]">
+        <div class="relative overflow-hidden aspect-[16/8]">
             <img
                 :src="BucketHelper.getThumbnailUrl(Number(playlist?.playlist_videos[0]?.video_id))"
                 alt=""
