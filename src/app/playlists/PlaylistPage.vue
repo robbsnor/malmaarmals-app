@@ -58,7 +58,7 @@ const dialog = ref(false);
                 </Auth>
             </div>
 
-            <div class="absolute bottom-0 border-b border-black-500 p-4 w-full">
+            <div class="absolute bottom-0 p-4 pb-0 w-full">
                 <h1 class="font-bold text-2xl">{{ playlist.title }}</h1>
                 <div class="text-muted">{{ playlist.description }}</div>
             </div>
