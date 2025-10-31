@@ -13,8 +13,8 @@ const authStore = useAuthStore();
 
 <template>
     <div>
-        <!-- <div>accessToken: {{ authStore.twitchAccessToken }}</div>
-        <div>refreshToken: {{ authStore.twitchRefreshToken }}</div> -->
+        <div>accessToken: {{ authStore.twitchAccessToken }}</div>
+        <div>refreshToken: {{ authStore.twitchRefreshToken }}</div>
 
         <Container>
             <div class="flex items-center justify-center py-12 flex-col gap-2 pb-6">
