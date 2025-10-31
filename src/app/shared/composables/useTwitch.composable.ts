@@ -50,11 +50,11 @@ export function useTwitch() {
         error: Error | null;
     }> => {
         if (!authStore.session) {
-            return { data: null, error: new Error('Not logged in, or has missing tokens') };
+            return { data: null, error: new Error('Not logged in') };
         }
 
         if (!authStore.twitchAccessToken || !authStore.twitchRefreshToken) {
-            await authStore.signOut();
+            // await authStore.signOut();
             return { data: null, error: new Error('Missing Twitch tokens') };
         }
 
