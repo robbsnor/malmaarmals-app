@@ -36,10 +36,16 @@ const dialog = ref(false);
             />
             <div class="absolute inset-0 bg-linear-to-b from-black/50 to-black-100"></div>
 
-            <Auth>
-                <div class="absolute top-0 w-full p-4 flex justify-end gap-2">
-                    <!-- <v-btn variant="tonal" icon="mdi-pencil" size="x-small" class="cursor-pointer" /> -->
+            <div class="p-4 flex justify-between gap-4">
+                <v-btn
+                    :to="{ name: 'archive', query: { type: 'playlists' } }"
+                    variant="tonal"
+                    prependIcon="mdi-chevron-left"
+                >
+                    Playlists
+                </v-btn>
 
+                <Auth>
                     <v-btn
                         variant="tonal"
                         icon="mdi-trash-can-outline"
@@ -49,8 +55,8 @@ const dialog = ref(false);
                         @click="dialog = true"
                     />
                     <DeletePlaylistDialog :playlist="playlist" v-model="dialog" />
-                </div>
-            </Auth>
+                </Auth>
+            </div>
 
             <div class="absolute bottom-0 border-b border-black-500 p-4 w-full">
                 <h1 class="font-bold text-2xl">{{ playlist.title }}</h1>
