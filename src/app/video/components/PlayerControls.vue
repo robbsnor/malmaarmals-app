@@ -20,6 +20,7 @@ const goBack = () => {
 
 <template>
     <div
+        v-if="!videoStore.player.isMini"
         v-visible="videoStore.showControllsAndInfo && !videoStore.player.isMini"
         class="absolute inset-0 flex flex-col gap-4 z-50"
     >

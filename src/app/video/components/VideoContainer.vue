@@ -24,7 +24,7 @@ const authStore = useAuthStore();
             <div v-if="!!videoStore.videoInfo" class="md:overflow-auto md:scroll-hidden">
                 <Player />
                 <Info />
-                <InfoLarge />
+                <InfoLarge v-if="!videoStore.player.isMini" />
             </div>
 
             <Chat v-if="!videoStore.player.isMini" class="shrink-0 w-full md:w-[250px]" />
