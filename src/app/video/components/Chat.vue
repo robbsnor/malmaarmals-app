@@ -35,6 +35,7 @@ const setRenderedMessages = (sec: number) => {
 };
 
 const scrollToBottom = async () => {
+    if (!chatRef.value) return;
     await nextTick();
     chatRef.value.scrollTop = chatRef.value.scrollHeight;
 };
@@ -53,7 +54,10 @@ watch(
 </script>
 
 <template>
-    <div v-if="videoStore.messages" class="p-2 h-full">
+    <div
+        v-if="videoStore.messages && !videoStore.player.isMini"
+        class="shrink-0 w-full md:w-[250px] lg:w-[350px] p-2 h-full"
+    >
         <ul
             ref="chatRef"
             class="flex flex-col gap-1 overflow-y-auto overflow-x-hidden h-full self-stretch scroll-hidden"
