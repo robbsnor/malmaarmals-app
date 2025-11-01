@@ -54,7 +54,7 @@ export function useTwitch() {
         }
 
         if (!authStore.twitchAccessToken || !authStore.twitchRefreshToken) {
-            // await authStore.signOut();
+            await authStore.signOut();
             return { data: null, error: new Error('Missing Twitch tokens') };
         }
 
