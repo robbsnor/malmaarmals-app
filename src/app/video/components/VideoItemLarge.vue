@@ -38,6 +38,7 @@ const formattedDuration = computed(() => {
             :to="{ name: 'video', params: { id: props.video.video_id } }"
             :src="BucketHelper.getThumbnailUrl(props.video.video_id)"
             :videoId="props.video.video_id"
+            class="w-36"
         >
             <div
                 class="absolute right-2 bottom-2 bg-black/20 leading-none py-1.5 px-2 backdrop-blur-2xl text-normal text-sm rounded-md"
