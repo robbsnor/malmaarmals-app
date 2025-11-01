@@ -28,6 +28,6 @@ const authStore = useAuthStore();
 
         <Playlists />
 
-        <History />
+        <!-- <History /> -->
     </div>
 </template>
