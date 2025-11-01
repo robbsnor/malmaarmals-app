@@ -23,12 +23,12 @@ const goBack = () => {
 function changeOrientation() {
     if (!isSupported) return;
 
-    alert(orientation.value);
-
     if (orientation.value === 'landscape-primary' || orientation.value === 'landscape-secondary') {
+        console.log('isLandscape');
         unlockOrientation();
         lockOrientation('portrait-primary');
     } else {
+        console.log('isPortrait');
         unlockOrientation();
         lockOrientation('landscape-primary');
     }
