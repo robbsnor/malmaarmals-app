@@ -7,6 +7,7 @@ import { useTemplateRef } from 'vue';
 import ChaptersMenu from './ChaptersMenu.vue';
 import AddToPlaylist from './AddToPlaylist.vue';
 import PlayerButton from './PlayerButton.vue';
+import { useScreenOrientation } from '@vueuse/core';
 
 const videoStore = useVideoStore();
 const router = useRouter();
@@ -14,9 +15,24 @@ const { isFullscreen, enter, exit, toggle } = useFullscreen();
 const durationEl = useTemplateRef<HTMLDivElement>('durationEl');
 const { width, height } = useElementSize(durationEl);
 
+const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
 const goBack = () => {
     router.back();
 };
+
+function changeOrientation() {
+    if (!isSupported) return;
+
+    alert(orientation.value);
+
+    if (orientation.value === 'landscape-primary' || orientation.value === 'landscape-secondary') {
+        unlockOrientation();
+        lockOrientation('portrait-primary');
+    } else {
+        unlockOrientation();
+        lockOrientation('landscape-primary');
+    }
+}
 </script>
 
 <template>
@@ -37,6 +53,7 @@ const goBack = () => {
             />
 
             <div class="flex gap-1">
+                {{ isSupported }}, {{ orientation }}
                 <PlayerButton icon="mdi-fullscreen" @click="toggle()" />
                 <AddToPlaylist />
                 <PlayerButton icon="mdi-cog-outline" />
@@ -71,7 +88,12 @@ const goBack = () => {
 
                 <div class="relative flex items-center gap-2">
                     <ChaptersMenu size="small" />
-                    <PlayerButton :size="22" icon="mdi-phone-rotate-landscape" class="-scale-x-100" @click="toggle()" />
+                    <PlayerButton
+                        :size="22"
+                        icon="mdi-phone-rotate-landscape"
+                        class="-scale-x-100"
+                        @click="changeOrientation()"
+                    />
                 </div>
             </div>
 
