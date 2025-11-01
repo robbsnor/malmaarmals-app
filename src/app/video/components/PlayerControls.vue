@@ -33,14 +33,13 @@ const goBack = () => {
                     videoStore.player.isMini = true;
                     goBack();
                 "
-                :size="24"
                 icon="mdi-chevron-down"
             />
 
-            <div class="flex gap-2">
-                <PlayerButton :size="24" icon="mdi-fullscreen" @click="toggle()" />
+            <div class="flex gap-1">
+                <PlayerButton icon="mdi-fullscreen" @click="toggle()" />
                 <AddToPlaylist />
-                <PlayerButton :size="24" icon="mdi-cog-outline" />
+                <PlayerButton icon="mdi-cog-outline" />
             </div>
         </div>
 

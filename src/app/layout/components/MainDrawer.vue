@@ -13,20 +13,22 @@ const groups = computed(() => {
 
     return [
         [
-            { name: 'History', icon: 'mdi-history', hidden: !isSignedIn },
-            { name: 'Prefferences', icon: 'mdi-cog', hidden: !isSignedIn },
+            { name: 'History', icon: 'mdi-history', hidden: !isSignedIn, disabled: true },
+            { name: 'Prefferences', icon: 'mdi-cog', hidden: !isSignedIn, disabled: true },
         ],
         [
-            { name: 'Statistics', icon: 'mdi-chart-line' },
+            { name: 'Statistics', icon: 'mdi-chart-line', disabled: true },
             { name: 'About', to: '/about', icon: 'mdi-information' },
-            { name: 'Donate', icon: 'mdi-heart', hidden: !isSignedIn },
+            // { name: 'Donate', icon: 'mdi-heart', hidden: !isSignedIn, disabled: true },
         ],
         [{ name: 'Sign out', link: '/sign-out', icon: 'mdi-logout', hidden: !isSignedIn, action: 'sign-out' }],
     ].filter((group) => group.some((item) => !item.hidden)) as any;
 });
 
 const handleClick = async (item: any) => {
-    if (item?.action === 'sign-out') {
+    if (item.disabled) return;
+
+    if (item.action === 'sign-out') {
         await authStore.signOut();
     }
 
@@ -97,8 +99,13 @@ const handleClick = async (item: any) => {
                                 :to="item.to"
                                 v-if="!item.hidden"
                                 @click="handleClick(item)"
-                                class="w-full text-left px-4 py-3 bg-black-400 hover:bg-black-600 text-normal transition flex gap-3 cursor-pointer items-center first:rounded-t-md last:rounded-b-md"
-                                :class="item.icon === 'mdi-logout' ? 'text-red-500' : ''"
+                                :class="[
+                                    'w-full text-left px-4 py-3 bg-black-400 hover:bg-black-600 text-normal transition flex gap-3 cursor-pointer items-center first:rounded-t-md last:rounded-b-md',
+                                    {
+                                        'text-red-500': item.icon === 'mdi-logout',
+                                        'bg-red-500 cursor-disabled!': item.disabled,
+                                    },
+                                ]"
                             >
                                 <v-icon :icon="item.icon" size="16" />
                                 {{ item.name }}

@@ -2,7 +2,7 @@
 import { useVideoStore } from '../stores/video.store';
 import { useAppStore } from '../../shared/stores/app.store';
 import { RouterLink, useRouter } from 'vue-router';
-import MiniPlayerButton from './MiniPlayerButton.vue';
+import MiniplayerButton from './MiniplayerButton.vue';
 
 const videoStore = useVideoStore();
 const router = useRouter();
@@ -27,19 +27,19 @@ function close() {
         class="absolute inset-0 flex justify-between items-start p-2"
         @click.self="maximizePlayer"
     >
-        <MiniPlayerButton v-if="videoStore.waiting">
+        <MiniplayerButton v-if="videoStore.waiting">
             <v-progress-circular v-if="videoStore.waiting" class="relative" indeterminate size="24" width="2" />
-        </MiniPlayerButton>
+        </MiniplayerButton>
 
-        <MiniPlayerButton v-else @click="togglePlay">
+        <MiniplayerButton v-else @click="togglePlay">
             <v-icon
                 size="24"
                 :icon="videoStore.playing || (!videoStore.playing && videoStore.waiting) ? 'mdi-pause' : 'mdi-play'"
             />
-        </MiniPlayerButton>
+        </MiniplayerButton>
 
-        <MiniPlayerButton @click="close">
+        <MiniplayerButton @click="close">
             <v-icon size="24" icon="mdi-close" />
-        </MiniPlayerButton>
+        </MiniplayerButton>
     </button>
 </template>
