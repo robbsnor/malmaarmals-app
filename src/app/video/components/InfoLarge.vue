@@ -16,7 +16,7 @@ const date = computed(() => {
 </script>
 
 <template>
-    <div class="hidden md:block overflow-hidden rounded-md">
+    <div v-if="!videoStore.player.isMini" class="hidden md:block overflow-hidden rounded-md">
         <div class="flex justify-between items-center gap-4 pb-4 p-4">
             <div class="p-8">
                 <div class="font-bold text-lg">{{ videoStore.videoInfo.title }}</div>
