@@ -6,6 +6,7 @@ import { useVideoStore } from '../stores/video.store';
 import { useTemplateRef } from 'vue';
 import ChaptersMenu from './ChaptersMenu.vue';
 import AddToPlaylist from './AddToPlaylist.vue';
+import PlayerButton from './PlayerButton.vue';
 
 const videoStore = useVideoStore();
 const router = useRouter();
@@ -27,37 +28,29 @@ const goBack = () => {
         <div class="absolute inset-0 bg-black/50" @click="videoStore.showControllsAndInfo = false"></div>
 
         <div class="flex items-center justify-between gap-4 py-2 px-4">
-            <v-icon
+            <PlayerButton
                 @click="
                     videoStore.player.isMini = true;
                     goBack();
                 "
-                size="24"
+                :size="24"
                 icon="mdi-chevron-down"
             />
 
-            <div class="flex gap-4">
-                <v-icon size="24" icon="mdi-fullscreen" @click="toggle()" />
+            <div class="flex gap-2">
+                <PlayerButton :size="24" icon="mdi-fullscreen" @click="toggle()" />
                 <AddToPlaylist />
-                <v-icon size="24" icon="mdi-cog-outline" />
+                <PlayerButton :size="24" icon="mdi-cog-outline" />
             </div>
         </div>
 
         <div class="flex justify-center items-center gap-4 grow p-2">
-            <!-- <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime -= 5">
-                <v-icon size="24" icon="mdi-rewind-5" />
-            </v-btn> -->
-
             <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime -= 10">
                 <v-icon size="24" icon="mdi-rewind-10" />
             </v-btn>
 
-            <!-- <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime -= 30">
-                <v-icon size="24" icon="mdi-rewind-30" />
-            </v-btn> -->
-
-            <v-progress-circular class="relative" v-if="videoStore.waiting" indeterminate size="64" />
-            <v-btn v-else icon variant="plain" size="lage" @click="videoStore.playing = !videoStore.playing">
+            <v-progress-circular v-if="videoStore.waiting" class="relative" indeterminate size="64" />
+            <v-btn v-else icon variant="plain" @click="videoStore.playing = !videoStore.playing">
                 <v-icon
                     :icon="videoStore.playing || (!videoStore.playing && videoStore.waiting) ? 'mdi-pause' : 'mdi-play'"
                     size="64"
@@ -67,10 +60,6 @@ const goBack = () => {
             <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime += 30">
                 <v-icon size="24" icon="mdi-fast-forward-30" />
             </v-btn>
-
-            <!-- <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime += 60">
-                <v-icon size="24" icon="mdi-fast-forward-60" />
-            </v-btn> -->
         </div>
 
         <div class="flex flex-col px-4">
@@ -81,9 +70,9 @@ const goBack = () => {
                     <div ref="durationEl" class="text-right">{{ videoStore.prettyDuration }}</div>
                 </div>
 
-                <div class="relative flex items-center gap-4">
+                <div class="relative flex items-center gap-2">
                     <ChaptersMenu size="small" />
-                    <v-icon size="24" icon="mdi-phone-rotate-landscape" class="-scale-x-100" @click="toggle()" />
+                    <PlayerButton :size="22" icon="mdi-phone-rotate-landscape" class="-scale-x-100" @click="toggle()" />
                 </div>
             </div>
 

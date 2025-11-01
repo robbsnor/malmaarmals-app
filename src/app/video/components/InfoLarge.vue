@@ -18,13 +18,13 @@ const date = computed(() => {
 <template>
     <div v-if="!videoStore.player.isMini" class="hidden md:block overflow-hidden">
         <div class="flex justify-between items-start gap-8 p-4 bg-black-200 rounded-t-md">
-            <div class=" ">
+            <SafeArea>
                 <div class="font-bold text-lg">{{ videoStore.videoInfo.title }}</div>
                 <div class="text-muted">{{ date }}</div>
                 <div class="text-muted-more">
                     {{ videoStore.messages.length }} messages, {{ videoStore.subCount }} subs
                 </div>
-            </div>
+            </SafeArea>
 
             <ChaptersMenu />
         </div>

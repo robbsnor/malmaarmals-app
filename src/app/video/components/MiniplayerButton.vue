@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 </script>
 
 <template>
-    <div class="p-2 bg-black/50 rounded-full">
+    <div class="bg-black/50 rounded-full flex justify-center items-center size-12">
         <slot></slot>
     </div>
 </template>

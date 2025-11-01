@@ -8,6 +8,7 @@ import { useArchiveStore } from '../../archive/stores/archive.store';
 import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
 import { useVideoStore } from '../stores/video.store';
 import type { Tables } from '../../shared/types/database.types';
+import PlayerButton from './PlayerButton.vue';
 
 const formDefault = {
     playlist_id: null,
@@ -49,7 +50,7 @@ const submit = async () => {
     <v-bottom-sheet v-model="sheet" inset>
         <template #activator="{ props }">
             <Auth>
-                <v-icon v-bind="props" size="24" icon="mdi-plus" />
+                <PlayerButton v-bind="props" :size="24" icon="mdi-plus" />
             </Auth>
         </template>
 

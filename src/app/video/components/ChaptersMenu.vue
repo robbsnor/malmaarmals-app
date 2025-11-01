@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useVideoStore } from '../stores/video.store';
+import PlayerButton from './PlayerButton.vue';
 
 const props = withDefaults(
     defineProps<{
@@ -30,7 +31,12 @@ const prettyTime = (seconds: number) => {
 <template>
     <v-menu location="top right">
         <template v-slot:activator="{ props }">
-            <v-icon v-if="size === 'small'" v-bind="props" size="24">mdi-format-list-bulleted</v-icon>
+            <PlayerButton
+                v-if="size === 'small'"
+                v-bind="props"
+                icon="mdi-format-list-bulleted"
+                :size="24"
+            ></PlayerButton>
 
             <v-btn
                 v-if="size === 'big'"
