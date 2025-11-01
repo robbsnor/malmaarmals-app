@@ -15,7 +15,7 @@ const props = withDefaults(
         :to="`/playlists/${props.playlist.id}`"
         class="relative transition-all duration-200 rounded-md flex gap-4"
     >
-        <div class="relative transition-all duration-200 group w-32 shrink-0">
+        <div class="relative transition-all duration-200 group w-36 shrink-0">
             <div
                 v-for="n in 3"
                 :key="n"
