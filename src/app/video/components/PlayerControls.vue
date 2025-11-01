@@ -75,7 +75,7 @@ const goBack = () => {
 
         <div class="flex flex-col px-4">
             <div class="flex items-end justify-between gap-4">
-                <div class="relative flex items-center gap-4 leading-tight">
+                <div class="relative flex items-center gap-2 leading-tight">
                     <div :style="{ width: `${width}pfx` }">{{ videoStore.prettyCurrentTime }}</div>
                     /
                     <div ref="durationEl" class="text-right">{{ videoStore.prettyDuration }}</div>
