@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { nextTick, onMounted, ref, useTemplateRef } from 'vue';
-import { useRouter } from 'vue-router';
+import { nextTick, onMounted, useTemplateRef } from 'vue';
 import { useVideoStore } from '../stores/video.store';
 import { useFullscreen } from '@vueuse/core';
 import { useAppStore } from '../../shared/stores/app.store';
@@ -25,7 +24,6 @@ onMounted(async () => {
 <template>
     <div class="relative h-full w-full aspect-video flex flex-col items-center justify-center">
         <video
-            controlsf
             preload="metadata"
             class="aspect-video w-full"
             ref="videoRef"
