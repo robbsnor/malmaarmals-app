@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Stats from '../../app/home/components/Stats.vue';
-import LatestVideo from './components/LatestVideo.vue';
 import Playlists from './components/Playlists.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import PrevStreams from './components/PrevStreams.vue';
