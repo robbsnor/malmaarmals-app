@@ -4,6 +4,7 @@ import { useAuthStore } from '../../auth/stores/auth.store';
 import { useAppStore } from '../../shared/stores/app.store';
 import { useRouter, RouterLink } from 'vue-router';
 import { computed } from 'vue';
+import SignInButton from '../../shared/components/SignInButton.vue';
 
 const appStore = useAppStore();
 const authStore = useAuthStore();
@@ -78,15 +79,7 @@ const handleClick = async (item: any) => {
                 <div v-else class="p-4">
                     <div class="text-2xl font-bold">You are not logged in,</div>
                     <p class="text-muted">Log in with Twitch to start watching streams</p>
-                    <v-btn
-                        color="primary"
-                        variant="tonal"
-                        prepend-icon="mdi-twitch"
-                        @click="authStore.signIn()"
-                        class="w-full"
-                    >
-                        Login
-                    </v-btn>
+                    <SignInButton />
                 </div>
             </div>
 
@@ -103,7 +96,7 @@ const handleClick = async (item: any) => {
                                     'w-full text-left px-4 py-3 bg-black-400 hover:bg-black-600 text-normal transition flex gap-3 cursor-pointer items-center first:rounded-t-md last:rounded-b-md',
                                     {
                                         'text-red-500': item.icon === 'mdi-logout',
-                                        'bg-red-500 cursor-disabled!': item.disabled,
+                                        ' opacity-50 hover:bg-black-400! cursor-default!': item.disabled,
                                     },
                                 ]"
                             >
