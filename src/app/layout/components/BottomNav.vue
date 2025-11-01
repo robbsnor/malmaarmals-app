@@ -10,7 +10,7 @@ const { top, right, bottom, left } = useScreenSafeArea();
 const appStore = useAppStore();
 const authStore = useAuthStore();
 const menuItems = ref([
-    { title: 'home', icon: 'mdi-home', to: '/' },
+    { title: 'home', icon: 'mdi-collage', to: '/' },
     { title: 'archive', icon: 'mdi-magnify', to: '/archive', id: 'bottom-search' },
     // { title: 'playlists', icon: 'mdi-playlist-play', to: '/playlists' },
     // { title: 'more', icon: 'mdi-dots-horizontal', action: 'mainDrawer' },
