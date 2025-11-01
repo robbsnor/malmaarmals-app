@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { useVideoStore } from '../stores/video.store';
+import SignInButton from '../../shared/components/SignInButton.vue';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
@@ -19,15 +20,7 @@ const authStore = useAuthStore();
                 <template v-if="!authStore.session">
                     <div class="text-2xl font-bold">You are not logged in,</div>
                     <p class="text-muted">Log in with Twitch to start watching streams</p>
-                    <v-btn
-                        color="primary"
-                        variant="tonal"
-                        prepend-icon="mdi-twitch"
-                        @click="authStore.signIn()"
-                        class="w-full"
-                    >
-                        Login
-                    </v-btn>
+                    <SignInButton />
                 </template>
 
                 <template v-else>
