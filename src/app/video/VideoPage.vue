@@ -18,6 +18,9 @@ onMounted(async () => {
     if (!authStore.canWatch) return;
 
     videoStore.videoId = route.params.id as string;
+    videoStore.currentTime = 0;
+    videoStore.duration = 0;
+
     await videoStore.fetchVideoInfo();
     await videoStore.fetchMessages();
 });
