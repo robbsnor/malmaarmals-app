@@ -81,7 +81,7 @@ const dialog = ref(false);
                     />
 
                     <div>
-                        <h2 class="font-bold text-md">
+                        <h2 class="font-bold text-md line-clamp-2">
                             {{ video.title }}
                         </h2>
                         <div class="text-muted-more text-sm font-medium">{{ daysAgo(video) }} days ago</div>
