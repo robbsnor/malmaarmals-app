@@ -54,7 +54,6 @@ function changeOrientation() {
             />
 
             <div class="flex gap-1">
-                {{ isSupported }}, {{ orientation }}
                 <PlayerButton icon="mdi-fullscreen" @click="toggle()" />
                 <AddToPlaylist />
                 <PlayerButton icon="mdi-cog-outline" />
