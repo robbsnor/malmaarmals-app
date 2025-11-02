@@ -8,6 +8,7 @@ import ChaptersMenu from './ChaptersMenu.vue';
 import AddToPlaylist from './AddToPlaylist.vue';
 import PlayerButton from './PlayerButton.vue';
 import { useScreenOrientation } from '@vueuse/core';
+import ChapterMarker from './ChapterMarker.vue';
 
 const videoStore = useVideoStore();
 const router = useRouter();
@@ -99,7 +100,7 @@ function changeOrientation() {
                 </div>
             </div>
 
-            <div class="-mx-2">
+            <div class="relative">
                 <v-slider
                     v-model="videoStore.currentTime"
                     hide-details="auto"
@@ -110,7 +111,19 @@ function changeOrientation() {
                     :min="0"
                     :step="1"
                 />
+
+                <ChapterMarker v-for="chapter in videoStore.chapters" :key="chapter.start_s" :chapter="chapter" />
             </div>
         </div>
     </div>
 </template>
+
+<style scoped>
+.v-slider.v-input--horizontal {
+    margin: 0;
+}
+
+:deep(.v-slider-thumb) {
+    /* z-index: 22 !important; */
+}
+</style>
