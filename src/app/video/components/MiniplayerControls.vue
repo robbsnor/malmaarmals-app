@@ -16,7 +16,6 @@ function togglePlay() {
 }
 
 function close() {
-    videoStore.reset();
     videoStore.player.isActive = false;
 }
 </script>

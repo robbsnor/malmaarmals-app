@@ -17,9 +17,8 @@ onMounted(async () => {
     if (isSamePage) return;
     if (!authStore.canWatch) return;
 
+    videoStore.reset();
     videoStore.videoId = route.params.id as string;
-    videoStore.currentTime = 0;
-    videoStore.duration = 0;
 
     await videoStore.fetchVideoInfo();
     await videoStore.fetchMessages();
