@@ -61,21 +61,23 @@ function changeOrientation() {
         </div>
 
         <div class="flex justify-center items-center gap-4 grow p-2">
-            <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime -= 10">
+            <button @click="videoStore.currentTime -= 10">
                 <v-icon size="24" icon="mdi-rewind-10" />
-            </v-btn>
+            </button>
 
-            <v-progress-circular v-if="videoStore.waiting" class="relative" indeterminate size="64" />
-            <v-btn v-else icon variant="plain" @click="videoStore.playing = !videoStore.playing">
+            <div v-if="videoStore.waiting" class="relative size-16 flex justify-center items-center">
+                <v-progress-circular class="relative" indeterminate size="48" width="4" />
+            </div>
+            <button v-else @click="videoStore.playing = !videoStore.playing">
                 <v-icon
                     :icon="videoStore.playing || (!videoStore.playing && videoStore.waiting) ? 'mdi-pause' : 'mdi-play'"
                     size="64"
                 />
-            </v-btn>
+            </button>
 
-            <v-btn icon variant="plain" size="x-small" @click="videoStore.currentTime += 30">
+            <button @click="videoStore.currentTime += 30">
                 <v-icon size="24" icon="mdi-fast-forward-30" />
-            </v-btn>
+            </button>
         </div>
 
         <div class="flex flex-col px-4">
