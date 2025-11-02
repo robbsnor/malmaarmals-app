@@ -254,3 +254,8 @@ button {
 .v-expansion-panel-text {
     @apply text-muted;
 }
+
+/* overlay */
+.v-overlay {
+    --v-overlay-opacity: 0.8;
+}
