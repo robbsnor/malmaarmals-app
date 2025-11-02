@@ -30,7 +30,7 @@ const menuItems = ref([
                 :key="item.title"
                 :to="item.to"
                 :id="item?.id"
-                activeClass="text-white"
+                activeClass="text-primary"
                 class="cursor-pointer flex flex-col justify-center items-center text-muted-more transition-all gap-[2px] py-2 px-6 text-light"
             >
                 <v-icon v-if="item.icon" :icon="item.icon" />
