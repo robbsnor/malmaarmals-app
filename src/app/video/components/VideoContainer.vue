@@ -31,6 +31,6 @@ const authStore = useAuthStore();
             <Chat />
         </div>
 
-        <ManageChapters />
+        <!-- <ManageChapters /> -->
     </div>
 </template>
