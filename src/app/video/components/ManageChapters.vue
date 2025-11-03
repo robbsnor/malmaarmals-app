@@ -27,13 +27,11 @@ watch(
     () => form.value.category,
     (newCategory) => {
         console.log(newCategory);
+        // console.log(newCategory);
     }
 );
 
-async function fetchTwitchCategories(e) {
-    console.log(e);
-    const { data } = await twitch.getGames({ names: [e] });
-    console.log(data);
+async function fetchTwitchCategories(e: string) {
     // Placeholder for fetching categories from Twitch API
 }
 
