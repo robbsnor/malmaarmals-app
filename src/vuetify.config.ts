@@ -8,6 +8,33 @@ export const vuetify = createVuetify({
             flat: true,
             ripple: false,
         },
+        VAutocomplete: {
+            hideDetails: 'auto',
+            variant: 'solo',
+            density: 'comfortable',
+        },
+        VSelect: {
+            clearable: true,
+            hideDetails: 'auto',
+            variant: 'solo',
+            density: 'comfortable',
+        },
+        VCombobox: {
+            clearable: true,
+            hideDetails: 'auto',
+            variant: 'solo',
+            density: 'comfortable',
+        },
+        VTextField: {
+            clearable: true,
+            variant: 'solo',
+            density: 'comfortable',
+        },
+        VNumberInput: {
+            variant: 'solo',
+            density: 'comfortable',
+            hideDetails: 'auto',
+        },
         VBtn: {
             // variant: 'tonal',
             // color: 'primary',
@@ -18,11 +45,6 @@ export const vuetify = createVuetify({
         VCheckbox: {
             // color: 'primary',
         },
-        VCombobox: {
-            clearable: true,
-            hideDetails: 'auto',
-            variant: 'solo',
-        },
         VDialog: {
             transition: 'slide-y-reverse-transition',
         },
@@ -32,22 +54,8 @@ export const vuetify = createVuetify({
         VMenu: {
             scrollStrategy: 'none',
         },
-        VSelect: {
-            clearable: true,
-            hideDetails: 'auto',
-            variant: 'solo',
-        },
         VSwitch: {
             hideDetails: 'auto',
-        },
-        VTextField: {
-            clearable: true,
-            variant: 'solo',
-            density: 'comfortable',
-        },
-        VNumberInput: {
-            variant: 'solo',
-            density: 'comfortable',
         },
         VTooltip: {
             location: 'top',

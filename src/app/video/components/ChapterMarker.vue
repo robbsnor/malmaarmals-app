@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useVideoStore } from '../stores/video.store';
 
 const props = withDefaults(
@@ -13,9 +13,11 @@ const videoStore = useVideoStore();
 
 const offsetLeft = computed(() => {
     if (!videoStore.duration) return;
+    if (props.chapter.title.toLowerCase() === 'beginning') return;
+
     const percentage = (100 / videoStore.duration) * props.chapter.start_s;
     if (percentage <= 0) return;
-    console.log(percentage);
+
     return percentage + '%';
 });
 </script>

@@ -26,7 +26,7 @@ const date = computed(() => {
                 </div>
             </SafeArea>
 
-            <ChaptersMenu />
+            <!-- <ChaptersMenu /> -->
         </div>
     </div>
 </template>

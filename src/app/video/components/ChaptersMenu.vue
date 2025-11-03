@@ -50,10 +50,11 @@ const prettyTime = (seconds: number) => {
             </v-btn>
         </template>
 
-        <div class="flex flex-col gap-2 bg-black-200 border border-black-400 h-100 rounded-xl overflow-auto p-2">
+        <div class="flex flex-col gap-2 bg-black-200 border border-black-400 max-h-100 rounded-xl overflow-auto p-2">
             <button
                 v-for="chapter in videoStore.chapters"
                 :key="chapter.start_s"
+                @click="videoStore.currentTime = chapter.start_s"
                 class="flex w-[300px] gap-2 p-3 bg-black-300 border border-black-500 rounded-md shrink-0 cursor-pointer text-left transition-all hover:bg-black-400"
             >
                 <img :src="chapter.image_url" alt="chapter image" class="inline h-10 mr-2 rounded-md" />
