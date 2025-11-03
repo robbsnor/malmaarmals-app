@@ -28,7 +28,7 @@ const offsetLeft = computed(() => {
             <div
                 v-if="offsetLeft"
                 v-bind="props"
-                class="size-4 flex justify-center items-center absolute cursor-pointer left-10 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20"
+                class="size-5 flex justify-center items-center absolute cursor-pointer left-10 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20"
                 :style="{ left: offsetLeft }"
                 @click="videoStore.currentTime = chapter.start_s"
             >
