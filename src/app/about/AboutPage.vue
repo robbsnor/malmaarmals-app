@@ -18,10 +18,10 @@ const faqs = ref([
 </script>
 
 <template>
-    <Container width="800px">
+    <Container width="600px">
         <div class="fs">
             <h2>About Malmaarmals</h2>
-            <p>Malmaarmals is a website to archive and showcase the videos of the duo from LekkerSpelen.</p>
+            <p>Malmaarmals is a website to archive and showcase old Twitch streams from the duo from Lekker Spelen.</p>
 
             <h2>F.A.Q.</h2>
             <v-expansion-panels>

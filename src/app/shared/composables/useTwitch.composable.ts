@@ -285,31 +285,31 @@ export function useTwitch() {
     //     return res.data;
     // };
 
-    // const getGames = async (game: { ids?: number[]; names?: string[] }): Promise<TwitchGetGames> => {
-    //     const url = new URL('https://api.twitch.tv/helix/games');
-    //     if (game.ids) game.ids.forEach((id) => url.searchParams.append('id', id.toString()));
-    //     if (game.names) game.names.forEach((name) => url.searchParams.append('name', name));
+    const getGames = async (game: { ids?: number[]; names?: string[] }): Promise<TwitchGetGames> => {
+        const url = new URL('https://api.twitch.tv/helix/games');
+        if (game.ids) game.ids.forEach((id) => url.searchParams.append('id', id.toString()));
+        if (game.names) game.names.forEach((name) => url.searchParams.append('name', name));
 
-    //     const res = await get<TwitchGetGames>(url.toString());
+        const res = await req<TwitchGetGames>(url.toString());
 
-    //     let orderedGames: TwitchGame[] = [];
+        let orderedGames: TwitchGame[] = [];
 
-    //     // the ordering of the games could look prettier
-    //     if (game.ids) {
-    //         orderedGames = game.ids
-    //             .map((gameId) => res.data.data.find((game) => Number(game.id) === gameId))
-    //             .filter(Boolean) as TwitchGame[];
-    //     }
+        // the ordering of the games could look prettier
+        if (game.ids) {
+            orderedGames = game.ids
+                .map((gameId) => res.data.data.find((game) => Number(game.id) === gameId))
+                .filter(Boolean) as TwitchGame[];
+        }
 
-    //     if (game.names) {
-    //         orderedGames = game.names
-    //             .map((gameName) => res.data.data.find((game) => game.name.toLowerCase() === gameName.toLowerCase()))
-    //             .filter(Boolean) as TwitchGame[];
-    //     }
+        if (game.names) {
+            orderedGames = game.names
+                .map((gameName) => res.data.data.find((game) => game.name.toLowerCase() === gameName.toLowerCase()))
+                .filter(Boolean) as TwitchGame[];
+        }
 
-    //     res.data.data = orderedGames;
-    //     return res.data;
-    // };
+        res.data.data = orderedGames;
+        return res.data;
+    };
 
     // const getStreamsByGameIds = async (ids: number[]): Promise<TwitchGetStreams> => {
     //     const url = new URL('https://api.twitch.tv/helix/streams');
@@ -359,5 +359,6 @@ export function useTwitch() {
     return {
         getFollowedStreams,
         checkUserSubscription,
+        getGames,
     };
 }

@@ -5,6 +5,11 @@ export const CHAPTERS_MOCK = [
         image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/509658-100x133.jpg',
     },
     {
+        start_s: 30,
+        title: 'Beginning',
+        image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/509658-100x133.jpg',
+    },
+    {
         start_s: 11 * 60 + 40,
         title: 'Jacks Toys',
         image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/1826300051_IGDB-100x133.jpg',
@@ -15,8 +20,8 @@ export const CHAPTERS_MOCK = [
         image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/1826300051_IGDB-100x133.jpg',
     },
     {
-        start_s: 58 * 60 + 42,
-        title: 'Greyhill Incident (fout)',
+        start_s: 1 * 60 * 60 + 30 * 60 + 36,
+        title: 'laatste',
         image_url: 'https://static-cdn.jtvnw.net/ttv-boxart/1826300051_IGDB-100x133.jpg',
     },
 ];
