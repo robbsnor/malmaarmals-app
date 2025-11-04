@@ -29,7 +29,7 @@ const prettyTime = (seconds: number) => {
 </script>
 
 <template>
-    <v-menu location="top right">
+    <v-menu v-if="videoStore.chapters?.length" location="top right">
         <template v-slot:activator="{ props }">
             <PlayerButton
                 v-if="size === 'small'"
