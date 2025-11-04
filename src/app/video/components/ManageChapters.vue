@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { supabase } from '../../../supabase';
 import BottomSheetContainer from '../../shared/components/BottomSheetContainer.vue';
 import { useDebounceFn } from '@vueuse/core';
@@ -53,16 +53,44 @@ function addChapter() {
     });
 }
 
+async function saveCategories() {
+    const categoriesForm = form.value.map((row) => ({
+        category_id: row.category.id,
+        title: row.category.name,
+        image_url: row.category.boxArtUrl,
+    }));
+
+    const { error } = await supabase.from('categories').upsert(categoriesForm, { onConflict: 'category_id' });
+
+    if (error) return console.error('Error upserting category:', error);
+}
+
+async function deleteExistingChapters() {
+    const { error } = await supabase.from('chapters').delete().eq('video_id', videoStore.videoId);
+
+    if (error) return console.error('Error deleting existing chapters:', error);
+}
+
+async function saveChapters() {
+    const chaptersForm = form.value.map((row, i) => ({
+        video_id: videoStore.videoId,
+        category_id: row.category?.id,
+        start_s: row.startTime,
+        end_s: i < form.value.length - 1 ? form.value[i + 1].startTime : Math.floor(videoStore.duration),
+    }));
+
+    const { error } = await supabase.from('chapters').insert(chaptersForm);
+
+    if (error) return console.error('Error inserting chapter:', error);
+}
+
 const submit = async () => {
-    // loading.value = true;
-    // const { error } = await supabase.from('playlist_videos').insert({
-    //     playlist_id: form.value.playlist_id,
-    //     video_id: videostore.videoInfo.id,
-    // });
-    // loading.value = false;
-    // if (error) return console.log(error);
-    // form.value = { ...formDefault };
-    // await playlistsStore.fetchPlaylists();
+    loading.value = true;
+    await saveCategories();
+    await deleteExistingChapters();
+    await saveChapters();
+
+    loading.value = false;
 };
 
 function deleteChapter(i: number) {

@@ -12,7 +12,7 @@ import { BucketHelper } from '../../shared/helpers/bucket.helper';
 
 export const useVideoStore = defineStore('video', () => {
     const videoInfo = ref<Tables<'videos'>>();
-    const videoId = ref('');
+    const videoId = ref<number>();
     const chapters = ref(CHAPTERS_MOCK);
     const showControllsAndInfo = ref(true);
     const messages = ref<Tables<'messages'>[]>([]);
