@@ -86,6 +86,7 @@ async function saveChapters() {
 
 const submit = async () => {
     loading.value = true;
+
     await saveCategories();
     await deleteExistingChapters();
     await saveChapters();
