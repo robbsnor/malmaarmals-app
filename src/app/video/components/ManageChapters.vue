@@ -5,6 +5,7 @@ import BottomSheetContainer from '../../shared/components/BottomSheetContainer.v
 import type { SearchCategory } from '../models/category.model';
 import ManageChapterRow from './ManageChapterRow.vue';
 import { useVideoStore } from '../stores/video.store';
+import { sleep } from '../../shared/helpers/sleep';
 
 export interface FormRow {
     startTime?: number;
@@ -75,12 +76,17 @@ const submit = async () => {
 
     loading.value = false;
 };
+
+async function cancel() {
+    videoStore.resetChaptersForm();
+    await sleep(500);
+    videoStore.showChapterManager = false;
+}
 </script>
 
 <template>
-    <div v-if="videoStore.videoInfo && videoStore.chapters" class="absolute top-8 right-8 z-60">
-        <BottomSheetContainer>
-            <div class="font-bold text-lg mb-4">Add chapters</div>
+    <v-bottom-sheet v-model="videoStore.showChapterManager" inset>
+        <BottomSheetContainer v-if="videoStore.videoInfo && videoStore.chapters" title="Manage chapters">
             <v-form v-auto-animate v-model="valid" class="flex flex-col gap-4">
                 <ManageChapterRow
                     v-for="(chapter, i) in videoStore.chapters"
@@ -92,12 +98,14 @@ const submit = async () => {
                 <div class="flex justify-center">
                     <v-btn @click="addEmptyChapter" color="primary" icon="mdi-plus"> </v-btn>
                 </div>
+            </v-form>
 
+            <template #footer>
                 <div class="flex items-center justify-end gap-4 -mx-4 pt-4 px-4 border-t border-black-500">
-                    <v-btn @click="videoStore.resetChaptersForm">Cancel</v-btn>
+                    <v-btn @click="cancel">Cancel</v-btn>
                     <v-btn color="primary" :disabled="!valid" :loading="loading" @click="submit">Save</v-btn>
                 </div>
-            </v-form>
+            </template>
         </BottomSheetContainer>
-    </div>
+    </v-bottom-sheet>
 </template>

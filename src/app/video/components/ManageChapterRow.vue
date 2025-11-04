@@ -64,10 +64,10 @@ function deleteChapter() {
             />
         </div>
 
-        <v-autocomplete
+        <!-- <v-autocomplete
             @update:search="fetchTwitchCategories"
             label="Category"
-            class="w-100"
+            width="100px"
             v-model="chapter.category"
             :rules="rules"
             hide-no-data
@@ -86,7 +86,7 @@ function deleteChapter() {
                     </div>
                 </v-list-item>
             </template>
-        </v-autocomplete>
+        </v-autocomplete> -->
 
         <div class="w-9 h-12 bg-black-500 rounded-sm">
             <img

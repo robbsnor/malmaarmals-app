@@ -16,6 +16,7 @@ export const useVideoStore = defineStore('video', () => {
     const chaptersOG = ref<ChaptersWithCategory>();
     const chapters = ref<ChaptersWithCategory>();
     const showControllsAndInfo = ref(true);
+    const showChapterManager = ref(true);
     const messages = ref<Tables<'messages'>[]>([]);
     const player = ref({
         isActive: false,
@@ -171,6 +172,7 @@ export const useVideoStore = defineStore('video', () => {
         chapters,
         videoSrc,
         showControllsAndInfo,
+        showChapterManager,
         messages,
         subCount,
         prettyCurrentTime,
