@@ -52,26 +52,23 @@ export type Database = {
             chapters: {
                 Row: {
                     category_id: string;
-                    chapter_id: string;
-                    duration_ms: number;
+                    end_s: number;
                     id: string;
-                    position_ms: number;
+                    start_s: number;
                     video_id: number;
                 };
                 Insert: {
                     category_id: string;
-                    chapter_id: string;
-                    duration_ms: number;
+                    end_s: number;
                     id?: string;
-                    position_ms: number;
+                    start_s: number;
                     video_id: number;
                 };
                 Update: {
                     category_id?: string;
-                    chapter_id?: string;
-                    duration_ms?: number;
+                    end_s?: number;
                     id?: string;
-                    position_ms?: number;
+                    start_s?: number;
                     video_id?: number;
                 };
                 Relationships: [

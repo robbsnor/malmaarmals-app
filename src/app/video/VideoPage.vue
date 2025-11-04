@@ -12,16 +12,17 @@ const authStore = useAuthStore();
 onMounted(async () => {
     videoStore.player.isActive = true;
     videoStore.player.isMini = false;
+    const videoId = Number(route.params.id);
 
-    const isSamePage = (route.params.id as string) === videoStore.videoId;
+    const isSamePage = videoId === videoStore.videoId;
     if (isSamePage) return;
     if (!authStore.canWatch) return;
 
     videoStore.reset();
-    videoStore.videoId = route.params.id as string;
+    videoStore.videoId = videoId;
 
     await videoStore.fetchVideoInfo();
-    await videoStore.fetchMessages();
+    // await videoStore.fetchMessages();
 });
 
 onUnmounted(() => {
