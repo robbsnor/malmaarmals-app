@@ -8,11 +8,13 @@ import { useIdle, useMediaControls } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { chaptersWithCategoryQuery, type ChaptersWithCategory } from '../models/chapters-with-category.model';
+import _ from 'lodash';
 
 export const useVideoStore = defineStore('video', () => {
     const videoInfo = ref<Tables<'videos'>>();
     const videoId = ref<number>();
-    const chapters = ref<ChaptersWithCategory>([]);
+    const chaptersOG = ref<ChaptersWithCategory>();
+    const chapters = ref<ChaptersWithCategory>();
     const showControllsAndInfo = ref(true);
     const messages = ref<Tables<'messages'>[]>([]);
     const player = ref({
@@ -43,7 +45,7 @@ export const useVideoStore = defineStore('video', () => {
         () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
     );
 
-    const fetchVideoInfo = async () => {
+    async function fetchVideoInfo() {
         videoInfo.value = null;
 
         const { data, error } = await supabase
@@ -55,9 +57,10 @@ export const useVideoStore = defineStore('video', () => {
 
         videoInfo.value = data;
         TitleHelper.setTitle(data.title);
-    };
+    }
 
     async function fetchChapters() {
+        chaptersOG.value = null;
         chapters.value = null;
 
         console.log('fetching chapters: ', videoId.value);
@@ -70,10 +73,11 @@ export const useVideoStore = defineStore('video', () => {
 
         if (error) throw error;
 
-        chapters.value = data;
+        chaptersOG.value = _.cloneDeep(data);
+        chapters.value = _.cloneDeep(data);
     }
 
-    const fetchMessages = async () => {
+    async function fetchMessages() {
         messages.value = [];
 
         let from = 0;
@@ -99,11 +103,11 @@ export const useVideoStore = defineStore('video', () => {
                 hasMore = false;
             }
         }
-    };
+    }
 
-    const setVideoRef = (el: HTMLVideoElement) => {
+    function setVideoRef(el: HTMLVideoElement) {
         videoRef.value = el;
-    };
+    }
 
     function reset() {
         console.log('reset');
@@ -131,6 +135,10 @@ export const useVideoStore = defineStore('video', () => {
         // currentTime.value = Number(timeObj.current_time_s);
     };
 
+    function resetChaptersForm() {
+        chapters.value = _.cloneDeep(chaptersOG.value);
+    }
+
     watch(currentTime, (newTime) => {
         saveVideoProgression(newTime);
     });
@@ -146,9 +154,20 @@ export const useVideoStore = defineStore('video', () => {
         if (!waiting.value) playing.value = true;
     });
 
+    watch(
+        () => chapters.value,
+        (newChapters) => {
+            // sort chapters by start_s
+            if (!newChapters) return;
+            chapters.value = newChapters.sort((a, b) => a.start_s - b.start_s);
+        },
+        { deep: true }
+    );
+
     return {
         videoInfo,
         videoId,
+        chaptersOG,
         chapters,
         videoSrc,
         showControllsAndInfo,
@@ -175,6 +194,7 @@ export const useVideoStore = defineStore('video', () => {
         fetchVideoInfo,
         fetchChapters,
         fetchMessages,
+        resetChaptersForm,
         setVideoRef,
         loadVideoProgression,
         reset,
