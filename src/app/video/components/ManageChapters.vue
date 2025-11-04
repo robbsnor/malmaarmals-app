@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { ref } from 'vue';
 import { supabase } from '../../../supabase';
 import BottomSheetContainer from '../../shared/components/BottomSheetContainer.vue';
-import { useDebounceFn } from '@vueuse/core';
 import type { SearchCategory } from '../models/category.model';
 import ManageChapterRow from './ManageChapterRow.vue';
 import { useVideoStore } from '../stores/video.store';
@@ -12,17 +11,11 @@ export interface FormRow {
     category?: SearchCategory;
 }
 
-const formDefault = {
-    startTime: 0,
-    category: null,
-};
-
 const videoStore = useVideoStore();
-// form doesnt reflect fetched chapters
 const valid = ref(false);
 const loading = ref(false);
 
-function addChapter() {
+function addEmptyChapter() {
     videoStore.chapters.push({
         category_id: null,
         end_s: 0,
@@ -36,8 +29,6 @@ function addChapter() {
             title: '',
         },
     });
-
-    videoStore.chapters = videoStore.chapters.sort((a, b) => a.start_s - b.start_s);
 }
 
 async function saveCategories() {
@@ -46,8 +37,6 @@ async function saveCategories() {
         title: chapter.category.title,
         image_url: chapter.category.image_url,
     }));
-
-    console.log(categories);
 
     for (const category of categories) {
         const { error } = await supabase.from('categories').upsert(category, { onConflict: 'category_id' });
@@ -81,6 +70,7 @@ const submit = async () => {
     await saveCategories();
     await deleteExistingChapters();
     await saveChapters();
+
     await videoStore.fetchChapters();
 
     loading.value = false;
@@ -91,7 +81,7 @@ const submit = async () => {
     <div v-if="videoStore.videoInfo && videoStore.chapters" class="absolute top-8 right-8 z-60">
         <BottomSheetContainer>
             <div class="font-bold text-lg mb-4">Add chapters</div>
-            <v-form v-model="valid" class="flex flex-col gap-4">
+            <v-form v-auto-animate v-model="valid" class="flex flex-col gap-4">
                 <ManageChapterRow
                     v-for="(chapter, i) in videoStore.chapters"
                     :key="chapter.start_s"
@@ -100,7 +90,7 @@ const submit = async () => {
                 />
 
                 <div class="flex justify-center">
-                    <v-btn @click="addChapter" color="primary" icon="mdi-plus"> </v-btn>
+                    <v-btn @click="addEmptyChapter" color="primary" icon="mdi-plus"> </v-btn>
                 </div>
 
                 <div class="flex items-center justify-end gap-4 -mx-4 pt-4 px-4 border-t border-black-500">
