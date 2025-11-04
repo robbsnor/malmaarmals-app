@@ -22,6 +22,7 @@ onMounted(async () => {
     videoStore.videoId = videoId;
 
     await videoStore.fetchVideoInfo();
+    await videoStore.fetchChapters();
     // await videoStore.fetchMessages();
 });
 

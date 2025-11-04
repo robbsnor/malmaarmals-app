@@ -1,26 +1,25 @@
 import { defineStore } from 'pinia';
-import { computed, onMounted, ref, useTemplateRef, watch, watchEffect, type ShallowRef } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { computed, ref, watch, watchEffect } from 'vue';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../../shared/types/database.types';
 import type { VideoProgression } from '../models/VideoProgression.model';
 import { TitleHelper } from '../../shared/helpers/title.helper';
-import { CHAPTERS_MOCK } from '../data/chapters.mock';
 import { useIdle, useMediaControls } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
+import { chaptersWithCategoryQuery, type ChaptersWithCategory } from '../models/chapters-with-category.model';
 
 export const useVideoStore = defineStore('video', () => {
     const videoInfo = ref<Tables<'videos'>>();
     const videoId = ref<number>();
-    const chapters = ref(CHAPTERS_MOCK);
+    const chapters = ref<ChaptersWithCategory>([]);
     const showControllsAndInfo = ref(true);
     const messages = ref<Tables<'messages'>[]>([]);
     const player = ref({
         isActive: false,
         isMini: true,
     });
-    const { idle, lastActive } = useIdle(7 * 1000);
+    const { idle } = useIdle(7 * 1000);
     const videoRef = ref<HTMLVideoElement>();
     // prettier-ignore
     const {
@@ -37,7 +36,7 @@ export const useVideoStore = defineStore('video', () => {
         muted,
     } = useMediaControls(videoRef);
     const showMobileControls = ref(true);
-    const videoSrc = computed(() => BucketHelper.getVideoUrl(Number(videoId.value)));
+    const videoSrc = computed(() => BucketHelper.getVideoUrl(videoId.value));
     const prettyCurrentTime = computed(() => TimeHelper.formatTime(currentTime.value));
     const prettyDuration = computed(() => TimeHelper.formatTime(duration.value));
     const subCount = computed(
@@ -52,11 +51,27 @@ export const useVideoStore = defineStore('video', () => {
             .select('*')
             .eq('video_id', Number(videoId.value))
             .single();
-        if (error) return console.error('Error fetching videos:', error);
+        if (error) throw error;
 
         videoInfo.value = data;
         TitleHelper.setTitle(data.title);
     };
+
+    async function fetchChapters() {
+        chapters.value = null;
+
+        console.log('fetching chapters: ', videoId.value);
+
+        const { data, error } = await supabase
+            .from('chapters')
+            .select('*, category:categories(*)')
+            .order('start_s', { ascending: true })
+            .eq('video_id', videoId.value);
+
+        if (error) throw error;
+
+        chapters.value = data;
+    }
 
     const fetchMessages = async () => {
         messages.value = [];
@@ -73,9 +88,7 @@ export const useVideoStore = defineStore('video', () => {
                 .order('offset_sec', { ascending: true })
                 .range(from, to);
 
-            if (error) {
-                return console.error('Error fetching messages:', error);
-            }
+            if (error) throw error;
 
             if (data && data.length > 0) {
                 messages.value = [...messages.value, ...data];
@@ -97,6 +110,8 @@ export const useVideoStore = defineStore('video', () => {
         currentTime.value = 0;
         duration.value = 0;
         messages.value = [];
+        videoId.value = null;
+        chapters.value = null;
         videoInfo.value = null;
         playing.value = false;
     }
@@ -158,6 +173,7 @@ export const useVideoStore = defineStore('video', () => {
         muted,
 
         fetchVideoInfo,
+        fetchChapters,
         fetchMessages,
         setVideoRef,
         loadVideoProgression,
