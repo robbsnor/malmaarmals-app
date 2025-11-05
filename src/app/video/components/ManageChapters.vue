@@ -6,6 +6,7 @@ import type { SearchCategory } from '../models/category.model';
 import ManageChapterRow from './ManageChapterRow.vue';
 import { useVideoStore } from '../stores/video.store';
 import { sleep } from '../../shared/helpers/sleep';
+import { useAuthStore } from '../../auth/stores/auth.store';
 
 export interface FormRow {
     startTime?: number;
@@ -13,6 +14,7 @@ export interface FormRow {
 }
 
 const videoStore = useVideoStore();
+const authStore = useAuthStore();
 const valid = ref(false);
 const loading = ref(false);
 
@@ -87,7 +89,7 @@ async function cancel() {
 <template>
     <v-bottom-sheet v-model="videoStore.showChapterManager" inset>
         <BottomSheetContainer v-if="videoStore.videoInfo && videoStore.chapters" title="Manage chapters">
-            <v-form v-auto-animate v-model="valid" class="flex flex-col gap-4">
+            <v-form v-auto-animate v-model="valid" class="flex flex-col gap-4 pb-4">
                 <ManageChapterRow
                     v-for="(chapter, i) in videoStore.chapters"
                     :key="chapter.start_s"
