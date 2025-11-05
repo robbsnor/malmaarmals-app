@@ -17,7 +17,6 @@ const offsetLeft = computed(() => {
     if (props.chapter.category.title.toLowerCase() === 'beginning') return;
 
     const percentage = (100 / videoStore.duration) * props.chapter.start_s;
-    if (percentage <= 0) return;
 
     return percentage + '%';
 });
