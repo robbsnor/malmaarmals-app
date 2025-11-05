@@ -135,7 +135,7 @@ async function cancel() {
                 </v-btn>
             </template>
 
-            <template v-if="videoStore.chapters.length" #footer>
+            <template #footer>
                 <div class="flex justify-between items-center gap-4">
                     <div>
                         <v-btn

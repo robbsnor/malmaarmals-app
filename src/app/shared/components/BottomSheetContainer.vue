@@ -9,9 +9,12 @@ const slots = useSlots();
 </script>
 
 <template>
-    <div class="bg-black-200 border border-black-400 rounded-t-xl">
-        <div class="flex gap-4 justify-between items-center p-4 border-b border-black-500">
-            <h3 v-if="props.title" class="font-bold text-lg">{{ props.title }}</h3>
+    <div class="bg-black-200 border-t border-x border-black-400 rounded-t-xl">
+        <div
+            v-if="props.title || slots.actions"
+            class="flex gap-4 justify-between items-center p-4 border-b border-black-500"
+        >
+            <h3 class="font-bold text-lg">{{ props.title }}</h3>
 
             <slot name="actions"></slot>
         </div>
