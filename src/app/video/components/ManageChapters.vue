@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 import { supabase } from '../../../supabase';
 import BottomSheetContainer from '../../shared/components/BottomSheetContainer.vue';
 import type { SearchCategory } from '../models/category.model';
@@ -18,7 +18,7 @@ const authStore = useAuthStore();
 const valid = ref(false);
 const loading = ref(false);
 
-function addEmptyChapter() {
+async function addEmptyChapter() {
     videoStore.chapters.push({
         category_id: null,
         end_s: 0,
@@ -32,6 +32,8 @@ function addEmptyChapter() {
             title: '',
         },
     });
+
+    await nextTick();
 }
 
 async function saveCategories() {
@@ -90,21 +92,23 @@ async function cancel() {
 <template>
     <v-bottom-sheet v-model="videoStore.showChapterManager" inset>
         <BottomSheetContainer v-if="videoStore.videoInfo && videoStore.chapters" title="Manage chapters">
-            <v-form v-auto-animate v-model="valid" class="flex flex-col gap-4 pb-4">
-                <ManageChapterRow
-                    v-for="(chapter, i) in videoStore.chapters"
-                    :key="chapter.start_s"
-                    v-model="videoStore.chapters[i]"
-                    :i="i"
-                />
+            <div class="overflow-auto overflow-x-hidden scroll-hiddenf max-h-[60vh] px-4 py-8">
+                <v-form v-auto-animate v-model="valid" class="flex flex-col gap-8">
+                    <ManageChapterRow
+                        v-for="(chapter, i) in videoStore.chapters"
+                        :key="chapter.start_s"
+                        v-model="videoStore.chapters[i]"
+                        :i="i"
+                    />
+                </v-form>
+            </div>
 
-                <div class="flex justify-center">
-                    <v-btn @click="addEmptyChapter" color="primary" icon="mdi-plus"> </v-btn>
-                </div>
-            </v-form>
+            <template #actions>
+                <v-btn @click="addEmptyChapter" color="primary" size="c-small" icon="mdi-plus" />
+            </template>
 
             <template #footer>
-                <div class="flex items-center justify-end gap-4 -mx-4 pt-4 px-4 border-t border-black-500">
+                <div class="flex items-center justify-end gap-4">
                     <v-btn @click="cancel">Cancel</v-btn>
                     <v-btn color="primary" :disabled="!valid" :loading="loading" @click="submit">Save</v-btn>
                 </div>
