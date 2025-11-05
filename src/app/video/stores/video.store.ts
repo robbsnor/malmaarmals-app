@@ -16,7 +16,7 @@ export const useVideoStore = defineStore('video', () => {
     const chaptersOG = ref<ChaptersWithCategory>();
     const chapters = ref<ChaptersWithCategory>();
     const showControllsAndInfo = ref(true);
-    const showChapterManager = ref(true);
+    const showChapterManager = ref(false);
     const messages = ref<Tables<'messages'>[]>([]);
     const player = ref({
         isActive: false,
