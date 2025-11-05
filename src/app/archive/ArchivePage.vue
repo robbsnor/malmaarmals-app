@@ -39,7 +39,7 @@ onMounted(() => {
                 <v-tabs grow v-model="archiveStore.activeTab">
                     <v-tab value="streams">streams</v-tab>
                     <v-tab value="playlists">playlists</v-tab>
-                    <v-tab value="categories">categories</v-tab>
+                    <!-- <v-tab value="categories">categories</v-tab> -->
                 </v-tabs>
             </div>
         </div>
@@ -49,7 +49,7 @@ onMounted(() => {
                 <v-tabs-window v-model="archiveStore.activeTab">
                     <v-tabs-window-item value="streams"><VideosTab /></v-tabs-window-item>
                     <v-tabs-window-item value="playlists"><PlaylistsTab /></v-tabs-window-item>
-                    <v-tabs-window-item value="categories"> categories </v-tabs-window-item>
+                    <!-- <v-tabs-window-item value="categories"> categories </v-tabs-window-item> -->
                 </v-tabs-window>
             </div>
         </div>
