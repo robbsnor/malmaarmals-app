@@ -53,7 +53,21 @@ function changeOrientation() {
                 icon="mdi-chevron-down"
             />
 
-            <div class="flex gap-1">
+            <div class="flex items-center gap-1">
+                <Auth>
+                    <v-btn
+                        v-if="videoStore.hasChapterChanges"
+                        variant="tonal"
+                        prepend-icon="mdi-alert-circle-outline"
+                        class="cursor-default!"
+                        color="error"
+                        size="small"
+                    >
+                        Unsaved changes
+                    </v-btn>
+
+                    <PlayerButton :size="28" icon="mdi-playlist-edit" @click="videoStore.showChapterManager = true" />
+                </Auth>
                 <AddToPlaylist />
                 <PlayerButton icon="mdi-cog-outline" />
             </div>
@@ -89,18 +103,6 @@ function changeOrientation() {
                 </div>
 
                 <div class="relative flex items-center gap-2">
-                    <Auth>
-                        <div v-if="videoStore.hasChapterChanges" class="text-sm text-white underline italic">
-                            Unsaved changes
-                        </div>
-
-                        <PlayerButton
-                            :size="28"
-                            icon="mdi-playlist-edit"
-                            @click="videoStore.showChapterManager = true"
-                        />
-                    </Auth>
-
                     <ChaptersMenu size="small" />
 
                     <PlayerButton icon="mdi-fullscreen" @click="toggle()" />
