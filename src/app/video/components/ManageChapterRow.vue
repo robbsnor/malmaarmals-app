@@ -5,7 +5,7 @@ import { supabase } from '../../../supabase';
 import type { SearchCategory } from '../models/category.model';
 import { useVideoStore } from '../stores/video.store';
 import type { ChapterWithCategory } from '../models/chapters-with-category.model';
-import type { Tables } from '../../shared/types/database.types';
+import type { Tables } from '../../shared/models/database.types';
 
 const chapter = defineModel<ChapterWithCategory>();
 const props = defineProps<{ i: number }>();

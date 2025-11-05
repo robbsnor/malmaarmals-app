@@ -7,7 +7,7 @@ import { useRouteParams } from '@vueuse/router';
 import { BucketHelper } from '../shared/helpers/bucket.helper';
 import VideoItem from '../video/components/VideoItem.vue';
 import DeletePlaylistDialog from './components/DeletePlaylistDialog.vue';
-import type { Tables } from '../shared/types/database.types';
+import type { Tables } from '../shared/models/database.types';
 import { useAuthStore } from '../auth/stores/auth.store';
 
 TitleHelper.setTitle('videos');

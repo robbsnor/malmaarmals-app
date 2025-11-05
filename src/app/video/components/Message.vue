@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import type { Tables } from '../../shared/types/database.types';
+import { computed } from 'vue';
+import type { Tables } from '../../shared/models/database.types';
 import { emotesMap } from '../../shared/data/emotes.data';
-import { TimeHelper } from '../../shared/helpers/time.helper';
 
 const props = withDefaults(
     defineProps<{

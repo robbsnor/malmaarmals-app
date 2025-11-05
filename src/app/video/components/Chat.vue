@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, useTemplateRef, watch, watchEffect } from 'vue';
-import { supabase } from '../../../supabase';
-import type { Tables } from '../../shared/types/database.types';
+import { nextTick, ref, useTemplateRef, watch } from 'vue';
+import type { Tables } from '../../shared/models/database.types';
 import Message from './Message.vue';
 import { useVideoStore } from '../stores/video.store';
 

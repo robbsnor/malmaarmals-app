@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import type { Tables } from '../../shared/types/database.types';
+import { computed } from 'vue';
 import { useVideoStore } from '../stores/video.store';
 
 const videoStore = useVideoStore();

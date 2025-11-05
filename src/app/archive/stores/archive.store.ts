@@ -1,6 +1,5 @@
 import { useRouteQuery } from '@vueuse/router';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
 import { useStorage } from '@vueuse/core';
 
 export const useArchiveStore = defineStore('archive', () => {
