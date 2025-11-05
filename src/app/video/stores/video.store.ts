@@ -165,6 +165,12 @@ export const useVideoStore = defineStore('video', () => {
         { deep: true }
     );
 
+    watch(showChapterManager, (isShown) => {
+        if (isShown) {
+            playing.value = false;
+        }
+    });
+
     return {
         videoInfo,
         videoId,
