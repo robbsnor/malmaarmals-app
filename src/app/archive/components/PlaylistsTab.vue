@@ -6,6 +6,7 @@ import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { supabase } from '../../../supabase';
 import PlaylistItem from '../../playlists/components/PlaylistItem.vue';
+import { useArchiveStore } from '../stores/archive.store';
 
 const formDefault = {
     title: '',
@@ -17,7 +18,7 @@ TitleHelper.setTitle('Playlists');
 
 const playlistsStore = usePlaylistsStore();
 const authStore = useAuthStore();
-const searchRef = useTemplateRef<HTMLDivElement>('searchRef');
+const archiveStore = useArchiveStore();
 const sheet = ref(false);
 const form = ref({ ...formDefault });
 const valid = ref(false);
@@ -49,9 +50,26 @@ const submit = async () => {
 </script>
 
 <template>
-    <div class="flex flex-col gap-8 py-4">
+    <div v-if="playlistsStore.filteredPlaylists.length" class="flex flex-col gap-8 py-4">
         <PlaylistItem v-for="playlist in playlistsStore.filteredPlaylists" :key="playlist.id" :playlist="playlist" />
     </div>
+
+    <!-- empty -->
+    <Empty
+        v-if="!playlistsStore.filteredPlaylists.length && !archiveStore.query"
+        title="No playlists found."
+        icon="mdi-format-list-bulleted"
+    />
+
+    <!-- nothing found -->
+    <Empty
+        v-if="archiveStore.query && !playlistsStore.filteredPlaylists.length"
+        :title="`No match found: '${archiveStore.query}'`"
+        icon="mdi-magnify"
+        description="Try something else."
+    >
+        <v-btn @click="archiveStore.resetQuery">Clear</v-btn>
+    </Empty>
 
     <div class="flex justify-center py-4">
         <v-btn v-if="authStore.isAdmin" icon="mdi-plus" color="primary" @click="sheet = true" />
