@@ -10,12 +10,10 @@ const videos = computed(() => videosStore.videos.slice(0, 5));
 
 <template>
     <Section title="Streams" moreLink="/archive?type=streams" moreText="All Streams">
-        <!-- <div class="hidden md:grid md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
-            <VideoItemLarge v-for="video in videosStore.videos" :key="video.video_id" :video="video" />
-        </div> -->
-
-        <div class="flex flex-col gap-4">
+        <div v-if="videosStore.videos.length" class="flex flex-col gap-4">
             <VideoItem v-for="video in videos" :key="video.video_id" :video="video" />
         </div>
+
+        <Empty v-else title="No streams found." icon="mdi-play" />
     </Section>
 </template>
