@@ -50,7 +50,7 @@ function deleteChapter() {
 
 <template>
     <div class="flex gap-4 items-center flex-wrap border-b border-black-500 pb-4">
-        <div class="w-full">
+        <div class="w-full md:w-50">
             <v-number-input
                 v-model="chapter.start_s"
                 :rules="rules"
@@ -97,6 +97,6 @@ function deleteChapter() {
             />
         </div>
 
-        <v-btn icon="mdi-trash-can-outline" variant="tonal" size="small" color="error" @click="deleteChapter"></v-btn>
+        <v-btn icon="mdi-trash-can-outline" variant="tonal" size="x-small" color="error" @click="deleteChapter"></v-btn>
     </div>
 </template>
