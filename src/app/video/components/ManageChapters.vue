@@ -92,7 +92,7 @@ async function cancel() {
 <template>
     <v-bottom-sheet v-model="videoStore.showChapterManager" inset>
         <BottomSheetContainer v-if="videoStore.videoInfo && videoStore.chapters" title="Manage chapters">
-            <div class="overflow-auto overflow-x-hidden scroll-hiddenf max-h-[60vh] px-4 py-8">
+            <div class="overflow-auto overflow-x-hidden scroll-hiddenf max-h-[50vh] px-4 py-8">
                 <v-form v-auto-animate v-model="valid" class="flex flex-col gap-8">
                     <ManageChapterRow
                         v-for="(chapter, i) in videoStore.chapters"
