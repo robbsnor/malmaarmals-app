@@ -50,8 +50,6 @@ export const useVideoStore = defineStore('video', () => {
     );
 
     async function fetchVideoInfo() {
-        videoInfo.value = null;
-
         const { data, error } = await supabase
             .from('videos')
             .select('*')
@@ -64,11 +62,6 @@ export const useVideoStore = defineStore('video', () => {
     }
 
     async function fetchChapters() {
-        chaptersOG.value = null;
-        chapters.value = null;
-
-        console.log('fetching chapters: ', videoId.value);
-
         const { data, error } = await supabase
             .from('chapters')
             .select('*, category:categories(*)')
@@ -82,8 +75,6 @@ export const useVideoStore = defineStore('video', () => {
     }
 
     async function fetchMessages() {
-        messages.value = [];
-
         let from = 0;
         let to = 999;
         let hasMore = true;
@@ -114,7 +105,9 @@ export const useVideoStore = defineStore('video', () => {
     }
 
     function reset() {
-        console.log('reset');
+        chaptersOG.value = null;
+        chapters.value = null;
+        videoInfo.value = null;
         currentTime.value = 0;
         duration.value = 0;
         messages.value = [];
