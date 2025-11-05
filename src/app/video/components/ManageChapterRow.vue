@@ -12,6 +12,7 @@ const props = defineProps<{ i: number }>();
 const videoStore = useVideoStore();
 const categories = ref<Tables<'categories'>[]>([]);
 const loadingCategories = ref(false);
+const deleteDialog = ref(false);
 const rules = [
     (value) => {
         if (value || value === 0) return true;
@@ -45,6 +46,12 @@ const fetchTwitchCategories = useDebounceFn(async (e) => {
 
 function deleteChapter() {
     videoStore.chapters.splice(props.i, 1);
+}
+
+function markStartTime() {
+    const currentTime = Math.floor(videoStore.currentTime);
+
+    chapter.value.start_s = currentTime <= 2 ? 0 : currentTime - 2;
 }
 
 const prettyTime = computed(() => {
@@ -98,20 +105,47 @@ const prettyTime = computed(() => {
 
         <div class="flex flex-col justify-between">
             <div class="flex gap-3">
-                <v-btn
-                    size="x-small"
-                    variant="tonal"
-                    icon="mdi-target"
-                    color="var(--color-black-2000)"
-                    @click="chapter.start_s = Math.floor(videoStore.currentTime)"
-                />
+                <v-tooltip location="top" text="Set time (2s before current time)">
+                    <template #activator="{ props }">
+                        <v-btn
+                            v-bind="props"
+                            size="x-small"
+                            variant="tonal"
+                            icon="mdi-target"
+                            color="var(--color-black-2000)"
+                            @click="markStartTime"
+                        />
+                    </template>
+                </v-tooltip>
+
                 <v-btn
                     icon="mdi-trash-can-outline"
                     variant="tonal"
                     size="x-small"
                     color="error"
-                    @click="deleteChapter"
+                    @click="deleteDialog = true"
                 />
+
+                <DeleteDialog
+                    v-model="deleteDialog"
+                    title="Delete chapter?"
+                    description="Are you sure you want to delete this chapter?"
+                    @confirm="deleteChapter"
+                >
+                    <div
+                        class="flex items-center gap-2 p-3 bg-black-300 border border-black-600 rounded-md shrink-0 text-left"
+                    >
+                        <img
+                            :src="chapter.category.image_url"
+                            alt="chapter image"
+                            class="inline h-12 mr-2 rounded-md"
+                        />
+                        <div class="overflow-hidden">
+                            <div class="font-bold pr-2 truncate">{{ chapter.category.title }}</div>
+                            <div class="text-muted text-sm">{{ prettyTime }}</div>
+                        </div>
+                    </div>
+                </DeleteDialog>
             </div>
 
             <div class="text-muted text-sm leading-none ml-0.5">{{ prettyTime }}</div>
