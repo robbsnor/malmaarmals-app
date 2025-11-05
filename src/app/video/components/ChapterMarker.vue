@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useVideoStore } from '../stores/video.store';
+import type { ChapterWithCategory } from '../models/chapters-with-category.model';
 
 const props = withDefaults(
     defineProps<{
-        chapter: any;
+        chapter: ChapterWithCategory;
     }>(),
     {}
 );
@@ -13,7 +14,7 @@ const videoStore = useVideoStore();
 
 const offsetLeft = computed(() => {
     if (!videoStore.duration) return;
-    if (props.chapter.title.toLowerCase() === 'beginning') return;
+    if (props.chapter.category.title.toLowerCase() === 'beginning') return;
 
     const percentage = (100 / videoStore.duration) * props.chapter.start_s;
     if (percentage <= 0) return;
@@ -23,7 +24,7 @@ const offsetLeft = computed(() => {
 </script>
 
 <template>
-    <v-tooltip :text="chapter.title" location="top" :open-delay="0">
+    <v-tooltip :text="chapter.category.title" location="top" :open-delay="0">
         <template v-slot:activator="{ props }">
             <div
                 v-if="offsetLeft"

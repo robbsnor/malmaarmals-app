@@ -29,7 +29,7 @@ const prettyTime = (seconds: number) => {
 </script>
 
 <template>
-    <v-menu location="top right">
+    <v-menu v-if="videoStore.chapters?.length" location="top right">
         <template v-slot:activator="{ props }">
             <PlayerButton
                 v-if="size === 'small'"
@@ -57,9 +57,9 @@ const prettyTime = (seconds: number) => {
                 @click="videoStore.currentTime = chapter.start_s"
                 class="flex w-[300px] gap-2 p-3 bg-black-300 border border-black-500 rounded-md shrink-0 cursor-pointer text-left transition-all hover:bg-black-400"
             >
-                <img :src="chapter.image_url" alt="chapter image" class="inline h-10 mr-2 rounded-md" />
+                <img :src="chapter.category.image_url" alt="chapter image" class="inline h-10 mr-2 rounded-md" />
                 <div class="overflow-hidden">
-                    <div class="font-bold pr-2 truncate">{{ chapter.title }}</div>
+                    <div class="font-bold pr-2 truncate">{{ chapter.category.title }}</div>
                     <div class="text-muted text-sm leading-3">{{ prettyTime(chapter.start_s) }}</div>
                 </div>
             </button>

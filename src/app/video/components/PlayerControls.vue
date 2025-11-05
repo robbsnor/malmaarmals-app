@@ -68,6 +68,7 @@ function changeOrientation() {
             <div v-if="videoStore.waiting" class="relative size-16 flex justify-center items-center">
                 <v-progress-circular class="relative" indeterminate size="48" width="4" />
             </div>
+
             <button v-else @click="videoStore.playing = !videoStore.playing">
                 <v-icon
                     :icon="videoStore.playing || (!videoStore.playing && videoStore.waiting) ? 'mdi-pause' : 'mdi-play'"
@@ -89,6 +90,13 @@ function changeOrientation() {
                 </div>
 
                 <div class="relative flex items-center gap-2">
+                    <Auth>
+                        <PlayerButton
+                            :size="28"
+                            icon="mdi-playlist-edit"
+                            @click="videoStore.showChapterManager = true"
+                        />
+                    </Auth>
                     <ChaptersMenu size="small" />
                     <PlayerButton
                         :size="22"
