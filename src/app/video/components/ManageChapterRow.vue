@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { useDebounceFn } from '@vueuse/core';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { supabase } from '../../../supabase';
 import type { SearchCategory } from '../models/category.model';
 import { useVideoStore } from '../stores/video.store';
 import type { ChapterWithCategory } from '../models/chapters-with-category.model';
 import type { Tables } from '../../shared/models/database.types';
+import { BABBELEN_CATEGORY, INTRO_CATEGORY } from '../data/chapters.data';
 
 const chapter = defineModel<ChapterWithCategory>();
 const props = defineProps<{ i: number }>();
@@ -20,15 +21,23 @@ const rules = [
     },
 ];
 
-const fetchTwitchCategories = useDebounceFn(async (e) => {
-    if (!e) return;
-    if (e.length < 2) return;
-    if (e === chapter.value.category?.title) return;
+onMounted(() => {
+    updateCategories();
+});
+
+const updateCategories = useDebounceFn(async (query?: string) => {
+    if (!query) {
+        categories.value = [INTRO_CATEGORY, BABBELEN_CATEGORY];
+        return;
+    }
+
+    if (query.length < 2) return;
+    if (query === chapter.value.category?.title) return;
 
     loadingCategories.value = true;
 
     const { data, error } = await supabase.functions.invoke<SearchCategory[]>('search-categories', {
-        body: { query: e },
+        body: { query: query },
     });
     if (error) return console.log(error);
 
@@ -38,8 +47,6 @@ const fetchTwitchCategories = useDebounceFn(async (e) => {
         image_url: cat.boxArtUrl,
         title: cat.name,
     }));
-
-    console.log(categories);
 
     loadingCategories.value = false;
 }, 500);
@@ -80,7 +87,7 @@ const prettyTime = computed(() => {
         </div>
 
         <v-autocomplete
-            @update:search="fetchTwitchCategories"
+            @update:search="updateCategories"
             label="Category"
             v-model="chapter.category"
             :rules="rules"

@@ -5,6 +5,7 @@ const props = withDefaults(
     defineProps<{
         icon: string;
         size?: number;
+        color?: string;
     }>(),
     {
         size: 24,
@@ -14,6 +15,6 @@ const props = withDefaults(
 
 <template>
     <button class="relative p-2">
-        <v-icon :icon="props.icon" :size="props.size" />
+        <v-icon :icon="props.icon" :size="props.size" :color="props.color" />
     </button>
 </template>
