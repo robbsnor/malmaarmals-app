@@ -57,17 +57,12 @@ const submit = async () => {
         <v-btn v-if="authStore.isAdmin" icon="mdi-plus" color="primary" @click="sheet = true" />
     </div>
 
-    <v-bottom-sheet v-model="sheet" inset>
-        <BottomSheetContainer>
-            <div class="font-bold text-lg mb-4">Create Playlist</div>
-            <v-form v-model="valid">
-                <v-text-field label="Title" :rules="rules" v-model="form.title"></v-text-field>
-                <v-text-field label="Description" v-model="form.description"></v-text-field>
-                <v-number-input label="Position" :rules="rules" v-model="form.position"></v-number-input>
-                <v-btn color="primary" :disabled="!valid" :loading="loading" class="w-full" @click="submit">
-                    Create
-                </v-btn>
-            </v-form>
-        </BottomSheetContainer>
-    </v-bottom-sheet>
+    <Drawer v-model="sheet" inset title="Create Playlist">
+        <v-form v-model="valid" class="flex flex-col gap-4">
+            <v-text-field label="Title" :rules="rules" v-model="form.title"></v-text-field>
+            <v-text-field label="Description" v-model="form.description"></v-text-field>
+            <v-number-input label="Position" :rules="rules" v-model="form.position"></v-number-input>
+            <v-btn color="primary" :disabled="!valid" :loading="loading" class="w-full" @click="submit"> Create </v-btn>
+        </v-form>
+    </Drawer>
 </template>

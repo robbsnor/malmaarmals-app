@@ -94,82 +94,78 @@ async function cancel() {
 </script>
 
 <template>
-    <v-bottom-sheet v-model="videoStore.showChapterManager" inset>
-        <BottomSheetContainer v-if="videoStore.videoInfo && videoStore.chapters" title="Manage chapters">
-            <div
+    <Drawer
+        v-if="videoStore.videoInfo && videoStore.chapters"
+        v-model="videoStore.showChapterManager"
+        inset
+        title="Manage chapters"
+    >
+        <div v-if="videoStore.chapters.length">
+            <v-form v-model="valid" class="flex flex-col gap-4">
+                <ManageChapterRow
+                    v-for="(chapter, i) in videoStore.chapters"
+                    :key="chapter.start_s"
+                    v-model="videoStore.chapters[i]"
+                    :i="i"
+                />
+            </v-form>
+        </div>
+
+        <Empty
+            v-else
+            title="No chapters..."
+            description="Add your first chapter to get started!"
+            icon="mdi-format-list-bulleted"
+            class="p-4"
+        >
+            <v-btn @click="addEmptyChapter" color="primary" variant="tonal" prepend-icon="mdi-plus">
+                Add chapter
+            </v-btn>
+        </Empty>
+
+        <template #actions>
+            <v-btn
                 v-if="videoStore.chapters.length"
-                class="overflow-auto overflow-x-hidden scroll-hiddenf max-h-[50vh] p-4"
+                @click="addEmptyChapter"
+                color="primary"
+                size="small"
+                variant="tonal"
+                prepend-icon="mdi-plus"
             >
-                <v-form v-model="valid" class="flex flex-col gap-4">
-                    <ManageChapterRow
-                        v-for="(chapter, i) in videoStore.chapters"
-                        :key="chapter.start_s"
-                        v-model="videoStore.chapters[i]"
-                        :i="i"
-                    />
-                </v-form>
-            </div>
+                Add chapter
+            </v-btn>
+        </template>
 
-            <Empty
-                v-else
-                title="No chapters..."
-                description="Add your first chapter to get started!"
-                icon="mdi-format-list-bulleted"
-                class="p-4"
-            >
-                <v-btn @click="addEmptyChapter" color="primary" variant="tonal" prepend-icon="mdi-plus">
-                    Add chapter
-                </v-btn>
-            </Empty>
-
-            <template #actions>
-                <v-btn
-                    v-if="videoStore.chapters.length"
-                    @click="addEmptyChapter"
-                    color="primary"
-                    size="small"
-                    variant="tonal"
-                    prepend-icon="mdi-plus"
-                >
-                    Add chapter
-                </v-btn>
-            </template>
-
-            <template #footer>
-                <div class="flex justify-between items-center gap-4">
-                    <div>
-                        <v-btn
-                            v-if="videoStore.hasChapterChanges"
-                            variant="text"
-                            prepend-icon="mdi-alert-circle-outline"
-                            class="cursor-default!"
-                            color="error"
-                            size="small"
-                        >
-                            Unsaved changes
-                        </v-btn>
-                    </div>
-
-                    <div class="flex items-center justify-end gap-4">
-                        <v-btn
-                            :disabled="!videoStore.hasChapterChanges"
-                            variant="text"
-                            :loading="resetLoading"
-                            @click="cancel"
-                        >
-                            Restore
-                        </v-btn>
-
-                        <v-btn
-                            color="primary"
-                            :disabled="!videoStore.hasChapterChanges"
-                            :loading="loading"
-                            @click="submit"
-                            >Save</v-btn
-                        >
-                    </div>
+        <template #footer>
+            <div class="flex justify-between items-center gap-4">
+                <div>
+                    <v-btn
+                        v-if="videoStore.hasChapterChanges"
+                        variant="text"
+                        prepend-icon="mdi-alert-circle-outline"
+                        class="cursor-default!"
+                        color="error"
+                        size="small"
+                    >
+                        Unsaved changes
+                    </v-btn>
                 </div>
-            </template>
-        </BottomSheetContainer>
-    </v-bottom-sheet>
+
+                <div class="flex items-center justify-end gap-4">
+                    <v-btn
+                        :disabled="!videoStore.hasChapterChanges"
+                        variant="text"
+                        :loading="resetLoading"
+                        @click="cancel"
+                    >
+                        Restore
+                    </v-btn>
+
+                    <v-btn color="primary" :disabled="!videoStore.hasChapterChanges" :loading="loading" @click="submit"
+                        >Save</v-btn
+                    >
+                </div>
+            </div>
+        </template>
+    </Drawer>
 </template>

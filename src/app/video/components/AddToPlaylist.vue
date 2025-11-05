@@ -47,35 +47,33 @@ const submit = async () => {
 </script>
 
 <template>
-    <v-bottom-sheet v-model="sheet" inset>
+    <Drawer v-model="sheet" inset>
         <template #activator="{ props }">
             <Auth>
                 <PlayerButton v-bind="props" :size="24" icon="mdi-plus" />
             </Auth>
         </template>
 
-        <BottomSheetContainer>
-            <div class="font-bold text-lg mb-4">Add to playlist</div>
-            <v-form v-model="valid" class="flex flex-col gap-4">
-                <v-select
-                    :rules="rules"
-                    v-model="form.playlist_id"
-                    label="Playlist"
-                    item-title="title"
-                    item-value="id"
-                    :items="playlistsStore.playlists"
-                />
-                <v-btn
-                    color="primary"
-                    :disabled="!valid"
-                    :loading="loading"
-                    class="w-full"
-                    @click="submit"
-                    prepend-icon="mdi-plus"
-                >
-                    Add to playlist
-                </v-btn>
-            </v-form>
-        </BottomSheetContainer>
-    </v-bottom-sheet>
+        <div class="font-bold text-lg mb-4">Add to playlist</div>
+        <v-form v-model="valid" class="flex flex-col gap-4">
+            <v-select
+                :rules="rules"
+                v-model="form.playlist_id"
+                label="Playlist"
+                item-title="title"
+                item-value="id"
+                :items="playlistsStore.playlists"
+            />
+            <v-btn
+                color="primary"
+                :disabled="!valid"
+                :loading="loading"
+                class="w-full"
+                @click="submit"
+                prepend-icon="mdi-plus"
+            >
+                Add to playlist
+            </v-btn>
+        </v-form>
+    </Drawer>
 </template>

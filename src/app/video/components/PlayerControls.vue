@@ -15,7 +15,6 @@ const router = useRouter();
 const { isFullscreen, enter, exit, toggle } = useFullscreen();
 const durationEl = useTemplateRef<HTMLDivElement>('durationEl');
 const { width, height } = useElementSize(durationEl);
-const showChaptersDrawer = ref(false);
 
 const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
 const goBack = () => {
@@ -104,15 +103,9 @@ function changeOrientation() {
                 </div>
 
                 <div class="relative flex items-center gap-2">
-                    <PlayerButton
-                        v-if="videoStore.chapters?.length"
-                        icon="mdi-format-list-bulleted"
-                        :size="24"
-                        @click="showChaptersDrawer = true"
-                    />
-                    <ChaptersDrawer v-model="showChaptersDrawer" />
+                    <ChaptersDrawer />
 
-                    <PlayerButton icon="mdi-fullscreen" @click="toggle()" />
+                    <PlayerButton :icon="isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'" @click="toggle()" />
                     <!-- <PlayerButton
                         :size="22"
                         icon="mdi-phone-rotate-landscape"
