@@ -2,7 +2,6 @@
 import { computed, ref } from 'vue';
 import type { Tables } from '../../shared/types/database.types';
 import { useVideoStore } from '../stores/video.store';
-import ChaptersDrawer from './ChaptersDrawer.vue';
 
 const videoStore = useVideoStore();
 
@@ -25,8 +24,6 @@ const date = computed(() => {
                     {{ videoStore.messages.length }} messages, {{ videoStore.subCount }} subs
                 </div>
             </SafeArea>
-
-            <!-- <ChaptersDrawer /> -->
         </div>
     </div>
 </template>

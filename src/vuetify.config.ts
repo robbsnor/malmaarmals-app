@@ -27,6 +27,7 @@ export const vuetify = createVuetify({
         },
         VTextField: {
             clearable: true,
+            hideDetails: 'auto',
             variant: 'solo',
             density: 'comfortable',
         },
