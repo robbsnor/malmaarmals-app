@@ -4,12 +4,11 @@ import router from './router/router';
 import { createPinia } from 'pinia';
 
 import Auth from './app/shared/components/Auth.vue';
-import BottomSheetContainer from './app/shared/components/BottomSheetContainer.vue';
 import Card from './app/shared/components/Card.vue';
-import Container from './app/shared/components/Container.vue';
 import ConfirmDialog from './app/shared/components/ConfirmDialog.vue';
-import Dev from './app/shared/components/Dev.vue';
+import Container from './app/shared/components/Container.vue';
 import DeleteDialog from './app/shared/components/DeleteDialog.vue';
+import Dev from './app/shared/components/Dev.vue';
 import Dialog from './app/shared/components/Dialog.vue';
 import Drawer from './app/shared/components/Drawer.vue';
 import Empty from './app/shared/components/Empty.vue';
@@ -20,6 +19,7 @@ import SafeArea from './app/shared/components/SafeArea.vue';
 import Section from './app/shared/components/Section.vue';
 import Skeleton from './app/shared/components/Skeleton.vue';
 import VideoThumbnail from './app/shared/components/VideoThumbnail.vue';
+
 import { visible } from './app/shared/directives/visible.directive';
 
 import { vuetify } from './vuetify.config';
@@ -33,12 +33,11 @@ pinia.use(piniaPluginPersistedstate);
 
 // components
 app.component('Auth', Auth);
-app.component('BottomSheetContainer', BottomSheetContainer);
 app.component('Card', Card);
 app.component('ConfirmDialog', ConfirmDialog);
 app.component('Container', Container);
-app.component('Dev', Dev);
 app.component('DeleteDialog', DeleteDialog);
+app.component('Dev', Dev);
 app.component('Dialog', Dialog);
 app.component('Drawer', Drawer);
 app.component('Empty', Empty);
