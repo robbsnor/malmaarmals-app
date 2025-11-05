@@ -62,20 +62,7 @@ const prettyTime = computed(() => {
 </script>
 
 <template>
-    <div :class="['flex  gap-4', props.i !== videoStore.chapters.length - 1 ? 'border-b border-black-500 pb-4' : '']">
-        <!-- <div class="flex items-center gap-4 w-full md:w-40">
-            <v-number-input
-                v-model="chapter.start_s"
-                :rules="rules"
-                :reverse="false"
-                controlVariant="hidden"
-                label="Start time (s)"
-                density="default"
-                :hideInput="false"
-                :inset="false"
-            />
-        </div> -->
-
+    <div :class="['flex gap-3', props.i !== videoStore.chapters.length - 1 ? 'border-b border-black-500 pb-4' : '']">
         <div class="h-[56px] aspect-[8/11] bg-black-500 rounded-sm">
             <img
                 v-if="chapter.category?.image_url"
@@ -109,8 +96,8 @@ const prettyTime = computed(() => {
             </template>
         </v-autocomplete>
 
-        <div>
-            <div class="flex gap-4">
+        <div class="flex flex-col justify-between">
+            <div class="flex gap-3">
                 <v-btn
                     size="x-small"
                     variant="tonal"
@@ -126,7 +113,8 @@ const prettyTime = computed(() => {
                     @click="deleteChapter"
                 />
             </div>
-            <div class="text-muted text-sm self-end pt-1">{{ prettyTime }}</div>
+
+            <div class="text-muted text-sm leading-none ml-0.5">{{ prettyTime }}</div>
         </div>
     </div>
 </template>
