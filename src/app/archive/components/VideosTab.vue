@@ -21,7 +21,7 @@ const amountToShow = ref(100);
     <!-- nothing found -->
     <Empty
         v-if="archiveStore.query && !videosStore.filteredVideos.length"
-        :title="`No match found: '${archiveStore.query}'`"
+        :title="`No video's found: '${archiveStore.query}'`"
         icon="mdi-magnify"
         description="Try something else."
     >

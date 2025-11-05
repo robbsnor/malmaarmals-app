@@ -9,10 +9,12 @@ import { useRoute } from 'vue-router';
 TitleHelper.setTitle('Archive');
 
 const archiveStore = useArchiveStore();
-const searchRef = useTemplateRef<HTMLDivElement>('searchRef');
+const searchRef = useTemplateRef<HTMLInputElement>('searchRef');
 const route = useRoute();
 
 onMounted(() => {
+    archiveStore.setSearchEl(searchRef.value);
+
     document.getElementById('bottom-search')?.addEventListener('click', () => {
         if (route.path !== '/archive') return;
         searchRef.value?.focus();
