@@ -23,7 +23,7 @@ const props = withDefaults(
             <h3 v-if="props.title" class="text-muted text-lg font-medium">{{ props.title }}</h3>
             <p v-if="props.description" class="text-muted-more text-sm">{{ props.description }}</p>
 
-            <div v-if="slots.default">
+            <div v-if="slots.default" class="pt-4">
                 <slot></slot>
             </div>
         </div>

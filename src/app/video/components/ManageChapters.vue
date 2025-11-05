@@ -6,17 +6,30 @@ import ManageChapterRow from './ManageChapterRow.vue';
 import { useVideoStore } from '../stores/video.store';
 import { sleep } from '../../shared/helpers/sleep';
 import { useAuthStore } from '../../auth/stores/auth.store';
-
-export interface FormRow {
-    startTime?: number;
-    category?: SearchCategory;
-}
+import type { ChaptersWithCategory, ChapterWithCategory } from '../models/chapters-with-category.model';
+import type { Tables } from '../../shared/models/database.types';
+import { BABBELEN_CATEGORY, INTRO_CATEGORY } from '../data/chapters.data';
+import ChapterControlls from './ChapterControlls.vue';
 
 const videoStore = useVideoStore();
-const authStore = useAuthStore();
 const valid = ref(false);
 const loading = ref(false);
 const resetLoading = ref(false);
+
+async function addInitialChapters() {
+    // videoStore.chapters.push(
+    //     ...[
+    //         {
+    //             ...INTRO_CHAPTER,
+    //             category: INTRO_CATEGORY,
+    //         },
+    //         {
+    //             ...BABBELEN_CHAPTER,
+    //             category: BABBELEN_CATEGORY,
+    //         },
+    //     ]
+    // );
+}
 
 async function addEmptyChapter() {
     const currentTime = Math.floor(videoStore.currentTime);
@@ -93,12 +106,7 @@ async function cancel() {
 </script>
 
 <template>
-    <Drawer
-        v-if="videoStore.videoInfo && videoStore.chapters"
-        v-model="videoStore.showChapterManager"
-        inset
-        title="Manage chapters"
-    >
+    <Drawer v-model="videoStore.showChapterManager" inset title="Manage chapters">
         <div v-if="videoStore.chapters.length">
             <v-form v-model="valid" class="flex flex-col gap-4">
                 <ManageChapterRow
@@ -115,11 +123,11 @@ async function cancel() {
             title="No chapters..."
             description="Add your first chapter to get started!"
             icon="mdi-format-list-bulleted"
-            class="p-4"
         >
-            <v-btn @click="addEmptyChapter" color="primary" variant="tonal" prepend-icon="mdi-plus">
-                Add chapter
-            </v-btn>
+            <div class="flex flex-col gap-4">
+                <v-btn @click="addEmptyChapter" color="primary" prepend-icon="mdi-plus"> Add chapter </v-btn>
+                <v-btn @click="addInitialChapters" prepend-icon="mdi-plus"> Add default chapters </v-btn>
+            </div>
         </Empty>
 
         <template #actions>
@@ -136,18 +144,21 @@ async function cancel() {
         </template>
 
         <template #footer>
+            <ChapterControlls v-if="videoStore.chapters.length" />
+
             <div class="flex justify-between items-center gap-4">
                 <div>
-                    <v-btn
-                        v-if="videoStore.hasChapterChanges"
-                        variant="text"
-                        prepend-icon="mdi-alert-circle-outline"
-                        class="cursor-default!"
-                        color="error"
-                        size="small"
-                    >
-                        Unsaved changes
-                    </v-btn>
+                    <v-tooltip location="top" text="You have unsaved changes">
+                        <template #activator="{ props }">
+                            <v-icon
+                                v-if="videoStore.hasChapterChanges"
+                                v-bind="props"
+                                icon="mdi-alert-circle-outline"
+                                color="error"
+                                size="small"
+                            />
+                        </template>
+                    </v-tooltip>
                 </div>
 
                 <div class="flex items-center justify-end gap-4">

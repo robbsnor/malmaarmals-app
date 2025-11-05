@@ -12,7 +12,7 @@ const props = withDefaults(
         width?: string | number;
     }>(),
     {
-        icon: 'mdi-trash-can',
+        icon: 'mdi-trash-can-outline',
         confirmText: 'Delete',
         confirmColor: 'error',
         cancelText: 'Cancel',
