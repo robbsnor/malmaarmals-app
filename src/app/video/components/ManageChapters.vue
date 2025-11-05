@@ -138,9 +138,16 @@ async function cancel() {
             <template v-if="videoStore.chapters.length" #footer>
                 <div class="flex justify-between items-center gap-4">
                     <div>
-                        <template v-if="videoStore.hasChapterChanges">
-                            <span class="text-sm text-black-800 underline italic">Unsaved changes</span>
-                        </template>
+                        <v-btn
+                            v-if="videoStore.hasChapterChanges"
+                            variant="text"
+                            prepend-icon="mdi-alert-circle-outline"
+                            class="cursor-default!"
+                            color="error"
+                            size="small"
+                        >
+                            Unsaved changes
+                        </v-btn>
                     </div>
 
                     <div class="flex items-center justify-end gap-4">
