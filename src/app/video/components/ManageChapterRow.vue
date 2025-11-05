@@ -65,9 +65,14 @@ function deleteChapter() {
                 density="default"
                 :hideInput="false"
                 :inset="false"
-                @click:append="chapter.start_s = Math.floor(videoStore.currentTime)"
             />
-            <v-btn size="x-small" variant="tonal" icon="mdi-target" color="var(--color-black-2000)"></v-btn>
+            <v-btn
+                size="x-small"
+                variant="tonal"
+                icon="mdi-target"
+                color="var(--color-black-2000)"
+                @click:append="chapter.start_s = Math.floor(videoStore.currentTime)"
+            ></v-btn>
         </div>
 
         <v-autocomplete
