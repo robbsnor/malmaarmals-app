@@ -4,15 +4,6 @@ import { useVideoStore } from '../stores/video.store';
 import PlayerButton from './PlayerButton.vue';
 
 const sheet = defineModel<boolean>();
-const props = withDefaults(
-    defineProps<{
-        size?: 'big' | 'small';
-    }>(),
-    {
-        size: 'big',
-    }
-);
-
 const videoStore = useVideoStore();
 
 const prettyTime = (seconds: number) => {
@@ -28,8 +19,8 @@ const prettyTime = (seconds: number) => {
     return parts.join(':');
 };
 
-function skipToChapter(startS: number) {
-    videoStore.currentTime = startS;
+function skipToSec(sec: number) {
+    videoStore.currentTime = sec;
     videoStore.playing = true;
     videoStore.showControllsAndInfo = true;
     sheet.value = false;
@@ -51,7 +42,7 @@ function skipToChapter(startS: number) {
             <button
                 v-for="chapter in videoStore.chapters"
                 :key="chapter.start_s"
-                @click="skipToChapter(chapter.start_s)"
+                @click="skipToSec(chapter.start_s)"
                 class="flex items-center gap-4 p-3 bg-black-300 border border-black-500 rounded-md shrink-0 text-left transition-all hover:bg-black-400"
             >
                 <img :src="chapter.category.image_url" alt="chapter image" class="inline h-12 rounded-md" />
