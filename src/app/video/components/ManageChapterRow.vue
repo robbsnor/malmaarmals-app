@@ -49,8 +49,8 @@ function deleteChapter() {
 </script>
 
 <template>
-    <div class="flex gap-4 items-center">
-        <div class="w-50">
+    <div class="flex gap-4 items-center flex-wrap border-b border-black-500 pb-4">
+        <div class="w-full">
             <v-number-input
                 v-model="chapter.start_s"
                 :rules="rules"
@@ -64,7 +64,7 @@ function deleteChapter() {
             />
         </div>
 
-        <!-- <v-autocomplete
+        <v-autocomplete
             @update:search="fetchTwitchCategories"
             label="Category"
             width="100px"
@@ -86,7 +86,7 @@ function deleteChapter() {
                     </div>
                 </v-list-item>
             </template>
-        </v-autocomplete> -->
+        </v-autocomplete>
 
         <div class="w-9 h-12 bg-black-500 rounded-sm">
             <img
