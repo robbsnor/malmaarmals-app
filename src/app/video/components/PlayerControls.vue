@@ -3,8 +3,8 @@ import { useElementSize, useFullscreen } from '@vueuse/core';
 import { useRouter } from 'vue-router';
 import { useAppStore } from '../../shared/stores/app.store';
 import { useVideoStore } from '../stores/video.store';
-import { useTemplateRef } from 'vue';
-import ChaptersMenu from './ChaptersMenu.vue';
+import { ref, useTemplateRef } from 'vue';
+import ChaptersDrawer from './ChaptersDrawer.vue';
 import AddToPlaylist from './AddToPlaylist.vue';
 import PlayerButton from './PlayerButton.vue';
 import { useScreenOrientation } from '@vueuse/core';
@@ -15,6 +15,7 @@ const router = useRouter();
 const { isFullscreen, enter, exit, toggle } = useFullscreen();
 const durationEl = useTemplateRef<HTMLDivElement>('durationEl');
 const { width, height } = useElementSize(durationEl);
+const showChaptersDrawer = ref(false);
 
 const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
 const goBack = () => {
@@ -103,7 +104,13 @@ function changeOrientation() {
                 </div>
 
                 <div class="relative flex items-center gap-2">
-                    <ChaptersMenu size="small" />
+                    <PlayerButton
+                        v-if="videoStore.chapters?.length"
+                        icon="mdi-format-list-bulleted"
+                        :size="24"
+                        @click="showChaptersDrawer = true"
+                    />
+                    <ChaptersDrawer v-model="showChaptersDrawer" />
 
                     <PlayerButton icon="mdi-fullscreen" @click="toggle()" />
                     <!-- <PlayerButton

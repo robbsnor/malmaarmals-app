@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue';
 import type { Tables } from '../../shared/types/database.types';
 import { useVideoStore } from '../stores/video.store';
-import ChaptersMenu from './ChaptersMenu.vue';
+import ChaptersDrawer from './ChaptersDrawer.vue';
 
 const videoStore = useVideoStore();
 
@@ -26,7 +26,7 @@ const date = computed(() => {
                 </div>
             </SafeArea>
 
-            <!-- <ChaptersMenu /> -->
+            <!-- <ChaptersDrawer /> -->
         </div>
     </div>
 </template>
