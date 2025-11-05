@@ -1,94 +1,111 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
-import { useVideosStore } from '../stores/videos.store';
+import { ref } from 'vue';
 import { supabase } from '../../../supabase';
 import BottomSheetContainer from '../../shared/components/BottomSheetContainer.vue';
-import { useTwitch } from '../../shared/composables/useTwitch.composable';
+import type { SearchCategory } from '../models/category.model';
+import ManageChapterRow from './ManageChapterRow.vue';
+import { useVideoStore } from '../stores/video.store';
+import { sleep } from '../../shared/helpers/sleep';
 
-const videoStore = useVideosStore();
-const twitch = useTwitch();
-const form = ref({
-    startTime: null,
-    endTime: null,
-    category: null,
-});
+export interface FormRow {
+    startTime?: number;
+    category?: SearchCategory;
+}
+
+const videoStore = useVideoStore();
 const valid = ref(false);
 const loading = ref(false);
-const rules = [
-    (value) => {
-        if (value) return true;
-        return 'Field is required.';
-    },
-];
 
-const categories = ['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming'];
+function addEmptyChapter() {
+    videoStore.chapters.push({
+        category_id: null,
+        end_s: 0,
+        id: '',
+        start_s: videoStore.currentTime,
+        video_id: videoStore.videoId,
+        category: {
+            category_id: null,
+            id: '',
+            image_url: '',
+            title: '',
+        },
+    });
+}
 
-watch(
-    () => form.value.category,
-    (newCategory) => {
-        console.log(newCategory);
-        // console.log(newCategory);
+async function saveCategories() {
+    const categories = videoStore.chapters.map((chapter) => ({
+        category_id: chapter.category.category_id,
+        title: chapter.category.title,
+        image_url: chapter.category.image_url,
+    }));
+
+    for (const category of categories) {
+        const { error } = await supabase.from('categories').upsert(category, { onConflict: 'category_id' });
+        if (error) throw error;
     }
-);
+}
 
-async function fetchTwitchCategories(e: string) {
-    // Placeholder for fetching categories from Twitch API
+async function deleteExistingChapters() {
+    const { error } = await supabase.from('chapters').delete().eq('video_id', videoStore.videoId);
+    if (error) throw error;
+}
+
+async function saveChapters() {
+    const chapters = videoStore.chapters.map((chapter, i) => ({
+        video_id: videoStore.videoId,
+        category_id: chapter.category.category_id,
+        start_s: chapter.start_s,
+        end_s:
+            i < videoStore.chapters.length - 1
+                ? videoStore.chapters[i + 1].start_s
+                : Math.floor(videoStore.videoInfo.length_sec),
+    }));
+
+    const { error } = await supabase.from('chapters').insert(chapters);
+    if (error) throw error;
 }
 
 const submit = async () => {
     loading.value = true;
 
-    // const { error } = await supabase.from('playlist_videos').insert({
-    //     playlist_id: form.value.playlist_id,
-    //     video_id: videostore.videoInfo.id,
-    // });
+    await saveCategories();
+    await deleteExistingChapters();
+    await saveChapters();
 
-    // loading.value = false;
-    // if (error) return console.log(error);
+    await videoStore.fetchChapters();
 
-    // form.value = { ...formDefault };
-    // await playlistsStore.fetchPlaylists();
+    loading.value = false;
 };
+
+async function cancel() {
+    videoStore.resetChaptersForm();
+    await sleep(500);
+    videoStore.showChapterManager = false;
+}
 </script>
 
 <template>
-    <div class="absolute top-8 right-8 z-60 w-180">
-        <BottomSheetContainer>
-            <div class="font-bold text-lg mb-4">Add chapters</div>
-            <v-form v-model="valid" class="flex flex-col gap-4">
-                <div class="flex gap-4 items-start">
-                    <div class="w-50">
-                        <v-number-input
-                            v-model="form.startTime"
-                            :rules="rules"
-                            :reverse="false"
-                            controlVariant="stacked"
-                            label="Start time (s)"
-                            :hideInput="false"
-                            :inset="false"
-                        />
-                    </div>
+    <v-bottom-sheet v-model="videoStore.showChapterManager" inset>
+        <BottomSheetContainer v-if="videoStore.videoInfo && videoStore.chapters" title="Manage chapters">
+            <v-form v-auto-animate v-model="valid" class="flex flex-col gap-4">
+                <ManageChapterRow
+                    v-for="(chapter, i) in videoStore.chapters"
+                    :key="chapter.start_s"
+                    v-model="videoStore.chapters[i]"
+                    :i="i"
+                />
 
-                    <v-autocomplete
-                        @update:search="fetchTwitchCategories"
-                        label="Category"
-                        v-model="form.category"
-                        :rules="rules"
-                        :items="categories"
-                    />
+                <div class="flex justify-center">
+                    <v-btn @click="addEmptyChapter" color="primary" icon="mdi-plus"> </v-btn>
                 </div>
-
-                <v-btn
-                    color="primary"
-                    :disabled="!valid"
-                    :loading="loading"
-                    class="w-full"
-                    @click="submit"
-                    prepend-icon="mdi-plus"
-                >
-                    Add to playlist
-                </v-btn>
             </v-form>
+
+            <template #footer>
+                <div class="flex items-center justify-end gap-4 -mx-4 pt-4 px-4 border-t border-black-500">
+                    <v-btn @click="cancel">Cancel</v-btn>
+                    <v-btn color="primary" :disabled="!valid" :loading="loading" @click="submit">Save</v-btn>
+                </div>
+            </template>
         </BottomSheetContainer>
-    </div>
+    </v-bottom-sheet>
 </template>
