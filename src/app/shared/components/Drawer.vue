@@ -26,7 +26,7 @@ const props = withDefaults(
             <slot v-bind="activator" name="activator"></slot>
         </template>
 
-        <div class="bg-black-200 border-t border-x border-black-400 rounded-t-xl">
+        <div class="bg-black-200 border-t border-x border-black-500 rounded-t-xl">
             <div
                 v-if="props.title || slots.actions"
                 class="flex gap-4 justify-between items-center p-4 border-b border-black-500"
