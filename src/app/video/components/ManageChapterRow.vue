@@ -76,7 +76,6 @@ function deleteChapter() {
             width="100px"
             v-model="chapter.category"
             :rules="rules"
-            autofocus
             density="default"
             hide-no-data
             hide-details
