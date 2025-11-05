@@ -91,13 +91,19 @@ function changeOrientation() {
 
                 <div class="relative flex items-center gap-2">
                     <Auth>
+                        <div v-if="videoStore.hasChapterChanges" class="text-sm text-white underline italic">
+                            Unsaved changes
+                        </div>
+
                         <PlayerButton
                             :size="28"
                             icon="mdi-playlist-edit"
                             @click="videoStore.showChapterManager = true"
                         />
                     </Auth>
+
                     <ChaptersMenu size="small" />
+
                     <PlayerButton
                         :size="22"
                         icon="mdi-phone-rotate-landscape"
