@@ -106,7 +106,9 @@ async function cancel() {
             </div>
 
             <template #actions>
-                <v-btn @click="addEmptyChapter" color="primary" size="c-small" icon="mdi-plus" />
+                <v-btn @click="addEmptyChapter" color="primary" size="small" variant="tonal" prepend-icon="mdi-plus">
+                    Add chapter
+                </v-btn>
             </template>
 
             <template #footer>
