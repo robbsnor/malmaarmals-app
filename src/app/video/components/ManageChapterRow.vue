@@ -62,6 +62,7 @@ function deleteChapter() {
                 :reverse="false"
                 controlVariant="hidden"
                 label="Start time (s)"
+                density="default"
                 :hideInput="false"
                 :inset="false"
                 @click:append="chapter.start_s = Math.floor(videoStore.currentTime)"
@@ -76,6 +77,7 @@ function deleteChapter() {
             v-model="chapter.category"
             :rules="rules"
             autofocus
+            density="default"
             hide-no-data
             hide-details
             autocomplete="off"
