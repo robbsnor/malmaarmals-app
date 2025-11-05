@@ -132,9 +132,7 @@ const prettyTime = computed(() => {
                     description="Are you sure you want to delete this chapter?"
                     @confirm="deleteChapter"
                 >
-                    <div
-                        class="flex items-center gap-2 p-3 bg-black-300 border border-black-600 rounded-md shrink-0 text-left"
-                    >
+                    <div class="flex items-center gap-2 p-3 bg-black-300 border border-black-600 rounded-md">
                         <img
                             :src="chapter.category.image_url"
                             alt="chapter image"

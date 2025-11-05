@@ -54,7 +54,6 @@ function changeOrientation() {
             />
 
             <div class="flex gap-1">
-                <PlayerButton icon="mdi-fullscreen" @click="toggle()" />
                 <AddToPlaylist />
                 <PlayerButton icon="mdi-cog-outline" />
             </div>
@@ -104,12 +103,13 @@ function changeOrientation() {
 
                     <ChaptersMenu size="small" />
 
-                    <PlayerButton
+                    <PlayerButton icon="mdi-fullscreen" @click="toggle()" />
+                    <!-- <PlayerButton
                         :size="22"
                         icon="mdi-phone-rotate-landscape"
                         class="-scale-x-100"
                         @click="changeOrientation()"
-                    />
+                    /> -->
                 </div>
             </div>
 
