@@ -21,13 +21,13 @@ const resetLoading = ref(false);
 
 async function addEmptyChapter() {
     videoStore.chapters.push({
-        category_id: null,
+        category_id: '',
         end_s: 0,
         id: '',
         start_s: Math.floor(videoStore.currentTime),
         video_id: videoStore.videoId,
         category: {
-            category_id: null,
+            category_id: '',
             id: '',
             image_url: '',
             title: '',
@@ -94,7 +94,10 @@ async function cancel() {
 <template>
     <v-bottom-sheet v-model="videoStore.showChapterManager" inset>
         <BottomSheetContainer v-if="videoStore.videoInfo && videoStore.chapters" title="Manage chapters">
-            <div class="overflow-auto overflow-x-hidden scroll-hiddenf max-h-[50vh] p-4">
+            <div
+                v-if="videoStore.chapters.length"
+                class="overflow-auto overflow-x-hidden scroll-hiddenf max-h-[50vh] p-4"
+            >
                 <v-form v-model="valid" class="flex flex-col gap-4">
                     <ManageChapterRow
                         v-for="(chapter, i) in videoStore.chapters"
@@ -105,13 +108,32 @@ async function cancel() {
                 </v-form>
             </div>
 
+            <Empty
+                v-else
+                title="No chapters..."
+                description="Add your first chapter to get started!"
+                icon="mdi-format-list-bulleted"
+                class="p-4"
+            >
+                <v-btn @click="addEmptyChapter" color="primary" variant="tonal" prepend-icon="mdi-plus">
+                    Add chapter
+                </v-btn>
+            </Empty>
+
             <template #actions>
-                <v-btn @click="addEmptyChapter" color="primary" size="small" variant="tonal" prepend-icon="mdi-plus">
+                <v-btn
+                    v-if="videoStore.chapters.length"
+                    @click="addEmptyChapter"
+                    color="primary"
+                    size="small"
+                    variant="tonal"
+                    prepend-icon="mdi-plus"
+                >
                     Add chapter
                 </v-btn>
             </template>
 
-            <template #footer>
+            <template v-if="videoStore.chapters.length" #footer>
                 <div class="flex items-center justify-end gap-4">
                     <v-btn :loading="resetLoading" @click="cancel">Reset</v-btn>
                     <v-btn color="primary" :disabled="!valid" :loading="loading" @click="submit">Save</v-btn>

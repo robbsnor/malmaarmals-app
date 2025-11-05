@@ -10,16 +10,18 @@ const props = defineProps<{
 }>();
 </script>
 <template>
-    <div class="flex flex-col items-center justify-center p-6 rounded-lg">
-        <div v-if="props.icon" class="bg-gray-50 border border-gray-200 rounded-full p-4 mb-5">
-            <v-icon :icon="props.icon" class="text-primary-600" />
-        </div>
+    <div class="flex justify-center items-center">
+        <div class="flex flex-col items-center justify-center p-4 rounded-md bg-black-300 border border-black-500">
+            <div v-if="props.icon" class="bg-black-400 rounded-md p-2 mb-2">
+                <v-icon :icon="props.icon" />
+            </div>
 
-        <h3 v-if="props.title" class="text-gray-800 text-lg font-medium mb-2">{{ props.title }}</h3>
-        <p v-if="props.description" class="text-gray-500 text-sm">{{ props.description }}</p>
+            <h3 v-if="props.title" class="text-normal text-lg font-medium mb-2">{{ props.title }}</h3>
+            <p v-if="props.description" class="text-muted text-sm">{{ props.description }}</p>
 
-        <div v-if="slots.default" class="mt-4">
-            <slot></slot>
+            <div v-if="slots.default">
+                <slot></slot>
+            </div>
         </div>
     </div>
 </template>

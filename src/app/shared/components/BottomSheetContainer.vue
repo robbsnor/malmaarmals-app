@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import { useSlots } from 'vue';
+
 const props = defineProps<{
     title?: string;
 }>();
+
+const slots = useSlots();
 </script>
 
 <template>
@@ -14,7 +18,7 @@ const props = defineProps<{
 
         <slot></slot>
 
-        <div class="p-4 border-t border-black-500">
+        <div v-if="slots.footer" class="p-4 border-t border-black-500">
             <slot name="footer"></slot>
         </div>
     </div>
