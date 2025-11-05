@@ -5,11 +5,17 @@ const props = defineProps<{
 </script>
 
 <template>
-    <div class="bg-black-200 border border-black-400 p-4 rounded-t-xl">
-        <h3 v-if="props.title" class="font-bold text-lg mb-4">{{ props.title }}</h3>
-        <div class="overflow-auto overflow-x-hidden scroll-hiddenf max-h-[60vh]">
-            <slot></slot>
+    <div class="bg-black-200 border border-black-400 rounded-t-xl">
+        <div class="flex gap-4 justify-between items-center p-4 border-b border-black-500">
+            <h3 v-if="props.title" class="font-bold text-lg">{{ props.title }}</h3>
+
+            <slot name="actions"></slot>
         </div>
-        <slot name="footer"></slot>
+
+        <slot></slot>
+
+        <div class="p-4 border-t border-black-500">
+            <slot name="footer"></slot>
+        </div>
     </div>
 </template>

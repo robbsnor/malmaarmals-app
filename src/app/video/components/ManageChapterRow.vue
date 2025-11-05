@@ -49,19 +49,24 @@ function deleteChapter() {
 </script>
 
 <template>
-    <div class="flex gap-4 items-center flex-wrap border-b border-black-500 pb-4">
-        <div class="w-full md:w-50">
+    <div
+        :class="[
+            'flex gap-4 items-center flex-wrap',
+            props.i !== videoStore.chapters.length - 1 ? 'border-b border-black-500 pb-8' : '',
+        ]"
+    >
+        <div class="flex items-center gap-4 w-full md:w-40">
             <v-number-input
                 v-model="chapter.start_s"
                 :rules="rules"
                 :reverse="false"
-                controlVariant="stacked"
+                controlVariant="hidden"
                 label="Start time (s)"
                 :hideInput="false"
                 :inset="false"
-                append-icon="mdi-target"
                 @click:append="chapter.start_s = Math.floor(videoStore.currentTime)"
             />
+            <v-btn size="x-small" variant="tonal" icon="mdi-target" color="var(--color-black-2000)"></v-btn>
         </div>
 
         <v-autocomplete
@@ -70,6 +75,7 @@ function deleteChapter() {
             width="100px"
             v-model="chapter.category"
             :rules="rules"
+            autofocus
             hide-no-data
             hide-details
             autocomplete="off"
