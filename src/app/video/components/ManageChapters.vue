@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { nextTick, ref } from 'vue';
 import { supabase } from '../../../supabase';
-import BottomSheetContainer from '../../shared/components/BottomSheetContainer.vue';
 import type { SearchCategory } from '../models/category.model';
 import ManageChapterRow from './ManageChapterRow.vue';
 import { useVideoStore } from '../stores/video.store';
