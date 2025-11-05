@@ -136,9 +136,19 @@ async function cancel() {
             </template>
 
             <template v-if="videoStore.chapters.length" #footer>
-                <div class="flex items-center justify-end gap-4">
-                    <v-btn :loading="resetLoading" @click="cancel">Reset</v-btn>
-                    <v-btn color="primary" :disabled="!valid" :loading="loading" @click="submit">Save</v-btn>
+                <div class="flex justify-between items-center gap-4">
+                    <div>
+                        <template v-if="videoStore.hasChapterChanges">
+                            <span class="text-sm text-black-800 underline italic">Unsaved changes</span>
+                        </template>
+                    </div>
+
+                    <div class="flex items-center justify-end gap-4">
+                        <v-btn v-if="videoStore.hasChapterChanges" :loading="resetLoading" @click="cancel">
+                            Undo changes
+                        </v-btn>
+                        <v-btn color="primary" :disabled="!valid" :loading="loading" @click="submit">Save</v-btn>
+                    </div>
                 </div>
             </template>
         </BottomSheetContainer>

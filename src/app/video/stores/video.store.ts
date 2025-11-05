@@ -7,16 +7,19 @@ import { TitleHelper } from '../../shared/helpers/title.helper';
 import { useIdle, useMediaControls } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
-import { chaptersWithCategoryQuery, type ChaptersWithCategory } from '../models/chapters-with-category.model';
+import { type ChaptersWithCategory } from '../models/chapters-with-category.model';
 import _ from 'lodash';
 
 export const useVideoStore = defineStore('video', () => {
     const videoInfo = ref<Tables<'videos'>>();
     const videoId = ref<number>();
+
     const chaptersOG = ref<ChaptersWithCategory>();
     const chapters = ref<ChaptersWithCategory>();
-    const showControllsAndInfo = ref(true);
+    const hasChapterChanges = computed(() => !_.isEqual(chapters.value, chaptersOG.value));
     const showChapterManager = ref(false);
+
+    const showControllsAndInfo = ref(true);
     const messages = ref<Tables<'messages'>[]>([]);
     const player = ref({
         isActive: false,
@@ -179,6 +182,7 @@ export const useVideoStore = defineStore('video', () => {
         videoSrc,
         showControllsAndInfo,
         showChapterManager,
+        hasChapterChanges,
         messages,
         subCount,
         prettyCurrentTime,
