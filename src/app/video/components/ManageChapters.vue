@@ -87,7 +87,7 @@ const submit = async () => {
 
 async function cancel() {
     resetLoading.value = true;
-    await sleep(200);
+    await sleep(500);
     videoStore.resetChaptersForm();
     resetLoading.value = false;
 }
@@ -144,10 +144,22 @@ async function cancel() {
                     </div>
 
                     <div class="flex items-center justify-end gap-4">
-                        <v-btn v-if="videoStore.hasChapterChanges" :loading="resetLoading" @click="cancel">
-                            Undo changes
+                        <v-btn
+                            :disabled="!videoStore.hasChapterChanges"
+                            variant="text"
+                            :loading="resetLoading"
+                            @click="cancel"
+                        >
+                            Restore
                         </v-btn>
-                        <v-btn color="primary" :disabled="!valid" :loading="loading" @click="submit">Save</v-btn>
+
+                        <v-btn
+                            color="primary"
+                            :disabled="!videoStore.hasChapterChanges"
+                            :loading="loading"
+                            @click="submit"
+                            >Save</v-btn
+                        >
                     </div>
                 </div>
             </template>
