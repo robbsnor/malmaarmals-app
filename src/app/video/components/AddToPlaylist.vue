@@ -2,12 +2,9 @@
 import { supabase } from '../../../supabase';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { useAppStore } from '../../shared/stores/app.store';
-import { useRouter, RouterLink } from 'vue-router';
-import { computed, ref } from 'vue';
-import { useArchiveStore } from '../../archive/stores/archive.store';
+import { ref } from 'vue';
 import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
 import { useVideoStore } from '../stores/video.store';
-import type { Tables } from '../../shared/types/database.types';
 import PlayerButton from './PlayerButton.vue';
 
 const formDefault = {

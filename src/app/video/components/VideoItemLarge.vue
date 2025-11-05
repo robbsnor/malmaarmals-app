@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { Tables } from '../../shared/types/database.types';
+import type { Tables } from '../../shared/models/database.types';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 
 const props = withDefaults(

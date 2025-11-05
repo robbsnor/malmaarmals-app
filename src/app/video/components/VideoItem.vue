@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
-import type { Tables } from '../../shared/types/database.types';
 import { TimeHelper } from '../../shared/helpers/time.helper';
+import type { VideoWithChapters } from '../models/videos-with-chapters';
 
 const props = withDefaults(
     defineProps<{
-        video: Tables<'videos'>;
+        video: VideoWithChapters;
     }>(),
     {}
 );
@@ -18,15 +18,8 @@ const daysAgo = computed(() => {
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 });
 
-const formattedDuration = computed(() => {
-    const duration = props.video.length_sec;
-    const hours = Math.floor(duration / 3600);
-    const minutes = Math.floor((duration % 3600) / 60);
-    const seconds = duration % 60;
-    if (hours > 0) {
-        return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    }
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+const categories = computed(() => {
+    return props.video?.chapters.map((chapter) => chapter.category.title);
 });
 </script>
 
@@ -42,8 +35,10 @@ const formattedDuration = computed(() => {
             <h2 class="font-bold text-md line-clamp-2 leading-snug">
                 {{ props.video.title }}
             </h2>
-            <div class="text-muted text-sm font-medium">Super Mario Kart World</div>
-            <div class="text-muted-more text-sm font-medium">{{ daysAgo }} days ago, {{ formattedDuration }}</div>
+            <div v-if="props.video?.chapters.length" class="text-muted text-sm font-medium">
+                <span v-for="cat in categories" :key="cat">{{ cat }}, </span>
+            </div>
+            <div class="text-muted-more text-sm font-medium">{{ daysAgo }} days ago</div>
         </div>
     </RouterLink>
 </template>
