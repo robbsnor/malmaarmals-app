@@ -20,11 +20,13 @@ const loading = ref(false);
 const resetLoading = ref(false);
 
 async function addEmptyChapter() {
+    const currentTime = Math.floor(videoStore.currentTime);
+
     videoStore.chapters.push({
         category_id: '',
         end_s: 0,
         id: '',
-        start_s: Math.floor(videoStore.currentTime) - 2,
+        start_s: currentTime <= 2 ? 0 : currentTime - 2,
         video_id: videoStore.videoId,
         category: {
             category_id: '',
