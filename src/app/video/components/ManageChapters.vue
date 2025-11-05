@@ -74,9 +74,10 @@ const submit = async () => {
     await deleteExistingChapters();
     await saveChapters();
 
-    await videoStore.fetchChapters();
-
     loading.value = false;
+    videoStore.showChapterManager = false;
+
+    await videoStore.fetchChapters();
 };
 
 async function cancel() {
