@@ -30,14 +30,14 @@ const props = withDefaults(
 
             <VideoThumbnail
                 :to="`/about`"
-                :src="BucketHelper.getThumbnailUrl(Number(playlist.playlist_videos[0]?.video_id))"
+                :src="BucketHelper.getThumbnailUrl(Number(playlist.videos?.[0]?.video_id))"
                 icon="mdi-playlist-play"
             />
         </div>
 
         <div>
             <h2 class="font-bold text-md pt-2">{{ playlist.title }}</h2>
-            <div class="text-muted text-sm font-medium">{{ playlist.playlist_videos.length }} Video's</div>
+            <div class="text-muted text-sm font-medium">{{ playlist.videos.length }} Video's</div>
         </div>
     </RouterLink>
 </template>

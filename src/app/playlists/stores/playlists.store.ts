@@ -17,7 +17,7 @@ export const usePlaylistsStore = defineStore('playlists', () => {
 
         const sorted = data.map((playlist) => {
             // order videos by recorded_at desc
-            playlist.playlist_videos.sort((a, b) => b.recorded_at.localeCompare(a.recorded_at));
+            playlist.videos.sort((a, b) => b.recorded_at.localeCompare(a.recorded_at));
             return playlist;
         });
 

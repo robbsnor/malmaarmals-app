@@ -30,7 +30,7 @@ const dialog = ref(false);
     <Container v-if="playlist" :padding="false">
         <div class="relative overflow-hidden aspect-[16/8]">
             <img
-                :src="BucketHelper.getThumbnailUrl(Number(playlist?.playlist_videos[0]?.video_id))"
+                :src="BucketHelper.getThumbnailUrl(Number(playlist?.videos?.[0]?.video_id))"
                 alt=""
                 class="absolute w-full h-full object-cover object-center"
             />
@@ -69,7 +69,7 @@ const dialog = ref(false);
         <div>
             <div class="flex flex-col gap-4 py-4">
                 <RouterLink
-                    v-for="video in playlist?.playlist_videos"
+                    v-for="video in playlist?.videos"
                     :key="video.id"
                     :to="{ name: 'video', params: { id: video.video_id } }"
                     class="flex gap-4"
