@@ -24,15 +24,7 @@ function confirm() {
 </script>
 
 <template>
-    <ConfirmDialog
-        v-model="dialog"
-        :title="props.title"
-        :description="props.description"
-        :confirmText="props.confirmText"
-        :confirmColor="props.confirmColor"
-        :width="props.width"
-        @confirm="confirm"
-    >
+    <ConfirmDialog v-model="dialog" v-bind="props" @confirm="confirm">
         <template #activator="activator">
             <slot v-bind="activator" name="activator"></slot>
         </template>
