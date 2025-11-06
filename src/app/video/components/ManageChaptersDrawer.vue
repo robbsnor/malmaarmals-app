@@ -2,7 +2,7 @@
 import { nextTick, ref } from 'vue';
 import { supabase } from '../../../supabase';
 import type { SearchCategory } from '../models/category.model';
-import ManageChapterRow from './ManageChapterRow.vue';
+import ManageChaptersRow from './ManageChaptersRow.vue';
 import { useVideoStore } from '../stores/video.store';
 import { sleep } from '../../shared/helpers/sleep';
 import { useAuthStore } from '../../auth/stores/auth.store';
@@ -108,7 +108,7 @@ async function cancel() {
     <Drawer v-model="videoStore.showChapterManager" inset title="Manage chapters">
         <div v-if="videoStore.chapters.length">
             <v-form v-model="valid" class="flex flex-col gap-4">
-                <ManageChapterRow
+                <ManageChaptersRow
                     v-for="(chapter, i) in videoStore.chapters"
                     :key="chapter.start_s"
                     v-model="videoStore.chapters[i]"
