@@ -70,6 +70,8 @@ async function deleteExistingChapters() {
 }
 
 async function saveChapters() {
+    videoStore.chapters.sort((a, b) => a.start_s - b.start_s);
+
     const chapters = videoStore.chapters.map((chapter, i) => ({
         video_id: videoStore.videoId,
         category_id: chapter.category.category_id,
@@ -111,7 +113,7 @@ async function cancel() {
     <Drawer v-model="videoStore.showChapterManager" inset title="Manage chapters">
         <template v-if="videoStore.chapters.length">
             <div>
-                <v-form v-model="valid" class="flex flex-col gap-4">
+                <v-form v-model="valid" v-auto-animate class="flex flex-col gap-4">
                     <ManageChaptersRow
                         v-for="(chapter, i) in videoStore.chapters"
                         :key="chapter.start_s"
@@ -121,7 +123,7 @@ async function cancel() {
                 </v-form>
             </div>
 
-            <v-btn @click="addEmptyChapter" color="primary" class="w-full mt-6" variant="tonal" prepend-icon="mdi-plus">
+            <v-btn @click="addEmptyChapter" color="primary" class="w-full mt-6" prepend-icon="mdi-plus">
                 Add chapter
             </v-btn>
         </template>
