@@ -14,6 +14,7 @@ import ConfirmDialog from '../../shared/components/ConfirmDialog.vue';
 
 const videoStore = useVideoStore();
 const valid = ref(false);
+const saveDialog = ref(false);
 const loading = ref(false);
 const resetLoading = ref(false);
 
@@ -91,8 +92,10 @@ const submit = async () => {
     await saveChapters();
 
     loading.value = false;
-    videoStore.showChapterManager = false;
+    saveDialog.value = false;
+    await sleep(500);
 
+    videoStore.showChapterManager = false;
     await videoStore.fetchChapters();
 };
 
@@ -171,6 +174,7 @@ async function cancel() {
                     </v-btn>
 
                     <ConfirmDialog
+                        v-model="saveDialog"
                         title="Save changes?"
                         description="Are you sure you want to save your changes?"
                         confirm-text="Save"
