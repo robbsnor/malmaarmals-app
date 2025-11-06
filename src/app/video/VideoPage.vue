@@ -23,7 +23,7 @@ onMounted(async () => {
 
     await videoStore.fetchVideoInfo();
     await videoStore.fetchChapters();
-    // await videoStore.fetchMessages();
+    await videoStore.fetchMessages();
 });
 
 onUnmounted(() => {
