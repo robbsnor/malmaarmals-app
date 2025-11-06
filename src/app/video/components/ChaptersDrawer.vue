@@ -40,7 +40,7 @@ function skipToSec(sec: number) {
             />
         </template>
 
-        <div class="flex flex-col gap-2 max-h-100 overflow-auto">
+        <div class="flex flex-col gap-2">
             <button
                 v-for="chapter in videoStore.chapters"
                 :key="chapter.start_s"

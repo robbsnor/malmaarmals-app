@@ -5,7 +5,7 @@ const videoStore = useVideoStore();
 </script>
 
 <template>
-    <div class="flex justify-between items-center gap-4 bg-black-150 rounded-md px-4 py-3 mb-4">
+    <div class="flex justify-between items-center gap-4 bg-black-400 border border-black-700 rounded-md px-4 py-3">
         <div>{{ videoStore.prettyCurrentTime }}</div>
 
         <div class="flex justify-center items-center gap-3">
