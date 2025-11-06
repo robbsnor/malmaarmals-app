@@ -259,3 +259,7 @@ button {
 .v-overlay {
     --v-overlay-opacity: 0.6;
 }
+
+p {
+    @apply text-muted;
+}

@@ -7,6 +7,8 @@ import { useVideoStore } from '../stores/video.store';
 import type { ChapterWithCategory } from '../models/chapters-with-category.model';
 import type { Tables } from '../../shared/models/database.types';
 import { BABBELEN_CATEGORY, INTRO_CATEGORY } from '../data/chapters.data';
+import { prettyTime } from '../../shared/helpers/prettyTime';
+import CategoryThumbnail from './CategoryThumbnail.vue';
 
 const chapter = defineModel<ChapterWithCategory>();
 const props = defineProps<{ i: number }>();
@@ -58,30 +60,12 @@ function markStartTime() {
     chapter.value.start_s = Math.floor(videoStore.currentTime);
 }
 
-const prettyTime = computed(() => {
-    const totalSeconds = chapter.value.start_s;
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-
-    const hoursStr = hours > 0 ? String(hours).padStart(2, '0') + ':' : '';
-    const minutesStr = String(minutes).padStart(2, '0') + ':';
-    const secondsStr = String(seconds).padStart(2, '0');
-
-    return hoursStr + minutesStr + secondsStr;
-});
+const prettyTimeComputed = computed(() => prettyTime(chapter.value.start_s));
 </script>
 
 <template>
     <div :class="['flex gap-3', props.i !== videoStore.chapters.length - 1 ? 'border-b border-black-500 pb-4' : '']">
-        <div class="h-[56px] aspect-[8/11] bg-black-500 rounded-sm">
-            <img
-                v-if="chapter.category?.image_url"
-                :src="chapter.category.image_url"
-                alt=""
-                class="h-full rounded-sm"
-            />
-        </div>
+        <CategoryThumbnail :category="chapter.category" />
 
         <v-autocomplete
             @update:search="updateCategories"
@@ -117,13 +101,33 @@ const prettyTime = computed(() => {
                     @click="videoStore.currentTime = chapter.start_s"
                 /> -->
 
-                <v-btn
-                    size="x-small"
-                    variant="tonal"
-                    icon="mdi-target"
-                    color="var(--color-black-2000)"
-                    @click="markStartTime"
-                />
+                <ConfirmDialog @confirm="markStartTime" title="Change chapter time?" width="unset">
+                    <template #activator="{ props }">
+                        <v-btn
+                            v-bind="props"
+                            size="x-small"
+                            variant="tonal"
+                            icon="mdi-target"
+                            color="var(--color-black-2000)"
+                            @click="videoStore.playing = false"
+                        />
+                    </template>
+
+                    <div class="flex items-center gap-4">
+                        <CategoryThumbnail :category="chapter.category" class="h-[83px]" />
+
+                        <div class="overflow-hidden">
+                            <div class="font-bold text-muted mb-1">{{ chapter.category.title }}</div>
+                            <div
+                                class="inline-flex items-center gap-4 py-2 px-4 rounded-md bg-black-200 border border-black-500"
+                            >
+                                <div class="text-muted">{{ prettyTimeComputed }}</div>
+                                <v-icon icon="mdi-chevron-right" color="var(--color-muted)" />
+                                <div class="text-primary">{{ prettyTime(videoStore.currentTime) }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </ConfirmDialog>
 
                 <v-menu location="top start">
                     <template v-slot:activator="{ props }">
@@ -138,7 +142,7 @@ const prettyTime = computed(() => {
 
                     <v-list>
                         <v-list-item prepend-icon="mdi-play" @click="videoStore.currentTime = chapter.start_s">
-                            <v-list-item-title>Go to: {{ prettyTime }} </v-list-item-title>
+                            <v-list-item-title>Go to: {{ prettyTimeComputed }} </v-list-item-title>
                         </v-list-item>
 
                         <DeleteDialog
@@ -160,7 +164,7 @@ const prettyTime = computed(() => {
                                 />
                                 <div class="overflow-hidden">
                                     <div class="font-bold pr-2 truncate">{{ chapter.category.title }}</div>
-                                    <div class="text-muted text-sm">{{ prettyTime }}</div>
+                                    <div class="text-muted text-sm">{{ prettyTimeComputed }}</div>
                                 </div>
                             </div>
                         </DeleteDialog>
@@ -168,7 +172,7 @@ const prettyTime = computed(() => {
                 </v-menu>
             </div>
 
-            <div class="text-muted text-sm leading-none ml-0.5">{{ prettyTime }}</div>
+            <div class="text-muted text-sm leading-none ml-0.5">{{ prettyTimeComputed }}</div>
         </div>
     </div>
 </template>

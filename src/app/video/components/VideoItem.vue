@@ -11,7 +11,11 @@ const props = withDefaults(
     {}
 );
 
-const categories = computed(() => props.video?.chapters.map((chapter) => chapter.category.title));
+const categories = computed(() => {
+    const cats = props.video?.chapters.map((chapter) => chapter.category.title);
+    const uniqueCats = Array.from(new Set(cats));
+    return uniqueCats;
+});
 const daysAgo = computed(() => {
     const recordedAt = new Date(props.video.recorded_at);
     const now = new Date();
@@ -32,7 +36,7 @@ const daysAgo = computed(() => {
             <h2 class="font-bold text-md line-clamp-2 leading-snug">
                 {{ props.video.title }}
             </h2>
-            <div v-if="props.video?.chapters.length" class="text-muted text-sm font-medium line-clamp-2">
+            <div v-if="props.video?.chapters.length" class="text-muted text-sm font-medium line-clamp-f2">
                 {{ categories.join(', ') }}
             </div>
             <div class="text-muted-more text-sm font-medium">{{ daysAgo }} days ago</div>
