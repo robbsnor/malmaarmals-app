@@ -155,21 +155,13 @@ async function cancel() {
             <ChapterControlls v-if="videoStore.chapters.length" />
 
             <div class="flex justify-between items-center gap-4">
-                <div>
-                    <v-tooltip location="top" text="You have unsaved changes">
-                        <template #activator="{ props }">
-                            <v-icon
-                                v-if="videoStore.hasChapterChanges"
-                                v-bind="props"
-                                icon="mdi-alert-circle-outline"
-                                color="error"
-                                size="small"
-                            />
-                        </template>
-                    </v-tooltip>
-                </div>
+                <div></div>
 
                 <div class="flex items-center justify-end gap-4">
+                    <div v-if="videoStore.hasChapterChanges" class="text-muted-more underlifne italic text-sm">
+                        Unsaved changes
+                    </div>
+
                     <v-btn
                         :disabled="!videoStore.hasChapterChanges"
                         variant="text"

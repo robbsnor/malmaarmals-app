@@ -34,7 +34,7 @@ const close = () => {
             <slot v-bind="activator" name="activator"></slot>
         </template>
 
-        <div class="bg-black-200 border border-black-500 p-6 rounded-md flex flex-col gap-4">
+        <div class="bg-black border border-black-300 p-6 rounded-md flex flex-col gap-4">
             <div class="flex gap-4 items-center">
                 <div v-if="props.icon" class="flex justify-center items-center p-2 bg-black-400 rounded-md">
                     <v-icon :color="props.iconColor" :icon="props.icon" class=" " />
@@ -57,7 +57,9 @@ const close = () => {
                 </button>
             </div>
 
-            <slot></slot>
+            <div>
+                <slot></slot>
+            </div>
 
             <slot v-if="slots.footer" name="footer"></slot>
         </div>
