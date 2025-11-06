@@ -6,7 +6,7 @@ export const vuetify = createVuetify({
     defaults: {
         global: {
             flat: true,
-            ripple: false,
+            // ripple: false,
         },
         VAutocomplete: {
             hideDetails: 'auto',
