@@ -56,9 +56,7 @@ function deleteChapter() {
 }
 
 function markStartTime() {
-    const currentTime = Math.floor(videoStore.currentTime);
-
-    chapter.value.start_s = currentTime <= 2 ? 0 : currentTime - 2;
+    chapter.value.start_s = Math.floor(videoStore.currentTime);
 }
 
 const prettyTime = computed(() => {
@@ -112,18 +110,13 @@ const prettyTime = computed(() => {
 
         <div class="flex flex-col justify-between">
             <div class="flex gap-3">
-                <v-tooltip location="top" text="Set time (2s before current time)">
-                    <template #activator="{ props }">
-                        <v-btn
-                            v-bind="props"
-                            size="x-small"
-                            variant="tonal"
-                            icon="mdi-target"
-                            color="var(--color-black-2000)"
-                            @click="markStartTime"
-                        />
-                    </template>
-                </v-tooltip>
+                <v-btn
+                    size="x-small"
+                    variant="tonal"
+                    icon="mdi-target"
+                    color="var(--color-black-2000)"
+                    @click="markStartTime"
+                />
 
                 <v-btn
                     icon="mdi-trash-can-outline"
