@@ -101,7 +101,7 @@ const submit = async () => {
 
 async function cancel() {
     resetLoading.value = true;
-    await sleep(500);
+    // await sleep(500);
     videoStore.resetChaptersForm();
     resetLoading.value = false;
 }
