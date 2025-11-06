@@ -6,7 +6,7 @@ import { useVideoStore } from '../stores/video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import Info from './Info.vue';
 import InfoLarge from './InfoLarge.vue';
-import ManageChapters from './ManageChapters.vue';
+import ManageChaptersDrawer from './ManageChaptersDrawer.vue';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
@@ -31,6 +31,6 @@ const authStore = useAuthStore();
             <Chat />
         </div>
 
-        <ManageChapters />
+        <ManageChaptersDrawer />
     </div>
 </template>
