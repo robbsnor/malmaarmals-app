@@ -9,6 +9,7 @@ const slots = useSlots();
 const props = withDefaults(
     defineProps<{
         title?: string;
+        description?: string;
         inset?: boolean;
         padding?: boolean;
         eager?: boolean;
@@ -31,7 +32,10 @@ const props = withDefaults(
                 v-if="props.title || slots.actions"
                 class="flex gap-4 justify-between items-center p-4 border-b border-black-500"
             >
-                <h3 class="font-bold text-lg">{{ props.title }}</h3>
+                <div>
+                    <h3 class="font-bold text-xl">{{ props.title }}</h3>
+                    <p v-if="props.description" class="text-muted">{{ props.description }}</p>
+                </div>
 
                 <slot name="actions"></slot>
             </div>

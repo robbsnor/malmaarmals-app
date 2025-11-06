@@ -21,6 +21,7 @@ const prettyTime = (seconds: number) => {
 
 function skipToSec(sec: number) {
     videoStore.currentTime = sec;
+
     videoStore.playing = true;
     videoStore.showControllsAndInfo = true;
     sheet.value = false;

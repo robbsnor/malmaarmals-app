@@ -10,6 +10,7 @@ import type { ChaptersWithCategory, ChapterWithCategory } from '../models/chapte
 import type { Tables } from '../../shared/models/database.types';
 import { BABBELEN_CATEGORY, INTRO_CATEGORY } from '../data/chapters.data';
 import ChapterControlls from './ChapterControlls.vue';
+import ConfirmDialog from '../../shared/components/ConfirmDialog.vue';
 
 const videoStore = useVideoStore();
 const valid = ref(false);
@@ -32,13 +33,11 @@ async function addInitialChapters() {
 }
 
 async function addEmptyChapter() {
-    const currentTime = Math.floor(videoStore.currentTime);
-
     videoStore.chapters.push({
         category_id: '',
         end_s: 0,
         id: '',
-        start_s: currentTime <= 2 ? 0 : currentTime - 2,
+        start_s: Math.floor(videoStore.currentTime),
         video_id: videoStore.videoId,
         category: {
             category_id: '',
@@ -171,9 +170,19 @@ async function cancel() {
                         Restore
                     </v-btn>
 
-                    <v-btn color="primary" :disabled="!videoStore.hasChapterChanges" :loading="loading" @click="submit"
-                        >Save</v-btn
+                    <ConfirmDialog
+                        title="Save changes?"
+                        description="Are you sure you want to save your changes?"
+                        confirm-text="Save"
+                        :loading="loading"
+                        @confirm="submit"
                     >
+                        <template #activator="{ props }">
+                            <v-btn color="primary" v-bind="props" :disabled="!videoStore.hasChapterChanges">
+                                Save
+                            </v-btn>
+                        </template>
+                    </ConfirmDialog>
                 </div>
             </div>
         </template>

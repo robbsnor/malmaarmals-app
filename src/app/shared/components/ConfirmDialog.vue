@@ -8,11 +8,12 @@ const props = withDefaults(
         icon?: string;
         confirmText?: string;
         confirmColor?: string;
+        confirmIcon?: string;
         cancelText?: string;
         width?: string | number;
+        loading?: boolean;
     }>(),
     {
-        icon: 'mdi-information',
         confirmText: 'Confirm',
         confirmColor: 'primary',
         cancelText: 'Cancel',
@@ -33,12 +34,23 @@ function cancel() {
         :icon="props.icon"
         :width="props.width"
     >
+        <template #activator="activator">
+            <slot v-bind="activator" name="activator"></slot>
+        </template>
+
         <slot></slot>
 
         <template #footer>
             <div class="flex justify-end gap-4">
                 <v-btn variant="text" @click="cancel">{{ props.cancelText }}</v-btn>
-                <v-btn :color="props.confirmColor" @click="emits('confirm')">{{ props.confirmText }}</v-btn>
+                <v-btn
+                    :loading="props.loading"
+                    :color="props.confirmColor"
+                    :prepend-icon="props.confirmIcon"
+                    @click="emits('confirm')"
+                >
+                    {{ props.confirmText }}
+                </v-btn>
             </div>
         </template>
     </Dialog>

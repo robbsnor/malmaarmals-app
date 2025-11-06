@@ -30,6 +30,10 @@ const close = () => {
 
 <template>
     <v-dialog v-model="dialog" :width="props.width">
+        <template #activator="activator">
+            <slot v-bind="activator" name="activator"></slot>
+        </template>
+
         <div class="bg-black-200 border border-black-500 p-6 rounded-md flex flex-col gap-4">
             <div class="flex gap-4 items-center">
                 <div v-if="props.icon" class="flex justify-center items-center p-2 bg-black-400 rounded-md">
@@ -38,7 +42,7 @@ const close = () => {
 
                 <div>
                     <h2 class="text-2xl font-bold">{{ props.title }}</h2>
-                    <div v-if="props.description" class="text-sm text-muted">{{ props.description }}</div>
+                    <p v-if="props.description" class="text-muted">{{ props.description }}</p>
                 </div>
 
                 <button

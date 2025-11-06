@@ -5,14 +5,12 @@ const props = withDefaults(
     defineProps<{
         title?: string;
         description?: string;
-        icon?: string;
         confirmText?: string;
         confirmColor?: string;
         cancelText?: string;
         width?: string | number;
     }>(),
     {
-        icon: 'mdi-trash-can-outline',
         confirmText: 'Delete',
         confirmColor: 'error',
         cancelText: 'Cancel',
@@ -32,10 +30,13 @@ function confirm() {
         :description="props.description"
         :confirmText="props.confirmText"
         :confirmColor="props.confirmColor"
-        :icon="props.icon"
         :width="props.width"
         @confirm="confirm"
     >
+        <template #activator="activator">
+            <slot v-bind="activator" name="activator"></slot>
+        </template>
+
         <slot></slot>
     </ConfirmDialog>
 </template>
