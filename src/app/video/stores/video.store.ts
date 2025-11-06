@@ -156,7 +156,7 @@ export const useVideoStore = defineStore('video', () => {
         (newChapters) => {
             // sort chapters by start_s
             if (!newChapters) return;
-            chapters.value = newChapters.sort((a, b) => a.start_s - b.start_s);
+            newChapters.sort((a, b) => a.start_s - b.start_s);
         },
         { deep: true }
     );

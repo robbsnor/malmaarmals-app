@@ -9,12 +9,14 @@ import type { Tables } from '../../shared/models/database.types';
 import { BABBELEN_CATEGORY, INTRO_CATEGORY } from '../data/chapters.data';
 import { prettyTime } from '../../shared/helpers/prettyTime';
 import CategoryThumbnail from './CategoryThumbnail.vue';
+import { sleep } from '../../shared/helpers/sleep';
 
 const chapter = defineModel<ChapterWithCategory>();
 const props = defineProps<{ i: number }>();
 const videoStore = useVideoStore();
 const categories = ref<Tables<'categories'>[]>([]);
 const loadingCategories = ref(false);
+const confirmTimeDialog = ref(false);
 const rules = [
     (value) => {
         if (value || value === 0) return true;
@@ -56,7 +58,9 @@ function deleteChapter() {
     videoStore.chapters.splice(props.i, 1);
 }
 
-function markStartTime() {
+async function markStartTime() {
+    confirmTimeDialog.value = false;
+    await sleep(100);
     chapter.value.start_s = Math.floor(videoStore.currentTime);
 }
 
@@ -102,6 +106,7 @@ const prettyTimeComputed = computed(() => prettyTime(chapter.value.start_s));
                 /> -->
 
                 <ConfirmDialog
+                    v-model="confirmTimeDialog"
                     @confirm="markStartTime"
                     title="Change chapter time?"
                     width="unset"
