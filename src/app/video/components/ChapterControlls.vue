@@ -30,7 +30,7 @@ const videoStore = useVideoStore();
                 @click="videoStore.playing = !videoStore.playing"
             />
             <div v-else class="size-[32px] flex justify-center items-center">
-                <v-progress-circular size="x-small" width="3" indeterminate></v-progress-circular>
+                <v-progress-circular size="x-small" width="2" indeterminate />
             </div>
 
             <v-btn
