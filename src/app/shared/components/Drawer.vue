@@ -14,8 +14,10 @@ const props = withDefaults(
         inset?: boolean;
         padding?: boolean;
         eager?: boolean;
+        width?: string | number;
     }>(),
     {
+        width: 500,
         inset: true,
         padding: true,
     }
@@ -23,7 +25,7 @@ const props = withDefaults(
 </script>
 
 <template>
-    <v-bottom-sheet v-model="sheet" :inset="props.inset" :eager="props.eager">
+    <v-bottom-sheet v-model="sheet" v-bind="props">
         <template #activator="activator">
             <slot v-bind="activator" name="activator"></slot>
         </template>
