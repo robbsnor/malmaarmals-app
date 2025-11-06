@@ -111,6 +111,14 @@ const prettyTime = computed(() => {
         <div class="flex flex-col justify-between">
             <div class="flex gap-3">
                 <v-btn
+                    icon="mdi-play"
+                    variant="tonal"
+                    size="x-small"
+                    color="var(--color-black-2000)"
+                    @click="videoStore.currentTime = chapter.start_s"
+                />
+
+                <v-btn
                     size="x-small"
                     variant="tonal"
                     icon="mdi-target"
