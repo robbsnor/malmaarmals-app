@@ -41,7 +41,7 @@ const props = withDefaults(
                 <slot name="actions"></slot>
             </div>
 
-            <div :class="props.padding ? 'p-4' : ''" class="max-h-[70vh] overflow-auto overflow-x-hidden">
+            <div :class="props.padding ? 'p-4' : ''" class="max-h-[60vh] overflow-auto overflow-x-hidden">
                 <slot></slot>
             </div>
 
