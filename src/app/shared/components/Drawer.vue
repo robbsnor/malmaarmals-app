@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { template } from 'lodash';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref, useTemplateRef, watch } from 'vue';
 import { useSlots } from 'vue';
 
 const sheet = defineModel<boolean>();
 const slots = useSlots();
+const scrollContainerRef = useTemplateRef<HTMLElement>('scrollContainerRef');
 
 const props = withDefaults(
     defineProps<{
@@ -40,7 +41,7 @@ const props = withDefaults(
                 <slot name="actions"></slot>
             </div>
 
-            <div :class="props.padding ? 'p-4' : ''" class="max-h-[50vh] overflow-auto overflow-x-hidden">
+            <div :class="props.padding ? 'p-4' : ''" class="max-h-[70vh] overflow-auto overflow-x-hidden">
                 <slot></slot>
             </div>
 
