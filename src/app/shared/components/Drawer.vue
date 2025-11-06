@@ -25,7 +25,7 @@ const props = withDefaults(
 </script>
 
 <template>
-    <v-bottom-sheet v-model="sheet" v-bind="props">
+    <v-bottom-sheet v-model="sheet" :width="props.width" :inset="props.inset" :eager="props.eager">
         <template #activator="activator">
             <slot v-bind="activator" name="activator"></slot>
         </template>
