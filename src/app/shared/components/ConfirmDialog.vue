@@ -29,14 +29,7 @@ function cancel() {
 </script>
 
 <template>
-    <Dialog
-        v-model="dialog"
-        :title="props.title"
-        :description="props.description"
-        :icon="props.icon"
-        :width="props.width"
-        :showCloseButton="props.showCloseButton"
-    >
+    <Dialog v-model="dialog" v-bind="props">
         <template #activator="activator">
             <slot v-bind="activator" name="activator"></slot>
         </template>

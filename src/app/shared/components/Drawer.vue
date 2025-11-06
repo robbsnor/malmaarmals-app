@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { template } from 'lodash';
-import { computed, onMounted, ref, useTemplateRef, watch } from 'vue';
-import { useSlots } from 'vue';
+import { computed, onMounted, ref, useSlots, useTemplateRef, watch } from 'vue';
+import { useTemplateRef } from 'vue';
 
 const sheet = defineModel<boolean>();
 const slots = useSlots();
@@ -25,7 +24,7 @@ const props = withDefaults(
 </script>
 
 <template>
-    <v-bottom-sheet v-model="sheet" :width="props.width" :inset="props.inset" :eager="props.eager">
+    <v-bottom-sheet v-model="sheet" v-bind="props">
         <template #activator="activator">
             <slot v-bind="activator" name="activator"></slot>
         </template>
