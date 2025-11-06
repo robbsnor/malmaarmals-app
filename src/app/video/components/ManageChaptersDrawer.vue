@@ -109,16 +109,22 @@ async function cancel() {
 
 <template>
     <Drawer v-model="videoStore.showChapterManager" inset title="Manage chapters">
-        <div v-if="videoStore.chapters.length">
-            <v-form v-model="valid" class="flex flex-col gap-4">
-                <ManageChaptersRow
-                    v-for="(chapter, i) in videoStore.chapters"
-                    :key="chapter.start_s"
-                    v-model="videoStore.chapters[i]"
-                    :i="i"
-                />
-            </v-form>
-        </div>
+        <template v-if="videoStore.chapters.length">
+            <div>
+                <v-form v-model="valid" class="flex flex-col gap-4">
+                    <ManageChaptersRow
+                        v-for="(chapter, i) in videoStore.chapters"
+                        :key="chapter.start_s"
+                        v-model="videoStore.chapters[i]"
+                        :i="i"
+                    />
+                </v-form>
+            </div>
+
+            <v-btn @click="addEmptyChapter" color="primary" class="w-full mt-6" variant="tonal" prepend-icon="mdi-plus">
+                Add chapter
+            </v-btn>
+        </template>
 
         <Empty
             v-else
@@ -132,7 +138,7 @@ async function cancel() {
             </div>
         </Empty>
 
-        <template #actions>
+        <!-- <template #actions>
             <v-btn
                 v-if="videoStore.chapters.length"
                 @click="addEmptyChapter"
@@ -143,7 +149,7 @@ async function cancel() {
             >
                 Add chapter
             </v-btn>
-        </template>
+        </template> -->
 
         <template #footer>
             <ChapterControlls v-if="videoStore.chapters.length" />
