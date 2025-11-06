@@ -170,7 +170,7 @@ async function cancel() {
                         :loading="resetLoading"
                         @click="cancel"
                     >
-                        Restore
+                        Undo changes
                     </v-btn>
 
                     <ConfirmDialog
