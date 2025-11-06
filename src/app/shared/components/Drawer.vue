@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, useSlots, useTemplateRef, watch } from 'vue';
-import { useTemplateRef } from 'vue';
 
 const sheet = defineModel<boolean>();
 const slots = useSlots();
