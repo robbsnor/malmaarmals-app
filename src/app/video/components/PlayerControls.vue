@@ -40,11 +40,11 @@ function changeOrientation() {
     <div
         v-if="!videoStore.player.isMini"
         v-visible="videoStore.showControllsAndInfo && !videoStore.player.isMini"
-        class="absolute inset-0 flex flex-col gap-4 z-50"
+        class="absolute inset-0 flex flex-col z-50"
     >
         <div class="absolute inset-0 bg-black/50" @click="videoStore.showControllsAndInfo = false"></div>
 
-        <div class="flex items-center justify-between gap-4 py-2 px-4">
+        <div class="flex items-center justify-between gap-4 pt-2 px-4">
             <PlayerButton
                 @click="
                     videoStore.player.isMini = true;
@@ -67,7 +67,7 @@ function changeOrientation() {
             </div>
         </div>
 
-        <div class="flex justify-center items-center gap-4 grow p-2">
+        <div class="flex justify-center items-center gap-4 grow">
             <button @click="videoStore.currentTime -= 10">
                 <v-icon size="24" icon="mdi-rewind-10" />
             </button>
