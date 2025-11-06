@@ -152,8 +152,8 @@ async function cancel() {
         </template> -->
 
         <template #footer>
-            <div class="border-b border-black-500 p-4 pt-0 mb-4 -mx-4">
-                <ChapterControlls v-if="videoStore.chapters.length" />
+            <div v-if="videoStore.chapters.length" class="border-b border-black-500 p-4 pt-0 mb-4 -mx-4">
+                <ChapterControlls />
             </div>
 
             <div class="flex justify-between items-center gap-4">
