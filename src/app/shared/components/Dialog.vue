@@ -29,7 +29,7 @@ const close = () => {
 </script>
 
 <template>
-    <v-dialog v-model="dialog" :width="props.width">
+    <v-dialog v-model="dialog" v-bind="props">
         <template #activator="activator">
             <slot v-bind="activator" name="activator"></slot>
         </template>
