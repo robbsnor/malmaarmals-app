@@ -97,19 +97,10 @@ const prettyTimeComputed = computed(() => prettyTime(chapter.value.start_s));
 
         <div class="flex flex-col justify-between">
             <div class="flex gap-3">
-                <!-- <v-btn
-                    icon="mdi-play"
-                    variant="tonal"
-                    size="x-small"
-                    color="var(--color-black-2000)"
-                    @click="videoStore.currentTime = chapter.start_s"
-                /> -->
-
                 <ConfirmDialog
                     v-model="confirmTimeDialog"
                     @confirm="markStartTime"
                     title="Change chapter time?"
-                    width="unset"
                     icon="mdi-target"
                     confirm-text="yes, change"
                     :show-close-button="false"

@@ -18,6 +18,7 @@ const props = withDefaults(
         confirmText: 'Confirm',
         confirmColor: 'primary',
         cancelText: 'Cancel',
+        width: '500',
     }
 );
 
