@@ -11,6 +11,7 @@ const props = withDefaults(
         confirmIcon?: string;
         cancelText?: string;
         width?: string | number;
+        showCloseButton?: boolean;
         loading?: boolean;
     }>(),
     {
@@ -33,6 +34,7 @@ function cancel() {
         :description="props.description"
         :icon="props.icon"
         :width="props.width"
+        :showCloseButton="props.showCloseButton"
     >
         <template #activator="activator">
             <slot v-bind="activator" name="activator"></slot>

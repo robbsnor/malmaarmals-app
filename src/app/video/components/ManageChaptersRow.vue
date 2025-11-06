@@ -107,6 +107,7 @@ const prettyTimeComputed = computed(() => prettyTime(chapter.value.start_s));
                     width="unset"
                     icon="mdi-target"
                     confirm-text="yes, change"
+                    :show-close-button="false"
                 >
                     <template #activator="{ props }">
                         <v-btn
