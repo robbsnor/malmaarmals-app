@@ -101,6 +101,7 @@ const prettyTimeComputed = computed(() => prettyTime(chapter.value.start_s));
                     v-model="confirmTimeDialog"
                     @confirm="markStartTime"
                     title="Change chapter time?"
+                    width="unset"
                     icon="mdi-target"
                     confirm-text="yes, change"
                     :show-close-button="false"
