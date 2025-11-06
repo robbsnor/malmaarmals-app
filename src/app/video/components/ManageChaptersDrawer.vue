@@ -152,16 +152,18 @@ async function cancel() {
         </template> -->
 
         <template #footer>
-            <ChapterControlls v-if="videoStore.chapters.length" />
+            <div class="border-b border-black-500 p-4 pt-0 mb-4 -mx-4">
+                <ChapterControlls v-if="videoStore.chapters.length" />
+            </div>
 
             <div class="flex justify-between items-center gap-4">
-                <div></div>
-
-                <div class="flex items-center justify-end gap-4">
-                    <div v-if="videoStore.hasChapterChanges" class="text-muted-more underlifne italic text-sm">
+                <div>
+                    <div v-if="videoStore.hasChapterChanges" class="text-muted-more underline italic text-sm">
                         Unsaved changes
                     </div>
+                </div>
 
+                <div class="flex items-center justify-between gap-4">
                     <v-btn
                         :disabled="!videoStore.hasChapterChanges"
                         variant="text"

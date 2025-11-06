@@ -101,7 +101,13 @@ const prettyTimeComputed = computed(() => prettyTime(chapter.value.start_s));
                     @click="videoStore.currentTime = chapter.start_s"
                 /> -->
 
-                <ConfirmDialog @confirm="markStartTime" title="Change chapter time?" width="unset">
+                <ConfirmDialog
+                    @confirm="markStartTime"
+                    title="Change chapter time?"
+                    width="unset"
+                    icon="mdi-target"
+                    confirm-text="yes, change"
+                >
                     <template #activator="{ props }">
                         <v-btn
                             v-bind="props"
@@ -119,7 +125,7 @@ const prettyTimeComputed = computed(() => prettyTime(chapter.value.start_s));
                         <div class="overflow-hidden">
                             <div class="font-bold text-muted mb-1">{{ chapter.category.title }}</div>
                             <div
-                                class="inline-flex items-center gap-4 py-2 px-4 rounded-md bg-black-200 border border-black-500"
+                                class="inline-flex items-center gap-4 py-2 px-4 rounded-md bg-black-400 border border-black-700"
                             >
                                 <div class="text-muted">{{ prettyTimeComputed }}</div>
                                 <v-icon icon="mdi-chevron-right" color="var(--color-muted)" />
@@ -142,32 +148,12 @@ const prettyTimeComputed = computed(() => prettyTime(chapter.value.start_s));
 
                     <v-list>
                         <v-list-item prepend-icon="mdi-play" @click="videoStore.currentTime = chapter.start_s">
-                            <v-list-item-title>Go to: {{ prettyTimeComputed }} </v-list-item-title>
+                            <v-list-item-title>Jump to chapter </v-list-item-title>
                         </v-list-item>
 
-                        <DeleteDialog
-                            title="Delete chapter?"
-                            description="Are you sure you want to delete this chapter?"
-                            @confirm="deleteChapter"
-                        >
-                            <template #activator="{ props }">
-                                <v-list-item v-bind="props" prepend-icon="mdi-trash-can-outline">
-                                    <v-list-item-title>Delete Chapter</v-list-item-title>
-                                </v-list-item>
-                            </template>
-
-                            <div class="flex items-center gap-2 p-3 bg-black-300 border border-black-600 rounded-md">
-                                <img
-                                    :src="chapter.category.image_url"
-                                    alt="chapter image"
-                                    class="inline h-12 mr-2 rounded-md"
-                                />
-                                <div class="overflow-hidden">
-                                    <div class="font-bold pr-2 truncate">{{ chapter.category.title }}</div>
-                                    <div class="text-muted text-sm">{{ prettyTimeComputed }}</div>
-                                </div>
-                            </div>
-                        </DeleteDialog>
+                        <v-list-item class="text-error" @click="deleteChapter" prepend-icon="mdi-trash-can-outline">
+                            <v-list-item-title>Delete Chapter</v-list-item-title>
+                        </v-list-item>
                     </v-list>
                 </v-menu>
             </div>
