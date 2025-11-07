@@ -12,21 +12,20 @@ const loading = ref(false);
 const resetLoading = ref(false);
 
 async function addEmptyChapter() {
-    videoStore.chapters.push({
-        category_id: '',
-        end_s: 0,
+    const emptyChapter = {
         id: '',
+        category_id: ' ',
+        end_s: 0,
         start_s: Math.floor(videoStore.currentTime),
         video_id: videoStore.videoId,
         category: {
-            category_id: '',
             id: '',
+            category_id: '',
             image_url: '',
             title: '',
         },
-    });
-
-    await nextTick();
+    };
+    videoStore.chapters.push(emptyChapter);
 }
 
 async function saveCategories() {
