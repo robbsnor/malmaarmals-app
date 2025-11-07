@@ -178,21 +178,7 @@ async function cancel() {
                         Undo changes
                     </v-btn>
 
-                    <ConfirmDialog
-                        v-model="saveDialog"
-                        title="Save changes?"
-                        description="Are you sure you want to save your changes?"
-                        confirm-text="Save"
-                        :loading="loading"
-                        width="unset"
-                        @confirm="submit"
-                    >
-                        <template #activator="{ props }">
-                            <v-btn color="primary" v-bind="props" :disabled="!videoStore.hasChapterChanges">
-                                Save
-                            </v-btn>
-                        </template>
-                    </ConfirmDialog>
+                    <v-btn color="primary" @click="submit" :disabled="!videoStore.hasChapterChanges"> Save </v-btn>
                 </div>
             </div>
         </template>
