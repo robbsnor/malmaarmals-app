@@ -9,6 +9,7 @@ import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { type ChaptersWithCategory } from '../models/chapters-with-category.model';
 import _ from 'lodash';
+import type { Messages } from '../models/messages.model';
 
 export const useVideoStore = defineStore('video', () => {
     const videoInfo = ref<Tables<'videos'>>();
@@ -20,7 +21,7 @@ export const useVideoStore = defineStore('video', () => {
     const showChapterManager = ref(false);
 
     const showControllsAndInfo = ref(true);
-    const messages = ref<Tables<'messages'>[]>([]);
+    const messages = ref<Messages>([]);
     const player = ref({
         isActive: false,
         isMini: true,
@@ -82,8 +83,7 @@ export const useVideoStore = defineStore('video', () => {
         while (hasMore) {
             const { data, error } = await supabase
                 .from('messages')
-                .select('*')
-                // .select('message_id, offset_sec, text, user_color, user_login')
+                .select('message_id, offset_sec, text, user_color, user_name')
                 .eq('video_id', Number(videoId.value))
                 .order('offset_sec', { ascending: true })
                 .range(from, to);

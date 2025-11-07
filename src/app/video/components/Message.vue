@@ -2,10 +2,11 @@
 import { computed } from 'vue';
 import type { Tables } from '../../shared/models/database.types';
 import { emotesMap } from '../../shared/data/emotes.data';
+import type { Message } from '../models/messages.model';
 
 const props = withDefaults(
     defineProps<{
-        message?: Tables<'messages'>;
+        message: Message;
     }>(),
     {}
 );
@@ -27,7 +28,7 @@ const isMyMessage = computed(() => {
             'bg-black-400 py-1 px-2 -mx-2 rounded-md': isMyMessage,
         }"
         class="text-sm"
-        :data-id="message.id"
+        :data-id="message.message_id"
     >
         <!-- <span class="text-black-1800 text-xs mr-2"> {{ TimeHelper.formatTime(message.offset_sec) }} </span> -->
         <span
