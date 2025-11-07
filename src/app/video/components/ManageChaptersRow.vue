@@ -121,7 +121,7 @@ const prettyTimeComputed = computed(() => prettyTime(chapter.value.start_s));
                         <CategoryThumbnail :category="chapter.category" class="h-[83px]" />
 
                         <div class="overflow-hidden">
-                            <div class="font-bold text-muted mb-1">{{ chapter.category.title }}</div>
+                            <div class="font-bold text-muted mb-1">{{ chapter.category?.title }}</div>
                             <div
                                 class="inline-flex items-center gap-4 py-2 px-4 rounded-md bg-black-400 border border-black-700"
                             >
