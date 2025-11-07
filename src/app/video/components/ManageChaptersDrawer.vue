@@ -1,20 +1,13 @@
 <script setup lang="ts">
 import { nextTick, ref } from 'vue';
 import { supabase } from '../../../supabase';
-import type { SearchCategory } from '../models/category.model';
 import ManageChaptersRow from './ManageChaptersRow.vue';
 import { useVideoStore } from '../stores/video.store';
 import { sleep } from '../../shared/helpers/sleep';
-import { useAuthStore } from '../../auth/stores/auth.store';
-import type { ChaptersWithCategory, ChapterWithCategory } from '../models/chapters-with-category.model';
-import type { Tables } from '../../shared/models/database.types';
-import { BABBELEN_CATEGORY, INTRO_CATEGORY } from '../data/chapters.data';
 import ChapterControlls from './ChapterControlls.vue';
-import ConfirmDialog from '../../shared/components/ConfirmDialog.vue';
 
 const videoStore = useVideoStore();
 const valid = ref(false);
-const saveDialog = ref(false);
 const loading = ref(false);
 const resetLoading = ref(false);
 
@@ -95,7 +88,6 @@ const submit = async () => {
     await videoStore.fetchChapters();
 
     loading.value = false;
-    saveDialog.value = false;
     await sleep(500);
 
     videoStore.showChapterManager = false;
@@ -178,7 +170,9 @@ async function cancel() {
                         Undo changes
                     </v-btn>
 
-                    <v-btn color="primary" @click="submit" :disabled="!videoStore.hasChapterChanges"> Save </v-btn>
+                    <v-btn color="primary" @click="submit" :loading="loading" :disabled="!videoStore.hasChapterChanges">
+                        Save
+                    </v-btn>
                 </div>
             </div>
         </template>
