@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { nextTick, ref, useTemplateRef, watch } from 'vue';
-import type { Tables } from '../../shared/models/database.types';
 import Message from './Message.vue';
 import { useVideoStore } from '../stores/video.store';
+import type { Messages } from '../models/messages.model';
 
 const videoStore = useVideoStore();
 const chatRef = useTemplateRef<HTMLElement>('chatRef');
-const renderedMessages = ref<Tables<'messages'>[]>([]);
+const renderedMessages = ref<Messages>([]);
 const prevTime = ref(0);
 
 const setRenderedMessages = (sec: number) => {
@@ -61,7 +61,7 @@ watch(
             ref="chatRef"
             class="flex flex-col gap-1 overflow-y-auto overflow-x-hidden h-full self-stretch scroll-hidden"
         >
-            <Message v-for="message in renderedMessages" :key="message.id" :message="message" />
+            <Message v-for="message in renderedMessages" :key="message.message_id" :message="message" />
         </ul>
     </div>
 </template>
