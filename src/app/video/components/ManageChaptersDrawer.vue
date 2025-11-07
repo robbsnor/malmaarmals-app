@@ -95,10 +95,13 @@ const submit = async () => {
 
     loading.value = false;
     saveDialog.value = false;
+    await videoStore.fetchChapters();
     await sleep(500);
 
     videoStore.showChapterManager = false;
-    await videoStore.fetchChapters();
+    await sleep(500);
+
+    videoStore.playing = true;
 };
 
 async function cancel() {
@@ -181,6 +184,7 @@ async function cancel() {
                         description="Are you sure you want to save your changes?"
                         confirm-text="Save"
                         :loading="loading"
+                        width="unset"
                         @confirm="submit"
                     >
                         <template #activator="{ props }">
