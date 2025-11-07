@@ -92,10 +92,10 @@ const submit = async () => {
     await saveCategories();
     await deleteExistingChapters();
     await saveChapters();
+    await videoStore.fetchChapters();
 
     loading.value = false;
     saveDialog.value = false;
-    await videoStore.fetchChapters();
     await sleep(500);
 
     videoStore.showChapterManager = false;
