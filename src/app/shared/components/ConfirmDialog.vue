@@ -1,26 +1,25 @@
 <script setup lang="ts">
+export interface ConfirmDialogProps {
+    title?: string;
+    description?: string;
+    icon?: string;
+    confirmText?: string;
+    confirmColor?: string;
+    confirmIcon?: string;
+    cancelText?: string;
+    width?: string | number;
+    showCloseButton?: boolean;
+    loading?: boolean;
+}
+
 const emits = defineEmits(['confirm', 'cancel']);
 const dialog = defineModel<boolean>();
-const props = withDefaults(
-    defineProps<{
-        title?: string;
-        description?: string;
-        icon?: string;
-        confirmText?: string;
-        confirmColor?: string;
-        confirmIcon?: string;
-        cancelText?: string;
-        width?: string | number;
-        showCloseButton?: boolean;
-        loading?: boolean;
-    }>(),
-    {
-        confirmText: 'Confirm',
-        confirmColor: 'primary',
-        cancelText: 'Cancel',
-        width: '500',
-    }
-);
+const props = withDefaults(defineProps<ConfirmDialogProps>(), {
+    confirmText: 'Confirm',
+    confirmColor: 'primary',
+    cancelText: 'Cancel',
+    width: '500',
+});
 
 function cancel() {
     emits('cancel');
