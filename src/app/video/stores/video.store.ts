@@ -83,6 +83,7 @@ export const useVideoStore = defineStore('video', () => {
             const { data, error } = await supabase
                 .from('messages')
                 .select('*')
+                // .select('message_id, offset_sec, text, user_color, user_login')
                 .eq('video_id', Number(videoId.value))
                 .order('offset_sec', { ascending: true })
                 .range(from, to);
