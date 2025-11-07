@@ -11,21 +11,6 @@ const valid = ref(false);
 const loading = ref(false);
 const resetLoading = ref(false);
 
-async function addInitialChapters() {
-    // videoStore.chapters.push(
-    //     ...[
-    //         {
-    //             ...INTRO_CHAPTER,
-    //             category: INTRO_CATEGORY,
-    //         },
-    //         {
-    //             ...BABBELEN_CHAPTER,
-    //             category: BABBELEN_CATEGORY,
-    //         },
-    //     ]
-    // );
-}
-
 async function addEmptyChapter() {
     videoStore.chapters.push({
         category_id: '',
@@ -130,8 +115,7 @@ async function cancel() {
             icon="mdi-format-list-bulleted"
         >
             <div class="flex flex-col gap-4">
-                <v-btn @click="addEmptyChapter" color="primary" prepend-icon="mdi-plus"> Add chapter </v-btn>
-                <v-btn @click="addInitialChapters" prepend-icon="mdi-plus"> Add default chapters </v-btn>
+                <v-btn @click="addEmptyChapter" color="primary" prepend-icon="mdi-plus">Add chapter</v-btn>
             </div>
         </Empty>
 
