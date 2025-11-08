@@ -22,7 +22,7 @@ const groups = computed(() => {
             { name: 'About', to: '/about', icon: 'mdi-information' },
             // { name: 'Donate', icon: 'mdi-heart', hidden: !isSignedIn, disabled: true },
         ],
-        [{ name: 'Sign out', link: '/sign-out', icon: 'mdi-logout', hidden: !isSignedIn, action: 'sign-out' }],
+        [{ name: 'Logout', link: '/sign-out', icon: 'mdi-logout', hidden: !isSignedIn, action: 'sign-out' }],
     ].filter((group) => group.some((item) => !item.hidden)) as any;
 });
 
