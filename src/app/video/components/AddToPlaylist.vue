@@ -44,14 +44,13 @@ const submit = async () => {
 </script>
 
 <template>
-    <Drawer v-model="sheet" inset>
+    <Drawer v-model="sheet" inset title="Add to playlist">
         <template #activator="{ props }">
             <Auth>
                 <PlayerButton v-bind="props" :size="24" icon="mdi-plus" />
             </Auth>
         </template>
 
-        <div class="font-bold text-lg mb-4">Add to playlist</div>
         <v-form v-model="valid" class="flex flex-col gap-4">
             <v-select
                 :rules="rules"
