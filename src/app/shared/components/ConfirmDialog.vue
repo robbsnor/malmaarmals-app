@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<ConfirmDialogProps>(), {
     confirmText: 'Confirm',
     confirmColor: 'primary',
     cancelText: 'Cancel',
-    width: '500',
+    width: 500,
 });
 
 function cancel() {
@@ -36,17 +36,15 @@ function cancel() {
         <slot></slot>
 
         <template #footer>
-            <div class="flex justify-end gap-4">
-                <v-btn variant="text" @click="cancel">{{ props.cancelText }}</v-btn>
-                <v-btn
-                    :loading="props.loading"
-                    :color="props.confirmColor"
-                    :prepend-icon="props.confirmIcon"
-                    @click="emits('confirm')"
-                >
-                    {{ props.confirmText }}
-                </v-btn>
-            </div>
+            <v-btn variant="text" @click="cancel">{{ props.cancelText }}</v-btn>
+            <v-btn
+                :loading="props.loading"
+                :color="props.confirmColor"
+                :prepend-icon="props.confirmIcon"
+                @click="emits('confirm')"
+            >
+                {{ props.confirmText }}
+            </v-btn>
         </template>
     </Dialog>
 </template>

@@ -11,7 +11,7 @@ import { type ChaptersWithCategory } from '../models/chapters-with-category.mode
 import _ from 'lodash';
 import type { Messages } from '../models/messages.model';
 
-const TIME_PRIOR_OFFSET_S = 2;
+export const TIME_PRIOR_OFFSET_S = 2;
 
 export const useVideoStore = defineStore('video', () => {
     const videoInfo = ref<Tables<'videos'>>();

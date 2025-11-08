@@ -6,6 +6,7 @@ import { useVideoStore } from '../stores/video.store';
 import { sleep } from '../../shared/helpers/sleep';
 import ChapterControlls from './ChapterControlls.vue';
 import { v4 } from 'uuid';
+import ManageChaptersInstructionsDialog from './ManageChaptersInstructionsDialog.vue';
 
 const videoStore = useVideoStore();
 const valid = ref(false);
@@ -91,6 +92,10 @@ async function cancel() {
 
 <template>
     <Drawer v-model="videoStore.showChapterManager" inset title="Manage chapters">
+        <template #actions>
+            <ManageChaptersInstructionsDialog />
+        </template>
+
         <template v-if="videoStore.chapters.length">
             <div>
                 <v-form v-model="valid" v-auto-animate class="flex flex-col gap-4">

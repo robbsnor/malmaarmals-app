@@ -211,7 +211,7 @@
 .fs h4,
 .fs h5,
 .fs h6 {
-    @apply text-normal font-bold text-2xl mb-1 mt-4;
+    @apply text-normal font-bold text-2xl mb-1 not-first:mt-8;
 }
 
 .fs p {
@@ -258,8 +258,4 @@ button {
 /* overlay */
 .v-overlay {
     --v-overlay-opacity: 0.6;
-}
-
-p {
-    @apply text-muted;
 }

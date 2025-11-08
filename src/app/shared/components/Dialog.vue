@@ -17,7 +17,7 @@ const props = withDefaults(
     }>(),
     {
         title: 'Dialog',
-        width: 500,
+        width: 720,
         showCloseButton: true,
     }
 );
@@ -61,7 +61,9 @@ const close = () => {
                 <slot></slot>
             </div>
 
-            <slot v-if="slots.footer" name="footer"></slot>
+            <div class="flex justify-end gap-4">
+                <slot v-if="slots.footer" name="footer"></slot>
+            </div>
         </div>
     </v-dialog>
 </template>

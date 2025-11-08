@@ -100,7 +100,8 @@ const startTime = computed(() => prettyTime(chapter.value.start_s));
                 <ConfirmDialog
                     v-model="confirmTimeDialog"
                     @confirm="markStartTime"
-                    title="Change chapter time?"
+                    title="Change time"
+                    description="Set the chapter start time to the current video time?"
                     width="unset"
                     icon="mdi-target"
                     confirm-text="yes, change"
