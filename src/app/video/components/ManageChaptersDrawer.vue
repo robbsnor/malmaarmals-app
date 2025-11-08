@@ -17,7 +17,7 @@ async function addEmptyChapter() {
         id: v4(),
         category_id: '',
         end_s: 0,
-        start_s: Math.floor(videoStore.currentTime),
+        start_s: videoStore.currentTimeRounded,
         video_id: videoStore.videoId,
         category: {
             id: v4(),

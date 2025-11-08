@@ -61,10 +61,10 @@ function deleteChapter() {
 async function markStartTime() {
     confirmTimeDialog.value = false;
     await sleep(100);
-    chapter.value.start_s = Math.floor(videoStore.currentTime);
+    chapter.value.start_s = videoStore.currentTimeRounded;
 }
 
-const prettyTimeComputed = computed(() => prettyTime(chapter.value.start_s));
+const startTime = computed(() => prettyTime(chapter.value.start_s));
 </script>
 
 <template>
@@ -122,12 +122,13 @@ const prettyTimeComputed = computed(() => prettyTime(chapter.value.start_s));
 
                         <div class="overflow-hidden">
                             <div class="font-bold text-muted mb-1">{{ chapter.category?.title }}</div>
-                            <div
-                                class="inline-flex items-center gap-2 py-2 px-4 rounded-md bg-black-400 border border-black-700"
-                            >
-                                <div class="text-muted">{{ prettyTimeComputed }}</div>
-                                <v-icon icon="mdi-chevron-right" color="var(--color-muted)" />
-                                <div class="text-primary">{{ prettyTime(videoStore.currentTime) }}</div>
+                            <div class="flex items-center gap-2 pt-2">
+                                <div class="flex flex-col items-center gap-2 w-20">
+                                    <div class="text-muted">{{ startTime }}</div>
+                                    <div class="h-[1px] w-full bg-muted-more"></div>
+                                    <div class="text-normal">{{ prettyTime(videoStore.currentTime) }}</div>
+                                </div>
+                                <v-icon icon="mdi-arrow-u-left-bottom" color="var(--color-muted)" class="mt-1" />
                             </div>
                         </div>
                     </div>
@@ -156,7 +157,7 @@ const prettyTimeComputed = computed(() => prettyTime(chapter.value.start_s));
                 </v-menu>
             </div>
 
-            <div class="text-muted text-sm leading-none ml-0.5">{{ prettyTimeComputed }}</div>
+            <div class="text-muted text-sm leading-none ml-0.5">{{ startTime }}</div>
         </div>
     </div>
 </template>

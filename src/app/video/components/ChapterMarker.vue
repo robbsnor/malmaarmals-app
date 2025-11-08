@@ -30,7 +30,7 @@ const offsetLeft = computed(() => {
                 v-bind="props"
                 class="size-5 flex justify-center items-center absolute cursor-pointer left-10 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20"
                 :style="{ left: offsetLeft }"
-                @click="videoStore.currentTime = chapter.start_s"
+                @click="videoStore.setTimePrior(chapter.start_s)"
             >
                 <div class="h-1 w-1 bg-white rounded-full"></div>
             </div>
