@@ -11,6 +11,8 @@ import { type ChaptersWithCategory } from '../models/chapters-with-category.mode
 import _ from 'lodash';
 import type { Messages } from '../models/messages.model';
 
+const TIME_PRIOR_OFFSET_S = 2;
+
 export const useVideoStore = defineStore('video', () => {
     const videoInfo = ref<Tables<'videos'>>();
     const videoId = ref<number>();
@@ -111,7 +113,11 @@ export const useVideoStore = defineStore('video', () => {
     }
 
     function setTimePrior(sec: number) {
-        currentTime.value = sec - 2 >= 0 ? sec - 2 : 0;
+        currentTime.value = sec - TIME_PRIOR_OFFSET_S >= 0 ? sec - TIME_PRIOR_OFFSET_S : 0;
+    }
+
+    function getTimePrior(sec: number) {
+        return sec - TIME_PRIOR_OFFSET_S >= 0 ? sec - TIME_PRIOR_OFFSET_S : 0;
     }
 
     function reset() {
@@ -207,6 +213,7 @@ export const useVideoStore = defineStore('video', () => {
         resetChaptersForm,
         setVideoRef,
         setTimePrior,
+        getTimePrior,
         loadVideoProgression,
         reset,
     };

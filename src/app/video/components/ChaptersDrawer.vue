@@ -39,7 +39,7 @@ function skipToSec(sec: number) {
 
                 <div class="overflow-hidden">
                     <div class="font-bold pr-2 truncate">{{ chapter.category.title }}</div>
-                    <div class="text-muted text-sm">{{ prettyTime(chapter.start_s) }}</div>
+                    <div class="text-muted text-sm">{{ prettyTime(videoStore.getTimePrior(chapter.start_s)) }}</div>
                 </div>
                 <v-icon class="ml-auto" color="var(--color-text-muted)">mdi-chevron-right</v-icon>
             </button>
