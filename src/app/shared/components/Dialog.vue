@@ -36,7 +36,7 @@ const close = () => {
 
         <div class="bg-black-200 border border-black-500 p-6 rounded-md flex flex-col gap-4">
             <div class="flex gap-4 items-center">
-                <div v-if="props.icon" class="flex justify-center items-center p-2 bg-black-400 rounded-md">
+                <div v-if="props.icon" class="sm:flex justify-center items-center p-2 bg-black-400 rounded-md hidden">
                     <v-icon :color="props.iconColor" :icon="props.icon" class=" " />
                 </div>
 
