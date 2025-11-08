@@ -6,7 +6,7 @@ import type { SearchCategory } from '../models/category.model';
 import { useVideoStore } from '../stores/video.store';
 import type { ChapterWithCategory } from '../models/chapters-with-category.model';
 import type { Tables } from '../../shared/models/database.types';
-import { BABBELEN_CATEGORY, INTRO_CATEGORY } from '../data/chapters.data';
+import { BABBELEN_CATEGORY, INTRO_CATEGORY, START_CATEGORY } from '../data/chapters.data';
 import { prettyTime } from '../../shared/helpers/prettyTime';
 import CategoryThumbnail from './CategoryThumbnail.vue';
 import { sleep } from '../../shared/helpers/sleep';
@@ -30,7 +30,7 @@ onMounted(() => {
 
 const updateCategories = useDebounceFn(async (query?: string) => {
     if (!query) {
-        categories.value = [INTRO_CATEGORY, BABBELEN_CATEGORY];
+        categories.value = [START_CATEGORY];
         return;
     }
 
@@ -45,7 +45,7 @@ const updateCategories = useDebounceFn(async (query?: string) => {
     if (error) return console.log(error);
 
     categories.value = data.map((cat) => ({
-        id: 'temp_' + cat.id,
+        id: cat.id,
         category_id: cat.id,
         image_url: cat.boxArtUrl,
         title: cat.name,
@@ -146,7 +146,7 @@ const prettyTimeComputed = computed(() => prettyTime(chapter.value.start_s));
 
                     <v-list>
                         <v-list-item prepend-icon="mdi-play" @click="videoStore.currentTime = chapter.start_s">
-                            <v-list-item-title>Jump to chapter </v-list-item-title>
+                            <v-list-item-title>Jump to Chapter</v-list-item-title>
                         </v-list-item>
 
                         <v-list-item class="text-error" @click="deleteChapter" prepend-icon="mdi-trash-can-outline">
