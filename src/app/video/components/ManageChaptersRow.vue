@@ -6,7 +6,7 @@ import type { SearchCategory } from '../models/category.model';
 import { useVideoStore } from '../stores/video.store';
 import type { ChapterWithCategory } from '../models/chapters-with-category.model';
 import type { Tables } from '../../shared/models/database.types';
-import { BABBELEN_CATEGORY, INTRO_CATEGORY, START_CATEGORY } from '../data/chapters.data';
+import { START_CATEGORY } from '../data/chapters.data';
 import { prettyTime } from '../../shared/helpers/prettyTime';
 import CategoryThumbnail from './CategoryThumbnail.vue';
 import { sleep } from '../../shared/helpers/sleep';
