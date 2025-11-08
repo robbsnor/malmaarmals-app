@@ -49,6 +49,11 @@ export const useVideoStore = defineStore('video', () => {
     const subCount = computed(
         () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
     );
+    const currentTimeRounded = computed(() => {
+        console.log('updated');
+        console.log(currentTime.value);
+        return Math.floor(currentTime.value);
+    });
 
     async function fetchVideoInfo() {
         const { data, error } = await supabase
@@ -103,6 +108,10 @@ export const useVideoStore = defineStore('video', () => {
 
     function setVideoRef(el: HTMLVideoElement) {
         videoRef.value = el;
+    }
+
+    function setTimePrior(sec: number) {
+        currentTime.value = sec - 2 >= 0 ? sec - 2 : 0;
     }
 
     function reset() {
@@ -180,6 +189,7 @@ export const useVideoStore = defineStore('video', () => {
 
         // mediaControls
         currentTime,
+        currentTimeRounded,
         duration,
         waiting,
         seeking,
@@ -196,6 +206,7 @@ export const useVideoStore = defineStore('video', () => {
         fetchMessages,
         resetChaptersForm,
         setVideoRef,
+        setTimePrior,
         loadVideoProgression,
         reset,
     };

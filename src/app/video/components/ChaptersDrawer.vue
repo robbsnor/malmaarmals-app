@@ -3,25 +3,13 @@ import { computed, ref } from 'vue';
 import { useVideoStore } from '../stores/video.store';
 import PlayerButton from './PlayerButton.vue';
 import CategoryThumbnail from './CategoryThumbnail.vue';
+import { prettyTime } from '../../shared/helpers/prettyTime';
 
 const sheet = defineModel<boolean>();
 const videoStore = useVideoStore();
 
-const prettyTime = (seconds: number) => {
-    const hrs = Math.floor(seconds / 3600);
-    const mins = Math.floor((seconds % 3600) / 60);
-    const secs = Math.floor(seconds % 60);
-
-    const parts = [];
-    if (hrs > 0) parts.push(hrs);
-    parts.push(hrs > 0 ? String(mins).padStart(2, '0') : mins);
-    parts.push(String(secs).padStart(2, '0'));
-
-    return parts.join(':');
-};
-
 function skipToSec(sec: number) {
-    videoStore.currentTime = sec;
+    videoStore.setTimePrior(sec);
 
     videoStore.playing = true;
     videoStore.showControllsAndInfo = true;
