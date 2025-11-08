@@ -5,6 +5,7 @@ import ManageChaptersRow from './ManageChaptersRow.vue';
 import { useVideoStore } from '../stores/video.store';
 import { sleep } from '../../shared/helpers/sleep';
 import ChapterControlls from './ChapterControlls.vue';
+import { v4 } from 'uuid';
 
 const videoStore = useVideoStore();
 const valid = ref(false);
@@ -13,13 +14,13 @@ const resetLoading = ref(false);
 
 async function addEmptyChapter() {
     const emptyChapter = {
-        id: '',
-        category_id: ' ',
+        id: v4(),
+        category_id: '',
         end_s: 0,
         start_s: Math.floor(videoStore.currentTime),
         video_id: videoStore.videoId,
         category: {
-            id: '',
+            id: v4(),
             category_id: '',
             image_url: '',
             title: '',
@@ -95,7 +96,7 @@ async function cancel() {
                 <v-form v-model="valid" v-auto-animate class="flex flex-col gap-4">
                     <ManageChaptersRow
                         v-for="(chapter, i) in videoStore.chapters"
-                        :key="chapter.start_s"
+                        :key="chapter.id"
                         v-model="videoStore.chapters[i]"
                         :i="i"
                     />

@@ -1,46 +1,9 @@
 import type { Tables } from '../../shared/models/database.types';
 
-export const WAITING_CATEGORY: Tables<'categories'> = {
-    category_id: 'WAITING',
+export const START_CATEGORY: Tables<'categories'> = {
+    category_id: 'START',
     id: '',
-    image_url: '',
-    title: 'Waiting',
+    image_url:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_ocIjnaQNcbIW4ulgYz2q1VuwHZF5XXnuTJN-grd8udDaXwHTwuTCqWiJGsgp7ZlP8_s&usqp=CAU',
+    title: 'Start',
 };
-
-export const INTRO_CATEGORY: Tables<'categories'> = {
-    category_id: 'INTRO',
-    id: '',
-    image_url: '',
-    title: 'Intro',
-};
-
-export const BABBELEN_CATEGORY: Tables<'categories'> = {
-    category_id: 'BABBELEN',
-    id: '',
-    image_url: '',
-    title: 'Babbelen',
-};
-
-// const WAITING_CHAPTER: Tables<'chapters'> = {
-//     category_id: '',
-//     end_s: 0,
-//     id: '',
-//     start_s: 0,
-//     video_id: videoStore.videoId,
-// };
-
-// const INTRO_CHAPTER: Tables<'chapters'> = {
-//     category_id: '',
-//     end_s: 0,
-//     id: '',
-//     start_s: 0,
-//     video_id: videoStore.videoId,
-// };
-
-// const BABBELEN_CHAPTER: Tables<'chapters'> = {
-//     category_id: '',
-//     end_s: 0,
-//     id: '',
-//     start_s: 30,
-//     video_id: videoStore.videoId,
-// };
