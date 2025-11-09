@@ -12,7 +12,7 @@ const dialog = ref(false);
         </template>
 
         <div class="fs">
-            <h4>1. Offset</h4>
+            <h4>When to put a new marker?</h4>
             <p>
                 Set the categories time
                 <v-btn size="x-small" variant="tonal" icon="mdi-target" color="var(--color-black-2000)" /> right on the
@@ -21,10 +21,10 @@ const dialog = ref(false);
             </p>
             <p>So <b>05:30</b> will become <b>05:28</b> for the user.</p>
 
-            <h4>2. Editing</h4>
+            <h4>Who can see my chapters?</h4>
             <p>
-                Starting editing a video and adding chapters makes you the owner of it, only you can add, delete or
-                modify chapters on that video.
+                Everyone can see the chapters you add to a video. You can also modify existing chapters placed by other
+                users.
             </p>
         </div>
 
