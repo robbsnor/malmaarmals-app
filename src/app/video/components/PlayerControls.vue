@@ -55,14 +55,6 @@ function changeOrientation() {
             />
 
             <div class="flex items-center gap-1">
-                <Auth>
-                    <PlayerButton
-                        :size="28"
-                        icon="mdi-playlist-edit"
-                        :color="videoStore.hasChapterChanges ? 'error' : undefined"
-                        @click="videoStore.showChapterManager = true"
-                    />
-                </Auth>
                 <AddToPlaylist />
                 <PreferenceDrawer />
             </div>

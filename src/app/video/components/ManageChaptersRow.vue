@@ -135,7 +135,7 @@ const startTime = computed(() => prettyTime(chapter.value.start_s));
                     </div>
                 </ConfirmDialog>
 
-                <v-menu location="top start">
+                <v-menu location="bottom end">
                     <template v-slot:activator="{ props }">
                         <v-btn
                             size="x-small"
