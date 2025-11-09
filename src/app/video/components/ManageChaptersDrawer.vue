@@ -120,7 +120,7 @@ async function cancel() {
             icon="mdi-format-list-bulleted"
         >
             <div class="flex flex-col gap-4">
-                <v-btn @click="addEmptyChapter" color="primary" prepend-icon="mdi-plus">Add chapter</v-btn>
+                <v-btn @click="addEmptyChapter" color="primary" prepend-icon="mdi-plus">Add chapters</v-btn>
             </div>
         </Empty>
 
