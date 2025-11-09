@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSlots } from 'vue';
+import { computed, useSlots } from 'vue';
 
 const slots = useSlots();
 const emits = defineEmits(['close']);
@@ -22,6 +22,11 @@ const props = withDefaults(
     }
 );
 
+const _props = computed(() => {
+    const { title, ...rest } = props;
+    return rest;
+});
+
 const close = () => {
     emits('close');
     dialog.value = !dialog.value;
@@ -29,7 +34,7 @@ const close = () => {
 </script>
 
 <template>
-    <v-dialog v-model="dialog" v-bind="props">
+    <v-dialog v-model="dialog" v-bind="_props">
         <template #activator="activator">
             <slot v-bind="activator" name="activator"></slot>
         </template>
@@ -58,6 +63,11 @@ const close = () => {
             </div>
 
             <div class="p-6">
+                <code>
+                    <pre>
+                        {{ _props }}
+                    </pre>
+                </code>
                 <slot></slot>
             </div>
 
