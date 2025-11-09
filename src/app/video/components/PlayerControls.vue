@@ -3,15 +3,17 @@ import { useElementSize, useFullscreen } from '@vueuse/core';
 import { useRouter } from 'vue-router';
 import { useAppStore } from '../../shared/stores/app.store';
 import { useVideoStore } from '../stores/video.store';
-import { ref, useTemplateRef } from 'vue';
+import { computed, ref, useTemplateRef } from 'vue';
 import ChaptersDrawer from './ChaptersDrawer.vue';
 import AddToPlaylist from './AddToPlaylist.vue';
 import PlayerButton from './PlayerButton.vue';
 import { useScreenOrientation } from '@vueuse/core';
 import ChapterMarker from './ChapterMarker.vue';
 import PreferenceDrawer from './PreferenceDrawer.vue';
+import { usePreferenceStore } from '../../shared/stores/preference.store';
 
 const videoStore = useVideoStore();
+const preferenceStore = usePreferenceStore();
 const router = useRouter();
 const { isFullscreen, enter, exit, toggle } = useFullscreen();
 const durationEl = useTemplateRef<HTMLDivElement>('durationEl');
@@ -35,6 +37,11 @@ function changeOrientation() {
         lockOrientation('landscape-primary');
     }
 }
+
+const showMarkers = computed(() => {
+    // TODO: Respect PETER vs TIMON video preference
+    return preferenceStore.preferences.showChapters;
+});
 </script>
 
 <template>
@@ -117,7 +124,9 @@ function changeOrientation() {
                     :step="1"
                 />
 
-                <ChapterMarker v-for="chapter in videoStore.chapters" :key="chapter.start_s" :chapter="chapter" />
+                <template v-if="showMarkers">
+                    <ChapterMarker v-for="chapter in videoStore.chapters" :key="chapter.start_s" :chapter="chapter" />
+                </template>
             </div>
         </div>
     </div>
