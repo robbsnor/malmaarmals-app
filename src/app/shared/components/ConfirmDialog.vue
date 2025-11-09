@@ -25,6 +25,11 @@ function cancel() {
     emits('cancel');
     dialog.value = false;
 }
+
+function confirm() {
+    emits('confirm');
+    dialog.value = false;
+}
 </script>
 
 <template>
@@ -41,7 +46,7 @@ function cancel() {
                 :loading="props.loading"
                 :color="props.confirmColor"
                 :prepend-icon="props.confirmIcon"
-                @click="emits('confirm')"
+                @click="confirm"
             >
                 {{ props.confirmText }}
             </v-btn>

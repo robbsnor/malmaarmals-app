@@ -62,8 +62,8 @@ const close = () => {
                 </button>
             </div>
 
-            <div class="p-6">
-                <slot></slot>
+            <div v-if="slots.default" class="p-6">
+                <slot name="default"></slot>
             </div>
 
             <div class="flex justify-end gap-4 p-6 py-4 border-t border-black-500">

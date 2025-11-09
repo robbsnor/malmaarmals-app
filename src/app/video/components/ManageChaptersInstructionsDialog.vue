@@ -12,6 +12,12 @@ const dialog = ref(false);
         </template>
 
         <div class="fs">
+            <h4>How to skip the intro?</h4>
+            <p>
+                To skip the intro, add the category name '<b class="italic">Intro</b>' and set the time to the first
+                moment te intro <b class="underline">STARTS</b>.
+            </p>
+
             <h4>When to put a new marker?</h4>
             <p>
                 Set the categories time
