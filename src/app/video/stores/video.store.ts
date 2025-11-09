@@ -21,6 +21,7 @@ export const useVideoStore = defineStore('video', () => {
     const chapters = ref<ChaptersWithCategory>();
     const hasChapterChanges = computed(() => !_.isEqual(chapters.value, chaptersOG.value));
     const editMode = ref(false);
+    const showChapterDrawer = ref(false);
 
     const showControllsAndInfo = ref(true);
     const messages = ref<Messages>([]);
@@ -192,6 +193,7 @@ export const useVideoStore = defineStore('video', () => {
         showMobileControls,
         player,
         editMode,
+        showChapterDrawer,
 
         // mediaControls
         currentTime,
