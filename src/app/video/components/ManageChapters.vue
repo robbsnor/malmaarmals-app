@@ -137,7 +137,7 @@ async function cancel(force = false) {
                 <ConfirmDialog
                     v-model="showConfirmCancelDialog"
                     title="Discard changes"
-                    description="Are you sure you want to discard your chapter changes?"
+                    description="Are you sure you want to discard your changes?"
                     icon="mdi-alert-circle-outline"
                     confirm-text="Yes, discard"
                     :show-close-button="false"
