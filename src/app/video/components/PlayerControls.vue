@@ -9,6 +9,7 @@ import AddToPlaylist from './AddToPlaylist.vue';
 import PlayerButton from './PlayerButton.vue';
 import { useScreenOrientation } from '@vueuse/core';
 import ChapterMarker from './ChapterMarker.vue';
+import PreferenceDrawer from './PreferenceDrawer.vue';
 
 const videoStore = useVideoStore();
 const router = useRouter();
@@ -63,7 +64,7 @@ function changeOrientation() {
                     />
                 </Auth>
                 <AddToPlaylist />
-                <PlayerButton icon="mdi-cog-outline" />
+                <PreferenceDrawer />
             </div>
         </div>
 

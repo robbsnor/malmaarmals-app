@@ -57,6 +57,7 @@ export const vuetify = createVuetify({
         },
         VSwitch: {
             hideDetails: 'auto',
+            color: 'primary',
         },
         VTooltip: {
             location: 'top',
