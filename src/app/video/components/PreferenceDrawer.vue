@@ -28,7 +28,7 @@ watch(
             </template>
 
             <v-form>
-                <v-switch hide-details="auto" label="Show chapters" density="compact" v-model="form.showChapters" />
+                <v-switch hide-details="auto" label="Show chapters" density="comfortable" v-model="form.showChapters" />
                 <div class="flex gap-4 ml-2">
                     <div class="mt-1.5 text-(--color-muted-more)">
                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,14 +45,14 @@ watch(
                         <v-switch
                             hide-details="auto"
                             label="In PETER vs TIMON"
-                            density="compact"
+                            density="comfortable"
                             :disabled="peterVsTimonDisabled"
                             v-model="form.showChaptersPeterVsTimon"
                         />
                     </div>
                 </div>
 
-                <v-switch hide-details="auto" label="Facecam" density="compact" v-model="form.showFacecam" />
+                <v-switch hide-details="auto" label="Facecam" density="comfortable" v-model="form.showFacecam" />
             </v-form>
         </Drawer>
     </Auth>
