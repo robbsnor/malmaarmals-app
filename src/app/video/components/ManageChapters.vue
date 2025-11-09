@@ -14,6 +14,7 @@ const videoStore = useVideoStore();
 const valid = ref(false);
 const loading = ref(false);
 const resetLoading = ref(false);
+const showConfirmCancelDialog = ref(false);
 
 async function addEmptyChapter() {
     const emptyChapter = {
@@ -82,7 +83,12 @@ const save = async () => {
     videoStore.editMode = false;
 };
 
-async function cancel() {
+async function cancel(force = false) {
+    if (videoStore.hasChapterChanges && !force) {
+        showConfirmCancelDialog.value = true;
+        return;
+    }
+
     videoStore.resetChaptersForm();
     videoStore.showChapterDrawer = false;
     await sleep(500);
@@ -105,7 +111,9 @@ async function cancel() {
             </div>
 
             <div class="mt-4 px-4">
-                <v-btn @click="addEmptyChapter" variant="tonal" class="w-full" color="primary">Add Chapter</v-btn>
+                <v-btn @click="addEmptyChapter" prepend-icon="mdi-plus" variant="tonal" class="w-full" color="primary">
+                    Add Chapter
+                </v-btn>
             </div>
         </template>
 
@@ -126,6 +134,21 @@ async function cancel() {
             </div>
 
             <div class="flex justify-between items-center gap-4">
+                <ConfirmDialog
+                    v-model="showConfirmCancelDialog"
+                    title="Discard changes"
+                    description="Are you sure you want to discard your chapter changes?"
+                    icon="mdi-alert-circle-outline"
+                    confirm-text="Yes, discard"
+                    :show-close-button="false"
+                    @confirm="
+                        async () => {
+                            await sleep(500);
+                            await cancel(true);
+                        }
+                    "
+                />
+
                 <div>
                     <div v-if="videoStore.hasChapterChanges" class="text-muted-more underline italic text-sm">
                         Unsaved changes
@@ -133,7 +156,7 @@ async function cancel() {
                 </div>
 
                 <div class="flex items-center justify-between gap-4">
-                    <v-btn variant="text" :loading="resetLoading" @click="cancel"> Cancel </v-btn>
+                    <v-btn variant="text" :loading="resetLoading" @click="cancel()"> Cancel </v-btn>
 
                     <v-btn color="primary" @click="save" :loading="loading" :disabled="!videoStore.hasChapterChanges">
                         Save

@@ -90,6 +90,9 @@ function changeOrientation() {
                 </div>
 
                 <div class="relative flex items-center gap-2">
+                    <div v-if="videoStore.hasChapterChanges" class="text-muted-more underline italic text-sm">
+                        Unsaved changes
+                    </div>
                     <ChaptersDrawer />
 
                     <PlayerButton :icon="isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'" @click="toggle()" />

@@ -52,11 +52,7 @@ export const useVideoStore = defineStore('video', () => {
     const subCount = computed(
         () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
     );
-    const currentTimeRounded = computed(() => {
-        console.log('updated');
-        console.log(currentTime.value);
-        return Math.floor(currentTime.value);
-    });
+    const currentTimeRounded = computed(() => Math.floor(currentTime.value));
 
     async function fetchVideoInfo() {
         const { data, error } = await supabase
