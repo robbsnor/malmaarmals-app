@@ -27,7 +27,7 @@ function skipToSec(sec: number) {
 </script>
 
 <template>
-    <Drawer v-model="videoStore.showChapterDrawer" inset title="Chapters">
+    <Drawer v-model="videoStore.showChapterDrawer" inset title="Chapters" :padding="false">
         <template #activator="{ props }">
             <PlayerButton v-bind="props" icon="mdi-format-list-bulleted" :size="24" />
         </template>
@@ -48,7 +48,7 @@ function skipToSec(sec: number) {
 
         <v-window v-model="tab" :show-arrows="false" :touch="false">
             <v-window-item>
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-2 p-4">
                     <button
                         v-for="chapter in videoStore.chapters"
                         :key="chapter.start_s"

@@ -132,6 +132,7 @@ export const useVideoStore = defineStore('video', () => {
         chapters.value = null;
         videoInfo.value = null;
         playing.value = false;
+        editMode.value = false;
     }
 
     const saveVideoProgression = (newTime: number) => {
