@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSlots, useTemplateRef } from 'vue';
+import { computed, useSlots, useTemplateRef } from 'vue';
 
 const sheet = defineModel<boolean>();
 const slots = useSlots();
@@ -20,10 +20,15 @@ const props = withDefaults(
         padding: true,
     }
 );
+
+const _props = computed(() => {
+    const { title, ...rest } = props;
+    return rest;
+});
 </script>
 
 <template>
-    <v-bottom-sheet v-model="sheet" v-bind="props">
+    <v-bottom-sheet v-model="sheet" v-bind="_props">
         <template #activator="activator">
             <slot v-bind="activator" name="activator"></slot>
         </template>
