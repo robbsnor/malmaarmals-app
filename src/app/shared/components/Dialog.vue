@@ -63,11 +63,6 @@ const close = () => {
             </div>
 
             <div class="p-6">
-                <code>
-                    <pre>
-                        {{ _props }}
-                    </pre>
-                </code>
                 <slot></slot>
             </div>
 
