@@ -3,7 +3,7 @@ import { computed, ref, watch } from 'vue';
 import Drawer from '../../shared/components/Drawer.vue';
 import PlayerButton from './PlayerButton.vue';
 
-const drawer = ref(true);
+const drawer = ref(false);
 const peterVsTimonDisabled = computed(() => !form.value.showChapters);
 const form = ref({
     showChapters: true,
