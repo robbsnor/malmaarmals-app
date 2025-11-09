@@ -84,14 +84,16 @@ const save = async () => {
 
 async function cancel() {
     videoStore.resetChaptersForm();
+    videoStore.showChapterDrawer = false;
+    await sleep(500);
     videoStore.editMode = false;
 }
 </script>
 
 <template>
-    <div>
+    <div class="flex flex-col max-h-[80vh]">
         <template v-if="videoStore.chapters?.length">
-            <div>
+            <div class="overflow-y-auto overflow-x-hidden p-4 pb-0">
                 <v-form v-model="valid" v-auto-animate class="flex flex-col gap-4">
                     <ManageChaptersRow
                         v-for="(chapter, i) in videoStore.chapters"
@@ -102,7 +104,7 @@ async function cancel() {
                 </v-form>
             </div>
 
-            <div class="mt-6">
+            <div class="mt-4 px-4">
                 <v-btn @click="addEmptyChapter" variant="tonal" class="w-full" color="primary">Add Chapter</v-btn>
             </div>
         </template>
@@ -118,23 +120,25 @@ async function cancel() {
             </div>
         </Empty>
 
-        <div v-if="videoStore.chapters.length" class="border-b border-black-500 p-4 pt-0 mb-4 -mx-4">
-            <ChapterControlls />
-        </div>
-
-        <div class="flex justify-between items-center gap-4">
-            <div>
-                <div v-if="videoStore.hasChapterChanges" class="text-muted-more underline italic text-sm">
-                    Unsaved changes
-                </div>
+        <div class="p-4">
+            <div v-if="videoStore.chapters.length" class="border-b border-black-500 p-4 pt-0 mb-4 -mx-4">
+                <ChapterControlls />
             </div>
 
-            <div class="flex items-center justify-between gap-4">
-                <v-btn variant="text" :loading="resetLoading" @click="cancel"> Cancel </v-btn>
+            <div class="flex justify-between items-center gap-4">
+                <div>
+                    <div v-if="videoStore.hasChapterChanges" class="text-muted-more underline italic text-sm">
+                        Unsaved changes
+                    </div>
+                </div>
 
-                <v-btn color="primary" @click="save" :loading="loading" :disabled="!videoStore.hasChapterChanges">
-                    Save
-                </v-btn>
+                <div class="flex items-center justify-between gap-4">
+                    <v-btn variant="text" :loading="resetLoading" @click="cancel"> Cancel </v-btn>
+
+                    <v-btn color="primary" @click="save" :loading="loading" :disabled="!videoStore.hasChapterChanges">
+                        Save
+                    </v-btn>
+                </div>
             </div>
         </div>
     </div>

@@ -158,7 +158,7 @@ const startTime = computed(() => prettyTime(chapter.value.start_s));
                 </v-menu>
             </div>
 
-            <div class="text-muted text-sm leading-none ml-0.5">{{ startTime }}</div>
+            <div class="text-muted text-sm leading-tight ml-0.5">{{ startTime }}</div>
         </div>
     </div>
 </template>
