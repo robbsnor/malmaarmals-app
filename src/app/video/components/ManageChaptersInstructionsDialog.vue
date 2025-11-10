@@ -6,9 +6,9 @@ const dialog = ref(false);
 </script>
 
 <template>
-    <Dialog v-model="dialog" title="Instructions" icon="mdi-information-outline" description="How to manage chapters.">
+    <Dialog v-model="dialog" title="Instructions" icon="mdi-help-circle-outline" description="How to manage chapters.">
         <template #activator="{ props }">
-            <v-btn size="x-small" v-bind="props" icon="mdi-information-outline" />
+            <v-btn size="small" v-bind="props" append-icon="mdi-help-circle-outline">Instructions</v-btn>
         </template>
 
         <div class="fs">

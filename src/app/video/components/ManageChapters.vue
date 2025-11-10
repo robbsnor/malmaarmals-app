@@ -16,23 +16,6 @@ const loading = ref(false);
 const resetLoading = ref(false);
 const showConfirmCancelDialog = ref(false);
 
-async function addEmptyChapter() {
-    const emptyChapter = {
-        id: v4(),
-        category_id: '',
-        end_s: 0,
-        start_s: videoStore.currentTimeRounded,
-        video_id: videoStore.videoId,
-        category: {
-            id: v4(),
-            category_id: '',
-            image_url: '',
-            title: '',
-        },
-    };
-    videoStore.chapters.push(emptyChapter);
-}
-
 async function saveCategories() {
     const categories = videoStore.chapters.map((chapter) => ({
         category_id: chapter.category.category_id,
@@ -98,35 +81,30 @@ async function cancel(force = false) {
 
 <template>
     <div class="flex flex-col max-h-[80vh]">
-        <template v-if="videoStore.chapters?.length">
-            <div class="overflow-y-auto overflow-x-hidden p-4 pb-0">
-                <v-form v-model="valid" v-auto-animate class="flex flex-col gap-4">
-                    <ManageChaptersRow
-                        v-for="(chapter, i) in videoStore.chapters"
-                        :key="chapter.id"
-                        v-model="videoStore.chapters[i]"
-                        :i="i"
-                    />
-                </v-form>
-            </div>
+        <div class="overflow-y-auto overflow-x-hidden p-4 pb-0">
+            <v-form v-model="valid" v-auto-animate class="flex flex-col gap-4">
+                <ManageChaptersRow
+                    v-for="(chapter, i) in videoStore.chapters"
+                    :key="chapter.id"
+                    v-model="videoStore.chapters[i]"
+                    :i="i"
+                />
+            </v-form>
+        </div>
 
-            <div class="mt-4 px-4">
-                <v-btn @click="addEmptyChapter" prepend-icon="mdi-plus" variant="tonal" class="w-full" color="primary">
-                    Add Chapter
-                </v-btn>
-            </div>
-        </template>
+        <Empty v-if="!videoStore.chapters?.length" title="No chapters..." description="lekkerAppie"></Empty>
 
-        <Empty
-            v-else
-            title="No chapters..."
-            description="Add your first chapter to get started!"
-            icon="mdi-format-list-bulleted"
-        >
-            <div class="flex flex-col gap-4">
-                <v-btn @click="addEmptyChapter" color="primary" prepend-icon="mdi-plus">Add chapters</v-btn>
-            </div>
-        </Empty>
+        <div class="mt-4 px-4">
+            <v-btn
+                @click="videoStore.addEmptyChapter"
+                prepend-icon="mdi-plus"
+                variant="tonal"
+                class="w-full"
+                color="primary"
+            >
+                Add Chapter
+            </v-btn>
+        </div>
 
         <div class="p-4">
             <div v-if="videoStore.chapters.length" class="border-b border-black-500 p-4 pt-0 mb-4 -mx-4">
@@ -156,7 +134,7 @@ async function cancel(force = false) {
                 </div>
 
                 <div class="flex items-center justify-between gap-4">
-                    <v-btn variant="text" :loading="resetLoading" @click="cancel()"> Cancel </v-btn>
+                    <v-btn variant="text" :loading="resetLoading" @click="cancel()">Discard</v-btn>
 
                     <v-btn color="primary" @click="save" :loading="loading" :disabled="!videoStore.hasChapterChanges">
                         Save

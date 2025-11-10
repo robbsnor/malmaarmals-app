@@ -10,6 +10,7 @@ import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { type ChaptersWithCategory } from '../models/chapters-with-category.model';
 import _ from 'lodash';
 import type { Messages } from '../models/messages.model';
+import { v4 } from 'uuid';
 
 export const TIME_PRIOR_OFFSET_S = 2;
 
@@ -131,6 +132,23 @@ export const useVideoStore = defineStore('video', () => {
         editMode.value = false;
     }
 
+    async function addEmptyChapter() {
+        const emptyChapter = {
+            id: v4(),
+            category_id: '',
+            end_s: 0,
+            start_s: currentTimeRounded.value,
+            video_id: videoId.value,
+            category: {
+                id: v4(),
+                category_id: '',
+                image_url: '',
+                title: '',
+            },
+        };
+        chapters.value.push(emptyChapter);
+    }
+
     const saveVideoProgression = (newTime: number) => {
         // const obj: VideoProgression = {
         //     current_time_s: newTime,
@@ -206,6 +224,7 @@ export const useVideoStore = defineStore('video', () => {
         volume,
         muted,
 
+        // functions
         fetchVideoInfo,
         fetchChapters,
         fetchMessages,
@@ -215,5 +234,8 @@ export const useVideoStore = defineStore('video', () => {
         getTimePrior,
         loadVideoProgression,
         reset,
+
+        // chapters
+        addEmptyChapter,
     };
 });
