@@ -131,7 +131,13 @@ async function cancel(force = false) {
             </div>
 
             <div class="flex items-center justify-between gap-4">
-                <v-btn variant="text" :loading="resetLoading" @click="cancel()">Discard</v-btn>
+                <v-btn
+                    variant="text"
+                    :disabled="!videoStore.hasChapterChanges"
+                    :loading="resetLoading"
+                    @click="cancel()"
+                    >Discard</v-btn
+                >
 
                 <v-btn color="primary" @click="save" :loading="loading" :disabled="!videoStore.hasChapterChanges">
                     Save
