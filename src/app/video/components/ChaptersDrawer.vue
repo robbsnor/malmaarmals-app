@@ -6,6 +6,7 @@ import CategoryThumbnail from './CategoryThumbnail.vue';
 import { prettyTime } from '../../shared/helpers/prettyTime';
 import ManageChapters from './ManageChapters.vue';
 import ManageChaptersInstructionsDialog from './ManageChaptersInstructionsDialog.vue';
+import { sleep } from '../../shared/helpers/sleep';
 
 const videoStore = useVideoStore();
 
@@ -34,7 +35,7 @@ function skipToSec(sec: number) {
 
         <template #actions>
             <v-btn
-                v-if="!videoStore.editMode"
+                v-if="!videoStore.editMode && videoStore.chapters?.length"
                 @click="videoStore.editMode = true"
                 icon="mdi-pencil"
                 variant="tonal"
@@ -48,7 +49,7 @@ function skipToSec(sec: number) {
 
         <v-window v-model="tab" :show-arrows="false" :touch="false">
             <v-window-item>
-                <div class="flex flex-col gap-2 p-4">
+                <div v-if="videoStore.chapters?.length" class="flex flex-col gap-2 p-4">
                     <button
                         v-for="chapter in videoStore.chapters"
                         :key="chapter.start_s"
@@ -66,6 +67,29 @@ function skipToSec(sec: number) {
                         <v-icon class="ml-auto" color="var(--color-text-muted)">mdi-chevron-right</v-icon>
                     </button>
                 </div>
+
+                <Empty
+                    v-else
+                    title="No chapters..."
+                    description="Add your first chapter to get started!"
+                    icon="mdi-format-list-bulleted"
+                >
+                    <div class="flex flex-col gap-4">
+                        <v-btn
+                            @click="
+                                () => {
+                                    videoStore.editMode = true;
+                                    videoStore.addEmptyChapter();
+                                    videoStore.playing = false;
+                                }
+                            "
+                            color="primary"
+                            prepend-icon="mdi-plus"
+                        >
+                            Add Chapters
+                        </v-btn>
+                    </div>
+                </Empty>
             </v-window-item>
 
             <v-window-item>
