@@ -73,15 +73,13 @@ async function cancel(force = false) {
     }
 
     videoStore.resetChaptersForm();
-    videoStore.showChapterDrawer = false;
-    await sleep(500);
     videoStore.editMode = false;
 }
 </script>
 
 <template>
     <div class="flex flex-col max-h-[80vh]">
-        <div class="overflow-y-auto overflow-x-hidden p-4 pb-0">
+        <div class="overflow-x-hidden p-4 pb-0">
             <v-form v-model="valid" v-auto-animate class="flex flex-col gap-4">
                 <ManageChaptersRow
                     v-for="(chapter, i) in videoStore.chapters"
@@ -114,7 +112,7 @@ async function cancel(force = false) {
                 title="Discard changes"
                 description="Are you sure you want to discard your changes?"
                 icon="mdi-alert-circle-outline"
-                confirm-text="Yes, discard"
+                confirm-text="Discard changes"
                 :show-close-button="false"
                 @confirm="
                     async () => {
@@ -131,13 +129,10 @@ async function cancel(force = false) {
             </div>
 
             <div class="flex items-center justify-between gap-4">
-                <v-btn
-                    variant="text"
-                    :disabled="!videoStore.hasChapterChanges"
-                    :loading="resetLoading"
-                    @click="cancel()"
-                    >Discard</v-btn
-                >
+                <v-btn v-if="videoStore.hasChapterChanges" variant="text" :loading="resetLoading" @click="cancel()">
+                    Discard
+                </v-btn>
+                <v-btn v-else variant="text" :loading="resetLoading" @click="cancel()"> Back </v-btn>
 
                 <v-btn color="primary" @click="save" :loading="loading" :disabled="!videoStore.hasChapterChanges">
                     Save

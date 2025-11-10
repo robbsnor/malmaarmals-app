@@ -8,16 +8,10 @@ const dialog = ref(false);
 <template>
     <Dialog v-model="dialog" title="Instructions" icon="mdi-help-circle-outline" description="How to manage chapters.">
         <template #activator="{ props }">
-            <v-btn size="small" v-bind="props" append-icon="mdi-help-circle-outline">Instructions</v-btn>
+            <v-btn size="small" v-bind="props" append-icon="mdi-help-circle-outline">Help</v-btn>
         </template>
 
         <div class="fs">
-            <h4>How to skip the intro?</h4>
-            <p>
-                To skip the intro, add the category name '<b class="italic">Intro</b>' and set the time to the first
-                moment te intro <b class="underline">STARTS</b>.
-            </p>
-
             <h4>When to put a new marker?</h4>
             <p>
                 Set the categories time
@@ -31,6 +25,12 @@ const dialog = ref(false);
             <p>
                 Everyone can see the chapters you add to a video. You can also modify existing chapters placed by other
                 users.
+            </p>
+
+            <h4>How to skip the waiting screen?</h4>
+            <p>
+                To skip the waiting screen, add the category name '<b class="italic">Intro</b>' and set the time to the
+                first moment te intro <b class="underline">STARTS</b>.
             </p>
         </div>
 
