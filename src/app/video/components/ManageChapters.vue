@@ -103,7 +103,7 @@ async function cancel(force = false) {
                 Add Chapter
             </v-btn>
 
-            <ChapterControlls v-if="videoStore.chapters.length" />
+            <ChapterControlls />
         </div>
 
         <div class="flex justify-between items-center gap-4 pt-4 p-4 border-t border-black-500">
