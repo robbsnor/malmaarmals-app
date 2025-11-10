@@ -73,7 +73,6 @@ async function cancel(force = false) {
     }
 
     videoStore.resetChaptersForm();
-    videoStore.editMode = false;
 }
 </script>
 
