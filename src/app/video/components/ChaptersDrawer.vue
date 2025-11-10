@@ -37,11 +37,12 @@ function skipToSec(sec: number) {
             <v-btn
                 v-if="!videoStore.editMode && videoStore.chapters?.length"
                 @click="videoStore.editMode = true"
-                icon="mdi-pencil"
+                append-icon="mdi-pencil"
                 variant="tonal"
-                size="x-small"
+                size="small"
                 color="primary"
             >
+                Edit
             </v-btn>
 
             <ManageChaptersInstructionsDialog v-if="videoStore.editMode" />
