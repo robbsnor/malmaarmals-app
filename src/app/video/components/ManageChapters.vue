@@ -73,6 +73,7 @@ async function cancel(force = false) {
     }
 
     videoStore.resetChaptersForm();
+    videoStore.editMode = false;
 }
 </script>
 
@@ -131,7 +132,7 @@ async function cancel(force = false) {
                 <v-btn v-if="videoStore.hasChapterChanges" variant="text" :loading="resetLoading" @click="cancel()">
                     Discard
                 </v-btn>
-                <v-btn v-else variant="text" :loading="resetLoading" @click="cancel()"> Back </v-btn>
+                <v-btn v-else variant="text" :loading="resetLoading" @click="videoStore.editMode = false"> Back </v-btn>
 
                 <v-btn color="primary" @click="save" :loading="loading" :disabled="!videoStore.hasChapterChanges">
                     Save
