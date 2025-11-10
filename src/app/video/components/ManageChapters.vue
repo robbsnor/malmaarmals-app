@@ -94,7 +94,7 @@ async function cancel(force = false) {
 
         <Empty v-if="!videoStore.chapters?.length" title="No chapters..." description="lekkerAppie"></Empty>
 
-        <div class="mt-4 px-4">
+        <div class="p-4 flex flex-col gap-4">
             <v-btn
                 @click="videoStore.addEmptyChapter"
                 prepend-icon="mdi-plus"
@@ -104,42 +104,38 @@ async function cancel(force = false) {
             >
                 Add Chapter
             </v-btn>
+
+            <ChapterControlls v-if="videoStore.chapters.length" />
         </div>
 
-        <div class="p-4">
-            <div v-if="videoStore.chapters.length" class="border-b border-black-500 p-4 pt-0 mb-4 -mx-4">
-                <ChapterControlls />
+        <div class="flex justify-between items-center gap-4 pt-4 p-4 border-t border-black-500">
+            <ConfirmDialog
+                v-model="showConfirmCancelDialog"
+                title="Discard changes"
+                description="Are you sure you want to discard your changes?"
+                icon="mdi-alert-circle-outline"
+                confirm-text="Yes, discard"
+                :show-close-button="false"
+                @confirm="
+                    async () => {
+                        await sleep(500);
+                        await cancel(true);
+                    }
+                "
+            />
+
+            <div>
+                <div v-if="videoStore.hasChapterChanges" class="text-muted-more underline italic text-sm">
+                    Unsaved changes
+                </div>
             </div>
 
-            <div class="flex justify-between items-center gap-4">
-                <ConfirmDialog
-                    v-model="showConfirmCancelDialog"
-                    title="Discard changes"
-                    description="Are you sure you want to discard your changes?"
-                    icon="mdi-alert-circle-outline"
-                    confirm-text="Yes, discard"
-                    :show-close-button="false"
-                    @confirm="
-                        async () => {
-                            await sleep(500);
-                            await cancel(true);
-                        }
-                    "
-                />
+            <div class="flex items-center justify-between gap-4">
+                <v-btn variant="text" :loading="resetLoading" @click="cancel()">Discard</v-btn>
 
-                <div>
-                    <div v-if="videoStore.hasChapterChanges" class="text-muted-more underline italic text-sm">
-                        Unsaved changes
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between gap-4">
-                    <v-btn variant="text" :loading="resetLoading" @click="cancel()">Discard</v-btn>
-
-                    <v-btn color="primary" @click="save" :loading="loading" :disabled="!videoStore.hasChapterChanges">
-                        Save
-                    </v-btn>
-                </div>
+                <v-btn color="primary" @click="save" :loading="loading" :disabled="!videoStore.hasChapterChanges">
+                    Save
+                </v-btn>
             </div>
         </div>
     </div>
