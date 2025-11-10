@@ -81,7 +81,6 @@ function skipToSec(sec: number) {
                                 () => {
                                     videoStore.editMode = true;
                                     videoStore.addEmptyChapter();
-                                    videoStore.playing = false;
                                 }
                             "
                             color="primary"
