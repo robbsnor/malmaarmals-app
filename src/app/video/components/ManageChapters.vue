@@ -66,7 +66,7 @@ const save = async () => {
     videoStore.editMode = false;
 };
 
-async function cancel(force = false) {
+async function discard(force = false) {
     if (videoStore.hasChapterChanges && !force) {
         showConfirmCancelDialog.value = true;
         return;
@@ -117,7 +117,7 @@ async function cancel(force = false) {
                 @confirm="
                     async () => {
                         await sleep(500);
-                        await cancel(true);
+                        await discard(true);
                     }
                 "
             />
@@ -129,10 +129,10 @@ async function cancel(force = false) {
             </div>
 
             <div class="flex items-center justify-between gap-4">
-                <v-btn v-if="videoStore.hasChapterChanges" variant="text" :loading="resetLoading" @click="cancel()">
+                <v-btn v-if="videoStore.hasChapterChanges" variant="text" :loading="resetLoading" @click="discard()">
                     Discard
                 </v-btn>
-                <v-btn v-else variant="text" :loading="resetLoading" @click="videoStore.editMode = false"> Back </v-btn>
+                <v-btn v-else variant="text" :loading="resetLoading" @click="videoStore.editMode = false">Cancel</v-btn>
 
                 <v-btn color="primary" @click="save" :loading="loading" :disabled="!videoStore.hasChapterChanges">
                     Save
