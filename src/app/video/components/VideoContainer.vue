@@ -21,17 +21,16 @@ const authStore = useAuthStore();
                 : 'top-0 right-0 bottom-0 left-0'
         "
     >
-        <div
-            v-if="!videoStore.videoInfoLoading && !!videoStore.videoInfo"
-            class="md:overflow-auto md:scroll-hidden w-full aspect-video"
-        >
-            <Player />
-            <Info />
-            <InfoLarge />
-        </div>
+        <div class="md:overflow-auto md:scroll-hidden w-full aspect-video">
+            <template v-if="!videoStore.videoInfoLoading && !!videoStore.videoInfo">
+                <Player />
+                <Info />
+                <InfoLarge />
+            </template>
 
-        <div v-else class="p-2 pb-0">
-            <Skeleton class="aspect-video w-full"></Skeleton>
+            <SkeletonContainer v-else class="p-2">
+                <Skeleton class="h-full w-full"></Skeleton>
+            </SkeletonContainer>
         </div>
 
         <Chat />
