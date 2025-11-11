@@ -106,9 +106,10 @@ export const useVideoStore = defineStore('video', () => {
             .eq('video_id', Number(videoId.value))
             .order('offset_sec', { ascending: true });
 
-        messages.value = data;
         messagesLoading.value = false;
+
         if (error) throw error;
+        messages.value = data;
     }
 
     function setVideoRef(el: HTMLVideoElement) {
