@@ -22,13 +22,13 @@ const authStore = useAuthStore();
         "
     >
         <div class="w-full md:overflow-auto md:scroll-hidden">
-            <!-- <template v-if="!videoStore.videoInfoLoading && !!videoStore.videoInfo">
+            <template v-if="!videoStore.videoInfoLoading && !!videoStore.videoInfo">
                 <Player />
                 <Info />
                 <InfoLarge />
-            </template> -->
+            </template>
 
-            <div class="p-2 md:h-full">
+            <div v-else class="p-2 md:h-full">
                 <Skeleton class="aspect-video md:aspect-auto h-full w-full" />
             </div>
         </div>
