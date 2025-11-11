@@ -113,6 +113,7 @@ async function discard(force = false) {
                 description="Are you sure you want to discard your changes?"
                 icon="mdi-alert-circle-outline"
                 confirm-text="Discard changes"
+                :show-body="false"
                 :show-close-button="false"
                 @confirm="
                     async () => {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useSlots } from 'vue';
+import { computed, onMounted, useSlots, watch } from 'vue';
 
 const slots = useSlots();
 const emits = defineEmits(['close']);
@@ -14,13 +14,19 @@ const props = withDefaults(
         showCloseButton?: boolean;
         icon?: string;
         iconColor?: string;
+        showBody?: boolean;
     }>(),
     {
         title: 'Dialog',
         width: 720,
         showCloseButton: true,
+        showBody: true,
     }
 );
+
+onMounted(() => {
+    console.log(slots);
+});
 
 const _props = computed(() => {
     const { title, ...rest } = props;
@@ -39,7 +45,12 @@ const close = () => {
             <slot v-bind="activator" name="activator"></slot>
         </template>
 
-        <div class="bg-black-200 border border-black-500 rounded-md flex flex-col">
+        <div
+            class="bg-black-200 rounded-md flex flex-col"
+            :class="{
+                'border border-black-500': props.showBody || slots.footer,
+            }"
+        >
             <div class="flex gap-4 items-center p-6 py-4 border-b border-black-500">
                 <div v-if="props.icon" class="sm:flex justify-center items-center p-2 bg-black-400 rounded-md hidden">
                     <v-icon :color="props.iconColor" :icon="props.icon" class=" " />
@@ -62,11 +73,16 @@ const close = () => {
                 </button>
             </div>
 
-            <div v-if="slots.default" class="p-6">
-                <slot name="default"></slot>
+            <div v-if="props.showBody" class="p-6">
+                <slot></slot>
             </div>
 
-            <div class="flex justify-end gap-4 p-6 py-4 border-t border-black-500">
+            <div
+                class="flex justify-end gap-4 p-6 py-4"
+                :class="{
+                    'border-t border-black-500': props.showBody,
+                }"
+            >
                 <slot v-if="slots.footer" name="footer"></slot>
             </div>
         </div>
