@@ -56,7 +56,7 @@ watch(
 <template>
     <div
         v-if="videoStore.messages && !videoStore.player.isMini"
-        class="bg-red-400f overflow-hidden h-full grow-0 md:w-[250px] lg:w-[350px]"
+        class="bg-red-400f overflow-hidden h-full grow-0 shrink-0 md:w-[250px] lg:w-[350px]"
     >
         <div v-if="!videoStore.messagesLoading" class="h-full py-2 pt-4">
             <ul ref="chatRef" class="bg-green-800f h-full overflow-auto flex flex-col gap-1 scroll-hidden px-2">
