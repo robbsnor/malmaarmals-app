@@ -6,6 +6,6 @@ import { computed, ref } from 'vue';
     <div class="relative overflow-hidden h-full">
         <slot></slot>
 
-        <div class="absolute bg-gradient-to-t from-black/60 to-black/0 inset-0"></div>
+        <div class="absolute bg-gradient-to-t from-black/50 to-black/0 inset-0"></div>
     </div>
 </template>
