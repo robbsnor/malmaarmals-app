@@ -29,7 +29,7 @@ const authStore = useAuthStore();
             </template>
 
             <SkeletonContainer v-else class="p-2">
-                <Skeleton class="h-full w-full"></Skeleton>
+                <Skeleton :pulse="false" class="h-full w-full" />
             </SkeletonContainer>
         </div>
 
