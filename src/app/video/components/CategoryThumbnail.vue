@@ -10,12 +10,12 @@ const props = withDefaults(
 </script>
 
 <template>
-    <div class="h-[56px] aspect-[8/11] bg-black-500 rounded-sm">
+    <div class="h-[56px] aspect-[8/11] bg-black-500 rounded-sm overflow-hidden">
         <img
-            v-if="props.category?.image_url"
+            v-if="props.category.image_url"
             :src="props.category.image_url"
             :alt="props.category.title"
-            class="h-full rounded-sm"
+            class="h-full rounded-sm w-full object-cover"
         />
     </div>
 </template>
