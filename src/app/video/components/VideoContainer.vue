@@ -12,22 +12,28 @@ const authStore = useAuthStore();
 </script>
 
 <template>
-    <div v-if="videoStore.player.isActive && authStore.canWatch">
+    <div
+        v-if="videoStore.player.isActive && authStore.canWatch"
+        class="fixed bg-black z-50 flex flex-col md:flex-row"
+        :class="
+            videoStore.player.isMini
+                ? 'right-4 bottom-[100px] h-[120px] aspect-video rounded-md overflow-hidden border border-black-500 shadow-[0_0_20px_rgba(0,0,0,1)]'
+                : 'top-0 right-0 bottom-0 left-0'
+        "
+    >
         <div
-            class="fixed bg-black z-50 flex flex-col md:flex-row"
-            :class="
-                videoStore.player.isMini
-                    ? 'right-4 bottom-[100px] h-[120px] aspect-video rounded-md overflow-hidden border border-black-500 shadow-[0_0_20px_rgba(0,0,0,1)]'
-                    : 'top-0 right-0 bottom-0 left-0'
-            "
+            v-if="!videoStore.videoInfoLoading && !!videoStore.videoInfo"
+            class="md:overflow-auto md:scroll-hidden w-full aspect-video"
         >
-            <div v-if="!!videoStore.videoInfo" class="md:overflow-auto md:scroll-hidden">
-                <Player />
-                <Info />
-                <InfoLarge />
-            </div>
-
-            <Chat />
+            <Player />
+            <Info />
+            <InfoLarge />
         </div>
+
+        <div v-else class="p-2 pb-0">
+            <Skeleton class="aspect-video w-full"></Skeleton>
+        </div>
+
+        <Chat />
     </div>
 </template>
