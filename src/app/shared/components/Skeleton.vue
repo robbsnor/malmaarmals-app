@@ -5,11 +5,20 @@ import { computed, ref } from 'vue';
 const props = withDefaults(
     defineProps<{
         class?: string;
+        pulse?: boolean;
     }>(),
-    {}
+    {
+        pulse: true,
+    }
 );
+const _class = computed(() => {
+    const base = ['bg-black-150', 'min-h-4', 'rounded-md'];
+    if (props.pulse) base.push('animate-pulse');
+
+    return twMerge(...base, props.class);
+});
 </script>
 
 <template>
-    <div :class="twMerge('bg-black-400 h-4 rounded-md animate-pulse', props.class)"></div>
+    <div :class="_class"></div>
 </template>

@@ -17,6 +17,7 @@ export const TIME_PRIOR_OFFSET_S = 2;
 export const useVideoStore = defineStore('video', () => {
     const videoInfo = ref<Tables<'videos'>>();
     const videoId = ref<number>();
+    const videoInfoLoading = ref(true);
 
     const chaptersOG = ref<ChaptersWithCategory>();
     const chapters = ref<ChaptersWithCategory>();
@@ -26,6 +27,7 @@ export const useVideoStore = defineStore('video', () => {
 
     const showControllsAndInfo = ref(true);
     const messages = ref<Messages>([]);
+    const messagesLoading = ref(true);
     const player = ref({
         isActive: false,
         isMini: true,
@@ -55,6 +57,22 @@ export const useVideoStore = defineStore('video', () => {
     );
     const currentTimeRounded = computed(() => Math.floor(currentTime.value));
 
+    function reset() {
+        chaptersOG.value = null;
+        chapters.value = null;
+        videoInfo.value = null;
+        currentTime.value = 0;
+        duration.value = 0;
+        messages.value = [];
+        videoId.value = null;
+        chapters.value = null;
+        videoInfo.value = null;
+        playing.value = false;
+        editMode.value = false;
+        messagesLoading.value = true;
+        videoInfoLoading.value = true;
+    }
+
     async function fetchVideoInfo() {
         const { data, error } = await supabase
             .from('videos')
@@ -64,6 +82,7 @@ export const useVideoStore = defineStore('video', () => {
         if (error) throw error;
 
         videoInfo.value = data;
+        videoInfoLoading.value = false;
         TitleHelper.setTitle(data.title);
     }
 
@@ -81,29 +100,15 @@ export const useVideoStore = defineStore('video', () => {
     }
 
     async function fetchMessages() {
-        let from = 0;
-        let to = 999;
-        let hasMore = true;
+        const { data, error } = await supabase
+            .from('messages')
+            .select('message_id, offset_sec, text, user_color, user_name')
+            .eq('video_id', Number(videoId.value))
+            .order('offset_sec', { ascending: true });
 
-        while (hasMore) {
-            const { data, error } = await supabase
-                .from('messages')
-                .select('message_id, offset_sec, text, user_color, user_name')
-                .eq('video_id', Number(videoId.value))
-                .order('offset_sec', { ascending: true })
-                .range(from, to);
-
-            if (error) throw error;
-
-            if (data && data.length > 0) {
-                messages.value = [...messages.value, ...data];
-                from += 1000;
-                to += 1000;
-                hasMore = data.length === 1000;
-            } else {
-                hasMore = false;
-            }
-        }
+        messages.value = data;
+        messagesLoading.value = false;
+        if (error) throw error;
     }
 
     function setVideoRef(el: HTMLVideoElement) {
@@ -116,20 +121,6 @@ export const useVideoStore = defineStore('video', () => {
 
     function getTimePrior(sec: number) {
         return sec - TIME_PRIOR_OFFSET_S >= 0 ? sec - TIME_PRIOR_OFFSET_S : 0;
-    }
-
-    function reset() {
-        chaptersOG.value = null;
-        chapters.value = null;
-        videoInfo.value = null;
-        currentTime.value = 0;
-        duration.value = 0;
-        messages.value = [];
-        videoId.value = null;
-        chapters.value = null;
-        videoInfo.value = null;
-        playing.value = false;
-        editMode.value = false;
     }
 
     async function addEmptyChapter() {
@@ -196,33 +187,42 @@ export const useVideoStore = defineStore('video', () => {
     return {
         videoInfo,
         videoId,
-        chaptersOG,
-        chapters,
-        videoSrc,
-        showControllsAndInfo,
-        hasChapterChanges,
-        messages,
+        videoInfoLoading,
         subCount,
-        prettyCurrentTime,
-        prettyDuration,
-        showMobileControls,
+
+        // player
         player,
-        editMode,
-        showChapterDrawer,
+        videoRef,
+        showMobileControls,
+        showControllsAndInfo,
+        videoSrc,
 
         // mediaControls
         currentTime,
+        prettyCurrentTime,
         currentTimeRounded,
         duration,
+        prettyDuration,
+        playing,
         waiting,
         seeking,
         ended,
         stalled,
         buffered,
-        playing,
         rate,
         volume,
         muted,
+
+        // messages
+        messages,
+        messagesLoading,
+
+        // chapters
+        chaptersOG,
+        chapters,
+        showChapterDrawer,
+        hasChapterChanges,
+        editMode,
 
         // functions
         fetchVideoInfo,
@@ -234,8 +234,6 @@ export const useVideoStore = defineStore('video', () => {
         getTimePrior,
         loadVideoProgression,
         reset,
-
-        // chapters
         addEmptyChapter,
     };
 });

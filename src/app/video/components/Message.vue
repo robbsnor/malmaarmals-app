@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import type { Tables } from '../../shared/models/database.types';
 import { emotesMap } from '../../shared/data/emotes.data';
 import type { Message } from '../models/messages.model';
+import { useAuthStore } from '../../auth/stores/auth.store';
 
 const props = withDefaults(
     defineProps<{
@@ -10,27 +11,18 @@ const props = withDefaults(
     }>(),
     {}
 );
+const authStore = useAuthStore();
 
-const isMyMessage = computed(() => {
-    return (
-        // props.message.user_name === 'striddums' ||
-        // props.message.user_name === 'JuulWasBezet' ||
-        // props.message.user_name === 'Roekeloos' ||
-        // props.message.user_name === 'Malmaarmal' ||
-        props.message.user_name === 'Robbsnor'
-    );
-});
+const isMyMessage = computed(() => props.message.user_name === authStore.session.user?.user_metadata?.username);
 </script>
 
 <template>
     <li
         :class="{
-            'bg-black-400 py-1 px-2 -mx-2 rounded-md': isMyMessage,
+            'bg-black-400 rounded-sm py-1 -mx-1 px-1': isMyMessage,
         }"
         class="text-sm"
-        :data-id="message.message_id"
     >
-        <!-- <span class="text-black-1800 text-xs mr-2"> {{ TimeHelper.formatTime(message.offset_sec) }} </span> -->
         <span
             :style="{
                 color: message.user_color || '#2e8b57',

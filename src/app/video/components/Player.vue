@@ -19,6 +19,11 @@ onMounted(async () => {
     await nextTick();
     videoStore.setVideoRef(videoRef.value);
     // videoStore.playing = true;
+
+    videoStore.videoRef.addEventListener('canplay', async () => {
+        console.log('can play');
+        videoStore.fetchMessages();
+    });
 });
 </script>
 

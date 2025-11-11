@@ -18,6 +18,7 @@ import Logo from './app/shared/components/Logo.vue';
 import SafeArea from './app/shared/components/SafeArea.vue';
 import Section from './app/shared/components/Section.vue';
 import Skeleton from './app/shared/components/Skeleton.vue';
+import SkeletonContainer from './app/shared/components/SkeletonContainer.vue';
 import VideoThumbnail from './app/shared/components/VideoThumbnail.vue';
 
 import { visible } from './app/shared/directives/visible.directive';
@@ -47,6 +48,7 @@ app.component('Logo', Logo);
 app.component('SafeArea', SafeArea);
 app.component('Section', Section);
 app.component('Skeleton', Skeleton);
+app.component('SkeletonContainer', SkeletonContainer);
 app.component('VideoThumbnail', VideoThumbnail);
 
 // directives
