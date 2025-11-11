@@ -119,7 +119,7 @@ const startTime = computed(() => prettyTime(chapter.value.start_s));
                     </template>
 
                     <div class="flex items-center gap-4">
-                        <CategoryThumbnail :category="chapter.category" class="h-[83px]" />
+                        <CategoryThumbnail :category="chapter.category" />
 
                         <div class="overflow-hidden">
                             <div class="font-bold text-muted mb-1">{{ chapter.category?.title }}</div>
