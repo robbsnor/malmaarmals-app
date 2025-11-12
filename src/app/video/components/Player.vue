@@ -27,33 +27,33 @@ onMounted(async () => {
         videoStore.fetchMessages();
     });
 
-    const ctx = canvasRef.value.getContext('2d');
+    // const ctx = canvasRef.value.getContext('2d');
 
-    async function draw() {
-        canvasRef.value.width = videoRef.value.videoWidth;
-        canvasRef.value.height = videoRef.value.videoHeight;
+    // async function draw() {
+    //     canvasRef.value.width = videoRef.value.videoWidth;
+    //     canvasRef.value.height = videoRef.value.videoHeight;
 
-        ctx.drawImage(videoRef.value, 0, 0, canvasRef.value.width, canvasRef.value.height);
-        await sleep(1000 / 24);
-        requestAnimationFrame(draw);
-    }
+    //     ctx.drawImage(videoRef.value, 0, 0, canvasRef.value.width, canvasRef.value.height);
+    //     await sleep(1000 / 24);
+    //     requestAnimationFrame(draw);
+    // }
 
-    videoRef.value.addEventListener('play', draw);
+    // videoRef.value.addEventListener('play', draw);
 });
 </script>
 
 <template>
     <div class="relative h-full w-full aspect-video flex flex-col items-center justify-center">
         <div class="relative aspect-video w-full">
-            <canvas
+            <!-- <canvas
                 ref="canvasRef"
-                class="absolute top-1/2 left-1/2 size-[150%] -translate-1/2 blur-2xl transition-all"
-            ></canvas>
+                class="absolute top-1/2 left-1/2 size-[120%] -translate-1/2 blur-[60px] transition-all pointer-events-none select-none opacity-f50"
+            ></canvas> -->
 
             <video
                 preload="metadata"
                 id="videoMain"
-                class="relative aspect-video w-full"
+                class="relative aspect-video w-full md:rounded-md"
                 ref="videoRef"
                 :src="videoStore.videoSrc"
                 :poster="BucketHelper.getThumbnailUrl(Number(videoStore.videoId))"

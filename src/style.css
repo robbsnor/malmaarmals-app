@@ -232,7 +232,6 @@ a:not([class]) {
 }
 
 @utility scroll-hidden {
-    @apply overflow-auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
