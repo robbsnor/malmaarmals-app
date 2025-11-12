@@ -27,19 +27,19 @@ onMounted(async () => {
         videoStore.fetchMessages();
     });
 
-    const ctx = canvasRef.value.getContext('2d');
+    // const ctx = canvasRef.value.getContext('2d');
 
-    async function draw() {
-        console.log('draw');
-        canvasRef.value.width = videoRef.value.videoWidth;
-        canvasRef.value.height = videoRef.value.videoHeight;
+    // async function draw() {
+    //     console.log('draw');
+    //     canvasRef.value.width = videoRef.value.videoWidth;
+    //     canvasRef.value.height = videoRef.value.videoHeight;
 
-        ctx.drawImage(videoRef.value, 0, 0, canvasRef.value.width, canvasRef.value.height);
-        await sleep(1000 / 10);
-        requestAnimationFrame(draw);
-    }
+    //     ctx.drawImage(videoRef.value, 0, 0, canvasRef.value.width, canvasRef.value.height);
+    //     await sleep(1000 / 10);
+    //     requestAnimationFrame(draw);
+    // }
 
-    videoRef.value.addEventListener('play', draw);
+    // videoRef.value.addEventListener('play', draw);
 });
 </script>
 
