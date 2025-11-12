@@ -10,10 +10,6 @@ const videos = computed(() => videosStore.videos.slice(80, 85));
 
 <template>
     <Section title="History" moreLink="/history" moreText="view all">
-        <!-- <div class="hidden md:grid md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
-            <VideoItemLarge v-for="video in videosStore.videos" :key="video.video_id" :video="video" />
-        </div> -->
-
         <div class="flex flex-col gap-4">
             <VideoItem v-for="video in videos" :key="video.video_id" :video="video" />
         </div>
