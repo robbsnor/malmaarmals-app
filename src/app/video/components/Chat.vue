@@ -4,6 +4,7 @@ import Message from './Message.vue';
 import { useVideoStore } from '../stores/video.store';
 import type { Messages } from '../models/messages.model';
 import { randomNumber } from '../../shared/helpers/randomNumber';
+import { Z } from '../../shared/directives/z.directive';
 
 const videoStore = useVideoStore();
 const chatRef = useTemplateRef<HTMLElement>('chatRef');
@@ -57,6 +58,7 @@ watch(
     <div
         v-if="videoStore.messages && !videoStore.player.isMini"
         class="bg-red-400f overflow-hidden h-full grow-0 shrink-0 md:w-[250px] lg:w-[350px]"
+        v-z="Z.CHAT"
     >
         <div v-if="!videoStore.messagesLoading" class="h-full py-2 pt-4">
             <ul ref="chatRef" class="bg-green-800f h-full overflow-auto flex flex-col gap-1 scroll-hidden px-2">

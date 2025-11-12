@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useElementSize, useFullscreen } from '@vueuse/core';
 import { useRouter } from 'vue-router';
-import { useAppStore } from '../../shared/stores/app.store';
 import { useVideoStore } from '../stores/video.store';
 import { computed, ref, useTemplateRef } from 'vue';
 import ChaptersDrawer from './ChaptersDrawer.vue';
@@ -11,6 +10,7 @@ import { useScreenOrientation } from '@vueuse/core';
 import ChapterMarker from './ChapterMarker.vue';
 import PreferenceDrawer from './PreferenceDrawer.vue';
 import { usePreferenceStore } from '../../shared/stores/preference.store';
+import { Z } from '../../shared/directives/z.directive';
 
 const videoStore = useVideoStore();
 const preferenceStore = usePreferenceStore();
@@ -48,7 +48,8 @@ const showMarkers = computed(() => {
     <div
         v-if="!videoStore.player.isMini"
         v-visible="videoStore.showControllsAndInfo && !videoStore.player.isMini"
-        class="absolute inset-0 flex flex-col z-50"
+        class="absolute inset-0 flex flex-col"
+        v-z="Z.VIDEO_CONTROLS"
     >
         <div class="absolute inset-0 bg-black/50" @click="videoStore.showControllsAndInfo = false"></div>
 
@@ -138,6 +139,5 @@ const showMarkers = computed(() => {
 }
 
 :deep(.v-slider-thumb) {
-    /* z-index: 22 !important; */
 }
 </style>
