@@ -27,26 +27,28 @@ onMounted(async () => {
         videoStore.fetchMessages();
     });
 
-    // const ctx = canvasRef.value.getContext('2d');
+    const ctx = canvasRef.value.getContext('2d');
 
-    // async function draw() {
-    //     console.log('draw');
-    //     canvasRef.value.width = videoRef.value.videoWidth;
-    //     canvasRef.value.height = videoRef.value.videoHeight;
+    async function draw() {
+        canvasRef.value.width = videoRef.value.videoWidth;
+        canvasRef.value.height = videoRef.value.videoHeight;
 
-    //     ctx.drawImage(videoRef.value, 0, 0, canvasRef.value.width, canvasRef.value.height);
-    //     await sleep(1000 / 10);
-    //     requestAnimationFrame(draw);
-    // }
+        ctx.drawImage(videoRef.value, 0, 0, canvasRef.value.width, canvasRef.value.height);
+        await sleep(1000 / 24);
+        requestAnimationFrame(draw);
+    }
 
-    // videoRef.value.addEventListener('play', draw);
+    videoRef.value.addEventListener('play', draw);
 });
 </script>
 
 <template>
     <div class="relative h-full w-full aspect-video flex flex-col items-center justify-center">
         <div class="relative aspect-video w-full">
-            <!-- <canvas ref="canvasRef" class="absolute top-1/2 left-1/2 size-[150%] -translate-1/2 blur-2xl"></canvas> -->
+            <canvas
+                ref="canvasRef"
+                class="absolute top-1/2 left-1/2 size-[150%] -translate-1/2 blur-2xl transition-all"
+            ></canvas>
 
             <video
                 preload="metadata"
