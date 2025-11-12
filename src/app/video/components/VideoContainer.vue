@@ -14,7 +14,7 @@ const authStore = useAuthStore();
 <template>
     <div
         v-if="videoStore.player.isActive && authStore.canWatch"
-        class="fixed bg-black flex flex-col md:flex-row"
+        class="fixed bg-black flex flex-col md:flex-row flex-nowrap"
         v-z="Z.VIDEO_CONTAINER"
         :class="
             videoStore.player.isMini
