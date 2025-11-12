@@ -1,17 +1,16 @@
 import type { Directive } from 'vue';
 
 export const Z = {
-    OFFLINE: 100,
-
-    CHAPTER_MARKER: 20,
+    CHAPTER_MARKER: 10,
     MOBILE_NAV: 10,
     ARCHIVE_HEADER: 10,
 
-    VIDEO_CONTAINER: 20,
-    VIDEO_INFO: 20,
+    VIDEO_CONTAINER: 50,
     VIDEO_CONTROLS: 50,
+    CHAT: 54,
+    VIDEO_INFO: 55,
 
-    CHAT: 30,
+    OFFLINE: 100,
 };
 
 export const z: Directive<HTMLElement, typeof Z> = {
