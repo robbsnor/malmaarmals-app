@@ -29,7 +29,6 @@ const props = withDefaults(
             ></div>
 
             <VideoThumbnail
-                :to="`/about`"
                 :src="BucketHelper.getThumbnailUrl(Number(playlist.videos?.[0]?.video_id))"
                 icon="mdi-playlist-play"
             />
