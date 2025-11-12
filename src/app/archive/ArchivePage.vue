@@ -5,6 +5,7 @@ import { useArchiveStore } from './stores/archive.store';
 import VideosTab from './components/VideosTab.vue';
 import PlaylistsTab from './components/PlaylistsTab.vue';
 import { useRoute } from 'vue-router';
+import { Z } from '../shared/directives/z.directive';
 
 TitleHelper.setTitle('Archive');
 
@@ -24,7 +25,7 @@ onMounted(() => {
 
 <template>
     <Container>
-        <div class="fixed top-0 right-0 left-0 bg-black h-[128px] z-20 pt-4 px-4">
+        <div class="fixed top-0 right-0 left-0 bg-black h-[128px] pt-4 px-4" v-z="Z.ARCHIVE_HEADER">
             <v-text-field
                 ref="searchRef"
                 autocomplete="off"

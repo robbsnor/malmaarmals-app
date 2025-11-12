@@ -7,6 +7,7 @@ import { usePlaylistsStore } from './app/playlists/stores/playlists.store';
 import { onMounted, ref } from 'vue';
 import { useAuthStore } from './app/auth/stores/auth.store';
 import { sleep } from './app/shared/helpers/sleep';
+import { Z } from './app/shared/directives/z.directive';
 
 const videosStore = useVideosStore();
 const authStore = useAuthStore();
@@ -51,7 +52,7 @@ onMounted(async () => {
         <MainDrawer />
     </v-app>
 
-    <div v-visible="loading || hasError" class="fixed inset-0 z-100 bg-black">
+    <div v-visible="loading || hasError" class="fixed inset-0 bg-black" v-z="Z.OFFLINE">
         <Container class="h-full">
             <div v-if="loading" class="h-full w-full flex items-center justify-center">
                 <v-progress-circular indeterminate size="64" color="primary" />

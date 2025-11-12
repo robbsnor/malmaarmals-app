@@ -7,10 +7,12 @@ import MiniplayerControls from './MiniplayerControls.vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import PlayerControls from './PlayerControls.vue';
 import Facecam from './Facecam.vue';
+import { sleep } from '../../shared/helpers/sleep';
 
 const appStore = useAppStore();
 const videoStore = useVideoStore();
 const videoRef = useTemplateRef<HTMLVideoElement>('videoRef');
+const canvasRef = useTemplateRef<HTMLCanvasElement>('canvasRef');
 const { isFullscreen, enter, exit, toggle } = useFullscreen();
 
 onMounted(async () => {
@@ -24,15 +26,32 @@ onMounted(async () => {
         console.log('can play');
         videoStore.fetchMessages();
     });
+
+    const ctx = canvasRef.value.getContext('2d');
+
+    async function draw() {
+        console.log('draw');
+        canvasRef.value.width = videoRef.value.videoWidth;
+        canvasRef.value.height = videoRef.value.videoHeight;
+
+        ctx.drawImage(videoRef.value, 0, 0, canvasRef.value.width, canvasRef.value.height);
+        await sleep(1000 / 10);
+        requestAnimationFrame(draw);
+    }
+
+    videoRef.value.addEventListener('play', draw);
 });
 </script>
 
 <template>
     <div class="relative h-full w-full aspect-video flex flex-col items-center justify-center">
         <div class="relative aspect-video w-full">
+            <canvas ref="canvasRef" class="absolute top-1/2 left-1/2 size-[150%] -translate-1/2 blur-2xl"></canvas>
+
             <video
                 preload="metadata"
-                class="aspect-video w-full"
+                id="videoMain"
+                class="relative aspect-video w-full"
                 ref="videoRef"
                 :src="videoStore.videoSrc"
                 :poster="BucketHelper.getThumbnailUrl(Number(videoStore.videoId))"

@@ -4,6 +4,7 @@ import { useAppStore } from '../../shared/stores/app.store';
 import { useScreenSafeArea } from '@vueuse/core';
 import { useRouter, RouterLink } from 'vue-router';
 import { useAuthStore } from '../../auth/stores/auth.store';
+import { Z } from '../../shared/directives/z.directive';
 
 const router = useRouter();
 const { top, right, bottom, left } = useScreenSafeArea();
@@ -21,8 +22,9 @@ const menuItems = ref([
     <div
         ref="mobileNavRef"
         :style="{ paddingBottom: bottom }"
-        class="bottom-0 right-0 left-0 z-10 h-[var(--height-mobile-navbar)] bg-black fixed transition-transform border-t border-black-500"
+        class="bottom-0 right-0 left-0 h-[var(--height-mobile-navbar)] bg-black fixed transition-transform border-t border-black-500"
         :class="{ 'translate-y-[-100%]': !appStore.headerShown }"
+        v-z="Z.MOBILE_NAV"
     >
         <div class="grid grid-cols-3 items-center justify-evenly h-[var(--height-mobile-navbar)]">
             <RouterLink

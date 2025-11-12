@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useAppStore } from '../../shared/stores/app.store';
 import Player from './Player.vue';
 import Chat from './Chat.vue';
 import { useVideoStore } from '../stores/video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import Info from './Info.vue';
 import InfoLarge from './InfoLarge.vue';
+import { Z } from '../../shared/directives/z.directive';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
@@ -14,7 +14,8 @@ const authStore = useAuthStore();
 <template>
     <div
         v-if="videoStore.player.isActive && authStore.canWatch"
-        class="fixed bg-black z-50 flex flex-col md:flex-row"
+        class="fixed bg-black flex flex-col md:flex-row"
+        v-z="Z.VIDEO_CONTAINER"
         :class="
             videoStore.player.isMini
                 ? 'right-4 bottom-[100px] h-[120px] aspect-video rounded-md overflow-hidden border border-black-500 shadow-[0_0_20px_rgba(0,0,0,1)]'

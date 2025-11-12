@@ -22,6 +22,7 @@ import SkeletonContainer from './app/shared/components/SkeletonContainer.vue';
 import VideoThumbnail from './app/shared/components/VideoThumbnail.vue';
 
 import { visible } from './app/shared/directives/visible.directive';
+import { z } from './app/shared/directives/z.directive';
 
 import { vuetify } from './vuetify.config';
 import './style.css';
@@ -53,6 +54,7 @@ app.component('VideoThumbnail', VideoThumbnail);
 
 // directives
 app.directive('visible', visible);
+app.directive('z', z);
 
 // plugins
 app.use(router);

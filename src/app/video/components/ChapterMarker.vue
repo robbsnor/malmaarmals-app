@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { useVideoStore } from '../stores/video.store';
 import type { ChapterWithCategory } from '../models/chapters-with-category.model';
+import { Z } from '../../shared/directives/z.directive';
 
 const props = withDefaults(
     defineProps<{
@@ -28,7 +29,8 @@ const offsetLeft = computed(() => {
             <div
                 v-if="offsetLeft"
                 v-bind="props"
-                class="size-5 flex justify-center items-center absolute cursor-pointer left-10 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20"
+                class="size-5 flex justify-center items-center absolute cursor-pointer left-10 top-1/2 -translate-y-1/2 -translate-x-1/2"
+                v-z="Z.CHAPTER_MARKER"
                 :style="{ left: offsetLeft }"
                 @click="videoStore.setTimePrior(chapter.start_s)"
             >
