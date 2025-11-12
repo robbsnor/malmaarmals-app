@@ -37,7 +37,7 @@ const daysAgo = computed(() => {
             <h2 class="font-bold text-md line-clamp-2 leading-snug">
                 {{ props.video.title }}
             </h2>
-            <div v-if="props.video?.chapters.length" class="text-muted text-sm font-medium line-clamp-f2">
+            <div v-if="props.video?.chapters.length" class="text-muted text-sm font-medium line-clamp-2">
                 {{ categories.join(', ') }}
             </div>
             <div class="text-muted-more text-sm font-medium">{{ daysAgo }} days ago</div>
