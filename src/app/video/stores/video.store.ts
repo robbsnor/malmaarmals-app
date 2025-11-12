@@ -147,7 +147,6 @@ export const useVideoStore = defineStore('video', () => {
 
     const saveVideoProgression = () => {
         if (!currentTimeRounded.value) return;
-        console.log('saved');
 
         const obj: VideoProgression = {
             current_time_s: currentTimeRounded.value,
@@ -158,7 +157,6 @@ export const useVideoStore = defineStore('video', () => {
     };
 
     const loadVideoProgression = () => {
-        console.log('loaded');
         const timeObj: VideoProgression = JSON.parse(localStorage.getItem(videoId.value.toString()));
         if (!timeObj) return;
         currentTime.value = Number(timeObj.current_time_s);
