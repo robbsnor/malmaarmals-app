@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import VideoItemLarge from '../../video/components/VideoItemLarge.vue';
 import VideoItem from '../../video/components/VideoItem.vue';
 import { useVideosStore } from '../../video/stores/videos.store';
 import { computed } from 'vue';

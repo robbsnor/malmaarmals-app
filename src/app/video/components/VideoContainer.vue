@@ -4,7 +4,6 @@ import Chat from './Chat.vue';
 import { useVideoStore } from '../stores/video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import Info from './Info.vue';
-import InfoLarge from './InfoLarge.vue';
 import { Z } from '../../shared/directives/z.directive';
 
 const videoStore = useVideoStore();
@@ -26,7 +25,6 @@ const authStore = useAuthStore();
             <template v-if="!videoStore.videoInfoLoading && !!videoStore.videoInfo">
                 <Player />
                 <Info />
-                <InfoLarge />
             </template>
 
             <div v-else class="p-2 md:h-full">
