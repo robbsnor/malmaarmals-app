@@ -7,7 +7,6 @@ import MiniplayerControls from './MiniplayerControls.vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import PlayerControls from './PlayerControls.vue';
 import Facecam from './Facecam.vue';
-import { sleep } from '../../shared/helpers/sleep';
 
 const appStore = useAppStore();
 const videoStore = useVideoStore();
@@ -16,15 +15,12 @@ const canvasRef = useTemplateRef<HTMLCanvasElement>('canvasRef');
 const { isFullscreen, enter, exit, toggle } = useFullscreen();
 
 onMounted(async () => {
-    // videoStore.playing = false;
-    videoStore.loadVideoProgression();
     await nextTick();
     videoStore.setVideoRef(videoRef.value);
-    // videoStore.playing = true;
 
     videoStore.videoRef.addEventListener('canplay', async () => {
-        console.log('can play');
         videoStore.fetchMessages();
+        videoStore.loadVideoProgression();
     });
 
     // const ctx = canvasRef.value.getContext('2d');
