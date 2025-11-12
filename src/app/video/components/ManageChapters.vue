@@ -78,7 +78,7 @@ async function discard(force = false) {
 </script>
 
 <template>
-    <div class="flex flex-col max-h-[80vh]">
+    <div class="flex flex-col max-h-[60vh]">
         <div class="overflow-x-hidden p-4 pb-0">
             <v-form v-model="valid" v-auto-animate class="flex flex-col gap-4">
                 <ManageChaptersRow
