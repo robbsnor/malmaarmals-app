@@ -8,7 +8,7 @@ import { useIdle, useMediaControls } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { type ChaptersWithCategory } from '../models/chapters-with-category.model';
-import _ from 'lodash';
+import _, { round } from 'lodash';
 import type { Messages } from '../models/messages.model';
 import { v4 } from 'uuid';
 
@@ -141,28 +141,32 @@ export const useVideoStore = defineStore('video', () => {
         chapters.value.push(emptyChapter);
     }
 
-    const saveVideoProgression = (newTime: number) => {
-        // const obj: VideoProgression = {
-        //     current_time_s: newTime,
-        //     total_time_s: videoInfo.value.length_sec,
-        //     percentage: Math.round((100 / videoInfo.value.length_sec) * currentTime.value),
-        // };
-        // localStorage.setItem(videoId.value, JSON.stringify(obj));
+    watch(currentTimeRounded, () => {
+        saveVideoProgression();
+    });
+
+    const saveVideoProgression = () => {
+        if (!currentTimeRounded.value) return;
+        console.log('saved');
+
+        const obj: VideoProgression = {
+            current_time_s: currentTimeRounded.value,
+            total_time_s: videoInfo.value.length_sec,
+            percentage: Math.round((100 / videoInfo.value.length_sec) * currentTimeRounded.value),
+        };
+        localStorage.setItem(videoId.value.toString(), JSON.stringify(obj));
     };
 
     const loadVideoProgression = () => {
-        // const timeObj: VideoProgression = JSON.parse(localStorage.getItem(videoId.value));
-        // if (!timeObj) return;
-        // currentTime.value = Number(timeObj.current_time_s);
+        console.log('loaded');
+        const timeObj: VideoProgression = JSON.parse(localStorage.getItem(videoId.value.toString()));
+        if (!timeObj) return;
+        currentTime.value = Number(timeObj.current_time_s);
     };
 
     function resetChaptersForm() {
         chapters.value = _.cloneDeep(chaptersOG.value);
     }
-
-    watch(currentTime, (newTime) => {
-        saveVideoProgression(newTime);
-    });
 
     watch(idle, (isIdle) => {
         if (!playing.value) return;
