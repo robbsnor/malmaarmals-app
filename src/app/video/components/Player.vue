@@ -46,7 +46,7 @@ onMounted(async () => {
 <template>
     <div class="relative h-full w-full aspect-video flex flex-col items-center justify-center">
         <div class="relative aspect-video w-full">
-            <canvas ref="canvasRef" class="absolute top-1/2 left-1/2 size-[150%] -translate-1/2 blur-2xl"></canvas>
+            <!-- <canvas ref="canvasRef" class="absolute top-1/2 left-1/2 size-[150%] -translate-1/2 blur-2xl"></canvas> -->
 
             <video
                 preload="metadata"
