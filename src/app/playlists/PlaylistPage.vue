@@ -77,6 +77,7 @@ const dialog = ref(false);
                     <VideoThumbnail
                         class="w-36 shrink-0"
                         :src="BucketHelper.getThumbnailUrl(video.video_id)"
+                        :videoId="video.video_id"
                         :durationS="video.length_sec"
                     />
 

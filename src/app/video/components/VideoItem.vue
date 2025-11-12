@@ -29,6 +29,7 @@ const daysAgo = computed(() => {
         <VideoThumbnail
             class="w-36 shrink-0"
             :src="BucketHelper.getThumbnailUrl(props.video.video_id)"
+            :videoId="props.video.video_id"
             :durationS="props.video.length_sec"
         />
 
