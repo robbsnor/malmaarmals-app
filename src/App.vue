@@ -8,10 +8,12 @@ import { onMounted, ref } from 'vue';
 import { useAuthStore } from './app/auth/stores/auth.store';
 import { sleep } from './app/shared/helpers/sleep';
 import { Z } from './app/shared/directives/z.directive';
+import { useHistoryStore } from './app/video/stores/history.store';
 
 const videosStore = useVideosStore();
 const authStore = useAuthStore();
 const playlistsStore = usePlaylistsStore();
+const historyStore = useHistoryStore();
 const loading = ref(true);
 const hasError = ref(false);
 
@@ -32,6 +34,7 @@ onMounted(async () => {
         authStore.updateIsSubscribed(),
         videosStore.fetchVideos(),
         playlistsStore.fetchPlaylists(),
+        historyStore.fetchHistory(),
     ]).catch(async (err) => {
         await sleep(800);
         hasError.value = true;

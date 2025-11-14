@@ -1,13 +1,15 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import type { Tables } from '../../shared/models/database.types';
 import { supabase } from '../../../supabase';
 import { useVideoStore } from './video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
+import { useVideosStore } from './videos.store';
 
 export const useHistoryStore = defineStore('history', () => {
     const history = ref<Tables<'history'>[]>([]);
     const videoStore = useVideoStore();
+    const videosStore = useVideosStore();
     const authStore = useAuthStore();
 
     const fetchHistory = async () => {
@@ -23,7 +25,7 @@ export const useHistoryStore = defineStore('history', () => {
         const userId = authStore.session?.user.id;
         if (!videoId || !userId) throw new Error('Missing videoId or userId');
 
-        const { error } = await supabase.from('history').upsert(
+        const { error, data } = await supabase.from('history').upsert(
             {
                 video_id: videoId,
                 watched_at: new Date().toISOString(),
@@ -31,10 +33,20 @@ export const useHistoryStore = defineStore('history', () => {
             { onConflict: 'user_id,video_id' }
         );
         if (error) throw error;
+
+        await fetchHistory();
     };
+
+    const videos = computed(() => {
+        return history.value.map((h) => {
+            return videosStore.videos.find((v) => v.id === h.video_id);
+        });
+    });
 
     return {
         fetchHistory,
         save,
+        history,
+        videos,
     };
 });
