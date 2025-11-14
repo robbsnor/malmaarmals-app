@@ -88,6 +88,27 @@ export type Database = {
                     }
                 ];
             };
+            history: {
+                Row: {
+                    id: string;
+                    user_id: string;
+                    video_id: string;
+                    watched_at: string | null;
+                };
+                Insert: {
+                    id?: string;
+                    user_id?: string;
+                    video_id: string;
+                    watched_at?: string | null;
+                };
+                Update: {
+                    id?: string;
+                    user_id?: string;
+                    video_id?: string;
+                    watched_at?: string | null;
+                };
+                Relationships: [];
+            };
             messages: {
                 Row: {
                     date: string;

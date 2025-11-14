@@ -4,10 +4,12 @@ import { useRoute } from 'vue-router';
 import { useVideoStore } from './stores/video.store';
 import { useAuthStore } from '../auth/stores/auth.store';
 import VideoNotAllowed from './components/VideoNotAllowed.vue';
+import { useHistoryStore } from './stores/history.store';
 
 const route = useRoute();
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
+const historyStore = useHistoryStore();
 
 onMounted(async () => {
     videoStore.player.isActive = true;
@@ -23,7 +25,7 @@ onMounted(async () => {
 
     await videoStore.fetchVideoInfo();
     await videoStore.fetchChapters();
-    // await videoStore.fetchMessages();
+    await historyStore.save();
 });
 
 onUnmounted(() => {
