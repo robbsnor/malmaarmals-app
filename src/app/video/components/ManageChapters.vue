@@ -6,12 +6,14 @@ import { useVideoStore } from '../stores/video.store';
 import { sleep } from '../../shared/helpers/sleep';
 import ChapterControlls from './ChapterControlls.vue';
 import { v4 } from 'uuid';
+import { useVideosStore } from '../stores/videos.store';
 
 const emits = defineEmits<{
     (e: 'add-chapter'): void;
 }>();
 const videoStore = useVideoStore();
 const valid = ref(false);
+const videosStore = useVideosStore();
 const loading = ref(false);
 const resetLoading = ref(false);
 const showConfirmCancelDialog = ref(false);
@@ -58,6 +60,7 @@ const save = async () => {
     await deleteExistingChapters();
     await saveChapters();
     await videoStore.fetchChapters();
+    await videosStore.fetchVideos();
 
     loading.value = false;
     videoStore.showChapterDrawer = false;
