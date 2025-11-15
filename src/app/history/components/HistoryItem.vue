@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
-import type { VideoWithChapters } from '../models/videos-with-chapters.model';
+import { TimeHelper } from '../../shared/helpers/time.helper';
 import { formatTimeAgo } from '@vueuse/core';
+import type { HistoryVideo } from '../../video/models/history-video.model';
 
 const props = withDefaults(
     defineProps<{
-        video: VideoWithChapters;
+        video: HistoryVideo;
     }>(),
     {}
 );
@@ -22,21 +23,21 @@ const categories = computed(() => {
     <RouterLink :to="{ name: 'video', params: { id: props.video.video_id } }" class="flex gap-4">
         <VideoThumbnail
             class="w-36 shrink-0"
-            :src="BucketHelper.getThumbnailUrl(props.video.video_id)"
-            :videoId="props.video.video_id"
-            :durationS="props.video.length_sec"
+            :src="BucketHelper.getThumbnailUrl(video.video_id)"
+            :videoId="video.video_id"
+            :durationS="video.length_sec"
         />
 
         <div>
             <h2 class="font-bold text-md line-clamp-2 leading-snug">
                 {{ props.video.title }}
             </h2>
-            <div v-if="props.video?.chapters.length" class="text-muted text-sm font-medium line-clamp-1">
+            <div v-if="props.video?.chapters.length" class="text-muted text-sm font-medium line-clamp-2">
                 {{ categories.join(', ') }}
             </div>
-            <div class="text-muted-more text-sm font-medium">
-                {{ formatTimeAgo(new Date(props.video.recorded_at)) }}
-            </div>
+            <!-- <div class="text-muted-more text-sm font-medium">
+                {{ formatTimeAgo(new Date(video.watched_at)) }}
+            </div> -->
         </div>
     </RouterLink>
 </template>

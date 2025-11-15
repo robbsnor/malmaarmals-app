@@ -5,21 +5,35 @@ import { supabase } from '../../../supabase';
 import { useVideoStore } from './video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { useVideosStore } from './videos.store';
+import type { HistoryVideo } from '../models/history-video.model';
 
 export const useHistoryStore = defineStore('history', () => {
     const history = ref<Tables<'history'>[]>([]);
     const videoStore = useVideoStore();
     const videosStore = useVideosStore();
     const authStore = useAuthStore();
+    const videos = computed<HistoryVideo[]>(() => {
+        return history.value.map((h) => {
+            return {
+                ...videosStore.videos.find((v) => v.id === h.video_id),
+                watched_at: h.watched_at,
+            };
+        });
+    });
 
-    const fetchHistory = async () => {
-        const { data, error } = await supabase.from('history').select('*').order('watched_at', { ascending: false });
+    async function fetchHistory() {
+        const { data, error } = await supabase
+            .from('history')
+            .select('*')
+            .order('watched_at', { ascending: false })
+            .limit(50);
+
         if (error) throw error;
 
         history.value = data;
-    };
+    }
 
-    const save = async () => {
+    async function save() {
         console.log('Saving...');
         const videoId = videoStore.videoInfo.id;
         const userId = authStore.session?.user.id;
@@ -35,13 +49,7 @@ export const useHistoryStore = defineStore('history', () => {
         if (error) throw error;
 
         await fetchHistory();
-    };
-
-    const videos = computed(() => {
-        return history.value.map((h) => {
-            return videosStore.videos.find((v) => v.id === h.video_id);
-        });
-    });
+    }
 
     return {
         fetchHistory,

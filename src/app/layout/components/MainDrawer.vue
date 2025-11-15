@@ -14,7 +14,7 @@ const groups = computed(() => {
 
     return [
         [
-            { name: 'History', icon: 'mdi-history', hidden: !isSignedIn, disabled: true },
+            { name: 'History', icon: 'mdi-history', to: '/history', hidden: !isSignedIn },
             { name: 'Prefferences', icon: 'mdi-cog', hidden: !isSignedIn, disabled: true },
         ],
         [

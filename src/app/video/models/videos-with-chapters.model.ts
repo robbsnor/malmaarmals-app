@@ -6,5 +6,5 @@ export const videosWithChaptersQuery = supabase
     .select('*, chapters(*, category:categories(*))')
     .order('recorded_at', { ascending: false });
 
-export type VideosWithChapters = QueryData<typeof videosWithChaptersQuery>;
+type VideosWithChapters = QueryData<typeof videosWithChaptersQuery>;
 export type VideoWithChapters = VideosWithChapters[number];

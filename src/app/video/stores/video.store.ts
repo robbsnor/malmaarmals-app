@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { computed, ref, watch, watchEffect } from 'vue';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../../shared/models/database.types';
-import type { VideoProgression } from '../models/VideoProgression.model';
+import type { VideoProgression } from '../models/video-progression.model';
 import { TitleHelper } from '../../shared/helpers/title.helper';
 import { useIdle, useMediaControls } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
