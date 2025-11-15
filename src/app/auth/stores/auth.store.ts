@@ -46,11 +46,9 @@ export const useAuthStore = defineStore('auth', () => {
                 scopes: 'user:read:subscriptions user:read:follows',
             },
         });
-        if (error) {
-            console.error(error);
-        } else {
-            console.log(data);
-        }
+        if (error) throw error;
+
+        console.log(data);
     };
 
     const signOut = async () => {

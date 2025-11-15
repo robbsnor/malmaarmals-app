@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { twMerge, twJoin } from 'tailwind-merge';
 import { computed } from 'vue';
-import type { VideoProgression } from '../../video/models/VideoProgression.model';
+import type { VideoProgression } from '../../video/models/video-progression.model';
 import { TimeHelper } from '../helpers/time.helper';
 
 const props = withDefaults(

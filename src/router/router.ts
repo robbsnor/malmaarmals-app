@@ -1,4 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { useAuthStore } from '../app/auth/stores/auth.store';
+
+const isLoggedIn = () => {
+    const authStore = useAuthStore();
+    if (!authStore.session) {
+        return { name: 'home' };
+    }
+};
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -31,6 +39,9 @@ const router = createRouter({
         {
             path: '/history',
             name: 'history',
+            beforeEnter: (to, from) => {
+                return isLoggedIn();
+            },
             component: () => import('../app/history/HistoryPage.vue'),
         },
         {
