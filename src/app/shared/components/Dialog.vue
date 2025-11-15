@@ -24,10 +24,6 @@ const props = withDefaults(
     }
 );
 
-onMounted(() => {
-    console.log(slots);
-});
-
 const _props = computed(() => {
     const { title, ...rest } = props;
     return rest;

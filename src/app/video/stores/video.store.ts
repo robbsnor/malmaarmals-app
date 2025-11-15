@@ -141,10 +141,6 @@ export const useVideoStore = defineStore('video', () => {
         chapters.value.push(emptyChapter);
     }
 
-    watch(currentTimeRounded, () => {
-        saveVideoProgression();
-    });
-
     const saveVideoProgression = () => {
         if (!currentTimeRounded.value) return;
 
@@ -165,6 +161,10 @@ export const useVideoStore = defineStore('video', () => {
     function resetChaptersForm() {
         chapters.value = _.cloneDeep(chaptersOG.value);
     }
+
+    watch(currentTimeRounded, () => {
+        saveVideoProgression();
+    });
 
     watch(idle, (isIdle) => {
         if (!playing.value) return;
