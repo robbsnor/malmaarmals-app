@@ -61,6 +61,7 @@ export const useAuthStore = defineStore('auth', () => {
         twitchAccessToken.value = null;
         twitchRefreshToken.value = null;
         router.push({ name: 'home' });
+        window.location.reload();
     };
 
     return {
