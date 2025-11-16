@@ -4,8 +4,10 @@ import { supabase } from '../../../supabase';
 import type { Session } from '@supabase/supabase-js';
 import { reactify, useFetch, useStorage } from '@vueuse/core';
 import { useTwitch } from '../../shared/composables/useTwitch.composable';
+import { useRouter } from 'vue-router';
 
 export const useAuthStore = defineStore('auth', () => {
+    const router = useRouter();
     const session = ref<Session>();
     const twitchAccessToken = useStorage('twitch_access_token', null);
     const twitchRefreshToken = useStorage('twitch_refresh_token', null);
@@ -53,11 +55,12 @@ export const useAuthStore = defineStore('auth', () => {
 
     const signOut = async () => {
         const { error } = await supabase.auth.signOut();
-        if (error) return console.error(error);
+        console.log(error);
+        // if (error) throw error;
 
         twitchAccessToken.value = null;
         twitchRefreshToken.value = null;
-        isSubbed.value = false;
+        router.push({ name: 'home' });
     };
 
     return {
