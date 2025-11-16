@@ -34,7 +34,6 @@ export const useHistoryStore = defineStore('history', () => {
     }
 
     async function save() {
-        console.log('Saving...');
         const videoId = videoStore.videoInfo.id;
         const userId = authStore.session?.user.id;
         if (!videoId || !userId) throw new Error('Missing videoId or userId');
