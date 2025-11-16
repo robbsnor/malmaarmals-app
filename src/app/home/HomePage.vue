@@ -15,13 +15,15 @@ const authStore = useAuthStore();
         <!-- <div>accessToken: {{ authStore.twitchAccessToken }}</div>
         <div>refreshToken: {{ authStore.twitchRefreshToken }}</div> -->
 
-        <Container>
-            <div class="flex items-center justify-center py-12 flex-col gap-2 pb-6">
-                <div class="w-60">
-                    <Logo payoff />
+        <div class="rounded-b-2xl bg-black-200 mx-2">
+            <Container>
+                <div class="flex items-center justify-center py-12 flex-col gap-2 pb-8">
+                    <div class="w-60">
+                        <Logo payoff />
+                    </div>
                 </div>
-            </div>
-        </Container>
+            </Container>
+        </div>
 
         <PrevStreams />
 
