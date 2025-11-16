@@ -18,8 +18,8 @@ onMounted(async () => {
     await nextTick();
     videoStore.setVideoRef(videoRef.value);
 
-    videoStore.videoRef.addEventListener('canplay', async () => {
-        console.log('canplay');
+    videoStore.videoRef.addEventListener('loadeddata', async () => {
+        console.log('loadeddata');
         videoStore.fetchMessages();
         videoStore.loadVideoProgression();
     });
