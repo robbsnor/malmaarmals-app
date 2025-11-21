@@ -19,7 +19,7 @@ const isMyMessage = computed(() => props.message.user_name === authStore.session
 <template>
     <li
         :class="{
-            'bg-black-400 rounded-sm py-1 -mx-1 px-1': isMyMessage,
+            'bg-black-400 rounded-sm py-1 -mx-1 px-1': false, // isMyMessage
         }"
         class="text-sm"
     >
