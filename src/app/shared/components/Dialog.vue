@@ -74,7 +74,7 @@ const close = () => {
             </div>
 
             <div
-                class="flex justify-end gap-4 p-6 py-4"
+                class="flex flex-wrap justify-end gap-4 p-6 py-4"
                 :class="{
                     'border-t border-black-500': props.showBody,
                 }"
