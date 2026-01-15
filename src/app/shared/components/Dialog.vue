@@ -2,10 +2,11 @@
 import { computed, onMounted, useSlots, watch } from 'vue';
 
 const slots = useSlots();
-const emits = defineEmits(['close']);
-
+const emits = defineEmits<{
+    (e: 'open'): void;
+    (e: 'close'): void;
+}>();
 const dialog = defineModel<boolean>();
-
 const props = withDefaults(
     defineProps<{
         title?: string;
@@ -29,10 +30,16 @@ const _props = computed(() => {
     return rest;
 });
 
-const close = () => {
-    emits('close');
-    dialog.value = !dialog.value;
-};
+watch(
+    () => dialog.value,
+    (newVal) => {
+        if (newVal) {
+            emits('open');
+        } else {
+            emits('close');
+        }
+    }
+);
 </script>
 
 <template>
@@ -59,7 +66,7 @@ const close = () => {
 
                 <button
                     v-if="props.showCloseButton"
-                    @click="close()"
+                    @click="dialog = false"
                     class="group ml-auto p-2 rounded-md hover:bg-black-400"
                 >
                     <div class="group-hover:rotate-90 transition-all">
