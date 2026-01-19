@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<DeleteDialogProps>(), {
 </script>
 
 <template>
-    <ConfirmDialog v-model="dialog" v-bind="props" @confirm="emits('confirm')">
+    <ConfirmDialog v-model="dialog" v-bind="props" @cancel="emits('cancel')" @confirm="emits('confirm')">
         <template #activator="activator">
             <slot v-bind="activator" name="activator"></slot>
         </template>
