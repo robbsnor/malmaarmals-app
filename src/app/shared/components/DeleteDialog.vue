@@ -10,14 +10,10 @@ const props = withDefaults(defineProps<DeleteDialogProps>(), {
     confirmColor: 'error',
     cancelText: 'Cancel',
 });
-
-function confirm() {
-    emits('confirm');
-}
 </script>
 
 <template>
-    <ConfirmDialog v-model="dialog" v-bind="props" @confirm="confirm">
+    <ConfirmDialog v-model="dialog" v-bind="props" @confirm="emits('confirm')">
         <template #activator="activator">
             <slot v-bind="activator" name="activator"></slot>
         </template>
