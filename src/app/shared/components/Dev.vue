@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
-const isDev = ref(process.env.NODE_ENV === 'development');
+const isDev = ref(false);
 </script>
 
 <template>
