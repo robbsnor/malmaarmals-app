@@ -19,6 +19,7 @@ const hasError = ref(false);
 
 onMounted(async () => {
     loading.value = true;
+    console.log('woieruwrueowruo');
 
     setTimeout(() => {
         if (loading.value) {
