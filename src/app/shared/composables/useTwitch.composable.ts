@@ -18,30 +18,48 @@ import { createFetch, useFetch } from '@vueuse/core';
 export function useTwitch() {
     const authStore = useAuthStore();
 
-    const useMyFetch = createFetch({
-        baseUrl: 'https://my-api.com',
-        combination: 'overwrite',
-        options: {
-            // beforeFetch in pre-configured instance will only run when the newly spawned instance do not pass beforeFetch
-            async beforeFetch({ url, options, cancel }) {
-                console.log('accesstoken before fetch: ', authStore.twitchAccessToken);
+    async function refreshTokens() {
+        if (!authStore.session || !authStore.twitchAccessToken || !authStore.twitchRefreshToken) {
+            console.log('No session or tokens available for refresh');
+            return;
+        }
+        console.log('Refreshing tokens...');
 
-                if (!authStore.session) {
-                    cancel();
-                }
+        try {
+            const { data, error } = await supabase.functions.invoke('refresh-twitch-token', {
+                body: {
+                    refresh_token: authStore.twitchRefreshToken,
+                },
+            });
+            if (error) throw error;
 
-                options.headers = {
-                    ...options.headers,
-                    Authorization: `Bearer ${authStore.twitchAccessToken}`,
-                    'Client-Id': `${import.meta.env.VITE_TWITCH_CLIENT_ID}`,
-                };
+            const { access_token, refresh_token } = data;
+            console.log('new tokens:', {
+                access_token,
+                refresh_token,
+            });
 
-                return {
-                    options,
-                };
-            },
-        },
-    });
+            authStore.twitchAccessToken = access_token;
+            authStore.twitchRefreshToken = refresh_token;
+        } catch (err) {
+            console.error(err);
+            throw new Error(err);
+        }
+    }
+
+    function getFollowedStreams() {
+        const url = new URL('https://api.twitch.tv/helix/streams/followed');
+        url.searchParams.set('user_id', '23611469');
+        url.searchParams.set('first', '1');
+        return req<TwitchGetFollowedStreams>(url.toString());
+    }
+
+    const checkUserSubscription = (broadcasterId: string) => {
+        const url = new URL('https://api.twitch.tv/helix/subscriptions/user');
+        url.searchParams.set('broadcaster_id', broadcasterId);
+        url.searchParams.set('user_id', authStore.twitchUserId);
+        return req<TwitchCheckUserSubscription>(url.toString());
+    };
 
     const req = async <T>(
         url: string,
@@ -100,87 +118,6 @@ export function useTwitch() {
             console.error('❌ Request failed:', err);
             return { data: null, error: err as Error };
         }
-    };
-
-    function get<T>(url: string) {
-        return useFetch<T>(url, {
-            immediate: true,
-            async beforeFetch({ url, options, cancel }) {
-                console.log('accesstoken before fetch: ', authStore.twitchAccessToken);
-
-                if (!authStore.session) {
-                    cancel();
-                }
-
-                options.headers = {
-                    ...options.headers,
-                    Authorization: `Bearer ${authStore.twitchAccessToken}`,
-                    'Client-Id': `${import.meta.env.VITE_TWITCH_CLIENT_ID}`,
-                };
-
-                return {
-                    options,
-                };
-            },
-            async afterFetch(ctx) {
-                console.log(ctx);
-                console.log(ctx);
-                console.log(ctx);
-                if (ctx.response.status === 401) {
-                    // token expired
-                    refreshTokens().catch((err) => {
-                        console.error('Error refreshing tokens:', err);
-                    });
-                }
-                return ctx;
-            },
-        }).json<T>();
-    }
-
-    async function refreshTokens() {
-        if (!authStore.session || !authStore.twitchAccessToken || !authStore.twitchRefreshToken) {
-            console.log('No session or tokens available for refresh');
-            return;
-        }
-        console.log('Refreshing tokens...');
-
-        try {
-            const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/refresh-twitch-token`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    refresh_token: authStore.twitchRefreshToken,
-                }),
-            });
-
-            const { access_token, refresh_token } = await res.json();
-            console.log('new tokens:', {
-                access_token,
-                refresh_token,
-            });
-
-            authStore.twitchAccessToken = access_token;
-            authStore.twitchRefreshToken = refresh_token;
-        } catch (err) {
-            console.error(err);
-            throw new Error(err);
-        }
-    }
-
-    function getFollowedStreams() {
-        const url = new URL('https://api.twitch.tv/helix/streams/followed');
-        url.searchParams.set('user_id', '23611469');
-        url.searchParams.set('first', '1');
-        return req<TwitchGetFollowedStreams>(url.toString());
-    }
-
-    const checkUserSubscription = (broadcasterId: string) => {
-        const url = new URL('https://api.twitch.tv/helix/subscriptions/user');
-        url.searchParams.set('broadcaster_id', broadcasterId);
-        url.searchParams.set('user_id', authStore.twitchUserId);
-        return req<TwitchCheckUserSubscription>(url.toString());
     };
 
     // const getUsers = async (user: { ids?: number[]; logins?: string[] }): Promise<TwitchGetUsers> => {
