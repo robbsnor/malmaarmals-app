@@ -10,6 +10,7 @@ const statusMessage = ref('Logging you in...');
 const router = useRouter();
 
 onMounted(async () => {
+    console.log('callbackapge');
     if (!authStore.session.provider_refresh_token || !authStore.session.provider_token) {
         await router.push({ name: 'home' });
         return;

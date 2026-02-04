@@ -45,7 +45,7 @@ export const useAuthStore = defineStore('auth', () => {
             provider: 'twitch',
             options: {
                 redirectTo: `${window.location.origin}/auth/callback`,
-                scopes: 'user:read:subscriptions user:read:follows',
+                scopes: 'user:read:subscriptions',
             },
         });
         if (error) throw error;

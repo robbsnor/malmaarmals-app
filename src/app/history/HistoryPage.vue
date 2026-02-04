@@ -10,7 +10,7 @@ const historyStore = useHistoryStore();
 
 <template>
     <Section title="History">
-        <template #actions v-if="historyStore.videos.length"> ({{ historyStore.videos.length }}) </template>
+        <!-- <template #actions v-if="historyStore.videos.length"> ({{ historyStore.videos.length }}) </template> -->
 
         <div v-if="historyStore.videos.length" class="flex flex-col gap-4">
             <HistoryItem :video="video" v-for="video in historyStore.videos" :key="video.video_id" />
