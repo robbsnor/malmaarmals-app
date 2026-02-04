@@ -5,7 +5,7 @@ export class BucketHelper {
         return `${BucketHelper.BUCKET_URL}/thumbnails/${id}`;
     }
 
-    static getVideoUrl(id: number) {
-        return `${BucketHelper.BUCKET_URL}/videos/${id}`;
+    static getVideoUrl(rotatingId: string) {
+        return `${BucketHelper.BUCKET_URL}/videos/${rotatingId}`;
     }
 }
