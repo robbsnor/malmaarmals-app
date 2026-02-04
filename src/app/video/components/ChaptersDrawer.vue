@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { useVideoStore } from '../stores/video.store';
 import PlayerButton from './PlayerButton.vue';
 import CategoryThumbnail from './CategoryThumbnail.vue';
 import { prettyTime } from '../../shared/helpers/prettyTime';
 import ManageChapters from './ManageChapters.vue';
 import ManageChaptersInstructionsDialog from './ManageChaptersInstructionsDialog.vue';
-import { sleep } from '../../shared/helpers/sleep';
+import { useAuthStore } from '../../auth/stores/auth.store';
 
 const videoStore = useVideoStore();
+const authStore = useAuthStore();
 
 const tab = ref();
 
@@ -28,7 +29,7 @@ function skipToSec(sec: number) {
 </script>
 
 <template>
-    <Drawer v-model="videoStore.showChapterDrawer" inset title="Chapters" :padding="false">
+    <Drawer v-model="videoStore.showChapterDrawer" inset title="Chapters" :padding="false" v-if="authStore.isAdmin">
         <template #activator="{ props }">
             <PlayerButton v-bind="props" icon="mdi-format-list-bulleted" :size="24" />
         </template>

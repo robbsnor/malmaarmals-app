@@ -12,7 +12,7 @@ const authStore = useAuthStore();
 
 <template>
     <div
-        v-if="videoStore.player.isActive && authStore.canWatch"
+        v-if="videoStore.player.isActive && authStore.isSubbed"
         class="fixed bg-black flex flex-col md:flex-row flex-nowrap"
         v-z="Z.VIDEO_CONTAINER"
         :class="

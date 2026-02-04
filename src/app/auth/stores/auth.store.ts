@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('auth', () => {
     const isSubbed = ref(false);
     const isAdmin = computed(() => session.value?.user?.user_metadata.name === 'robbsnor');
     // const canWatch = computed(() => isSubbed.value && !!session.value);
-    const canWatch = ref(true);
+    const canWatch = ref(false);
 
     const mirrorSession = async () => {
         const { data, error } = await supabase.auth.getSession();
