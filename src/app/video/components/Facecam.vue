@@ -7,7 +7,7 @@ const preferenceStore = usePreferenceStore();
 <template>
     <div
         v-if="preferenceStore.preferences.showFacecam"
-        class="aspect-video w-[30%] absolute bottom-2 right-2 overflow-hidden rounded-md shadow-lg bg-black"
+        class="aspect-video w-[30%] max-w-60 absolute bottom-2 right-2 overflow-hidden rounded-md shadow-lg bg-black"
     >
         <img src="/images/facecam2.jpg" class="object-fill w-full h-full" alt="Malse Facecam" />
         <a
