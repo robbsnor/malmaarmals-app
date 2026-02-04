@@ -27,7 +27,10 @@ const props = withDefaults(
 
             <div v-if="props.moreLink" class="flex gap-4 items-center pt-6">
                 <div class="h-[1px] bg-black-400 grow"></div>
-                <RouterLink :to="props.moreLink" class="flex items-center gap-1 text-primary lowercase">
+                <RouterLink
+                    :to="props.moreLink"
+                    class="flex items-center gap-1 transition-all lowercase text-primary! hover:text-primary-light!"
+                >
                     {{ props.moreText }}
                     <v-icon size="x-small" icon="mdi-chevron-right" class="mt-[3px]" />
                 </RouterLink>
