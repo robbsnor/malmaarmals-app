@@ -49,7 +49,7 @@ export const useVideoStore = defineStore('video', () => {
         muted,
     } = useMediaControls(videoRef);
     const showMobileControls = ref(true);
-    const videoSrc = computed(() => BucketHelper.getVideoUrl(videoId.value));
+    const videoSrc = computed(() => BucketHelper.getVideoUrl(videoInfo.value.rotating_id));
     const prettyCurrentTime = computed(() => TimeHelper.formatTime(currentTime.value));
     const prettyDuration = computed(() => TimeHelper.formatTime(duration.value));
     const subCount = computed(
