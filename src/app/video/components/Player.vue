@@ -23,6 +23,7 @@ onMounted(async () => {
         videoStore.fetchMessages();
         videoStore.loadVideoProgression();
     });
+    videoStore.showControllsAndInfo = true;
 
     // const ctx = canvasRef.value.getContext('2d');
 

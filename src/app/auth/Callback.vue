@@ -26,7 +26,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <Container>
+    <Section>
         <div class="flex items-center justify-center py-12 flex-col gap-2">
             <v-progress-circular v-if="loading" indeterminate color="primary" size="48" width="4" />
             <div v-else class="flex justify-center items-center bg-green-400/20 size-12 rounded-full">
@@ -34,5 +34,5 @@ onMounted(async () => {
             </div>
             <div class="text-muted">{{ statusMessage }}</div>
         </div>
-    </Container>
+    </Section>
 </template>
