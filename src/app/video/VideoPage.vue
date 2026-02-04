@@ -18,7 +18,7 @@ onMounted(async () => {
 
     const isSamePage = videoId === videoStore.videoId;
     if (isSamePage) return;
-    if (!authStore.canWatch) return;
+    if (!authStore.isSubbed) return;
 
     videoStore.reset();
     videoStore.videoId = videoId;
