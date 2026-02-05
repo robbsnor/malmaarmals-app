@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { computed, ref, watch, watchEffect } from 'vue';
+import { computed, nextTick, ref, watch, watchEffect } from 'vue';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../../shared/models/database.types';
 import type { VideoProgression } from '../models/video-progression.model';
@@ -11,10 +11,12 @@ import { type ChaptersWithCategory } from '../models/chapters-with-category.mode
 import _, { round } from 'lodash';
 import type { Messages } from '../models/messages.model';
 import { v4 } from 'uuid';
+import { useAuthStore } from '../../auth/stores/auth.store';
 
 export const TIME_PRIOR_OFFSET_S = 2;
 
 export const useVideoStore = defineStore('video', () => {
+    const authStore = useAuthStore();
     const videoInfo = ref<Tables<'videos'>>();
     const videoId = ref<number>();
     const videoInfoLoading = ref(true);
@@ -33,7 +35,8 @@ export const useVideoStore = defineStore('video', () => {
         isMini: true,
     });
     const { idle } = useIdle(7 * 1000);
-    const videoRef = ref<HTMLVideoElement>();
+    const videoRef = ref<HTMLVideoElement | null>(null);
+    const videoSrcNotFound = ref(false);
     // prettier-ignore
     const {
         currentTime,
@@ -47,6 +50,8 @@ export const useVideoStore = defineStore('video', () => {
         rate,
         volume,
         muted,
+        onSourceError,
+        onPlaybackError,
     } = useMediaControls(videoRef);
     const showMobileControls = ref(true);
     const videoSrc = computed(() => BucketHelper.getVideoUrl(videoInfo.value.rotating_id));
@@ -56,6 +61,10 @@ export const useVideoStore = defineStore('video', () => {
         () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
     );
     const currentTimeRounded = computed(() => Math.floor(currentTime.value));
+
+    onPlaybackError(async (e) => {
+        playing.value = false;
+    });
 
     function reset() {
         chaptersOG.value = null;
@@ -71,6 +80,7 @@ export const useVideoStore = defineStore('video', () => {
         editMode.value = false;
         messagesLoading.value = true;
         videoInfoLoading.value = true;
+        videoSrcNotFound.value = false;
     }
 
     async function fetchVideoInfo() {
@@ -166,6 +176,14 @@ export const useVideoStore = defineStore('video', () => {
         saveVideoProgression();
     });
 
+    watch(videoRef, () => {
+        if (!videoRef.value) return;
+
+        videoRef.value.onerror = (e) => {
+            videoSrcNotFound.value = true;
+        };
+    });
+
     watch(idle, (isIdle) => {
         if (!playing.value) return;
         if (!isIdle) return;
@@ -187,6 +205,13 @@ export const useVideoStore = defineStore('video', () => {
         { deep: true }
     );
 
+    watchEffect(() => {
+        // close mini player when video not found
+        if (player.value.isMini && videoSrcNotFound.value) {
+            player.value.isActive = false;
+        }
+    });
+
     return {
         videoInfo,
         videoId,
@@ -199,6 +224,7 @@ export const useVideoStore = defineStore('video', () => {
         showMobileControls,
         showControllsAndInfo,
         videoSrc,
+        videoSrcNotFound,
 
         // mediaControls
         currentTime,
@@ -238,5 +264,8 @@ export const useVideoStore = defineStore('video', () => {
         loadVideoProgression,
         reset,
         addEmptyChapter,
+
+        onSourceError,
+        onPlaybackError,
     };
 });
