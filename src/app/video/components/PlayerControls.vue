@@ -6,6 +6,7 @@ import { computed, ref, useTemplateRef } from 'vue';
 import ChaptersDrawer from './ChaptersDrawer.vue';
 import AddToPlaylist from './AddToPlaylist.vue';
 import PlayerButton from './PlayerButton.vue';
+import VolumeControl from './VolumeControl.vue';
 import { useScreenOrientation } from '@vueuse/core';
 import ChapterMarker from './ChapterMarker.vue';
 import PreferenceDrawer from './PreferenceDrawer.vue';
@@ -98,16 +99,9 @@ const showMarkers = computed(() => {
                 </div>
 
                 <div class="relative flex items-center gap-2 -mb-2 z-1">
-                    <!-- <PlayerButton icon=""></PlayerButton> -->
+                    <VolumeControl />
                     <ChaptersDrawer />
-
                     <PlayerButton :icon="isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'" @click="toggle()" />
-                    <!-- <PlayerButton
-                        :size="22"
-                        icon="mdi-phone-rotate-landscape"
-                        class="-scale-x-100"
-                        @click="changeOrientation()"
-                    /> -->
                 </div>
             </div>
 
