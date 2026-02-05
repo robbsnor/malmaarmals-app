@@ -30,8 +30,6 @@ export const useHistoryStore = defineStore('history', () => {
 
         if (error) throw error;
 
-        console.log(data);
-
         history.value = data;
     }
 

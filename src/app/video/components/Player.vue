@@ -7,6 +7,7 @@ import MiniplayerControls from './MiniplayerControls.vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import PlayerControls from './PlayerControls.vue';
 import Facecam from './Facecam.vue';
+import { Z } from '../../shared/directives/z.directive';
 
 const appStore = useAppStore();
 const videoStore = useVideoStore();
@@ -17,26 +18,13 @@ const { isFullscreen, enter, exit, toggle } = useFullscreen();
 onMounted(async () => {
     await nextTick();
     videoStore.setVideoRef(videoRef.value);
+    videoStore.showControllsAndInfo = true;
 
     videoStore.videoRef.addEventListener('loadeddata', async () => {
         console.log('loadeddata');
         videoStore.fetchMessages();
         videoStore.loadVideoProgression();
     });
-    videoStore.showControllsAndInfo = true;
-
-    // const ctx = canvasRef.value.getContext('2d');
-
-    // async function draw() {
-    //     canvasRef.value.width = videoRef.value.videoWidth;
-    //     canvasRef.value.height = videoRef.value.videoHeight;
-
-    //     ctx.drawImage(videoRef.value, 0, 0, canvasRef.value.width, canvasRef.value.height);
-    //     await sleep(1000 / 24);
-    //     requestAnimationFrame(draw);
-    // }
-
-    // videoRef.value.addEventListener('play', draw);
 });
 </script>
 
@@ -50,7 +38,6 @@ onMounted(async () => {
 
             <video
                 preload="metadata"
-                id="videoMain"
                 class="relative aspect-video w-full md:rounded-md"
                 ref="videoRef"
                 :src="videoStore.videoSrc"
@@ -65,5 +52,15 @@ onMounted(async () => {
         <!-- controls -->
         <PlayerControls />
         <MiniplayerControls />
+
+        <div
+            v-if="videoStore.videoSrcNotFound && !videoStore.player.isMini"
+            class="absolute inset-0 bg-black flex items-center justify-center"
+            v-z="Z.VIDEO_SRC_ERROR"
+        >
+            <Empty title="Video not found." icon="mdi-cancel" description="lekkerAppie">
+                <v-btn variant="tonal" color="primary" :to="{ name: 'archive' }">Browse streams</v-btn>
+            </Empty>
+        </div>
     </div>
 </template>

@@ -22,7 +22,12 @@ const dialog = ref(false);
             <HistoryItem :video="video" v-for="video in historyStore.videos" :key="video.video_id" />
         </div>
 
-        <Empty v-else title="No history" icon="mdi-history"></Empty>
+        <Empty
+            v-else
+            title="No videos yet..."
+            description="Watched videos will appear here."
+            icon="mdi-history"
+        ></Empty>
 
         <DeleteDialog
             v-model="dialog"

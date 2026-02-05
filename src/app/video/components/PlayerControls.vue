@@ -98,9 +98,7 @@ const showMarkers = computed(() => {
                 </div>
 
                 <div class="relative flex items-center gap-2 -mb-2 z-1">
-                    <div v-if="videoStore.hasChapterChanges" class="text-muted-more underline italic text-sm">
-                        Unsaved changes
-                    </div>
+                    <!-- <PlayerButton icon=""></PlayerButton> -->
                     <ChaptersDrawer />
 
                     <PlayerButton :icon="isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'" @click="toggle()" />
