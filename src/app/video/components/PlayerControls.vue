@@ -97,7 +97,7 @@ const showMarkers = computed(() => {
                     <div ref="durationEl" class="text-right">{{ videoStore.prettyDuration }}</div>
                 </div>
 
-                <div class="relative flex items-center gap-2">
+                <div class="relative flex items-center gap-2 -mb-2 z-1">
                     <div v-if="videoStore.hasChapterChanges" class="text-muted-more underline italic text-sm">
                         Unsaved changes
                     </div>
