@@ -33,7 +33,7 @@ const menuItems = ref([
                 :to="item.to"
                 :id="item?.id"
                 activeClass="text-primary"
-                class="cursor-pointer flex flex-col justify-center items-center text-muted-more transition-all gap-[2px] py-2 px-6 text-light"
+                class="cursor-pointer flex flex-col justify-center items-center text-muted-more transition-all gap-[2px] py-2 px-6 text-light hover:text-primary-light"
             >
                 <v-icon v-if="item.icon" :icon="item.icon" />
                 <!-- <div v-if="item.title" class="capitalize text-sm">{{ item.title }}</div> -->

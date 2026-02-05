@@ -25,7 +25,7 @@ onMounted(async () => {
 
     await videoStore.fetchVideoInfo();
     await videoStore.fetchChapters();
-    await historyStore.save();
+    await historyStore.add();
 });
 
 onUnmounted(() => {

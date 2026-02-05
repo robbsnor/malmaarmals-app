@@ -15,6 +15,6 @@ const playlistsStore = usePlaylistsStore();
             />
         </div>
 
-        <Empty v-else title="No playlists found." icon="mdi-format-list-bulleted" />
+        <Empty v-else title="No playlists yet..." icon="mdi-format-list-bulleted" />
     </Section>
 </template>
