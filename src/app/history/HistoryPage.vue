@@ -13,7 +13,8 @@ const dialog = ref(false);
 <template>
     <Section title="History">
         <template #actions v-if="historyStore.videos.length">
-            <v-btn icon="mdi-trash-can" color="red" variant="tonal" density="comfortable" @click="dialog = true">
+            <v-btn append-icon="mdi-trash-can" color="red" variant="tonal" size="small" @click="dialog = true">
+                delete
             </v-btn>
         </template>
 
