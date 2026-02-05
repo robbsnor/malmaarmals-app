@@ -20,7 +20,7 @@ export default defineConfig({
                 short_name: 'MalMaarMals',
                 display: 'standalone',
                 theme_color: '#000000',
-                background_color: 'transparent',
+                background_color: '#000000',
                 start_url: '/',
                 icons: [
                     {
