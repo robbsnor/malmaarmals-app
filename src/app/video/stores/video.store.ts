@@ -212,6 +212,10 @@ export const useVideoStore = defineStore('video', () => {
         }
     });
 
+    watch(volume, () => {
+        muted.value = false;
+    });
+
     return {
         videoInfo,
         videoId,
