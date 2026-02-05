@@ -39,10 +39,10 @@ export const useHistoryStore = defineStore('history', () => {
         const { error } = await supabase
             .from('history')
             .delete()
-            .eq('video_id', 'bf2ff50a-649c-4311-8e4e-dd1bc11d8a1e');
+            .neq('video_id', 'c1de8375-a19b-4ab9-ac47-053c751baaae'); // non existing video id
         if (error) throw error;
 
-        history.value = [];
+        await fetchHistory();
     }
 
     async function add() {
