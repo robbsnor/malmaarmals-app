@@ -30,10 +30,22 @@ export const useHistoryStore = defineStore('history', () => {
 
         if (error) throw error;
 
+        console.log(data);
+
         history.value = data;
     }
 
-    async function save() {
+    async function deleteAll() {
+        const { error } = await supabase
+            .from('history')
+            .delete()
+            .eq('video_id', 'bf2ff50a-649c-4311-8e4e-dd1bc11d8a1e');
+        if (error) throw error;
+
+        history.value = [];
+    }
+
+    async function add() {
         const videoId = videoStore.videoInfo.id;
         const userId = authStore.session?.user.id;
         if (!videoId || !userId) throw new Error('Missing videoId or userId');
@@ -51,9 +63,11 @@ export const useHistoryStore = defineStore('history', () => {
     }
 
     return {
-        fetchHistory,
-        save,
         history,
         videos,
+
+        fetchHistory,
+        deleteAll,
+        add,
     };
 });

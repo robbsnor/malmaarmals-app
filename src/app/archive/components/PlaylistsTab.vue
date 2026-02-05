@@ -57,7 +57,7 @@ const submit = async () => {
     <!-- empty -->
     <Empty
         v-if="!playlistsStore.filteredPlaylists.length && !archiveStore.query"
-        title="No playlists found."
+        title="No playlists yet..."
         icon="mdi-format-list-bulleted"
     />
 
