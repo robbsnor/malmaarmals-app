@@ -14,7 +14,7 @@ const authStore = useAuthStore();
 const tab = ref();
 
 watch(
-    () => videoStore.editMode,
+    () => videoStore.chaptersEditMode,
     (newVal) => (tab.value = newVal ? 1 : 0),
     { immediate: true }
 );
@@ -31,13 +31,18 @@ function skipToSec(sec: number) {
 <template>
     <Drawer v-model="videoStore.showChapterDrawer" inset title="Chapters" :padding="false" v-if="authStore.isAdmin">
         <template #activator="{ props }">
-            <PlayerButton v-bind="props" icon="mdi-format-list-bulleted" :size="24" />
+            <PlayerButton
+                v-bind="props"
+                icon="mdi-format-list-bulleted"
+                :size="24"
+                :class="{ 'text-orange-500': videoStore.hasChapterChanges }"
+            />
         </template>
 
         <template #actions>
             <v-btn
-                v-if="!videoStore.editMode && videoStore.chapters?.length"
-                @click="videoStore.editMode = true"
+                v-if="!videoStore.chaptersEditMode && videoStore.chapters?.length"
+                @click="videoStore.chaptersEditMode = true"
                 append-icon="mdi-pencil"
                 variant="tonal"
                 size="small"
@@ -46,7 +51,7 @@ function skipToSec(sec: number) {
                 Edit
             </v-btn>
 
-            <ManageChaptersInstructionsDialog v-if="videoStore.editMode" />
+            <ManageChaptersInstructionsDialog v-if="videoStore.chaptersEditMode" />
         </template>
 
         <v-window v-model="tab" :show-arrows="false" :touch="false">
@@ -80,7 +85,7 @@ function skipToSec(sec: number) {
                         <v-btn
                             @click="
                                 () => {
-                                    videoStore.editMode = true;
+                                    videoStore.chaptersEditMode = true;
                                     videoStore.addEmptyChapter();
                                 }
                             "

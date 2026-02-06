@@ -27,7 +27,7 @@ export const useVideoStore = defineStore('video', () => {
     const chaptersOG = ref<ChaptersWithCategory>();
     const chapters = ref<ChaptersWithCategory>();
     const hasChapterChanges = computed(() => !_.isEqual(chapters.value, chaptersOG.value));
-    const editMode = ref(false);
+    const chaptersEditMode = ref(false);
     const showChapterDrawer = ref(false);
 
     // messages
@@ -76,7 +76,7 @@ export const useVideoStore = defineStore('video', () => {
         chapters.value = null;
         videoInfo.value = null;
         playing.value = false;
-        editMode.value = false;
+        chaptersEditMode.value = false;
         messagesLoading.value = true;
         videoInfoLoading.value = true;
         videoSrcNotFound.value = false;
@@ -210,6 +210,12 @@ export const useVideoStore = defineStore('video', () => {
         { deep: true }
     );
 
+    watch(waiting, (isWaiting) => {
+        if (isWaiting) {
+            showControllsAndInfo.value = true;
+        }
+    });
+
     // close mini player when video not found
     watchEffect(() => {
         if (playerIsMini.value && videoSrcNotFound.value) {
@@ -231,7 +237,7 @@ export const useVideoStore = defineStore('video', () => {
 
         // chapters
         chapters,
-        editMode,
+        chaptersEditMode,
         showChapterDrawer,
         hasChapterChanges,
 
