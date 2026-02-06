@@ -12,6 +12,7 @@ import ChapterMarker from './ChapterMarker.vue';
 import PreferenceDrawer from './PreferenceDrawer.vue';
 import { usePreferenceStore } from '../../shared/stores/preference.store';
 import { Z } from '../../shared/directives/z.directive';
+import { prevRoute } from '../../../router/router';
 
 const videoStore = useVideoStore();
 const preferenceStore = usePreferenceStore();
@@ -19,10 +20,11 @@ const router = useRouter();
 const { isFullscreen, enter, exit, toggle } = useFullscreen();
 const durationEl = useTemplateRef<HTMLDivElement>('durationEl');
 const { width, height } = useElementSize(durationEl);
-
 const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
+
 const goBack = () => {
-    router.back();
+    videoStore.player.isMini = true;
+    router.push(prevRoute.fullPath);
 };
 
 function changeOrientation() {
@@ -55,13 +57,7 @@ const showMarkers = computed(() => {
         <div class="absolute inset-0 bg-black/50" @click="videoStore.showControllsAndInfo = false"></div>
 
         <div class="flex items-center justify-between gap-4 pt-2 px-4">
-            <PlayerButton
-                @click="
-                    videoStore.player.isMini = true;
-                    goBack();
-                "
-                icon="mdi-chevron-down"
-            />
+            <PlayerButton @click="goBack()" icon="mdi-chevron-down" />
 
             <div class="flex items-center gap-1">
                 <AddToPlaylist />

@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, type RouteLocationNormalizedLoadedGeneric } from 'vue-router';
 import { useAuthStore } from '../app/auth/stores/auth.store';
 
 const isLoggedIn = () => {
@@ -7,6 +7,8 @@ const isLoggedIn = () => {
         return { name: 'home' };
     }
 };
+
+let prevRoute: RouteLocationNormalizedLoadedGeneric = null;
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -62,4 +64,10 @@ const router = createRouter({
     },
 });
 
+router.beforeEach((to, from, next) => {
+    prevRoute = from;
+    next();
+});
+
+export { prevRoute };
 export default router;

@@ -36,6 +36,7 @@ export const useVideoStore = defineStore('video', () => {
     });
     const { idle } = useIdle(7 * 1000);
     const videoRef = ref<HTMLVideoElement | null>(null);
+    const videoSrc = computed(() => BucketHelper.getVideoUrl(videoInfo.value.rotating_id));
     const videoSrcNotFound = ref(false);
     // prettier-ignore
     const {
@@ -54,7 +55,6 @@ export const useVideoStore = defineStore('video', () => {
         onPlaybackError,
     } = useMediaControls(videoRef);
     const showMobileControls = ref(true);
-    const videoSrc = computed(() => BucketHelper.getVideoUrl(videoInfo.value.rotating_id));
     const prettyCurrentTime = computed(() => TimeHelper.formatTime(currentTime.value));
     const prettyDuration = computed(() => TimeHelper.formatTime(duration.value));
     const subCount = computed(
