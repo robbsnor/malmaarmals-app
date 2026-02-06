@@ -66,7 +66,7 @@ const save = async () => {
     videoStore.showChapterDrawer = false;
 
     await sleep(500);
-    videoStore.editMode = false;
+    videoStore.chaptersEditMode = false;
 };
 
 async function discard(force = false) {
@@ -76,7 +76,7 @@ async function discard(force = false) {
     }
 
     videoStore.resetChaptersForm();
-    videoStore.editMode = false;
+    videoStore.chaptersEditMode = false;
 }
 </script>
 
@@ -136,7 +136,9 @@ async function discard(force = false) {
                 <v-btn v-if="videoStore.hasChapterChanges" variant="text" :loading="resetLoading" @click="discard()">
                     Discard
                 </v-btn>
-                <v-btn v-else variant="text" :loading="resetLoading" @click="videoStore.editMode = false">Cancel</v-btn>
+                <v-btn v-else variant="text" :loading="resetLoading" @click="videoStore.chaptersEditMode = false"
+                    >Cancel</v-btn
+                >
 
                 <v-btn color="primary" @click="save" :loading="loading" :disabled="!videoStore.hasChapterChanges">
                     Save
