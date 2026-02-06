@@ -23,7 +23,7 @@ const { width, height } = useElementSize(durationEl);
 const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
 
 const goBack = () => {
-    videoStore.player.isMini = true;
+    videoStore.playerIsMini = true;
     router.push(prevRoute.fullPath);
 };
 
@@ -49,8 +49,8 @@ const showMarkers = computed(() => {
 
 <template>
     <div
-        v-if="!videoStore.player.isMini"
-        v-visible="videoStore.showControllsAndInfo && !videoStore.player.isMini"
+        v-if="!videoStore.playerIsMini"
+        v-visible="videoStore.showControllsAndInfo && !videoStore.playerIsMini"
         class="absolute inset-0 flex flex-col"
         v-z="Z.VIDEO_CONTROLS"
     >

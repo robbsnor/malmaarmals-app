@@ -54,7 +54,7 @@ onMounted(async () => {
         <MiniplayerControls />
 
         <div
-            v-if="videoStore.videoSrcNotFound && !videoStore.player.isMini"
+            v-if="videoStore.videoSrcNotFound && !videoStore.playerIsMini"
             class="absolute inset-0 bg-black flex items-center justify-center"
             v-z="Z.VIDEO_SRC_ERROR"
         >

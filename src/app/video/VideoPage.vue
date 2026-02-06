@@ -12,8 +12,8 @@ const authStore = useAuthStore();
 const historyStore = useHistoryStore();
 
 onMounted(async () => {
-    videoStore.player.isActive = true;
-    videoStore.player.isMini = false;
+    videoStore.playerIsActive = true;
+    videoStore.playerIsMini = false;
     const videoId = Number(route.params.id);
 
     const isSamePage = videoId === videoStore.videoId;
@@ -29,7 +29,7 @@ onMounted(async () => {
 });
 
 onUnmounted(() => {
-    videoStore.player.isMini = true;
+    videoStore.playerIsMini = true;
 });
 </script>
 
