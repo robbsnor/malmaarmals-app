@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { computed, nextTick, ref, watch, watchEffect } from 'vue';
+import { computed, ref, watch, watchEffect } from 'vue';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../../shared/models/database.types';
 import type { VideoProgression } from '../models/video-progression.model';
@@ -8,7 +8,7 @@ import { useIdle, useMediaControls } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { type ChaptersWithCategory } from '../models/chapters-with-category.model';
-import _, { round } from 'lodash';
+import _ from 'lodash';
 import type { Messages } from '../models/messages.model';
 import { v4 } from 'uuid';
 import { useAuthStore } from '../../auth/stores/auth.store';
