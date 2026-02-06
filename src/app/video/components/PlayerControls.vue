@@ -126,6 +126,15 @@ const showMarkers = computed(() => {
     margin: 0;
 }
 
+.v-input {
+    pointer-events: none !important;
+}
+
 :deep(.v-slider-thumb) {
+    pointer-events: all !important;
+}
+
+:deep(.v-slider-thumb__surface) {
+    color: white !important;
 }
 </style>
