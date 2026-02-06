@@ -16,13 +16,13 @@ function togglePlay() {
 }
 
 function close() {
-    videoStore.player.isActive = false;
+    videoStore.playerIsActive = false;
 }
 </script>
 
 <template>
     <button
-        v-if="videoStore.player.isMini"
+        v-if="videoStore.playerIsMini"
         class="absolute inset-0 flex justify-between items-start p-2"
         @click.self="maximizePlayer"
     >

@@ -17,28 +17,31 @@ export const TIME_PRIOR_OFFSET_S = 2;
 
 export const useVideoStore = defineStore('video', () => {
     const authStore = useAuthStore();
+
+    // video info
     const videoInfo = ref<Tables<'videos'>>();
     const videoId = ref<number>();
     const videoInfoLoading = ref(true);
 
+    // chapters
     const chaptersOG = ref<ChaptersWithCategory>();
     const chapters = ref<ChaptersWithCategory>();
     const hasChapterChanges = computed(() => !_.isEqual(chapters.value, chaptersOG.value));
     const editMode = ref(false);
     const showChapterDrawer = ref(false);
 
-    const showControllsAndInfo = ref(true);
+    // messages
     const messages = ref<Messages>([]);
     const messagesLoading = ref(true);
-    const player = ref({
-        isActive: false,
-        isMini: true,
-    });
-    const { idle } = useIdle(7 * 1000);
+    const subCount = computed(
+        () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
+    );
+
+    // video player
+    const showControllsAndInfo = ref(true);
     const videoRef = ref<HTMLVideoElement | null>(null);
     const videoSrc = computed(() => BucketHelper.getVideoUrl(videoInfo.value.rotating_id));
     const videoSrcNotFound = ref(false);
-    // prettier-ignore
     const {
         currentTime,
         duration,
@@ -54,18 +57,14 @@ export const useVideoStore = defineStore('video', () => {
         onSourceError,
         onPlaybackError,
     } = useMediaControls(videoRef);
-    const showMobileControls = ref(true);
+    const currentTimeRounded = computed(() => Math.floor(currentTime.value));
     const prettyCurrentTime = computed(() => TimeHelper.formatTime(currentTime.value));
     const prettyDuration = computed(() => TimeHelper.formatTime(duration.value));
-    const subCount = computed(
-        () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
-    );
-    const currentTimeRounded = computed(() => Math.floor(currentTime.value));
+    const playerIsActive = ref(false);
+    const playerIsMini = ref(true);
+    const { idle } = useIdle(7 * 1000);
 
-    onPlaybackError(async (e) => {
-        playing.value = false;
-    });
-
+    // functions
     function reset() {
         chaptersOG.value = null;
         chapters.value = null;
@@ -172,10 +171,15 @@ export const useVideoStore = defineStore('video', () => {
         chapters.value = _.cloneDeep(chaptersOG.value);
     }
 
+    onPlaybackError(async (e) => {
+        playing.value = false;
+    });
+
     watch(currentTimeRounded, () => {
         saveVideoProgression();
     });
 
+    // check if video exists
     watch(videoRef, () => {
         if (!videoRef.value) return;
 
@@ -184,31 +188,32 @@ export const useVideoStore = defineStore('video', () => {
         };
     });
 
+    // hide controls and info when idle
     watch(idle, (isIdle) => {
         if (!playing.value) return;
         if (!isIdle) return;
         showControllsAndInfo.value = false;
     });
 
+    // auto play when done loading
     watchEffect(() => {
-        // auto play when done loading
         if (!waiting.value) playing.value = true;
     });
 
+    // sort chapters by start_s
     watch(
         () => chapters.value,
         (newChapters) => {
-            // sort chapters by start_s
             if (!newChapters) return;
             newChapters.sort((a, b) => a.start_s - b.start_s);
         },
         { deep: true }
     );
 
+    // close mini player when video not found
     watchEffect(() => {
-        // close mini player when video not found
-        if (player.value.isMini && videoSrcNotFound.value) {
-            player.value.isActive = false;
+        if (playerIsMini.value && videoSrcNotFound.value) {
+            playerIsActive.value = false;
         }
     });
 
@@ -217,45 +222,42 @@ export const useVideoStore = defineStore('video', () => {
     });
 
     return {
+        // video
         videoInfo,
         videoId,
         videoInfoLoading,
-        subCount,
-
-        // player
-        player,
-        videoRef,
-        showMobileControls,
-        showControllsAndInfo,
         videoSrc,
         videoSrcNotFound,
 
-        // mediaControls
-        currentTime,
-        prettyCurrentTime,
-        currentTimeRounded,
-        duration,
-        prettyDuration,
-        playing,
-        waiting,
-        seeking,
-        ended,
-        stalled,
-        buffered,
-        rate,
-        volume,
-        muted,
+        // chapters
+        chapters,
+        editMode,
+        showChapterDrawer,
+        hasChapterChanges,
 
         // messages
         messages,
         messagesLoading,
+        subCount,
 
-        // chapters
-        chaptersOG,
-        chapters,
-        showChapterDrawer,
-        hasChapterChanges,
-        editMode,
+        // video
+        showControllsAndInfo,
+        videoRef,
+        currentTime,
+        duration,
+        waiting,
+        seeking,
+        ended,
+        stalled,
+        playing,
+        rate,
+        volume,
+        muted,
+        currentTimeRounded,
+        prettyCurrentTime,
+        prettyDuration,
+        playerIsActive,
+        playerIsMini,
 
         // functions
         fetchVideoInfo,
@@ -268,7 +270,6 @@ export const useVideoStore = defineStore('video', () => {
         loadVideoProgression,
         reset,
         addEmptyChapter,
-
         onSourceError,
         onPlaybackError,
     };

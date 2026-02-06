@@ -56,7 +56,7 @@ watch(
 
 <template>
     <div
-        v-if="videoStore.messages && !videoStore.player.isMini"
+        v-if="videoStore.messages && !videoStore.playerIsMini"
         class="bg-red-400f overflow-hidden h-full grow-0 shrink-0 md:w-[250px] lg:w-[350px]"
         v-z="Z.CHAT"
     >

@@ -12,11 +12,11 @@ const authStore = useAuthStore();
 
 <template>
     <div
-        v-if="videoStore.player.isActive && authStore.isSubbed"
+        v-if="videoStore.playerIsActive && authStore.isSubbed"
         class="fixed bg-black flex flex-col md:flex-row flex-nowrap"
         v-z="Z.VIDEO_CONTAINER"
         :class="
-            videoStore.player.isMini
+            videoStore.playerIsMini
                 ? 'right-4 bottom-[100px] h-[120px] aspect-video rounded-md overflow-hidden border border-black-500 shadow-[0_0_20px_rgba(0,0,0,1)]'
                 : 'top-0 right-0 bottom-0 left-0'
         "
