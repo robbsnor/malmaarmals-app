@@ -60,10 +60,20 @@ watch(
         class="bg-red-400f overflow-hidden h-full grow-0 shrink-0 md:w-[250px] lg:w-[350px]"
         v-z="Z.CHAT"
     >
-        <div v-if="!videoStore.messagesLoading" class="h-full py-2 pt-4">
-            <ul ref="chatRef" class="bg-green-800f h-full overflow-auto flex flex-col gap-1 scroll-hidden px-2">
+        <div v-if="!videoStore.messagesLoading" class="h-full">
+            <ul
+                v-if="videoStore.messages.length"
+                ref="chatRef"
+                class="bg-green-800f h-full overflow-auto flex flex-col gap-1 scroll-hidden px-2 py-2 pt-4"
+            >
                 <Message v-for="message in renderedMessages" :key="message.message_id" :message="message" />
             </ul>
+
+            <div v-else class="h-full flex justify-center items-center">
+                <Empty title="No messages found" description="lekkerAppie" icon="mdi-chat">
+                    <v-btn color="primary" variant="tonal">submit messages</v-btn>
+                </Empty>
+            </div>
         </div>
 
         <SkeletonContainer v-else>
