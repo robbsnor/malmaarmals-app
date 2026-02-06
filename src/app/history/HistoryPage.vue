@@ -13,9 +13,17 @@ const dialog = ref(false);
 <template>
     <Section title="History">
         <template #actions v-if="historyStore.videos.length">
-            <v-btn append-icon="mdi-trash-can" color="red" variant="tonal" size="small" @click="dialog = true">
-                delete
-            </v-btn>
+            <v-menu>
+                <template v-slot:activator="{ props }">
+                    <v-btn icon="mdi-dots-vertical" variant="text" size="small" v-bind="props"></v-btn>
+                </template>
+
+                <v-list>
+                    <v-list-item @click="dialog = true" class="text-error" prepend-icon="mdi-trash-can-outline">
+                        <v-list-item-title>Clear history</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
         </template>
 
         <div v-if="historyStore.videos.length" class="flex flex-col gap-4">
