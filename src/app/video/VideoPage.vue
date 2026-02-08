@@ -5,6 +5,7 @@ import { useVideoStore } from './stores/video.store';
 import { useAuthStore } from '../auth/stores/auth.store';
 import VideoNotAllowed from './components/VideoNotAllowed.vue';
 import { useHistoryStore } from './stores/history.store';
+import { TitleHelper } from '../shared/helpers/title.helper';
 
 const route = useRoute();
 const videoStore = useVideoStore();
@@ -24,6 +25,8 @@ onMounted(async () => {
     videoStore.videoId = videoId;
 
     await videoStore.fetchVideoInfo();
+    TitleHelper.setTitle(videoStore.videoInfo.title);
+
     await videoStore.fetchChapters();
     await historyStore.add();
 });
