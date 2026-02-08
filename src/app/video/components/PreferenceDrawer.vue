@@ -6,26 +6,24 @@ import { usePreferenceStore } from '../../shared/stores/preference.store';
 import { storeToRefs } from 'pinia';
 
 const preferenceStore = usePreferenceStore();
-const { preferences } = storeToRefs(preferenceStore);
 const drawer = ref(false);
 </script>
 
 <template>
-    <Auth>
-        <Drawer title="Preferences" v-model="drawer">
-            <template #activator="{ props }">
-                <PlayerButton v-bind="props" icon="mdi-cog-outline" />
-            </template>
+    <Drawer title="Preferences" v-model="drawer">
+        <template #activator="{ props }">
+            <PlayerButton v-bind="props" icon="mdi-cog-outline" />
+        </template>
 
-            <v-form>
-                <v-switch
-                    hide-details="auto"
-                    label="Show chapters"
-                    density="comfortable"
-                    v-model="preferences.showChapters"
-                />
+        <v-form>
+            <v-switch
+                hide-details="auto"
+                label="Show chapters"
+                density="comfortable"
+                v-model="preferenceStore.preferences.showChapters"
+            />
 
-                <!-- <div class="flex gap-4 ml-2">
+            <!-- <div class="flex gap-4 ml-2">
                     <div class="mt-1.5 text-(--color-muted-more)">
                         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -48,10 +46,14 @@ const drawer = ref(false);
                     </div>
                 </div> -->
 
-                <v-switch hide-details="auto" label="Facecam" density="comfortable" v-model="preferences.showFacecam" />
-            </v-form>
-        </Drawer>
-    </Auth>
+            <v-switch
+                hide-details="auto"
+                label="Facecam"
+                density="comfortable"
+                v-model="preferenceStore.preferences.showFacecam"
+            />
+        </v-form>
+    </Drawer>
 </template>
 
 <style scoped>
