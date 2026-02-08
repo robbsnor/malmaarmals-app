@@ -14,7 +14,7 @@ const formDefault = {
     position: randomNumber(1, 300),
 };
 
-TitleHelper.setTitle('Playlists');
+TitleHelper.setTitle('playlists');
 
 const playlistsStore = usePlaylistsStore();
 const authStore = useAuthStore();
