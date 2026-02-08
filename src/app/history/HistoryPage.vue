@@ -4,7 +4,7 @@ import HistoryItem from './components/HistoryItem.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import { ref } from 'vue';
 
-TitleHelper.setTitle('History');
+TitleHelper.setTitle('history');
 
 const historyStore = useHistoryStore();
 const dialog = ref(false);

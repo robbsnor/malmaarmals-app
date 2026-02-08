@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { TitleHelper } from '../shared/helpers/title.helper';
+
+TitleHelper.setTitle('about');
 
 const faqs = ref([
     {

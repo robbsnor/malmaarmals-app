@@ -92,7 +92,6 @@ export const useVideoStore = defineStore('video', () => {
 
         videoInfo.value = data;
         videoInfoLoading.value = false;
-        TitleHelper.setTitle(data.title);
     }
 
     async function fetchChapters() {

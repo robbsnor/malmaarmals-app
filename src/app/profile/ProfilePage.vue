@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useAuthStore } from '../auth/stores/auth.store';
-import { useAppStore } from '../shared/stores/app.store';
-import { useRouter, RouterLink } from 'vue-router';
 import SignInButton from '../shared/components/SignInButton.vue';
+import { RouterLink } from 'vue-router';
 import { useHistoryStore } from '../video/stores/history.store';
 import { BucketHelper } from '../shared/helpers/bucket.helper';
 import VideoThumbnail from '../shared/components/VideoThumbnail.vue';
+import { TitleHelper } from '../shared/helpers/title.helper';
 
 const authStore = useAuthStore();
-const appStore = useAppStore();
 const historyStore = useHistoryStore();
+
+TitleHelper.setTitle('profile');
 
 const groups = computed(() => {
     const isSignedIn = !!authStore.session;
@@ -41,19 +42,19 @@ const handleClick = async (item: any) => {
 <template>
     <div>
         <div class="p-4 pb-0">
-            <div v-if="authStore.session" class="flex gap-4 p-4 rounded-md items-center bg-black-400">
+            <div v-if="authStore.session" class="flex gap-4 p-4 rounded-md items-center bg-black-2f00">
                 <div class="rounded-full border-2 border-primary p-0.5">
                     <img
                         :src="authStore.session.user.user_metadata.avatar_url"
                         alt="Twitch Logo"
-                        class="h-10 rounded-full"
+                        class="h-16 rounded-full"
                     />
                 </div>
                 <div>
-                    <div class="text-lg font-bold leading-none pb-0.5">
+                    <div class="text-2xl font-bold leading-none pb-0.5">
                         {{ authStore.session.user.user_metadata.nickname }}
                     </div>
-                    <div class="flex items-center text-sm text-muted">
+                    <div class="flex items-center text-muted">
                         <a
                             v-if="!authStore.isSubbed"
                             href="https://www.twitch.tv/lekkerspelen/"
@@ -66,7 +67,7 @@ const handleClick = async (item: any) => {
                         <v-icon
                             :icon="authStore.isSubbed ? 'mdi-check' : 'mdi-lock'"
                             :color="authStore.isSubbed ? 'success' : 'var(--color-red-500)'"
-                            size="14"
+                            size="16"
                             class="inline-block ml-1 mt-0.5"
                         />
                     </div>
@@ -101,7 +102,7 @@ const handleClick = async (item: any) => {
                     :to="{ name: 'video', params: { id: video.video_id } }"
                     v-for="video in historyStore.videos.slice(0, 10)"
                     :key="video.id"
-                    class="w-[160px] shrink-0"
+                    class="w-[180px] shrink-0"
                 >
                     <VideoThumbnail
                         :src="BucketHelper.getThumbnailUrl(video.video_id)"
