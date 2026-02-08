@@ -43,9 +43,10 @@ const submit = async () => {
     loading.value = false;
     if (error) return;
 
-    await playlistsStore.fetchPlaylists();
     form.value = { ...formDefault, position: randomNumber(1, 300) };
     sheet.value = false;
+
+    await playlistsStore.fetchPlaylists();
 };
 </script>
 
