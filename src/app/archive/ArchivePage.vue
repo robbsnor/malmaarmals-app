@@ -7,8 +7,9 @@ import PlaylistsTab from './components/PlaylistsTab.vue';
 import { useRoute } from 'vue-router';
 import { Z } from '../shared/directives/z.directive';
 import { useVideosStore } from '../video/stores/videos.store';
+import { onStartTyping } from '@vueuse/core';
 
-TitleHelper.setTitle('Archive');
+TitleHelper.setTitle('archive');
 
 const archiveStore = useArchiveStore();
 const videosStore = useVideosStore();
@@ -20,8 +21,12 @@ onMounted(() => {
 
     document.getElementById('bottom-search')?.addEventListener('click', () => {
         if (route.path !== '/archive') return;
-        searchRef.value?.focus();
+        searchRef.value.focus();
     });
+});
+
+onStartTyping(() => {
+    searchRef.value.focus();
 });
 </script>
 
