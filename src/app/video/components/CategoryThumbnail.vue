@@ -10,7 +10,7 @@ const props = withDefaults(
 </script>
 
 <template>
-    <div class="h-[56px] aspect-[8/11] bg-black-500 rounded-sm overflow-hidden">
+    <div class="h-[56px] aspect-[8/11] bg-black-500 rounded-sm overflow-hidden shrink-0">
         <img
             v-if="props.category.image_url"
             :src="props.category.image_url"
