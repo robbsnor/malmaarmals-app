@@ -28,7 +28,7 @@ onMounted(() => {
 <template>
     <Container>
         <div class="fixed top-0 right-0 left-0 bg-black h-[128px] pt-4 px-4" v-z="Z.ARCHIVE_HEADER">
-            <v-combobox
+            <v-text-field
                 ref="searchRef"
                 autocomplete="off"
                 :items="videosStore.categoriesList"
