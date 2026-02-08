@@ -6,6 +6,7 @@ import { useRouter, RouterLink } from 'vue-router';
 import SignInButton from '../shared/components/SignInButton.vue';
 import { useHistoryStore } from '../video/stores/history.store';
 import { BucketHelper } from '../shared/helpers/bucket.helper';
+import VideoThumbnail from '../shared/components/VideoThumbnail.vue';
 
 const authStore = useAuthStore();
 const appStore = useAppStore();
@@ -88,17 +89,27 @@ const handleClick = async (item: any) => {
                     :to="{ name: 'history' }"
                     class="text-primary! hover:text-primary-light!"
                     variant="text"
+                    size="small"
                     append-icon="mdi-chevron-right"
                 >
                     view all
                 </v-btn>
             </template>
 
-            <div v-if="historyStore.videos.length" class="flex gap-4 overflow-auto -mx-4 px-4">
-                <div v-for="video in historyStore.videos.slice(0, 10)" :key="video.id" class="w-[160px] shrink-0">
-                    <img :src="BucketHelper.getThumbnailUrl(video.video_id)" alt="" class="w-full rounded-md" />
-                    <div class="line-clamp-2 break-all py-2">{{ video.title }}</div>
-                </div>
+            <div v-if="historyStore.videos.length" class="flex gap-4 overflow-auto -mx-4 px-4 scroll-hidden">
+                <RouterLink
+                    :to="{ name: 'video', params: { id: video.video_id } }"
+                    v-for="video in historyStore.videos.slice(0, 10)"
+                    :key="video.id"
+                    class="w-[160px] shrink-0"
+                >
+                    <VideoThumbnail
+                        :src="BucketHelper.getThumbnailUrl(video.video_id)"
+                        alt=""
+                        class="w-full rounded-md"
+                    />
+                    <div class="line-clamp-2 py-2 font-bold">{{ video.title }}</div>
+                </RouterLink>
             </div>
 
             <Empty v-else title="No history" description="You haven't watched any videos yet." icon="mdi-history" />
