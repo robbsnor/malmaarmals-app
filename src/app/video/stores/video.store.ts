@@ -24,8 +24,8 @@ export const useVideoStore = defineStore('video', () => {
     const videoInfoLoading = ref(true);
 
     // chapters
-    const chaptersOG = ref<ChaptersWithCategory>();
-    const chapters = ref<ChaptersWithCategory>();
+    const chaptersOG = ref<ChaptersWithCategory>([]);
+    const chapters = ref<ChaptersWithCategory>([]);
     const hasChapterChanges = computed(() => !_.isEqual(chapters.value, chaptersOG.value));
     const chaptersEditMode = ref(false);
     const showChapterDrawer = ref(false);

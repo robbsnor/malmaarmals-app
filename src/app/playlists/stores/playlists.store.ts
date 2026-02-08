@@ -25,9 +25,7 @@ export const usePlaylistsStore = defineStore('playlists', () => {
     };
 
     const getPlaylistById = (id: Ref<string>) => {
-        return computed(() => {
-            return playlists.value.find((p) => p.id === id.value);
-        });
+        return playlists.value.find((p) => p.id === id.value);
     };
 
     const deletePlaylist = async (playlist: Playlist) => {

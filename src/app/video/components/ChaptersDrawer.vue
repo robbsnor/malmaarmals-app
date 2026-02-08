@@ -29,7 +29,7 @@ function skipToSec(sec: number) {
 </script>
 
 <template>
-    <Drawer v-model="videoStore.showChapterDrawer" inset title="Chapters" :padding="false" v-if="authStore.isAdmin">
+    <Drawer v-model="videoStore.showChapterDrawer" inset title="Chapters" :padding="false">
         <template #activator="{ props }">
             <PlayerButton
                 v-bind="props"
@@ -41,7 +41,7 @@ function skipToSec(sec: number) {
 
         <template #actions>
             <v-btn
-                v-if="!videoStore.chaptersEditMode && videoStore.chapters?.length"
+                v-if="!videoStore.chaptersEditMode && videoStore.chapters.length && authStore.isAdmin"
                 @click="videoStore.chaptersEditMode = true"
                 append-icon="mdi-pencil"
                 variant="tonal"
@@ -75,14 +75,10 @@ function skipToSec(sec: number) {
                     </button>
                 </div>
 
-                <Empty
-                    v-else
-                    title="No chapters..."
-                    description="Add your first chapter to get started!"
-                    icon="mdi-format-list-bulleted"
-                >
+                <Empty v-else title="No chapters yet..." icon="mdi-format-list-bulleted">
                     <div class="flex flex-col gap-4">
                         <v-btn
+                            v-if="authStore.isAdmin"
                             @click="
                                 () => {
                                     videoStore.chaptersEditMode = true;
