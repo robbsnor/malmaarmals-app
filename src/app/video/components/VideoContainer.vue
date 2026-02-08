@@ -17,7 +17,7 @@ const authStore = useAuthStore();
         v-z="Z.VIDEO_CONTAINER"
         :class="
             videoStore.playerIsMini
-                ? 'right-4 bottom-[100px] w-[220px] lg:w-[350px] aspect-video rounded-md overflow-hidden border border-black-500 shadow-[0_0_20px_rgba(0,0,0,1)]'
+                ? 'right-4 bottom-[100px] w-[200px] lg:w-[350px] aspect-video rounded-md overflow-hidden border border-black-500 shadow-[0_0_20px_rgba(0,0,0,1)]'
                 : 'top-0 right-0 bottom-0 left-0'
         "
     >
