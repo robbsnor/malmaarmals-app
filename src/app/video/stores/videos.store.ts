@@ -31,9 +31,24 @@ export const useVideosStore = defineStore('videos', () => {
         });
     });
 
+    const categoriesList = computed(() => {
+        const categoriesSet = new Set<string>();
+
+        videos.value.forEach((video) => {
+            video.chapters?.forEach((chapter) => {
+                if (chapter.category) {
+                    categoriesSet.add(chapter.category.title);
+                }
+            });
+        });
+
+        return Array.from(categoriesSet).sort();
+    });
+
     return {
         videos,
         filteredVideos,
+        categoriesList,
 
         fetchVideos,
     };
