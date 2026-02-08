@@ -7,6 +7,7 @@ import { prettyTime } from '../../shared/helpers/prettyTime';
 import ManageChapters from './ManageChapters.vue';
 import ManageChaptersInstructionsDialog from './ManageChaptersInstructionsDialog.vue';
 import { useAuthStore } from '../../auth/stores/auth.store';
+import { onKeyStroke } from '@vueuse/core';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
@@ -18,6 +19,11 @@ watch(
     (newVal) => (tab.value = newVal ? 1 : 0),
     { immediate: true }
 );
+
+onKeyStroke('c', () => {
+    videoStore.showChapterDrawer = true;
+    videoStore.chaptersEditMode = true;
+});
 
 function skipToSec(sec: number) {
     videoStore.setTimePrior(sec);
