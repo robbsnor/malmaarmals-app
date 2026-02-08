@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import BottomNav from './app/layout/components/BottomNav.vue';
 import VideoContainer from './app/video/components/VideoContainer.vue';
-import MainDrawer from './app/layout/components/MainDrawer.vue';
 import { useVideosStore } from './app/video/stores/videos.store';
 import { usePlaylistsStore } from './app/playlists/stores/playlists.store';
 import { onMounted, ref } from 'vue';
@@ -52,7 +51,6 @@ onMounted(async () => {
 
         <BottomNav />
         <VideoContainer />
-        <MainDrawer />
     </v-app>
 
     <Offline :loading="loading" :hasError="hasError" />

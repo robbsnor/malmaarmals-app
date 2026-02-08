@@ -13,8 +13,7 @@ const authStore = useAuthStore();
 const menuItems = ref([
     { title: 'home', icon: 'mdi-collage', to: '/' },
     { title: 'archive', icon: 'mdi-magnify', to: '/archive', id: 'bottom-search' },
-    // { title: 'playlists', icon: 'mdi-playlist-play', to: '/playlists' },
-    // { title: 'more', icon: 'mdi-dots-horizontal', action: 'mainDrawer' },
+    { title: 'profile', icon: '', to: '/profile', id: 'bottom-profile' },
 ]);
 </script>
 
@@ -36,45 +35,41 @@ const menuItems = ref([
                 class="cursor-pointer flex flex-col justify-center items-center text-muted-more transition-all gap-[2px] py-2 px-6 text-light hover:text-primary-light"
             >
                 <v-icon v-if="item.icon" :icon="item.icon" />
-                <!-- <div v-if="item.title" class="capitalize text-sm">{{ item.title }}</div> -->
-            </RouterLink>
 
-            <div
-                @click="appStore.mainDrawer = true"
-                class="cursor-pointer flex flex-col justify-center items-center text-muted-more transition-all gap-[2px] py-2 px-6 text-light"
-            >
-                <div v-if="!!authStore.session" class="relative">
-                    <img
-                        :src="authStore.session.user.user_metadata.avatar_url"
-                        alt=""
-                        class="h-8 rounded-full cursor-pointer"
-                    />
-                    <div
-                        v-if="!authStore.isSubbed"
-                        class="absolute -bottom-2 -right-2 bg-black rounded-full size-5 flex items-center justify-center"
-                    >
-                        <v-icon icon=" mdi-lock" color="var(--color-red-500)" size="14" />
-                    </div>
-                </div>
-                <div
-                    v-else
-                    class="size-8 bg-black-400 cursor-pointer rounded-full flex items-end justify-center overflow-hidden text-white/50!"
-                >
-                    <svg
-                        width="26"
-                        height="26"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="translate-y-0.5"
-                    >
-                        <path
-                            d="M8 10.5C9.28971 10.5 11.2264 10.8143 12.8271 11.4521C13.6271 11.7709 14.3122 12.158 14.7891 12.6016C15.2616 13.0412 15.5 13.5055 15.5 14V15.5H0.5V14C0.5 13.5055 0.738403 13.0412 1.21094 12.6016C1.68776 12.158 2.37288 11.7709 3.17285 11.4521C4.77358 10.8143 6.71029 10.5 8 10.5ZM8 0.5C9.92386 0.5 11.5 2.07614 11.5 4C11.5 5.92386 9.92386 7.5 8 7.5C6.07614 7.5 4.5 5.92386 4.5 4C4.5 2.07614 6.07614 0.5 8 0.5Z"
-                            fill="currentColor"
+                <template v-else-if="item?.id === 'bottom-profile'">
+                    <div v-if="!!authStore.session" class="relative">
+                        <img
+                            :src="authStore.session.user.user_metadata.avatar_url"
+                            alt=""
+                            class="h-8 rounded-full cursor-pointer"
                         />
-                    </svg>
-                </div>
-            </div>
+                        <div
+                            v-if="!authStore.isSubbed"
+                            class="absolute -bottom-2 -right-2 bg-black rounded-full size-5 flex items-center justify-center"
+                        >
+                            <v-icon icon=" mdi-lock" color="var(--color-red-500)" size="14" />
+                        </div>
+                    </div>
+                    <div
+                        v-else
+                        class="size-8 bg-black-400 cursor-pointer rounded-full flex items-end justify-center overflow-hidden text-white/50!"
+                    >
+                        <svg
+                            width="26"
+                            height="26"
+                            viewBox="0 0 16 16"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="translate-y-0.5"
+                        >
+                            <path
+                                d="M8 10.5C9.28971 10.5 11.2264 10.8143 12.8271 11.4521C13.6271 11.7709 14.3122 12.158 14.7891 12.6016C15.2616 13.0412 15.5 13.5055 15.5 14V15.5H0.5V14C0.5 13.5055 0.738403 13.0412 1.21094 12.6016C1.68776 12.158 2.37288 11.7709 3.17285 11.4521C4.77358 10.8143 6.71029 10.5 8 10.5ZM8 0.5C9.92386 0.5 11.5 2.07614 11.5 4C11.5 5.92386 9.92386 7.5 8 7.5C6.07614 7.5 4.5 5.92386 4.5 4C4.5 2.07614 6.07614 0.5 8 0.5Z"
+                                fill="currentColor"
+                            />
+                        </svg>
+                    </div>
+                </template>
+            </RouterLink>
         </div>
     </div>
 </template>

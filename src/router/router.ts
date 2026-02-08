@@ -47,6 +47,11 @@ const router = createRouter({
             component: () => import('../app/history/HistoryPage.vue'),
         },
         {
+            path: '/profile',
+            name: 'profile',
+            component: () => import('../app/profile/ProfilePage.vue'),
+        },
+        {
             path: '/auth/callback',
             name: 'callback',
             component: () => import('../app/auth/Callback.vue'),
