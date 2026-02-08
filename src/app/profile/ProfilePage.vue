@@ -1,20 +1,22 @@
 <script setup lang="ts">
-import { supabase } from '../../../supabase';
-import { useAuthStore } from '../../auth/stores/auth.store';
-import { useAppStore } from '../../shared/stores/app.store';
+import { computed, ref } from 'vue';
+import { useAuthStore } from '../auth/stores/auth.store';
+import { useAppStore } from '../shared/stores/app.store';
 import { useRouter, RouterLink } from 'vue-router';
-import { computed } from 'vue';
-import SignInButton from '../../shared/components/SignInButton.vue';
+import SignInButton from '../shared/components/SignInButton.vue';
+import { useHistoryStore } from '../video/stores/history.store';
+import { BucketHelper } from '../shared/helpers/bucket.helper';
 
-const appStore = useAppStore();
 const authStore = useAuthStore();
+const appStore = useAppStore();
+const historyStore = useHistoryStore();
 
 const groups = computed(() => {
     const isSignedIn = !!authStore.session;
 
     return [
         [
-            { name: 'History', icon: 'mdi-history', to: '/history', hidden: !isSignedIn },
+            // { name: 'History', icon: 'mdi-history', to: '/history', hidden: !isSignedIn },
             { name: 'Prefferences', icon: 'mdi-cog', hidden: !isSignedIn, disabled: true },
         ],
         [
@@ -32,14 +34,12 @@ const handleClick = async (item: any) => {
     if (item.action === 'sign-out') {
         await authStore.signOut();
     }
-
-    appStore.mainDrawer = false;
 };
 </script>
 
 <template>
-    <Drawer v-model="appStore.mainDrawer" inset eager>
-        <div class="mb-4">
+    <div>
+        <div class="p-4 pb-0">
             <div v-if="authStore.session" class="flex gap-4 p-4 rounded-md items-center bg-black-400">
                 <div class="rounded-full border-2 border-primary p-0.5">
                     <img
@@ -82,7 +82,27 @@ const handleClick = async (item: any) => {
             </div>
         </div>
 
-        <div class="flex gap-4 flex-col">
+        <Section title="History" v-if="authStore.session">
+            <template #actions>
+                <v-btn
+                    :to="{ name: 'history' }"
+                    class="text-primary! hover:text-primary-light!"
+                    variant="text"
+                    append-icon="mdi-chevron-right"
+                >
+                    view all
+                </v-btn>
+            </template>
+
+            <div class="flex gap-4 overflow-auto -mx-4 px-4">
+                <div v-for="video in historyStore.videos.slice(0, 10)" :key="video.id" class="w-[200px] shrink-0">
+                    <img :src="BucketHelper.getThumbnailUrl(video.video_id)" alt="" class="w-full rounded-md" />
+                    <div class="line-clamp-2 break-all py-2">{{ video.title }}</div>
+                </div>
+            </div>
+        </Section>
+
+        <div class="flex gap-4 flex-col px-4">
             <div v-for="(group, index) in groups" :key="index">
                 <div class="flex flex-col gap-0.5">
                     <template v-for="item in group" :key="item.name">
@@ -106,5 +126,5 @@ const handleClick = async (item: any) => {
                 </div>
             </div>
         </div>
-    </Drawer>
+    </div>
 </template>
