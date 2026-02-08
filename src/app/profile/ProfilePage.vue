@@ -97,7 +97,7 @@ const handleClick = async (item: any) => {
                 </v-btn>
             </template>
 
-            <div v-if="historyStore.videos.length" class="flex gap-4 overflow-auto -mx-4 px-4 scroll-hidden">
+            <div v-if="historyStore.videos.length" class="flex gap-4 overflow-auto -mx-4 px-4">
                 <RouterLink
                     :to="{ name: 'video', params: { id: video.video_id } }"
                     v-for="video in historyStore.videos.slice(0, 10)"
