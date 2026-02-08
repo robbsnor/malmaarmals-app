@@ -13,8 +13,10 @@ import PreferenceDrawer from './PreferenceDrawer.vue';
 import { usePreferenceStore } from '../../shared/stores/preference.store';
 import { Z } from '../../shared/directives/z.directive';
 import { prevRoute } from '../../../router/router';
+import { useVideosStore } from '../stores/videos.store';
 
 const videoStore = useVideoStore();
+const videosStore = useVideosStore();
 const preferenceStore = usePreferenceStore();
 const router = useRouter();
 const { isFullscreen, enter, exit, toggle } = useFullscreen();
@@ -45,6 +47,24 @@ const showMarkers = computed(() => {
     // TODO: Respect PETER vs TIMON video preference
     return preferenceStore.preferences.showChapters;
 });
+
+async function goToNextVideo() {
+    const nextId = videosStore.videos.findIndex((v) => v.video_id === videoStore.videoInfo.video_id) + 1;
+
+    if (nextId) {
+        await router.push({ name: 'video', params: { id: videosStore.videos[nextId].video_id } });
+        window.location.reload();
+    }
+}
+
+async function goToPreviousVideo() {
+    const prevId = videosStore.videos.findIndex((v) => v.video_id === videoStore.videoInfo.video_id) - 1;
+
+    if (prevId) {
+        await router.push({ name: 'video', params: { id: videosStore.videos[prevId].video_id } });
+        window.location.reload();
+    }
+}
 </script>
 
 <template>
@@ -95,6 +115,14 @@ const showMarkers = computed(() => {
                 </div>
 
                 <div class="relative flex items-center gap-2 -mb-2 z-1">
+                    <Auth>
+                        <button @click="goToPreviousVideo()">
+                            <v-icon size="24" icon="mdi-skip-previous" />
+                        </button>
+                        <button @click="goToNextVideo()">
+                            <v-icon size="24" icon="mdi-skip-next" />
+                        </button>
+                    </Auth>
                     <VolumeControl />
                     <ChaptersDrawer />
                     <PlayerButton :icon="isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'" @click="toggle()" />
