@@ -51,6 +51,10 @@ const updateCategories = useDebounceFn(async (query?: string) => {
         title: cat.name,
     }));
 
+    console.clear();
+    console.log(`--- categories: ${query} --- `);
+    categories.value.forEach((c) => console.log(c.title));
+
     loadingCategories.value = false;
 }, 500);
 
@@ -97,7 +101,15 @@ const startTime = computed(() => prettyTime(chapter.value.start_s));
 
         <div class="flex flex-col justify-between">
             <div class="flex gap-3">
-                <ConfirmDialog
+                <v-btn
+                    v-bind="props"
+                    size="x-small"
+                    variant="tonal"
+                    icon="mdi-target"
+                    color="var(--color-black-2000)"
+                    @click="markStartTime()"
+                />
+                <!-- <ConfirmDialog
                     v-model="confirmTimeDialog"
                     @confirm="markStartTime"
                     title="Change time"
@@ -108,14 +120,7 @@ const startTime = computed(() => prettyTime(chapter.value.start_s));
                     :show-close-button="false"
                 >
                     <template #activator="{ props }">
-                        <v-btn
-                            v-bind="props"
-                            size="x-small"
-                            variant="tonal"
-                            icon="mdi-target"
-                            color="var(--color-black-2000)"
-                            @click="videoStore.playing = false"
-                        />
+
                     </template>
 
                     <div class="flex items-center gap-4">
@@ -133,7 +138,7 @@ const startTime = computed(() => prettyTime(chapter.value.start_s));
                             </div>
                         </div>
                     </div>
-                </ConfirmDialog>
+                </ConfirmDialog> -->
 
                 <v-menu location="bottom end">
                     <template v-slot:activator="{ props }">

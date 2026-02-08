@@ -70,10 +70,10 @@ const save = async () => {
 };
 
 async function discard(force = false) {
-    if (videoStore.hasChapterChanges && !force) {
-        showConfirmCancelDialog.value = true;
-        return;
-    }
+    // if (videoStore.hasChapterChanges && !force) {
+    //     showConfirmCancelDialog.value = true;
+    //     return;
+    // }
 
     videoStore.resetChaptersForm();
     videoStore.chaptersEditMode = false;
