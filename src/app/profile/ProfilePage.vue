@@ -72,7 +72,7 @@ const handleClick = async (item: any) => {
                         />
                     </div>
                 </div>
-                <div class="bg-black-40f0 size-f12 rounded-full ml-auto flex justify-center items-center">
+                <div class="ounded-full ml-auto flex justify-center items-center">
                     <v-icon icon="mdi-star-four-points" size="32" class="mr-2 text-black-800" />
                 </div>
             </div>
@@ -102,7 +102,7 @@ const handleClick = async (item: any) => {
                     :to="{ name: 'video', params: { id: video.video_id } }"
                     v-for="video in historyStore.videos.slice(0, 10)"
                     :key="video.id"
-                    class="w-[180px] shrink-0"
+                    class="w-[160px] shrink-0"
                 >
                     <VideoThumbnail
                         :src="BucketHelper.getThumbnailUrl(video.video_id)"
