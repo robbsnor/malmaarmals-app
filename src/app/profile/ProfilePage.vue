@@ -76,7 +76,7 @@ const handleClick = async (item: any) => {
                 </div>
             </div>
 
-            <div v-else class="p-4">
+            <div v-else class="px-4 py-12">
                 <div class="text-2xl font-bold">You are not logged in,</div>
                 <p class="text-muted">Log in with Twitch to start watching streams</p>
                 <SignInButton />
@@ -106,9 +106,11 @@ const handleClick = async (item: any) => {
                     <VideoThumbnail
                         :src="BucketHelper.getThumbnailUrl(video.video_id)"
                         alt=""
-                        class="w-full rounded-md"
+                        class="w-full rounded-t-md!"
+                        :durationS="video.length_sec"
+                        :videoId="video.video_id"
                     />
-                    <div class="line-clamp-2 py-2 font-bold">{{ video.title }}</div>
+                    <div class="line-clamp-2 py-2 font-bold px-2">{{ video.title }}</div>
                 </RouterLink>
             </div>
 
