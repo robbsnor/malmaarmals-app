@@ -47,11 +47,11 @@ const handleClick = async (item: any) => {
                     <img
                         :src="authStore.session.user.user_metadata.avatar_url"
                         alt="Twitch Logo"
-                        class="h-16 rounded-full"
+                        class="h-14 rounded-full"
                     />
                 </div>
                 <div>
-                    <div class="text-2xl font-bold leading-none pb-0.5">
+                    <div class="text-xl font-bold leading-none pb-0.5">
                         {{ authStore.session.user.user_metadata.nickname }}
                     </div>
                     <div class="flex items-center text-muted">
