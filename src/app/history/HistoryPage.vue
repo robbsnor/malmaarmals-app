@@ -11,11 +11,13 @@ const dialog = ref(false);
 </script>
 
 <template>
-    <Section title="History">
-        <template #actions v-if="historyStore.videos.length">
-            <v-menu>
+    <div>
+        <div class="flex py-2 items-center gap-4 justify-between">
+            <v-btn variant="text" icon="mdi-chevron-left" :to="{ name: 'profile' }"></v-btn>
+
+            <v-menu v-if="historyStore.videos.length">
                 <template v-slot:activator="{ props }">
-                    <v-btn icon="mdi-dots-vertical" variant="text" size="small" v-bind="props"></v-btn>
+                    <v-btn icon="mdi-dots-vertical" variant="text" v-bind="props"></v-btn>
                 </template>
 
                 <v-list>
@@ -24,27 +26,29 @@ const dialog = ref(false);
                     </v-list-item>
                 </v-list>
             </v-menu>
-        </template>
-
-        <div v-if="historyStore.videos.length" class="flex flex-col gap-4">
-            <HistoryItem :video="video" v-for="video in historyStore.videos" :key="video.video_id" />
         </div>
 
-        <Empty
-            v-else
-            title="No videos yet..."
-            description="Watched videos will appear here."
-            icon="mdi-history"
-        ></Empty>
+        <Section title="History" class="pt-0">
+            <div v-if="historyStore.videos.length" class="flex flex-col gap-4">
+                <HistoryItem :video="video" v-for="video in historyStore.videos" :key="video.video_id" />
+            </div>
 
-        <DeleteDialog
-            v-model="dialog"
-            title="Clear history"
-            description="Are you sure you want to clear your history?"
-            confirmText="Clear"
-            icon="mdi-trash-can"
-            :showBody="false"
-            @confirm="historyStore.deleteAll"
-        />
-    </Section>
+            <Empty
+                v-else
+                title="No videos yet..."
+                description="Watched videos will appear here."
+                icon="mdi-history"
+            ></Empty>
+
+            <DeleteDialog
+                v-model="dialog"
+                title="Clear history"
+                description="Are you sure you want to clear your history?"
+                confirmText="Clear"
+                icon="mdi-trash-can"
+                :showBody="false"
+                @confirm="historyStore.deleteAll"
+            />
+        </Section>
+    </div>
 </template>

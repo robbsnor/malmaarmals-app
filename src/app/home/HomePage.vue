@@ -25,6 +25,6 @@ const authStore = useAuthStore();
 
         <PrevStreams />
         <Playlists />
-        <History />
+        <!-- <History /> -->
     </div>
 </template>
