@@ -95,7 +95,7 @@ const handleClick = async (item: any) => {
             </template>
 
             <div v-if="historyStore.videos.length" class="flex gap-4 overflow-auto -mx-4 px-4">
-                <div v-for="video in historyStore.videos.slice(0, 10)" :key="video.id" class="w-[200px] shrink-0">
+                <div v-for="video in historyStore.videos.slice(0, 10)" :key="video.id" class="w-[160px] shrink-0">
                     <img :src="BucketHelper.getThumbnailUrl(video.video_id)" alt="" class="w-full rounded-md" />
                     <div class="line-clamp-2 break-all py-2">{{ video.title }}</div>
                 </div>
