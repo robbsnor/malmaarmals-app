@@ -109,7 +109,7 @@ const handleClick = async (item: any) => {
                         :durationS="video.length_sec"
                         :videoId="video.video_id"
                     />
-                    <div class="line-clamp-2 my-2 font-bold px-2">{{ video.title }}</div>
+                    <div class="line-clamp-2 my-2 font-bold">{{ video.title }}</div>
                 </RouterLink>
             </div>
 
