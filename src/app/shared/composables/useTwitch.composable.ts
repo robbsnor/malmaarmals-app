@@ -54,9 +54,9 @@ export function useTwitch() {
         return req<TwitchGetFollowedStreams>(url.toString());
     }
 
-    const checkUserSubscription = (broadcasterId: string) => {
+    const checkUserSubscription = (broadcasterId: number) => {
         const url = new URL('https://api.twitch.tv/helix/subscriptions/user');
-        url.searchParams.set('broadcaster_id', broadcasterId);
+        url.searchParams.set('broadcaster_id', broadcasterId.toString());
         url.searchParams.set('user_id', authStore.twitchUserId);
         return req<TwitchCheckUserSubscription>(url.toString());
     };
