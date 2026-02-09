@@ -21,6 +21,7 @@ export class BucketHelper {
             body: JSON.stringify({ videoId: videoId, twitchUserId }),
         });
 
-        return await data.json();
+        const { signedUrl } = await data.json();
+        return signedUrl;
     }
 }

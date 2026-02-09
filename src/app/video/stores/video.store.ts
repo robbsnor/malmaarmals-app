@@ -40,10 +40,8 @@ export const useVideoStore = defineStore('video', () => {
     const showControllsAndInfo = ref(true);
     const videoRef = ref<HTMLVideoElement | null>(null);
     const videoSrc = computedAsync(async () => {
-        if (!videoId.value) return;
-
-        const { signedUrl } = await BucketHelper.getVideoUrl(videoId.value);
-        return signedUrl;
+        if (!videoId.value || !authStore.session) return;
+        return await BucketHelper.getVideoUrl(videoId.value);
     });
     const videoSrcNotFound = ref(false);
     const {
