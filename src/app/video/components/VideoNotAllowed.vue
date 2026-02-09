@@ -39,10 +39,16 @@ const authStore = useAuthStore();
 
                 <template v-else>
                     <template v-if="!authStore.isSubbed">
-                        <div class="text-2xl font-bold">You are not subscribed.</div>
+                        <div class="text-2xl font-bold">You are not subscribed,</div>
                         <p class="text-muted">Subscribe to LekkerSpelen to start watching.</p>
 
-                        <v-btn color="primary" href="https://www.twitch.tv/lekkerspelen/" target="_blank">
+                        <v-btn
+                            color="primary"
+                            href="https://www.twitch.tv/lekkerspelen/"
+                            target="_blank"
+                            class="w-full"
+                            variant="tonal"
+                        >
                             subscribe
                         </v-btn>
                     </template>

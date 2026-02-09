@@ -13,7 +13,9 @@ export const useAuthStore = defineStore('auth', () => {
     const twitchRefreshToken = useStorage('twitch_refresh_token', null);
     const twitch = useTwitch();
     const twitchUserId = computed(() => session.value?.user.user_metadata?.sub as string);
-    const lekkerSpelenUserId = '52385053';
+    const lekkerSpelenUserId = 52385053;
+    // const lekkerSpelenUserId = 197790255;
+
     const isSubbed = ref(false);
     const isAdmin = computed(() => session.value?.user?.user_metadata.name === 'robbsnor');
     // const isAdmin = computed(() => session.value?.user?.user_metadata.name !== 'robbsnor');

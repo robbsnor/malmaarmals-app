@@ -62,6 +62,7 @@ const handleClick = async (item: any) => {
                     >
                         Not subscribed
                     </a>
+
                     <div v-else>Subscribed</div>
                     <v-icon
                         :icon="authStore.isSubbed ? 'mdi-check' : 'mdi-lock'"
@@ -75,6 +76,21 @@ const handleClick = async (item: any) => {
                 <v-icon icon="mdi-star-four-points" size="32" class="mr-2 text-black-800" />
             </div>
         </div>
+
+        <!-- <div v-if="!authStore.isSubbed">
+            <div class="text-2xl font-bold">You are not subscribed,</div>
+            <p class="text-muted">Subscribe to LekkerSpelen to start watching.</p>
+
+            <v-btn
+                color="primary"
+                href="https://www.twitch.tv/lekkerspelen/"
+                target="_blank"
+                class="w-full"
+                variant="tonal"
+            >
+                subscribe
+            </v-btn>
+        </div> -->
 
         <div v-else class="px-4 py-12">
             <div class="text-2xl font-bold">You are not logged in,</div>
