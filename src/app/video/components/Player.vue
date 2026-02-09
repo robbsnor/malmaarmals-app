@@ -21,7 +21,6 @@ onMounted(async () => {
     videoStore.showControllsAndInfo = true;
 
     videoStore.videoRef.addEventListener('loadeddata', async () => {
-        console.log('loadeddata');
         videoStore.fetchMessages();
         videoStore.loadVideoProgression();
     });
