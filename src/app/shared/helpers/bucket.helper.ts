@@ -29,6 +29,7 @@ export class BucketHelper {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${authStore.session.access_token}`,
                 'X-Twitch-Access-Token': authStore.twitchAccessToken,
             },
             body: JSON.stringify({ videoId: videoId, twitchUserId }),
