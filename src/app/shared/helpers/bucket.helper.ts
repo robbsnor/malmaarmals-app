@@ -10,12 +10,17 @@ export class BucketHelper {
     static async getVideoUrl(videoId: number): Promise<{ signedUrl: string }> {
         const authStore = useAuthStore();
         const twitchUserId = authStore.session?.user?.user_metadata?.provider_id;
-        if (!twitchUserId) throw new Error('User not authenticated');
+        if (!twitchUserId || !authStore.session?.access_token) throw new Error('User not authenticated');
 
         const data = await fetch(`${BucketHelper.BUCKET_URL}/generate-video-url`, {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${authStore.session?.access_token}`,
+            },
             body: JSON.stringify({ videoId: videoId, twitchUserId }),
         });
+
         return await data.json();
     }
 }
