@@ -23,18 +23,11 @@ const videoStore = useVideoStore();
             /> -->
 
             <button
-                class="rounded-full bg-black-800 size-8"
+                class="rounded bg-black-700 px-2 py-1"
                 @click="videoStore.currentTime = videoStore.currentTime - 10"
             >
                 -5s
             </button>
-            <button
-                class="rounded-full bg-black-800 size-8"
-                @click="videoStore.currentTime = videoStore.currentTime - 1 * 60"
-            >
-                -1m
-            </button>
-
             <v-btn
                 v-if="!videoStore.waiting"
                 :icon="videoStore.playing ? 'mdi-pause' : 'mdi-play'"
@@ -47,13 +40,13 @@ const videoStore = useVideoStore();
             </div>
 
             <button
-                class="rounded-full bg-black-800 size-8"
+                class="rounded bg-black-700 px-2 py-1"
                 @click="videoStore.currentTime = videoStore.currentTime + 1 * 60"
             >
                 +1m
             </button>
             <button
-                class="rounded-full bg-black-800 size-8"
+                class="rounded bg-black-700 px-2 py-1"
                 @click="videoStore.currentTime = videoStore.currentTime + 5 * 60"
             >
                 +5m

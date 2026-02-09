@@ -116,12 +116,8 @@ async function goToPreviousVideo() {
 
                 <div class="relative flex items-center gap-2 -mb-2 z-1">
                     <Auth>
-                        <button @click="goToPreviousVideo()">
-                            <v-icon size="24" icon="mdi-skip-previous" />
-                        </button>
-                        <button @click="goToNextVideo()">
-                            <v-icon size="24" icon="mdi-skip-next" />
-                        </button>
+                        <PlayerButton icon="mdi-skip-previous" @click="goToPreviousVideo()" />
+                        <PlayerButton icon="mdi-skip-next" @click="goToNextVideo()" />
                     </Auth>
                     <VolumeControl />
                     <ChaptersDrawer />
