@@ -22,14 +22,18 @@ const videoStore = useVideoStore();
                 @click="videoStore.currentTime = videoStore.currentTime - 10"
             /> -->
 
-            <div class="flex flex-col gap-1">
-                <v-btn variant="tonal" size="x-small" @click="videoStore.currentTime = videoStore.currentTime - 5">
-                    -5 sec
-                </v-btn>
-                <v-btn variant="tonal" size="x-small" @click="videoStore.currentTime = videoStore.currentTime - 1 * 60">
-                    -1 min
-                </v-btn>
-            </div>
+            <button
+                class="rounded-full bg-black-800 size-8"
+                @click="videoStore.currentTime = videoStore.currentTime - 10"
+            >
+                -5s
+            </button>
+            <button
+                class="rounded-full bg-black-800 size-8"
+                @click="videoStore.currentTime = videoStore.currentTime - 1 * 60"
+            >
+                -1m
+            </button>
 
             <v-btn
                 v-if="!videoStore.waiting"
@@ -42,14 +46,18 @@ const videoStore = useVideoStore();
                 <v-progress-circular size="x-small" width="2" indeterminate />
             </div>
 
-            <div class="flex flex-col gap-1">
-                <v-btn variant="tonal" size="x-small" @click="videoStore.currentTime = videoStore.currentTime + 5">
-                    +5 sec
-                </v-btn>
-                <v-btn variant="tonal" size="x-small" @click="videoStore.currentTime = videoStore.currentTime + 5 * 60">
-                    +5 min
-                </v-btn>
-            </div>
+            <button
+                class="rounded-full bg-black-800 size-8"
+                @click="videoStore.currentTime = videoStore.currentTime + 1 * 60"
+            >
+                +1m
+            </button>
+            <button
+                class="rounded-full bg-black-800 size-8"
+                @click="videoStore.currentTime = videoStore.currentTime + 5 * 60"
+            >
+                +5m
+            </button>
             <!--
             <v-btn
                 icon="mdi-fast-forward-10"

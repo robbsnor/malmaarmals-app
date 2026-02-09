@@ -3,8 +3,7 @@ import { computed, ref, watch, watchEffect } from 'vue';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../../shared/models/database.types';
 import type { VideoProgression } from '../models/video-progression.model';
-import { TitleHelper } from '../../shared/helpers/title.helper';
-import { useIdle, useMediaControls } from '@vueuse/core';
+import { computedAsync, useIdle, useMediaControls } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { type ChaptersWithCategory } from '../models/chapters-with-category.model';
@@ -40,7 +39,12 @@ export const useVideoStore = defineStore('video', () => {
     // video player
     const showControllsAndInfo = ref(true);
     const videoRef = ref<HTMLVideoElement | null>(null);
-    const videoSrc = computed(() => BucketHelper.getVideoUrl(videoInfo.value.rotating_id));
+    const videoSrc = computedAsync(async () => {
+        if (!videoId.value) return;
+
+        const { signedUrl } = await BucketHelper.getVideoUrl(videoId.value);
+        return signedUrl;
+    });
     const videoSrcNotFound = ref(false);
     const {
         currentTime,
