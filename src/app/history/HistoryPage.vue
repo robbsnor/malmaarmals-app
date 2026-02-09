@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useHistoryStore } from '../video/stores/history.store';
+import { useHistoryStore } from './stores/history.store';
 import HistoryItem from './components/HistoryItem.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import { ref } from 'vue';
