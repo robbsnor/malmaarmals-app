@@ -7,7 +7,7 @@ export class BucketHelper {
         return `${BucketHelper.BUCKET_URL}/thumbnails/${id}`;
     }
 
-    static async getVideoUrl(videoId: number): Promise<{ signedUrl: string }> {
+    static async getVideoUrl(videoId: number): Promise<string | undefined> {
         const authStore = useAuthStore();
         const twitchUserId = authStore.session?.user?.user_metadata?.provider_id;
         if (!twitchUserId || !authStore.session?.access_token) throw new Error('User not authenticated');
