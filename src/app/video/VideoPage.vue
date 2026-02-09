@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import { useVideoStore } from './stores/video.store';
 import { useAuthStore } from '../auth/stores/auth.store';
 import VideoNotAllowed from './components/VideoNotAllowed.vue';
-import { useHistoryStore } from './stores/history.store';
+import { useHistoryStore } from '../history/stores/history.store';
 import { TitleHelper } from '../shared/helpers/title.helper';
 
 const route = useRoute();

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useHistoryStore } from '../../video/stores/history.store';
+import { useHistoryStore } from '../../history/stores/history.store';
 import HistoryItem from '../../history/components/HistoryItem.vue';
 
 const historyStore = useHistoryStore();

@@ -6,7 +6,7 @@ import { usePlaylistsStore } from './app/playlists/stores/playlists.store';
 import { onMounted, ref } from 'vue';
 import { useAuthStore } from './app/auth/stores/auth.store';
 import { sleep } from './app/shared/helpers/sleep';
-import { useHistoryStore } from './app/video/stores/history.store';
+import { useHistoryStore } from './app/history/stores/history.store';
 import Offline from './app/layout/components/Offline.vue';
 
 const videosStore = useVideosStore();

@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import { useAuthStore } from '../auth/stores/auth.store';
 import SignInButton from '../shared/components/SignInButton.vue';
 import { RouterLink } from 'vue-router';
-import { useHistoryStore } from '../video/stores/history.store';
+import { useHistoryStore } from '../history/stores/history.store';
 import { BucketHelper } from '../shared/helpers/bucket.helper';
 import VideoThumbnail from '../shared/components/VideoThumbnail.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';

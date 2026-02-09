@@ -2,10 +2,10 @@ import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 import type { Tables } from '../../shared/models/database.types';
 import { supabase } from '../../../supabase';
-import { useVideoStore } from './video.store';
+import { useVideoStore } from '../../video/stores/video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
-import { useVideosStore } from './videos.store';
-import type { HistoryVideo } from '../models/history-video.model';
+import { useVideosStore } from '../../video/stores/videos.store';
+import type { HistoryVideo } from '../../video/models/history-video.model';
 
 export const useHistoryStore = defineStore('history', () => {
     const history = ref<Tables<'history'>[]>([]);
