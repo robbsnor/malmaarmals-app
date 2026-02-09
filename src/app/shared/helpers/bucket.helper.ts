@@ -34,8 +34,6 @@ export class BucketHelper {
             body: JSON.stringify({ videoId: videoId, twitchUserId }),
         });
 
-        console.log('dataaaaa');
-
         const { data, error }: GetVideoUrl = await res.json();
         if (error) return;
 
