@@ -219,7 +219,6 @@ export type Database = {
                     id: string;
                     length_sec: number;
                     recorded_at: string;
-                    rotating_id: string;
                     title: string;
                     video_id: number;
                 };
@@ -228,7 +227,6 @@ export type Database = {
                     id?: string;
                     length_sec: number;
                     recorded_at: string;
-                    rotating_id?: string;
                     title: string;
                     video_id: number;
                 };
@@ -237,7 +235,6 @@ export type Database = {
                     id?: string;
                     length_sec?: number;
                     recorded_at?: string;
-                    rotating_id?: string;
                     title?: string;
                     video_id?: number;
                 };
