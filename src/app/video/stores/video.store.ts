@@ -17,6 +17,10 @@ export const TIME_PRIOR_OFFSET_S = 2;
 export const useVideoStore = defineStore('video', () => {
     const authStore = useAuthStore();
 
+    // new
+    const theaterMode = ref(true);
+    const showChat = ref(true);
+
     // video info
     const videoInfo = ref<Tables<'videos'>>();
     const videoId = ref<number>();
@@ -229,6 +233,10 @@ export const useVideoStore = defineStore('video', () => {
     });
 
     return {
+        // new
+        theaterMode,
+        showChat,
+
         // video
         videoInfo,
         videoId,
