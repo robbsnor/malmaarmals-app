@@ -45,10 +45,10 @@ const containerClasses = computed(() => {
         "
     >
         <div class="absolute top-0 p-4 bg-red-400 z-90">{{ videoStore.theaterMode }}</div>
-        <div class="bg-red-500 md:overflow-auto">
+        <div class="bg-red-500 md:overflow-auto md:grow">
             <div
                 ref="containerRef"
-                class="bg-lime-500 md:flex md:items-center md:justify-center overflow-hidden max-h-screen penis"
+                class="bg-lime-500 md:flex md:items-center md:justify-center overflow-hidden max-h-screen"
                 :class="containerClasses"
             >
                 <Player ref="videoRef" />
@@ -66,7 +66,7 @@ const containerClasses = computed(() => {
             </div> -->
         </div>
 
-        <div v-if="videoStore.showChat || xs" class="bg-orange-400 overflow-auto md:shrink-0 md:w-[200px]">
+        <div v-if="videoStore.showChat || xs" class="chat bg-orange-400 overflow-auto md:shrink-0 md:w-[200px]">
             <div v-for="n in 100" :key="n">{{ n }}</div>
         </div>
     </div>
