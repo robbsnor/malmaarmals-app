@@ -31,6 +31,18 @@ const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value)
 const containerClasses = computed(() => {
     return [videoStore.theaterMode ? 'md:h-full' : ''];
 });
+
+const videoInfoClasses = computed(() => {
+    return [videoStore.theaterMode ? 'md:hidden' : 'md:block'];
+});
+
+const extraInfoClasses = computed(() => {
+    return [videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0 pointer-events-none'];
+});
+
+const chatClasses = computed(() => {
+    return [videoStore.showChat ? 'md:block' : 'md:hidden'];
+});
 </script>
 
 <template>
@@ -54,19 +66,23 @@ const containerClasses = computed(() => {
                 <Player ref="videoRef" />
             </div>
 
-            <!-- mobile vertical -->
-            <VideoInfo class="bg-blue-700! md:hidden relative z-60"></VideoInfo>
+            <!-- info -->
+            <VideoInfo :class="videoInfoClasses" class="bg-fuchsia-700! relative"></VideoInfo>
 
-            <!-- info mobile vertical and above -->
-            <!-- <div class="bg-fuchsia-300 w-full hidden md:block">
-                <VideoInfo v-if="!videoStore.theaterMode" class="bg-fuchsia-700!"></VideoInfo>
+            <div
+                :class="extraInfoClasses"
+                class="max-md:absolute max-md:overflow-auto w-full bg-fuchsia-300 transition-opacity"
+            >
                 <div class="flex flex-wrap gap-2">
                     <div v-for="n in 100" :key="n" class="aspect-video bg-amber-400 h-20"></div>
                 </div>
-            </div> -->
+            </div>
         </div>
 
-        <div v-if="videoStore.showChat || xs" class="chat bg-orange-400 overflow-auto md:shrink-0 md:w-[200px]">
+        <div
+            :class="chatClasses"
+            class="chat shrink-0 bg-orange-400 overflow-auto md:shrink-0 md:w-[200px] lg:w-[300px] lg:bg-blue-500 xl:w-[400px] xl:bg-red-500"
+        >
             <div v-for="n in 100" :key="n">{{ n }}</div>
         </div>
     </div>
