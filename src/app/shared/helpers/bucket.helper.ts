@@ -1,16 +1,5 @@
 import { useAuthStore } from '../../auth/stores/auth.store';
-
-export interface BucketReturn<T> {
-    data: T | null;
-    error: {
-        message: string;
-        code: number;
-    } | null;
-}
-
-export type GetVideoUrl = BucketReturn<{
-    signedUrl: string;
-}>;
+import type { GetVideoUrl } from '../models/bucket.models';
 
 export class BucketHelper {
     static BUCKET_URL = import.meta.env.VITE_BUCKET_URL;
