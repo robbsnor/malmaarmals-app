@@ -40,7 +40,6 @@ const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value)
                 : 'top-0 right-0 bottom-0 left-0 '
         "
     >
-        <div class="absolute top-0 p-4 bg-red-400 z-90">{{ videoStore.theaterMode }}</div>
         <div class="bg-red-500 md:overflow-auto md:grow">
             <div
                 ref="containerRef"
