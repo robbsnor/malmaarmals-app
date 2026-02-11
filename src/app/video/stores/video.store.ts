@@ -8,7 +8,7 @@ import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { type ChaptersWithCategory } from '../models/chapters-with-category.model';
 import _ from 'lodash';
-import type { Messages } from '../models/messages.model';
+import { messagesQuery, type Messages } from '../models/messages.model';
 import { v4 } from 'uuid';
 import { useAuthStore } from '../../auth/stores/auth.store';
 
@@ -119,9 +119,7 @@ export const useVideoStore = defineStore('video', () => {
     }
 
     async function fetchMessages() {
-        const { data, error } = await supabase
-            .from('messages')
-            .select('message_id, offset_sec, text, user_color, user_name')
+        const { data, error } = await messagesQuery
             .eq('video_id', Number(videoId.value))
             .order('offset_sec', { ascending: true });
 
