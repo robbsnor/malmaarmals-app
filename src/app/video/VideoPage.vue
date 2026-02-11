@@ -17,16 +17,16 @@ onMounted(async () => {
     videoStore.playerIsMini = false;
     const videoId = Number(route.params.id);
 
-    const isSamePage = videoId === videoStore.videoId;
+    const isSamePage = videoId === videoStore.id;
     if (isSamePage) return;
     if (!authStore.isSubbed) return;
 
     videoStore.reset();
-    videoStore.videoId = videoId;
+    videoStore.id = videoId;
 
-    await videoStore.fetchVideoInfo();
-    await videoStore.setVideoSrc();
-    TitleHelper.setTitle(videoStore.videoInfo.title);
+    await videoStore.fetchInfo();
+    await videoStore.setSrc();
+    TitleHelper.setTitle(videoStore.info.title);
 
     await videoStore.fetchChapters();
     await historyStore.add();

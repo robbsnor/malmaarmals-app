@@ -14,36 +14,22 @@ import { v4 } from 'uuid';
 export const TIME_PRIOR_OFFSET_S = 2;
 
 export const useVideoStore = defineStore('video', () => {
-    // new
+    // layout
     const theaterMode = ref(true);
     const showChat = ref(true);
     const showExtraInfoMobile = ref(false);
     const { width: windowWidth } = useWindowSize();
 
-    // video info
-    const videoInfo = ref<Tables<'videos'>>();
-    const videoId = ref<number>();
-    const videoInfoLoading = ref(true);
+    // video
+    const info = ref<Tables<'videos'>>();
+    const id = ref<number>();
+    const infoLoading = ref(true);
 
-    // chapters
-    const chaptersOG = ref<ChaptersWithCategory>([]);
-    const chapters = ref<ChaptersWithCategory>([]);
-    const hasChapterChanges = computed(() => !_.isEqual(chapters.value, chaptersOG.value));
-    const chaptersEditMode = ref(false);
-    const showChapterDrawer = ref(false);
-
-    // messages
-    const messages = ref<Messages>([]);
-    const messagesLoading = ref(true);
-    const subCount = computed(
-        () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
-    );
-
-    // video player
+    // player
     const showControllsAndInfo = ref(true);
     const videoRef = ref<HTMLVideoElement | null>(null);
-    const videoSrc = ref<string>(null);
-    const videoSrcNotFound = ref(false);
+    const src = ref<string>(null);
+    const srcNotFound = ref(false);
     const {
         currentTime,
         duration,
@@ -66,39 +52,49 @@ export const useVideoStore = defineStore('video', () => {
     const playerIsMini = ref(true);
     const { idle } = useIdle(7 * 1000);
 
-    // functions
-    function reset() {
-        chaptersOG.value = null;
-        chapters.value = null;
-        videoInfo.value = null;
-        currentTime.value = 0;
-        duration.value = 0;
-        messages.value = [];
-        videoId.value = null;
-        chapters.value = null;
-        videoInfo.value = null;
-        playing.value = false;
-        chaptersEditMode.value = false;
-        messagesLoading.value = true;
-        videoInfoLoading.value = true;
-        videoSrcNotFound.value = false;
-    }
+    // messages
+    const messages = ref<Messages>([]);
+    const messagesLoading = ref(true);
+    const subCount = computed(
+        () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
+    );
 
+    // chapters
+    const chaptersOG = ref<ChaptersWithCategory>([]);
+    const chapters = ref<ChaptersWithCategory>([]);
+    const hasChapterChanges = computed(() => !_.isEqual(chapters.value, chaptersOG.value));
+    const chaptersEditMode = ref(false);
+    const showChapterDrawer = ref(false);
+
+    // functions
     onMounted(() => {
         if (windowWidth.value > 1200) theaterMode.value = false;
     });
 
-    async function fetchVideoInfo() {
-        const { data, error } = await supabase
-            .from('videos')
-            .select('*')
-            .eq('video_id', Number(videoId.value))
-            .single();
+    function reset() {
+        chaptersOG.value = null;
+        chapters.value = null;
+        info.value = null;
+        currentTime.value = 0;
+        duration.value = 0;
+        messages.value = [];
+        id.value = null;
+        chapters.value = null;
+        info.value = null;
+        playing.value = false;
+        chaptersEditMode.value = false;
+        messagesLoading.value = true;
+        infoLoading.value = true;
+        srcNotFound.value = false;
+    }
 
-        videoInfoLoading.value = false;
+    async function fetchInfo() {
+        const { data, error } = await supabase.from('videos').select('*').eq('video_id', Number(id.value)).single();
+
+        infoLoading.value = false;
         if (error) throw error;
 
-        videoInfo.value = data;
+        info.value = data;
     }
 
     async function fetchChapters() {
@@ -106,7 +102,7 @@ export const useVideoStore = defineStore('video', () => {
             .from('chapters')
             .select('*, category:categories(*)')
             .order('start_s', { ascending: true })
-            .eq('video_id', videoId.value);
+            .eq('video_id', id.value);
 
         if (error) throw error;
 
@@ -116,7 +112,7 @@ export const useVideoStore = defineStore('video', () => {
 
     async function fetchMessages() {
         const { data, error } = await messagesQuery
-            .eq('video_id', Number(videoId.value))
+            .eq('video_id', Number(id.value))
             .order('offset_sec', { ascending: true });
 
         messagesLoading.value = false;
@@ -129,11 +125,11 @@ export const useVideoStore = defineStore('video', () => {
         videoRef.value = el;
     }
 
-    async function setVideoSrc() {
-        const { data, error } = await BucketHelper.getVideoUrl(videoId.value);
+    async function setSrc() {
+        const { data, error } = await BucketHelper.getVideoUrl(id.value);
         if (error) throw error;
 
-        videoSrc.value = data.signedUrl;
+        src.value = data.signedUrl;
     }
 
     function setTimePrior(sec: number) {
@@ -150,7 +146,7 @@ export const useVideoStore = defineStore('video', () => {
             category_id: '',
             end_s: 0,
             start_s: currentTimeRounded.value,
-            video_id: videoId.value,
+            video_id: id.value,
             category: {
                 id: v4(),
                 category_id: '',
@@ -166,14 +162,14 @@ export const useVideoStore = defineStore('video', () => {
 
         const obj: VideoProgression = {
             current_time_s: currentTimeRounded.value,
-            total_time_s: videoInfo.value.length_sec,
-            percentage: Math.round((100 / videoInfo.value.length_sec) * currentTimeRounded.value),
+            total_time_s: info.value.length_sec,
+            percentage: Math.round((100 / info.value.length_sec) * currentTimeRounded.value),
         };
-        localStorage.setItem(videoId.value.toString(), JSON.stringify(obj));
+        localStorage.setItem(id.value.toString(), JSON.stringify(obj));
     };
 
     const loadVideoProgression = () => {
-        const timeObj: VideoProgression = JSON.parse(localStorage.getItem(videoId.value.toString()));
+        const timeObj: VideoProgression = JSON.parse(localStorage.getItem(id.value.toString()));
         if (!timeObj) return;
         currentTime.value = Number(timeObj.current_time_s);
     };
@@ -195,7 +191,7 @@ export const useVideoStore = defineStore('video', () => {
         if (!videoRef.value) return;
 
         videoRef.value.onerror = (e) => {
-            videoSrcNotFound.value = true;
+            srcNotFound.value = true;
         };
     });
 
@@ -229,7 +225,7 @@ export const useVideoStore = defineStore('video', () => {
 
     // close mini player when video not found
     watchEffect(() => {
-        if (playerIsMini.value && videoSrcNotFound.value) {
+        if (playerIsMini.value && srcNotFound.value) {
             playerIsActive.value = false;
         }
     });
@@ -239,30 +235,19 @@ export const useVideoStore = defineStore('video', () => {
     });
 
     return {
-        // new
+        // layout
         theaterMode,
         showChat,
         showExtraInfoMobile,
 
         // video
-        videoInfo,
-        videoId,
-        videoInfoLoading,
-        videoSrc,
-        videoSrcNotFound,
+        info,
+        id,
+        infoLoading,
+        src,
+        srcNotFound,
 
-        // chapters
-        chapters,
-        chaptersEditMode,
-        showChapterDrawer,
-        hasChapterChanges,
-
-        // messages
-        messages,
-        messagesLoading,
-        subCount,
-
-        // video
+        // player
         showControllsAndInfo,
         videoRef,
         currentTime,
@@ -281,9 +266,20 @@ export const useVideoStore = defineStore('video', () => {
         playerIsActive,
         playerIsMini,
 
+        // chapters
+        chapters,
+        chaptersEditMode,
+        showChapterDrawer,
+        hasChapterChanges,
+
+        // messages
+        messages,
+        messagesLoading,
+        subCount,
+
         // functions
-        setVideoSrc,
-        fetchVideoInfo,
+        setSrc,
+        fetchInfo,
         fetchChapters,
         fetchMessages,
         resetChaptersForm,

@@ -32,7 +32,7 @@ async function saveCategories() {
 }
 
 async function deleteExistingChapters() {
-    const { error } = await supabase.from('chapters').delete().eq('video_id', videoStore.videoId);
+    const { error } = await supabase.from('chapters').delete().eq('video_id', videoStore.id);
     if (error) throw error;
 }
 
@@ -40,13 +40,13 @@ async function saveChapters() {
     videoStore.chapters.sort((a, b) => a.start_s - b.start_s);
 
     const chapters = videoStore.chapters.map((chapter, i) => ({
-        video_id: videoStore.videoId,
+        video_id: videoStore.id,
         category_id: chapter.category.category_id,
         start_s: chapter.start_s,
         end_s:
             i < videoStore.chapters.length - 1
                 ? videoStore.chapters[i + 1].start_s
-                : Math.floor(videoStore.videoInfo.length_sec),
+                : Math.floor(videoStore.info.length_sec),
     }));
 
     const { error } = await supabase.from('chapters').insert(chapters);

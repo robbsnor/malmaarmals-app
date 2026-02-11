@@ -27,8 +27,8 @@ onMounted(async () => {
             class="w-full h-full object-contain"
             :class="videoStore.theaterMode ? '' : 'max-h-[82vh]'"
             ref="videoRef"
-            :src="videoStore.videoSrc"
-            :poster="BucketHelper.getThumbnailUrl(Number(videoStore.videoId))"
+            :src="videoStore.src"
+            :poster="BucketHelper.getThumbnailUrl(Number(videoStore.id))"
         ></video>
 
         <div class="absolute inset-0" @click="videoStore.showControllsAndInfo = !videoStore.showControllsAndInfo"></div>

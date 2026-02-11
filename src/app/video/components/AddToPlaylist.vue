@@ -31,7 +31,7 @@ const submit = async () => {
 
     const { error } = await supabase.from('playlist_videos').insert({
         playlist_id: form.value.playlist_id,
-        video_id: videostore.videoInfo.id,
+        video_id: videostore.info.id,
     });
 
     loading.value = false;

@@ -5,7 +5,7 @@ import { useVideoStore } from '../stores/video.store';
 const videoStore = useVideoStore();
 
 const date = computed(() => {
-    return new Date(videoStore.videoInfo.recorded_at).toLocaleDateString('en-US', {
+    return new Date(videoStore.info.recorded_at).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -15,9 +15,9 @@ const date = computed(() => {
 
 <template>
     <div class="bg-red-300 min-h-[84px] flex justify-between gap-4 bg-black-200f border-bf p-4 border-black-400">
-        <template v-if="videoStore.videoInfo">
+        <template v-if="videoStore.info">
             <div>
-                <div class="font-bold text-lg">{{ videoStore.videoInfo.title }}</div>
+                <div class="font-bold text-lg">{{ videoStore.info.title }}</div>
                 <div class="text-muted">{{ date }}</div>
             </div>
             <div class="md:hidden! transition-all" :class="{ 'rotate-180': videoStore.showExtraInfoMobile }">

@@ -6,7 +6,7 @@ import { Z } from '../../shared/directives/z.directive';
 const videoStore = useVideoStore();
 
 const date = computed(() => {
-    return new Date(videoStore.videoInfo.recorded_at).toLocaleDateString('en-US', {
+    return new Date(videoStore.info.recorded_at).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -20,7 +20,7 @@ const date = computed(() => {
         :class="{ 'visible opacity-100': videoStore.showControllsAndInfo }"
     >
         <div>
-            <div class="font-bold text-lg">{{ videoStore.videoInfo.title }}</div>
+            <div class="font-bold text-lg">{{ videoStore.info.title }}</div>
             <div class="text-muted">{{ date }}</div>
         </div>
     </div>
