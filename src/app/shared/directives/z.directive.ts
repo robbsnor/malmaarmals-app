@@ -8,7 +8,6 @@ export const Z = {
     VIDEO_CONTAINER: 50,
     VIDEO_CONTROLS: 50,
     CHAT: 54,
-    VIDEO_INFO: 55,
     VIDEO_SRC_ERROR: 60,
 
     OFFLINE: 100,

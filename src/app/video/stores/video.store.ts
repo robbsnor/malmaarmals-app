@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
-import { computed, ref, watch, watchEffect } from 'vue';
+import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../../shared/models/database.types';
 import type { VideoProgression } from '../models/video-progression.model';
-import { computedAsync, useIdle, useMediaControls } from '@vueuse/core';
+import { computedAsync, useIdle, useMediaControls, useWindowSize } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { type ChaptersWithCategory } from '../models/chapters-with-category.model';
@@ -20,6 +20,8 @@ export const useVideoStore = defineStore('video', () => {
     // new
     const theaterMode = ref(true);
     const showChat = ref(true);
+    const showExtraInfoMobile = ref(false);
+    const { width: windowWidth } = useWindowSize();
 
     // video info
     const videoInfo = ref<Tables<'videos'>>();
@@ -87,6 +89,12 @@ export const useVideoStore = defineStore('video', () => {
         videoInfoLoading.value = true;
         videoSrcNotFound.value = false;
     }
+
+    onMounted(() => {
+        if (windowWidth.value > 1200) {
+            theaterMode.value = false;
+        }
+    });
 
     async function fetchVideoInfo() {
         const { data, error } = await supabase
@@ -236,6 +244,7 @@ export const useVideoStore = defineStore('video', () => {
         // new
         theaterMode,
         showChat,
+        showExtraInfoMobile,
 
         // video
         videoInfo,
