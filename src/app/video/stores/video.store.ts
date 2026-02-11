@@ -45,10 +45,7 @@ export const useVideoStore = defineStore('video', () => {
     // video player
     const showControllsAndInfo = ref(true);
     const videoRef = ref<HTMLVideoElement | null>(null);
-    const videoSrc = computedAsync(async () => {
-        if (!videoId.value || !authStore.session) return;
-        return await BucketHelper.getVideoUrl(videoId.value);
-    });
+    const videoSrc = ref<string>(null);
     const videoSrcNotFound = ref(false);
     const {
         currentTime,
@@ -136,6 +133,10 @@ export const useVideoStore = defineStore('video', () => {
 
     function setVideoRef(el: HTMLVideoElement) {
         videoRef.value = el;
+    }
+
+    async function setVideoSrc() {
+        videoSrc.value = await BucketHelper.getVideoUrl(videoId.value);
     }
 
     function setTimePrior(sec: number) {
@@ -284,6 +285,7 @@ export const useVideoStore = defineStore('video', () => {
         playerIsMini,
 
         // functions
+        setVideoSrc,
         fetchVideoInfo,
         fetchChapters,
         fetchMessages,

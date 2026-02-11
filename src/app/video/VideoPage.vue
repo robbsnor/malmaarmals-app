@@ -25,6 +25,7 @@ onMounted(async () => {
     videoStore.videoId = videoId;
 
     await videoStore.fetchVideoInfo();
+    await videoStore.setVideoSrc();
     TitleHelper.setTitle(videoStore.videoInfo.title);
 
     await videoStore.fetchChapters();
