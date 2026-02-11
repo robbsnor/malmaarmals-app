@@ -49,23 +49,28 @@ const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value)
                 <Player ref="videoRef" />
             </div>
 
-            <!-- info -->
-            <VideoInfo
-                :class="videoStore.theaterMode ? 'md:hidden' : 'md:block'"
-                class="bg-fuchsia-700! relative"
-            ></VideoInfo>
+            <template v-if="!videoStore.playerIsMini">
+                <!-- info -->
+                <VideoInfo
+                    :class="videoStore.theaterMode ? 'md:hidden' : 'md:block'"
+                    class="bg-fuchsia-700! relative"
+                ></VideoInfo>
 
-            <div
-                :class="videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0 pointer-events-none'"
-                class="max-md:absolute max-md:overflow-auto w-full bg-fuchsia-300 transition-opacity"
-            >
-                <div class="flex flex-wrap justify-center p-2 gap-2">
-                    <div v-for="n in 100" :key="n" class="aspect-video bg-amber-400 h-20"></div>
+                <div
+                    :class="
+                        videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0 pointer-events-none'
+                    "
+                    class="max-md:absolute max-md:overflow-auto w-full bg-fuchsia-300 transition-opacity"
+                >
+                    <div class="flex flex-wrap justify-center p-2 gap-2">
+                        <div v-for="n in 100" :key="n" class="aspect-video bg-amber-400 h-20"></div>
+                    </div>
                 </div>
-            </div>
+            </template>
         </div>
 
         <div
+            v-if="!videoStore.playerIsMini"
             :class="videoStore.showChat ? 'md:block' : 'md:hidden'"
             class="bg-orange-400 overflow-auto md:shrink-0 md:w-[200px] lg:w-[300px] lg:bg-blue-500 xl:w-[400px] xl:bg-red-500 4xl:w-[500px] 4xl:bg-green-500"
         >
