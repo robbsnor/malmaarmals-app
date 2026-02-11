@@ -24,7 +24,7 @@ onMounted(async () => {
     <div class="relative w-full h-full">
         <video
             preload="metadata"
-            class="w-full h-full object-contain"
+            class="w-full h-full object-contain aspect-video"
             :class="videoStore.theaterMode ? '' : 'max-h-[82vh]'"
             ref="videoRef"
             :src="videoStore.src"
