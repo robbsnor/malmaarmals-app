@@ -1,20 +1,12 @@
 <script setup lang="ts">
 import { nextTick, onMounted, useTemplateRef } from 'vue';
 import { useVideoStore } from '../stores/video.store';
-import { useFullscreen } from '@vueuse/core';
-import { useAppStore } from '../../shared/stores/app.store';
 import MiniplayerControls from './MiniplayerControls.vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import PlayerControls from './PlayerControls.vue';
-import Facecam from './Facecam.vue';
-import { Z } from '../../shared/directives/z.directive';
-import VideoInfo from './VideoInfo.vue';
 
-const appStore = useAppStore();
 const videoStore = useVideoStore();
 const videoRef = useTemplateRef<HTMLVideoElement>('videoRef');
-const canvasRef = useTemplateRef<HTMLCanvasElement>('canvasRef');
-const { isFullscreen, enter, exit, toggle } = useFullscreen();
 
 onMounted(async () => {
     await nextTick();
@@ -33,7 +25,7 @@ onMounted(async () => {
         <video
             preload="metadata"
             class="w-full h-full object-contain"
-            :class="videoStore.theaterMode ? '' : '4xl:max-h-[82vh]'"
+            :class="videoStore.theaterMode ? '' : 'max-h-[82vh]'"
             ref="videoRef"
             :src="videoStore.videoSrc"
             :poster="BucketHelper.getThumbnailUrl(Number(videoStore.videoId))"

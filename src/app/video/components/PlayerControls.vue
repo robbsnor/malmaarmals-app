@@ -126,12 +126,12 @@ async function goToPreviousVideo() {
                         <VolumeControl />
                         <PlayerButton
                             @click="videoStore.theaterMode = !videoStore.theaterMode"
-                            icon="mdi-theater"
+                            :icon="videoStore.theaterMode ? 'mdi-dock-bottom' : 'mdi-dock-right'"
                             class="hidden lg:block"
                         />
                         <PlayerButton
                             @click="videoStore.showChat = !videoStore.showChat"
-                            icon="mdi-chat"
+                            :icon="videoStore.showChat ? 'mdi-chat-outline' : 'mdi-chat'"
                             class="hidden md:block"
                         />
                         <ChaptersDrawer />
