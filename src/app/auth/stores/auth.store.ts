@@ -6,6 +6,8 @@ import { useLocalStorage, useStorage } from '@vueuse/core';
 import { useTwitch } from '../../shared/composables/useTwitch.composable';
 import { useRouter } from 'vue-router';
 
+export const LEKKER_SPELEN_USER_ID = 52385053;
+
 export const useAuthStore = defineStore('auth', () => {
     const router = useRouter();
     const session = useLocalStorage<Session>('session', null);
@@ -13,8 +15,6 @@ export const useAuthStore = defineStore('auth', () => {
     const twitchRefreshToken = useStorage('twitch_refresh_token', null);
     const twitch = useTwitch();
     const twitchUserId = computed(() => session.value?.user.user_metadata?.sub as string);
-    const lekkerSpelenUserId = 52385053;
-    // const lekkerSpelenUserId = 197790255;
 
     const isSubbed = ref(false);
     const isAdmin = computed(() => session.value?.user?.user_metadata.name === 'robbsnor');
@@ -36,7 +36,7 @@ export const useAuthStore = defineStore('auth', () => {
     };
 
     const updateIsSubscribed = async () => {
-        const { data, error } = await twitch.checkUserSubscription(lekkerSpelenUserId);
+        const { data, error } = await twitch.checkUserSubscription(LEKKER_SPELEN_USER_ID);
         // if (error) return;
         isSubbed.value = true;
     };
