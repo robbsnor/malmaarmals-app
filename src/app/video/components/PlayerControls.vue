@@ -168,7 +168,7 @@ async function goToPreviousVideo() {
             </div>
         </div>
 
-        <VideoInfo v-if="videoStore.theaterMode" class="hidden md:flex bg-blue-500/80!"> </VideoInfo>
+        <VideoInfo v-if="videoStore.theaterMode" class="hidden md:flex"> </VideoInfo>
     </div>
 </template>
 
