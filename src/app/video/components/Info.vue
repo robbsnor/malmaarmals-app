@@ -18,7 +18,6 @@ const date = computed(() => {
     <div
         class="invisible transition-all opacity-0 absolute left-0 right-0 md:hidden shadow-2xl bg-black-200 border-b p-4 border-black-400"
         :class="{ 'visible opacity-100': videoStore.showControllsAndInfo }"
-        v-z="Z.VIDEO_INFO"
     >
         <div>
             <div class="font-bold text-lg">{{ videoStore.videoInfo.title }}</div>

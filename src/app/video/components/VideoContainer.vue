@@ -27,22 +27,6 @@ const { width: windowWidth, height: windowHeight } = useWindowSize();
 
 const isMaxHeight = computed(() => containerHeight.value + infoHeight.value >= windowHeight.value);
 const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value);
-
-const containerClasses = computed(() => {
-    return [videoStore.theaterMode ? 'md:h-full' : ''];
-});
-
-const videoInfoClasses = computed(() => {
-    return [videoStore.theaterMode ? 'md:hidden' : 'md:block'];
-});
-
-const extraInfoClasses = computed(() => {
-    return [videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0 pointer-events-none'];
-});
-
-const chatClasses = computed(() => {
-    return [videoStore.showChat ? 'md:block' : 'md:hidden'];
-});
 </script>
 
 <template>
@@ -61,27 +45,30 @@ const chatClasses = computed(() => {
             <div
                 ref="containerRef"
                 class="bg-lime-500 md:flex md:items-center md:justify-center overflow-hidden max-h-screen"
-                :class="containerClasses"
+                :class="videoStore.theaterMode ? 'md:h-full' : ''"
             >
                 <Player ref="videoRef" />
             </div>
 
             <!-- info -->
-            <VideoInfo :class="videoInfoClasses" class="bg-fuchsia-700! relative"></VideoInfo>
+            <VideoInfo
+                :class="videoStore.theaterMode ? 'md:hidden' : 'md:block'"
+                class="bg-fuchsia-700! relative"
+            ></VideoInfo>
 
             <div
-                :class="extraInfoClasses"
+                :class="videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0 pointer-events-none'"
                 class="max-md:absolute max-md:overflow-auto w-full bg-fuchsia-300 transition-opacity"
             >
-                <div class="flex flex-wrap gap-2">
+                <div class="flex flex-wrap justify-center p-2 gap-2">
                     <div v-for="n in 100" :key="n" class="aspect-video bg-amber-400 h-20"></div>
                 </div>
             </div>
         </div>
 
         <div
-            :class="chatClasses"
-            class="chat shrink-0 bg-orange-400 overflow-auto md:shrink-0 md:w-[200px] lg:w-[300px] lg:bg-blue-500 xl:w-[400px] xl:bg-red-500"
+            :class="videoStore.showChat ? 'md:block' : 'md:hidden'"
+            class="chat shrink-0 bg-orange-400 overflow-auto md:shrink-0 md:w-[200px] lg:w-[300px] lg:bg-blue-500 xl:w-[400px] xl:bg-red-500 4xl:w-[500px] 4xl:bg-green-500"
         >
             <div v-for="n in 100" :key="n">{{ n }}</div>
         </div>
