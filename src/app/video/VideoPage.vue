@@ -21,11 +21,7 @@ onMounted(async () => {
     if (isSamePage) return;
     if (!authStore.isSubbed) return;
 
-    videoStore.reset();
-    videoStore.id = videoId;
-
-    await videoStore.fetchInfo();
-    await videoStore.setSrc();
+    await videoStore.init(videoId);
     TitleHelper.setTitle(videoStore.info.title);
 
     await videoStore.fetchChapters();
