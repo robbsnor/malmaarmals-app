@@ -62,7 +62,7 @@ watch(renderedMessages, async () => {
     <div
         v-if="!videoStore.playerIsMini"
         :class="videoStore.showChat ? 'md:block' : 'md:hidden'"
-        class="relative bg-orange-400 overflow-auto h-full md:shrink-0 md:w-[250px] md:bg-fuchsia-400 lg:w-[300px] lg:bg-blue-500 xl:w-[400px] xl:bg-red-500 4xl:w-[500px] 4xl:bg-green-500"
+        class="relative bg-black overflow-auto h-full md:shrink-0 md:w-[250px] md:bg-fuchsia-400f lg:w-[300px] lg:bg-blue-500f xl:w-[400px] xl:bg-red-500f 4xl:w-[500px] 4xl:bg-green-500f"
     >
         <template v-if="!videoStore.messagesLoading">
             <template v-if="videoStore.messages.length">
@@ -75,7 +75,12 @@ watch(renderedMessages, async () => {
                 </ul>
 
                 <div v-visible="userHasScrolledUp" class="absolute bottom-4 flex justify-center left-0 right-0">
-                    <button @click="scrollBackDown()" class="px-4 p-2 bg-sky-400 rounded-md">Scroll back down</button>
+                    <button
+                        @click="scrollBackDown()"
+                        class="px-4 p-2 bg-black border border-black-600 text-primary text-sm font-bold transition-all rounded-md"
+                    >
+                        scroll back down
+                    </button>
                 </div>
             </template>
 

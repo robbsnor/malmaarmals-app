@@ -32,7 +32,7 @@ const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value)
 <template>
     <div
         v-if="videoStore.playerIsActive && authStore.isSubbed"
-        class="fixed bg-green-800 flex flex-col md:flex-row flex-nowrap"
+        class="fixed bg-black flex flex-col md:flex-row flex-nowrap"
         v-z="Z.VIDEO_CONTAINER"
         :class="
             videoStore.playerIsMini
@@ -40,10 +40,10 @@ const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value)
                 : 'top-0 right-0 bottom-0 left-0 '
         "
     >
-        <div class="bg-red-500 md:overflow-auto md:grow scroll-hidden">
+        <div class="md:overflow-auto md:grow scroll-hidden">
             <div
                 ref="containerRef"
-                class="bg-lime-500 md:flex md:items-center md:justify-center overflow-hidden max-h-screen"
+                class="md:flex md:items-center md:justify-center overflow-hidden max-h-screen"
                 :class="videoStore.theaterMode ? 'md:h-full' : ''"
             >
                 <Player ref="videoRef" />
@@ -51,19 +51,16 @@ const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value)
 
             <template v-if="!videoStore.playerIsMini">
                 <!-- info -->
-                <VideoInfo
-                    :class="videoStore.theaterMode ? 'md:hidden' : 'md:block'"
-                    class="bg-fuchsia-700! relative"
-                ></VideoInfo>
+                <VideoInfo :class="videoStore.theaterMode ? 'md:hidden' : 'md:block'" class=" "></VideoInfo>
 
                 <div
                     :class="
                         videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0 pointer-events-none'
                     "
-                    class="max-md:absolute max-md:overflow-auto w-full bg-fuchsia-300 transition-opacity"
+                    class="max-md:absolute max-md:overflow-auto w-full bg-black-300 transition-opacity"
                 >
-                    <div class="flex flex-wrap justify-center p-2 gap-2">
-                        <div v-for="n in 100" :key="n" class="aspect-video bg-amber-400 h-20"></div>
+                    <div class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 p-4">
+                        <div v-for="n in 100" :key="n" class="aspect-video bg-black-200 rounded"></div>
                     </div>
                 </div>
             </template>
