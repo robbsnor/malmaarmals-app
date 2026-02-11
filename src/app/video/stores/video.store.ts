@@ -100,10 +100,12 @@ export const useVideoStore = defineStore('video', () => {
             .select('*')
             .eq('video_id', Number(videoId.value))
             .single();
+
+        videoInfoLoading.value = false;
+
         if (error) throw error;
 
         videoInfo.value = data;
-        videoInfoLoading.value = false;
     }
 
     async function fetchChapters() {
