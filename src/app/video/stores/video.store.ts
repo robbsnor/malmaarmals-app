@@ -71,6 +71,14 @@ export const useVideoStore = defineStore('video', () => {
         if (windowWidth.value > 1200) theaterMode.value = false;
     });
 
+    async function init(videoId: number) {
+        reset();
+
+        id.value = videoId;
+        await fetchInfo();
+        await setSrc();
+    }
+
     function reset() {
         chaptersOG.value = null;
         chapters.value = null;
@@ -278,6 +286,7 @@ export const useVideoStore = defineStore('video', () => {
         subCount,
 
         // functions
+        init,
         setSrc,
         fetchInfo,
         fetchChapters,
