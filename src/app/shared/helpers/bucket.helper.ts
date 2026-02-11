@@ -8,7 +8,7 @@ export class BucketHelper {
         return `${BucketHelper.BUCKET_URL}/thumbnails/${id}`;
     }
 
-    static async getVideoUrl(videoId: number): Promise<string | undefined> {
+    static async getVideoUrl(videoId: number): Promise<GetVideoUrl> {
         const authStore = useAuthStore();
         const twitchUserId = authStore.session?.user?.user_metadata?.provider_id;
         if (!twitchUserId || !authStore.session?.access_token || !authStore.twitchAccessToken) {
@@ -25,11 +25,6 @@ export class BucketHelper {
             body: JSON.stringify({ videoId: videoId, twitchUserId }),
         });
 
-        const { data, error }: GetVideoUrl = await res.json();
-        if (error) return;
-
-        console.log(data.signedUrl);
-
-        return data.signedUrl;
+        return res.json();
     }
 }
