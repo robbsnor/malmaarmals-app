@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { computed, nextTick, useTemplateRef, watch } from 'vue';
+import { computed, nextTick, ref, useTemplateRef, watch } from 'vue';
 import Message from './Message.vue';
 import { useVideoStore } from '../stores/video.store';
 import type { Messages } from '../models/messages.model';
 import { randomNumber } from '../../shared/helpers/randomNumber';
+import { sleep } from '../../shared/helpers/sleep';
 
 const videoStore = useVideoStore();
 const chatRef = useTemplateRef<HTMLElement>('chatRef');
+const userHasScrolledUp = ref(false);
 
-// Derived slice — O(log n) lookup, then a cheap slice. No manual state needed.
 const renderedMessages = computed<Messages>(() => {
     const idx = findLastIndexAtOrBefore(videoStore.currentTimeRounded);
     if (idx === -1) return [];
@@ -16,7 +17,6 @@ const renderedMessages = computed<Messages>(() => {
     return videoStore.messages.slice(start, idx + 1);
 });
 
-// Binary search: find the last message index with offset_sec <= sec
 function findLastIndexAtOrBefore(sec: number): number {
     const msgs = videoStore.messages;
     let left = 0;
@@ -36,10 +36,24 @@ function findLastIndexAtOrBefore(sec: number): number {
     return idx;
 }
 
-// Scroll to bottom whenever the rendered set changes
-watch(renderedMessages, async () => {
-    await nextTick();
+function onScroll() {
     if (!chatRef.value) return;
+    const { scrollTop, scrollHeight, clientHeight } = chatRef.value;
+    const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
+
+    userHasScrolledUp.value = distanceFromBottom > 200;
+}
+
+function scrollBackDown() {
+    if (!chatRef.value) return;
+    chatRef.value.scrollTop = chatRef.value.scrollHeight;
+    userHasScrolledUp.value = false;
+}
+
+watch(renderedMessages, async () => {
+    if (!chatRef.value) return;
+    if (userHasScrolledUp.value) return;
+    await nextTick();
     chatRef.value.scrollTop = chatRef.value.scrollHeight;
 });
 </script>
@@ -48,16 +62,22 @@ watch(renderedMessages, async () => {
     <div
         v-if="!videoStore.playerIsMini"
         :class="videoStore.showChat ? 'md:block' : 'md:hidden'"
-        class="bg-orange-400 overflow-auto h-full md:shrink-0 md:w-[250px] md:bg-fuchsia-400 lg:w-[300px] lg:bg-blue-500 xl:w-[400px] xl:bg-red-500 4xl:w-[500px] 4xl:bg-green-500"
+        class="relative bg-orange-400 overflow-auto h-full md:shrink-0 md:w-[250px] md:bg-fuchsia-400 lg:w-[300px] lg:bg-blue-500 xl:w-[400px] xl:bg-red-500 4xl:w-[500px] 4xl:bg-green-500"
     >
         <template v-if="!videoStore.messagesLoading">
-            <ul
-                v-if="videoStore.messages.length"
-                ref="chatRef"
-                class="bg-green-800f h-full overflow-auto flex flex-col gap-1 px-2 py-2 pt-4"
-            >
-                <Message v-for="message in renderedMessages" :key="message.message_id" :message="message" />
-            </ul>
+            <template v-if="videoStore.messages.length">
+                <ul
+                    ref="chatRef"
+                    class="bg-green-800f h-full overflow-auto flex flex-col gap-1 px-2 py-2 pt-4"
+                    @scroll="onScroll"
+                >
+                    <Message v-for="message in renderedMessages" :key="message.message_id" :message="message" />
+                </ul>
+
+                <div v-if="userHasScrolledUp" class="absolute bottom-4 flex justify-center left-0 right-0">
+                    <button @click="scrollBackDown()" class="px-4 p-2 bg-sky-400 rounded-md">Scroll back down</button>
+                </div>
+            </template>
 
             <div v-else class="h-full flex justify-center items-center">
                 <Empty title="No messages found" description="lekkerAppie" icon="mdi-chat">
