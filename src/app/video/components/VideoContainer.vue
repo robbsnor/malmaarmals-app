@@ -69,12 +69,6 @@ const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value)
             </template>
         </div>
 
-        <div
-            v-if="!videoStore.playerIsMini"
-            :class="videoStore.showChat ? 'md:block' : 'md:hidden'"
-            class="bg-orange-400 overflow-auto md:shrink-0 md:w-[200px] lg:w-[300px] lg:bg-blue-500 xl:w-[400px] xl:bg-red-500 4xl:w-[500px] 4xl:bg-green-500"
-        >
-            <div v-for="n in 100" :key="n">{{ n }}</div>
-        </div>
+        <Chat />
     </div>
 </template>
