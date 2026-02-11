@@ -14,7 +14,7 @@ const date = computed(() => {
 </script>
 
 <template>
-    <div class="min-h-[84px] flex justify-between gap-4 p-4 bg-black-200 border-b border-black-400">
+    <div class="min-h-[84px] flex justify-between gap-4 p-4 bg-black-200 border-fb border-black-400">
         <template v-if="videoStore.info">
             <div>
                 <div class="font-bold text-lg">{{ videoStore.info.title }}</div>
