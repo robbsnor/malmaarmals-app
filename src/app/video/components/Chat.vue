@@ -48,7 +48,7 @@ watch(renderedMessages, async () => {
     <div
         v-if="!videoStore.playerIsMini"
         :class="videoStore.showChat ? 'md:block' : 'md:hidden'"
-        class="bg-orange-400 overflow-auto h-full md:shrink-0 md:w-[250px] lg:w-[300px] lg:bg-blue-500 xl:w-[400px] xl:bg-red-500 4xl:w-[500px] 4xl:bg-green-500"
+        class="bg-orange-400 overflow-auto h-full md:shrink-0 md:w-[250px] md:bg-fuchsia-400 lg:w-[300px] lg:bg-blue-500 xl:w-[400px] xl:bg-red-500 4xl:w-[500px] 4xl:bg-green-500"
     >
         <template v-if="!videoStore.messagesLoading">
             <ul
