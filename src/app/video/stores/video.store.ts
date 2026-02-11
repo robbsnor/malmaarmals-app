@@ -91,9 +91,7 @@ export const useVideoStore = defineStore('video', () => {
     }
 
     onMounted(() => {
-        if (windowWidth.value > 1200) {
-            theaterMode.value = false;
-        }
+        if (windowWidth.value > 1200) theaterMode.value = false;
     });
 
     async function fetchVideoInfo() {
