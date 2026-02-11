@@ -74,7 +74,7 @@ watch(renderedMessages, async () => {
                     <Message v-for="message in renderedMessages" :key="message.message_id" :message="message" />
                 </ul>
 
-                <div v-if="userHasScrolledUp" class="absolute bottom-4 flex justify-center left-0 right-0">
+                <div v-visible="userHasScrolledUp" class="absolute bottom-4 flex justify-center left-0 right-0">
                     <button @click="scrollBackDown()" class="px-4 p-2 bg-sky-400 rounded-md">Scroll back down</button>
                 </div>
             </template>
