@@ -91,8 +91,8 @@ async function goToPreviousVideo() {
                 </div>
             </div>
 
-            <div class="flex justify-center items-center gap-4 grow">
-                <button @click="videoStore.currentTime -= 10">
+            <div class="flex justify-center items-center grow">
+                <button @click="videoStore.currentTime -= 10" class="relative p-4 rounded-full">
                     <v-icon size="24" icon="mdi-rewind-10" />
                 </button>
 
@@ -109,21 +109,22 @@ async function goToPreviousVideo() {
                     />
                 </button>
 
-                <button @click="videoStore.currentTime += 30">
+                <button @click="videoStore.currentTime += 30" class="relative p-4 rounded-full">
                     <v-icon size="24" icon="mdi-fast-forward-30" />
                 </button>
             </div>
 
             <div class="flex flex-col px-4">
                 <div class="flex items-end justify-between gap-4">
-                    <div class="relative flex items-center gap-2 leading-tight">
+                    <div class="relative flex items-center gap-2 leading-tight -mb-2">
                         <div :style="{ width: `${width}pfx` }">{{ videoStore.prettyCurrentTime }}</div>
                         /
                         <div ref="durationEl" class="text-right">{{ videoStore.prettyDuration }}</div>
+
+                        <VolumeControl />
                     </div>
 
                     <div class="relative flex items-center gap-2 -mb-2 z-1">
-                        <VolumeControl />
                         <PlayerButton
                             @click="videoStore.theaterMode = !videoStore.theaterMode"
                             :icon="videoStore.theaterMode ? 'mdi-dock-bottom' : 'mdi-dock-right'"
@@ -135,6 +136,8 @@ async function goToPreviousVideo() {
                             class="hidden md:block"
                         />
                         <ChaptersDrawer />
+
+                        <!-- :icon="isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'" -->
                         <PlayerButton
                             :icon="isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'"
                             @click="toggle()"

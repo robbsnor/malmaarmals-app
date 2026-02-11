@@ -6,9 +6,9 @@ const videoStore = useVideoStore();
 </script>
 
 <template>
-    <div class="hidden lg:flex items-center justify-centers gap-2">
+    <div class="hidden lg:flex items-center justify-centers">
         <PlayerButton
-            :icon="videoStore.muted ? 'mdi-volume-off' : 'mdi-volume-high'"
+            :icon="videoStore.muted || videoStore.volume === 0 ? 'mdi-volume-off' : 'mdi-volume-high'"
             @click="videoStore.muted = !videoStore.muted"
         ></PlayerButton>
 
