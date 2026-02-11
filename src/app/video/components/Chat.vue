@@ -56,17 +56,18 @@ watch(
 
 <template>
     <div
-        v-if="videoStore.messages && !videoStore.playerIsMini"
-        class="bg-red-400f overflow-hidden h-full grow-0 shrink-0 md:w-[250px] lg:w-[350px]"
-        v-z="Z.CHAT"
+        v-if="!videoStore.playerIsMini"
+        :class="videoStore.showChat ? 'md:block' : 'md:hidden'"
+        class="bg-orange-400 overflow-auto md:shrink-0 md:w-[250px] lg:w-[300px] lg:bg-blue-500 xl:w-[400px] xl:bg-red-500 4xl:w-[500px] 4xl:bg-green-500"
     >
         <div v-if="!videoStore.messagesLoading" class="h-full">
             <ul
                 v-if="videoStore.messages.length"
                 ref="chatRef"
-                class="bg-green-800f h-full overflow-auto flex flex-col gap-1 scroll-hidden px-2 py-2 pt-4"
+                class="bg-green-800f h-full overflow-auto flex flex-col gap-1 px-2 py-2 pt-4"
             >
                 <Message v-for="message in renderedMessages" :key="message.message_id" :message="message" />
+                <!-- <div v-for="n in 100" :key="n">{{ n }} werweyruiweyruweh</div> -->
             </ul>
 
             <div v-else class="h-full flex justify-center items-center">
