@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import type { Tables } from '../../shared/models/database.types';
 import { emotesMap } from '../../shared/data/emotes.data';
 import type { Message } from '../models/messages.model';
-import { useAuthStore } from '../../auth/stores/auth.store';
+import { LEKKER_SPELEN_USER_ID, useAuthStore } from '../../auth/stores/auth.store';
 
 const props = withDefaults(
     defineProps<{
@@ -13,13 +13,16 @@ const props = withDefaults(
 );
 const authStore = useAuthStore();
 
-const isMyMessage = computed(() => props.message.user_name === authStore.session.user?.user_metadata?.username);
+const isMyMessage = computed(
+    () => props.message.user_id === Number(authStore.session.user?.user_metadata?.provider_id)
+);
+const isLekkerSpelen = computed(() => props.message.user_id === LEKKER_SPELEN_USER_ID);
 </script>
 
 <template>
     <li
         :class="{
-            'bg-black-400 rounded-sm py-1 -mx-1 px-1': false, // isMyMessage
+            'bg-black-400 rounded-sm py-1 -mx-1 px-1': isMyMessage || isLekkerSpelen,
         }"
         class="text-sm"
     >
