@@ -1,11 +1,9 @@
 import type { QueryData } from '@supabase/supabase-js';
 import { supabase } from '../../../supabase';
 
-const messagesQuery = supabase
+export const messagesQuery = supabase
     .from('messages')
-    .select('*')
-    .select('message_id, offset_sec, text, user_color, user_name')
-    .order('offset_sec', { ascending: true });
+    .select('message_id, offset_sec, text, user_color, user_name, user_id');
 
 export type Messages = QueryData<typeof messagesQuery>;
 export type Message = Messages[number];
