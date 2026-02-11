@@ -3,20 +3,17 @@ import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../../shared/models/database.types';
 import type { VideoProgression } from '../models/video-progression.model';
-import { computedAsync, useIdle, useMediaControls, useWindowSize } from '@vueuse/core';
+import { useIdle, useMediaControls, useWindowSize } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { type ChaptersWithCategory } from '../models/chapters-with-category.model';
 import _ from 'lodash';
 import { messagesQuery, type Messages } from '../models/messages.model';
 import { v4 } from 'uuid';
-import { useAuthStore } from '../../auth/stores/auth.store';
 
 export const TIME_PRIOR_OFFSET_S = 2;
 
 export const useVideoStore = defineStore('video', () => {
-    const authStore = useAuthStore();
-
     // new
     const theaterMode = ref(true);
     const showChat = ref(true);
@@ -99,7 +96,6 @@ export const useVideoStore = defineStore('video', () => {
             .single();
 
         videoInfoLoading.value = false;
-
         if (error) throw error;
 
         videoInfo.value = data;
@@ -134,7 +130,10 @@ export const useVideoStore = defineStore('video', () => {
     }
 
     async function setVideoSrc() {
-        videoSrc.value = await BucketHelper.getVideoUrl(videoId.value);
+        const { data, error } = await BucketHelper.getVideoUrl(videoId.value);
+        if (error) throw error;
+
+        videoSrc.value = data.signedUrl;
     }
 
     function setTimePrior(sec: number) {
