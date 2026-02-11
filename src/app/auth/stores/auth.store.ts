@@ -14,7 +14,7 @@ export const useAuthStore = defineStore('auth', () => {
     const twitchAccessToken = useStorage('twitch_access_token', null);
     const twitchRefreshToken = useStorage('twitch_refresh_token', null);
     const twitch = useTwitch();
-    const twitchUserId = computed(() => session.value?.user.user_metadata?.sub as string);
+    const twitchUserId = computed(() => Number(session.value?.user?.user_metadata?.sub));
 
     const isSubbed = ref(false);
     const isAdmin = computed(() => session.value?.user?.user_metadata.name === 'robbsnor');

@@ -11,6 +11,7 @@ import { sleep } from '../../shared/helpers/sleep';
 import { useWindowSize } from '@vueuse/core';
 import VideoInfo from './VideoInfo.vue';
 import { useDisplay } from 'vuetify';
+import ExtraInfoItem from './ExtraInfoItem.vue';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
@@ -27,6 +28,28 @@ const { width: windowWidth, height: windowHeight } = useWindowSize();
 
 const isMaxHeight = computed(() => containerHeight.value + infoHeight.value >= windowHeight.value);
 const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value);
+
+const topChattersLength = ref(25);
+
+const topChatters = computed(() => {
+    const counts = new Map<number, { userId: number; userName: string; count: number; color: string }>();
+
+    for (const msg of videoStore.messages) {
+        const existing = counts.get(msg.user_id);
+        if (existing) {
+            existing.count++;
+        } else {
+            counts.set(msg.user_id, { userId: msg.user_id, userName: msg.user_name, count: 1, color: msg.user_color });
+        }
+    }
+
+    return [...counts.values()].sort((a, b) => b.count - a.count);
+});
+
+const myStats = computed(() => {
+    const index = topChatters.value.findIndex((c) => c.userId === authStore.twitchUserId);
+    return index === -1 ? null : { ...topChatters.value[index], rank: index + 1 };
+});
 </script>
 
 <template>
@@ -53,7 +76,42 @@ const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value)
                 <!-- info -->
                 <VideoInfo :class="videoStore.theaterMode ? 'md:hidden' : 'md:block'" class=" "></VideoInfo>
 
-                <div
+                <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4 p-4">
+                    <ExtraInfoItem title="Top Chatters">
+                        <template #actions>
+                            <div class="text-muted-more">{{ videoStore.messages.length }}</div>
+                        </template>
+                        <div
+                            v-for="(chatter, i) in topChatters.slice(0, topChattersLength)"
+                            :key="chatter.userName"
+                            class="flex justify-between"
+                        >
+                            <div>
+                                <span class="text-muted font-bold">{{ i + 1 }}. </span>
+                                <span class="font-bold" :style="{ color: chatter.color }"
+                                    >{{ chatter.userName }}:
+                                </span>
+                            </div>
+
+                            <span>{{ chatter.count }}</span>
+                        </div>
+                        <template v-if="myStats && myStats.rank > topChattersLength">
+                            <div class="h-[1px] bg-black-300 my-1"></div>
+                            <div class="flex justify-between">
+                                <div>
+                                    <span>{{ myStats.rank }}. </span>
+                                    <span class="font-bold" :style="{ color: myStats.color }"
+                                        >{{ myStats.userName }}:
+                                    </span>
+                                </div>
+
+                                <span>{{ myStats.count }}</span>
+                            </div>
+                        </template>
+                    </ExtraInfoItem>
+                </div>
+
+                <!-- <div
                     :class="
                         videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0 pointer-events-none'
                     "
@@ -62,7 +120,7 @@ const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value)
                     <div class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 p-4">
                         <div v-for="n in 100" :key="n" class="aspect-video bg-black-200 rounded"></div>
                     </div>
-                </div>
+                </div> -->
             </template>
         </div>
 
