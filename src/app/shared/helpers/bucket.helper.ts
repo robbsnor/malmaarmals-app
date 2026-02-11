@@ -1,16 +1,5 @@
 import { useAuthStore } from '../../auth/stores/auth.store';
-
-export interface BucketReturn<T> {
-    data: T | null;
-    error: {
-        message: string;
-        code: number;
-    } | null;
-}
-
-export type GetVideoUrl = BucketReturn<{
-    signedUrl: string;
-}>;
+import type { GetVideoUrl } from '../models/bucket.models';
 
 export class BucketHelper {
     static BUCKET_URL = import.meta.env.VITE_BUCKET_URL;
@@ -19,11 +8,12 @@ export class BucketHelper {
         return `${BucketHelper.BUCKET_URL}/thumbnails/${id}`;
     }
 
-    static async getVideoUrl(videoId: number): Promise<string | undefined> {
+    static async getVideoUrl(videoId: number): Promise<GetVideoUrl> {
         const authStore = useAuthStore();
         const twitchUserId = authStore.session?.user?.user_metadata?.provider_id;
-        if (!twitchUserId || !authStore.session?.access_token || !authStore.twitchAccessToken)
+        if (!twitchUserId || !authStore.session?.access_token || !authStore.twitchAccessToken) {
             throw new Error('User not authenticated');
+        }
 
         const res = await fetch(`${BucketHelper.BUCKET_URL}/generate-video-url`, {
             method: 'POST',
@@ -35,11 +25,6 @@ export class BucketHelper {
             body: JSON.stringify({ videoId: videoId, twitchUserId }),
         });
 
-        const { data, error }: GetVideoUrl = await res.json();
-        if (error) return;
-
-        console.log(data.signedUrl);
-
-        return data.signedUrl;
+        return res.json();
     }
 }
