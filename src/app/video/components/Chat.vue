@@ -68,7 +68,7 @@ watch(renderedMessages, async () => {
             <template v-if="videoStore.messages.length">
                 <ul
                     ref="chatRef"
-                    class="bg-green-800f h-full overflow-auto flex flex-col gap-1 px-2 py-2 pt-4"
+                    class="bg-green-800f h-full overflow-auto max-lg:scroll-hidden flex flex-col gap-1 px-2 py-2 pt-4"
                     @scroll="onScroll"
                 >
                     <Message v-for="message in renderedMessages" :key="message.message_id" :message="message" />
