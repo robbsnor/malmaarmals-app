@@ -57,7 +57,7 @@ export function useTwitch() {
     const checkUserSubscription = (broadcasterId: number) => {
         const url = new URL('https://api.twitch.tv/helix/subscriptions/user');
         url.searchParams.set('broadcaster_id', broadcasterId.toString());
-        url.searchParams.set('user_id', authStore.twitchUserId);
+        url.searchParams.set('user_id', authStore.twitchUserId.toString());
         return req<TwitchCheckUserSubscription>(url.toString());
     };
 

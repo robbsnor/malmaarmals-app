@@ -76,7 +76,12 @@ const myStats = computed(() => {
                 <!-- info -->
                 <VideoInfo :class="videoStore.theaterMode ? 'md:hidden' : 'md:block'" class=" "></VideoInfo>
 
-                <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4 p-4">
+                <div
+                    :class="
+                        videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0 pointer-events-none'
+                    "
+                    class="max-md:absolute max-md:overflow-auto w-full bg-black-300 transition-opacity grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4 p-4"
+                >
                     <ExtraInfoItem title="Top Chatters">
                         <template #actions>
                             <div class="text-muted-more">{{ videoStore.messages.length }}</div>
