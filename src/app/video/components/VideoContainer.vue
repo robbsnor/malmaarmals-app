@@ -40,7 +40,7 @@ const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value)
                 : 'top-0 right-0 bottom-0 left-0 '
         "
     >
-        <div class="bg-red-500 md:overflow-auto md:grow">
+        <div class="bg-red-500 md:overflow-auto md:grow scroll-hidden">
             <div
                 ref="containerRef"
                 class="bg-lime-500 md:flex md:items-center md:justify-center overflow-hidden max-h-screen"
@@ -67,7 +67,7 @@ const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value)
 
         <div
             :class="videoStore.showChat ? 'md:block' : 'md:hidden'"
-            class="chat shrink-0 bg-orange-400 overflow-auto md:shrink-0 md:w-[200px] lg:w-[300px] lg:bg-blue-500 xl:w-[400px] xl:bg-red-500 4xl:w-[500px] 4xl:bg-green-500"
+            class="bg-orange-400 overflow-auto md:shrink-0 md:w-[200px] lg:w-[300px] lg:bg-blue-500 xl:w-[400px] xl:bg-red-500 4xl:w-[500px] 4xl:bg-green-500"
         >
             <div v-for="n in 100" :key="n">{{ n }}</div>
         </div>
