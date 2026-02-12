@@ -12,9 +12,10 @@ import ChapterMarker from './ChapterMarker.vue';
 import PreferenceDrawer from './PreferenceDrawer.vue';
 import { usePreferenceStore } from '../../shared/stores/preference.store';
 import { Z } from '../../shared/directives/z.directive';
-import { prevRoute } from '../../../router/router';
+import { routeHistory } from '../../../router/router';
 import { useVideosStore } from '../stores/videos.store';
 import VideoInfo from './VideoInfo.vue';
+import _ from 'lodash';
 
 const videoStore = useVideoStore();
 const videosStore = useVideosStore();
@@ -26,8 +27,9 @@ const { width, height } = useElementSize(durationEl);
 const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
 
 const goBack = () => {
+    const prevUrl = _.findLast(routeHistory, (r) => r.name !== router.currentRoute.value.name); // also handles undefined
+    router.push(prevUrl);
     videoStore.playerIsMini = true;
-    router.push(prevRoute.fullPath);
 };
 
 function changeOrientation() {
