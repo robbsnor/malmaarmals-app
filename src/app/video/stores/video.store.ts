@@ -65,6 +65,7 @@ export const useVideoStore = defineStore('video', () => {
     // chapters
     const chaptersOG = ref<ChaptersWithCategory>([]);
     const chapters = ref<ChaptersWithCategory>([]);
+    const chaptersLoading = ref(true);
     const hasChapterChanges = computed(() => !_.isEqual(chapters.value, chaptersOG.value));
     const chaptersEditMode = ref(false);
     const showChapterDrawer = ref(false);
@@ -116,6 +117,7 @@ export const useVideoStore = defineStore('video', () => {
         duration.value = 0;
         messages.value = [];
         id.value = null;
+        chaptersLoading.value = true;
         chapters.value = null;
         info.value = null;
         playing.value = false;
@@ -135,12 +137,14 @@ export const useVideoStore = defineStore('video', () => {
     }
 
     async function fetchChapters() {
+        chaptersLoading.value = true;
         const { data, error } = await supabase
             .from('chapters')
             .select('*, category:categories(*)')
             .order('start_s', { ascending: true })
             .eq('video_id', id.value);
 
+        chaptersLoading.value = false;
         if (error) throw error;
 
         chaptersOG.value = _.cloneDeep(data);
@@ -307,6 +311,7 @@ export const useVideoStore = defineStore('video', () => {
 
         // chapters
         chapters,
+        chaptersLoading,
         chaptersEditMode,
         showChapterDrawer,
         hasChapterChanges,

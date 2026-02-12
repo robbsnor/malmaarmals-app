@@ -11,6 +11,7 @@ import VideoInfo from './VideoInfo.vue';
 import { useDisplay } from 'vuetify';
 import ExtraInfoPlaylist from './ExtraInfoPlaylist.vue';
 import ExtraInfoMessages from './ExtraInfoMessages.vue';
+import ExtraInfoChapters from './ExtraInfoChapters.vue';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
@@ -41,10 +42,10 @@ const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value)
                 : 'top-0 right-0 bottom-0 left-0 '
         "
     >
-        <div class="md:overflow-auto md:grow scroll-hidden">
+        <div class="md:overflow-auto md:grow scroll-hidden bg-black-100">
             <div
                 ref="containerRef"
-                class="md:flex md:items-center md:justify-center overflow-hidden max-h-screen"
+                class="md:flex md:items-center md:justify-center overflow-hidden max-h-screen bg-black"
                 :class="videoStore.theaterMode ? 'md:h-full' : ''"
             >
                 <Player ref="videoRef" />
@@ -56,11 +57,11 @@ const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value)
 
                 <div
                     :class="videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0  '"
-                    class="max-md:absolute max-md:overflow-auto w-full transition-opacity grid grid-cols-[repeat(auto-fill,minmax(500px,1fr))] gap-4 p-4"
+                    class="max-md:absolute max-md:overflow-auto w-full transition-opacity grid grid-cols-[repeat(auto-fill,minmax(500px,1fr))] gap-8 p-8"
                 >
-                    <ExtraInfoPlaylist />
-
                     <ExtraInfoMessages />
+                    <ExtraInfoChapters />
+                    <ExtraInfoPlaylist />
                 </div>
 
                 <!-- <div
