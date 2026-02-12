@@ -5,36 +5,34 @@ import { playlistsQuery, type Playlist, type Playlists } from '../models/playlis
 import { supabase } from '../../../supabase';
 import { sleep } from '../../shared/helpers/sleep';
 import { useArchiveStore } from '../../archive/stores/archive.store';
+import { useVideosStore } from '../../video/stores/videos.store';
 
 export const usePlaylistsStore = defineStore('playlists', () => {
-    const route = useRoute();
+    const videosStore = useVideosStore();
     const archiveStore = useArchiveStore();
     const playlists = ref<Playlists>([]);
+    const playlistsWithVideos = computed(() => {
+        return playlists.value.map((playlist) => {
+            const ids = playlist.videos.map((v) => v.video_id);
+            const videos = videosStore.videos.filter((video) => ids.includes(video.video_id));
+            return { ...playlist, videos };
+        });
+    });
 
     const fetchPlaylists = async () => {
-        const { data, error } = await playlistsQuery;
+        const { data, error } = await playlistsQuery.order('created_at', { ascending: false });
         if (error) return console.log(error);
 
-        const sorted = data.map((playlist) => {
-            // order videos by recorded_at desc
-            playlist.videos.sort((a, b) => b.recorded_at.localeCompare(a.recorded_at));
-            return playlist;
-        });
-
-        playlists.value = sorted;
+        playlists.value = data;
     };
 
     const getPlaylistById = (id: Ref<string>) => {
-        return playlists.value.find((p) => p.id === id.value);
+        return playlistsWithVideos.value.find((p) => p.id === id.value);
     };
 
     const deletePlaylist = async (playlist: Playlist) => {
-        await sleep(500);
         const { error } = await supabase.from('playlists').delete().eq('id', playlist.id);
-
-        if (!error) {
-            await fetchPlaylists();
-        }
+        if (!error) await fetchPlaylists();
 
         return { error };
     };
@@ -53,6 +51,7 @@ export const usePlaylistsStore = defineStore('playlists', () => {
         fetchPlaylists,
         deletePlaylist,
         playlists,
+        playlistsWithVideos,
         filteredPlaylists,
     };
 });
