@@ -74,10 +74,10 @@ export const useVideoStore = defineStore('video', () => {
     const playlistId = ref<string>();
     const playlist = computed(() => {
         if (playlistId.value) {
-            return playlistsStore.playlistsWithVideos.find((p) => p.id === playlistId.value);
+            return playlistsStore.playlists.find((p) => p.id === playlistId.value);
         } else {
             // find playlist that contains the video
-            return playlistsStore.playlistsWithVideos.find((p) => p.videos.some((v) => v.video_id === id.value));
+            return playlistsStore.playlists.find((p) => p.videos.some((v) => v.video_id === id.value));
         }
     });
 
