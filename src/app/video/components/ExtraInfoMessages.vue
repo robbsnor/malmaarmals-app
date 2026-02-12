@@ -7,7 +7,7 @@ import { useAuthStore } from '../../auth/stores/auth.store';
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
 
-const topChattersLength = ref(25);
+const topChattersLength = ref(10);
 
 const topChatters = computed(() => {
     const counts = new Map<number, { userId: number; userName: string; count: number; color: string }>();
@@ -31,7 +31,7 @@ const myStats = computed(() => {
 </script>
 
 <template>
-    <ExtraInfoItem v-if="!videoStore.messagesLoading" title="Top Chatters">
+    <ExtraInfoItem v-if="videoStore.messages.length" title="Top Chatters">
         <template #actions>
             <div class="text-muted-more">{{ videoStore.messages.length }}</div>
         </template>
