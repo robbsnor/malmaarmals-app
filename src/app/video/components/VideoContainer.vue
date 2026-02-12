@@ -3,15 +3,14 @@ import Player from './Player.vue';
 import Chat from './Chat.vue';
 import { useVideoStore } from '../stores/video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
-import Info from './Info.vue';
 import { Z } from '../../shared/directives/z.directive';
-import { computed, nextTick, ref, useTemplateRef, watch, type StyleValue } from 'vue';
-import { useElementSize, useTransition } from '@vueuse/core';
-import { sleep } from '../../shared/helpers/sleep';
+import { computed, useTemplateRef } from 'vue';
+import { useElementSize } from '@vueuse/core';
 import { useWindowSize } from '@vueuse/core';
 import VideoInfo from './VideoInfo.vue';
 import { useDisplay } from 'vuetify';
-import ExtraInfoItem from './ExtraInfoItem.vue';
+import ExtraInfoPlaylist from './ExtraInfoPlaylist.vue';
+import ExtraInfoMessages from './ExtraInfoMessages.vue';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
@@ -28,32 +27,11 @@ const { width: windowWidth, height: windowHeight } = useWindowSize();
 
 const isMaxHeight = computed(() => containerHeight.value + infoHeight.value >= windowHeight.value);
 const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value);
-
-const topChattersLength = ref(25);
-
-const topChatters = computed(() => {
-    const counts = new Map<number, { userId: number; userName: string; count: number; color: string }>();
-
-    for (const msg of videoStore.messages) {
-        const existing = counts.get(msg.user_id);
-        if (existing) {
-            existing.count++;
-        } else {
-            counts.set(msg.user_id, { userId: msg.user_id, userName: msg.user_name, count: 1, color: msg.user_color });
-        }
-    }
-
-    return [...counts.values()].sort((a, b) => b.count - a.count);
-});
-
-const myStats = computed(() => {
-    const index = topChatters.value.findIndex((c) => c.userId === authStore.twitchUserId);
-    return index === -1 ? null : { ...topChatters.value[index], rank: index + 1 };
-});
 </script>
 
 <template>
     <div
+        ref="videoContainerRef"
         v-if="videoStore.playerIsActive && authStore.isSubbed"
         class="fixed bg-black flex flex-col md:flex-row flex-nowrap"
         v-z="Z.VIDEO_CONTAINER"
@@ -77,43 +55,12 @@ const myStats = computed(() => {
                 <VideoInfo :class="videoStore.theaterMode ? 'md:hidden' : 'md:block'" class=" "></VideoInfo>
 
                 <div
-                    :class="
-                        videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0 pointer-events-none'
-                    "
-                    class="max-md:absolute max-md:overflow-auto w-full transition-opacity grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4 p-4"
+                    :class="videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0  '"
+                    class="max-md:absolute max-md:overflow-auto w-full transition-opacity grid grid-cols-[repeat(auto-fill,minmax(500px,1fr))] gap-4 p-4"
                 >
-                    <ExtraInfoItem title="Top Chatters">
-                        <template #actions>
-                            <div class="text-muted-more">{{ videoStore.messages.length }}</div>
-                        </template>
-                        <div
-                            v-for="(chatter, i) in topChatters.slice(0, topChattersLength)"
-                            :key="chatter.userName"
-                            class="flex justify-between"
-                        >
-                            <div>
-                                <span class="text-muted font-bold">{{ i + 1 }}. </span>
-                                <span class="font-bold" :style="{ color: chatter.color }"
-                                    >{{ chatter.userName }}:
-                                </span>
-                            </div>
+                    <ExtraInfoPlaylist />
 
-                            <span>{{ chatter.count }}</span>
-                        </div>
-                        <template v-if="myStats && myStats.rank > topChattersLength">
-                            <div class="h-[1px] bg-black-300 my-1"></div>
-                            <div class="flex justify-between">
-                                <div>
-                                    <span>{{ myStats.rank }}. </span>
-                                    <span class="font-bold" :style="{ color: myStats.color }"
-                                        >{{ myStats.userName }}:
-                                    </span>
-                                </div>
-
-                                <span>{{ myStats.count }}</span>
-                            </div>
-                        </template>
-                    </ExtraInfoItem>
+                    <ExtraInfoMessages />
                 </div>
 
                 <!-- <div

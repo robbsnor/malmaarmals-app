@@ -8,12 +8,15 @@ import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { type ChaptersWithCategory } from '../models/chapters-with-category.model';
 import _ from 'lodash';
-import { messagesQuery, type Messages } from '../models/messages.model';
+import { messagesQueryStringSelect, type Messages } from '../models/messages.model';
 import { v4 } from 'uuid';
+import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
 
 export const TIME_PRIOR_OFFSET_S = 2;
 
 export const useVideoStore = defineStore('video', () => {
+    const playlistsStore = usePlaylistsStore();
+
     // layout
     const theaterMode = ref(true);
     const showChat = ref(true);
@@ -66,15 +69,41 @@ export const useVideoStore = defineStore('video', () => {
     const chaptersEditMode = ref(false);
     const showChapterDrawer = ref(false);
 
+    // playlist
+    const playlistId = ref<string>();
+    const playlist = computed(() => {
+        if (playlistId.value) {
+            return playlistsStore.playlists.find((p) => p.id === playlistId.value);
+        } else {
+            // find playlist that contains the video
+            return playlistsStore.playlists.find((p) => p.videos.some((v) => v.video_id === id.value));
+        }
+    });
+
+    const playlistNextVideo = computed(() => {
+        if (!playlist.value) return null;
+        const currentIndex = playlist.value.videos.findIndex((v) => v.video_id === id.value);
+        if (currentIndex === -1 || currentIndex === playlist.value.videos.length - 1) return null;
+        return playlist.value.videos[currentIndex + 1];
+    });
+
+    const playlistPrevVideo = computed(() => {
+        if (!playlist.value) return null;
+        const currentIndex = playlist.value.videos.findIndex((v) => v.video_id === id.value);
+        if (currentIndex <= 0) return null;
+        return playlist.value.videos[currentIndex - 1];
+    });
+
     // functions
     onMounted(() => {
         if (windowWidth.value > 1024) theaterMode.value = false;
     });
 
-    async function init(videoId: number) {
+    async function init(videoId: number, _playlistId?: string) {
         reset();
 
         id.value = videoId;
+        playlistId.value = _playlistId;
         await fetchInfo();
         await setSrc();
     }
@@ -119,7 +148,9 @@ export const useVideoStore = defineStore('video', () => {
     }
 
     async function fetchMessages() {
-        const { data, error } = await messagesQuery
+        const { data, error } = await supabase
+            .from('messages')
+            .select(messagesQueryStringSelect)
             .eq('video_id', Number(id.value))
             .order('offset_sec', { ascending: true });
 
@@ -279,6 +310,12 @@ export const useVideoStore = defineStore('video', () => {
         chaptersEditMode,
         showChapterDrawer,
         hasChapterChanges,
+
+        // playlist
+        playlistId,
+        playlist,
+        playlistNextVideo,
+        playlistPrevVideo,
 
         // messages
         messages,

@@ -7,7 +7,7 @@ import { randomNumber } from '../../shared/helpers/randomNumber';
 import { sleep } from '../../shared/helpers/sleep';
 
 const videoStore = useVideoStore();
-const chatRef = useTemplateRef<HTMLElement>('chatRef');
+const chatRef = ref<HTMLElement>(null);
 const userHasScrolledUp = ref(false);
 
 const renderedMessages = computed<Messages>(() => {

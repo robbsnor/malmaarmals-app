@@ -28,7 +28,7 @@ const dialog = ref(false);
 
 <template>
     <Container :padding="false">
-        <div class="relative overflow-hidden aspect-[16/8]">
+        <div class="relative overflow-hidden h-[500px]">
             <img
                 v-if="playlist.videos.length"
                 :src="BucketHelper.getThumbnailUrl(Number(playlist.videos[0].video_id))"
@@ -72,7 +72,7 @@ const dialog = ref(false);
                 <RouterLink
                     v-for="video in playlist?.videos"
                     :key="video.id"
-                    :to="{ name: 'video', params: { id: video.video_id } }"
+                    :to="{ name: 'video', params: { id: video.video_id }, query: { playlistId: playlist.id } }"
                     class="flex gap-4"
                 >
                     <VideoThumbnail
