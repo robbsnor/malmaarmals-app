@@ -23,8 +23,8 @@ export const usePlaylistsStore = defineStore('playlists', () => {
         return playlists.value.find((p) => p.id === id.value);
     };
 
-    const deletePlaylist = async (playlist: Playlist) => {
-        const { error } = await supabase.from('playlists').delete().eq('id', playlist.id);
+    const deletePlaylist = async (id: string) => {
+        const { error } = await supabase.from('playlists').delete().eq('id', id);
         if (!error) await fetchPlaylists();
 
         return { error };

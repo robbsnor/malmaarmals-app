@@ -3,6 +3,7 @@ import { ref, useTemplateRef } from 'vue';
 import VideoItem from '../../video/components/VideoItem.vue';
 import { useVideosStore } from '../../video/stores/videos.store';
 import { useArchiveStore } from '../stores/archive.store';
+import FilterIndicator from './FilterIndicator.vue';
 
 const videosStore = useVideosStore();
 const archiveStore = useArchiveStore();
@@ -10,6 +11,8 @@ const amountToShow = ref(100);
 </script>
 
 <template>
+    <FilterIndicator archiveType="STREAMS" />
+
     <div class="grid grid-cols gap-4">
         <VideoItem
             v-for="video in videosStore.filteredVideos.slice(0, amountToShow)"
