@@ -41,6 +41,7 @@ onStartTyping(() => {
                 :rounded="true"
                 placeholder="Search..."
                 density="comfortable"
+                persistent-clear
                 hide-details="auto"
                 append-inner-icon="mdi-magnify"
                 class="w-full"
