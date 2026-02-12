@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { useAuthStore } from '../../auth/stores/auth.store';
 import { useVideoStore } from '../stores/video.store';
 import ExtraInfoItem from './ExtraInfoItem.vue';
-import { useAuthStore } from '../../auth/stores/auth.store';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
@@ -33,7 +33,25 @@ const myStats = computed(() => {
 <template>
     <ExtraInfoItem v-if="videoStore.messages.length" title="Top Chatters">
         <template #actions>
-            <div class="text-muted-more">{{ videoStore.messages.length }}</div>
+            <v-menu location="start" open-on-hover open-delay="0">
+                <template v-slot:activator="{ props }">
+                    <v-btn color="primary" size="x-small" variant="text" icon="mdi-chart-line-variant" v-bind="props">
+                    </v-btn>
+                </template>
+
+                <div class="bg-black/80 p-2 rounded flex flex-col gap-1">
+                    <div class="text-xs grid grid-cols-[150px_auto] gap-x-4">
+                        <div>unique chatters:</div>
+                        <div>{{ topChatters.length }}</div>
+                        <div>total messages:</div>
+                        <div>{{ videoStore.messages.length }}</div>
+                        <div>subscribers:*</div>
+                        <div>{{ videoStore.subCount }}</div>
+                    </div>
+                    <div class="h-[1px] bg-black-200"></div>
+                    <div class="text-muted text-xs">*based on text messages.</div>
+                </div>
+            </v-menu>
         </template>
         <div>
             <div class="overflow-auto p-4 py-2">
