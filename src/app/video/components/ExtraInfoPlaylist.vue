@@ -11,7 +11,7 @@ const videoStore = useVideoStore();
 
 <template>
     <ExtraInfoItem v-if="videoStore.playlist" title="Playlist">
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-4 max-h-[800px] overflow-y-auto p-4">
             <VideoItem
                 v-for="video in videoStore.playlist.videos"
                 :key="video.video_id"
