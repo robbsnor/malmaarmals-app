@@ -27,22 +27,6 @@ const authStore = useAuthStore();
             </button>
         </div>
 
-        <Empty v-else title="No chapters yet..." icon="mdi-format-list-bulleted">
-            <div class="flex flex-col gap-4">
-                <v-btn
-                    v-if="authStore.isAdmin"
-                    @click="
-                        () => {
-                            videoStore.chaptersEditMode = true;
-                            videoStore.addEmptyChapter();
-                        }
-                    "
-                    color="primary"
-                    prepend-icon="mdi-plus"
-                >
-                    Add Chapters
-                </v-btn>
-            </div>
-        </Empty>
+        <Empty v-else title="No chapters yet..." icon="mdi-format-list-bulleted"> </Empty>
     </ExtraInfoItem>
 </template>

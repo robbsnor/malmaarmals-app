@@ -11,8 +11,9 @@ const videoStore = useVideoStore();
 
 <template>
     <ExtraInfoItem v-if="videoStore.playlist" title="Playlist">
-        <div class="flex flex-col gap-4 max-h-[800px] overflow-y-auto p-4">
+        <div class="flex flex-col max-h-[800px] overflow-y-auto -4">
             <VideoItem
+                class="px-4 py-2 hover:bg-black-400 transition-all"
                 v-for="video in videoStore.playlist.videos"
                 :key="video.video_id"
                 :to="{ name: 'video', params: { id: video.video_id }, query: { playlistId: videoStore.playlist.id } }"

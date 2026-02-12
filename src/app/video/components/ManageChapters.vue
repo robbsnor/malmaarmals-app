@@ -1,103 +1,32 @@
 <script setup lang="ts">
-import { nextTick, ref } from 'vue';
-import { supabase } from '../../../supabase';
+import { ref } from 'vue';
 import ManageChaptersRow from './ManageChaptersRow.vue';
-import { useVideoStore } from '../stores/video.store';
 import { sleep } from '../../shared/helpers/sleep';
 import ChapterControlls from './ChapterControlls.vue';
-import { v4 } from 'uuid';
-import { useVideosStore } from '../stores/videos.store';
+import { useManageChaptersStore } from '../stores/manage-chapters.store';
 
-const emits = defineEmits<{
-    (e: 'add-chapter'): void;
-}>();
-const videoStore = useVideoStore();
-const valid = ref(false);
-const videosStore = useVideosStore();
-const loading = ref(false);
-const resetLoading = ref(false);
+const manageChaptersStore = useManageChaptersStore();
 const showConfirmCancelDialog = ref(false);
-
-async function saveCategories() {
-    const categories = videoStore.chapters.map((chapter) => ({
-        category_id: chapter.category.category_id,
-        title: chapter.category.title,
-        image_url: chapter.category.image_url,
-    }));
-
-    for (const category of categories) {
-        const { error } = await supabase.from('categories').upsert(category, { onConflict: 'category_id' });
-        if (error) throw error;
-    }
-}
-
-async function deleteExistingChapters() {
-    const { error } = await supabase.from('chapters').delete().eq('video_id', videoStore.id);
-    if (error) throw error;
-}
-
-async function saveChapters() {
-    videoStore.chapters.sort((a, b) => a.start_s - b.start_s);
-
-    const chapters = videoStore.chapters.map((chapter, i) => ({
-        video_id: videoStore.id,
-        category_id: chapter.category.category_id,
-        start_s: chapter.start_s,
-        end_s:
-            i < videoStore.chapters.length - 1
-                ? videoStore.chapters[i + 1].start_s
-                : Math.floor(videoStore.info.length_sec),
-    }));
-
-    const { error } = await supabase.from('chapters').insert(chapters);
-    if (error) throw error;
-}
-
-const save = async () => {
-    loading.value = true;
-
-    await saveCategories();
-    await deleteExistingChapters();
-    await saveChapters();
-    await videoStore.fetchChapters();
-    await videosStore.fetchVideos();
-
-    loading.value = false;
-    videoStore.showChapterDrawer = false;
-
-    await sleep(500);
-    videoStore.chaptersEditMode = false;
-};
-
-async function discard(force = false) {
-    // if (videoStore.hasChapterChanges && !force) {
-    //     showConfirmCancelDialog.value = true;
-    //     return;
-    // }
-
-    videoStore.resetChaptersForm();
-    videoStore.chaptersEditMode = false;
-}
 </script>
 
 <template>
     <div class="flex flex-col max-h-[60vh]">
         <div class="overflow-x-hidden p-4 pb-0">
-            <v-form v-model="valid" v-auto-animate class="flex flex-col gap-4">
+            <v-form v-model="manageChaptersStore.valid" v-auto-animate class="flex flex-col gap-4">
                 <ManageChaptersRow
-                    v-for="(chapter, i) in videoStore.chapters"
+                    v-for="(chapter, i) in manageChaptersStore.chapters"
                     :key="chapter.id"
-                    v-model="videoStore.chapters[i]"
+                    v-model="manageChaptersStore.chapters[i]"
                     :i="i"
                 />
             </v-form>
         </div>
 
-        <Empty v-if="!videoStore.chapters?.length" title="No chapters..." description="lekkerAppie"></Empty>
+        <Empty v-if="!manageChaptersStore.chapters?.length" title="No chapters..." description="lekkerAppie"></Empty>
 
         <div class="p-4 flex flex-col gap-4">
             <v-btn
-                @click="videoStore.addEmptyChapter"
+                @click="manageChaptersStore.addEmptyChapter"
                 prepend-icon="mdi-plus"
                 variant="tonal"
                 class="w-full"
@@ -121,26 +50,29 @@ async function discard(force = false) {
                 @confirm="
                     async () => {
                         await sleep(500);
-                        await discard(true);
+                        await manageChaptersStore.discard();
                     }
                 "
             />
 
             <div>
-                <div v-if="videoStore.hasChapterChanges" class="text-muted-more underline italic text-sm">
+                <div v-if="manageChaptersStore.isModified" class="text-muted-more underline italic text-sm">
                     Unsaved changes
                 </div>
             </div>
 
             <div class="flex items-center justify-between gap-4">
-                <v-btn v-if="videoStore.hasChapterChanges" variant="text" :loading="resetLoading" @click="discard()">
+                <v-btn v-if="manageChaptersStore.isModified" variant="text" @click="manageChaptersStore.discard()">
                     Discard
                 </v-btn>
-                <v-btn v-else variant="text" :loading="resetLoading" @click="videoStore.chaptersEditMode = false"
-                    >Cancel</v-btn
-                >
+                <v-btn v-else variant="text" @click="manageChaptersStore.editMode = false"> Cancel </v-btn>
 
-                <v-btn color="primary" @click="save" :loading="loading" :disabled="!videoStore.hasChapterChanges">
+                <v-btn
+                    color="primary"
+                    @click="manageChaptersStore.save"
+                    :loading="manageChaptersStore.loading"
+                    :disabled="!manageChaptersStore.isModified"
+                >
                     Save
                 </v-btn>
             </div>

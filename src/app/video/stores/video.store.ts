@@ -1,9 +1,10 @@
+import { videosWithChaptersQuery } from './../models/videos-with-chapters.model';
 import { defineStore } from 'pinia';
-import { computed, onMounted, ref, watch, watchEffect } from 'vue';
+import { computed, onMounted, ref, watch, watchEffect, type ComputedRef } from 'vue';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../../shared/models/database.types';
 import type { VideoProgression } from '../models/video-progression.model';
-import { useIdle, useMediaControls, useWindowSize } from '@vueuse/core';
+import { useCloned, useIdle, useMediaControls, useWindowSize } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { type ChaptersWithCategory } from '../models/chapters-with-category.model';
@@ -11,11 +12,13 @@ import _ from 'lodash';
 import { messagesQueryStringSelect, type Messages } from '../models/messages.model';
 import { v4 } from 'uuid';
 import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
+import { useVideosStore } from './videos.store';
 
 export const TIME_PRIOR_OFFSET_S = 2;
 
 export const useVideoStore = defineStore('video', () => {
     const playlistsStore = usePlaylistsStore();
+    const videosStore = useVideosStore();
 
     // layout
     const theaterMode = ref(true);
@@ -24,9 +27,9 @@ export const useVideoStore = defineStore('video', () => {
     const { width: windowWidth } = useWindowSize();
 
     // video
-    const info = ref<Tables<'videos'>>();
+    const info = computed(() => videosStore.videos.find((v) => v.video_id === id.value));
+    const chapters = computed(() => info.value?.chapters);
     const id = ref<number>();
-    const infoLoading = ref(true);
 
     // player
     const showControllsAndInfo = ref(true);
@@ -61,14 +64,6 @@ export const useVideoStore = defineStore('video', () => {
     const subCount = computed(
         () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
     );
-
-    // chapters
-    const chaptersOG = ref<ChaptersWithCategory>([]);
-    const chapters = ref<ChaptersWithCategory>([]);
-    const chaptersLoading = ref(true);
-    const hasChapterChanges = computed(() => !_.isEqual(chapters.value, chaptersOG.value));
-    const chaptersEditMode = ref(false);
-    const showChapterDrawer = ref(false);
 
     // playlist
     const playlistId = ref<string>();
@@ -105,50 +100,17 @@ export const useVideoStore = defineStore('video', () => {
 
         id.value = videoId;
         playlistId.value = _playlistId;
-        await fetchInfo();
         await setSrc();
     }
 
     function reset() {
-        chaptersOG.value = [];
-        chapters.value = [];
-        info.value = null;
         currentTime.value = 0;
         duration.value = 0;
         messages.value = [];
         id.value = null;
-        chaptersLoading.value = true;
-        chapters.value = [];
-        info.value = null;
         playing.value = false;
-        chaptersEditMode.value = false;
         messagesLoading.value = true;
-        infoLoading.value = true;
         srcNotFound.value = false;
-    }
-
-    async function fetchInfo() {
-        const { data, error } = await supabase.from('videos').select('*').eq('video_id', Number(id.value)).single();
-
-        infoLoading.value = false;
-        if (error) throw error;
-
-        info.value = data;
-    }
-
-    async function fetchChapters() {
-        chaptersLoading.value = true;
-        const { data, error } = await supabase
-            .from('chapters')
-            .select('*, category:categories(*)')
-            .order('start_s', { ascending: true })
-            .eq('video_id', id.value);
-
-        chaptersLoading.value = false;
-        if (error) throw error;
-
-        chaptersOG.value = _.cloneDeep(data);
-        chapters.value = _.cloneDeep(data);
     }
 
     async function fetchMessages() {
@@ -183,23 +145,6 @@ export const useVideoStore = defineStore('video', () => {
         return sec - TIME_PRIOR_OFFSET_S >= 0 ? sec - TIME_PRIOR_OFFSET_S : 0;
     }
 
-    async function addEmptyChapter() {
-        const emptyChapter = {
-            id: v4(),
-            category_id: '',
-            end_s: 0,
-            start_s: currentTimeRounded.value,
-            video_id: id.value,
-            category: {
-                id: v4(),
-                category_id: '',
-                image_url: '',
-                title: '',
-            },
-        };
-        chapters.value.push(emptyChapter);
-    }
-
     const saveVideoProgression = () => {
         if (!currentTimeRounded.value) return;
 
@@ -216,10 +161,6 @@ export const useVideoStore = defineStore('video', () => {
         if (!timeObj) return;
         currentTime.value = Number(timeObj.current_time_s);
     };
-
-    function resetChaptersForm() {
-        chapters.value = _.cloneDeep(chaptersOG.value);
-    }
 
     onPlaybackError(async (e) => {
         playing.value = false;
@@ -250,16 +191,6 @@ export const useVideoStore = defineStore('video', () => {
         if (!waiting.value) playing.value = true;
     });
 
-    // sort chapters by start_s
-    watch(
-        () => chapters.value,
-        (newChapters) => {
-            if (!newChapters) return;
-            newChapters.sort((a, b) => a.start_s - b.start_s);
-        },
-        { deep: true }
-    );
-
     watch(waiting, (isWaiting) => {
         if (isWaiting) {
             showControllsAndInfo.value = true;
@@ -286,7 +217,6 @@ export const useVideoStore = defineStore('video', () => {
         // video
         info,
         id,
-        infoLoading,
         src,
         srcNotFound,
 
@@ -311,10 +241,6 @@ export const useVideoStore = defineStore('video', () => {
 
         // chapters
         chapters,
-        chaptersLoading,
-        chaptersEditMode,
-        showChapterDrawer,
-        hasChapterChanges,
 
         // playlist
         playlistId,
@@ -330,16 +256,12 @@ export const useVideoStore = defineStore('video', () => {
         // functions
         init,
         setSrc,
-        fetchInfo,
-        fetchChapters,
         fetchMessages,
-        resetChaptersForm,
         setVideoRef,
         setTimePrior,
         getTimePrior,
         loadVideoProgression,
         reset,
-        addEmptyChapter,
         onSourceError,
         onPlaybackError,
     };

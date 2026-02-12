@@ -10,10 +10,12 @@ import { START_CATEGORY } from '../data/chapters.data';
 import { prettyTime } from '../../shared/helpers/prettyTime';
 import CategoryThumbnail from './CategoryThumbnail.vue';
 import { sleep } from '../../shared/helpers/sleep';
+import { useManageChaptersStore } from '../stores/manage-chapters.store';
 
 const chapter = defineModel<ChapterWithCategory>();
 const props = defineProps<{ i: number }>();
 const videoStore = useVideoStore();
+const manageChaptersStore = useManageChaptersStore();
 const categories = ref<Tables<'categories'>[]>([]);
 const loadingCategories = ref(false);
 const confirmTimeDialog = ref(false);
@@ -59,7 +61,7 @@ const updateCategories = useDebounceFn(async (query?: string) => {
 }, 500);
 
 function deleteChapter() {
-    videoStore.chapters.splice(props.i, 1);
+    manageChaptersStore.chapters.splice(props.i, 1);
 }
 
 async function markStartTime() {

@@ -30,7 +30,6 @@ async function init() {
     await videoStore.init(videoId, playlistId);
     TitleHelper.setTitle(videoStore.info.title);
 
-    await videoStore.fetchChapters();
     await historyStore.add();
 }
 
