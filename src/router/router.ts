@@ -70,7 +70,7 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    routeHistory.push(to);
+    routeHistory.push(from);
     console.log(routeHistory);
     next();
 });
