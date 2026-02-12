@@ -71,7 +71,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     routeHistory.push(from);
-    console.log(routeHistory);
     next();
 });
 

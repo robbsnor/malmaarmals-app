@@ -16,9 +16,11 @@ import { routeHistory } from '../../../router/router';
 import { useVideosStore } from '../stores/videos.store';
 import VideoInfo from './VideoInfo.vue';
 import _ from 'lodash';
+import { useManageChaptersStore } from '../stores/manage-chapters.store';
 
 const videoStore = useVideoStore();
 const videosStore = useVideosStore();
+const manageChaptersStore = useManageChaptersStore();
 const preferenceStore = usePreferenceStore();
 const router = useRouter();
 const { isFullscreen, enter, exit, toggle } = useFullscreen();
@@ -161,7 +163,7 @@ async function goToPreviousVideo() {
 
                     <template v-if="showMarkers">
                         <ChapterMarker
-                            v-for="chapter in videoStore.chapters"
+                            v-for="chapter in manageChaptersStore.chapters"
                             :key="chapter.start_s"
                             :chapter="chapter"
                         />

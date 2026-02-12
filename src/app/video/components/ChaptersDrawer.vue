@@ -8,47 +8,50 @@ import ManageChapters from './ManageChapters.vue';
 import ManageChaptersInstructionsDialog from './ManageChaptersInstructionsDialog.vue';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { onKeyStroke } from '@vueuse/core';
+import { useManageChaptersStore } from '../stores/manage-chapters.store';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
-
+const manageChaptersStore = useManageChaptersStore();
 const tab = ref();
-
-watch(
-    () => videoStore.chaptersEditMode,
-    (newVal) => (tab.value = newVal ? 1 : 0),
-    { immediate: true }
-);
-
-onKeyStroke('c', () => {
-    videoStore.showChapterDrawer = true;
-    videoStore.chaptersEditMode = true;
-});
 
 function skipToSec(sec: number) {
     videoStore.setTimePrior(sec);
 
     videoStore.playing = true;
     videoStore.showControllsAndInfo = true;
-    videoStore.showChapterDrawer = false;
+    manageChaptersStore.showDrawer = false;
 }
+
+onKeyStroke('c', () => {
+    manageChaptersStore.showDrawer = true;
+    manageChaptersStore.editMode = true;
+});
+
+watch(
+    () => manageChaptersStore.editMode,
+    (newVal) => (tab.value = newVal ? 1 : 0),
+    { immediate: true }
+);
 </script>
 
 <template>
-    <Drawer v-model="videoStore.showChapterDrawer" inset title="Chapters" :padding="false">
+    <Drawer v-model="manageChaptersStore.showDrawer" inset title="Chapters" :padding="false">
         <template #activator="{ props }">
             <PlayerButton
                 v-bind="props"
                 icon="mdi-format-list-bulleted"
                 :size="24"
-                :class="{ 'text-orange-500': videoStore.hasChapterChanges }"
+                :class="{
+                    'text-orange-500': manageChaptersStore.isModified,
+                }"
             />
         </template>
 
         <template #actions>
             <v-btn
-                v-if="!videoStore.chaptersEditMode && videoStore.chapters.length && authStore.isAdmin"
-                @click="videoStore.chaptersEditMode = true"
+                v-if="!manageChaptersStore.editMode && videoStore.chapters.length && authStore.isAdmin"
+                @click="manageChaptersStore.editMode = true"
                 append-icon="mdi-pencil"
                 variant="tonal"
                 size="small"
@@ -57,12 +60,12 @@ function skipToSec(sec: number) {
                 Edit
             </v-btn>
 
-            <ManageChaptersInstructionsDialog v-if="videoStore.chaptersEditMode" />
+            <ManageChaptersInstructionsDialog v-if="manageChaptersStore.editMode" />
         </template>
 
         <v-window v-model="tab" :show-arrows="false" :touch="false">
             <v-window-item>
-                <div v-if="videoStore.chapters?.length" class="flex flex-col gap-2 p-4">
+                <div v-if="videoStore.chapters.length" class="flex flex-col gap-2 p-4">
                     <button
                         v-for="chapter in videoStore.chapters"
                         :key="chapter.start_s"
@@ -87,8 +90,8 @@ function skipToSec(sec: number) {
                             v-if="authStore.isAdmin"
                             @click="
                                 () => {
-                                    videoStore.chaptersEditMode = true;
-                                    videoStore.addEmptyChapter();
+                                    manageChaptersStore.editMode = true;
+                                    manageChaptersStore.addEmptyChapter();
                                 }
                             "
                             color="primary"
