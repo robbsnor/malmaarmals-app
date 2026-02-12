@@ -7,6 +7,7 @@ import { useAuthStore } from '../../auth/stores/auth.store';
 import { supabase } from '../../../supabase';
 import PlaylistItem from '../../playlists/components/PlaylistItem.vue';
 import { useArchiveStore } from '../stores/archive.store';
+import FilterIndicator from './FilterIndicator.vue';
 
 const formDefault = {
     title: '',
@@ -51,6 +52,8 @@ const submit = async () => {
 </script>
 
 <template>
+    <FilterIndicator archiveType="PLAYLISTS" />
+
     <div v-if="playlistsStore.filteredPlaylists.length" class="flex flex-col gap-8 py-4">
         <PlaylistItem v-for="playlist in playlistsStore.filteredPlaylists" :key="playlist.id" :playlist="playlist" />
     </div>

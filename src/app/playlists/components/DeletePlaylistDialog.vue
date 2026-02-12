@@ -12,7 +12,7 @@ const dialog = defineModel<boolean>();
 const playlistStore = usePlaylistsStore();
 
 const deletePlaylist = async () => {
-    const { error } = await playlistStore.deletePlaylist(props.playlist);
+    const { error } = await playlistStore.deletePlaylist(props.playlist.id);
 
     if (!error) {
         dialog.value = false;
