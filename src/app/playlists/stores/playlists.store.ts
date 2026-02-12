@@ -11,13 +11,6 @@ export const usePlaylistsStore = defineStore('playlists', () => {
     const videosStore = useVideosStore();
     const archiveStore = useArchiveStore();
     const playlists = ref<Playlists>([]);
-    const playlistsWithVideos = computed(() => {
-        return playlists.value.map((playlist) => {
-            const ids = playlist.videos.map((v) => v.video_id);
-            const videos = videosStore.videos.filter((video) => ids.includes(video.video_id));
-            return { ...playlist, videos };
-        });
-    });
 
     const fetchPlaylists = async () => {
         const { data, error } = await playlistsQuery.order('created_at', { ascending: false });
@@ -27,7 +20,7 @@ export const usePlaylistsStore = defineStore('playlists', () => {
     };
 
     const getPlaylistById = (id: Ref<string>) => {
-        return playlistsWithVideos.value.find((p) => p.id === id.value);
+        return playlists.value.find((p) => p.id === id.value);
     };
 
     const deletePlaylist = async (playlist: Playlist) => {
@@ -51,7 +44,6 @@ export const usePlaylistsStore = defineStore('playlists', () => {
         fetchPlaylists,
         deletePlaylist,
         playlists,
-        playlistsWithVideos,
         filteredPlaylists,
     };
 });
