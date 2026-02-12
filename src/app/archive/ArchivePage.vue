@@ -32,7 +32,7 @@ onStartTyping(() => {
 
 <template>
     <Container>
-        <div class="fixed top-0 right-0 left-0 bg-black h-[128px] pt-4 px-4" v-z="Z.ARCHIVE_HEADER">
+        <div class="fixed top-0 right-0 left-0 bg-black h-[112px] pt-4 px-4" v-z="Z.ARCHIVE_HEADER">
             <v-text-field
                 ref="searchRef"
                 autocomplete="off"
@@ -56,8 +56,8 @@ onStartTyping(() => {
             </div>
         </div>
 
-        <div class="pt-[128px]">
-            <div class="py-4">
+        <div class="pt-[112px]">
+            <div class="pt-4">
                 <v-tabs-window v-model="archiveStore.activeTab">
                     <v-tabs-window-item value="streams"><VideosTab /></v-tabs-window-item>
                     <v-tabs-window-item value="playlists"><PlaylistsTab /></v-tabs-window-item>
