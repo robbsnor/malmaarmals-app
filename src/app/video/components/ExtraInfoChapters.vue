@@ -10,7 +10,7 @@ const authStore = useAuthStore();
 </script>
 
 <template>
-    <ExtraInfoItem v-if="!videoStore.chaptersLoading" title="Chapters">
+    <ExtraInfoItem v-if="videoStore.chapters.length" title="Chapters">
         <div v-if="videoStore.chapters?.length" class="flex flex-col gap-2 p-4">
             <button
                 v-for="chapter in videoStore.chapters"

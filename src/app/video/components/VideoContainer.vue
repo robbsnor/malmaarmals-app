@@ -57,11 +57,11 @@ const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value)
 
                 <div
                     :class="videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0  '"
-                    class="max-md:absolute max-md:overflow-auto w-full transition-opacity grid grid-cols-[repeat(auto-fill,minmax(500px,1fr))] gap-8 p-8"
+                    class="max-md:absolute max-md:overflow-auto w-full transition-opacity grid grid-cols-[repeat(auto-fill,minmax(500px,1fr))] gap-4 p-4 lg:gap-8 lg:p-8"
                 >
-                    <ExtraInfoMessages />
                     <ExtraInfoChapters />
                     <ExtraInfoPlaylist />
+                    <ExtraInfoMessages />
                 </div>
 
                 <!-- <div

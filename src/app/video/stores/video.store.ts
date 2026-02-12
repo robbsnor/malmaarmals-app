@@ -110,15 +110,15 @@ export const useVideoStore = defineStore('video', () => {
     }
 
     function reset() {
-        chaptersOG.value = null;
-        chapters.value = null;
+        chaptersOG.value = [];
+        chapters.value = [];
         info.value = null;
         currentTime.value = 0;
         duration.value = 0;
         messages.value = [];
         id.value = null;
         chaptersLoading.value = true;
-        chapters.value = null;
+        chapters.value = [];
         info.value = null;
         playing.value = false;
         chaptersEditMode.value = false;
