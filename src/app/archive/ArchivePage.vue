@@ -46,7 +46,7 @@ onStartTyping(() => {
                 class="w-full"
             />
 
-            <div class="pt-4">
+            <div>
                 <v-tabs grow v-model="archiveStore.activeTab">
                     <v-tab value="streams">streams</v-tab>
                     <v-tab value="playlists">playlists</v-tab>
