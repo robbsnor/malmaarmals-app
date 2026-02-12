@@ -33,7 +33,7 @@ const time = computed(() => {
     <div
         :class="
             twMerge(
-                '  relative transition-all block group overflow-hidden rounded-md self-start',
+                'relative transition-all block group overflow-hidden rounded-md self-start',
                 props.type === 'large' && 'rounded-2xl'
             )
         "
