@@ -77,9 +77,10 @@ watch(renderedMessages, async () => {
                 <div v-visible="userHasScrolledUp" class="absolute bottom-4 flex justify-center left-0 right-0">
                     <button
                         @click="scrollBackDown()"
-                        class="px-4 p-2 bg-black border border-black-600 text-primary text-sm font-bold transition-all rounded-md"
+                        class="px-4 p-2 bg-primary text-sm font-bold transition-all rounded-md flex gap-1 items-center"
                     >
-                        scroll back down
+                        <v-icon icon="mdi-pause"></v-icon>
+                        <div class="pr-2 -mt-[1px]">Chat paused</div>
                     </button>
                 </div>
             </template>
