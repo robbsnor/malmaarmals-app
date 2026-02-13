@@ -53,53 +53,51 @@ const myStats = computed(() => {
                 </div>
             </v-menu>
         </template>
-        <div>
-            <div class="overflow-auto p-4 py-2">
-                <div
-                    v-for="(chatter, i) in topChatters.slice(0, topChattersLength)"
-                    :key="chatter.userName"
-                    class="flex justify-between"
-                    :class="{
-                        // 'text-4xl': i === 0,
-                        // 'text-3xl': i === 1,
-                        // 'text-2xl': i === 2,
-                    }"
-                >
-                    <div>
-                        <span
-                            class="text-muted-more font-bold"
-                            :class="{
-                                // 'text-white': i === 0 || i === 1 || i === 2,
-                            }"
-                        >
-                            {{ i + 1 }}.
-                        </span>
-                        <span
-                            class="font-bold"
-                            :style="{
-                                color: chatter.color,
-                                // textShadow: '0 0 5px ' + chatter.color
-                            }"
-                        >
-                            {{ chatter.userName }}
-                        </span>
-                    </div>
-
-                    <span>{{ chatter.count }}</span>
+        <div class="overflow-auto p-4 py-2">
+            <div
+                v-for="(chatter, i) in topChatters.slice(0, topChattersLength)"
+                :key="chatter.userName"
+                class="flex justify-between"
+                :class="{
+                    // 'text-4xl': i === 0,
+                    // 'text-3xl': i === 1,
+                    // 'text-2xl': i === 2,
+                }"
+            >
+                <div>
+                    <span
+                        class="text-muted-more font-bold"
+                        :class="{
+                            // 'text-white': i === 0 || i === 1 || i === 2,
+                        }"
+                    >
+                        {{ i + 1 }}.
+                    </span>
+                    <span
+                        class="font-bold"
+                        :style="{
+                            color: chatter.color,
+                            // textShadow: '0 0 5px ' + chatter.color
+                        }"
+                    >
+                        {{ chatter.userName }}
+                    </span>
                 </div>
+
+                <span>{{ chatter.count }}</span>
             </div>
-
-            <template v-if="myStats && myStats.rank > topChattersLength">
-                <div class="h-[1px] bg-black-400"></div>
-                <div class="flex justify-between p-4 py-3">
-                    <div>
-                        <span>{{ myStats.rank }}. </span>
-                        <span class="font-bold" :style="{ color: myStats.color }">{{ myStats.userName }}: </span>
-                    </div>
-
-                    <span class="font-bold">{{ myStats.count }}</span>
-                </div>
-            </template>
         </div>
+
+        <template v-if="myStats && myStats.rank > topChattersLength">
+            <div class="h-[1px] bg-black-400"></div>
+            <div class="flex justify-between p-4 py-3">
+                <div>
+                    <span>{{ myStats.rank }}. </span>
+                    <span class="font-bold" :style="{ color: myStats.color }">{{ myStats.userName }}: </span>
+                </div>
+
+                <span class="font-bold">{{ myStats.count }}</span>
+            </div>
+        </template>
     </ExtraInfoItem>
 </template>
