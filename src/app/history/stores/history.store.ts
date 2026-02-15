@@ -15,7 +15,7 @@ export const useHistoryStore = defineStore('history', () => {
     const videos = computed<HistoryVideo[]>(() => {
         return history.value.map((h) => {
             return {
-                ...videosStore.videos.find((v) => v.id === h.video_id),
+                ...videosStore.videos.find((v) => Number(v.id) === h.video_id),
                 watched_at: h.watched_at,
             };
         });
@@ -34,17 +34,14 @@ export const useHistoryStore = defineStore('history', () => {
     }
 
     async function deleteAll() {
-        const { error } = await supabase
-            .from('history')
-            .delete()
-            .neq('video_id', 'c1de8375-a19b-4ab9-ac47-053c751baaae'); // non existing video id
+        const { error } = await supabase.from('history').delete().neq('id', 'c1de8375-a19b-4ab9-ac47-053c751baaae'); // non existing video id
         if (error) throw error;
 
         await fetchHistory();
     }
 
     async function add() {
-        const videoId = videoStore.info.id;
+        const videoId = videoStore.id;
         const userId = authStore.session?.user.id;
         if (!videoId || !userId) throw new Error('Missing videoId or userId');
 
