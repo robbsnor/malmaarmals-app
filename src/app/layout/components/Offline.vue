@@ -13,7 +13,8 @@ const props = withDefaults(
 <template>
     <div v-visible="props.loading || props.hasError" class="fixed inset-0 bg-black" v-z="Z.OFFLINE">
         <Container class="h-full">
-            <div v-if="props.loading" class="h-full w-full flex items-center justify-center">
+            <div v-if="props.loading" class="h-full w-full flex flex-col gap-10 items-center justify-center">
+                <Logo payoff />
                 <v-progress-circular indeterminate size="64" color="primary" />
             </div>
 
