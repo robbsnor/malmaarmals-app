@@ -17,6 +17,7 @@ const loading = ref(true);
 const hasError = ref(false);
 
 onMounted(async () => {
+    console.log('App mounted');
     loading.value = true;
 
     setTimeout(() => {
