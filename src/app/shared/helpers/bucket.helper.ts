@@ -15,7 +15,7 @@ export class BucketHelper {
             throw new Error('User not authenticated');
         }
 
-        const res = await fetch(`${BucketHelper.BACKEND_URL}/generate-video-url`, {
+        const res = await fetch(`${BucketHelper.BACKEND_URL}generate-video-url`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
