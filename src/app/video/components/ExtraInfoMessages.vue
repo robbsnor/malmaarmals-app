@@ -33,7 +33,7 @@ const myStats = computed(() => {
 <template>
     <ExtraInfoItem v-if="videoStore.messages.length" title="Top Chatters">
         <template #actions>
-            <v-menu location="start" open-on-hover open-on-click open-delay="0">
+            <v-menu location="start" open-on-click open-delay="0">
                 <template v-slot:activator="{ props }">
                     <v-btn color="primary" size="x-small" variant="text" icon="mdi-chart-line-variant" v-bind="props">
                     </v-btn>
