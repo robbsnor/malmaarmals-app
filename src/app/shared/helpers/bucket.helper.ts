@@ -2,10 +2,10 @@ import { useAuthStore } from '../../auth/stores/auth.store';
 import type { GetVideoUrl } from '../models/bucket.models';
 
 export class BucketHelper {
-    static BUCKET_URL = import.meta.env.VITE_BUCKET_URL;
+    static BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
     static getThumbnailUrl(id: number) {
-        return `${BucketHelper.BUCKET_URL}/thumbnails/${id}`;
+        return `${BucketHelper.BACKEND_URL}/thumbnails/${id}`;
     }
 
     static async getVideoUrl(videoId: number): Promise<GetVideoUrl> {
@@ -15,7 +15,7 @@ export class BucketHelper {
             throw new Error('User not authenticated');
         }
 
-        const res = await fetch(`${BucketHelper.BUCKET_URL}/generate-video-url`, {
+        const res = await fetch(`${BucketHelper.BACKEND_URL}/generate-video-url`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
