@@ -5,7 +5,7 @@ export class BucketHelper {
     static BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
     static getThumbnailUrl(id: number) {
-        return `${BucketHelper.BACKEND_URL}/thumbnails/${id}`;
+        return `${BucketHelper.BACKEND_URL}thumbnails/${id}`;
     }
 
     static async getVideoUrl(videoId: number): Promise<GetVideoUrl> {
