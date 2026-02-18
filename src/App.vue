@@ -8,6 +8,8 @@ import { useAuthStore } from './app/auth/stores/auth.store';
 import { sleep } from './app/shared/helpers/sleep';
 import { useHistoryStore } from './app/history/stores/history.store';
 import Offline from './app/layout/components/Offline.vue';
+import { supabase } from './supabase';
+import Header from './app/layout/components/Header.vue';
 
 const videosStore = useVideosStore();
 const authStore = useAuthStore();
@@ -18,6 +20,11 @@ const hasError = ref(false);
 
 onMounted(async () => {
     console.log('App mounted');
+    // const { data, error } = await supabase.functions.invoke('search-categories', {
+    //     body: { query: 'programming' },
+    // });
+    // console.log(data);
+
     loading.value = true;
 
     setTimeout(() => {
@@ -46,7 +53,8 @@ onMounted(async () => {
 
 <template>
     <v-app v-if="!loading && !hasError">
-        <div class="pb-[var(--height-mobile-navbar)]">
+        <Header />
+        <div class="pb-mobile-navbar 2xl:pt-header 2xl:pb-0">
             <RouterView />
         </div>
 

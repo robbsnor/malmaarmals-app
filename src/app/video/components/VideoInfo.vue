@@ -14,10 +14,10 @@ const date = computed(() => {
 </script>
 
 <template>
-    <div class="min-h-[84px] flex justify-between gap-4 p-4 bg-black-200 border-fb border-black-400">
+    <div class="bg-black-100 border-black-400 flex min-h-[84px] justify-between gap-4 border-b p-4 lg:px-8">
         <template v-if="videoStore.info">
             <div>
-                <div class="font-bold text-lg">{{ videoStore.info.title }}</div>
+                <div class="text-lg font-bold">{{ videoStore.info.title }}</div>
                 <div class="text-muted">{{ date }}</div>
             </div>
             <!-- <div class="md:hidden! transition-all" :class="{ 'rotate-180': videoStore.showExtraInfoMobile }">

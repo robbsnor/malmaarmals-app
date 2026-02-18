@@ -39,8 +39,8 @@ const myStats = computed(() => {
                     </v-btn>
                 </template>
 
-                <div class="bg-black/80 p-2 rounded flex flex-col gap-1">
-                    <div class="text-xs grid grid-cols-[150px_auto] gap-x-4">
+                <div class="flex flex-col gap-1 rounded bg-black/80 p-2">
+                    <div class="grid grid-cols-[150px_auto] gap-x-4 text-xs">
                         <div>unique chatters:</div>
                         <div>{{ topChatters.length }}</div>
                         <div>total messages:</div>
@@ -48,11 +48,12 @@ const myStats = computed(() => {
                         <div>subscribers:*</div>
                         <div>{{ videoStore.subCount }}</div>
                     </div>
-                    <div class="h-[1px] bg-black-200"></div>
+                    <div class="bg-black-200 h-[1px]"></div>
                     <div class="text-muted text-xs">*based on text messages.</div>
                 </div>
             </v-menu>
         </template>
+
         <div class="overflow-auto p-4 py-2">
             <div
                 v-for="(chatter, i) in topChatters.slice(0, topChattersLength)"
@@ -74,29 +75,29 @@ const myStats = computed(() => {
                         {{ i + 1 }}.
                     </span>
                     <span
-                        class="font-bold"
+                        class="text-muted font-bold"
                         :style="{
-                            color: chatter.color,
-                            // textShadow: '0 0 5px ' + chatter.color
+                            // color: chatter.color,
+                            // textShadow: '0 0 5px ' + chatter.color,
                         }"
                     >
                         {{ chatter.userName }}
                     </span>
                 </div>
 
-                <span>{{ chatter.count }}</span>
+                <span class="text-muted-more font-bold">{{ chatter.count }}</span>
             </div>
         </div>
 
         <template v-if="myStats && myStats.rank > topChattersLength">
-            <div class="h-[1px] bg-black-400"></div>
-            <div class="flex justify-between p-4 py-3">
+            <div class="bg-black-400 h-[1px]"></div>
+            <div class="flex justify-between bg-linear-to-b to-primary/10 p-4 py-3">
                 <div>
-                    <span>{{ myStats.rank }}. </span>
+                    <span class="text-muted font-bold">{{ myStats.rank }}. </span>
                     <span class="font-bold" :style="{ color: myStats.color }">{{ myStats.userName }}: </span>
                 </div>
 
-                <span class="font-bold">{{ myStats.count }}</span>
+                <span class="text-muted font-bold">{{ myStats.count }}</span>
             </div>
         </template>
     </ExtraInfoItem>

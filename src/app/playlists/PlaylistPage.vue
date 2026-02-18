@@ -33,11 +33,11 @@ const dialog = ref(false);
                 v-if="playlist.videos.length"
                 :src="BucketHelper.getThumbnailUrl(Number(playlist.videos[0].video_id))"
                 alt=""
-                class="absolute w-full h-full object-cover object-center"
+                class="absolute h-full w-full object-cover object-center"
             />
-            <div class="absolute inset-0 bg-linear-to-b from-black/50 to-black-100"></div>
+            <div class="to-black-100 absolute inset-0 bg-linear-to-b from-black/50"></div>
 
-            <div class="p-4 flex justify-between gap-4">
+            <div class="flex justify-between gap-4 p-4">
                 <v-btn
                     :to="{ name: 'archive', query: { type: 'playlists' } }"
                     variant="tonal"
@@ -59,8 +59,8 @@ const dialog = ref(false);
                 </Auth>
             </div>
 
-            <div class="absolute bottom-0 p-4 pb-0 w-full">
-                <h1 class="font-bold text-2xl">{{ playlist.title }}</h1>
+            <div class="absolute bottom-0 w-full p-4 pb-0">
+                <h1 class="text-2xl font-bold">{{ playlist.title }}</h1>
                 <div class="text-muted">{{ playlist.description }}</div>
             </div>
         </div>
@@ -83,7 +83,7 @@ const dialog = ref(false);
                     />
 
                     <div>
-                        <h2 class="font-bold text-md line-clamp-2">
+                        <h2 class="text-md line-clamp-2 font-bold">
                             {{ video.title }}
                         </h2>
                         <div class="text-muted-more text-sm font-medium">{{ daysAgo(video) }} days ago</div>

@@ -41,8 +41,8 @@ const handleClick = async (item: any) => {
 
 <template>
     <Container>
-        <div v-if="authStore.session" class="flex gap-4 p-4 pt-10 rounded-md items-center bg-black-2f00">
-            <div class="rounded-full border-2 border-primary p-0.5">
+        <div v-if="authStore.session" class="bg-black-2f00 flex items-center gap-4 rounded-md p-4 pt-10">
+            <div class="border-primary rounded-full border-2 p-0.5">
                 <img
                     :src="authStore.session.user.user_metadata.avatar_url"
                     alt="Twitch Logo"
@@ -50,15 +50,15 @@ const handleClick = async (item: any) => {
                 />
             </div>
             <div>
-                <div class="text-xl font-bold leading-none pb-0.5">
+                <div class="pb-0.5 text-xl leading-none font-bold">
                     {{ authStore.session.user.user_metadata.nickname }}
                 </div>
-                <div class="flex items-center text-muted">
+                <div class="text-muted flex items-center">
                     <a
                         v-if="!authStore.isSubbed"
                         href="https://www.twitch.tv/lekkerspelen/"
                         target="_blank"
-                        class="underline italic"
+                        class="italic underline"
                     >
                         Not subscribed
                     </a>
@@ -68,12 +68,12 @@ const handleClick = async (item: any) => {
                         :icon="authStore.isSubbed ? 'mdi-check' : 'mdi-lock'"
                         :color="authStore.isSubbed ? 'success' : 'var(--color-red-500)'"
                         size="16"
-                        class="inline-block ml-1 mt-0.5"
+                        class="mt-0.5 ml-1 inline-block"
                     />
                 </div>
             </div>
-            <div class="ounded-full ml-auto flex justify-center items-center">
-                <v-icon icon="mdi-star-four-points" size="32" class="mr-2 text-black-800" />
+            <div class="ounded-full ml-auto flex items-center justify-center">
+                <v-icon icon="mdi-star-four-points" size="32" class="text-black-800 mr-2" />
             </div>
         </div>
 
@@ -111,7 +111,7 @@ const handleClick = async (item: any) => {
                 </v-btn>
             </template>
 
-            <div v-if="historyStore.videos.length" class="flex gap-4 overflow-auto -mx-4 px-4">
+            <div v-if="historyStore.videos.length" class="-mx-4 flex gap-4 overflow-auto px-4">
                 <RouterLink
                     :to="{ name: 'video', params: { id: video.video_id } }"
                     v-for="video in historyStore.videos.slice(0, 10)"
@@ -125,14 +125,14 @@ const handleClick = async (item: any) => {
                         :durationS="video.length_sec"
                         :videoId="video.video_id"
                     />
-                    <div class="line-clamp-2 my-2 font-bold">{{ video.title }}</div>
+                    <div class="my-2 line-clamp-2 font-bold">{{ video.title }}</div>
                 </RouterLink>
             </div>
 
             <Empty v-else title="No history" description="You haven't watched any videos yet." icon="mdi-history" />
         </Section>
 
-        <div class="flex gap-4 flex-col">
+        <div class="flex flex-col gap-4">
             <div v-for="(group, index) in groups" :key="index">
                 <div class="flex flex-col gap-0.5">
                     <template v-for="item in group" :key="item.name">
@@ -142,10 +142,11 @@ const handleClick = async (item: any) => {
                             v-if="!item.hidden"
                             @click="handleClick(item)"
                             :class="[
-                                'w-full text-left px-4 py-3 bg-black-400 hover:bg-black-600 text-normal transition flex gap-3 cursor-pointer items-center first:rounded-t-md last:rounded-b-md',
+                                'bg-black-200 text-normal flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition first:rounded-t-md last:rounded-b-md',
                                 {
                                     'text-red-500': item.icon === 'mdi-logout',
-                                    ' opacity-50 hover:bg-black-400! cursor-default!': item.disabled,
+                                    'hover:bg-black-300': !item.disabled,
+                                    'cursor-default! opacity-50': item.disabled,
                                 },
                             ]"
                         >
