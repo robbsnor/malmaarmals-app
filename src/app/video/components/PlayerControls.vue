@@ -92,6 +92,12 @@ async function goToPreviousVideo() {
                     </Auth>
                     <AddToPlaylist />
                     <PreferenceDrawer />
+                    <PlayerButton
+                        @click="videoStore.showChat = !videoStore.showChat"
+                        :icon="videoStore.showChat ? 'mdi-arrow-expand-right' : 'mdi-arrow-expand-left'"
+                        :size="20"
+                        class="hidden md:block"
+                    />
                 </div>
             </div>
 
@@ -133,11 +139,6 @@ async function goToPreviousVideo() {
                             @click="videoStore.theaterMode = !videoStore.theaterMode"
                             :icon="videoStore.theaterMode ? 'mdi-dock-bottom' : 'mdi-dock-right'"
                             class="hidden lg:block"
-                        />
-                        <PlayerButton
-                            @click="videoStore.showChat = !videoStore.showChat"
-                            :icon="videoStore.showChat ? 'mdi-chat-outline' : 'mdi-chat'"
-                            class="hidden md:block"
                         />
                         <ChaptersDrawer />
 

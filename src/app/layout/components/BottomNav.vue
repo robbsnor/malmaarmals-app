@@ -21,19 +21,19 @@ const menuItems = ref([
     <div
         ref="mobileNavRef"
         :style="{ paddingBottom: bottom }"
-        class="bottom-0 right-0 left-0 h-[var(--height-mobile-navbar)] bg-black fixed transition-transform border-t border-black-500"
+        class="border-black-300 bg-black-100 fixed right-0 bottom-0 left-0 h-[var(--height-mobile-navbar)] border-t transition-transform 2xl:hidden"
         :class="{ 'translate-y-[-100%]': !appStore.headerShown }"
         v-z="Z.MOBILE_NAV"
     >
-        <Container>
-            <div class="grid grid-cols-3 items-center justify-evenly h-[var(--height-mobile-navbar)]">
+        <Container width="400px" class="h-full">
+            <div class="grid h-[var(--height-mobile-navbar)] grid-cols-3 items-center justify-evenly">
                 <RouterLink
                     v-for="item in menuItems"
                     :key="item.title"
                     :to="item.to"
                     :id="item?.id"
                     activeClass="text-primary"
-                    class="cursor-pointer flex flex-col justify-center items-center text-muted-more transition-all gap-[2px] py-2 px-6 text-light hover:text-primary-light"
+                    class="text-muted-more text-light hover:text-primary-light flex cursor-pointer flex-col items-center justify-center gap-[2px] px-6 py-2 transition-all"
                 >
                     <v-icon v-if="item.icon" :icon="item.icon" />
 
@@ -42,18 +42,18 @@ const menuItems = ref([
                             <img
                                 :src="authStore.session.user.user_metadata.avatar_url"
                                 alt=""
-                                class="h-8 rounded-full cursor-pointer"
+                                class="h-8 cursor-pointer rounded-full"
                             />
                             <div
                                 v-if="!authStore.isSubbed"
-                                class="absolute -bottom-2 -right-2 bg-black rounded-full size-5 flex items-center justify-center"
+                                class="absolute -right-2 -bottom-2 flex size-5 items-center justify-center rounded-full bg-black"
                             >
                                 <v-icon icon=" mdi-lock" color="var(--color-red-500)" size="14" />
                             </div>
                         </div>
                         <div
                             v-else
-                            class="size-8 bg-black-400 cursor-pointer rounded-full flex items-end justify-center overflow-hidden text-white/50!"
+                            class="bg-black-400 flex size-8 cursor-pointer items-end justify-center overflow-hidden rounded-full text-white/50!"
                         >
                             <svg
                                 width="26"

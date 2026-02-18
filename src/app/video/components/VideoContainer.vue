@@ -28,24 +28,30 @@ const { width: windowWidth, height: windowHeight } = useWindowSize();
 
 const isMaxHeight = computed(() => containerHeight.value + infoHeight.value >= windowHeight.value);
 const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value);
+
+const containerClasses = computed(() => {
+    if (videoStore.playerIsMini) {
+        return 'border-black-500 right-4 bottom-[100px] aspect-video w-[200px] overflow-hidden rounded-md border shadow-[0_0_20px_rgba(0,0,0,1)] lg:w-[350px] 2xl:right-8 2xl:bottom-8';
+    }
+    if (videoStore.theaterMode) {
+        return 'top-0 right-0 bottom-0 left-0';
+    }
+    return '2xl:top-header top-0 right-0 bottom-0 left-0';
+});
 </script>
 
 <template>
     <div
         ref="videoContainerRef"
         v-if="videoStore.playerIsActive && authStore.isSubbed"
-        class="fixed bg-black flex flex-col md:flex-row flex-nowrap"
+        class="fixed flex flex-col flex-nowrap bg-black md:flex-row"
         v-z="Z.VIDEO_CONTAINER"
-        :class="
-            videoStore.playerIsMini
-                ? 'right-4 bottom-[100px] w-[200px] lg:w-[350px] aspect-video rounded-md overflow-hidden border border-black-500 shadow-[0_0_20px_rgba(0,0,0,1)]'
-                : 'top-0 right-0 bottom-0 left-0 '
-        "
+        :class="containerClasses"
     >
-        <div class="md:overflow-auto md:grow scroll-hidden bg-black-100">
+        <div class="scroll-hidden bg-black-100 md:grow md:overflow-auto">
             <div
                 ref="containerRef"
-                class="md:flex md:items-center md:justify-center overflow-hidden max-h-screen bg-black"
+                class="max-h-screen overflow-hidden bg-black md:flex md:items-center md:justify-center"
                 :class="videoStore.theaterMode ? 'md:h-full' : ''"
             >
                 <Player ref="videoRef" />
@@ -55,14 +61,15 @@ const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value)
                 <!-- info -->
                 <VideoInfo :class="videoStore.theaterMode ? 'md:hidden' : 'md:block'" class=" "></VideoInfo>
 
-                <div
-                    :class="videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0  '"
-                    class="max-md:absolute max-md:overflow-auto w-full transition-opacity grid grid-cols-[repeat(auto-fill,minmax(500px,1fr))] gap-4 p-4 lg:gap-8 lg:p-8"
-                >
-                    <ExtraInfoChapters />
-                    <ExtraInfoPlaylist />
-                    <ExtraInfoMessages />
-                </div>
+                <Container :class="videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0'">
+                    <div
+                        class="grid w-full grid-cols-[repeat(auto-fill,minmax(500px,1fr))] gap-4 p-4 transition-opacity max-md:absolute max-md:overflow-auto lg:gap-8 lg:p-8"
+                    >
+                        <ExtraInfoChapters />
+                        <ExtraInfoPlaylist />
+                        <ExtraInfoMessages />
+                    </div>
+                </Container>
 
                 <!-- <div
                     :class="

@@ -1,0 +1,10 @@
+@forward 'vuetify/settings' with (
+    $layers: false,
+    $reset: false,
+    $utilities: false
+);
+
+// test if this also loads multiple times when on prod
+.v-application {
+    background: transparent;
+}

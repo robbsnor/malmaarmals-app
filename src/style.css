@@ -19,35 +19,33 @@
     --color-muted-more: var(--color-black-1200);
 
     /* black */
-    --color-black-100: #050505;
-    --color-black-150: #0a0a0a;
-    --color-black-200: #101010;
-    --color-black-250: #121212;
-    --color-black-300: #151515;
-    --color-black-350: #171717;
-    --color-black-400: #202020;
-    --color-black-450: #222222;
-    --color-black-500: #252525;
-    --color-black-600: #303030;
-    --color-black-700: #353535;
-    --color-black-800: #404040;
-    --color-black-900: #454545;
-    --color-black-1000: #505050;
-    --color-black-1100: #555555;
-    --color-black-1200: #606060;
-    --color-black-1300: #656565;
-    --color-black-1400: #707070;
-    --color-black-1500: #757575;
-    --color-black-1600: #808080;
-    --color-black-1700: #858585;
-    --color-black-1800: #909090;
-    --color-black-1900: #959595;
-    --color-black-2000: #a0a0a0;
+    --color-black-100: hsl(0, 0%, 2%);
+    --color-black-200: hsl(0, 0%, 4%);
+    --color-black-300: hsl(0, 0%, 6%);
+    --color-black-400: hsl(0, 0%, 8%);
+    --color-black-500: hsl(0, 0%, 10%);
+    --color-black-600: hsl(0, 0%, 12%);
+    --color-black-700: hsl(0, 0%, 14%);
+    --color-black-800: hsl(0, 0%, 16%);
+    --color-black-900: hsl(0, 0%, 18%);
+    --color-black-1000: hsl(0, 0%, 20%);
+    --color-black-1100: hsl(0, 0%, 22%);
+    --color-black-1200: hsl(0, 0%, 24%);
+    --color-black-1300: hsl(0, 0%, 26%);
+    --color-black-1400: hsl(0, 0%, 28%);
+    --color-black-1500: hsl(0, 0%, 30%);
+    --color-black-1600: hsl(0, 0%, 32%);
+    --color-black-1700: hsl(0, 0%, 34%);
+    --color-black-1800: hsl(0, 0%, 36%);
+    --color-black-1900: hsl(0, 0%, 38%);
+    --color-black-2000: hsl(0, 0%, 40%);
 
     --height-mobile-navbar: 64px;
+    --height-header: 55px;
     --height-available: calc(100vh - var(--height-mobile-navbar));
 
     --spacing-mobile-navbar: var(--height-mobile-navbar);
+    --spacing-header: var(--height-header);
 
     --breakpoint-3xl: 120rem;
     --breakpoint-4xl: 140rem;
@@ -64,15 +62,20 @@
 .fs h4,
 .fs h5,
 .fs h6 {
-    @apply text-normal font-bold text-2xl mb-1 not-first:mt-8;
+    @apply text-normal mb-1 text-2xl font-bold not-first:mt-8;
 }
 
 .fs p {
     @apply text-muted;
 }
 
+html,
 body {
-    @apply font-space-grotesk overflow-x-hidden text-normal;
+    @apply bg-black-100;
+}
+
+body {
+    @apply font-space-grotesk text-normal overflow-x-hidden;
 }
 
 p:not(:last-child) {
@@ -81,7 +84,7 @@ p:not(:last-child) {
 
 a.link,
 a:not([class]) {
-    @apply underline text-primary hover:text-primary-light;
+    @apply text-primary hover:text-primary-light underline;
 }
 
 @utility scroll-hidden {

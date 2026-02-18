@@ -38,7 +38,7 @@ export default defineConfig({
         }),
         vuetify({
             styles: {
-                configFile: 'src/vite.config.scss',
+                configFile: 'src/vuetify.config.scss',
             },
         }),
     ],

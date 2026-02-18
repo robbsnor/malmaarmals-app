@@ -62,30 +62,30 @@ watch(renderedMessages, async () => {
     <div
         v-if="!videoStore.playerIsMini"
         :class="videoStore.showChat ? 'md:block' : 'md:hidden'"
-        class="relative bg-black overflow-auto h-full md:shrink-0 md:w-[250px] md:bg-fuchsia-400f lg:w-[300px] lg:bg-blue-500f xl:w-[400px] xl:bg-red-500f 4xl:w-[500px] 4xl:bg-green-500f"
+        class="relative h-full overflow-auto bg-black-100 md:bg-black-300 md:border-l md:border-black-600 md:bg-fuchsia-400f lg:bg-blue-500f xl:bg-red-500f 4xl:w-[500px] 4xl:bg-green-500f md:w-[250px] md:shrink-0 lg:w-[300px] xl:w-[400px]"
     >
         <template v-if="!videoStore.messagesLoading">
             <template v-if="videoStore.messages.length">
                 <ul
                     ref="chatRef"
-                    class="bg-green-800f h-full overflow-auto max-lg:scroll-hidden flex flex-col gap-1 px-2 py-2 pt-4"
+                    class="bg-green-800f max-lg:scroll-hidden flex h-full flex-col gap-1 overflow-auto px-2 py-2 pt-4 2xl:px-4"
                     @scroll="onScroll"
                 >
                     <Message v-for="message in renderedMessages" :key="message.message_id" :message="message" />
                 </ul>
 
-                <div v-visible="userHasScrolledUp" class="absolute bottom-4 flex justify-center left-0 right-0">
+                <div v-visible="userHasScrolledUp" class="absolute right-0 bottom-4 left-0 flex justify-center">
                     <button
                         @click="scrollBackDown()"
-                        class="px-4 p-2 bg-primary text-sm font-bold transition-all rounded-md flex gap-1 items-center"
+                        class="bg-primary flex items-center gap-1 rounded-md p-2 px-4 text-sm font-bold transition-all"
                     >
                         <v-icon icon="mdi-pause"></v-icon>
-                        <div class="pr-2 -mt-[1px]">Chat paused</div>
+                        <div class="-mt-[1px] pr-2">Chat paused</div>
                     </button>
                 </div>
             </template>
 
-            <div v-else class="h-full flex justify-center items-center">
+            <div v-else class="flex h-full items-center justify-center">
                 <Empty title="No messages found" description="lekkerAppie" icon="mdi-chat">
                     <!-- <v-btn color="primary" variant="tonal">submit messages</v-btn> -->
                 </Empty>
