@@ -4,7 +4,7 @@ import Chat from './Chat.vue';
 import { useVideoStore } from '../stores/video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { Z } from '../../shared/directives/z.directive';
-import { computed, useTemplateRef } from 'vue';
+import { computed, nextTick, onMounted, useTemplateRef, watch } from 'vue';
 import { useElementSize } from '@vueuse/core';
 import { useWindowSize } from '@vueuse/core';
 import VideoInfo from './VideoInfo.vue';
@@ -18,6 +18,7 @@ const authStore = useAuthStore();
 const { xs } = useDisplay();
 
 const containerRef = useTemplateRef<HTMLElement>('containerRef');
+const videoColRef = useTemplateRef<HTMLElement>('videoColRef');
 const videoRef = useTemplateRef<HTMLElement>('videoRef');
 const infoRef = useTemplateRef<HTMLElement>('infoRef');
 
@@ -38,6 +39,9 @@ const containerClasses = computed(() => {
     }
     return '2xl:top-header top-0 right-0 bottom-0 left-0';
 });
+
+watch(containerRef, (el) => (videoStore.videoContainerRef = el));
+watch(videoColRef, (el) => (videoStore.videoColRef = el));
 </script>
 
 <template>
@@ -48,7 +52,7 @@ const containerClasses = computed(() => {
         v-z="Z.VIDEO_CONTAINER"
         :class="containerClasses"
     >
-        <div class="scroll-hidden bg-black-100 md:grow md:overflow-auto">
+        <div ref="videoColRef" class="scroll-hidden bg-black-100 md:grow md:overflow-auto">
             <div
                 ref="containerRef"
                 class="max-h-screen overflow-hidden bg-black md:flex md:items-center md:justify-center"

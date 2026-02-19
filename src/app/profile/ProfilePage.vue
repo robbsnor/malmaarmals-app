@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useAuthStore } from '../auth/stores/auth.store';
-import SignInButton from '../shared/components/SignInButton.vue';
 import { RouterLink } from 'vue-router';
 import { useHistoryStore } from '../history/stores/history.store';
 import { BucketHelper } from '../shared/helpers/bucket.helper';

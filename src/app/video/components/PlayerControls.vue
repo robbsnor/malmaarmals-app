@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useElementSize, useFullscreen } from '@vueuse/core';
+import { useElementSize, useFullscreen, useScroll } from '@vueuse/core';
 import { useRouter } from 'vue-router';
 import { useVideoStore } from '../stores/video.store';
 import { computed, ref, useTemplateRef } from 'vue';
@@ -70,6 +70,15 @@ async function goToPreviousVideo() {
         window.location.reload();
     }
 }
+
+function toggleTheaterMode() {
+    videoStore.theaterMode = !videoStore.theaterMode;
+    // scroll
+    const { y } = useScroll(videoStore.videoColRef, { behavior: 'smooth' });
+    console.log(videoStore.videoColRef);
+    console.log(y.value);
+    y.value = 0;
+}
 </script>
 
 <template>
@@ -136,7 +145,7 @@ async function goToPreviousVideo() {
 
                     <div class="relative flex items-center gap-2 -mb-2 z-1">
                         <PlayerButton
-                            @click="videoStore.theaterMode = !videoStore.theaterMode"
+                            @click="toggleTheaterMode()"
                             :icon="videoStore.theaterMode ? 'mdi-dock-bottom' : 'mdi-dock-right'"
                             class="hidden lg:block"
                         />

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { useVideoStore } from '../stores/video.store';
-import SignInButton from '../../shared/components/SignInButton.vue';
 import { randomNumber } from '../../shared/helpers/randomNumber';
 
 const videoStore = useVideoStore();

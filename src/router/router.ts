@@ -54,7 +54,12 @@ const router = createRouter({
         {
             path: '/auth/callback',
             name: 'callback',
-            component: () => import('../app/auth/Callback.vue'),
+            component: () => import('../app/auth/CallbackPage.vue'),
+        },
+        {
+            path: '/auth/sign-out',
+            name: 'sign-out',
+            component: () => import('../app/auth/SignOutPage.vue'),
         },
 
         //     path: '/:pathMatch(.*)*',
