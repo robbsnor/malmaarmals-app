@@ -23,7 +23,9 @@ onMounted(async () => {
     // const { data, error } = await supabase.functions.invoke('search-categories', {
     //     body: { query: 'programming' },
     // });
-    // console.log(data);
+    // console.log(data, error);
+    // const { data: helloData, error: helloError } = await supabase.functions.invoke('ping');
+    // console.log(helloData, helloError);
 
     loading.value = true;
 
@@ -37,15 +39,17 @@ onMounted(async () => {
 
     await authStore.mirrorSession();
 
-    await Promise.all([
-        authStore.updateIsSubscribed(),
-        videosStore.fetchVideos(),
-        playlistsStore.fetchPlaylists(),
-        historyStore.fetchHistory(),
-    ]).catch(async (err) => {
-        await sleep(800);
-        hasError.value = true;
-    });
+    if (authStore.session) {
+        console.log('checkk subb');
+        await authStore.updateIsSubscribed();
+    }
+
+    await Promise.all([videosStore.fetchVideos(), playlistsStore.fetchPlaylists(), historyStore.fetchHistory()]).catch(
+        async (err) => {
+            await sleep(800);
+            hasError.value = true;
+        }
+    );
 
     loading.value = false;
 });
