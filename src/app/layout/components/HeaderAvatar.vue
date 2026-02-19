@@ -12,7 +12,7 @@ const toggleSettingsDialog = () => {
 </script>
 
 <template>
-    <v-menu location="bottom end" :offset="[4, 6]">
+    <v-menu v-if="authStore.session" location="bottom end" :offset="[4, 6]">
         <template #activator="activator">
             <a
                 v-bind="activator.props"
