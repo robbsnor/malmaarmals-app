@@ -25,11 +25,12 @@ const videosStore = useVideosStore();
                         </div>
                     </RouterLink>
 
-                    <!-- <v-btn color="primary" variant="text" :to="{ name: 'home' }">home</v-btn> -->
-                    <v-btn color="primary" variant="text" :to="{ name: 'archive' }">video</v-btn>
-                    <v-btn color="primary" variant="text" :to="{ name: 'archive', query: { type: 'playlists' } }">
+                    <v-btn color="primary" variant="text" :to="{ name: 'home' }">home</v-btn>
+                    <v-btn color="primary" variant="text" :to="{ name: 'archive' }">archive</v-btn>
+                    <v-btn color="primary" variant="text" :to="{ name: 'about' }">about</v-btn>
+                    <!-- <v-btn color="primary" variant="text" :to="{ name: 'archive', query: { type: 'playlists' } }">
                         playlists
-                    </v-btn>
+                    </v-btn> -->
                 </div>
 
                 <div>
@@ -49,7 +50,6 @@ const videosStore = useVideosStore();
                     />
                 </div>
                 <div class="flex items-center justify-end gap-4">
-                    <v-btn color="primary" variant="text" :to="{ name: 'about' }">about</v-btn>
                     <HeaderAvatar v-if="authStore.session" />
                     <SignInButton v-else class="w-auto!">Login with Twitch</SignInButton>
                 </div>

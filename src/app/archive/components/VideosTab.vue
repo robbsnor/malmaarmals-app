@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, useTemplateRef } from 'vue';
 import VideoItem from '../../video/components/VideoItem.vue';
+import VideoItemLarge from '../../video/components/VideoItemLarge.vue';
 import { useVideosStore } from '../../video/stores/videos.store';
 import { useArchiveStore } from '../stores/archive.store';
 import FilterIndicator from './FilterIndicator.vue';
@@ -13,12 +14,12 @@ const amountToShow = ref(100);
 <template>
     <FilterIndicator archiveType="STREAMS" />
 
-    <div class="grid grid-cols gap-4">
-        <VideoItem
-            v-for="video in videosStore.filteredVideos.slice(0, amountToShow)"
-            :key="video.video_id"
-            :video="video"
-        />
+    <div class="grid grid-cols gap-4 xl:grid-cols-5 xl:gap-8">
+        <template v-for="video in videosStore.filteredVideos.slice(0, amountToShow)" :key="video.video_id">
+            <VideoItem class="xl:hidden" :video="video" />
+
+            <VideoItemLarge class="max-xl:hidden" :video="video" />
+        </template>
     </div>
 
     <!-- nothing found -->

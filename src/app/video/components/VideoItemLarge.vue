@@ -34,18 +34,19 @@ const formattedDuration = computed(() => {
 
 <template>
     <div>
-        <VideoThumbnail
-            :to="{ name: 'video', params: { id: props.video.video_id } }"
-            :src="BucketHelper.getThumbnailUrl(props.video.video_id)"
-            :videoId="props.video.video_id"
-            class="w-36"
-        >
-            <div
-                class="absolute right-2 bottom-2 bg-black/20 leading-none py-1.5 px-2 backdrop-blur-2xl text-normal text-sm rounded-md"
+        <RouterLink :to="{ name: 'video', params: { id: props.video.video_id } }">
+            <VideoThumbnail
+                :to="{ name: 'video', params: { id: props.video.video_id } }"
+                :src="BucketHelper.getThumbnailUrl(props.video.video_id)"
+                :videoId="props.video.video_id"
             >
-                {{ formattedDuration }}
-            </div>
-        </VideoThumbnail>
+                <div
+                    class="absolute right-2 bottom-2 bg-black/20 leading-none py-1.5 px-2 backdrop-blur-2xl text-normal text-sm rounded-md"
+                >
+                    {{ formattedDuration }}
+                </div>
+            </VideoThumbnail>
+        </RouterLink>
 
         <h2 class="font-bold text-md pt-2">
             {{ props.video.title }}
