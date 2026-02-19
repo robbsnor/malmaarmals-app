@@ -1,16 +1,15 @@
 <script setup lang="ts"></script>
 
 <template>
-    <Container>
-        <div class="flex justify-center items-center flex-col py-10 border-tf border-gray-800">
-            <div class="flex flex-col items-center gap-2 pb-4 text-gray-500">
-                <span class="flex items-center gap-1">
-                    Made with
-                    <!-- <UIcon name="i-lucide-heart" class="text-primary-500 animate-pulse" fill="red" /> -->
-                    <UIcon name="i-fe:heart" class="text-primary animate-pulse" />
-                    by <RouterLink to="foo" class="underline">Robbsnor</RouterLink>
-                </span>
+    <div class="bg-black-100 border-t border-black-400">
+        <Container>
+            <div class="flex flex-col items-center text-gray-500 py-10">
+                <div>
+                    Made with <v-icon icon="mdi-heart" class="text-primary animate-pulse" />
+                    by
+                    <a href="https://www.twitch.tv/robbsnor" target="_blank"> Robbsnor </a>
+                </div>
             </div>
-        </div>
-    </Container>
+        </Container>
+    </div>
 </template>
