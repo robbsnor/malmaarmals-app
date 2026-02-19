@@ -3,6 +3,7 @@ import type { Directive } from 'vue';
 export const Z = {
     CHAPTER_MARKER: 10,
     MOBILE_NAV: 10,
+    HEADER: 10,
     ARCHIVE_HEADER: 10,
 
     VIDEO_CONTAINER: 50,

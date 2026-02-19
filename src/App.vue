@@ -8,6 +8,7 @@ import { useAuthStore } from './app/auth/stores/auth.store';
 import { sleep } from './app/shared/helpers/sleep';
 import { useHistoryStore } from './app/history/stores/history.store';
 import Offline from './app/layout/components/Offline.vue';
+import Footer from './app/layout/components/Footer.vue';
 import { supabase } from './supabase';
 import Header from './app/layout/components/Header.vue';
 
@@ -58,8 +59,13 @@ onMounted(async () => {
 <template>
     <v-app v-if="!loading && !hasError">
         <Header />
-        <div class="pb-mobile-navbar 2xl:pt-header 2xl:pb-0">
-            <RouterView />
+
+        <div class="grid h-full" style="grid-template-rows: 1fr auto">
+            <div class="pb-mobile-navbar 2xl:pt-header 2xl:pb-0">
+                <RouterView />
+            </div>
+
+            <Footer />
         </div>
 
         <BottomNav />
