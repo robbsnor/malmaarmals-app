@@ -3,6 +3,7 @@ import { useAuthStore } from '../../auth/stores/auth.store';
 import { refAutoReset } from '@vueuse/core';
 
 const authStore = useAuthStore();
+const props = defineProps();
 const loading = refAutoReset(false, 7000);
 
 async function signIn() {
@@ -13,6 +14,7 @@ async function signIn() {
 
 <template>
     <v-btn
+        v-bind="props"
         color="primary"
         variant="tonal"
         prepend-icon="mdi-twitch"
@@ -20,6 +22,6 @@ async function signIn() {
         class="w-full"
         :loading="loading"
     >
-        Login
+        <slot>Login</slot>
     </v-btn>
 </template>

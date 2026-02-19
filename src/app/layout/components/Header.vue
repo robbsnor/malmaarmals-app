@@ -1,15 +1,9 @@
 <script setup lang="ts">
 import HeaderAvatar from './HeaderAvatar.vue';
 import Logo from '../../shared/components/Logo.vue';
+import { useAuthStore } from '../../auth/stores/auth.store';
 
-const props = withDefaults(
-    defineProps<{
-        items?: string;
-    }>(),
-    {
-        items: 'test',
-    }
-);
+const authStore = useAuthStore();
 </script>
 
 <template>
@@ -28,14 +22,12 @@ const props = withDefaults(
                     <v-btn color="primary" variant="text" :to="{ name: 'archive', query: { type: 'playlists' } }">
                         playlists
                     </v-btn>
+                    <v-btn color="primary" variant="text" :to="{ name: 'about' }">about</v-btn>
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <v-btn color="primary" variant="text" :to="{ name: 'history' }">history</v-btn>
-                    <button class="flex items-center">
-                        <span class="sr-only">Username</span>
-                        <HeaderAvatar />
-                    </button>
+                    <HeaderAvatar v-if="authStore.session" />
+                    <SignInButton variant="flat" v-else class="w-auto!">Login with Twitch</SignInButton>
                 </div>
             </div>
         </Container>

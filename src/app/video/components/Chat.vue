@@ -5,6 +5,7 @@ import { useVideoStore } from '../stores/video.store';
 import type { Messages } from '../models/messages.model';
 import { randomNumber } from '../../shared/helpers/randomNumber';
 import { sleep } from '../../shared/helpers/sleep';
+import { useScroll } from '@vueuse/core';
 
 const videoStore = useVideoStore();
 const chatRef = ref<HTMLElement>(null);
@@ -38,15 +39,20 @@ function findLastIndexAtOrBefore(sec: number): number {
 
 function onScroll() {
     if (!chatRef.value) return;
-    const { scrollTop, scrollHeight, clientHeight } = chatRef.value;
-    const distanceFromBottom = scrollHeight - scrollTop - clientHeight;
+
+    const { y } = useScroll(chatRef);
+    const { scrollHeight, clientHeight } = chatRef.value;
+    const distanceFromBottom = scrollHeight - y.value - clientHeight;
 
     userHasScrolledUp.value = distanceFromBottom > 200;
 }
 
 function scrollBackDown() {
     if (!chatRef.value) return;
-    chatRef.value.scrollTop = chatRef.value.scrollHeight;
+
+    const { y } = useScroll(chatRef, { behavior: 'smooth' });
+    y.value = chatRef.value.scrollHeight;
+
     userHasScrolledUp.value = false;
 }
 

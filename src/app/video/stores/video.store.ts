@@ -25,6 +25,8 @@ export const useVideoStore = defineStore('video', () => {
     const showChat = ref(true);
     const showExtraInfoMobile = ref(false);
     const { width: windowWidth } = useWindowSize();
+    const videoContainerRef = ref<HTMLElement | null>(null);
+    const videoColRef = ref<HTMLElement | null>(null);
 
     // video
     const info = computed(() => videosStore.videos.find((v) => v.video_id === id.value));
@@ -213,6 +215,8 @@ export const useVideoStore = defineStore('video', () => {
         theaterMode,
         showChat,
         showExtraInfoMobile,
+        videoContainerRef,
+        videoColRef,
 
         // video
         info,
