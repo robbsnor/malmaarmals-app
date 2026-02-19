@@ -3,12 +3,11 @@ import { ref } from 'vue';
 import { useAuthStore } from '../../auth/stores/auth.store';
 
 const authStore = useAuthStore();
-
 const settingsDialog = ref(false);
 
-const toggleSettingsDialog = () => {
+function toggleSettingsDialog() {
     settingsDialog.value = !settingsDialog.value;
-};
+}
 </script>
 
 <template>
@@ -23,8 +22,9 @@ const toggleSettingsDialog = () => {
         </template>
 
         <v-list min-width="160">
-            <v-list-item prepend-icon="mdi-cog" @click="toggleSettingsDialog">Settings</v-list-item>
-            <!-- <Divider /> -->
+            <v-list-item prepend-icon="mdi-cog" @click="toggleSettingsDialog">Preferences</v-list-item>
+            <Divider />
+            <v-list-item :to="{ name: 'history' }" prepend-icon="mdi-history">History</v-list-item>
             <v-list-item :to="{ name: 'sign-out' }" prepend-icon="mdi-logout">Logout</v-list-item>
         </v-list>
     </v-menu>
