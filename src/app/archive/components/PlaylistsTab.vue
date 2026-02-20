@@ -6,6 +6,7 @@ import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { supabase } from '../../../supabase';
 import PlaylistItem from '../../playlists/components/PlaylistItem.vue';
+import PlaylistItemLarge from '../../playlists/components/PlaylistItemLarge.vue';
 import { useArchiveStore } from '../stores/archive.store';
 import FilterIndicator from './FilterIndicator.vue';
 
@@ -53,10 +54,23 @@ const submit = async () => {
 
 <template>
     <FilterIndicator archiveType="PLAYLISTS" />
+    <template v-if="playlistsStore.filteredPlaylists.length">
+        <div class="flex flex-col gap-8 py-4 lg:hidden">
+            <PlaylistItem
+                v-for="playlist in playlistsStore.filteredPlaylists"
+                :key="playlist.id"
+                :playlist="playlist"
+            />
+        </div>
 
-    <div v-if="playlistsStore.filteredPlaylists.length" class="flex flex-col gap-8 py-4">
-        <PlaylistItem v-for="playlist in playlistsStore.filteredPlaylists" :key="playlist.id" :playlist="playlist" />
-    </div>
+        <div class="grid gap-x-4 gap-y-8 grid-cols-6 xl:gap-8 max-lg:hidden">
+            <PlaylistItemLarge
+                v-for="playlist in playlistsStore.playlists.slice(0, 6)"
+                :key="playlist.id"
+                :playlist="playlist"
+            />
+        </div>
+    </template>
 
     <!-- empty -->
     <Empty

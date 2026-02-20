@@ -11,6 +11,7 @@ import Offline from './app/layout/components/Offline.vue';
 import Footer from './app/layout/components/Footer.vue';
 import { supabase } from './supabase';
 import Header from './app/layout/components/Header.vue';
+import SearchHero from './app/archive/components/SearchHero.vue';
 
 const videosStore = useVideosStore();
 const authStore = useAuthStore();
@@ -62,6 +63,7 @@ onMounted(async () => {
 
         <div class="grid h-full" style="grid-template-rows: 1fr auto">
             <div class="pb-mobile-navbar lg:pt-header lg:pb-0">
+                <SearchHero />
                 <RouterView />
             </div>
 

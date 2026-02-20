@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import HeaderAvatar from './HeaderAvatar.vue';
-import Logo from '../../shared/components/Logo.vue';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { useArchiveStore } from '../../archive/stores/archive.store';
 import { useVideosStore } from '../../video/stores/videos.store';
 import { Z } from '../../shared/directives/z.directive';
 
 const authStore = useAuthStore();
-const archiveStore = useArchiveStore();
-const videosStore = useVideosStore();
 </script>
 
 <template>
@@ -35,7 +32,7 @@ const videosStore = useVideosStore();
                 </div>
 
                 <div>
-                    <v-combobox
+                    <!-- <v-combobox
                         v-model="archiveStore.query"
                         :items="videosStore.categoriesList"
                         placeholder="Search..."
@@ -48,7 +45,7 @@ const videosStore = useVideosStore();
                         density="compact"
                         prepend-inner-icon="mdi-magnify"
                         @click:append-inner="archiveStore.query ? (archiveStore.query = '') : null"
-                    />
+                    /> -->
                 </div>
                 <div class="flex items-center justify-end gap-4">
                     <HeaderAvatar v-if="authStore.session" />
