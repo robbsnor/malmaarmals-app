@@ -17,6 +17,7 @@ import { useVideosStore } from '../stores/videos.store';
 import VideoInfo from './VideoInfo.vue';
 import _ from 'lodash';
 import { useManageChaptersStore } from '../stores/manage-chapters.store';
+import Cast from './Cast.vue';
 
 const videoStore = useVideoStore();
 const videosStore = useVideosStore();
@@ -100,6 +101,7 @@ function toggleTheaterMode() {
                         <PlayerButton icon="mdi-skip-next" @click="goToNextVideo()" />
                     </Auth>
                     <AddToPlaylist />
+                    <Cast />
                     <PreferenceDrawer />
                     <PlayerButton
                         @click="videoStore.showChat = !videoStore.showChat"
