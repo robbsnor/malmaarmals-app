@@ -14,7 +14,7 @@ const amountToShow = ref(100);
 <template>
     <FilterIndicator archiveType="STREAMS" />
 
-    <div class="grid grid-cols gap-4 xl:grid-cols-5 xl:gap-8">
+    <div class="grid grid-cols gap-4 xl:grid-cols-5 xl:gap-8" v-auto-animate>
         <template v-for="video in videosStore.filteredVideos.slice(0, amountToShow)" :key="video.video_id">
             <VideoItem class="xl:hidden" :video="video" />
 

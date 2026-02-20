@@ -33,12 +33,12 @@ const time = computed(() => {
     <div
         :class="
             twMerge(
-                'relative transition-all block group overflow-hidden rounded-md self-start',
+                'relative transition-all block group overflow-hidden rounded-md self-start group',
                 props.type === 'large' && 'rounded-2xl'
             )
         "
     >
-        <v-img :src="props.src" class="relative w-full aspect-video transition-all" aria-hidden="true" />
+        <v-img :src="props.src" class="relative w-full aspect-video" aria-hidden="true" />
         <div v-if="prettyTime" class="absolute bottom-2 right-2 bg-black/50 rounded-md text-xs px-1.5 py-0.5">
             {{ prettyTime }}
         </div>

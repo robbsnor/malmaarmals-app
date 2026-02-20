@@ -69,6 +69,10 @@
     @apply text-muted;
 }
 
+html {
+    @apply overflow-y-scroll;
+}
+
 html,
 body {
     @apply bg-black-100;

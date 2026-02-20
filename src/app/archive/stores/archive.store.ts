@@ -6,9 +6,9 @@ import { useRoute, useRouter } from 'vue-router';
 
 export const useArchiveStore = defineStore('archive', () => {
     const router = useRouter();
-    const query = useStorage<string>('archive-query', '', sessionStorage);
+    const query = ref<string>();
     const searchEl = ref<HTMLInputElement>();
-    const activeTab = useRouteQuery<'streams' | 'playlists' | 'categories'>('type', 'streams');
+    const activeFilterType = useRouteQuery<'streams' | 'playlists' | 'categories'>('type', 'streams');
 
     function resetQuery() {
         query.value = '';
@@ -20,13 +20,12 @@ export const useArchiveStore = defineStore('archive', () => {
     };
 
     watch(query, () => {
-        console.log('weuroiweuro');
         router.push({ name: 'archive' });
     });
 
     return {
         query,
-        activeTab,
+        activeFilterType,
         searchEl,
 
         resetQuery,

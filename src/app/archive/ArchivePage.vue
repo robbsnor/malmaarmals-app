@@ -8,6 +8,7 @@ import { useRoute } from 'vue-router';
 import { Z } from '../shared/directives/z.directive';
 import { useVideosStore } from '../video/stores/videos.store';
 import { onStartTyping } from '@vueuse/core';
+import SearchHero from './components/SearchHero.vue';
 
 TitleHelper.setTitle('archive');
 
@@ -48,7 +49,7 @@ onStartTyping(() => {
             />
 
             <div>
-                <v-tabs grow v-model="archiveStore.activeTab">
+                <v-tabs grow v-model="archiveStore.activeFilterType">
                     <v-tab value="streams">streams</v-tab>
                     <v-tab value="playlists">playlists</v-tab>
                     <!-- <v-tab value="categories">categories</v-tab> -->
@@ -57,7 +58,7 @@ onStartTyping(() => {
         </div>
 
         <div class="pt-[116px] pb-4 2xl:py-4">
-            <v-tabs-window v-model="archiveStore.activeTab">
+            <v-tabs-window v-model="archiveStore.activeFilterType">
                 <v-tabs-window-item value="streams"><VideosTab /></v-tabs-window-item>
                 <v-tabs-window-item value="playlists"><PlaylistsTab /></v-tabs-window-item>
                 <!-- <v-tabs-window-item value="categories"> categories </v-tabs-window-item> -->
