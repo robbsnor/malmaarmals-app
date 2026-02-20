@@ -15,17 +15,17 @@ const authStore = useAuthStore();
         <!-- <div>accessToken: {{ authStore.twitchAccessToken }}</div>
         <div>refreshToken: {{ authStore.twitchRefreshToken }}</div> -->
 
-        <div class="flex items-center p-30 relative">
+        <div class="flex items-center h-screen max-h-[20vh] relative">
             <Container class="relative z-1">
                 <div class="flex items-center justify-center py-12 flex-col gap-2 pb-8">
-                    <div class="w-60">
-                        <Logo payoff />
-                    </div>
+                    <Logo payoff />
                 </div>
             </Container>
 
-            <div class="pattern-bg absolute top-0 right-0 bottom-0 left-0"></div>
-            <div class="absolute right-0 bottom-0 left-0 h-[50%] bg-gradient-to-t from-black-100 from-10%"></div>
+            <div class="pattern-bg absolute top-0 right-0 bottom-0 left-0 pointer-events-none"></div>
+            <div
+                class="absolute right-0 bottom-0 left-0 h-[50%] bg-gradient-to-t from-black-100 from-10% pointer-events-none"
+            ></div>
         </div>
 
         <PrevStreams />
@@ -41,6 +41,6 @@ const authStore = useAuthStore();
     background-size: 120px auto;
     background-position: 100px 100px;
     width: 100%;
-    filter: invert(0.8);
+    filter: invert(0.9);
 }
 </style>

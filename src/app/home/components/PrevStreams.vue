@@ -16,7 +16,7 @@ const videosStore = useVideosStore();
 
             <div class="grid gap-x-4 gap-y-8 grid-cols-4 xl:gap-8">
                 <VideoItemLarge
-                    v-for="video in videosStore.videos.slice(0, 8)"
+                    v-for="video in videosStore.videos.slice(0, 4)"
                     :key="video.video_id"
                     class="max-lg:hidden"
                     :video="video"

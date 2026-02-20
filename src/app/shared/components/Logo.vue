@@ -53,6 +53,6 @@ const props = defineProps<{
             />
         </svg>
 
-        <div v-if="props.payoff" class="text-muted pt-2">Lekker Spelen Twitch Archive</div>
+        <div v-if="props.payoff" class="text-muted pt-2">The Lekker Spelen Twitch Archive</div>
     </div>
 </template>

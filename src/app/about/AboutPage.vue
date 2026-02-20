@@ -21,7 +21,7 @@ const faqs = ref([
 </script>
 
 <template>
-    <Container width="600px">
+    <Container width="920px " class="py-4">
         <div class="fs">
             <h2>About Malmaarmals</h2>
             <p>Malmaarmals is a website to archive and showcase old Twitch streams from the duo from Lekker Spelen.</p>
