@@ -61,7 +61,7 @@ onMounted(async () => {
         <Header />
 
         <div class="grid h-full" style="grid-template-rows: 1fr auto">
-            <div class="pb-mobile-navbar 2xl:pt-header 2xl:pb-0">
+            <div class="pb-mobile-navbar lg:pt-header lg:pb-0">
                 <RouterView />
             </div>
 

@@ -39,7 +39,7 @@ const time = computed(() => {
         "
     >
         <v-img :src="props.src" class="relative w-full aspect-video transition-all" aria-hidden="true" />
-        <div v-if="prettyTime" class="absolute bottom-1 right-1 bg-black/50 rounded-md text-xs px-1.5 py-0.5">
+        <div v-if="prettyTime" class="absolute bottom-2 right-2 bg-black/50 rounded-md text-xs px-1.5 py-0.5">
             {{ prettyTime }}
         </div>
 

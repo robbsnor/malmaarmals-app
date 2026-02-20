@@ -141,10 +141,10 @@ const handleClick = async (item: any) => {
                             v-if="!item.hidden"
                             @click="handleClick(item)"
                             :class="[
-                                'bg-black-200 text-normal flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition first:rounded-t-md last:rounded-b-md',
+                                'bg-black-300 text-normal flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition first:rounded-t-md last:rounded-b-md',
                                 {
                                     'text-red-500': item.icon === 'mdi-logout',
-                                    'hover:bg-black-300': !item.disabled,
+                                    'hover:bg-black-400': !item.disabled,
                                     'cursor-default! opacity-50': item.disabled,
                                 },
                             ]"

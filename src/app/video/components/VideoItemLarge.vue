@@ -2,10 +2,12 @@
 import { computed } from 'vue';
 import type { Tables } from '../../shared/models/database.types';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
+import { formatTimeAgo } from '@vueuse/core';
+import type { VideoWithChapters } from '../models/videos-with-chapters.model';
 
 const props = withDefaults(
     defineProps<{
-        video: Tables<'videos'>;
+        video: VideoWithChapters;
         isFirst?: boolean;
     }>(),
     {
@@ -13,22 +15,10 @@ const props = withDefaults(
     }
 );
 
-const daysAgo = computed(() => {
-    const recordedAt = new Date(props.video.recorded_at);
-    const now = new Date();
-    const diffTime = Math.abs(now.getTime() - recordedAt.getTime());
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-});
-
-const formattedDuration = computed(() => {
-    const duration = props.video.length_sec;
-    const hours = Math.floor(duration / 3600);
-    const minutes = Math.floor((duration % 3600) / 60);
-    const seconds = duration % 60;
-    if (hours > 0) {
-        return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-    }
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+const categories = computed(() => {
+    const cats = props.video?.chapters.map((chapter) => chapter.category.title);
+    const uniqueCats = Array.from(new Set(cats));
+    return uniqueCats;
 });
 </script>
 
@@ -39,37 +29,19 @@ const formattedDuration = computed(() => {
                 :to="{ name: 'video', params: { id: props.video.video_id } }"
                 :src="BucketHelper.getThumbnailUrl(props.video.video_id)"
                 :videoId="props.video.video_id"
+                :durationS="props.video.length_sec"
             >
-                <div
-                    class="absolute right-2 bottom-2 bg-black/20 leading-none py-1.5 px-2 backdrop-blur-2xl text-normal text-sm rounded-md"
-                >
-                    {{ formattedDuration }}
-                </div>
             </VideoThumbnail>
         </RouterLink>
 
         <h2 class="font-bold text-lg pt-2 line-clamp-2 leading-tight">
             {{ props.video.title }}
         </h2>
-        <div class="text-muted text-md font-medium">Super Mario Kart World</div>
-        <div class="text-muted-more text-md font-medium">{{ daysAgo }} days ago</div>
-
-        <!-- <template v-if="video.categories.length">
-            <div
-                v-for="category in video.categories"
-                :key="category.id"
-                class="mt-2 flex items-center gap-2"
-            >
-                <img
-                    :src="category.image_url"
-                    alt=""
-                    class="rounded-md"
-                />
-
-                <span class="text-sm text-gray-500">
-                    {{ category.title }}
-                </span>
-            </div>
-        </template> -->
+        <div v-if="props.video?.chapters.length" class="text-muted text-md font-medium">
+            {{ categories.join(', ') }}
+        </div>
+        <div class="text-muted-more text-md font-medium">
+            {{ formatTimeAgo(new Date(props.video.recorded_at)) }}
+        </div>
     </div>
 </template>
