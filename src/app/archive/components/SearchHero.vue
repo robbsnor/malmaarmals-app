@@ -14,7 +14,7 @@ onStartTyping(() => searchRef.value?.$el?.querySelector('input').focus());
 </script>
 
 <template>
-    <div class="flex items-center relative bg-primary pt-12 lg:pt-12 lg:pb-6">
+    <div class="flex items-center relative bg-black pt-12 lg:pt-12 lg:pb-6">
         <Container class="relative z-1">
             <div class="flex items-center justify-center flex-col gap-2">
                 <Logo payoff />
