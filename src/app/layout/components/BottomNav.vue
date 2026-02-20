@@ -21,7 +21,7 @@ const menuItems = ref([
     <div
         ref="mobileNavRef"
         :style="{ paddingBottom: bottom }"
-        class="border-black-300 bg-black-100 fixed right-0 bottom-0 left-0 h-[var(--height-mobile-navbar)] border-t transition-transform 2xl:hidden"
+        class="border-black-300 bg-black-100 fixed right-0 bottom-0 left-0 h-[var(--height-mobile-navbar)] border-t transition-transform lg:hidden"
         :class="{ 'translate-y-[-100%]': !appStore.headerShown }"
         v-z="Z.MOBILE_NAV"
     >

@@ -24,6 +24,10 @@ const topChatters = computed(() => {
     return [...counts.values()].sort((a, b) => b.count - a.count);
 });
 
+const broCounter = computed(() => {
+    return videoStore.messages.filter((msg) => msg.text.toLowerCase().includes('bro')).length;
+});
+
 const myStats = computed(() => {
     const index = topChatters.value.findIndex((c) => c.userId === authStore.twitchUserId);
     return index === -1 ? null : { ...topChatters.value[index], rank: index + 1 };

@@ -19,7 +19,7 @@ const props = withDefaults(
     <section class="relative overflow-hidden py-6 border-bf border-black-500">
         <Container class="relative">
             <div v-if="slots.actions || props.title" class="flex justify-between gap-4 pb-2">
-                <h2 class="text-2xl font-bold">{{ props.title }}</h2>
+                <h2 class="text-2xl font-bold lg:text-4xl">{{ props.title }}</h2>
                 <slot name="actions"></slot>
             </div>
 
