@@ -10,15 +10,15 @@ const videosStore = useVideosStore();
 <template>
     <Section title="Streams" moreLink="/archive?type=streams" moreText="All Streams">
         <template v-if="videosStore.videos.length">
-            <div class="flex flex-col gap-5 xl:hidden">
+            <div class="flex flex-col gap-5 lg:hidden">
                 <VideoItem v-for="video in videosStore.videos.slice(0, 5)" :key="video.video_id" :video="video" />
             </div>
 
-            <div class="grid gap-8 grid-cols-4">
+            <div class="grid gap-x-4 gap-y-8 grid-cols-4 xl:gap-8">
                 <VideoItemLarge
                     v-for="video in videosStore.videos.slice(0, 8)"
                     :key="video.video_id"
-                    class="max-xl:hidden"
+                    class="max-lg:hidden"
                     :video="video"
                 />
             </div>

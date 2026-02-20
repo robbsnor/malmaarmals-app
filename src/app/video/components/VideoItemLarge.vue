@@ -48,11 +48,11 @@ const formattedDuration = computed(() => {
             </VideoThumbnail>
         </RouterLink>
 
-        <h2 class="font-bold text-md pt-2">
+        <h2 class="font-bold text-lg pt-2 line-clamp-2 leading-tight">
             {{ props.video.title }}
         </h2>
-        <div class="text-muted text-sm font-medium">Super Mario Kart World</div>
-        <div class="text-muted-more text-sm font-medium">{{ daysAgo }} days ago</div>
+        <div class="text-muted text-md font-medium">Super Mario Kart World</div>
+        <div class="text-muted-more text-md font-medium">{{ daysAgo }} days ago</div>
 
         <!-- <template v-if="video.categories.length">
             <div
