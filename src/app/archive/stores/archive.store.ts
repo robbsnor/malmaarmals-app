@@ -6,6 +6,7 @@ import { useRoute, useRouter } from 'vue-router';
 
 export const useArchiveStore = defineStore('archive', () => {
     const router = useRouter();
+    const route = useRoute();
     const query = ref<string>();
     const searchEl = ref<HTMLInputElement>();
     const activeFilterType = useRouteQuery<'streams' | 'playlists' | 'categories'>('type', 'streams');
@@ -20,6 +21,7 @@ export const useArchiveStore = defineStore('archive', () => {
     };
 
     watch(query, () => {
+        if (route.name === 'archive') return;
         router.push({ name: 'archive' });
     });
 

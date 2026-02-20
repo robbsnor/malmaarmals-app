@@ -3,7 +3,7 @@ import BottomNav from './app/layout/components/BottomNav.vue';
 import VideoContainer from './app/video/components/VideoContainer.vue';
 import { useVideosStore } from './app/video/stores/videos.store';
 import { usePlaylistsStore } from './app/playlists/stores/playlists.store';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useAuthStore } from './app/auth/stores/auth.store';
 import { sleep } from './app/shared/helpers/sleep';
 import { useHistoryStore } from './app/history/stores/history.store';
@@ -12,6 +12,9 @@ import Footer from './app/layout/components/Footer.vue';
 import { supabase } from './supabase';
 import Header from './app/layout/components/Header.vue';
 import SearchHero from './app/archive/components/SearchHero.vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 
 const videosStore = useVideosStore();
 const authStore = useAuthStore();
@@ -63,7 +66,7 @@ onMounted(async () => {
 
         <div class="grid h-full" style="grid-template-rows: 1fr auto">
             <div class="pb-mobile-navbar lg:pt-header lg:pb-0">
-                <SearchHero />
+                <SearchHero v-show="route.meta.showSearch" />
                 <RouterView />
             </div>
 

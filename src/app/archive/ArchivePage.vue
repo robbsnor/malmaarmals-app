@@ -8,7 +8,6 @@ import { useRoute } from 'vue-router';
 import { Z } from '../shared/directives/z.directive';
 import { useVideosStore } from '../video/stores/videos.store';
 import { onStartTyping } from '@vueuse/core';
-import SearchHero from './components/SearchHero.vue';
 
 TitleHelper.setTitle('archive');
 
@@ -33,31 +32,7 @@ onStartTyping(() => {
 
 <template>
     <Container>
-        <div class="fixed top-0 right-0 left-0 bg-black h-[112px] pt-4 px-4 2xl:hidden" v-z="Z.ARCHIVE_HEADER">
-            <v-text-field
-                ref="searchRef"
-                autocomplete="off"
-                :items="videosStore.categoriesList"
-                v-model="archiveStore.query"
-                :rounded="true"
-                placeholder="Search..."
-                density="comfortable"
-                persistent-clear
-                hide-details="auto"
-                append-inner-icon="mdi-magnify"
-                class="w-full"
-            />
-
-            <div>
-                <v-tabs grow v-model="archiveStore.activeFilterType">
-                    <v-tab value="streams">streams</v-tab>
-                    <v-tab value="playlists">playlists</v-tab>
-                    <!-- <v-tab value="categories">categories</v-tab> -->
-                </v-tabs>
-            </div>
-        </div>
-
-        <div class="pt-[116px] pb-4 2xl:py-4">
+        <div class="py-4">
             <v-tabs-window v-model="archiveStore.activeFilterType">
                 <v-tabs-window-item value="streams"><VideosTab /></v-tabs-window-item>
                 <v-tabs-window-item value="playlists"><PlaylistsTab /></v-tabs-window-item>
