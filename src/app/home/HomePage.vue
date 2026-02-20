@@ -5,7 +5,6 @@ import { TitleHelper } from '../shared/helpers/title.helper';
 import PrevStreams from './components/PrevStreams.vue';
 import History from './components/History.vue';
 import { useAuthStore } from '../auth/stores/auth.store';
-import SearchHero from '../archive/components/SearchHero.vue';
 
 TitleHelper.setTitle('home');
 const authStore = useAuthStore();

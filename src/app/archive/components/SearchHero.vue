@@ -3,21 +3,23 @@ import { useTemplateRef } from 'vue';
 import { onStartTyping } from '@vueuse/core';
 import { useArchiveStore } from '../stores/archive.store';
 import { useVideosStore } from '../../video/stores/videos.store';
+import { useRoute } from 'vue-router';
 
 const videosStore = useVideosStore();
 const archiveStore = useArchiveStore();
 const searchRef = useTemplateRef<HTMLElement | any>('searchRef');
+const route = useRoute();
 
 onStartTyping(() => searchRef.value?.$el?.querySelector('input').focus());
 </script>
 
 <template>
-    <div class="flex items-center h-screen max-h-[30vh] relative">
+    <div class="flex items-center relative bg-primary pt-12 lg:pt-12 lg:pb-6">
         <Container class="relative z-1">
-            <div class="flex items-center justify-center py-12 flex-col gap-2 pb-8">
+            <div class="flex items-center justify-center flex-col gap-2">
                 <Logo payoff />
 
-                <div class="pt-4 flex gap-4">
+                <div class="pt-4 flex gap-4 grow w-full max-w-160">
                     <v-combobox
                         ref="searchRef"
                         v-model="archiveStore.query"
@@ -27,26 +29,28 @@ onStartTyping(() => searchRef.value?.$el?.querySelector('input').focus());
                         clear-icon="mdi-close"
                         menu-icon="mdi-chevron-down"
                         autocomplete="off"
-                        class="search w-110"
+                        class="w-full"
+                        density="default"
                         variant="solo"
                         prepend-inner-icon="mdi-magnify"
                         @click:append-inner="archiveStore.query ? (archiveStore.query = '') : null"
                     />
                 </div>
 
-                <v-tabs grow v-model="archiveStore.activeFilterType">
-                    <v-tab value="streams">streams</v-tab>
-                    <v-tab value="playlists">playlists</v-tab>
-                    <!-- <v-tab value="categories">categories</v-tab> -->
-                </v-tabs>
+                <div :class="{ 'opacity-0 pointer-events-none': !route.meta.showTabs }" class="transition-all w-full">
+                    <v-tabs v-model="archiveStore.activeFilterType" grow>
+                        <v-tab value="streams">streams</v-tab>
+                        <v-tab value="playlists">playlists</v-tab>
+                    </v-tabs>
+                </div>
             </div>
         </Container>
 
         <div
-            class="absolute inset-0 pointer-events-none bg-center bg-[url('/images/sicko.svg')] bg-repeat bg-[length:120px_auto] [filter:invert(0.9)] animate-slide"
+            class="absolute inset-0 pointer-events-none bg-[url('/images/sicko.svg')] bg-repeat bg-[length:120px_auto] [filter:invert(0.9)] animate-slide"
         ></div>
         <div
-            class="absolute inset-x-0 bottom-0 h-[50%] bg-gradient-to-t from-black-100 from-10% pointer-events-none"
+            class="absolute inset-x-0 bottom-0 h-[50%] bg-gradient-to-t from-black-100 from-10% pointer-events-none bg-red-500f"
         ></div>
     </div>
 </template>
@@ -54,14 +58,14 @@ onStartTyping(() => searchRef.value?.$el?.querySelector('input').focus());
 <style scoped>
 @keyframes slide {
     0% {
-        background-position: 0 0;
+        background-position: 0% 0%;
     }
     100% {
-        background-position: 120px 120px;
+        background-position: 1000px 1000px;
     }
 }
 
 .animate-slide {
-    animation: slide 20s linear infinite;
+    animation: slide 100s linear infinite;
 }
 </style>

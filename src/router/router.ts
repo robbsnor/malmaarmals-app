@@ -1,6 +1,13 @@
 import { createRouter, createWebHistory, type RouteLocationNormalizedLoadedGeneric } from 'vue-router';
 import { useAuthStore } from '../app/auth/stores/auth.store';
 
+declare module 'vue-router' {
+    interface RouteMeta {
+        showSearch?: boolean;
+        showTabs?: boolean;
+    }
+}
+
 const isLoggedIn = () => {
     const authStore = useAuthStore();
     if (!authStore.session) {
@@ -16,11 +23,13 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
+            meta: { showSearch: true },
             component: () => import('../app/home/HomePage.vue'),
         },
         {
             path: '/archive',
             name: 'archive',
+            meta: { showSearch: true, showTabs: true },
             component: () => import('../app/archive/ArchivePage.vue'),
         },
         {
