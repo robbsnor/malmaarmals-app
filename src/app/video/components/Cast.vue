@@ -5,6 +5,10 @@ import ConfirmDialog from '../../shared/components/ConfirmDialog.vue';
 import { useVideoStore } from '../stores/video.store';
 import { storeToRefs } from 'pinia';
 
+// Type declarations for Google Cast API
+declare const cast: any;
+declare const chrome: any;
+
 const videoStore = useVideoStore();
 const { src, videoRef, playing, currentTimeRounded, volume, muted } = storeToRefs(videoStore);
 
