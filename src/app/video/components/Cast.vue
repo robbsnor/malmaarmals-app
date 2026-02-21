@@ -204,23 +204,6 @@ async function openCast() {
     }
 
     if (tryAirPlay()) return;
-
-    if (src.value && navigator.share) {
-        try {
-            await navigator.share({ url: src.value, title: 'Watch video' });
-        } catch {}
-        return;
-    }
-
-    if (src.value) {
-        try {
-            await navigator.clipboard.writeText(src.value);
-            copied.value = true;
-            setTimeout(() => {
-                copied.value = false;
-            }, 2000);
-        } catch {}
-    }
 }
 </script>
 
