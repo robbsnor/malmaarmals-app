@@ -8,7 +8,7 @@ const videoStore = useVideoStore();
 const router = useRouter();
 
 function maximizePlayer() {
-    router.push({ name: 'video', params: { id: videoStore.id } });
+    router.push({ name: 'video', params: { id: videoStore.id }, query: { playlistId: videoStore.playlistId } });
 }
 
 function togglePlay() {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, watch } from 'vue';
+import { computed, onMounted, onUnmounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useVideoStore } from './stores/video.store';
 import { useAuthStore } from '../auth/stores/auth.store';
@@ -23,14 +23,17 @@ async function init() {
     const videoId = Number(route.params.id);
     const playlistId = route.query.playlistId as string;
 
-    const isSamePage = videoId === videoStore.id;
-    if (isSamePage) return;
+    const isSameVideoId = videoId === videoStore.id;
+    const isSamePlaylistId = playlistId === videoStore.playlistId;
+    if (isSameVideoId && isSamePlaylistId) return;
+
     if (!authStore.isSubbed) return;
 
+    console.log('init');
     await videoStore.init(videoId, playlistId);
     TitleHelper.setTitle(videoStore.info.title);
 
-    await historyStore.add();
+    // await historyStore.add();
 }
 
 watch(route, async () => {
