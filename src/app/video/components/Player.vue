@@ -31,6 +31,16 @@ onMounted(async () => {
             :poster="BucketHelper.getThumbnailUrl(Number(videoStore.id))"
         ></video>
 
+        <!-- poster overlay while casting -->
+        <Transition name="fade">
+            <img
+                v-if="videoStore.casting"
+                :src="BucketHelper.getThumbnailUrl(Number(videoStore.id))"
+                class="absolute inset-0 w-full h-full object-contain"
+                :class="videoStore.theaterMode ? '' : 'max-h-[82vh]'"
+            />
+        </Transition>
+
         <div class="absolute inset-0" @click="videoStore.showControllsAndInfo = !videoStore.showControllsAndInfo"></div>
 
         <!-- controls -->
@@ -38,3 +48,14 @@ onMounted(async () => {
         <MiniplayerControls />
     </div>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.4s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+</style>

@@ -23,6 +23,7 @@ export const useVideoStore = defineStore('video', () => {
     // layout
     const theaterMode = ref(true);
     const showChat = ref(true);
+    const casting = ref(false);
     const showExtraInfoMobile = ref(false);
     const { width: windowWidth } = useWindowSize();
     const videoContainerRef = ref<HTMLElement | null>(null);
@@ -137,6 +138,8 @@ export const useVideoStore = defineStore('video', () => {
         if (error) throw error;
 
         src.value = data.signedUrl;
+        // src.value =
+        //     'https://backend.malmaarmals.nl/videos/2076579081?exp=1771763084231&sig=LdvBaZKyJqUzW2DzN8GhGr4Rz_1Rsu3S-bVcDPcdAO8';
     }
 
     function setTimePrior(sec: number) {
@@ -214,6 +217,7 @@ export const useVideoStore = defineStore('video', () => {
         // layout
         theaterMode,
         showChat,
+        casting,
         showExtraInfoMobile,
         videoContainerRef,
         videoColRef,
