@@ -24,7 +24,6 @@ const loading = ref(true);
 const hasError = ref(false);
 
 onMounted(async () => {
-    console.log('App mounted');
     // const { data, error } = await supabase.functions.invoke('search-categories', {
     //     body: { query: 'programming' },
     // });
@@ -45,7 +44,6 @@ onMounted(async () => {
     await authStore.mirrorSession();
 
     if (authStore.session) {
-        console.log('checkk subb');
         await authStore.updateIsSubscribed();
     }
 
