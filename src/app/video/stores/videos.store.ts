@@ -6,6 +6,7 @@ import { videosWithChaptersQuery, type VideoWithChapters } from '../models/video
 export const useVideosStore = defineStore('videos', () => {
     const archiveStore = useArchiveStore();
     const videos = ref<VideoWithChapters[]>([]);
+    const amountToShow = ref(100);
 
     const fetchVideos = async () => {
         const { data, error } = await videosWithChaptersQuery;
@@ -49,6 +50,7 @@ export const useVideosStore = defineStore('videos', () => {
         videos,
         filteredVideos,
         categoriesList,
+        amountToShow,
 
         fetchVideos,
     };
