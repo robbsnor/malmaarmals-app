@@ -8,14 +8,13 @@ import FilterIndicator from './FilterIndicator.vue';
 
 const videosStore = useVideosStore();
 const archiveStore = useArchiveStore();
-const amountToShow = ref(100);
 </script>
 
 <template>
     <FilterIndicator archiveType="STREAMS" />
 
     <div class="grid grid-cols gap-4 xl:grid-cols-5 xl:gap-8" v-auto-animate>
-        <template v-for="video in videosStore.filteredVideos.slice(0, amountToShow)" :key="video.video_id">
+        <template v-for="video in videosStore.filteredVideos.slice(0, videosStore.amountToShow)" :key="video.video_id">
             <VideoItem class="xl:hidden" :video="video" />
 
             <VideoItemLarge class="max-xl:hidden" :video="video" />
@@ -32,7 +31,9 @@ const amountToShow = ref(100);
         <v-btn @click="archiveStore.resetQuery">Clear</v-btn>
     </Empty>
 
-    <div v-if="amountToShow < videosStore.filteredVideos.length" class="flex justify-center mt-8">
-        <v-btn :rounded="true" variant="tonal" color="primary" @click="amountToShow += 500"> Load More </v-btn>
+    <div v-if="videosStore.amountToShow < videosStore.filteredVideos.length" class="flex justify-center mt-8">
+        <v-btn :rounded="true" variant="tonal" color="primary" @click="videosStore.amountToShow += 500">
+            Load More
+        </v-btn>
     </div>
 </template>
