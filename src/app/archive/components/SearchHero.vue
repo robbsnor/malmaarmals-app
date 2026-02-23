@@ -16,6 +16,24 @@ onStartTyping(() => searchRef.value?.$el?.querySelector('input').focus());
 <template>
     <div class="flex items-center relative bg-black pt-12 lg:pt-12 lg:pb-6">
         <Container class="relative z-1">
+            <!-- <div class="absolute top-2 right-2">
+                <v-btn
+                    variant="text"
+                    color="red"
+                    href="https://www.twitch.tv/lekkerspelen"
+                    target="_blank"
+                    class="flex gap-2 items-center justify-center"
+                >
+                    <div class="flex justify-center items-center gap-2">
+                        <div class="relative flex justify-center items-center">
+                            <div class="size-2 bg-red-500 rounded-full absolute animate-ping duration-[3000ms]!"></div>
+                            <div class="size-2 bg-red-500 rounded-full"></div>
+                        </div>
+                        <div>Live</div>
+                    </div>
+                </v-btn>
+            </div> -->
+
             <div class="flex items-center justify-center flex-col gap-2">
                 <Logo payoff />
 
