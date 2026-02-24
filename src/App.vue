@@ -62,8 +62,8 @@ onMounted(async () => {
     <v-app v-if="!loading && !hasError">
         <Header />
 
-        <div class="grid h-full" style="grid-template-rows: 1fr auto">
-            <div class="pb-mobile-navbar lg:pt-header lg:pb-0">
+        <div class="grid h-full pb-mobile-navbar lg:pt-header lg:pb-0" style="grid-template-rows: 1fr auto">
+            <div>
                 <SearchHero v-show="route.meta.showSearch" />
                 <RouterView />
             </div>

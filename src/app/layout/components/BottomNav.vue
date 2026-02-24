@@ -21,8 +21,7 @@ const menuItems = ref([
     <div
         ref="mobileNavRef"
         :style="{ paddingBottom: bottom }"
-        class="border-black-300 bg-black-100 fixed right-0 bottom-0 left-0 h-[var(--height-mobile-navbar)] border-t transition-transform lg:hidden"
-        :class="{ 'translate-y-[-100%]': !appStore.headerShown }"
+        class="border-black-300 bg-black-100 fixed right-0 bottom-0 left-0 h-[var(--height-mobile-navbar)] border-t lg:hidden"
         v-z="Z.MOBILE_NAV"
     >
         <Container width="400px" class="h-full">
@@ -33,7 +32,7 @@ const menuItems = ref([
                     :to="item.to"
                     :id="item?.id"
                     activeClass="text-primary"
-                    class="text-muted-more text-light hover:text-primary-light flex cursor-pointer flex-col items-center justify-center gap-[2px] px-6 py-2 transition-all"
+                    class="text-muted text-light hover:text-primary-light flex cursor-pointer flex-col items-center justify-center gap-[2px] px-6 py-2 transition-all"
                 >
                     <v-icon v-if="item.icon" :icon="item.icon" />
 
