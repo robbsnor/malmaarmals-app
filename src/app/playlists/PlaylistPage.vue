@@ -6,6 +6,7 @@ import { usePlaylistsStore } from '../playlists/stores/playlists.store';
 import { useRouteParams } from '@vueuse/router';
 import { BucketHelper } from '../shared/helpers/bucket.helper';
 import VideoItem from '../video/components/VideoItem.vue';
+import VideoItemLarge from '../video/components/VideoItemLarge.vue';
 import DeletePlaylistDialog from './components/DeletePlaylistDialog.vue';
 import type { Tables } from '../shared/models/database.types';
 import { useAuthStore } from '../auth/stores/auth.store';
@@ -59,7 +60,7 @@ const dialog = ref(false);
                 </Auth>
             </div>
 
-            <div class="absolute bottom-0 w-full p-4 pb-0">
+            <div class="absolute bottom-0 w-full p-4">
                 <h1 class="text-2xl font-bold">{{ playlist.title }}</h1>
                 <div class="text-muted">{{ playlist.description }}</div>
             </div>
@@ -67,29 +68,12 @@ const dialog = ref(false);
     </Container>
 
     <Container>
-        <div>
-            <div class="flex flex-col gap-4 py-4">
-                <RouterLink
-                    v-for="video in playlist?.videos"
-                    :key="video.id"
-                    :to="{ name: 'video', params: { id: video.video_id }, query: { playlistId: playlist.id } }"
-                    class="flex gap-4"
-                >
-                    <VideoThumbnail
-                        class="w-36 shrink-0"
-                        :src="BucketHelper.getThumbnailUrl(video.video_id)"
-                        :videoId="video.video_id"
-                        :durationS="video.length_sec"
-                    />
+        <div class="flex flex-col gap-5 lg:hidden">
+            <VideoItem v-for="video in playlist?.videos" :key="video.video_id" :video="video" />
+        </div>
 
-                    <div>
-                        <h2 class="text-md line-clamp-2 font-bold">
-                            {{ video.title }}
-                        </h2>
-                        <div class="text-muted-more text-sm font-medium">{{ daysAgo(video) }} days ago</div>
-                    </div>
-                </RouterLink>
-            </div>
+        <div class="grid gap-x-4 gap-y-8 grid-cols-5 xl:gap-8 max-lg:hidden">
+            <VideoItemLarge v-for="video in playlist?.videos" :key="video.video_id" :video="video" />
         </div>
     </Container>
 </template>

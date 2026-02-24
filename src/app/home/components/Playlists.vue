@@ -17,9 +17,9 @@ const playlistsStore = usePlaylistsStore();
                 />
             </div>
 
-            <div class="grid gap-x-4 gap-y-8 grid-cols-6 xl:gap-8 max-lg:hidden">
+            <div class="grid gap-x-4 gap-y-8 grid-cols-4 xl:gap-8 max-lg:hidden">
                 <PlaylistItemLarge
-                    v-for="playlist in playlistsStore.playlists.slice(0, 6)"
+                    v-for="playlist in playlistsStore.playlists.slice(0, 8)"
                     :key="playlist.id"
                     :playlist="playlist"
                 />
