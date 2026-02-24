@@ -46,11 +46,19 @@ export const useVideosStore = defineStore('videos', () => {
         return Array.from(categoriesSet).sort();
     });
 
+    const chaptersOverview = computed(() => {
+        const videosWithChapters = videos.value.filter((video) => video.chapters.length);
+        const videosWithoutChapters = videos.value.filter((video) => !video.chapters.length);
+
+        return [...videosWithChapters, ...videosWithoutChapters];
+    });
+
     return {
         videos,
         filteredVideos,
         categoriesList,
         amountToShow,
+        chaptersOverview,
 
         fetchVideos,
     };
