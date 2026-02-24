@@ -1,20 +1,26 @@
 <script setup lang="ts">
 import { useTemplateRef } from 'vue';
-import { onStartTyping } from '@vueuse/core';
+import { onStartTyping, useDevicesList } from '@vueuse/core';
 import { useArchiveStore } from '../stores/archive.store';
 import { useVideosStore } from '../../video/stores/videos.store';
 import { useRoute } from 'vue-router';
+import { useDisplay } from 'vuetify';
 
 const videosStore = useVideosStore();
 const archiveStore = useArchiveStore();
 const searchRef = useTemplateRef<HTMLElement | any>('searchRef');
 const route = useRoute();
 
+const { lgAndUp, mdAndUp } = useDisplay();
+
 onStartTyping(() => searchRef.value?.$el?.querySelector('input').focus());
 </script>
 
 <template>
-    <div class="flex items-center relative bg-black pt-12 lg:pt-12 lg:pb-6">
+    <div
+        class="flex items-center relative bg-black pt-12 lg:pt-12 lg:pb-6"
+        :class="{ 'hidden! lg:flex!': route.name === 'home' }"
+    >
         <Container class="relative z-1">
             <!-- <div class="absolute top-2 right-2">
                 <v-btn
@@ -55,8 +61,11 @@ onStartTyping(() => searchRef.value?.$el?.querySelector('input').focus());
                     />
                 </div>
 
-                <div :class="{ 'opacity-0 pointer-events-none': !route.meta.showTabs }" class="transition-all w-full">
-                    <v-tabs v-model="archiveStore.activeFilterType" grow>
+                <div
+                    :class="{ 'opacity-0 pointer-events-none': !route.meta.showTabs }"
+                    class="transition-all w-full flex justify-center"
+                >
+                    <v-tabs v-model="archiveStore.activeFilterType" :grow="!mdAndUp">
                         <v-tab value="streams">streams</v-tab>
                         <v-tab value="playlists">playlists</v-tab>
                     </v-tabs>
@@ -65,7 +74,7 @@ onStartTyping(() => searchRef.value?.$el?.querySelector('input').focus());
         </Container>
 
         <div
-            class="absolute inset-0 pointer-events-none bg-[url('/images/sicko.svg')] bg-repeat bg-[length:120px_auto] [filter:invert(0.9)] animate-slide"
+            class="absolute inset-0 pointer-events-none bg-[url('/images/sicko.svg')] bg-repeat bg-[length:120px_auto] [filter:invert(0.8)] transition-all animate-slide"
         ></div>
         <div
             class="absolute inset-x-0 bottom-0 h-[50%] bg-gradient-to-t from-black-100 from-10% pointer-events-none bg-red-500f"
