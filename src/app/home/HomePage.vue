@@ -34,12 +34,12 @@ const videosStore = useVideosStore();
                         location="top"
                     >
                         <template v-slot:activator="{ props }">
-                            <div
+                            <RouterLink
                                 v-bind="props"
                                 :to="{ name: 'video', params: { id: video.video_id } }"
                                 class="aspect-square rounded"
                                 :class="[video.chapters.length ? 'bg-green-500' : ' bg-black-400']"
-                            ></div>
+                            ></RouterLink>
                         </template>
 
                         <div class="bg-black-200 rounded border border-black-400 p-4">
