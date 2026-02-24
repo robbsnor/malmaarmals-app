@@ -64,11 +64,7 @@ const submit = async () => {
         </div>
 
         <div class="grid gap-x-4 gap-y-8 grid-cols-6 xl:gap-8 max-lg:hidden">
-            <PlaylistItemLarge
-                v-for="playlist in playlistsStore.playlists.slice(0, 6)"
-                :key="playlist.id"
-                :playlist="playlist"
-            />
+            <PlaylistItemLarge v-for="playlist in playlistsStore.playlists" :key="playlist.id" :playlist="playlist" />
         </div>
     </template>
 
