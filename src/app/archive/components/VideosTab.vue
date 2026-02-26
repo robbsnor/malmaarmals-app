@@ -32,7 +32,7 @@ const archiveStore = useArchiveStore();
     </Empty>
 
     <div v-if="videosStore.amountToShow < videosStore.filteredVideos.length" class="flex justify-center mt-8">
-        <v-btn :rounded="true" variant="tonal" color="primary" @click="videosStore.amountToShow += 500">
+        <v-btn :rounded="true" variant="tonal" color="primary" @click="videosStore.amountToShow += 100">
             Load More
         </v-btn>
     </div>
