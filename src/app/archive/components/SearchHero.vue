@@ -74,7 +74,7 @@ onStartTyping(() => searchRef.value?.$el?.querySelector('input').focus());
         </Container>
 
         <div
-            class="absolute inset-0 pointer-events-none bg-[url('/images/sicko.svg')] bg-repeat bg-[length:120px_auto] [filter:invert(0.8)] transition-all animate-slide"
+            class="absolute inset-0 pointer-events-none bg-[url('/images/sicko.svg')] bg-repeat bg-[length:120px_auto] [filter:invert(0.85)] transition-all animate-slide"
         ></div>
         <div
             class="absolute inset-x-0 bottom-0 h-[50%] bg-gradient-to-t from-black-100 from-10% pointer-events-none bg-red-500f"
