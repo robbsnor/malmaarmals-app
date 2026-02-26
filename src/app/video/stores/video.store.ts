@@ -59,7 +59,7 @@ export const useVideoStore = defineStore('video', () => {
     const prettyDuration = computed(() => TimeHelper.formatTime(duration.value));
     const playerIsActive = ref(false);
     const playerIsMini = ref(true);
-    const { idle } = useIdle(7 * 1000);
+    const { idle } = useIdle(4 * 1000);
 
     // messages
     const messages = ref<Messages>([]);
