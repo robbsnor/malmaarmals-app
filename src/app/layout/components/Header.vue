@@ -3,6 +3,7 @@ import HeaderAvatar from './HeaderAvatar.vue';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { useArchiveStore } from '../../archive/stores/archive.store';
 import { useVideosStore } from '../../video/stores/videos.store';
+import NavButton from './NavButton.vue';
 import { Z } from '../../shared/directives/z.directive';
 
 const authStore = useAuthStore();
@@ -23,9 +24,13 @@ const authStore = useAuthStore();
                         </div>
                     </RouterLink>
 
-                    <v-btn color="primary" variant="text" :to="{ name: 'home' }">home</v-btn>
-                    <v-btn color="primary" variant="text" :to="{ name: 'archive' }">archive</v-btn>
-                    <v-btn color="primary" variant="text" :to="{ name: 'about' }">about</v-btn>
+                    <NavButton :to="{ name: 'home' }">home</NavButton>
+                    <NavButton :to="{ name: 'archive' }">archive</NavButton>
+                    <NavButton :to="{ name: 'about' }">about</NavButton>
+
+                    <!-- <v-btn color="primary" variant="text" :to="{ name: 'home' }">home</v-btn>
+                    <v-btn color="primary" variant="text" :to="{ name: 'archive' }">videos</v-btn>
+                    <v-btn color="primary" variant="text" :to="{ name: 'about' }">about</v-btn> -->
                     <!-- <v-btn color="primary" variant="text" :to="{ name: 'archive', query: { type: 'playlists' } }">
                         playlists
                     </v-btn> -->
