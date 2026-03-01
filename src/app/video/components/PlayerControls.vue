@@ -112,27 +112,41 @@ function toggleTheaterMode() {
                 </div>
             </div>
 
-            <div class="flex justify-center items-center grow">
-                <button @click="videoStore.currentTime -= 10" class="relative p-4 rounded-full">
-                    <v-icon size="24" icon="mdi-rewind-10" />
-                </button>
+            <div
+                class="relative flex grow justify-center items-center flex-col"
+                @click="videoStore.showControllsAndInfo = false"
+            >
+                <div class="flex justify-center items-center">
+                    <button @click="videoStore.currentTime -= 10" class="relative p-4 rounded-full">
+                        <v-icon size="24" icon="mdi-rewind-10" />
+                    </button>
 
-                <div v-if="videoStore.waiting" class="relative size-16 flex justify-center items-center">
-                    <v-progress-circular class="relative" indeterminate size="48" width="4" />
+                    <div v-if="videoStore.waiting" class="relative size-16 flex justify-center items-center">
+                        <v-progress-circular class="relative" indeterminate size="48" width="4" />
+                    </div>
+
+                    <button v-else @click="videoStore.playing = !videoStore.playing">
+                        <v-icon
+                            :icon="
+                                videoStore.playing || (!videoStore.playing && videoStore.waiting)
+                                    ? 'mdi-pause'
+                                    : 'mdi-play'
+                            "
+                            size="64"
+                        />
+                    </button>
+
+                    <button @click="videoStore.currentTime += 30" class="relative p-4 rounded-full">
+                        <v-icon size="24" icon="mdi-fast-forward-30" />
+                    </button>
                 </div>
 
-                <button v-else @click="videoStore.playing = !videoStore.playing">
-                    <v-icon
-                        :icon="
-                            videoStore.playing || (!videoStore.playing && videoStore.waiting) ? 'mdi-pause' : 'mdi-play'
-                        "
-                        size="64"
-                    />
-                </button>
-
-                <button @click="videoStore.currentTime += 30" class="relative p-4 rounded-full">
-                    <v-icon size="24" icon="mdi-fast-forward-30" />
-                </button>
+                <div
+                    class="absolute font-bold text-muted translate-y-full mt-2 text-center pointer-events-none select-none"
+                >
+                    Loading can take up to a minute, <br />
+                    please be patient.
+                </div>
             </div>
 
             <div class="flex flex-col px-4">
