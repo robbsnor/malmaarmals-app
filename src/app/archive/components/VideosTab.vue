@@ -16,7 +16,6 @@ const archiveStore = useArchiveStore();
     <div class="grid grid-cols gap-4 xl:grid-cols-5 xl:gap-8" v-auto-animate>
         <template v-for="video in videosStore.filteredVideos.slice(0, archiveStore.amountToShow)" :key="video.video_id">
             <VideoItem class="xl:hidden" :video="video" />
-            fj
             <VideoItemLarge class="max-xl:hidden" :video="video" />
         </template>
     </div>
