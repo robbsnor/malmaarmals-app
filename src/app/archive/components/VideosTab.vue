@@ -14,9 +14,9 @@ const archiveStore = useArchiveStore();
     <FilterIndicator archiveType="STREAMS" />
 
     <div class="grid grid-cols gap-4 xl:grid-cols-5 xl:gap-8" v-auto-animate>
-        <template v-for="video in videosStore.filteredVideos.slice(0, videosStore.amountToShow)" :key="video.video_id">
+        <template v-for="video in videosStore.filteredVideos.slice(0, archiveStore.amountToShow)" :key="video.video_id">
             <VideoItem class="xl:hidden" :video="video" />
-
+            fj
             <VideoItemLarge class="max-xl:hidden" :video="video" />
         </template>
     </div>
@@ -31,8 +31,8 @@ const archiveStore = useArchiveStore();
         <v-btn @click="archiveStore.resetQuery">Clear</v-btn>
     </Empty>
 
-    <div v-if="videosStore.amountToShow < videosStore.filteredVideos.length" class="flex justify-center mt-8">
-        <v-btn :rounded="true" variant="tonal" color="primary" @click="videosStore.amountToShow += 100">
+    <div v-if="archiveStore.amountToShow < videosStore.filteredVideos.length" class="flex justify-center mt-8">
+        <v-btn :rounded="true" variant="tonal" color="primary" @click="archiveStore.amountToShow += 100">
             Load More
         </v-btn>
     </div>

@@ -9,6 +9,7 @@ export const useArchiveStore = defineStore('archive', () => {
     const route = useRoute();
     const query = ref<string>();
     const searchEl = ref<HTMLInputElement>();
+    const amountToShow = ref(100);
     const activeFilterType = useRouteQuery<'streams' | 'playlists' | 'categories'>('type', 'streams');
 
     function resetQuery() {
@@ -29,6 +30,7 @@ export const useArchiveStore = defineStore('archive', () => {
         query,
         activeFilterType,
         searchEl,
+        amountToShow,
 
         resetQuery,
         setSearchEl,
