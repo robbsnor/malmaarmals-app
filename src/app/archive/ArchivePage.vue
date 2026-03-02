@@ -16,6 +16,7 @@ const archiveStore = useArchiveStore();
 const videosStore = useVideosStore();
 const searchRef = useTemplateRef<HTMLInputElement>('searchRef');
 const route = useRoute();
+const filterTypes = ['streams', 'playlists'] as const;
 
 onMounted(() => {
     archiveStore.setSearchEl(searchRef.value);
@@ -30,7 +31,7 @@ onStartTyping(() => {
     searchRef.value.focus();
 });
 
-function capitalizeFirstLetter(string) {
+function capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 </script>
@@ -40,20 +41,13 @@ function capitalizeFirstLetter(string) {
         <template #actions>
             <div class="flex gap-2">
                 <v-btn
-                    :variant="archiveStore.activeFilterType === 'streams' ? 'tonal' : 'plain'"
-                    :color="archiveStore.activeFilterType === 'streams' ? 'primary' : 'gray'"
-                    v-model="archiveStore.activeFilterType"
-                    @click="archiveStore.activeFilterType = 'streams'"
+                    v-for="type in filterTypes"
+                    :key="type"
+                    :variant="archiveStore.activeFilterType === type ? 'tonal' : 'plain'"
+                    :color="archiveStore.activeFilterType === type ? 'primary' : 'gray'"
+                    @click="archiveStore.activeFilterType = type"
                 >
-                    streams
-                </v-btn>
-                <v-btn
-                    :variant="archiveStore.activeFilterType === 'playlists' ? 'tonal' : 'plain'"
-                    :color="archiveStore.activeFilterType === 'playlists' ? 'primary' : 'gray'"
-                    v-model="archiveStore.activeFilterType"
-                    @click="archiveStore.activeFilterType = 'playlists'"
-                >
-                    playlists
+                    {{ type }}
                 </v-btn>
             </div>
             <!-- <v-tabs v-model="archiveStore.activeFilterType">
