@@ -8,6 +8,7 @@ import { useRoute } from 'vue-router';
 import { Z } from '../shared/directives/z.directive';
 import { useVideosStore } from '../video/stores/videos.store';
 import { onStartTyping } from '@vueuse/core';
+import Search from '../layout/components/Search.vue';
 
 TitleHelper.setTitle('archive');
 
@@ -28,16 +29,48 @@ onMounted(() => {
 onStartTyping(() => {
     searchRef.value.focus();
 });
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 </script>
 
 <template>
-    <Container>
-        <div class="py-4">
+    <Section :title="capitalizeFirstLetter(archiveStore.activeFilterType)">
+        <template #actions>
+            <div class="flex gap-4">
+                <v-btn
+                    :variant="archiveStore.activeFilterType === 'streams' ? 'tonal' : 'text'"
+                    :color="archiveStore.activeFilterType === 'streams' ? 'primary' : 'gray'"
+                    v-model="archiveStore.activeFilterType"
+                    @click="archiveStore.activeFilterType = 'streams'"
+                >
+                    streams
+                </v-btn>
+                <v-btn
+                    :variant="archiveStore.activeFilterType === 'playlists' ? 'tonal' : 'text'"
+                    :color="archiveStore.activeFilterType === 'playlists' ? 'primary' : 'gray'"
+                    v-model="archiveStore.activeFilterType"
+                    @click="archiveStore.activeFilterType = 'playlists'"
+                >
+                    playlists
+                </v-btn>
+            </div>
+            <!-- <v-tabs v-model="archiveStore.activeFilterType">
+                <v-tab value="streams">streams</v-tab>
+                <v-tab value="playlists">playlists</v-tab>
+            </v-tabs> -->
+        </template>
+
+        <div class="lg:hidden! pb-4">
+            <Search density="default" />
+        </div>
+
+        <div>
             <v-tabs-window v-model="archiveStore.activeFilterType">
                 <v-tabs-window-item value="streams"><VideosTab /></v-tabs-window-item>
                 <v-tabs-window-item value="playlists"><PlaylistsTab /></v-tabs-window-item>
-                <!-- <v-tabs-window-item value="categories"> categories </v-tabs-window-item> -->
             </v-tabs-window>
         </div>
-    </Container>
+    </Section>
 </template>

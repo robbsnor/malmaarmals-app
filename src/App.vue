@@ -9,9 +9,7 @@ import { sleep } from './app/shared/helpers/sleep';
 import { useHistoryStore } from './app/history/stores/history.store';
 import Offline from './app/layout/components/Offline.vue';
 import Footer from './app/layout/components/Footer.vue';
-import { supabase } from './supabase';
 import Header from './app/layout/components/Header.vue';
-import SearchHero from './app/archive/components/SearchHero.vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
@@ -64,7 +62,6 @@ onMounted(async () => {
 
         <div class="grid h-full pb-mobile-navbar lg:pt-header lg:pb-0" style="grid-template-rows: 1fr auto">
             <div>
-                <SearchHero v-show="route.meta.showSearch" />
                 <RouterView />
             </div>
 
