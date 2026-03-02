@@ -5,8 +5,11 @@ import { useArchiveStore } from '../../archive/stores/archive.store';
 import { useVideosStore } from '../../video/stores/videos.store';
 import NavButton from './NavButton.vue';
 import { Z } from '../../shared/directives/z.directive';
+import Search from './Search.vue';
 
 const authStore = useAuthStore();
+const archiveStore = useArchiveStore();
+const videosStore = useVideosStore();
 </script>
 
 <template>
@@ -37,22 +40,13 @@ const authStore = useAuthStore();
                 </div>
 
                 <div>
-                    <!-- <v-combobox
-                        v-model="archiveStore.query"
-                        :items="videosStore.categoriesList"
-                        placeholder="Search..."
-                        hide-details
-                        clear-icon="mdi-close"
-                        menu-icon="mdi-chevron-down"
-                        autocomplete="off"
-                        class="search w-110"
-                        variant="solo"
-                        density="compact"
-                        prepend-inner-icon="mdi-magnify"
-                        @click:append-inner="archiveStore.query ? (archiveStore.query = '') : null"
-                    /> -->
+                    <Search class="hidden! xl:block! w-110!" />
                 </div>
+
                 <div class="flex items-center justify-end gap-4">
+                    <div class="xl:hidden">
+                        <Search class="w-80!" />
+                    </div>
                     <HeaderAvatar v-if="authStore.session" />
                     <SignInButton v-else class="w-auto!">Login with Twitch</SignInButton>
                 </div>
