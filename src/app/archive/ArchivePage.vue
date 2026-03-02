@@ -38,9 +38,9 @@ function capitalizeFirstLetter(string) {
 <template>
     <Section :title="capitalizeFirstLetter(archiveStore.activeFilterType)">
         <template #actions>
-            <div class="flex gap-4">
+            <div class="flex gap-2">
                 <v-btn
-                    :variant="archiveStore.activeFilterType === 'streams' ? 'tonal' : 'text'"
+                    :variant="archiveStore.activeFilterType === 'streams' ? 'tonal' : 'plain'"
                     :color="archiveStore.activeFilterType === 'streams' ? 'primary' : 'gray'"
                     v-model="archiveStore.activeFilterType"
                     @click="archiveStore.activeFilterType = 'streams'"
@@ -48,7 +48,7 @@ function capitalizeFirstLetter(string) {
                     streams
                 </v-btn>
                 <v-btn
-                    :variant="archiveStore.activeFilterType === 'playlists' ? 'tonal' : 'text'"
+                    :variant="archiveStore.activeFilterType === 'playlists' ? 'tonal' : 'plain'"
                     :color="archiveStore.activeFilterType === 'playlists' ? 'primary' : 'gray'"
                     v-model="archiveStore.activeFilterType"
                     @click="archiveStore.activeFilterType = 'playlists'"
