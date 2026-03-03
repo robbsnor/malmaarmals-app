@@ -68,6 +68,21 @@ export const useVideoStore = defineStore('video', () => {
         () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
     );
 
+    const giftSubs = computed(() => {
+        return messages.value
+            .filter((m) => m.text.includes('gifted a'))
+            .reduce<{ username: string; amount: number }[]>((acc, m) => {
+                const existing = acc.find((item) => item.username === m.user_name);
+                if (existing) {
+                    existing.amount += 1;
+                } else {
+                    acc.push({ username: m.user_name, amount: 1 });
+                }
+                return acc;
+            }, [])
+            .sort((a, b) => b.amount - a.amount);
+    });
+
     // playlist
     const playlistId = ref<string>();
     const playlist = computed(() => {
@@ -260,6 +275,7 @@ export const useVideoStore = defineStore('video', () => {
         messages,
         messagesLoading,
         subCount,
+        giftSubs,
 
         // functions
         init,
