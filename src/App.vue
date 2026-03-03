@@ -11,6 +11,7 @@ import Offline from './app/layout/components/Offline.vue';
 import Footer from './app/layout/components/Footer.vue';
 import Header from './app/layout/components/Header.vue';
 import { useRoute } from 'vue-router';
+import { inject } from '@vercel/analytics';
 
 const route = useRoute();
 
@@ -20,6 +21,8 @@ const playlistsStore = usePlaylistsStore();
 const historyStore = useHistoryStore();
 const loading = ref(true);
 const hasError = ref(false);
+
+inject();
 
 onMounted(async () => {
     // const { data, error } = await supabase.functions.invoke('search-categories', {
