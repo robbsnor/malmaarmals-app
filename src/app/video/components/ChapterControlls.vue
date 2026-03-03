@@ -22,6 +22,7 @@ const videoStore = useVideoStore();
                 @click="videoStore.currentTime = videoStore.currentTime - 10"
             /> -->
 
+            <button class="rounded bg-black-700 px-2 py-1" @click="videoStore.rate = 2">2x</button>
             <button class="rounded bg-black-700 px-2 py-1" @click="videoStore.currentTime = videoStore.currentTime - 5">
                 -5s
             </button>
