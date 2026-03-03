@@ -29,10 +29,10 @@ const props = withDefaults(
                 <div class="h-[1px] bg-black-400 grow"></div>
                 <RouterLink
                     :to="props.moreLink"
-                    class="flex items-center gap-1 transition-all lowercase text-primary! hover:text-primary-light!"
+                    class="flex items-center gap-1 transition-all lowercase text-primary! hover:text-primary-light! hover:bg-primary/10 rounded-full px-4 py-1"
                 >
                     {{ props.moreText }}
-                    <v-icon size="x-small" icon="mdi-chevron-right" class="mt-[3px]" />
+                    <v-icon size="x-small" icon="mdi-chevron-right" class="mt-[3px] -mr-[3px]" />
                 </RouterLink>
                 <div class="h-[1px] bg-black-400 grow"></div>
             </div>
