@@ -18,6 +18,7 @@ import VideoInfo from './VideoInfo.vue';
 import _ from 'lodash';
 import { useManageChaptersStore } from '../stores/manage-chapters.store';
 import Cast from './Cast.vue';
+import ShareButton from './ShareButton.vue';
 
 const videoStore = useVideoStore();
 const videosStore = useVideosStore();
@@ -101,6 +102,7 @@ function toggleTheaterMode() {
                         <PlayerButton icon="mdi-skip-next" @click="goToNextVideo()" />
                     </Auth>
                     <AddToPlaylist />
+                    <ShareButton />
                     <Cast />
                     <PreferenceDrawer />
                     <PlayerButton
