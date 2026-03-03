@@ -44,7 +44,7 @@ function onScroll() {
     const { scrollHeight, clientHeight } = chatRef.value;
     const distanceFromBottom = scrollHeight - y.value - clientHeight;
 
-    userHasScrolledUp.value = distanceFromBottom > 200;
+    userHasScrolledUp.value = distanceFromBottom > 100;
 }
 
 function scrollBackDown() {
