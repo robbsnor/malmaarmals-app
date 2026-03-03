@@ -12,7 +12,7 @@ const props = withDefaults(
     }
 );
 const _class = computed(() => {
-    const base = ['bg-black-300', 'rounded-md'];
+    const base = ['bg-black-600', 'rounded-md'];
     if (props.pulse) base.push('animate-pulse');
 
     return twMerge(...base, props.class);
