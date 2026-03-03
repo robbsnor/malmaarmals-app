@@ -101,8 +101,8 @@ function toggleTheaterMode() {
                         <PlayerButton icon="mdi-skip-previous" @click="goToPreviousVideo()" />
                         <PlayerButton icon="mdi-skip-next" @click="goToNextVideo()" />
                     </Auth>
-                    <AddToPlaylist />
                     <ShareButton />
+                    <AddToPlaylist />
                     <Cast />
                     <PreferenceDrawer />
                     <PlayerButton
