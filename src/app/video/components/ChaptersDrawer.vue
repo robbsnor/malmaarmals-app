@@ -28,7 +28,7 @@ watch(
 </script>
 
 <template>
-    <Drawer v-model="manageChaptersStore.showDrawer" inset title="Chapters" :padding="false">
+    <Drawer v-model="manageChaptersStore.showDrawer" inset title="Chapters" :padding="false" :width="600">
         <template #activator="{ props }">
             <PlayerButton
                 v-bind="props"
