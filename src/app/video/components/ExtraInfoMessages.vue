@@ -62,14 +62,14 @@ const myStats = computed(() => {
             <div
                 v-for="(chatter, i) in topChatters.slice(0, topChattersLength)"
                 :key="chatter.userName"
-                class="flex justify-between"
+                class="flex justify-between gap-2"
                 :class="{
                     // 'text-4xl': i === 0,
                     // 'text-3xl': i === 1,
                     // 'text-2xl': i === 2,
                 }"
             >
-                <div>
+                <div class="shrink-0">
                     <span
                         class="text-muted-more font-bold"
                         :class="{
@@ -88,6 +88,8 @@ const myStats = computed(() => {
                         {{ chatter.userName }}
                     </span>
                 </div>
+
+                <div class="border-b-2 border-muted-more -mt-2 border-dotted w-full"></div>
 
                 <span class="text-muted font-bold">{{ chatter.count }}</span>
             </div>
