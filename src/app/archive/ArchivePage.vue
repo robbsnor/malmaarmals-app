@@ -40,20 +40,17 @@ function capitalizeFirstLetter(string: string): string {
     <Section :title="capitalizeFirstLetter(archiveStore.activeFilterType)">
         <template #actions>
             <div class="flex gap-2">
-                <v-btn
-                    v-for="type in filterTypes"
-                    :key="type"
-                    :variant="archiveStore.activeFilterType === type ? 'tonal' : 'plain'"
-                    :color="archiveStore.activeFilterType === type ? 'primary' : 'gray'"
-                    @click="archiveStore.activeFilterType = type"
+                <v-btn-toggle
+                    density="comfortable"
+                    variant="text"
+                    color="primary"
+                    v-model="archiveStore.activeFilterType"
                 >
-                    {{ type }}
-                </v-btn>
+                    <v-btn v-for="type in filterTypes" :key="type" :value="type">
+                        {{ type }}
+                    </v-btn>
+                </v-btn-toggle>
             </div>
-            <!-- <v-tabs v-model="archiveStore.activeFilterType">
-                <v-tab value="streams">streams</v-tab>
-                <v-tab value="playlists">playlists</v-tab>
-            </v-tabs> -->
         </template>
 
         <div class="lg:hidden! pb-4">
