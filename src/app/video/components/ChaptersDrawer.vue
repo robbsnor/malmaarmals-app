@@ -17,7 +17,10 @@ const tab = ref();
 onKeyStroke('c', () => {
     manageChaptersStore.showDrawer = true;
     manageChaptersStore.editMode = true;
-    manageChaptersStore.addEmptyChapter();
+
+    if (!manageChaptersStore.chapters.length) {
+        manageChaptersStore.addEmptyChapter();
+    }
 });
 
 watch(
