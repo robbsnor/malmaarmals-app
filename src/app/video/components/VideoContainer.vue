@@ -12,6 +12,7 @@ import { useDisplay } from 'vuetify';
 import ExtraInfoPlaylist from './ExtraInfoPlaylist.vue';
 import ExtraInfoMessages from './ExtraInfoMessages.vue';
 import ExtraInfoChapters from './ExtraInfoChapters.vue';
+import ExtraInfoItem from './ExtraInfoItem.vue';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
@@ -72,6 +73,15 @@ watch(videoColRef, (el) => (videoStore.videoColRef = el));
                         <ExtraInfoChapters />
                         <ExtraInfoPlaylist />
                         <ExtraInfoMessages />
+                        <ExtraInfoItem title="Raw video info">
+                            <div class="p-4">
+                                <code>
+                                    <pre>
+                                        {{ videoStore.info }}
+                                    </pre>
+                                </code>
+                            </div>
+                        </ExtraInfoItem>
                     </div>
                 </Container>
 
