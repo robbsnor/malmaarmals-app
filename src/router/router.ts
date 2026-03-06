@@ -5,6 +5,7 @@ declare module 'vue-router' {
     interface RouteMeta {
         showSearch?: boolean;
         showTabs?: boolean;
+        showFooter?: boolean;
     }
 }
 
@@ -36,6 +37,7 @@ const router = createRouter({
             path: '/videos/:id',
             name: 'video',
             component: () => import('../app/video/VideoPage.vue'),
+            meta: { showFooter: false },
         },
         {
             path: '/playlists/:id',
