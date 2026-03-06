@@ -14,7 +14,6 @@ export const useArchiveStore = defineStore('archive', () => {
 
     function resetQuery() {
         query.value = '';
-        searchEl.value.focus();
     }
 
     const setSearchEl = (el: HTMLInputElement) => {

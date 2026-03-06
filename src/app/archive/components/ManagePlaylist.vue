@@ -17,7 +17,7 @@ const createDefaultForm = (): TablesInsert<'playlists'> => ({
     title: '',
     description: '',
     order_type: 'date_descending',
-    order: null,
+    order: 0,
 });
 
 const playlistsStore = usePlaylistsStore();
@@ -48,8 +48,6 @@ const playlistOrder = computed<PlaylistOrderItem[]>(() => {
         image: playlist.videos[0] ? BucketHelper.getThumbnailUrl(playlist.videos[0].video_id) : null,
     }));
 
-    if (form.value.order === null) return order;
-
     order.splice(form.value.order, 0, {
         title: form.value.title || '...',
         image: null,
@@ -63,20 +61,13 @@ function addBelow(index: number) {
     form.value.order = targetorder;
 }
 
-function remove() {
-    form.value.order = null;
-}
-
 async function updateExistingPlaylistOrder() {
-    // update order of existing playlists
     const updates = playlistOrder.value
         .map((playlist, index) => ({
             id: playlist.id,
             order: index,
         }))
         .filter((item) => item.id);
-
-    console.log(updates);
 
     const promises = updates.map(({ id, order }) => supabase.from('playlists').update({ order }).eq('id', id));
     await Promise.all(promises);
@@ -115,12 +106,12 @@ async function submit() {
                 :items="orderTypeOptions"
             ></v-select>
 
-            <v-text-field v-model="form.order" :rules="requiredRule"></v-text-field>
+            <v-text-field class="hidden" v-model="form.order"></v-text-field>
 
             <div class="bg-black-600 rounded">
                 <div class="p-4 pb-1 opacity-70">Playlist order</div>
 
-                <div class="flex flex-col gap-2 divide-y divide-black-1000 max-h-[500px] overflow-auto py-2">
+                <div class="flex flex-col divide-y divide-black-800 max-h-[500px] overflow-auto py-2">
                     <div
                         v-for="(playlist, i) in playlistOrder"
                         :key="playlist.id"
@@ -142,22 +133,14 @@ async function submit() {
                                 size="small"
                                 @click="addBelow(i)"
                             ></v-btn>
-
-                            <v-btn
-                                v-if="!playlist.id"
-                                variant="tonal"
-                                color="red"
-                                class="rounded-md!"
-                                icon="mdi-close"
-                                size="small"
-                                @click="remove()"
-                            ></v-btn>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <v-btn color="primary" :disabled="!valid" :loading="loading" class="w-full" @click="submit"> Create </v-btn>
         </v-form>
+
+        <template #footer>
+            <v-btn color="primary" :disabled="!valid" :loading="loading" class="w-full" @click="submit"> Create </v-btn>
+        </template>
     </Drawer>
 </template>
