@@ -17,7 +17,7 @@ const createDefaultForm = (): TablesInsert<'playlists'> => ({
     title: '',
     description: '',
     order_type: 'date_descending',
-    position: null,
+    order: null,
 });
 
 const playlistsStore = usePlaylistsStore();
@@ -48,9 +48,9 @@ const playlistOrder = computed<PlaylistOrderItem[]>(() => {
         image: playlist.videos[0] ? BucketHelper.getThumbnailUrl(playlist.videos[0].video_id) : null,
     }));
 
-    if (form.value.position === null) return order;
+    if (form.value.order === null) return order;
 
-    order.splice(form.value.position, 0, {
+    order.splice(form.value.order, 0, {
         title: form.value.title || '...',
         image: null,
     });
@@ -59,14 +59,12 @@ const playlistOrder = computed<PlaylistOrderItem[]>(() => {
 });
 
 function addBelow(index: number) {
-    const targetPosition = index + 1;
-    form.value.position = targetPosition;
-    form.value.position = targetPosition;
+    const targetorder = index + 1;
+    form.value.order = targetorder;
 }
 
 function remove() {
-    form.value.position = null;
-    form.value.position = null;
+    form.value.order = null;
 }
 
 async function updateExistingPlaylistOrder() {
@@ -74,13 +72,13 @@ async function updateExistingPlaylistOrder() {
     const updates = playlistOrder.value
         .map((playlist, index) => ({
             id: playlist.id,
-            position: index,
+            order: index,
         }))
         .filter((item) => item.id);
 
     console.log(updates);
 
-    const promises = updates.map(({ id, position }) => supabase.from('playlists').update({ position }).eq('id', id));
+    const promises = updates.map(({ id, order }) => supabase.from('playlists').update({ order }).eq('id', id));
     await Promise.all(promises);
 }
 
@@ -117,7 +115,7 @@ async function submit() {
                 :items="orderTypeOptions"
             ></v-select>
 
-            <v-text-field v-model="form.position" :rules="requiredRule"></v-text-field>
+            <v-text-field v-model="form.order" :rules="requiredRule"></v-text-field>
 
             <div class="bg-black-600 rounded">
                 <div class="p-4 pb-1 opacity-70">Playlist order</div>

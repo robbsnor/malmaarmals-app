@@ -205,24 +205,24 @@ export type Database = {
                     created_at: string;
                     description: string | null;
                     id: string;
+                    order: number;
                     order_type: Database['public']['Enums']['playlist_order_type'];
-                    position: number;
                     title: string;
                 };
                 Insert: {
                     created_at?: string;
                     description?: string | null;
                     id?: string;
+                    order: number;
                     order_type?: Database['public']['Enums']['playlist_order_type'];
-                    position: number;
                     title: string;
                 };
                 Update: {
                     created_at?: string;
                     description?: string | null;
                     id?: string;
+                    order?: number;
                     order_type?: Database['public']['Enums']['playlist_order_type'];
-                    position?: number;
                     title?: string;
                 };
                 Relationships: [];
