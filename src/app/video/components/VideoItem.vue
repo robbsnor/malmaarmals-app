@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import type { VideoWithChapters } from '../models/videos-with-chapters.model';
 import { formatTimeAgo } from '@vueuse/core';
@@ -10,6 +10,8 @@ const props = withDefaults(
     }>(),
     {}
 );
+
+const slots = useSlots();
 
 const categories = computed(() => {
     const cats = props.video?.chapters.map((chapter) => chapter.category.title);
@@ -37,6 +39,10 @@ const categories = computed(() => {
             <div class="text-muted-more text-sm font-medium">
                 {{ formatTimeAgo(new Date(props.video.recorded_at)) }}
             </div>
+        </div>
+
+        <div v-if="slots.actions" class="ml-auto tits relative z-10">
+            <slot name="actions"></slot>
         </div>
     </RouterLink>
 </template>

@@ -4,8 +4,8 @@ import type { GetVideoUrl } from '../models/bucket.models';
 export class BucketHelper {
     static BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-    static getThumbnailUrl(id: number) {
-        return `${BucketHelper.BACKEND_URL}thumbnails/${id}`;
+    static getThumbnailUrl(videoId: number) {
+        return `${BucketHelper.BACKEND_URL}thumbnails/${videoId}`;
     }
 
     static async getVideoUrl(videoId: number): Promise<GetVideoUrl> {

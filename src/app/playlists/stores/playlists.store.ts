@@ -1,27 +1,28 @@
 import { defineStore } from 'pinia';
-import { computed, onMounted, ref, type Ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed, ref, type Ref } from 'vue';
 import { playlistsQuery, type Playlist, type Playlists } from '../models/playlist.model';
 import { supabase } from '../../../supabase';
-import { sleep } from '../../shared/helpers/sleep';
 import { useArchiveStore } from '../../archive/stores/archive.store';
-import { useVideosStore } from '../../video/stores/videos.store';
+import { PlaylistHelper } from '../helpers/playlist.helper';
 
 export const usePlaylistsStore = defineStore('playlists', () => {
-    const videosStore = useVideosStore();
     const archiveStore = useArchiveStore();
     const playlists = ref<Playlists>([]);
 
     const fetchPlaylists = async () => {
         const { data, error } = await playlistsQuery.order('created_at', { ascending: false });
-        if (error) return console.log(error);
 
-        playlists.value = data;
+        if (error) {
+            console.error('Failed to fetch playlists:', error);
+            return;
+        }
+
+        playlists.value = PlaylistHelper.orderPlaylistsAndVideos(data);
     };
 
-    const getPlaylistById = (id: Ref<string>) => {
-        return playlists.value.find((p) => p.id === id.value);
-    };
+    function getPlaylistById(id: Ref<string>) {
+        return computed(() => playlists.value.find((p) => p.id === id.value));
+    }
 
     const deletePlaylist = async (id: string) => {
         const { error } = await supabase.from('playlists').delete().eq('id', id);
@@ -29,6 +30,20 @@ export const usePlaylistsStore = defineStore('playlists', () => {
 
         return { error };
     };
+
+    async function deleteVideoFromPlaylist(videoId: string, playlistId: string) {
+        const { data, error } = await supabase
+            .from('playlist_videos')
+            .delete()
+            .eq('playlist_id', playlistId)
+            .eq('video_id', videoId);
+
+        if (error) throw error;
+
+        console.log('delete success');
+
+        await fetchPlaylists();
+    }
 
     const filteredPlaylists = computed(() => {
         if (!archiveStore.query) return playlists.value;
@@ -43,6 +58,8 @@ export const usePlaylistsStore = defineStore('playlists', () => {
         getPlaylistById,
         fetchPlaylists,
         deletePlaylist,
+        deleteVideoFromPlaylist,
+
         playlists,
         filteredPlaylists,
     };

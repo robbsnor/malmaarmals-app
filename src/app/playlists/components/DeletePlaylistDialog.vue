@@ -12,7 +12,7 @@ const dialog = defineModel<boolean>();
 const playlistStore = usePlaylistsStore();
 
 const deletePlaylist = async () => {
-    const { error } = await playlistStore.deletePlaylist(props.playlist.id);
+    const error = await playlistStore.deletePlaylist(props.playlist.id);
 
     if (!error) {
         dialog.value = false;
@@ -25,13 +25,11 @@ const deletePlaylist = async () => {
     <DeleteDialog
         v-model="dialog"
         title="Delete playlist?"
+        :description="`Are you sure you want to delte: ${props.playlist.title}`"
         icon="mdi-trash-can-outline"
         icon-color="error"
+        :show-body="false"
         @confirm="deletePlaylist"
     >
-        <div>
-            <div class="text-muted mb-2">Are you sure you want to delete the playlist:</div>
-            <div class="font-bold">"{{ props.playlist.title }}"</div>
-        </div>
     </DeleteDialog>
 </template>

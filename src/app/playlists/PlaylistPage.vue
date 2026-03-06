@@ -1,30 +1,21 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, type Ref } from 'vue';
+import { ref, type Ref } from 'vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
-import { supabase } from '../../supabase';
 import { usePlaylistsStore } from '../playlists/stores/playlists.store';
 import { useRouteParams } from '@vueuse/router';
 import { BucketHelper } from '../shared/helpers/bucket.helper';
 import VideoItem from '../video/components/VideoItem.vue';
 import VideoItemLarge from '../video/components/VideoItemLarge.vue';
 import DeletePlaylistDialog from './components/DeletePlaylistDialog.vue';
-import type { Tables } from '../shared/models/database.types';
 import { useAuthStore } from '../auth/stores/auth.store';
 
 TitleHelper.setTitle('videos');
 
 const playlistStore = usePlaylistsStore();
-const authStore = useAuthStore();
 const id = useRouteParams('id') as Ref<string>;
 const playlist = playlistStore.getPlaylistById(id);
-
-const daysAgo = (video: Tables<'videos'>) => {
-    const recordedAt = new Date(video.recorded_at);
-    const now = new Date();
-    const diffTime = Math.abs(now.getTime() - recordedAt.getTime());
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-};
 const dialog = ref(false);
+const authStore = useAuthStore();
 </script>
 
 <template>
@@ -69,7 +60,30 @@ const dialog = ref(false);
 
     <Container>
         <div class="flex flex-col gap-5 lg:hidden">
-            <VideoItem v-for="video in playlist?.videos" :key="video.video_id" :video="video" />
+            <VideoItem v-for="video in playlist?.videos" :key="video.video_id" :video="video">
+                <template v-if="authStore.isAdmin" #actions>
+                    <v-menu>
+                        <template #activator="{ props }">
+                            <v-btn
+                                icon="mdi-dots-vertical"
+                                variant="text"
+                                size="small"
+                                v-bind="props"
+                                @click.prevent.stop
+                            />
+                        </template>
+
+                        <v-list>
+                            <v-list-item
+                                class="text-red"
+                                title="Delete"
+                                prepend-icon="mdi-trash-can"
+                                @click="playlistStore.deleteVideoFromPlaylist(video.id, playlist.id)"
+                            />
+                        </v-list>
+                    </v-menu>
+                </template>
+            </VideoItem>
         </div>
 
         <div class="grid gap-x-4 gap-y-8 grid-cols-5 xl:gap-8 max-lg:hidden">
