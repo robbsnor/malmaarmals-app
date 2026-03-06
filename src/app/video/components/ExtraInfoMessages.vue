@@ -93,13 +93,6 @@ const myStats = computed(() => {
 
                 <span class="text-muted font-bold">{{ chatter.count }}</span>
             </div>
-
-            <div class="py-4">
-                <div v-for="(gifter, i) in videoStore.giftSubs" :key="gifter.username" class="flex justify-between">
-                    <div>{{ i + 1 }} {{ gifter.username }}</div>
-                    <div>{{ gifter.amount }}</div>
-                </div>
-            </div>
         </div>
 
         <template v-if="myStats && myStats.rank > topChattersLength">
