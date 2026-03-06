@@ -15,6 +15,11 @@ const archiveStore = useArchiveStore();
 
 <template>
     <FilterIndicator archiveType="PLAYLISTS" />
+
+    <div v-auth class="flex justify-end items-center gap-4 bg-black-400 border border-black-600 p-2 mb-4 rounded-md">
+        <ManagePlaylist />
+    </div>
+
     <template v-if="playlistsStore.filteredPlaylists.length">
         <div class="flex flex-col gap-8 py-4 lg:hidden">
             <PlaylistItem
@@ -45,8 +50,4 @@ const archiveStore = useArchiveStore();
     >
         <v-btn @click="archiveStore.resetQuery">Clear</v-btn>
     </Empty>
-
-    <div class="flex justify-center py-4">
-        <ManagePlaylist />
-    </div>
 </template>
