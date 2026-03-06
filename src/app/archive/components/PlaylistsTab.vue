@@ -39,7 +39,7 @@ const archiveStore = useArchiveStore();
     <!-- nothing found -->
     <Empty
         v-if="archiveStore.query && !playlistsStore.filteredPlaylists.length"
-        :title="`No playlists found: '${archiveStore.query}'`"
+        :title="`No playlists found...`"
         icon="mdi-magnify"
         description="Try something else."
     >

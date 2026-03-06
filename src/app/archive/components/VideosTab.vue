@@ -23,7 +23,7 @@ const archiveStore = useArchiveStore();
     <!-- nothing found -->
     <Empty
         v-if="archiveStore.query && !videosStore.filteredVideos.length"
-        :title="`No video's found: '${archiveStore.query}'`"
+        :title="`No video's found...`"
         icon="mdi-magnify"
         description="Try something else."
     >

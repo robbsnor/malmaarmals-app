@@ -20,8 +20,8 @@ const props = withDefaults(
                 <v-icon :icon="props.icon" />
             </div>
 
-            <h3 v-if="props.title" class="text-normal text-lg font-medium">{{ props.title }}</h3>
-            <div v-if="props.description" class="text-muted-more text-sm">{{ props.description }}</div>
+            <h3 v-if="props.title" class="text-normal text-center text-lg font-medium">{{ props.title }}</h3>
+            <div v-if="props.description" class="text-muted-more text-center text-sm">{{ props.description }}</div>
 
             <div v-if="slots.default" class="pt-4">
                 <slot></slot>
