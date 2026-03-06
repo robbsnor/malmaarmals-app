@@ -205,21 +205,24 @@ export type Database = {
                     created_at: string;
                     description: string | null;
                     id: string;
-                    position: number | null;
+                    order_type: Database['public']['Enums']['playlist_order_type'];
+                    position: number;
                     title: string;
                 };
                 Insert: {
                     created_at?: string;
                     description?: string | null;
                     id?: string;
-                    position?: number | null;
+                    order_type?: Database['public']['Enums']['playlist_order_type'];
+                    position: number;
                     title: string;
                 };
                 Update: {
                     created_at?: string;
                     description?: string | null;
                     id?: string;
-                    position?: number | null;
+                    order_type?: Database['public']['Enums']['playlist_order_type'];
+                    position?: number;
                     title?: string;
                 };
                 Relationships: [];
@@ -259,7 +262,7 @@ export type Database = {
             [_ in never]: never;
         };
         Enums: {
-            [_ in never]: never;
+            playlist_order_type: 'date_ascending' | 'date_descending' | 'custom';
         };
         CompositeTypes: {
             [_ in never]: never;
@@ -381,6 +384,8 @@ export const Constants = {
         Enums: {},
     },
     public: {
-        Enums: {},
+        Enums: {
+            playlist_order_type: ['date_ascending', 'date_descending', 'custom'],
+        },
     },
 } as const;
