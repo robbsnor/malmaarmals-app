@@ -89,7 +89,7 @@ const myStats = computed(() => {
                     </span>
                 </div>
 
-                <div class="border-b-2 border-muted-more -mt-2 border-dotted w-full"></div>
+                <div class="border-b-2 border-muted-more mb-[7px] border-dotted w-full"></div>
 
                 <span class="text-muted font-bold">{{ chatter.count }}</span>
             </div>
