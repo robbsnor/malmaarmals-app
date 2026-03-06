@@ -36,8 +36,8 @@ const requiredRule = [
 ];
 
 const orderTypeOptions: Array<{ title: string; value: Enums<'playlist_order_type'> }> = [
-    { title: 'Date Ascending', value: 'date_ascending' },
-    { title: 'Date Descending', value: 'date_descending' },
+    { title: 'Oldest video first', value: 'date_ascending' },
+    { title: 'Newest video first', value: 'date_descending' },
     { title: 'Custom', value: 'custom' },
 ];
 
@@ -101,12 +101,12 @@ async function submit() {
             <v-text-field label="Description" v-model="form.description"></v-text-field>
             <v-select
                 :clearable="false"
-                label="Ordering"
+                label="Video ordering"
                 v-model="form.order_type"
                 :items="orderTypeOptions"
             ></v-select>
 
-            <v-text-field class="hidden" v-model="form.order"></v-text-field>
+            <v-number-input class="hidden!" v-model="form.order"></v-number-input>
 
             <div class="bg-black-600 rounded">
                 <div class="p-4 pb-1 opacity-70">Playlist order</div>

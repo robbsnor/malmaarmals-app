@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router/router';
 import { createPinia } from 'pinia';
+import { VueDraggable } from 'vue-draggable-plus';
 
 import Auth from './app/shared/components/Auth.vue';
 import Card from './app/shared/components/Card.vue';
@@ -37,6 +38,7 @@ const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
 
 // components
+app.component('VueDraggable', VueDraggable);
 app.component('Auth', Auth);
 app.component('Card', Card);
 app.component('ConfirmDialog', ConfirmDialog);
