@@ -28,7 +28,7 @@ export const usePlaylistsStore = defineStore('playlists', () => {
         const { error } = await supabase.from('playlists').delete().eq('id', id);
         if (!error) await fetchPlaylists();
 
-        return { error };
+        return error;
     };
 
     async function deleteVideoFromPlaylist(videoId: string, playlistId: string) {

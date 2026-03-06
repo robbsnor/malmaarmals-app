@@ -14,9 +14,11 @@ const playlistStore = usePlaylistsStore();
 const deletePlaylist = async () => {
     const error = await playlistStore.deletePlaylist(props.playlist.id);
 
+    console.log(error);
+
     if (!error) {
         dialog.value = false;
-        router.push({ name: 'archive' });
+        router.push({ name: 'archive', query: { type: 'playlists' } });
     }
 };
 </script>
