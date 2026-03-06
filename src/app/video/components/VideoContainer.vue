@@ -38,7 +38,7 @@ const containerClasses = computed(() => {
     if (videoStore.theaterMode) {
         return 'top-0 right-0 bottom-0 left-0';
     }
-    return '2xl:top-header top-0 right-0 bottom-0 left-0';
+    return 'lg:top-header top-0 right-0 bottom-0 left-0';
 });
 
 watch(containerRef, (el) => (videoStore.videoContainerRef = el));
