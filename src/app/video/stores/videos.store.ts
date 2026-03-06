@@ -11,7 +11,12 @@ export const useVideosStore = defineStore('videos', () => {
         const { data, error } = await videosWithChaptersQuery;
         if (error) throw error;
 
-        videos.value = data;
+        const ordered = data.map((video) => ({
+            ...video,
+            video: video.chapters.sort((a, b) => a.start_s - b.start_s),
+        }));
+
+        videos.value = ordered;
     };
 
     const filteredVideos = computed(() => {
