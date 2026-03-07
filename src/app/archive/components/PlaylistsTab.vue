@@ -51,63 +51,16 @@ async function save() {
 </script>
 
 <template>
-    <FilterIndicator archiveType="PLAYLISTS" />
-
-    <div v-auth v-if="!archiveStore.query" class="flex justify-evenly items-center gap-4 mb-4 rounded-md lg:hidden">
-        <v-btn v-if="editMode" class="text-muted! flex-1" prepend-icon="mdi-close" variant="text" @click="cancel()">
-            cancel
-        </v-btn>
-
-        <v-btn
-            v-if="editMode"
-            class="flex-1"
-            prepend-icon="mdi-content-save"
-            color="green"
-            variant="tonal"
-            @click="save()"
-            :loading="loading"
-            :disabled="!hasChanges"
-        >
-            save
-        </v-btn>
-
-        <v-btn
-            v-if="!editMode"
-            class="rounded! flex-1"
-            prepend-icon="mdi-order-numeric-ascending"
-            variant="tonal"
-            color="primary"
-            @click="editMode = !editMode"
-        >
-            re-order
-        </v-btn>
-
-        <ManagePlaylist v-if="!editMode" />
+    <div v-auth class="flex justify-evenly items-center gap-4 mb-4 rounded-md lg:hidden">
+        <ManagePlaylists />
+        <ManagePlaylist />
     </div>
 
-    <VueDraggable
-        v-if="playlistsStore.playlists.length"
-        :animation="200"
-        :disabled="!editMode"
-        class="flex flex-col gap-8 py-4 lg:hidden"
-        handle=".handle"
-        v-model="cloned"
-    >
-        <div v-for="playlist in playlists" :key="playlist.id" class="relative">
-            <PlaylistItem :playlist="playlist" />
-            <div
-                v-if="editMode"
-                class="absolute inset-0 -top-4 bg-primary/20 flex items-center justify-center rounded-md z-10"
-            >
-                <v-btn
-                    icon="mdi-drag-horizontal-variant"
-                    variant="tonal"
-                    color="white"
-                    class="handle cursor-grab!"
-                ></v-btn>
-            </div>
-        </div>
-    </VueDraggable>
+    <FilterIndicator archiveType="PLAYLISTS" />
+
+    <div v-for="playlist in playlists" :key="playlist.id" class="relative py-2 lg:hidden">
+        <PlaylistItem :playlist="playlist" />
+    </div>
 
     <div class="grid gap-x-4 gap-y-8 grid-cols-6 xl:gap-8 max-lg:hidden">
         <PlaylistItemLarge v-for="playlist in playlistsStore.playlists" :key="playlist.id" :playlist="playlist" />

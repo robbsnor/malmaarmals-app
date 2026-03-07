@@ -123,3 +123,7 @@ button {
 .v-slider-track__fill.bg-primary {
     @apply bg-gradient-to-r from-primary to-primary-light;
 }
+
+.v-dialog > .v-overlay__content {
+    @apply max-w-[calc(100%-32px)];
+}

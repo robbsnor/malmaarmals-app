@@ -13,7 +13,7 @@ const props = withDefaults(
 <template>
     <RouterLink
         :to="`/playlists/${props.playlist.id}`"
-        class="relative transition-all duration-200 rounded-md flex gap-4"
+        class="relative transition-all duration-200 rounded-md flex gap-4 pt-4"
     >
         <div class="relative transition-all duration-200 group w-36 shrink-0">
             <div

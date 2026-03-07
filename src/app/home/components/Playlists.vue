@@ -9,7 +9,7 @@ const playlistsStore = usePlaylistsStore();
 <template>
     <Section title="Playlists" moreLink="/archive?type=playlists" moreText="All Playlists">
         <template v-if="playlistsStore.playlists.length">
-            <div class="flex flex-col gap-8 pt-4 lg:hidden">
+            <div class="flex flex-col gap-5 pt-1 lg:hidden">
                 <PlaylistItem
                     v-for="playlist in playlistsStore.playlists.slice(0, 5)"
                     :key="playlist.id"
