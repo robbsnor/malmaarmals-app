@@ -13,7 +13,7 @@ export const useArchiveStore = defineStore('archive', () => {
     const activeFilterType = useRouteQuery<'streams' | 'playlists' | 'categories'>('type', 'streams');
 
     function resetQuery() {
-        query.value = '';
+        query.value = null;
     }
 
     const setSearchEl = (el: HTMLInputElement) => {
