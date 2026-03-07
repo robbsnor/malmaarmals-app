@@ -93,7 +93,9 @@ async function submit() {
 </script>
 
 <template>
-    <v-btn v-auth prepend-icon="mdi-plus" color="primary" @click="sheet = true">New playlist</v-btn>
+    <v-btn v-auth class="rounded! flex-1" variant="tonal" prepend-icon="mdi-plus" color="primary" @click="sheet = true">
+        new
+    </v-btn>
 
     <Drawer v-model="sheet" inset title="Create Playlist">
         <v-form v-model="valid" class="flex flex-col gap-4">

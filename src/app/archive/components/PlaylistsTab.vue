@@ -24,7 +24,7 @@ const loading = ref(false);
 
 const { cloned, sync } = useCloned(() => playlistsStore.playlists);
 const playlists = computed(() => (editMode.value ? cloned.value : playlistsStore.filteredPlaylists));
-const { history, undo, redo, canUndo, reset } = useRefHistory(cloned);
+const hasChanges = computed(() => !_.isEqual(cloned.value, playlistsStore.playlists));
 
 async function cancel() {
     editMode.value = false;
@@ -33,7 +33,7 @@ async function cancel() {
 
 async function save() {
     loading.value = true;
-    // save cloned to supabase
+
     const updates = cloned.value.map((playlist, index) => ({
         id: playlist.id,
         order: index,
@@ -41,9 +41,7 @@ async function save() {
 
     const promises = updates.map(({ id, order }) => supabase.from('playlists').update({ order }).eq('id', id));
     await Promise.all(promises);
-
     await playlistsStore.fetchPlaylists();
-
     await sleep(500);
 
     loading.value = false;
@@ -55,22 +53,36 @@ async function save() {
 <template>
     <FilterIndicator archiveType="PLAYLISTS" />
 
-    <div v-auth class="flex justify-end items-center gap-4 bg-black-400 border border-black-600 p-2 mb-4 rounded-md">
-        <v-btn v-if="editMode" prepend-icon="mdi-close" color="gray" variant="tonal" @click="cancel()"> cancel </v-btn>
+    <div v-auth v-if="!archiveStore.query" class="flex justify-evenly items-center gap-4 mb-4 rounded-md lg:hidden">
+        <v-btn v-if="editMode" class="text-muted! flex-1" prepend-icon="mdi-close" variant="text" @click="cancel()">
+            cancel
+        </v-btn>
+
         <v-btn
             v-if="editMode"
-            prepend-icon="mdi-check"
+            class="flex-1"
+            prepend-icon="mdi-content-save"
             color="green"
             variant="tonal"
             @click="save()"
             :loading="loading"
+            :disabled="!hasChanges"
         >
             save
         </v-btn>
-        <v-btn v-if="!editMode" prepend-icon="mdi-pencil" color="primary" variant="tonal" @click="editMode = !editMode">
-            Edit
+
+        <v-btn
+            v-if="!editMode"
+            class="rounded! flex-1"
+            prepend-icon="mdi-order-numeric-ascending"
+            variant="tonal"
+            color="primary"
+            @click="editMode = !editMode"
+        >
+            re-order
         </v-btn>
-        <ManagePlaylist />
+
+        <ManagePlaylist v-if="!editMode" />
     </div>
 
     <VueDraggable
@@ -85,12 +97,12 @@ async function save() {
             <PlaylistItem :playlist="playlist" />
             <div
                 v-if="editMode"
-                class="absolute inset-0 -top-4 -bottom-4 bg-black/40 flex items-center justify-center rounded z-10"
+                class="absolute inset-0 -top-4 bg-primary/20 flex items-center justify-center rounded-md z-10"
             >
                 <v-btn
                     icon="mdi-drag-horizontal-variant"
                     variant="tonal"
-                    color="grey"
+                    color="white"
                     class="handle cursor-grab!"
                 ></v-btn>
             </div>
