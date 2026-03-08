@@ -39,18 +39,11 @@ function capitalizeFirstLetter(string: string): string {
 <template>
     <Section :title="capitalizeFirstLetter(archiveStore.activeFilterType)">
         <template #actions>
-            <div class="flex gap-2">
-                <v-btn-toggle
-                    density="comfortable"
-                    variant="text"
-                    color="primary"
-                    v-model="archiveStore.activeFilterType"
-                >
-                    <v-btn v-for="type in filterTypes" :key="type" :value="type">
-                        {{ type }}
-                    </v-btn>
-                </v-btn-toggle>
-            </div>
+            <v-btn-toggle density="comfortable" variant="text" color="primary" v-model="archiveStore.activeFilterType">
+                <v-btn v-for="type in filterTypes" :key="type" :value="type">
+                    {{ type }}
+                </v-btn>
+            </v-btn-toggle>
         </template>
 
         <div class="lg:hidden! pb-4">
@@ -62,6 +55,23 @@ function capitalizeFirstLetter(string: string): string {
                 <v-tabs-window-item value="streams"><VideosTab /></v-tabs-window-item>
                 <v-tabs-window-item value="playlists"><PlaylistsTab /></v-tabs-window-item>
             </v-tabs-window>
+        </div>
+
+        <div class="fixed bottom-mobile-navbar left-0 right-0 flex justify-center pb-4 z-1">
+            <div class="bg-black-200 border border-black-400 rounded-full">
+                <v-btn-toggle
+                    density="comfortable"
+                    rounded="xl"
+                    variant="text"
+                    class="rounded-full! overflow-hidden!"
+                    color="primary"
+                    v-model="archiveStore.activeFilterType"
+                >
+                    <v-btn v-for="type in filterTypes" :key="type" :value="type">
+                        {{ type }}
+                    </v-btn>
+                </v-btn-toggle>
+            </div>
         </div>
     </Section>
 </template>
