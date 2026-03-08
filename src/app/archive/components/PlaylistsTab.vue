@@ -51,30 +51,32 @@ async function save() {
 </script>
 
 <template>
-    <FilterIndicator archiveType="PLAYLISTS" />
+    <div class="pt-2">
+        <FilterIndicator archiveType="PLAYLISTS" />
 
-    <div v-for="playlist in playlists" :key="playlist.id" class="relative py-2 lg:hidden">
-        <PlaylistItem :playlist="playlist" />
+        <div class="relative flex flex-col gap-4 lg:hidden">
+            <PlaylistItem v-for="playlist in playlists" :key="playlist.id" :playlist="playlist" />
+        </div>
+
+        <div class="grid gap-x-4 gap-y-8 grid-cols-6 xl:gap-8 max-lg:hidden">
+            <PlaylistItemLarge v-for="playlist in playlistsStore.playlists" :key="playlist.id" :playlist="playlist" />
+        </div>
+
+        <!-- empty -->
+        <Empty
+            v-if="!playlistsStore.filteredPlaylists.length && !archiveStore.query"
+            title="No playlists yet..."
+            icon="mdi-format-list-bulleted"
+        />
+
+        <!-- nothing found -->
+        <Empty
+            v-if="!playlistsStore.filteredPlaylists.length && archiveStore.query"
+            :title="`No playlists found...`"
+            icon="mdi-magnify"
+            description="Try something else."
+        >
+            <v-btn @click="archiveStore.resetQuery">Clear</v-btn>
+        </Empty>
     </div>
-
-    <div class="grid gap-x-4 gap-y-8 grid-cols-6 xl:gap-8 max-lg:hidden">
-        <PlaylistItemLarge v-for="playlist in playlistsStore.playlists" :key="playlist.id" :playlist="playlist" />
-    </div>
-
-    <!-- empty -->
-    <Empty
-        v-if="!playlistsStore.filteredPlaylists.length && !archiveStore.query"
-        title="No playlists yet..."
-        icon="mdi-format-list-bulleted"
-    />
-
-    <!-- nothing found -->
-    <Empty
-        v-if="!playlistsStore.filteredPlaylists.length && archiveStore.query"
-        :title="`No playlists found...`"
-        icon="mdi-magnify"
-        description="Try something else."
-    >
-        <v-btn @click="archiveStore.resetQuery">Clear</v-btn>
-    </Empty>
 </template>
