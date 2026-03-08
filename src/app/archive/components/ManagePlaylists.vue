@@ -46,7 +46,8 @@ async function save() {
 </script>
 
 <template>
-    <v-btn v-auth prepend-icon="mdi-pencil" color="primary" variant="tonal" @click="dialog = true"> Manage </v-btn>
+    <v-btn icon="mdi-pencil" class="rounded!" size="small" color="primary" variant="tonal" @click="dialog = true">
+    </v-btn>
 
     <Dialog v-model="dialog" title="Manage Playlists" @open="onOpen()">
         <VueDraggable
@@ -88,16 +89,9 @@ async function save() {
         </VueDraggable>
 
         <template #footer>
-            <v-btn class="text-muted!" prepend-icon="mdi-close" variant="text" @click="cancel()"> cancel </v-btn>
+            <v-btn class="text-muted!" variant="text" @click="cancel()"> cancel </v-btn>
 
-            <v-btn
-                prepend-icon="mdi-content-save"
-                color="primary"
-                variant="tonal"
-                @click="save()"
-                :loading="loading"
-                :disabled="!hasChanges"
-            >
+            <v-btn color="primary" variant="tonal" @click="save()" :loading="loading" :disabled="!hasChanges">
                 save
             </v-btn>
         </template>

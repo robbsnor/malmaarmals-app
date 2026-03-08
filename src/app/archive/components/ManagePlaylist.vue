@@ -21,7 +21,6 @@ const createDefaultForm = (): TablesInsert<'playlists'> => ({
 });
 
 const playlistsStore = usePlaylistsStore();
-const authStore = useAuthStore();
 
 const sheet = ref(false);
 const form = ref<TablesInsert<'playlists'>>(createDefaultForm());
@@ -57,7 +56,12 @@ const playlistOrder = computed<PlaylistOrderItem[]>(() => {
 });
 
 function addBelow(index: number) {
-    const targetorder = index + 1;
+    let targetorder = index;
+
+    if (index < form.value.order) {
+        targetorder = index + 1;
+    }
+
     form.value.order = targetorder;
 }
 
@@ -76,28 +80,28 @@ async function updateExistingPlaylistOrder() {
 async function submit() {
     loading.value = true;
 
-    await updateExistingPlaylistOrder();
+    try {
+        await updateExistingPlaylistOrder();
 
-    // submit current playlist
-    const { error } = await supabase.from('playlists').upsert(form.value);
-    await sleep(500);
+        await supabase.from('playlists').upsert(form.value);
+        await sleep(500);
+    } catch (error) {
+        throw error;
+    } finally {
+        loading.value = false;
+        form.value = createDefaultForm();
 
-    loading.value = false;
-    if (error) return;
+        sheet.value = false;
+    }
 
-    form.value = createDefaultForm();
-
-    sheet.value = false;
     await playlistsStore.fetchPlaylists();
 }
 </script>
 
 <template>
-    <v-btn v-auth class="rounded!" variant="tonal" prepend-icon="mdi-plus" color="primary" @click="sheet = true">
-        new
-    </v-btn>
+    <v-btn icon="mdi-plus" class="rounded!" size="small" color="primary" variant="tonal" @click="sheet = true"> </v-btn>
 
-    <Drawer v-model="sheet" inset title="Create Playlist">
+    <Dialog v-model="sheet" inset title="Create Playlist">
         <v-form v-model="valid" class="flex flex-col gap-4">
             <v-text-field label="Title" :rules="requiredRule" v-model="form.title"></v-text-field>
             <v-text-field label="Description" v-model="form.description"></v-text-field>
@@ -113,7 +117,7 @@ async function submit() {
             <div class="bg-black-600 rounded">
                 <div class="p-4 pb-1 opacity-70">Playlist order</div>
 
-                <div class="flex flex-col divide-y divide-black-800 max-h-[500px] overflow-auto py-2">
+                <div class="flex flex-col divide-y divide-black-800 py-2">
                     <div
                         v-for="(playlist, i) in playlistOrder"
                         :key="playlist.id"
@@ -142,7 +146,10 @@ async function submit() {
         </v-form>
 
         <template #footer>
-            <v-btn color="primary" :disabled="!valid" :loading="loading" class="w-full" @click="submit"> Create </v-btn>
+            <v-btn class="text-muted!" variant="text" @click="sheet = false"> cancel </v-btn>
+            <v-btn color="primary" :disabled="!valid" variant="tonal" :loading="loading" @click="submit">
+                Create
+            </v-btn>
         </template>
-    </Drawer>
+    </Dialog>
 </template>
