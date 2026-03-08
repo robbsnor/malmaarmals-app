@@ -93,7 +93,7 @@ async function submit() {
 </script>
 
 <template>
-    <v-btn v-auth class="rounded! flex-1" variant="tonal" prepend-icon="mdi-plus" color="primary" @click="sheet = true">
+    <v-btn v-auth class="rounded!" variant="tonal" prepend-icon="mdi-plus" color="primary" @click="sheet = true">
         new
     </v-btn>
 

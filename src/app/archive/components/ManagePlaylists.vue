@@ -46,9 +46,7 @@ async function save() {
 </script>
 
 <template>
-    <v-btn v-auth prepend-icon="mdi-pencil" color="primary" variant="tonal" class="flex-1" @click="dialog = true">
-        Manage
-    </v-btn>
+    <v-btn v-auth prepend-icon="mdi-pencil" color="primary" variant="tonal" @click="dialog = true"> Manage </v-btn>
 
     <Dialog v-model="dialog" title="Manage Playlists" @open="onOpen()">
         <VueDraggable
