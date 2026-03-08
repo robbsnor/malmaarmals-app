@@ -48,7 +48,7 @@ const playlistOrder = computed<PlaylistOrderItem[]>(() => {
     return order;
 });
 
-function createDefaultForm() {
+function resetForm() {
     form.value = {
         title: '',
         description: '',
@@ -58,7 +58,7 @@ function createDefaultForm() {
 }
 
 function onOpen() {
-    createDefaultForm();
+    resetForm();
 }
 
 function addBelow(index: number) {
@@ -95,8 +95,6 @@ async function submit() {
         throw error;
     } finally {
         loading.value = false;
-        form.value = createDefaultForm();
-
         sheet.value = false;
     }
 
