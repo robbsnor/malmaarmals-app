@@ -4,13 +4,15 @@ import { useStorage } from '@vueuse/core';
 import { ref, watch, watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
+export type FilterType = 'streams' | 'playlists';
+
 export const useArchiveStore = defineStore('archive', () => {
     const router = useRouter();
     const route = useRoute();
     const query = ref<string>();
     const searchEl = ref<HTMLInputElement>();
     const amountToShow = ref(100);
-    const activeFilterType = useRouteQuery<'streams' | 'playlists' | 'categories'>('type', 'streams');
+    const activeFilterType = useRouteQuery<FilterType>('type', 'streams');
 
     function resetQuery() {
         query.value = null;

@@ -13,10 +13,10 @@ const archiveStore = useArchiveStore();
 <template>
     <FilterIndicator archiveType="STREAMS" />
 
-    <div class="grid grid-cols gap-4 xl:grid-cols-5 xl:gap-8" v-auto-animate>
+    <div class="grid grid-cols gap-4 lg:grid-cols-5 lg:gap-8" v-auto-animate>
         <template v-for="video in videosStore.filteredVideos.slice(0, archiveStore.amountToShow)" :key="video.video_id">
-            <VideoItem class="xl:hidden" :video="video" />
-            <VideoItemLarge class="max-xl:hidden" :video="video" />
+            <VideoItem class="lg:hidden" :video="video" />
+            <VideoItemLarge class="max-lg:hidden" :video="video" />
         </template>
     </div>
 
