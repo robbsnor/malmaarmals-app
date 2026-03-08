@@ -49,7 +49,7 @@ async function save() {
     <v-btn icon="mdi-pencil" class="rounded!" size="small" color="primary" variant="tonal" @click="dialog = true">
     </v-btn>
 
-    <Dialog v-model="dialog" title="Manage Playlists" @open="onOpen()" :width="500">
+    <Dialog v-model="dialog" title="Manage Playlists" @open="onOpen()" :width="500" icon="mdi-pencil">
         <VueDraggable
             v-if="playlistsStore.playlists.length"
             :animation="200"
@@ -64,11 +64,11 @@ async function save() {
                     </div>
 
                     <div>
-                        <div class="font-bold text-muted">
+                        <div class="font-bold truncate">
                             {{ playlist.title }}
                         </div>
 
-                        <div class="text-muted-more">{{ playlist.videos.length }} Video's</div>
+                        <div class="text-muted-more font-bold leading-tight">{{ playlist.videos.length }} Video's</div>
                     </div>
                 </div>
 
