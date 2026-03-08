@@ -13,17 +13,10 @@ type PlaylistOrderItem = {
     image: string | null;
 };
 
-const createDefaultForm = (): TablesInsert<'playlists'> => ({
-    title: '',
-    description: '',
-    order_type: 'date_descending',
-    order: 0,
-});
-
 const playlistsStore = usePlaylistsStore();
 
 const sheet = ref(false);
-const form = ref<TablesInsert<'playlists'>>(createDefaultForm());
+const form = ref<TablesInsert<'playlists'>>();
 const valid = ref(false);
 const loading = ref(false);
 
@@ -54,6 +47,19 @@ const playlistOrder = computed<PlaylistOrderItem[]>(() => {
 
     return order;
 });
+
+function createDefaultForm() {
+    form.value = {
+        title: '',
+        description: '',
+        order_type: 'date_descending',
+        order: 0,
+    };
+}
+
+function onOpen() {
+    createDefaultForm();
+}
 
 function addBelow(index: number) {
     let targetorder = index;
@@ -101,7 +107,7 @@ async function submit() {
 <template>
     <v-btn icon="mdi-plus" class="rounded!" size="small" color="primary" variant="tonal" @click="sheet = true"> </v-btn>
 
-    <Dialog v-model="sheet" inset title="Create Playlist">
+    <Dialog v-model="sheet" inset title="Create Playlist" @open="onOpen()">
         <v-form v-model="valid" class="flex flex-col gap-4">
             <v-text-field label="Title" :rules="requiredRule" v-model="form.title"></v-text-field>
             <v-text-field label="Description" v-model="form.description"></v-text-field>
