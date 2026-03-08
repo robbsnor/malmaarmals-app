@@ -117,7 +117,7 @@ async function submit() {
             <div class="bg-black-600 rounded">
                 <div class="p-4 pb-1 opacity-70">Playlist order</div>
 
-                <div class="flex flex-col divide-y divide-black-800 py-2">
+                <div v-auto-animate class="flex flex-col divide-y divide-black-800 py-2">
                     <div
                         v-for="(playlist, i) in playlistOrder"
                         :key="playlist.id"
