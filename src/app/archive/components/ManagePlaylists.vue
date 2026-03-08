@@ -49,22 +49,15 @@ async function save() {
     <v-btn icon="mdi-pencil" class="rounded!" size="small" color="primary" variant="tonal" @click="dialog = true">
     </v-btn>
 
-    <Dialog v-model="dialog" title="Manage Playlists" @open="onOpen()">
+    <Dialog v-model="dialog" title="Manage Playlists" @open="onOpen()" :width="500">
         <VueDraggable
             v-if="playlistsStore.playlists.length"
             :animation="200"
-            class="flex flex-col divide-black-600 divide-y -m-6"
+            class="flex flex-col divide-black-600 divide-y -m-4"
             handle=".handle"
             v-model="cloned"
         >
-            <div v-for="playlist in cloned" :key="playlist.id" class="relative flex items-center py-2">
-                <v-btn
-                    icon="mdi-drag-horizontal-variant"
-                    variant="text"
-                    size="small"
-                    class="handle cursor-grab! text-muted! shrik-0"
-                ></v-btn>
-
+            <div v-for="playlist in cloned" :key="playlist.id" class="relative flex items-center py-2 px-4">
                 <div class="flex items-center gap-4 flex-1">
                     <div class="w-18 rounded overflow-hidden">
                         <v-img :src="BucketHelper.getThumbnailUrl(playlist.videos[0]?.video_id)" alt="" />
@@ -79,12 +72,10 @@ async function save() {
                     </div>
                 </div>
 
-                <v-btn
-                    icon="mdi-trash-can"
-                    variant="text"
-                    size="small"
-                    class="handle cursor-grab! text-red-400! shrik-0 mr-2"
-                ></v-btn>
+                <div class="flex justify-center items-center gap-2 pr-2">
+                    <v-btn icon="mdi-trash-can" variant="text" size="small" class="text-red-400! shrik-0"></v-btn>
+                    <v-icon icon="mdi-drag" size="small" class="handle cursor-grab! text-muted! shrik-0"></v-icon>
+                </div>
             </div>
         </VueDraggable>
 

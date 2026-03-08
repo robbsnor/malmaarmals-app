@@ -54,7 +54,7 @@ watch(
                 'border border-black-500': props.showBody || slots.footer,
             }"
         >
-            <div class="flex gap-4 items-center p-6 py-4 border-b border-black-500">
+            <div class="flex gap-4 items-center p-4 py-2 pr-2 border-b border-black-500">
                 <div v-if="props.icon" class="sm:flex justify-center items-center p-2 bg-black-400 rounded-md hidden">
                     <v-icon :color="props.iconColor" :icon="props.icon" class=" " />
                 </div>
@@ -76,13 +76,13 @@ watch(
                 </button>
             </div>
 
-            <div v-if="props.showBody" class="p-6 max-h-[70vh] overflow-auto">
+            <div v-if="props.showBody" class="p-4 max-h-[70vh] overflow-auto">
                 <slot></slot>
             </div>
 
             <div
                 v-if="slots.footer"
-                class="flex flex-wrap justify-end gap-4 p-6 py-4"
+                class="flex flex-wrap justify-end gap-4 p-4"
                 :class="{
                     'border-t border-black-500': props.showBody,
                 }"
