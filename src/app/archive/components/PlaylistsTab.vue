@@ -51,11 +51,6 @@ async function save() {
 </script>
 
 <template>
-    <div v-auth class="flex justify-evenly items-center gap-4 mb-4 rounded-md lg:hidden">
-        <ManagePlaylists />
-        <ManagePlaylist />
-    </div>
-
     <FilterIndicator archiveType="PLAYLISTS" />
 
     <div v-for="playlist in playlists" :key="playlist.id" class="relative py-2 lg:hidden">
