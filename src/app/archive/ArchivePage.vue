@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, useTemplateRef } from 'vue';
+import { onMounted, useTemplateRef } from 'vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import { useArchiveStore } from './stores/archive.store';
-import type { FilterType } from './stores/archive.store';
 import VideosTab from './components/VideosTab.vue';
 import PlaylistsTab from './components/PlaylistsTab.vue';
 import { useRoute } from 'vue-router';
-import { Z } from '../shared/directives/z.directive';
 import ManagePlaylist from './components/ManagePlaylist.vue';
 import ManagePlaylists from './components/ManagePlaylists.vue';
-import { useVideosStore } from '../video/stores/videos.store';
 import { onStartTyping } from '@vueuse/core';
 import Search from '../layout/components/Search.vue';
 
