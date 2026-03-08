@@ -40,7 +40,7 @@ const time = computed(() => {
     >
         <v-img
             :src="props.src"
-            class="relative w-full aspect-video group-hover:scale-102 transition-all"
+            class="relative w-full aspect-video group-hover:scale-104 transition-all"
             aria-hidden="true"
         />
         <div v-if="prettyTime" class="absolute bottom-2 right-2 bg-black/50 rounded-md text-xs px-1.5 py-0.5">
