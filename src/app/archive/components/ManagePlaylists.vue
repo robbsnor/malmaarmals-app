@@ -48,7 +48,7 @@ async function save() {
 
         await deletePlaylists();
         await reorderPlaylists();
-        await sleep(1500);
+        await sleep(500);
         await playlistsStore.fetchPlaylists();
     } catch (error) {
         throw error;
