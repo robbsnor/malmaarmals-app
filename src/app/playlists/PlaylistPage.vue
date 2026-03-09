@@ -20,7 +20,7 @@ const authStore = useAuthStore();
 
 <template>
     <Container :padding="false">
-        <div class="relative overflow-hidden max-md:aspect-video md:h-[500px]">
+        <div class="relative overflow-hidden max-md:aspect-video md:h-[500px] 3xl:rounded-t-2xl 3xl:mt-8">
             <img
                 v-if="playlist.videos.length"
                 :src="BucketHelper.getThumbnailUrl(Number(playlist.videos[0].video_id))"
