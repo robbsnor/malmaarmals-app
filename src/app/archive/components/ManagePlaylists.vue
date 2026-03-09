@@ -71,7 +71,7 @@ async function save() {
     >
     </v-btn>
 
-    <Dialog v-model="dialog" title="Manage Playlists" @open="onOpen()" :width="500" icon="mdi-pencil">
+    <Dialog v-model="dialog" title="Manage Playlists" @open="onOpen()" :width="600" icon="mdi-pencil">
         <VueDraggable
             v-if="playlistsStore.playlists.length"
             :animation="200"
