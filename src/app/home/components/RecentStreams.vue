@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { useResponsiveItems } from '../../shared/composables/useResponsiveItems.composable';
 import VideoItem from '../../video/components/VideoItem.vue';
 import VideoItemLarge from '../../video/components/VideoItemLarge.vue';
 import { useVideosStore } from '../../video/stores/videos.store';
-import { computed } from 'vue';
 
 const videosStore = useVideosStore();
 </script>
