@@ -18,36 +18,6 @@ TitleHelper.setTitle('playlists');
 
 const playlistsStore = usePlaylistsStore();
 const archiveStore = useArchiveStore();
-
-const editMode = ref(false);
-const loading = ref(false);
-
-const { cloned, sync } = useCloned(() => playlistsStore.playlists);
-const playlists = computed(() => (editMode.value ? cloned.value : playlistsStore.filteredPlaylists));
-const hasChanges = computed(() => !_.isEqual(cloned.value, playlistsStore.playlists));
-
-async function cancel() {
-    editMode.value = false;
-    sync();
-}
-
-async function save() {
-    loading.value = true;
-
-    const updates = cloned.value.map((playlist, index) => ({
-        id: playlist.id,
-        order: index,
-    }));
-
-    const promises = updates.map(({ id, order }) => supabase.from('playlists').update({ order }).eq('id', id));
-    await Promise.all(promises);
-    await playlistsStore.fetchPlaylists();
-    await sleep(500);
-
-    loading.value = false;
-    editMode.value = false;
-    sync();
-}
 </script>
 
 <template>
@@ -55,11 +25,19 @@ async function save() {
         <FilterIndicator archiveType="PLAYLISTS" />
 
         <div class="relative flex flex-col gap-4 lg:hidden">
-            <PlaylistItem v-for="playlist in playlists" :key="playlist.id" :playlist="playlist" />
+            <PlaylistItem
+                v-for="playlist in playlistsStore.filteredPlaylists"
+                :key="playlist.id"
+                :playlist="playlist"
+            />
         </div>
 
         <div class="grid gap-x-4 gap-y-8 grid-cols-6 xl:gap-8 max-lg:hidden">
-            <PlaylistItemLarge v-for="playlist in playlistsStore.playlists" :key="playlist.id" :playlist="playlist" />
+            <PlaylistItemLarge
+                v-for="playlist in playlistsStore.filteredPlaylists"
+                :key="playlist.id"
+                :playlist="playlist"
+            />
         </div>
 
         <!-- empty -->
