@@ -131,7 +131,7 @@ async function submit() {
                         class="flex gap-2 items-center py-2 px-4"
                         :class="playlist.id || 'bg-black-800'"
                     >
-                        <div class="w-20 aspect-video bg-black-500 rounded overflow-hidden">
+                        <div class="w-20 aspect-video bg-black-500 rounded overflow-hidden shrink-0">
                             <v-img v-if="playlist.image" :src="playlist.image" alt="" />
                         </div>
                         <div class="font-bold">{{ playlist.title }}</div>
