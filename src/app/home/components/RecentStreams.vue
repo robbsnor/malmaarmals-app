@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useResponsiveItems } from '../../shared/composables/useResponsiveItems.composable';
 import VideoItem from '../../video/components/VideoItem.vue';
 import VideoItemLarge from '../../video/components/VideoItemLarge.vue';
 import { useVideosStore } from '../../video/stores/videos.store';
@@ -14,12 +15,11 @@ const videosStore = useVideosStore();
         </template>
 
         <template v-if="videosStore.videos.length">
-            <div class="flex flex-col gap-5 lg:hidden">
-                <VideoItem v-for="video in videosStore.videos.slice(0, 5)" :key="video.video_id" :video="video" />
-            </div>
-
-            <div class="grid gap-x-4 gap-y-8 grid-cols-5 xl:gap-8 max-lg:hidden">
-                <VideoItemLarge v-for="video in videosStore.videos.slice(0, 10)" :key="video.video_id" :video="video" />
+            <div class="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5">
+                <template v-for="(video, index) in videosStore.videos.slice(0, 10)" :key="video.video_id">
+                    <VideoItem :class="[index >= 6 ? 'hidden' : '']" class="lg:hidden" :video="video" />
+                    <VideoItemLarge class="max-lg:hidden" :video="video" />
+                </template>
             </div>
         </template>
 
