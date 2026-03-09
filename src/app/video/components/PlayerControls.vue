@@ -102,7 +102,13 @@ function toggleTheaterMode() {
                         <PlayerButton icon="mdi-skip-next" @click="goToNextVideo()" />
                     </Auth>
                     <ShareButton />
-                    <AddToPlaylist />
+
+                    <AddToPlaylist :video="videoStore.info">
+                        <template #activator="{ props }">
+                            <PlayerButton v-bind="props" :size="24" icon="mdi-plus" />
+                        </template>
+                    </AddToPlaylist>
+
                     <Cast />
                     <PreferenceDrawer />
                     <PlayerButton

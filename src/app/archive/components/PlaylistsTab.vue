@@ -76,7 +76,10 @@ async function save() {
             icon="mdi-magnify"
             description="Try something else."
         >
-            <v-btn @click="archiveStore.resetQuery">Clear</v-btn>
+            <div class="flex flex-col gap-4 items-center">
+                <v-btn @click="archiveStore.resetQuery">Clear</v-btn>
+                <ManagePlaylist></ManagePlaylist>
+            </div>
         </Empty>
     </div>
 </template>

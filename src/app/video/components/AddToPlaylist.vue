@@ -1,22 +1,18 @@
 <script setup lang="ts">
 import { supabase } from '../../../supabase';
-import { useAuthStore } from '../../auth/stores/auth.store';
-import { useAppStore } from '../../shared/stores/app.store';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
-import { useVideoStore } from '../stores/video.store';
-import PlayerButton from './PlayerButton.vue';
+import VideoItem from './VideoItem.vue';
+import type { VideoWithChapters } from '../models/videos-with-chapters.model';
+import { sleep } from '../../shared/helpers/sleep';
+import type { TablesInsert } from '../../shared/models/database.types';
+import PlaylistItem from '../../playlists/components/PlaylistItem.vue';
 
-const formDefault = {
-    playlist_id: null,
-};
+const props = defineProps<{ video: VideoWithChapters }>();
 
-const appStore = useAppStore();
-const authStore = useAuthStore();
 const playlistsStore = usePlaylistsStore();
-const videostore = useVideoStore();
 const sheet = ref(false);
-const form = ref({ ...formDefault });
+const form = ref<TablesInsert<'playlist_videos'>>();
 const valid = ref(false);
 const loading = ref(false);
 const rules = [
@@ -26,50 +22,75 @@ const rules = [
     },
 ];
 
+const playlist = computed(() => playlistsStore.playlists.find((p) => p.id === form.value.playlist_id));
+
+function resetForm() {
+    form.value = {
+        playlist_id: null,
+        video_id: null,
+    };
+}
+
+function onOpen() {
+    resetForm();
+}
+
 const submit = async () => {
-    loading.value = true;
+    try {
+        loading.value = true;
 
-    const { error } = await supabase.from('playlist_videos').insert({
-        playlist_id: form.value.playlist_id,
-        video_id: videostore.info.id,
-    });
+        const { error } = await supabase.from('playlist_videos').insert({
+            playlist_id: form.value.playlist_id,
+            video_id: props.video.id,
+        });
+        if (error) throw error;
 
-    loading.value = false;
-    if (error) return console.log(error);
-
-    form.value = { ...formDefault };
-    await playlistsStore.fetchPlaylists();
-    sheet.value = false;
+        await sleep(500);
+        await playlistsStore.fetchPlaylists();
+    } catch (error) {
+        throw error;
+    } finally {
+        loading.value = false;
+        sheet.value = false;
+    }
 };
 </script>
 
 <template>
-    <Drawer v-model="sheet" inset title="Add to playlist">
+    <Drawer v-model="sheet" inset title="Add to playlist" @open="onOpen()">
         <template #activator="{ props }">
             <Auth>
-                <PlayerButton v-bind="props" :size="24" icon="mdi-plus" />
+                <slot name="activator" v-bind="{ props }"></slot>
             </Auth>
         </template>
 
-        <v-form v-model="valid" class="flex flex-col gap-4">
-            <v-autocomplete
-                :rules="rules"
-                v-model="form.playlist_id"
-                label="Playlist"
-                item-title="title"
-                item-value="id"
-                :items="playlistsStore.playlists"
-            />
-            <v-btn
-                color="primary"
-                :disabled="!valid"
-                :loading="loading"
-                class="w-full"
-                @click="submit"
-                prepend-icon="mdi-plus"
-            >
+        <div class="flex flex-col gap-8">
+            <div class="pointer-events-none flex flex-col gap-2 items-center">
+                <VideoItem :video="video" :show-options="false" class="w-full"> </VideoItem>
+
+                <v-icon v-if="playlist">mdi-arrow-down</v-icon>
+
+                <PlaylistItem v-if="playlist" :playlist="playlist" class="w-full"></PlaylistItem>
+            </div>
+
+            <v-form v-model="valid" class="flex flex-col gap-4">
+                <v-autocomplete
+                    :rules="rules"
+                    v-model="form.playlist_id"
+                    label="Playlist"
+                    item-title="title"
+                    autocomplete="off"
+                    item-value="id"
+                    :items="playlistsStore.playlists"
+                />
+            </v-form>
+        </div>
+
+        <template #footer>
+            <v-btn variant="text" @click="sheet = false" class="text-muted!"> cancel </v-btn>
+            <v-btn color="primary" :disabled="!valid" :loading="loading" @click="submit" variant="tonal">
                 Add to playlist
             </v-btn>
-        </v-form>
+        </template>
     </Drawer>
 </template>

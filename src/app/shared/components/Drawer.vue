@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { computed, useSlots, useTemplateRef } from 'vue';
+import { computed, useSlots, useTemplateRef, watch } from 'vue';
 
 const sheet = defineModel<boolean>();
 const slots = useSlots();
 const scrollContainerRef = useTemplateRef<HTMLElement>('scrollContainerRef');
-
+const emits = defineEmits<{
+    (e: 'open'): void;
+    (e: 'close'): void;
+}>();
 const props = withDefaults(
     defineProps<{
         title?: string;
@@ -25,6 +28,17 @@ const _props = computed(() => {
     const { title, ...rest } = props;
     return rest;
 });
+
+watch(
+    () => sheet.value,
+    (newVal) => {
+        if (newVal) {
+            emits('open');
+        } else {
+            emits('close');
+        }
+    }
+);
 </script>
 
 <template>
@@ -50,7 +64,7 @@ const _props = computed(() => {
                 <slot></slot>
             </div>
 
-            <div v-if="slots.footer" class="p-4 border-t border-black-500">
+            <div v-if="slots.footer" class="flex flex-wrap justify-end gap-4 p-4 border-t border-black-500">
                 <slot name="footer"></slot>
             </div>
         </div>

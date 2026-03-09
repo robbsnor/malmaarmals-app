@@ -103,7 +103,8 @@ async function submit() {
 </script>
 
 <template>
-    <v-btn icon="mdi-plus" class="rounded!" size="small" color="primary" variant="tonal" @click="sheet = true"> </v-btn>
+    <v-btn v-auth icon="mdi-plus" class="rounded!" size="small" color="primary" variant="tonal" @click="sheet = true">
+    </v-btn>
 
     <Dialog v-model="sheet" inset title="Create Playlist" @open="onOpen()">
         <v-form v-model="valid" class="flex flex-col gap-4">
