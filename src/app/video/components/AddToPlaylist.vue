@@ -27,10 +27,7 @@ const rules = [
 ];
 
 const playlists = computed(() =>
-    playlistsStore.playlists.map((p) => ({
-        ...p,
-        disabled: p.videos.some((v) => v.id === props.video.id),
-    }))
+    playlistsStore.playlists.filter((p) => !p.videos.some((v) => v.id === props.video.id))
 );
 
 function onOpen() {
@@ -81,6 +78,7 @@ const submit = async () => {
 
             <v-form v-model="valid" class="flex flex-col gap-4">
                 <v-autocomplete
+                    v-if="playlists"
                     :rules="rules"
                     v-model="form.playlist"
                     label="Playlist"
@@ -90,7 +88,7 @@ const submit = async () => {
                     :items="playlists"
                 >
                     <template #item="{ props, item }">
-                        <v-list-item v-bind="props" :disabled="item.raw.disabled">
+                        <v-list-item v-bind="props">
                             <template v-slot:prepend>
                                 <div class="bg-black-200 rounded overflow-hidden w-18 aspect-video mr-4">
                                     <v-img :src="BucketHelper.getThumbnailUrl(item.raw.videos[0]?.video_id)" alt="" />
