@@ -15,7 +15,7 @@ const videosStore = useVideosStore();
         </template>
 
         <template v-if="videosStore.videos.length">
-            <div class="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-5">
+            <div class="grid grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                 <template v-for="(video, index) in videosStore.videos.slice(0, 10)" :key="video.video_id">
                     <VideoItem :class="[index >= 6 ? 'hidden' : '']" class="lg:hidden" :video="video" />
                     <VideoItemLarge class="max-lg:hidden" :video="video" />
