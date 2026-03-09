@@ -120,17 +120,14 @@ async function submit() {
             <v-number-input class="hidden!" v-model="form.order"></v-number-input>
 
             <div class="bg-black-600 rounded">
-                <div class="p-4 pb-1 opacity-70">Playlist order</div>
+                <div class="p-4 pt-3 pb-1 opacity-70 border-b border-black-1000">Playlist order</div>
 
-                <div
-                    v-auto-animate
-                    class="flex flex-col divide-y divide-black-800 py-2 lg:max-h-100 overflow-auto rounded"
-                >
+                <div v-auto-animate class="flex flex-col divide-y divide-black-800 py-2 lg:max-h-100 overflow-auto">
                     <div
                         v-for="(playlist, i) in playlistOrder"
                         :key="playlist.id"
-                        class="flex gap-2 items-center py-2 px-4"
-                        :class="playlist.id || 'bg-black-800'"
+                        class="flex gap-4 items-center py-2 px-4"
+                        :class="playlist.id ?? 'bg-black-800'"
                     >
                         <div class="w-20 aspect-video bg-black-500 rounded overflow-hidden shrink-0">
                             <v-img v-if="playlist.image" :src="playlist.image" alt="" />

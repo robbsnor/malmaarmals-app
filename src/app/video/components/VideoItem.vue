@@ -31,7 +31,7 @@ const categories = computed(() => {
             :durationS="props.video.length_sec"
         />
 
-        <div class="flex-1">
+        <div class="flex-1 pt-2">
             <h2 class="font-bold text-md line-clamp-2 leading-snug">
                 {{ props.video.title }}
             </h2>

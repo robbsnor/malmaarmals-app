@@ -34,8 +34,8 @@ const props = withDefaults(
             />
         </div>
 
-        <div>
-            <h2 class="font-bold text-md pt-2">{{ playlist.title }}</h2>
+        <div class="pt-2">
+            <h2 class="font-bold text-md">{{ playlist.title }}</h2>
             <div class="text-muted text-sm font-medium">{{ playlist.videos.length }} Video's</div>
         </div>
     </RouterLink>
