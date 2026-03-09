@@ -32,8 +32,6 @@ onStartTyping(() => {
 function capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
-
-// :class="{ 'opacity-100 pointer-events-auto': archiveStore.activeFilterType === 'playlists' }"
 </script>
 
 <template>
@@ -60,7 +58,7 @@ function capitalizeFirstLetter(string: string): string {
             </div>
         </template>
 
-        <div class="lg:hidden!">
+        <div class="lg:hidden">
             <Search density="default" />
 
             <v-tabs grow v-model="archiveStore.activeFilterType" color="primary">
