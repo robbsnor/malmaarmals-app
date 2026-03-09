@@ -45,7 +45,11 @@ function capitalizeFirstLetter(string: string): string {
                     <ManagePlaylist />
                 </div>
 
-                <div v-auth class="w-[1px] rounded-full bg-black-600 hidden lg:block"></div>
+                <div
+                    v-auth
+                    v-visible="archiveStore.activeFilterType === 'playlists'"
+                    class="w-[1px] rounded-full bg-black-600 hidden lg:block"
+                ></div>
 
                 <div class="hidden lg:block">
                     <v-btn-toggle

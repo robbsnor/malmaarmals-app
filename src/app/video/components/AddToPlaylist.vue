@@ -52,7 +52,7 @@ const submit = async () => {
         </template>
 
         <v-form v-model="valid" class="flex flex-col gap-4">
-            <v-select
+            <v-autocomplete
                 :rules="rules"
                 v-model="form.playlist_id"
                 label="Playlist"
