@@ -52,12 +52,7 @@ function capitalizeFirstLetter(string: string): string {
                 ></div>
 
                 <div class="hidden lg:block">
-                    <v-btn-toggle
-                        density="comfortable"
-                        variant="text"
-                        color="primary"
-                        v-model="archiveStore.activeFilterType"
-                    >
+                    <v-btn-toggle density="comfortable" color="primary" v-model="archiveStore.activeFilterType">
                         <v-btn value="streams">streams</v-btn>
                         <v-btn value="playlists">playlists</v-btn>
                     </v-btn-toggle>
