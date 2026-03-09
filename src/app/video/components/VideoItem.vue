@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { computed, useSlots } from 'vue';
+import { computed } from 'vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import type { VideoWithChapters } from '../models/videos-with-chapters.model';
 import { formatTimeAgo } from '@vueuse/core';
+import AddToPlaylist from './AddToPlaylist.vue';
 
 const props = withDefaults(
     defineProps<{
         video: VideoWithChapters;
+        showOptions?: boolean;
     }>(),
-    {}
+    {
+        showOptions: true,
+    }
 );
-
-const slots = useSlots();
 
 const categories = computed(() => {
     const cats = props.video?.chapters.map((chapter) => chapter.category.title);
@@ -29,7 +31,7 @@ const categories = computed(() => {
             :durationS="props.video.length_sec"
         />
 
-        <div>
+        <div class="flex-1">
             <h2 class="font-bold text-md line-clamp-2 leading-snug">
                 {{ props.video.title }}
             </h2>
@@ -41,8 +43,26 @@ const categories = computed(() => {
             </div>
         </div>
 
-        <div v-if="slots.actions" class="ml-auto tits relative z-10">
-            <slot name="actions"></slot>
-        </div>
+        <v-menu v-if="props.showOptions">
+            <template #activator="{ props }">
+                <v-btn
+                    v-auth
+                    @click.prevent.stop
+                    icon="mdi-dots-vertical"
+                    size="small"
+                    variant="text"
+                    class="shrink-0 text-muted!"
+                    v-bind="props"
+                />
+            </template>
+
+            <v-list>
+                <AddToPlaylist :video="video">
+                    <template #activator="{ props }">
+                        <v-list-item v-bind="props" prepend-icon="mdi-plus">Add to playlist</v-list-item>
+                    </template>
+                </AddToPlaylist>
+            </v-list>
+        </v-menu>
     </RouterLink>
 </template>

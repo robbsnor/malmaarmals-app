@@ -60,7 +60,15 @@ async function save() {
 </script>
 
 <template>
-    <v-btn icon="mdi-pencil" class="rounded!" size="small" color="primary" variant="tonal" @click="dialog = true">
+    <v-btn
+        v-auth
+        icon="mdi-pencil"
+        class="rounded!"
+        size="small"
+        color="primary"
+        variant="tonal"
+        @click="dialog = true"
+    >
     </v-btn>
 
     <Dialog v-model="dialog" title="Manage Playlists" @open="onOpen()" :width="500" icon="mdi-pencil">

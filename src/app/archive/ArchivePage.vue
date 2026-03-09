@@ -40,7 +40,7 @@ function capitalizeFirstLetter(string: string): string {
     <Section :title="capitalizeFirstLetter(archiveStore.activeFilterType)">
         <template #actions>
             <div class="flex gap-4">
-                <div v-auth v-visible="archiveStore.activeFilterType === 'playlists'" class="flex gap-2">
+                <div v-visible="archiveStore.activeFilterType === 'playlists'" class="flex gap-2">
                     <ManagePlaylists />
                     <ManagePlaylist />
                 </div>
