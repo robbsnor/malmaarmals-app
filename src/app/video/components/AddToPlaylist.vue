@@ -7,6 +7,7 @@ import type { VideoWithChapters } from '../models/videos-with-chapters.model';
 import { sleep } from '../../shared/helpers/sleep';
 import type { TablesInsert } from '../../shared/models/database.types';
 import PlaylistItem from '../../playlists/components/PlaylistItem.vue';
+import { BucketHelper } from '../../shared/helpers/bucket.helper';
 
 const props = defineProps<{ video: VideoWithChapters }>();
 
@@ -22,7 +23,14 @@ const rules = [
     },
 ];
 
-const playlist = computed(() => playlistsStore.playlists.find((p) => p.id === form.value.playlist_id));
+const selectedPlaylist = computed(() => playlistsStore.playlists.find((p) => p.id === form.value.playlist_id));
+
+const playlistOptions = computed(() =>
+    playlistsStore.playlists.map((p) => ({
+        ...p,
+        disabled: p.videos.some((v) => v.id === props.video.id),
+    }))
+);
 
 function resetForm() {
     form.value = {
@@ -66,11 +74,9 @@ const submit = async () => {
 
         <div class="flex flex-col gap-8">
             <div class="pointer-events-none flex flex-col gap-2 items-center">
-                <VideoItem :video="video" :show-options="false" class="w-full"> </VideoItem>
-
-                <v-icon v-if="playlist">mdi-arrow-down</v-icon>
-
-                <PlaylistItem v-if="playlist" :playlist="playlist" class="w-full"></PlaylistItem>
+                <VideoItem :video="video" :show-options="false" class="w-full"></VideoItem>
+                <v-icon v-if="selectedPlaylist">mdi-arrow-down</v-icon>
+                <PlaylistItem v-if="selectedPlaylist" :playlist="selectedPlaylist" class="w-full"></PlaylistItem>
             </div>
 
             <v-form v-model="valid" class="flex flex-col gap-4">
@@ -80,9 +86,18 @@ const submit = async () => {
                     label="Playlist"
                     item-title="title"
                     autocomplete="off"
-                    item-value="id"
-                    :items="playlistsStore.playlists"
-                />
+                    :items="playlistOptions"
+                >
+                    <template #item="{ props, item }">
+                        <v-list-item v-bind="props" :disabled="item.raw.disabled">
+                            <template v-slot:prepend>
+                                <div class="bg-black-200 rounded overflow-hidden w-18 aspect-video mr-4">
+                                    <v-img :src="BucketHelper.getThumbnailUrl(item.raw.videos[0]?.video_id)" alt="" />
+                                </div>
+                            </template>
+                        </v-list-item>
+                    </template>
+                </v-autocomplete>
             </v-form>
         </div>
 
