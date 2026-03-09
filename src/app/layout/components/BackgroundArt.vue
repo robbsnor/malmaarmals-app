@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-    <div class="fixed h-1/2 w-full bg-black">
+    <div class="fixed h-1/2 w-full bg-black pointer-events-none">
         <Container class="relative h-full">
             <div class="flex gap-4 absolute right-0 translate-x-1/6 h-full">
                 <div
