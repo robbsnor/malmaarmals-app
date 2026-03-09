@@ -21,7 +21,7 @@ const archiveStore = useArchiveStore();
 </script>
 
 <template>
-    <div class="pt-2">
+    <div class="max-lg:pt-2">
         <FilterIndicator archiveType="PLAYLISTS" />
 
         <div class="relative flex flex-col gap-4 lg:hidden">
