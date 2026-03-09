@@ -18,7 +18,7 @@ const videosStore = useVideosStore();
         <!-- <div>accessToken: {{ authStore.twitchAccessToken }}</div>
         <div>refreshToken: {{ authStore.twitchRefreshToken }}</div> -->
 
-        <Container class="flex items-center justify-center flex-col pt-10 pb-2 lg:pt-20 lg:pb-12">
+        <Container class="flex items-center justify-center flex-col pt-18 pb-8 lg:pt-20 lg:pb-12">
             <Logo payoff class="relative z-1 w-[80%] lg:w-150" />
         </Container>
 
