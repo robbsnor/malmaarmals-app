@@ -10,10 +10,8 @@ import { useHistoryStore } from './app/history/stores/history.store';
 import Offline from './app/layout/components/Offline.vue';
 import Footer from './app/layout/components/Footer.vue';
 import Header from './app/layout/components/Header.vue';
-import { useRoute } from 'vue-router';
+import BackgroundArt from './app/layout/components/BackgroundArt.vue';
 import { Analytics } from '@vercel/analytics/vue';
-
-const route = useRoute();
 
 const videosStore = useVideosStore();
 const authStore = useAuthStore();
@@ -59,6 +57,8 @@ onMounted(async () => {
 
 <template>
     <v-app v-if="!loading && !hasError">
+        <BackgroundArt />
+
         <Header />
 
         <div class="grid h-full pb-mobile-navbar lg:pt-header lg:pb-0" style="grid-template-rows: 1fr auto">
