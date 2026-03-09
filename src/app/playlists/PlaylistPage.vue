@@ -59,35 +59,11 @@ const authStore = useAuthStore();
     </Container>
 
     <Container>
-        <div class="flex flex-col gap-5 lg:hidden">
-            <VideoItem v-for="video in playlist?.videos" :key="video.video_id" :video="video">
-                <template v-if="authStore.isAdmin" #actions>
-                    <v-menu>
-                        <template #activator="{ props }">
-                            <v-btn
-                                icon="mdi-dots-vertical"
-                                variant="text"
-                                size="small"
-                                v-bind="props"
-                                @click.prevent.stop
-                            />
-                        </template>
-
-                        <v-list>
-                            <v-list-item
-                                class="text-red"
-                                title="Delete"
-                                prepend-icon="mdi-trash-can"
-                                @click="playlistStore.deleteVideoFromPlaylist(video.id, playlist.id)"
-                            />
-                        </v-list>
-                    </v-menu>
-                </template>
-            </VideoItem>
-        </div>
-
-        <div class="grid gap-x-4 gap-y-8 grid-cols-5 xl:gap-8 max-lg:hidden">
-            <VideoItemLarge v-for="video in playlist?.videos" :key="video.video_id" :video="video" />
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5" v-auto-animate>
+            <template v-for="video in playlist.videos" :key="video.video_id">
+                <VideoItem class="lg:hidden" :video="video" />
+                <VideoItemLarge class="max-lg:hidden" :video="video" />
+            </template>
         </div>
     </Container>
 </template>
