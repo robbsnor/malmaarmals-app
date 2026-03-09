@@ -1,4 +1,3 @@
-// directives/visibleTransition.ts
 import type { Directive } from 'vue';
 
 export const visible: Directive<HTMLElement, boolean> = {

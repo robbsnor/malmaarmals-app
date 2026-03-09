@@ -32,13 +32,15 @@ onStartTyping(() => {
 function capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+// :class="{ 'opacity-100 pointer-events-auto': archiveStore.activeFilterType === 'playlists' }"
 </script>
 
 <template>
     <Section :title="capitalizeFirstLetter(archiveStore.activeFilterType)">
         <template #actions>
             <div class="flex gap-4">
-                <div v-auth class="flex gap-2">
+                <div v-auth v-visible="archiveStore.activeFilterType === 'playlists'" class="flex gap-2">
                     <ManagePlaylists />
                     <ManagePlaylist />
                 </div>

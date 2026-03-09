@@ -73,12 +73,12 @@ async function save() {
         >
             <div v-for="(playlist, i) in cloned" :key="playlist.id" class="relative flex items-center py-2 px-4">
                 <div class="flex items-center gap-4 flex-1">
-                    <div class="w-18 rounded overflow-hidden">
+                    <div class="w-18 rounded overflow-hidden aspect-video bg-black-400 shrink-0">
                         <v-img :src="BucketHelper.getThumbnailUrl(playlist.videos[0]?.video_id)" alt="" />
                     </div>
 
-                    <div>
-                        <div class="font-bold truncate">
+                    <div class="grow-0">
+                        <div class="font-bold line-clamp-1">
                             {{ playlist.title }}
                         </div>
 
@@ -86,7 +86,7 @@ async function save() {
                     </div>
                 </div>
 
-                <div class="flex justify-center items-center gap-2 pr-2">
+                <div class="shrink-0 flex justify-center items-center gap-2 pr-0.5">
                     <v-btn
                         icon="mdi-trash-can"
                         variant="text"
