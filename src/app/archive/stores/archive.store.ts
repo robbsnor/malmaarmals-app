@@ -11,7 +11,7 @@ export const useArchiveStore = defineStore('archive', () => {
     const route = useRoute();
     const query = ref<string>();
     const searchEl = ref<HTMLInputElement>();
-    const amountToShow = ref(100);
+    const amountToShow = ref(50);
     const activeFilterType = useRouteQuery<FilterType>('type', 'streams');
 
     function resetQuery() {
