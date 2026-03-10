@@ -1,7 +1,16 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useWindowScroll } from '@vueuse/core';
+
+const { y } = useWindowScroll();
+
+const firstColumnStyle = computed(() => ({
+    transform: `translateY(${-y.value * 0.2}px)`,
+}));
+</script>
 
 <template>
-    <div class="fixed h-1/2 w-full bg-black pointer-events-none -z-100">
+    <div :style="firstColumnStyle" class="fixed h-1/2 w-full bg-black pointer-events-none -z-100">
         <Container class="relative h-full">
             <div class="flex gap-4 absolute right-0 translate-x-1/6 h-full">
                 <div
