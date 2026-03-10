@@ -138,18 +138,6 @@ const myMessages = computed(() => {
                     <span class="text-muted font-bold">{{ myStats.count }}</span>
                 </div>
                 <div v-else class="px-4 py-2 text-muted italic">No recorded messages from you</div>
-
-                <!-- <template v-if="myStats && myStats.rank > topChattersLength">
-            <div class="bg-black-400 h-[1px]"></div>
-            <div class="flex justify-between bg-linear-to-b to-primary/10 p-4 py-3">
-                <div>
-                    <span class="text-muted font-bold">{{ myStats.rank }}. </span>
-                    <span class="font-bold" :style="{ color: myStats.color }">{{ myStats.userName }}: </span>
-                </div>
-
-                <span class="text-muted font-bold">{{ myStats.count }}</span>
-            </div>
-        </template> -->
             </v-tabs-window-item>
 
             <v-tabs-window-item :value="2">
@@ -167,7 +155,7 @@ const myMessages = computed(() => {
                     <div
                         v-for="message in myMessages"
                         :key="message.message_id"
-                        class="flex gap-4 text-muted text-sm py-1 items-start"
+                        class="flex gap-4 text-muted text-sm py-1.5 items-start"
                     >
                         <Message :message="message" :highlight-own-message="false" class="grow-1" />
                         <button
