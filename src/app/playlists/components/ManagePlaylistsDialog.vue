@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { TitleHelper } from '../../shared/helpers/title.helper';
-import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
+import { usePlaylistsStore } from '../stores/playlists.store';
 import { computed, ref } from 'vue';
 import { useCloned } from '@vueuse/core';
 import { supabase } from '../../../supabase';
