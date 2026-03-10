@@ -63,6 +63,10 @@ const submit = async () => {
 
 <template>
     <Dialog v-model="dialog" inset title="Add to playlist" @open="onOpen()" :width="600">
+        <template #activator="activator">
+            <slot v-bind="activator" name="activator"></slot>
+        </template>
+
         <div class="flex flex-col gap-8">
             <!-- <div class="pointer-events-none flex flex-col gap-2 items-center">
                 <VideoItem :video="video" :show-options="false" class="w-full"></VideoItem>
