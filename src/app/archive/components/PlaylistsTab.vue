@@ -6,12 +6,6 @@ import PlaylistItemLarge from '../../playlists/components/PlaylistItemLarge.vue'
 import { useArchiveStore } from '../stores/archive.store';
 import FilterIndicator from './FilterIndicator.vue';
 import AddOrEditPlaylistDialog from '../../playlists/components/AddOrEditPlaylistDialog.vue';
-import { computed, ref, watch } from 'vue';
-import { useCloned, useRefHistory } from '@vueuse/core';
-import { storeToRefs } from 'pinia';
-import _ from 'lodash';
-import { supabase } from '../../../supabase';
-import { sleep } from '../../shared/helpers/sleep';
 
 TitleHelper.setTitle('playlists');
 
