@@ -31,7 +31,7 @@ const archiveStore = useArchiveStore();
             icon="mdi-magnify"
             description="Try something else."
         >
-            <v-btn @click="archiveStore.resetQuery">Clear</v-btn>
+            <!-- <v-btn @click="archiveStore.resetQuery">Clear</v-btn> -->
         </Empty>
 
         <div v-if="archiveStore.amountToShow < videosStore.filteredVideos.length" class="flex justify-center mt-8">
