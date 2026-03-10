@@ -61,7 +61,7 @@ const dialog = ref(false);
             <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5" v-auto-animate>
                 <template v-for="video in playlist.videos" :key="video.video_id">
                     <VideoItem class="lg:hidden" :video="video" :playlist="playlist" />
-                    <VideoItemLarge class="max-lg:hidden" :video="video" />
+                    <VideoItemLarge class="max-lg:hidden" :video="video" :playlist="playlist" />
                 </template>
             </div>
         </Container>
