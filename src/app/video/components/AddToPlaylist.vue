@@ -13,7 +13,7 @@ const props = defineProps<{ video: VideoWithChapters }>();
 
 const playlistsStore = usePlaylistsStore();
 
-const dialog = ref(false);
+const dialog = defineModel<boolean>();
 const form = ref<{
     playlist: Playlist;
 }>();
@@ -63,18 +63,12 @@ const submit = async () => {
 
 <template>
     <Dialog v-model="dialog" inset title="Add to playlist" @open="onOpen()" :width="600">
-        <template #activator="{ props }">
-            <Auth>
-                <slot name="activator" v-bind="{ props }"></slot>
-            </Auth>
-        </template>
-
         <div class="flex flex-col gap-8">
-            <div class="pointer-events-none flex flex-col gap-2 items-center">
+            <!-- <div class="pointer-events-none flex flex-col gap-2 items-center">
                 <VideoItem :video="video" :show-options="false" class="w-full"></VideoItem>
                 <v-icon v-if="form.playlist">mdi-arrow-down</v-icon>
                 <PlaylistItem v-if="form.playlist" :playlist="form.playlist" class="w-full"></PlaylistItem>
-            </div>
+            </div> -->
 
             <v-form v-model="valid" class="flex flex-col gap-4">
                 <v-autocomplete
