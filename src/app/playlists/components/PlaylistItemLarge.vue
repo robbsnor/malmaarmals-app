@@ -2,6 +2,7 @@
 import type { Playlist } from '../models/playlist.model';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { computed } from 'vue';
+import { useDisplay } from 'vuetify';
 
 const props = withDefaults(
     defineProps<{
@@ -9,6 +10,8 @@ const props = withDefaults(
     }>(),
     {}
 );
+
+const { lgAndUp } = useDisplay();
 
 const categories = computed(() => {
     const cats = props.playlist.videos.flatMap((video) => video.chapters.map((chapter) => chapter.category.title));
@@ -18,7 +21,11 @@ const categories = computed(() => {
 </script>
 
 <template>
-    <RouterLink :to="`/playlists/${props.playlist.id}`" class="relative transition-all duration-200 mt-6">
+    <RouterLink
+        v-if="lgAndUp"
+        :to="`/playlists/${props.playlist.id}`"
+        class="relative transition-all duration-200 mt-6"
+    >
         <div class="relative transition-all duration-200 group">
             <div
                 v-for="n in 3"
@@ -42,9 +49,9 @@ const categories = computed(() => {
             <h2 class="font-bold text-lg pt-2 line-clamp-2 leading-tight">
                 {{ props.playlist.title }}
             </h2>
-            <!-- <div v-if="categories.length" class="text-muted text-md font-medium line-clamp-2">
+            <div v-if="categories.length" class="text-muted text-md font-medium line-clamp-2">
                 {{ categories.join(', ') }}
-            </div> -->
+            </div>
             <div class="text-muted-more text-md font-medium">{{ props.playlist.videos.length }} Video's</div>
         </div>
     </RouterLink>

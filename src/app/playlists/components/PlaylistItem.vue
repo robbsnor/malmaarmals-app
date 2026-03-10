@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { Playlist } from '../models/playlist.model';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
+import { useDisplay } from 'vuetify';
 
 const props = withDefaults(
     defineProps<{
@@ -8,10 +9,13 @@ const props = withDefaults(
     }>(),
     {}
 );
+
+const { lgAndUp } = useDisplay();
 </script>
 
 <template>
     <RouterLink
+        v-if="!lgAndUp"
         :to="`/playlists/${props.playlist.id}`"
         class="relative transition-all duration-200 rounded-md flex gap-4 pt-4"
     >
