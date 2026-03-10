@@ -26,6 +26,23 @@ const topChatters = computed(() => {
     return [...counts.values()].sort((a, b) => b.count - a.count);
 });
 
+const topEmotes = computed(() => {
+    const counts = new Map<string, number>();
+
+    for (const msg of videoStore.messages) {
+        const text = msg.text.trim();
+        if (!text.toLowerCase().startsWith('lekker')) {
+            continue;
+        }
+
+        const firstSpaceIndex = text.indexOf(' ');
+        const emote = firstSpaceIndex === -1 ? text : text.slice(0, firstSpaceIndex);
+        counts.set(emote, (counts.get(emote) ?? 0) + 1);
+    }
+
+    return [...counts.entries()].map(([emote, count]) => ({ emote, count })).sort((a, b) => b.count - a.count);
+});
+
 const broCounter = computed(() => {
     return videoStore.messages.filter((msg) => msg.text.toLowerCase().includes('bro')).length;
 });
@@ -68,7 +85,8 @@ const myMessages = computed(() => {
 
         <v-tabs v-model="tab" density="compact" color="primary" grow>
             <v-tab text="Top chatters" :value="1"></v-tab>
-            <v-tab text="My messages" :value="2"></v-tab>
+            <v-tab text="Top emotes" :value="2"></v-tab>
+            <v-tab text="My messages" :value="3"></v-tab>
         </v-tabs>
 
         <v-tabs-window v-model="tab">
@@ -122,7 +140,18 @@ const myMessages = computed(() => {
             </div>
         </template> -->
             </v-tabs-window-item>
+
             <v-tabs-window-item :value="2">
+                <div class="p-4">
+                    <div v-for="(emote, i) in topEmotes" :key="emote.emote" class="flex items-center gap-4">
+                        <div class="text-muted font-mono">{{ i + 1 }}</div>
+                        <div>{{ emote.emote }}</div>
+                        <div class="text-muted font-mono">{{ emote.count }}</div>
+                    </div>
+                </div>
+            </v-tabs-window-item>
+
+            <v-tabs-window-item :value="3">
                 <div class="p-4 flex flex-col max-h-[500px] overflow-auto divide-y divide-black-600">
                     <div
                         v-for="message in myMessages"
