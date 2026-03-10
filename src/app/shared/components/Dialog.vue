@@ -44,9 +44,9 @@ watch(
 
 <template>
     <v-dialog v-model="dialog" v-bind="_props">
-        <!-- <template #activator="activator">
+        <template #activator="activator">
             <slot v-bind="activator" name="activator"></slot>
-        </template> -->
+        </template>
 
         <div
             class="bg-black-200 rounded-md flex flex-col"
