@@ -10,7 +10,7 @@ const firstColumnStyle = computed(() => ({
 </script>
 
 <template>
-    <div :style="firstColumnStyle" class="fixed h-1/2 w-full bg-black pointer-events-none -z-100">
+    <div :style="firstColumnStyle" class="fixed h-2/3 w-full bg-black pointer-events-none -z-100">
         <Container class="relative h-full">
             <div class="flex gap-4 absolute right-0 translate-x-1/6 h-full">
                 <div
@@ -18,7 +18,7 @@ const firstColumnStyle = computed(() => ({
                     :key="i"
                     class="w-80 h-full pr-[1px] bg-gradient-to-br from-black to-primary/80 -skew-x-25"
                 >
-                    <div class="w-full h-full bg-gradient-to-br from-black to-black/20"></div>
+                    <div class="w-full h-full bg-gradient-to-br from-black to-black/30"></div>
                 </div>
             </div>
         </Container>
