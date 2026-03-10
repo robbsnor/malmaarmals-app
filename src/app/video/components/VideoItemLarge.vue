@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
-import type { Tables } from '../../shared/models/database.types';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { formatTimeAgo } from '@vueuse/core';
 import type { VideoWithChapters } from '../models/videos-with-chapters.model';
+import type { Playlist } from '../../playlists/models/playlist.model';
+import VideoItemOptions from './VideoItemOptions.vue';
 
 const props = withDefaults(
     defineProps<{
         video: VideoWithChapters;
-        isFirst?: boolean;
+        playlist?: Playlist;
+        showOptions?: boolean;
     }>(),
     {
-        isFirst: false,
+        showOptions: true,
     }
 );
 
@@ -37,7 +39,7 @@ const categories = computed(() => {
         </RouterLink>
 
         <div class="flex">
-            <div>
+            <div class="grow">
                 <h2 class="font-bold text-lg pt-2 line-clamp-2 leading-tight">
                     {{ props.video.title }}
                 </h2>
@@ -49,9 +51,7 @@ const categories = computed(() => {
                 </div>
             </div>
 
-            <div v-if="slots.actions" class="ml-auto tits relative z-10">
-                <slot name="actions"></slot>
-            </div>
+            <VideoItemOptions class="shrink-0 -mr-2" v-if="props.showOptions" :video="video" :playlist="playlist" />
         </div>
     </div>
 </template>
