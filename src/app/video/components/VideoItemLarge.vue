@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed, useSlots } from 'vue';
+import { computed } from 'vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { formatTimeAgo } from '@vueuse/core';
 import type { VideoWithChapters } from '../models/videos-with-chapters.model';
 import type { Playlist } from '../../playlists/models/playlist.model';
 import VideoItemOptions from './VideoItemOptions.vue';
+import { useDisplay } from 'vuetify/lib/composables/display.mjs';
 
 const props = withDefaults(
     defineProps<{
@@ -17,7 +18,7 @@ const props = withDefaults(
     }
 );
 
-const slots = useSlots();
+const { lgAndUp } = useDisplay();
 
 const categories = computed(() => {
     const cats = props.video?.chapters.map((chapter) => chapter.category.title);
@@ -27,7 +28,7 @@ const categories = computed(() => {
 </script>
 
 <template>
-    <div>
+    <div v-if="lgAndUp">
         <RouterLink :to="{ name: 'video', params: { id: props.video.video_id } }">
             <VideoThumbnail
                 :to="{ name: 'video', params: { id: props.video.video_id } }"

@@ -18,6 +18,7 @@ const videoStore = useVideoStore();
                 :key="video.video_id"
                 :to="{ name: 'video', params: { id: video.video_id }, query: { playlistId: videoStore.playlist.id } }"
                 :video="video"
+                :responsive="false"
             >
             </VideoItem>
         </div>
