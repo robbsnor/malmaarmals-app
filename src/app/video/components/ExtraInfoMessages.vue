@@ -86,7 +86,7 @@ const myMessages = computed(() => {
         <v-tabs v-model="tab" density="compact" color="primary" grow>
             <v-tab text="Top chatters" :value="1"></v-tab>
             <v-tab text="Top emotes" :value="2"></v-tab>
-            <v-tab text="My messages" :value="3"></v-tab>
+            <v-tab text="My messages" :value="3" v-if="myMessages.length"></v-tab>
         </v-tabs>
 
         <v-tabs-window v-model="tab">
@@ -127,6 +127,17 @@ const myMessages = computed(() => {
                         <span class="text-muted font-bold">{{ chatter.count }}</span>
                     </div>
                 </div>
+
+                <div class="bg-black-400 h-[1px]"></div>
+                <div v-if="myStats" class="flex justify-between bg-linear-to-b to-primary/10 p-4 py-3">
+                    <div>
+                        <span class="text-muted font-bold">{{ myStats.rank }}. </span>
+                        <span class="font-bold" :style="{ color: myStats.color }">{{ myStats.userName }}: </span>
+                    </div>
+
+                    <span class="text-muted font-bold">{{ myStats.count }}</span>
+                </div>
+                <div v-else class="px-4 py-2 text-muted italic">No recorded messages from you</div>
 
                 <!-- <template v-if="myStats && myStats.rank > topChattersLength">
             <div class="bg-black-400 h-[1px]"></div>
