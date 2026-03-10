@@ -5,7 +5,7 @@ import { useArchiveStore } from './stores/archive.store';
 import VideosTab from './components/VideosTab.vue';
 import PlaylistsTab from './components/PlaylistsTab.vue';
 import { useRoute } from 'vue-router';
-import ManagePlaylist from './components/ManagePlaylist.vue';
+import AddOrEditPlaylistDialog from './components/AddOrEditPlaylistDialog.vue';
 import ManagePlaylists from './components/ManagePlaylists.vue';
 import { onStartTyping } from '@vueuse/core';
 import Search from '../layout/components/Search.vue';
@@ -40,7 +40,7 @@ function capitalizeFirstLetter(string: string): string {
             <div class="flex gap-4">
                 <div v-visible="archiveStore.activeFilterType === 'playlists'" class="flex gap-2">
                     <ManagePlaylists />
-                    <ManagePlaylist />
+                    <AddOrEditPlaylistDialog />
                 </div>
 
                 <div

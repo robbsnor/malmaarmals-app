@@ -5,7 +5,7 @@ import PlaylistItem from '../../playlists/components/PlaylistItem.vue';
 import PlaylistItemLarge from '../../playlists/components/PlaylistItemLarge.vue';
 import { useArchiveStore } from '../stores/archive.store';
 import FilterIndicator from './FilterIndicator.vue';
-import ManagePlaylist from './ManagePlaylist.vue';
+import AddOrEditPlaylistDialog from './AddOrEditPlaylistDialog.vue';
 import ManagePlaylists from './ManagePlaylists.vue';
 import { computed, ref, watch } from 'vue';
 import { useCloned, useRefHistory } from '@vueuse/core';
@@ -48,7 +48,7 @@ const archiveStore = useArchiveStore();
         >
             <div class="flex flex-col gap-4 items-center">
                 <!-- <v-btn @click="archiveStore.resetQuery">Clear</v-btn> -->
-                <ManagePlaylist></ManagePlaylist>
+                <AddOrEditPlaylistDialog />
             </div>
         </Empty>
     </div>

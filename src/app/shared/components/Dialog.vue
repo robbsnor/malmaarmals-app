@@ -6,7 +6,6 @@ const emits = defineEmits<{
     (e: 'open'): void;
     (e: 'close'): void;
 }>();
-const dialog = defineModel<boolean>();
 const props = withDefaults(
     defineProps<{
         title?: string;
@@ -16,14 +15,17 @@ const props = withDefaults(
         icon?: string;
         iconColor?: string;
         showBody?: boolean;
+        bodyPadding?: boolean;
     }>(),
     {
         title: 'Dialog',
         width: 720,
         showCloseButton: true,
         showBody: true,
+        bodyPadding: true,
     }
 );
+const dialog = defineModel<boolean>();
 
 const _props = computed(() => {
     const { title, ...rest } = props;
@@ -60,7 +62,11 @@ watch(
                 </div>
 
                 <div class="mr-8">
-                    <h2 class="text-2xl font-bold">{{ props.title }}</h2>
+                    <div class="flex gap-4 items-center">
+                        <slot name="pre-header"></slot>
+                        <h2 class="text-2xl font-bold">{{ props.title }}</h2>
+                    </div>
+
                     <p v-if="props.description" class="text-muted">{{ props.description }}</p>
                 </div>
 
@@ -76,7 +82,7 @@ watch(
                 </button>
             </div>
 
-            <div v-if="props.showBody" class="p-4 max-h-[70vh] overflow-auto">
+            <div v-if="props.showBody" :class="{ 'p-4': props.bodyPadding }" class="max-h-[70vh] overflow-auto">
                 <slot></slot>
             </div>
 
