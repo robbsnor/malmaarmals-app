@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { twMerge } from 'tailwind-merge';
 import { computed } from 'vue';
 import type { VideoProgression } from '../../video/models/video-progression.model';
 import { TimeHelper } from '../helpers/time.helper';
@@ -30,14 +29,7 @@ const time = computed(() => {
 </script>
 
 <template>
-    <div
-        :class="
-            twMerge(
-                'relative transition-all block overflow-hidden rounded-md self-start group hover:scale-102',
-                props.type === 'large' && 'rounded-2xl'
-            )
-        "
-    >
+    <div class="relative transition-all block overflow-hidden rounded-md self-start group hover:scale-102">
         <v-img
             :src="props.src"
             class="relative w-full aspect-video group-hover:scale-104 transition-all"
