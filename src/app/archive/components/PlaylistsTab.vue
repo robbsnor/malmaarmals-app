@@ -6,7 +6,6 @@ import PlaylistItemLarge from '../../playlists/components/PlaylistItemLarge.vue'
 import { useArchiveStore } from '../stores/archive.store';
 import FilterIndicator from './FilterIndicator.vue';
 import AddOrEditPlaylistDialog from '../../playlists/components/AddOrEditPlaylistDialog.vue';
-import ManagePlaylists from './ManagePlaylists.vue';
 import { computed, ref, watch } from 'vue';
 import { useCloned, useRefHistory } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
