@@ -75,7 +75,7 @@ function onPlaylistCreateSuccess(playlistId: string) {
 </script>
 
 <template>
-    <Dialog v-model="dialog" inset :title="title" @open="onOpen()" :width="600" :bodyPadding="false">
+    <Dialog v-model="dialog" inset :title="title" @open="onOpen()" :bodyPadding="false">
         <template #activator="activator">
             <slot v-bind="activator" name="activator"></slot>
         </template>

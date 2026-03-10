@@ -19,7 +19,7 @@ const props = withDefaults(
     }>(),
     {
         title: 'Dialog',
-        width: 720,
+        width: 600,
         showCloseButton: true,
         showBody: true,
         bodyPadding: true,
