@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, onMounted, ref } from 'vue';
-import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
+import { usePlaylistsStore } from '../stores/playlists.store';
 import type { Enums, Tables, TablesInsert } from '../../shared/models/database.types';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { supabase } from '../../../supabase';

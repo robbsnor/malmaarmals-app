@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 import { useVideoStore } from '../stores/video.store';
 import { computed, ref, useTemplateRef } from 'vue';
 import ChaptersDrawer from './ChaptersDrawer.vue';
-import AddToPlaylist from './AddToPlaylist.vue';
+import AddToPlaylistDialog from '../../playlists/components/AddToPlaylistDialog.vue';
 import PlayerButton from './PlayerButton.vue';
 import VolumeControl from './VolumeControl.vue';
 import { useScreenOrientation } from '@vueuse/core';
@@ -103,11 +103,11 @@ function toggleTheaterMode() {
                     </Auth>
                     <ShareButton />
 
-                    <AddToPlaylist :video="videoStore.info">
+                    <AddToPlaylistDialog :video="videoStore.info">
                         <template #activator="{ props }">
                             <PlayerButton v-bind="props" :size="24" icon="mdi-plus" />
                         </template>
-                    </AddToPlaylist>
+                    </AddToPlaylistDialog>
 
                     <Cast />
                     <PreferenceDrawer />

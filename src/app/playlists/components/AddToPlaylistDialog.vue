@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { supabase } from '../../../supabase';
 import { computed, ref, watch } from 'vue';
-import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
-import VideoItem from './VideoItem.vue';
-import type { VideoWithChapters } from '../models/videos-with-chapters.model';
+import { usePlaylistsStore } from '../stores/playlists.store';
+import VideoItem from '../../video/components/VideoItem.vue';
+import type { VideoWithChapters } from '../../video/models/videos-with-chapters.model';
 import { sleep } from '../../shared/helpers/sleep';
-import PlaylistItem from '../../playlists/components/PlaylistItem.vue';
+import PlaylistItem from './PlaylistItem.vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
-import type { Playlist } from '../../playlists/models/playlist.model';
-import AddOrEditPlaylistForm from '../../layout/components/AddOrEditPlaylistForm.vue';
+import type { Playlist } from '../models/playlist.model';
+import AddOrEditPlaylistForm from './AddOrEditPlaylistForm.vue';
 import type { Tables } from '../../shared/models/database.types';
 
 const props = defineProps<{ video: VideoWithChapters }>();
