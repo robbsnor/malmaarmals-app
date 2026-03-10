@@ -127,12 +127,12 @@ const myMessages = computed(() => {
                     <div
                         v-for="message in myMessages"
                         :key="message.message_id"
-                        class="flex items- gap-2 text-muted text-sm py-1 items-start"
+                        class="flex gap-4 text-muted text-sm py-1 items-start"
                     >
                         <Message :message="message" :highlight-own-message="false" class="grow-1" />
                         <button
                             @click="videoStore.currentTime = message.offset_sec"
-                            class="hover:bg-black-600 rounded px-1 grow-0 h-auto"
+                            class="hover:bg-black-600 rounded px-1 text-xs font-mono text-muted-more leading-tight pt-1"
                         >
                             {{ formatTime(message.offset_sec) }}
                         </button>
