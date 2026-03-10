@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { useVideoStore } from '../stores/video.store';
 import ExtraInfoItem from './ExtraInfoItem.vue';
+import Message from './Message.vue';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
@@ -32,6 +33,12 @@ const myStats = computed(() => {
     const index = topChatters.value.findIndex((c) => c.userId === authStore.twitchUserId);
     return index === -1 ? null : { ...topChatters.value[index], rank: index + 1 };
 });
+
+const tab = ref(1);
+
+const myMessages = computed(() => {
+    return videoStore.messages.filter((m) => m.user_id === authStore.twitchUserId);
+});
 </script>
 
 <template>
@@ -58,44 +65,51 @@ const myStats = computed(() => {
             </v-menu>
         </template>
 
-        <div class="overflow-auto p-4 py-2">
-            <div
-                v-for="(chatter, i) in topChatters.slice(0, topChattersLength)"
-                :key="chatter.userName"
-                class="flex justify-between gap-2"
-                :class="{
-                    // 'text-4xl': i === 0,
-                    // 'text-3xl': i === 1,
-                    // 'text-2xl': i === 2,
-                }"
-            >
-                <div class="shrink-0">
-                    <span
-                        class="text-muted-more font-bold"
+        <v-tabs v-model="tab" density="compact" color="primary" grow>
+            <v-tab text="Top chatters" :value="1"></v-tab>
+            <v-tab text="My messages" :value="2"></v-tab>
+        </v-tabs>
+
+        <v-tabs-window v-model="tab">
+            <v-tabs-window-item :value="1">
+                <div class="overflow-auto p-4 py-2">
+                    <div
+                        v-for="(chatter, i) in topChatters.slice(0, topChattersLength)"
+                        :key="chatter.userName"
+                        class="flex justify-between gap-2"
                         :class="{
-                            // 'text-white': i === 0 || i === 1 || i === 2,
+                            // 'text-4xl': i === 0,
+                            // 'text-3xl': i === 1,
+                            // 'text-2xl': i === 2,
                         }"
                     >
-                        {{ i + 1 }}.
-                    </span>
-                    <span
-                        class="text-muted font-bold"
-                        :style="{
-                            // color: chatter.color,
-                            // textShadow: '0 0 5px ' + chatter.color,
-                        }"
-                    >
-                        {{ chatter.userName }}
-                    </span>
+                        <div class="shrink-0">
+                            <span
+                                class="text-muted-more font-bold"
+                                :class="{
+                                    // 'text-white': i === 0 || i === 1 || i === 2,
+                                }"
+                            >
+                                {{ i + 1 }}.
+                            </span>
+                            <span
+                                class="text-muted font-bold"
+                                :style="{
+                                    // color: chatter.color,
+                                    // textShadow: '0 0 5px ' + chatter.color,
+                                }"
+                            >
+                                {{ chatter.userName }}
+                            </span>
+                        </div>
+
+                        <div class="border-b-2 border-muted-more mb-[7px] border-dotted w-full"></div>
+
+                        <span class="text-muted font-bold">{{ chatter.count }}</span>
+                    </div>
                 </div>
 
-                <div class="border-b-2 border-muted-more mb-[7px] border-dotted w-full"></div>
-
-                <span class="text-muted font-bold">{{ chatter.count }}</span>
-            </div>
-        </div>
-
-        <template v-if="myStats && myStats.rank > topChattersLength">
+                <!-- <template v-if="myStats && myStats.rank > topChattersLength">
             <div class="bg-black-400 h-[1px]"></div>
             <div class="flex justify-between bg-linear-to-b to-primary/10 p-4 py-3">
                 <div>
@@ -105,6 +119,13 @@ const myStats = computed(() => {
 
                 <span class="text-muted font-bold">{{ myStats.count }}</span>
             </div>
-        </template>
+        </template> -->
+            </v-tabs-window-item>
+            <v-tabs-window-item :value="2">
+                <div class="p-4 flex flex-col gap-2">
+                    <Message v-for="message in myMessages" :message="message" :key="message.message_id" />
+                </div>
+            </v-tabs-window-item>
+        </v-tabs-window>
     </ExtraInfoItem>
 </template>
