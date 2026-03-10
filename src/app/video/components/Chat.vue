@@ -72,13 +72,13 @@ watch(renderedMessages, async () => {
     >
         <template v-if="!videoStore.messagesLoading">
             <template v-if="videoStore.messages.length">
-                <ul
+                <div
                     ref="chatRef"
                     class="bg-green-800f scroll-hidden flex h-full flex-col gap-1 overflow-auto px-2 py-2 pt-4 2xl:px-4"
                     @scroll="onScroll"
                 >
                     <Message v-for="message in renderedMessages" :key="message.message_id" :message="message" />
-                </ul>
+                </div>
 
                 <div v-visible="userHasScrolledUp" class="absolute right-0 bottom-0 pb-4 left-0 flex justify-center">
                     <div

@@ -4,6 +4,7 @@ import { useAuthStore } from '../../auth/stores/auth.store';
 import { useVideoStore } from '../stores/video.store';
 import ExtraInfoItem from './ExtraInfoItem.vue';
 import Message from './Message.vue';
+import { formatTime } from 'vuetify/lib/util/timeUtils.mjs';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
@@ -122,8 +123,20 @@ const myMessages = computed(() => {
         </template> -->
             </v-tabs-window-item>
             <v-tabs-window-item :value="2">
-                <div class="p-4 flex flex-col gap-2">
-                    <Message v-for="message in myMessages" :message="message" :key="message.message_id" />
+                <div class="p-4 flex flex-col max-h-[500px] overflow-auto divide-y divide-black-600">
+                    <div
+                        v-for="message in myMessages"
+                        :key="message.message_id"
+                        class="flex items- gap-2 text-muted text-sm py-1 items-start"
+                    >
+                        <Message :message="message" :highlight-own-message="false" class="grow-1" />
+                        <button
+                            @click="videoStore.currentTime = message.offset_sec"
+                            class="hover:bg-black-600 rounded px-1 grow-0 h-auto"
+                        >
+                            {{ formatTime(message.offset_sec) }}
+                        </button>
+                    </div>
                 </div>
             </v-tabs-window-item>
         </v-tabs-window>
