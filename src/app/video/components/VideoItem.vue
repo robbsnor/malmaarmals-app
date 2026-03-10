@@ -4,10 +4,12 @@ import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import type { VideoWithChapters } from '../models/videos-with-chapters.model';
 import { formatTimeAgo } from '@vueuse/core';
 import AddToPlaylist from './AddToPlaylist.vue';
+import type { Playlist } from '../../playlists/models/playlist.model';
 
 const props = withDefaults(
     defineProps<{
         video: VideoWithChapters;
+        playlist?: Playlist;
         showOptions?: boolean;
     }>(),
     {
@@ -62,6 +64,10 @@ const categories = computed(() => {
                         <v-list-item v-bind="props" prepend-icon="mdi-plus">Add to playlist</v-list-item>
                     </template>
                 </AddToPlaylist>
+
+                <v-list-item v-if="props.playlist" prepend-icon="mdi-trash-can-outline" class="text-red-400!">
+                    Remove from playlist
+                </v-list-item>
             </v-list>
         </v-menu>
     </RouterLink>
