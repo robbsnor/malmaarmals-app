@@ -5,7 +5,7 @@ import { useArchiveStore } from './stores/archive.store';
 import VideosTab from './components/VideosTab.vue';
 import PlaylistsTab from './components/PlaylistsTab.vue';
 import { useRoute } from 'vue-router';
-import AddOrEditPlaylistDialog from './components/AddOrEditPlaylistDialog.vue';
+import AddOrEditPlaylistDialog from '../playlists/components/AddOrEditPlaylistDialog.vue';
 import ManagePlaylists from './components/ManagePlaylists.vue';
 import { onStartTyping } from '@vueuse/core';
 import Search from '../layout/components/Search.vue';

@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import type { VideoWithChapters } from '../models/videos-with-chapters.model';
 import { formatTimeAgo } from '@vueuse/core';
-import AddToPlaylist from './AddToPlaylist.vue';
+import AddToPlaylistDialog from '../../playlists/components/AddToPlaylistDialog.vue';
 import type { Playlist } from '../../playlists/models/playlist.model';
 import { supabase } from '../../../supabase';
 import { sleep } from '../../shared/helpers/sleep';
@@ -98,7 +98,7 @@ async function removeFromPlaylist() {
             </v-list>
         </v-menu>
 
-        <AddToPlaylist :video="video" v-model="addDialog" />
+        <AddToPlaylistDialog :video="video" v-model="addDialog" />
         <DeleteDialog
             v-model="removeDialog"
             @confirm="removeFromPlaylist"

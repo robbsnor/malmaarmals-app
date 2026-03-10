@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import AddOrEditPlaylistForm from '../../layout/components/AddOrEditPlaylistForm.vue';
+import AddOrEditPlaylistForm from './AddOrEditPlaylistForm.vue';
 
 const sheet = ref(false);
 const formRef = ref<InstanceType<typeof AddOrEditPlaylistForm>>();
