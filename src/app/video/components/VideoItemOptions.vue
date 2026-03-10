@@ -60,7 +60,7 @@ async function removeFromPlaylist() {
                     @click="removeDialog = true"
                     v-if="props.playlist"
                     prepend-icon="mdi-trash-can-outline"
-                    class="text-red-400!"
+                    class="text-red-500!"
                 >
                     Remove from playlist
                 </v-list-item>

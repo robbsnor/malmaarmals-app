@@ -25,7 +25,7 @@ function toggleSettingsDialog() {
             <v-list-item prepend-icon="mdi-cog" @click="toggleSettingsDialog">Preferences</v-list-item>
             <Divider />
             <v-list-item :to="{ name: 'history' }" prepend-icon="mdi-history">History</v-list-item>
-            <v-list-item :to="{ name: 'sign-out' }" prepend-icon="mdi-logout">Logout</v-list-item>
+            <v-list-item :to="{ name: 'sign-out' }" prepend-icon="mdi-logout" class="text-red-500!">Logout</v-list-item>
         </v-list>
     </v-menu>
 </template>
