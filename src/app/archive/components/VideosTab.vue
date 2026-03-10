@@ -19,8 +19,8 @@ const archiveStore = useArchiveStore();
                 v-for="video in videosStore.filteredVideos.slice(0, archiveStore.amountToShow)"
                 :key="video.video_id"
             >
-                <VideoItem class="lg:hidden" :video="video" />
-                <VideoItemLarge class="max-lg:hidden" :video="video" />
+                <VideoItem :video="video" />
+                <VideoItemLarge :video="video" />
             </template>
         </div>
 

@@ -5,17 +5,22 @@ import type { VideoWithChapters } from '../models/videos-with-chapters.model';
 import { formatTimeAgo } from '@vueuse/core';
 import VideoItemOptions from './VideoItemOptions.vue';
 import type { Playlist } from '../../playlists/models/playlist.model';
+import { useDisplay } from 'vuetify';
 
 const props = withDefaults(
     defineProps<{
         video: VideoWithChapters;
         playlist?: Playlist;
         showOptions?: boolean;
+        responsive?: boolean;
     }>(),
     {
         showOptions: true,
+        responsive: true,
     }
 );
+
+const { lgAndUp } = useDisplay();
 
 const categories = computed(() => {
     const cats = props.video?.chapters.map((chapter) => chapter.category.title);
@@ -25,7 +30,11 @@ const categories = computed(() => {
 </script>
 
 <template>
-    <RouterLink :to="{ name: 'video', params: { id: props.video.video_id } }" class="flex gap-4">
+    <RouterLink
+        v-if="!props.responsive || !lgAndUp"
+        :to="{ name: 'video', params: { id: props.video.video_id } }"
+        class="flex gap-4"
+    >
         <VideoThumbnail
             class="w-36 shrink-0"
             :src="BucketHelper.getThumbnailUrl(props.video.video_id)"
