@@ -8,9 +8,13 @@ import { LEKKER_SPELEN_USER_ID, useAuthStore } from '../../auth/stores/auth.stor
 const props = withDefaults(
     defineProps<{
         message: Message;
+        highlightOwnMessage?: boolean;
     }>(),
-    {}
+    {
+        highlightOwnMessage: true,
+    }
 );
+
 const authStore = useAuthStore();
 
 const isMyMessage = computed(
@@ -20,9 +24,9 @@ const isLekkerSpelen = computed(() => props.message.user_id === LEKKER_SPELEN_US
 </script>
 
 <template>
-    <li
+    <div
         :class="{
-            'bg-black-400 rounded-sm py-1 -mx-1 px-1': isMyMessage || isLekkerSpelen,
+            'bg-black-600 rounded-sm py-1 -mx-1 px-1': (isMyMessage && props.highlightOwnMessage) || isLekkerSpelen,
         }"
         class="text-sm"
     >
@@ -47,5 +51,5 @@ const isLekkerSpelen = computed(() => props.message.user_id === LEKKER_SPELEN_US
                 {{ ' ' }}
             </template>
         </span>
-    </li>
+    </div>
 </template>
