@@ -80,9 +80,8 @@ function onPlaylistCreateSuccess(playlistId: string) {
             <slot v-bind="activator" name="activator"></slot>
         </template>
 
-        <template #pre-header>
+        <template v-if="tab === 'create'" #pre-header>
             <v-btn
-                v-if="tab === 'create'"
                 @click="tab = 'add'"
                 color="primary"
                 variant="tonal"
@@ -159,7 +158,7 @@ function onPlaylistCreateSuccess(playlistId: string) {
                     :loading="formRef?.loading"
                     @click="formRef?.submit()"
                 >
-                    Create
+                    Create playlist
                 </v-btn>
             </template>
         </template>
