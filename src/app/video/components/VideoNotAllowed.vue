@@ -10,7 +10,7 @@ const authStore = useAuthStore();
 <template>
     <div
         v-if="videoStore.playerIsActive && !authStore.isSubbed"
-        class="flex flex-col gap-4 p-2 md:flex-row w-full h-available"
+        class="flex flex-col gap-4 p-2 md:flex-row w-full h-available bg-black-100"
     >
         <SkeletonContainer class="flex flex-col gap-3 w-full md:flex-row">
             <Skeleton :pulse="false" class="aspect-video w-full md:aspect-auto"></Skeleton>
