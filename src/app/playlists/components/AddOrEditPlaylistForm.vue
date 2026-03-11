@@ -58,7 +58,7 @@ function resetForm() {
     form.value = {
         title: '',
         description: '',
-        order_type: 'date_descending',
+        order_type: 'null',
         order: 0,
     };
 }
@@ -120,6 +120,7 @@ defineExpose({
         <v-select
             :clearable="false"
             label="Video ordering"
+            :rules="requiredRule"
             v-model="form.order_type"
             :items="orderTypeOptions"
         ></v-select>

@@ -5,6 +5,7 @@ import { usePlaylistsStore } from '../stores/playlists.store';
 import type { VideoWithChapters } from '../../video/models/videos-with-chapters.model';
 import { sleep } from '../../shared/helpers/sleep';
 import VideoItem from '../../video/components/VideoItem.vue';
+import PlaylistItem from './PlaylistItem.vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import type { Playlist } from '../models/playlist.model';
 import AddOrEditPlaylistForm from './AddOrEditPlaylistForm.vue';
@@ -85,8 +86,20 @@ function onPlaylistCreateSuccess(playlistId: string) {
         <v-tabs-window v-model="tab">
             <v-tabs-window-item value="add">
                 <div class="flex flex-col gap-4 p-4">
-                    <div class="pointer-events-none">
-                        <VideoItem :video="props.video" :responsive="false" />
+                    <div class="flex flex-col gap-4 pointer-events-none">
+                        <div>
+                            <div class="leading-tight pb-1">video</div>
+                            <VideoItem :video="props.video" :responsive="false" :show-options="false" class="w-full" />
+                        </div>
+
+                        <div v-if="form.playlist" class="flex justify-center text-muted">
+                            <v-icon>mdi-arrow-down</v-icon>
+                        </div>
+
+                        <div v-if="form.playlist">
+                            <div class="leading-tight pb-1">playlist</div>
+                            <PlaylistItem :playlist="form.playlist" :responsive="false" class="w-full" />
+                        </div>
                     </div>
 
                     <v-form v-model="valid" class="flex flex-col gap-4">
