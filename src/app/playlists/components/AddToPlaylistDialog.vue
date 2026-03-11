@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import { supabase } from '../../../supabase';
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import { usePlaylistsStore } from '../stores/playlists.store';
-import VideoItem from '../../video/components/VideoItem.vue';
 import type { VideoWithChapters } from '../../video/models/videos-with-chapters.model';
 import { sleep } from '../../shared/helpers/sleep';
 import PlaylistItem from './PlaylistItem.vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import type { Playlist } from '../models/playlist.model';
 import AddOrEditPlaylistForm from './AddOrEditPlaylistForm.vue';
-import type { Tables } from '../../shared/models/database.types';
 
 const props = defineProps<{ video: VideoWithChapters }>();
 
@@ -94,7 +92,11 @@ function onPlaylistCreateSuccess(playlistId: string) {
 
         <v-tabs-window v-model="tab">
             <v-tabs-window-item value="add">
-                <div class="flex flex-col gap-8 p-4">
+                <div class="flex flex-col gap-4 p-4">
+                    <div v-if="form.playlist" class="pointer-events-none" v-auto-animate>
+                        <PlaylistItem :playlist="form.playlist" :responsive="false" />
+                    </div>
+
                     <v-form v-model="valid" class="flex flex-col gap-4">
                         <div class="flex gap-4">
                             <v-autocomplete
