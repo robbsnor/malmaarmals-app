@@ -69,6 +69,7 @@ const showConfirmCancelDialog = ref(false);
 
                 <v-btn
                     color="primary"
+                    variant="tonal"
                     @click="manageChaptersStore.save"
                     :loading="manageChaptersStore.loading"
                     :disabled="!manageChaptersStore.isModified"
