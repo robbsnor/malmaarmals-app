@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { TitleHelper } from '../../shared/helpers/title.helper';
 import { usePlaylistsStore } from '../stores/playlists.store';
-import { computed, ref } from 'vue';
-import { useCloned } from '@vueuse/core';
+import { computed, ref, useTemplateRef } from 'vue';
+import { useCloned, useElementSize, useRefHistory } from '@vueuse/core';
 import { supabase } from '../../../supabase';
 import { sleep } from '../../shared/helpers/sleep';
 import _ from 'lodash';
@@ -12,12 +12,18 @@ const playlistsStore = usePlaylistsStore();
 
 const dialog = ref(false);
 const loading = ref(false);
+const el = useTemplateRef<HTMLElement>('el');
+const { width, height } = useElementSize(el);
 const { cloned, sync } = useCloned(() => playlistsStore.playlists);
+const { history, canRedo, undo, redo, clear } = useRefHistory(cloned, {
+    deep: true,
+});
 const hasChanges = computed(() => !_.isEqual(cloned.value, playlistsStore.playlists));
 const toDelete = computed(() => _.differenceBy(playlistsStore.playlists, cloned.value, 'id'));
 
 function onOpen() {
     sync();
+    clear();
 }
 
 function remove(index: number) {
@@ -61,6 +67,7 @@ async function save() {
 
 <template>
     <v-btn
+        v-if="playlistsStore.playlists.length"
         v-auth
         icon="mdi-pencil"
         class="rounded!"
@@ -75,7 +82,9 @@ async function save() {
         <VueDraggable
             v-if="playlistsStore.playlists.length"
             :animation="200"
+            ref="el"
             class="flex flex-col divide-black-600 divide-y -m-4"
+            :style="{ minHeight: `${height}px` }"
             handle=".handle"
             v-model="cloned"
         >
@@ -110,8 +119,28 @@ async function save() {
 
         <template #footer>
             <div class="flex justify-between items-center gap-4 w-full">
-                <div v-if="toDelete.length" class="italic text-muted text-sm">
-                    {{ toDelete.length }} playlists deleted
+                <div class="flex gap-4 items-center">
+                    <v-btn
+                        :disabled="!hasChanges"
+                        @click="undo()"
+                        icon="mdi-undo"
+                        variant="tonal"
+                        class="rounded!"
+                        color="gau"
+                        size="small"
+                    ></v-btn>
+                    <v-btn
+                        :disabled="!canRedo"
+                        @click="redo()"
+                        icon="mdi-redo"
+                        variant="tonal"
+                        class="rounded!"
+                        color="gau"
+                        size="small"
+                    ></v-btn>
+                    <!-- <div v-if="toDelete.length" class="italic text-muted text-sm">
+                        {{ toDelete.length }} playlist(s) deleted
+                    </div> -->
                 </div>
 
                 <div class="flex gap-4 ml-auto">
