@@ -2,23 +2,23 @@
 import { computed, ref } from 'vue';
 import AddOrEditPlaylistForm from './AddOrEditPlaylistForm.vue';
 
-const sheet = ref(false);
+const dialog = ref(false);
 const formRef = ref<InstanceType<typeof AddOrEditPlaylistForm>>();
 
 function onCreateSuccess() {
-    sheet.value = false;
+    dialog.value = false;
 }
 </script>
 
 <template>
-    <v-btn v-auth icon="mdi-plus" class="rounded!" size="small" color="primary" variant="tonal" @click="sheet = true">
+    <v-btn v-auth icon="mdi-plus" class="rounded!" size="small" color="primary" variant="tonal" @click="dialog = true">
     </v-btn>
 
-    <Dialog v-model="sheet" inset title="Create Playlist">
+    <Dialog v-model="dialog" inset title="Create Playlist">
         <AddOrEditPlaylistForm ref="formRef" @success="onCreateSuccess" />
 
         <template #footer>
-            <v-btn class="text-muted!" variant="text"> cancel </v-btn>
+            <v-btn class="text-muted!" variant="text" @click="dialog = false"> cancel </v-btn>
             <v-btn
                 color="primary"
                 :disabled="!formRef?.valid"
