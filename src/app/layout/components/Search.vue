@@ -1,22 +1,20 @@
 <script setup lang="ts">
 import { useArchiveStore } from '../../archive/stores/archive.store';
-import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { useVideosStore } from '../../video/stores/videos.store';
 
 const archiveStore = useArchiveStore();
 const videosStore = useVideosStore();
 const props = defineProps<{}>();
-// const props = withDefaults(defineProps<{
-//     items?: string;
-// }>(), {
-//     items: "test",
-// });
+
+const updateQuery = (value: string | { id: string; title: string } | null) => {
+    archiveStore.query = typeof value === 'string' ? value : value?.title;
+};
 </script>
 
 <template>
     <v-combobox
         v-bind="props"
-        v-model="archiveStore.query"
+        :model-value="archiveStore.query"
         :items="videosStore.categoriesList"
         item-title="title"
         item-value="title"
@@ -29,6 +27,7 @@ const props = defineProps<{}>();
         variant="solo"
         density="compact"
         prepend-inner-icon="mdi-magnify"
+        @update:model-value="updateQuery"
         @click:append-inner="archiveStore.query ? (archiveStore.query = '') : null"
     >
         <template #item="{ props, item }">
