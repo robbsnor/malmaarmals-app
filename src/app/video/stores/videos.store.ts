@@ -37,17 +37,20 @@ export const useVideosStore = defineStore('videos', () => {
     });
 
     const categoriesList = computed(() => {
-        const categoriesSet = new Set<string>();
+        const categoriesMap = new Map<string, { id: string; title: string }>();
 
         videos.value.forEach((video) => {
             video.chapters?.forEach((chapter) => {
                 if (chapter.category) {
-                    categoriesSet.add(chapter.category.title);
+                    categoriesMap.set(chapter.category.category_id, {
+                        id: chapter.category.category_id,
+                        title: chapter.category.title,
+                    });
                 }
             });
         });
 
-        return Array.from(categoriesSet).sort();
+        return Array.from(categoriesMap.values()).sort((a, b) => a.title.localeCompare(b.title));
     });
 
     const chaptersOverview = computed(() => {
