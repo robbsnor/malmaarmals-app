@@ -54,6 +54,6 @@ const categories = computed(() => {
             </div>
         </div>
 
-        <VideoItemOptions v-if="props.showOptions" :video="video" :playlist="playlist" />
+        <!-- <VideoItemOptions v-if="props.showOptions" :video="video" :playlist="playlist" /> -->
     </RouterLink>
 </template>
