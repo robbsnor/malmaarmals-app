@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-.v-overlay__scrim {
+.v-bottom-sheet .v-overlay__scrim {
     background: transparent !important;
 }
 
