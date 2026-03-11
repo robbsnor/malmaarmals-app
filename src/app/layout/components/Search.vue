@@ -35,7 +35,11 @@ const props = defineProps<{}>();
             <v-list-item v-bind="props">
                 <template v-slot:prepend>
                     <div class="bg-black-200 rounded overflow-hidden w-8 mr-4 my-1">
-                        <v-img :src="`https://static-cdn.jtvnw.net/ttv-boxart/${item.raw.id}_IGDB-52x72.jpg`" alt="" />
+                        <v-img
+                            :src="`https://static-cdn.jtvnw.net/ttv-boxart/${item.raw.id}_IGDB-52x72.jpg`"
+                            class="w-8"
+                            alt=""
+                        />
                     </div>
                 </template>
             </v-list-item>
