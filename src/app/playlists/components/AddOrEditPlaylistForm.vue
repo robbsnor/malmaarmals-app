@@ -58,7 +58,7 @@ function resetForm() {
     form.value = {
         title: '',
         description: '',
-        order_type: 'null',
+        order_type: null,
         order: 0,
     };
 }
