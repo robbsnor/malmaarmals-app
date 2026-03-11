@@ -145,7 +145,7 @@ const handleClick = async (item: any) => {
                                 {
                                     'text-red-500': item.icon === 'mdi-logout',
                                     'hover:bg-black-400': !item.disabled,
-                                    'cursor-default! opacity-50': item.disabled,
+                                    'cursor-default! bg-black-200! text-muted-more!': item.disabled,
                                 },
                             ]"
                         >

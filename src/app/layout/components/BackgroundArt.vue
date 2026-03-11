@@ -6,7 +6,7 @@ const { y } = useWindowScroll();
 
 const paralaxStyle = computed(() => ({
     transform: `translateY(${-y.value * 0.2}px)`,
-    filter: `blur(${Math.min(20, Math.max(0, y.value * 0.01))}px)`,
+    filter: `blur(${Math.min(20, Math.max(5, y.value * 0.05))}px)`,
 }));
 </script>
 
@@ -19,13 +19,13 @@ const paralaxStyle = computed(() => ({
                     :key="i"
                     class="w-80 h-full pr-[1px] bg-gradient-to-br from-black to-primary -skew-x-25"
                 >
-                    <div class="w-full h-full bg-gradient-to-br from-black to-black/60"></div>
+                    <div class="w-full h-full bg-gradient-to-br from-black to-black/80"></div>
                 </div>
             </div>
         </Container>
 
         <div
-            class="absolute inset-0 bg-gradient-to-b from-transparent via-30% via-black/80 lg:via-transparent lg:to-100% to-black-100"
+            class="absolute inset-0 bg-gradient-to-b from-transparent via-30% via-black/60 lg:via-transparent lg:to-100% to-black-100"
         ></div>
     </div>
 </template>
