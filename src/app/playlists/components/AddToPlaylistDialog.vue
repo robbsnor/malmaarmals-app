@@ -79,15 +79,7 @@ function onPlaylistCreateSuccess(playlistId: string) {
         </template>
 
         <template v-if="tab === 'create'" #pre-header>
-            <v-btn
-                @click="tab = 'add'"
-                color="primary"
-                variant="tonal"
-                icon="mdi-chevron-left"
-                size="small"
-                class="rounded!"
-            >
-            </v-btn>
+            <v-btn @click="tab = 'add'" variant="text" icon="mdi-chevron-left" size="small" class="rounded!"> </v-btn>
         </template>
 
         <v-tabs-window v-model="tab">
