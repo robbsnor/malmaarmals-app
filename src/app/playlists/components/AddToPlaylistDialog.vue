@@ -93,8 +93,7 @@ function onPlaylistCreateSuccess(playlistId: string) {
         <v-tabs-window v-model="tab">
             <v-tabs-window-item value="add">
                 <div class="flex flex-col gap-4 p-4">
-                    <div v-if="form.playlist" class="pointer-events-none">
-                        foo
+                    <div class="pointer-events-none">
                         <VideoItem :video="props.video" :responsive="false" />
                     </div>
 
