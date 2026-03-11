@@ -25,7 +25,7 @@ const paralaxStyle = computed(() => ({
         </Container>
 
         <div
-            class="absolute inset-0 bg-gradient-to-b from-transparent via-30% via-black/80 lg:via-transparent lg:to-100% to-black-100"
+            class="absolute inset-0 bg-gradient-to-b from-transparent via-30% lg:via-transparent lg:to-100% to-black-100"
         ></div>
     </div>
 </template>
