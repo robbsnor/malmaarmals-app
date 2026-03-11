@@ -18,7 +18,7 @@ const props = withDefaults(
         width?: string | number;
     }>(),
     {
-        width: 500,
+        width: 600,
         inset: true,
         padding: true,
     }
