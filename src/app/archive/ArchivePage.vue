@@ -36,7 +36,7 @@ function capitalizeFirstLetter(string: string): string {
 
 <template>
     <Section
-        class="max-lg:bg-black-100/10 backdrop-blur-2xl pb-0!"
+        class="max-lg:bg-black-100/10 max-lg:backdrop-blur-2xl pb-0!"
         :title="capitalizeFirstLetter(archiveStore.activeFilterType)"
     >
         <template #actions>
@@ -53,7 +53,12 @@ function capitalizeFirstLetter(string: string): string {
                 ></div>
 
                 <div class="hidden lg:block">
-                    <v-btn-toggle density="comfortable" color="primary" v-model="archiveStore.activeFilterType">
+                    <v-btn-toggle
+                        density="comfortable"
+                        color="primary"
+                        variant="text"
+                        v-model="archiveStore.activeFilterType"
+                    >
                         <v-btn value="streams">streams</v-btn>
                         <v-btn value="playlists">playlists</v-btn>
                     </v-btn-toggle>
