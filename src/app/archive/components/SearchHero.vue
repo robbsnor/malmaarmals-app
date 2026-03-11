@@ -48,6 +48,8 @@ onStartTyping(() => searchRef.value?.$el?.querySelector('input').focus());
                         ref="searchRef"
                         v-model="archiveStore.query"
                         :items="videosStore.categoriesList"
+                        item-title="title"
+                        item-value="title"
                         placeholder="Search..."
                         hide-details
                         clear-icon="mdi-close"

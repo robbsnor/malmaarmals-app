@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useArchiveStore } from '../../archive/stores/archive.store';
+import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { useVideosStore } from '../../video/stores/videos.store';
 
 const archiveStore = useArchiveStore();
@@ -17,6 +18,8 @@ const props = defineProps<{}>();
         v-bind="props"
         v-model="archiveStore.query"
         :items="videosStore.categoriesList"
+        item-title="title"
+        item-value="title"
         placeholder="Search..."
         hide-details
         clear-icon="mdi-close"
@@ -27,5 +30,15 @@ const props = defineProps<{}>();
         density="compact"
         prepend-inner-icon="mdi-magnify"
         @click:append-inner="archiveStore.query ? (archiveStore.query = '') : null"
-    />
+    >
+        <template #item="{ props, item }">
+            <v-list-item v-bind="props">
+                <template v-slot:prepend>
+                    <div class="bg-black-200 rounded overflow-hidden w-8 mr-4 my-1">
+                        <v-img :src="`https://static-cdn.jtvnw.net/ttv-boxart/${item.raw.id}_IGDB-52x72.jpg`" alt="" />
+                    </div>
+                </template>
+            </v-list-item>
+        </template>
+    </v-combobox>
 </template>
