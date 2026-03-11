@@ -33,12 +33,8 @@ const updateQuery = (value: string | { id: string; title: string } | null) => {
         <template #item="{ props, item }">
             <v-list-item v-bind="props">
                 <template v-slot:prepend>
-                    <div class="bg-black-200 rounded overflow-hidden w-8 mr-4 my-1">
-                        <v-img
-                            :src="`https://static-cdn.jtvnw.net/ttv-boxart/${item.raw.id}_IGDB-52x72.jpg`"
-                            class="w-8"
-                            alt=""
-                        />
+                    <div class="bg-black-200 rounded overflow-hidden w-8 aspect-[72:52] mr-4 my-1">
+                        <v-img :src="`https://static-cdn.jtvnw.net/ttv-boxart/${item.raw.id}_IGDB-52x72.jpg`" alt="" />
                     </div>
                 </template>
             </v-list-item>
