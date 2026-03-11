@@ -19,7 +19,7 @@ const paralaxStyle = computed(() => ({
                     :key="i"
                     class="w-80 h-full pr-[1px] bg-gradient-to-br from-black to-primary -skew-x-25"
                 >
-                    <div class="w-full h-full bg-gradient-to-br from-black to-black/80"></div>
+                    <div class="w-full h-full bg-gradient-to-br from-black to-black/50"></div>
                 </div>
             </div>
         </Container>
