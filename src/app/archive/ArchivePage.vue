@@ -35,7 +35,10 @@ function capitalizeFirstLetter(string: string): string {
 </script>
 
 <template>
-    <Section :title="capitalizeFirstLetter(archiveStore.activeFilterType)">
+    <Section
+        class="max-lg:bg-black-100/10 backdrop-blur-2xl pb-0!"
+        :title="capitalizeFirstLetter(archiveStore.activeFilterType)"
+    >
         <template #actions>
             <div class="flex gap-4">
                 <div v-visible="archiveStore.activeFilterType === 'playlists'" class="flex gap-2">
@@ -66,7 +69,9 @@ function capitalizeFirstLetter(string: string): string {
                 <v-tab value="playlists">playlists</v-tab>
             </v-tabs>
         </div>
+    </Section>
 
+    <Section class="pt-0!">
         <div>
             <v-tabs-window v-model="archiveStore.activeFilterType">
                 <v-tabs-window-item value="streams"><VideosTab /></v-tabs-window-item>
