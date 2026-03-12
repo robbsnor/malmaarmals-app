@@ -46,6 +46,8 @@ watch(
 
 <template>
     <v-dialog v-model="dialog" v-bind="_props">
+        <!-- dont use activator, if you use it also needs a v-model -->
+        <!-- primary used for component optimazation -->
         <template #activator="activator">
             <slot v-bind="activator" name="activator"></slot>
         </template>

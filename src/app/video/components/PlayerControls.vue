@@ -29,6 +29,7 @@ const { isFullscreen, enter, exit, toggle } = useFullscreen();
 const durationEl = useTemplateRef<HTMLDivElement>('durationEl');
 const { width, height } = useElementSize(durationEl);
 const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
+const addToPlaylistDialog = ref(false);
 
 const goBack = () => {
     const prevUrl = _.findLast(routeHistory, (r) => r.name !== router.currentRoute.value.name); // also handles undefined
@@ -101,13 +102,11 @@ function toggleTheaterMode() {
                         <PlayerButton icon="mdi-skip-previous" @click="goToPreviousVideo()" />
                         <PlayerButton icon="mdi-skip-next" @click="goToNextVideo()" />
                     </Auth>
+
                     <ShareButton />
 
-                    <AddToPlaylistDialog :video="videoStore.info">
-                        <template #activator="{ props }">
-                            <PlayerButton v-bind="props" :size="24" icon="mdi-plus" />
-                        </template>
-                    </AddToPlaylistDialog>
+                    <PlayerButton @click="addToPlaylistDialog = true" :size="24" icon="mdi-plus" />
+                    <AddToPlaylistDialog v-model="addToPlaylistDialog" :video="videoStore.info" />
 
                     <Cast />
                     <PreferenceDrawer />
