@@ -54,7 +54,7 @@ async function removeFromPlaylist() {
             <v-list>
                 <AddToPlaylistDialog :video="video" v-model="addDialog">
                     <template #activator="activator">
-                        <v-list-item v-if="!props.playlist" v-bind="activator.props" prepend-icon="mdi-plus">
+                        <v-list-item v-if="!props.playlist" v-bind="activator.props" prepend-icon="mdi-playlist-plus">
                             Add to playlist
                         </v-list-item>
                     </template>

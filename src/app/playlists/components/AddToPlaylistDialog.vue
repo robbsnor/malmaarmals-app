@@ -74,7 +74,14 @@ function onPlaylistCreateSuccess(playlistId: string) {
 </script>
 
 <template>
-    <Dialog v-model="dialog" inset :title="title" @open="onOpen()" :bodyPadding="false">
+    <Dialog
+        v-model="dialog"
+        inset
+        :title="title"
+        @open="onOpen()"
+        :bodyPadding="false"
+        :icon="tab === 'add' ? 'mdi-playlist-plus' : ''"
+    >
         <template #activator="activator">
             <slot v-bind="activator" name="activator"></slot>
         </template>

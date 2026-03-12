@@ -20,6 +20,7 @@ const props = withDefaults(
     {
         title: 'Dialog',
         width: 600,
+        icon: 'mdi-heart',
         showCloseButton: true,
         showBody: true,
         bodyPadding: true,
@@ -58,14 +59,15 @@ watch(
                 'border border-black-500': props.showBody || slots.footer,
             }"
         >
-            <div class="flex gap-4 items-center p-4 py-2 pr-2 border-b border-black-500">
+            <div class="flex gap-4 items-start p-4 py-4 border-b border-black-500">
+                <slot name="pre-header"></slot>
+
                 <div v-if="props.icon" class="sm:flex justify-center items-center p-2 bg-black-400 rounded-md hidden">
                     <v-icon :color="props.iconColor" :icon="props.icon" class=" " />
                 </div>
 
                 <div class="mr-8">
-                    <div class="flex gap-4 items-center">
-                        <slot name="pre-header"></slot>
+                    <div class="flex gap-4 items-center pt-1">
                         <h2 class="text-2xl font-bold">{{ props.title }}</h2>
                     </div>
 

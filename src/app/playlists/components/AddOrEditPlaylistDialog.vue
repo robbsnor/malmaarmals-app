@@ -14,7 +14,7 @@ function onCreateSuccess() {
     <v-btn v-auth icon="mdi-plus" class="rounded!" size="small" color="primary" variant="tonal" @click="dialog = true">
     </v-btn>
 
-    <Dialog v-model="dialog" inset title="Create Playlist">
+    <Dialog v-model="dialog" icon="mdi-plus" title="Create playlist">
         <AddOrEditPlaylistForm ref="formRef" @success="onCreateSuccess" />
 
         <template #footer>
