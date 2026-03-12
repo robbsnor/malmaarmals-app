@@ -52,30 +52,34 @@ async function removeFromPlaylist() {
             </template>
 
             <v-list>
-                <v-list-item @click="addDialog = true" v-if="!props.playlist" v-bind="props" prepend-icon="mdi-plus">
-                    Add to playlist
-                </v-list-item>
+                <AddToPlaylistDialog :video="video" v-model="addDialog">
+                    <template #activator="activator">
+                        <v-list-item v-if="!props.playlist" v-bind="activator.props" prepend-icon="mdi-plus">
+                            Add to playlist
+                        </v-list-item>
+                    </template>
+                </AddToPlaylistDialog>
 
-                <v-list-item
-                    @click="removeDialog = true"
-                    v-if="props.playlist"
-                    prepend-icon="mdi-trash-can-outline"
-                    class="text-red-500!"
+                <DeleteDialog
+                    v-model="removeDialog"
+                    @confirm="removeFromPlaylist"
+                    title="Remove video?"
+                    :description="`Are you sure you want to remove &quot;${props.video.title}&quot; from this playlist?`"
+                    :show-body="false"
+                    confirmText="remove"
                 >
-                    Remove from playlist
-                </v-list-item>
+                    <template #activator="activator">
+                        <v-list-item
+                            v-if="props.playlist"
+                            v-bind="activator.props"
+                            prepend-icon="mdi-trash-can-outline"
+                            class="text-red-500!"
+                        >
+                            Remove from playlist
+                        </v-list-item>
+                    </template>
+                </DeleteDialog>
             </v-list>
         </v-menu>
-
-        <AddToPlaylistDialog :video="video" v-model="addDialog" />
-        <DeleteDialog
-            v-model="removeDialog"
-            @confirm="removeFromPlaylist"
-            title="Remove video?"
-            :description="`Are you sure you want to remove &quot;${props.video.title}&quot; from this playlist?`"
-            :show-body="false"
-            confirmText="remove"
-        >
-        </DeleteDialog>
     </div>
 </template>

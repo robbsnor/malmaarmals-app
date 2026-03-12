@@ -6,11 +6,9 @@ const dialog = ref(false);
 </script>
 
 <template>
-    <Dialog v-model="dialog" title="Instructions" icon="mdi-help-circle-outline" description="How to manage chapters.">
-        <template #activator="{ props }">
-            <v-btn size="small" v-bind="props" append-icon="mdi-help-circle-outline">Help</v-btn>
-        </template>
+    <v-btn size="small" @click="dialog = true" append-icon="mdi-help-circle-outline">Help</v-btn>
 
+    <Dialog v-model="dialog" title="Instructions" icon="mdi-help-circle-outline" description="How to manage chapters.">
         <div class="fs">
             <h4>When to put a new marker?</h4>
             <p>
