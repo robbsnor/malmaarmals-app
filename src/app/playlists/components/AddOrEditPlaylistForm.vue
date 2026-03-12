@@ -36,7 +36,6 @@ const requiredRule = [
 const orderTypeOptions: Array<{ title: string; value: Enums<'playlist_order_type'> }> = [
     { title: 'Oldest video first', value: 'date_ascending' },
     { title: 'Newest video first', value: 'date_descending' },
-    { title: 'Custom', value: 'custom' },
 ];
 
 const playlistOrder = computed<PlaylistOrderItem[]>(() => {
@@ -61,6 +60,8 @@ function resetForm() {
         order_type: null,
         order: 0,
     };
+
+    form.value.order = playlistsStore.playlists.length;
 }
 
 function addBelow(index: number) {

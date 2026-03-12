@@ -12,8 +12,6 @@ const playlistsStore = usePlaylistsStore();
 
 const dialog = ref(false);
 const loading = ref(false);
-const el = useTemplateRef<HTMLElement>('el');
-const { width, height } = useElementSize(el);
 const { cloned, sync } = useCloned(() => playlistsStore.playlists);
 const { history, canRedo, undo, redo, clear } = useRefHistory(cloned, {
     deep: true,
@@ -26,17 +24,8 @@ function onOpen() {
     clear();
 }
 
-function remove(index: number) {
-    cloned.value.splice(index, 1);
-}
-
 async function cancel() {
     dialog.value = false;
-}
-
-async function deletePlaylists() {
-    const ids = toDelete.value.map((p) => p.id);
-    await supabase.from('playlists').delete().in('id', ids);
 }
 
 async function reorderPlaylists() {
@@ -52,7 +41,6 @@ async function save() {
     try {
         loading.value = true;
 
-        await deletePlaylists();
         await reorderPlaylists();
         await sleep(500);
         await playlistsStore.fetchPlaylists();
@@ -69,7 +57,7 @@ async function save() {
     <v-btn
         v-if="playlistsStore.playlists.length"
         v-auth
-        icon="mdi-pencil"
+        icon="mdi-sort-variant"
         class="rounded!"
         size="small"
         color="primary"
@@ -78,17 +66,15 @@ async function save() {
     >
     </v-btn>
 
-    <Dialog v-model="dialog" title="Manage Playlists" @open="onOpen()" icon="mdi-pencil">
+    <Dialog v-model="dialog" title="Change playlists order" @open="onOpen()" icon="mdi-sort-variant">
         <VueDraggable
             v-if="playlistsStore.playlists.length"
             :animation="200"
-            ref="el"
             class="flex flex-col divide-black-600 divide-y -m-4"
-            :style="{ minHeight: `${height}px` }"
             handle=".handle"
             v-model="cloned"
         >
-            <div v-for="(playlist, i) in cloned" :key="playlist.id" class="relative flex items-center py-2 px-4">
+            <div v-for="playlist in cloned" :key="playlist.id" class="relative flex items-center py-2 px-4">
                 <div class="flex items-center gap-4 flex-1">
                     <div class="w-18 rounded overflow-hidden aspect-video bg-black-400 shrink-0">
                         <v-img :src="BucketHelper.getThumbnailUrl(playlist.videos[0]?.video_id)" alt="" />
@@ -104,14 +90,6 @@ async function save() {
                 </div>
 
                 <div class="shrink-0 flex justify-center items-center gap-2 pr-0.5">
-                    <v-btn
-                        icon="mdi-trash-can"
-                        variant="text"
-                        size="small"
-                        class="text-red-400! shrik-0"
-                        @click="remove(i)"
-                    ></v-btn>
-
                     <v-icon icon="mdi-drag" size="small" class="handle cursor-grab! text-muted! shrik-0"></v-icon>
                 </div>
             </div>
