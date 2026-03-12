@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, onMounted, ref } from 'vue';
+import { computed, nextTick, onBeforeMount, onMounted, ref, useTemplateRef } from 'vue';
 import { usePlaylistsStore } from '../stores/playlists.store';
 import type { Enums, Tables, TablesInsert } from '../../shared/models/database.types';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { supabase } from '../../../supabase';
 import { sleep } from '../../shared/helpers/sleep';
+import { useScroll } from '@vueuse/core';
 
 type PlaylistOrderItem = {
     id?: string;
@@ -25,6 +26,13 @@ const playlistsStore = usePlaylistsStore();
 const form = ref<TablesInsert<'playlists'>>();
 const valid = ref(false);
 const loading = ref(false);
+const playlistOrderRef = useTemplateRef<HTMLElement>('playlistOrderRef');
+const { y, arrivedState } = useScroll(playlistOrderRef);
+
+function scrollToBottom() {
+    console.log(playlistOrderRef.value);
+    y.value = playlistOrderRef.value.scrollHeight;
+}
 
 const requiredRule = [
     (value: string | number | null) => {
@@ -53,7 +61,7 @@ const playlistOrder = computed<PlaylistOrderItem[]>(() => {
     return order;
 });
 
-function resetForm() {
+async function resetForm() {
     form.value = {
         title: '',
         description: '',
@@ -62,6 +70,8 @@ function resetForm() {
     };
 
     form.value.order = playlistsStore.playlists.length;
+    await nextTick();
+    scrollToBottom();
 }
 
 function addBelow(index: number) {
@@ -131,7 +141,11 @@ defineExpose({
         <div class="bg-black-600 rounded">
             <div class="p-4 pt-3 pb-1 opacity-70 border-b border-black-1000">Playlist order</div>
 
-            <div v-auto-animate class="flex flex-col divide-y divide-black-800 py-2 lg:max-h-100 overflow-auto">
+            <div
+                v-auto-animate
+                ref="playlistOrderRef"
+                class="flex flex-col divide-y divide-black-800 py-2 max-h-60 lg:max-h-100 overflow-auto"
+            >
                 <div
                     v-for="(playlist, i) in playlistOrder"
                     :key="playlist.id"
