@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, useTemplateRef } from 'vue';
+import { computed, ref } from 'vue';
 import VideoItem from '../../video/components/VideoItem.vue';
 import VideoItemLarge from '../../video/components/VideoItemLarge.vue';
 import { useVideosStore } from '../../video/stores/videos.store';
@@ -10,6 +10,9 @@ const videosStore = useVideosStore();
 const archiveStore = useArchiveStore();
 
 const amountToShow = ref(50);
+const lekkerSpeurenUrl = computed(
+    () => `https://www.lekkerspeuren.nl/?filter=type%3Dvideo%26search%3D${archiveStore.query}`
+);
 </script>
 
 <template>
@@ -31,7 +34,7 @@ const amountToShow = ref(50);
             description="Try something else, or check lekkerspeuren.nl"
         >
             <v-btn
-                href="https://www.lekkerspeuren.nl/"
+                :href="lekkerSpeurenUrl"
                 variant="tonal"
                 color="primary"
                 target="_blank"
