@@ -16,7 +16,7 @@ const amountToShow = ref(50);
     <div class="pt-4">
         <FilterIndicator archiveType="STREAMS" />
 
-        <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5" v-auto-animate>
+        <div class="grid grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5" v-auto-animate>
             <template v-for="video in videosStore.filteredVideos.slice(0, amountToShow)" :key="video.video_id">
                 <VideoItem :video="video" />
                 <VideoItemLarge :video="video" />
@@ -28,8 +28,17 @@ const amountToShow = ref(50);
             v-if="archiveStore.query && !videosStore.filteredVideos.length"
             :title="`No video's found...`"
             icon="mdi-magnify"
-            description="Try something else."
+            description="Try something else, or check lekkerspeuren.nl"
         >
+            <v-btn
+                href="https://www.lekkerspeuren.nl/"
+                variant="tonal"
+                color="primary"
+                target="_blank"
+                append-icon="mdi-open-in-new"
+            >
+                lekkerspeuren.nl
+            </v-btn>
             <!-- <v-btn @click="archiveStore.resetQuery">Clear</v-btn> -->
         </Empty>
 
