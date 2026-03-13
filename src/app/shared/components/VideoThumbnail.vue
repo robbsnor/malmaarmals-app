@@ -29,29 +29,35 @@ const time = computed(() => {
 </script>
 
 <template>
-    <div class="relative transition-all block overflow-hidden rounded-md self-start group hover:scale-102">
-        <v-img
-            :src="props.src"
-            class="relative w-full aspect-video group-hover:scale-104 transition-all"
-            aria-hidden="true"
-        />
-        <div v-if="prettyTime" class="absolute bottom-2 right-2 bg-black/50 rounded-md text-xs px-1.5 py-0.5">
-            {{ prettyTime }}
-        </div>
+    <div class="relative self-start group">
+        <div class="relative overflow-hidden rounded-md group-hover:scale-102 transition-all">
+            <v-img
+                :src="props.src"
+                class="relative w-full aspect-video group-hover:scale-104 transition-all bg-black-600"
+                aria-hidden="true"
+            />
 
-        <div
-            class="absolute z-9 top-0 right-0 bottom-0 left-0 bg-black/0 opacity-0 group-hover:bg-black/50 group-hover:opacity-100 transition-all duration-200 flex justify-center items-center"
-        >
-            <v-icon :icon="props.icon" :size="props.iconSize" class="scale-0 group-hover:scale-100 transition-all" />
+            <div
+                class="absolute z-9 top-0 right-0 bottom-0 left-0 bg-black/0 opacity-0 group-hover:bg-black/50 group-hover:opacity-100 transition-all duration-200 flex justify-center items-center"
+            >
+                <v-icon
+                    :icon="props.icon"
+                    :size="props.iconSize"
+                    class="scale-0 group-hover:scale-100 transition-all"
+                />
+            </div>
+            <div
+                v-if="time && time.percentage < 95 && time.percentage > 5"
+                class="absolute bottom-0 right-0 left-0 h-1 bg-black/50"
+            >
+                <div class="bg-primary h-full" :style="{ width: `${time.percentage}%` }"></div>
+            </div>
+
+            <div v-if="prettyTime" class="absolute bottom-2 right-2 bg-black/50 rounded-md text-xs px-1.5 py-0.5">
+                {{ prettyTime }}
+            </div>
         </div>
 
         <slot></slot>
-
-        <div
-            v-if="time && time.percentage < 95 && time.percentage > 5"
-            class="absolute bottom-0 right-0 left-0 h-1 bg-black/50"
-        >
-            <div class="bg-primary h-full" :style="{ width: `${time.percentage}%` }"></div>
-        </div>
     </div>
 </template>
