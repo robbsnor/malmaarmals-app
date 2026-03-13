@@ -10,7 +10,6 @@ const emits = defineEmits<{
 const props = withDefaults(defineProps<DialogProps>(), {
     title: 'Dialog',
     width: 600,
-    icon: 'mdi-heart',
     showCloseButton: true,
     showBody: true,
     bodyPadding: true,
