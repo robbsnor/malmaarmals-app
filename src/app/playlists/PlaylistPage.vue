@@ -7,13 +7,15 @@ import { BucketHelper } from '../shared/helpers/bucket.helper';
 import VideoItem from '../video/components/VideoItem.vue';
 import VideoItemLarge from '../video/components/VideoItemLarge.vue';
 import DeletePlaylistDialog from './components/DeletePlaylistDialog.vue';
+import EditPlaylistDialog from './components/EditPlaylistDialog.vue';
 
 TitleHelper.setTitle('videos');
 
 const playlistStore = usePlaylistsStore();
 const id = useRouteParams('id') as Ref<string>;
 const playlist = playlistStore.getPlaylistById(id);
-const dialog = ref(false);
+const deleteDialog = ref(false);
+const editDialog = ref(false);
 </script>
 
 <template>
@@ -37,17 +39,27 @@ const dialog = ref(false);
                         Playlists
                     </v-btn>
 
-                    <Auth>
+                    <div v-auth class="flex gap-4">
                         <v-btn
                             variant="tonal"
                             icon="mdi-trash-can-outline"
                             color="error"
-                            size="x-small"
-                            class="cursor-pointer"
-                            @click="dialog = true"
+                            size="small"
+                            class="rounded!"
+                            @click="deleteDialog = true"
                         />
-                        <DeletePlaylistDialog :playlist="playlist" v-model="dialog" />
-                    </Auth>
+                        <DeletePlaylistDialog :playlist="playlist" v-model="deleteDialog" />
+
+                        <v-btn
+                            variant="tonal"
+                            icon="mdi-pencil"
+                            size="small"
+                            color="primary"
+                            class="rounded!"
+                            @click="editDialog = true"
+                        />
+                        <EditPlaylistDialog :playlist="playlist" v-model="editDialog" />
+                    </div>
                 </div>
 
                 <div class="absolute bottom-0 w-full p-4">
