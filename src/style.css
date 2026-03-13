@@ -11,11 +11,23 @@
     --font-montserrat: 'Montserrat';
     --font-lato: 'Lato';
 
-    --color-primary-lighter: hsl(252, 100%, 94%);
-    --color-primary-light: hsl(252, 100%, 84%);
-    --color-primary: hsl(252, 100%, 74%);
-    --color-primary-dark: hsl(252, 100%, 64%);
-    --color-primary-darker: hsl(252, 100%, 54%);
+    --color-purple-lighter: hsl(252, 100%, 94%);
+    --color-purple-light: hsl(252, 100%, 84%);
+    --color-purple: hsl(252, 100%, 74%);
+    --color-purple-dark: hsl(252, 100%, 64%);
+    --color-purple-darker: hsl(252, 100%, 54%);
+
+    --color-green-lighter: hsl(120, 40%, 73%);
+    --color-green-light: hsl(120, 40%, 60%);
+    --color-green: hsl(120, 40%, 47%);
+    --color-green-dark: hsl(120, 40%, 33%);
+    --color-green-darker: hsl(120, 40%, 20%);
+
+    --color-primary-lighter: var(--color-purple-lighter);
+    --color-primary-light: var(--color-purple-light);
+    --color-primary: var(--color-purple);
+    --color-primary-dark: var(--color-purple-dark);
+    --color-primary-darker: var(--color-purple-darker);
 
     /* text */
     --color-normal: hsl(0, 0%, 95%);
