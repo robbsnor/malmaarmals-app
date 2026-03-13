@@ -66,7 +66,7 @@ async function save() {
     >
     </v-btn>
 
-    <Dialog v-model="dialog" title="Change playlists order" @open="onOpen()" icon="mdi-sort-variant">
+    <Dialog v-model="dialog" title="Change order" @open="onOpen()" icon="mdi-sort-variant">
         <VueDraggable
             v-if="playlistsStore.playlists.length"
             :animation="200"
@@ -74,14 +74,14 @@ async function save() {
             handle=".handle"
             v-model="cloned"
         >
-            <div v-for="playlist in cloned" :key="playlist.id" class="relative flex items-center py-2 px-4">
+            <div v-for="playlist in cloned" :key="playlist.id" class="relative flex items-center py-2 gap-4 px-4">
                 <div class="flex items-center gap-4 flex-1">
                     <div class="w-18 rounded overflow-hidden aspect-video bg-black-400 shrink-0">
                         <v-img :src="BucketHelper.getThumbnailUrl(playlist.videos[0]?.video_id)" alt="" />
                     </div>
 
-                    <div class="grow-0">
-                        <div class="font-bold line-clamp-1">
+                    <div class="grow-1">
+                        <div class="font-bold line-clamp-1 break-all">
                             {{ playlist.title }}
                         </div>
 

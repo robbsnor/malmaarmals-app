@@ -1,31 +1,20 @@
 <script setup lang="ts">
 import { computed, onMounted, useSlots, watch } from 'vue';
+import type { DialogProps } from '../models/dialog.models';
 
 const slots = useSlots();
 const emits = defineEmits<{
     (e: 'open'): void;
     (e: 'close'): void;
 }>();
-const props = withDefaults(
-    defineProps<{
-        title?: string;
-        description?: string;
-        width?: string | number;
-        showCloseButton?: boolean;
-        icon?: string;
-        iconColor?: string;
-        showBody?: boolean;
-        bodyPadding?: boolean;
-    }>(),
-    {
-        title: 'Dialog',
-        width: 600,
-        icon: 'mdi-heart',
-        showCloseButton: true,
-        showBody: true,
-        bodyPadding: true,
-    }
-);
+const props = withDefaults(defineProps<DialogProps>(), {
+    title: 'Dialog',
+    width: 600,
+    icon: 'mdi-heart',
+    showCloseButton: true,
+    showBody: true,
+    bodyPadding: true,
+});
 const dialog = defineModel<boolean>();
 
 const _props = computed(() => {
