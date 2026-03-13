@@ -8,13 +8,13 @@ import VideoItem from '../../video/components/VideoItem.vue';
 import PlaylistItem from './PlaylistItem.vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import type { Playlist } from '../models/playlist.model';
-import AddOrEditPlaylistForm from './AddOrEditPlaylistForm.vue';
+import AddPlaylistForm from './AddPlaylistForm.vue';
 
 const props = defineProps<{ video: VideoWithChapters }>();
 
 const playlistsStore = usePlaylistsStore();
 
-const formRef = ref<InstanceType<typeof AddOrEditPlaylistForm>>();
+const formRef = ref<InstanceType<typeof AddPlaylistForm>>();
 
 const dialog = defineModel<boolean>();
 const tab = ref<'add' | 'create'>('add');
@@ -150,7 +150,7 @@ function onPlaylistCreateSuccess(playlistId: string) {
 
             <v-tabs-window-item value="create">
                 <div class="p-4">
-                    <AddOrEditPlaylistForm ref="formRef" @success="onPlaylistCreateSuccess" />
+                    <AddPlaylistForm ref="formRef" @success="onPlaylistCreateSuccess" />
                 </div>
             </v-tabs-window-item>
         </v-tabs-window>
