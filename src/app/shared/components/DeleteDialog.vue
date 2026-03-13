@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { ConfirmDialogProps } from './ConfirmDialog.vue';
-
-export interface DeleteDialogProps extends ConfirmDialogProps {}
+import type { ConfirmDialogProps } from '../models/dialog.models';
 
 const emits = defineEmits(['confirm', 'cancel']);
 const dialog = defineModel<boolean>();
-const props = withDefaults(defineProps<DeleteDialogProps>(), {
+const props = withDefaults(defineProps<ConfirmDialogProps>(), {
     confirmText: 'Delete',
     confirmColor: 'error',
     cancelText: 'Cancel',
+    icon: 'mdi-trash-can-outline',
+    iconColor: 'error',
 });
 </script>
 

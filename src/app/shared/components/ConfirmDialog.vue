@@ -1,16 +1,5 @@
 <script setup lang="ts">
-export interface ConfirmDialogProps {
-    title?: string;
-    description?: string;
-    icon?: string;
-    confirmText?: string;
-    confirmColor?: string;
-    confirmIcon?: string;
-    cancelText?: string;
-    width?: string | number;
-    showCloseButton?: boolean;
-    loading?: boolean;
-}
+import type { ConfirmDialogProps } from '../models/dialog.models';
 
 const emits = defineEmits(['confirm', 'cancel']);
 const dialog = defineModel<boolean>();
