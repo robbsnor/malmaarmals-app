@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import AddOrEditPlaylistForm from './AddOrEditPlaylistForm.vue';
+import AddPlaylistForm from './AddPlaylistForm.vue';
 
 const dialog = ref(false);
-const formRef = ref<InstanceType<typeof AddOrEditPlaylistForm>>();
+const formRef = ref<InstanceType<typeof AddPlaylistForm>>();
 
 function onCreateSuccess() {
     dialog.value = false;
@@ -15,7 +15,7 @@ function onCreateSuccess() {
     </v-btn>
 
     <Dialog v-model="dialog" icon="mdi-plus" title="Create playlist">
-        <AddOrEditPlaylistForm ref="formRef" @success="onCreateSuccess" />
+        <AddPlaylistForm ref="formRef" @success="onCreateSuccess" />
 
         <template #footer>
             <v-btn class="text-muted!" variant="text" @click="dialog = false"> cancel </v-btn>
