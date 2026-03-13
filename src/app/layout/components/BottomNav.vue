@@ -5,6 +5,7 @@ import { useScreenSafeArea } from '@vueuse/core';
 import { useRouter, RouterLink } from 'vue-router';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { Z } from '../../shared/directives/z.directive';
+import NotSubscribedBadge from './NotSubscribedBadge.vue';
 
 const router = useRouter();
 const { top, right, bottom, left } = useScreenSafeArea();
@@ -43,12 +44,7 @@ const menuItems = ref([
                                 alt=""
                                 class="h-8 cursor-pointer rounded-full"
                             />
-                            <div
-                                v-if="!authStore.isSubbed"
-                                class="absolute -right-2 -bottom-2 flex size-5 items-center justify-center rounded-full bg-black"
-                            >
-                                <v-icon icon=" mdi-lock" color="var(--color-red-500)" size="14" />
-                            </div>
+                            <NotSubscribedBadge class="-right-2 -bottom-2" location="top" />
                         </div>
                         <div
                             v-else
