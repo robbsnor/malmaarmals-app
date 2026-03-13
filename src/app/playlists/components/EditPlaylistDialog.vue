@@ -34,7 +34,7 @@ const orderTypeOptions: Array<{ title: string; value: Enums<'playlist_order_type
     { title: 'Newest video first', value: 'date_descending' },
 ];
 
-async function resetForm() {
+function resetForm() {
     form.value = {
         id: props.playlist.id,
         title: props.playlist.title,
