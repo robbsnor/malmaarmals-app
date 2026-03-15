@@ -55,7 +55,7 @@ const preferenceStore = usePreferenceStore();
 
 let particleId = 0;
 const particles = ref<Particle[]>([]);
-const seenMessageIds = new Set<number>();
+const seenMessageIds = new Set<string>();
 
 const rand = (min: number, max: number) => min + Math.random() * (max - min);
 
@@ -68,9 +68,8 @@ watch(
         const windowMessages = videoStore.messages.filter((m) => m.offset_sec > windowStart && m.offset_sec <= time);
 
         for (const msg of windowMessages) {
-            const msgId = Number(msg.message_id);
-            if (seenMessageIds.has(msgId)) continue;
-            seenMessageIds.add(msgId);
+            if (seenMessageIds.has(msg.message_id)) continue;
+            seenMessageIds.add(msg.message_id);
 
             const words = msg.text.split(' ');
             for (const word of words) {
