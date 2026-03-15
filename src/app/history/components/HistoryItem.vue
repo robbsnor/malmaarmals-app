@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
-import { TimeHelper } from '../../shared/helpers/time.helper';
-import { formatTimeAgo } from '@vueuse/core';
-import type { HistoryWithVideo } from '../../video/models/history-video.model';
+import type { History } from '../models/history.model';
 
 const props = withDefaults(
     defineProps<{
-        history: HistoryWithVideo;
+        history: History;
     }>(),
     {}
 );

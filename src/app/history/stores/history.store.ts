@@ -1,30 +1,18 @@
 import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { supabase } from '../../../supabase';
 import { useAuthStore } from '../../auth/stores/auth.store';
-import { useVideosStore } from '../../video/stores/videos.store';
-import type { HistoryWithVideo } from '../../video/models/history-video.model';
+import { historyQuery, type Histories } from '../models/history.model';
 
 export const useHistoryStore = defineStore('history', () => {
-    const history = ref<HistoryWithVideo[]>([]);
-    const videosStore = useVideosStore();
+    const history = ref<Histories>([]);
     const authStore = useAuthStore();
 
     async function fetchHistory() {
-        const { data, error } = await supabase
-            .from('history')
-            .select('*')
-            .order('watched_at', { ascending: false })
-            .limit(50);
-
+        const { data, error } = await historyQuery.limit(30);
         if (error) throw error;
 
-        history.value = data.map((h) => {
-            return {
-                ...h,
-                video: videosStore.videos.find((v) => v.id === h.video_id),
-            };
-        });
+        history.value = data;
     }
 
     async function deleteAll() {
@@ -35,36 +23,18 @@ export const useHistoryStore = defineStore('history', () => {
     }
 
     async function recordWatch(videoId: string, videoTime: number) {
-        const { data, error } = await supabase
-            .from('history')
-            .upsert(
-                {
-                    user_id: authStore.session.user.id,
-                    video_id: videoId,
-                    video_time: videoTime,
-                    watched_at: new Date().toISOString(),
-                },
-                { onConflict: 'user_id, video_id' }
-            )
-            .select()
-            .single();
-
+        const { error } = await supabase.from('history').upsert(
+            {
+                user_id: authStore.session.user.id,
+                video_id: videoId,
+                video_time: videoTime,
+                watched_at: new Date().toISOString(),
+            },
+            { onConflict: 'user_id, video_id' }
+        );
         if (error) throw error;
 
-        console.log(data);
-
-        // update local version
-        const updatedHistory: HistoryWithVideo = {
-            ...data,
-            video: videosStore.videos.find((v) => v.id === data.video_id),
-        };
-
-        const index = history.value.findIndex((h) => h.video_id === videoId);
-        if (index >= 0) {
-            history.value[index] = updatedHistory;
-        } else {
-            history.value.unshift(updatedHistory);
-        }
+        await fetchHistory();
     }
 
     return {
