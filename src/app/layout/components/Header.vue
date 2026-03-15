@@ -19,7 +19,7 @@ const videosStore = useVideosStore();
     >
         <Container width="100%" class="h-full">
             <div class="grid grid-cols-[1fr_auto_1fr] h-full items-center justify-between gap-4">
-                <div class="flex h-full items-center gap-4">
+                <div class="flex h-full items-center gap-4 overflow-hidden">
                     <RouterLink :to="{ name: 'home' }">
                         <div class="hover:scale-102f transition-all">
                             <img src="/images/m.svg" class="w-6" alt="" />
