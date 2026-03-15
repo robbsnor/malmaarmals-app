@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia';
 import { computed, ref, type Ref } from 'vue';
-import { playlistsQuery, type Playlist, type Playlists } from '../models/playlist.model';
+import { playlistsQuery, type Playlist } from '../models/playlist.model';
 import { supabase } from '../../../supabase';
 import { useArchiveStore } from '../../archive/stores/archive.store';
 import { PlaylistHelper } from '../helpers/playlist.helper';
 
 export const usePlaylistsStore = defineStore('playlists', () => {
     const archiveStore = useArchiveStore();
-    const playlists = ref<Playlists>([]);
+    const playlists = ref<Playlist[]>([]);
 
     const fetchPlaylists = async () => {
         const { data, error } = await playlistsQuery.order('created_at', { ascending: false });
