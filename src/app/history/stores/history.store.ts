@@ -37,7 +37,6 @@ export const useHistoryStore = defineStore('history', () => {
     async function recordWatch(videoId: string, videoTime: number) {
         if (videoTime === 0) return;
 
-        console.log('Saving progression... ', videoId, videoTime);
         const { error } = await supabase.from('history').upsert(
             {
                 user_id: authStore.session.user.id,
