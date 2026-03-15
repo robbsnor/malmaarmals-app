@@ -7,7 +7,7 @@ import { usePreferenceStore } from '../../shared/stores/preference.store';
 // ─── Configuration ────────────────────────────────────────────────────────────
 
 /** Seconds of message history to scan each tick */
-const WINDOW_S = 3;
+const WINDOW_S = 10;
 
 /** Horizontal spawn range (% from left edge) */
 const LEFT_MIN = 5;
@@ -33,7 +33,7 @@ const DURATION_MIN = 3000;
 const DURATION_MAX = 6000;
 
 /** Bottom starting position of each emote (%) */
-const SPAWN_BOTTOM = -20;
+const SPAWN_BOTTOM = -10;
 
 /** Maximum number of emotes visible at the same time */
 const MAX_PARTICLES = 50;
