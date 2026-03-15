@@ -5,7 +5,7 @@ import type { Enums, Tables, TablesInsert, TablesUpdate } from '../../shared/mod
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { supabase } from '../../../supabase';
 import { sleep } from '../../shared/helpers/sleep';
-import { useScroll } from '@vueuse/core';
+import { useCloned, useScroll } from '@vueuse/core';
 import type { Playlist } from '../models/playlist.model';
 
 const props = defineProps<{
@@ -14,13 +14,14 @@ const props = defineProps<{
 
 const dialog = defineModel();
 const playlistsStore = usePlaylistsStore();
-const form = ref<TablesUpdate<'playlists'>>();
 const valid = ref(false);
 const loading = ref(false);
+const { cloned: playlist, sync, isModified } = useCloned(() => props.playlist);
 
-onMounted(() => {
-    resetForm();
-});
+function onOpen() {
+    console.log('opened');
+    sync();
+}
 
 const requiredRule = [
     (value: string | number | null) => {
@@ -34,38 +35,25 @@ const orderTypeOptions: Array<{ title: string; value: Enums<'playlist_order_type
     { title: 'Newest video first', value: 'date_descending' },
 ];
 
-function resetForm() {
-    form.value = {
-        id: props.playlist.id,
-        title: props.playlist.title,
-        description: props.playlist.description,
-        order_type: props.playlist.order_type,
-        order: props.playlist.order,
-    };
-}
-
-async function updateExistingPlaylistOrder() {
-    // const updates = playlistOrder.value
-    //     .map((playlist, index) => ({
-    //         id: playlist.id,
-    //         order: index,
-    //     }))
-    //     .filter((item) => item.id);
-    // const promises = updates.map(({ id, order }) => supabase.from('playlists').update({ order }).eq('id', id));
-    // await Promise.all(promises);
-}
-
 async function submit() {
     loading.value = true;
 
     try {
-        await updateExistingPlaylistOrder();
+        const { error } = await supabase
+            .from('playlists')
+            .update({
+                id: playlist.value.id,
+                title: playlist.value.title,
+                description: playlist.value.description,
+                order_type: playlist.value.order_type,
+                order: playlist.value.order,
+            })
+            .eq('id', playlist.value.id);
 
-        const { error } = await supabase.from('playlists').update(form.value).eq('id', form.value.id);
         if (error) throw error;
+
         await sleep(500);
         await playlistsStore.fetchPlaylists();
-        console.log('fajdfaj');
         dialog.value = false;
     } catch (error) {
         throw error;
@@ -76,24 +64,26 @@ async function submit() {
 </script>
 
 <template>
-    <Dialog v-model="dialog" title="Edit playlist" icon="mdi-pencil">
+    <Dialog v-model="dialog" title="Edit playlist" icon="mdi-pencil" @open="onOpen()">
         <v-form v-model="valid" class="flex flex-col gap-4">
-            <v-text-field label="Title" :rules="requiredRule" v-model="form.title"></v-text-field>
-            <v-text-field label="Description" v-model="form.description"></v-text-field>
+            <v-text-field label="Title" :rules="requiredRule" v-model="playlist.title"></v-text-field>
+            <v-text-field label="Description" v-model="playlist.description"></v-text-field>
             <v-select
                 :clearable="false"
                 label="Video ordering"
                 :rules="requiredRule"
-                v-model="form.order_type"
+                v-model="playlist.order_type"
                 :items="orderTypeOptions"
             ></v-select>
 
-            <v-number-input class="hidden!" v-model="form.order"></v-number-input>
+            <v-number-input class="hidden!" v-model="playlist.order"></v-number-input>
         </v-form>
 
         <template #footer>
             <v-btn class="text-muted!" variant="text" @click="dialog = false"> cancel </v-btn>
-            <v-btn color="primary" :loading="loading" variant="tonal" @click="submit"> Update </v-btn>
+            <v-btn color="primary" :loading="loading" variant="tonal" @click="submit" :disabled="!isModified">
+                Update
+            </v-btn>
         </template>
     </Dialog>
 </template>
