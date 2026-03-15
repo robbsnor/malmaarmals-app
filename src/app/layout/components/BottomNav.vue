@@ -22,7 +22,7 @@ const menuItems = ref([
     <div
         ref="mobileNavRef"
         :style="{ paddingBottom: bottom }"
-        class="border-black-300 bg-black/90 backdrop-blur-[100px] fixed right-0 bottom-0 left-0 h-[var(--height-mobile-navbar)] border-t lg:hidden"
+        class="border-black-300 bg-black/70 backdrop-blur-[100px] fixed right-0 bottom-0 left-0 h-[var(--height-mobile-navbar)] border-t lg:hidden"
         v-z="Z.MOBILE_NAV"
     >
         <Container width="400px" class="h-full">
