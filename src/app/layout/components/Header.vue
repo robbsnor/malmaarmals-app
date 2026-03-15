@@ -15,7 +15,7 @@ const videosStore = useVideosStore();
 <template>
     <header
         v-z="Z.HEADER"
-        class="h-header border-black-400 bg-black-100 fixed top-0 right-0 left-0 hidden border-b lg:block"
+        class="h-header border-b border-black-400 bg-black/90 backdrop-blur-[100px] fixed top-0 right-0 left-0 hidden lg:block"
     >
         <Container width="100%" class="h-full">
             <div class="grid grid-cols-[1fr_auto_1fr] h-full items-center justify-between gap-4">
