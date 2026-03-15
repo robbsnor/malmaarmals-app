@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { supabase } from '../../../supabase';
-import type { VideoProgression } from '../models/video-progression.model';
 import { useIdle, useMediaControls, useWindowSize } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
