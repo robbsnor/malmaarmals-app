@@ -13,12 +13,14 @@ import { messagesQueryStringSelect, type Messages } from '../models/messages.mod
 import { v4 } from 'uuid';
 import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
 import { useVideosStore } from './videos.store';
+import { useHistoryStore } from '../../history/stores/history.store';
 
 export const TIME_PRIOR_OFFSET_S = 2;
 
 export const useVideoStore = defineStore('video', () => {
     const playlistsStore = usePlaylistsStore();
     const videosStore = useVideosStore();
+    const historyStore = useHistoryStore();
 
     // layout
     const theaterMode = ref(true);
@@ -226,6 +228,11 @@ export const useVideoStore = defineStore('video', () => {
 
     watch(volume, () => {
         muted.value = false;
+    });
+
+    watch(currentTimeRounded, (time) => {
+        if (time % 5 !== 0) return;
+        historyStore.recordWatch(info.value.id, time);
     });
 
     return {

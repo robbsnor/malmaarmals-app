@@ -32,8 +32,6 @@ async function init() {
     console.log('init');
     await videoStore.init(videoId, playlistId);
     TitleHelper.setTitle(videoStore.info.title);
-
-    // await historyStore.add();
 }
 
 watch(route, async () => {

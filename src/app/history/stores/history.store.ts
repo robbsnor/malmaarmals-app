@@ -1,25 +1,14 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
-import type { Tables } from '../../shared/models/database.types';
 import { supabase } from '../../../supabase';
-import { useVideoStore } from '../../video/stores/video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { useVideosStore } from '../../video/stores/videos.store';
-import type { HistoryVideo } from '../../video/models/history-video.model';
+import type { HistoryWithVideo } from '../../video/models/history-video.model';
 
 export const useHistoryStore = defineStore('history', () => {
-    const history = ref<Tables<'history'>[]>([]);
-    const videoStore = useVideoStore();
+    const history = ref<HistoryWithVideo[]>([]);
     const videosStore = useVideosStore();
     const authStore = useAuthStore();
-    const videos = computed<HistoryVideo[]>(() => {
-        return history.value.map((h) => {
-            return {
-                ...videosStore.videos.find((v) => Number(v.id) === h.video_id),
-                watched_at: h.watched_at,
-            };
-        });
-    });
 
     async function fetchHistory() {
         const { data, error } = await supabase
@@ -30,7 +19,12 @@ export const useHistoryStore = defineStore('history', () => {
 
         if (error) throw error;
 
-        history.value = data;
+        history.value = data.map((h) => {
+            return {
+                ...h,
+                video: videosStore.videos.find((v) => v.id === h.video_id),
+            };
+        });
     }
 
     async function deleteAll() {
@@ -40,29 +34,44 @@ export const useHistoryStore = defineStore('history', () => {
         await fetchHistory();
     }
 
-    async function add() {
-        const videoId = videoStore.id;
-        const userId = authStore.session?.user.id;
-        if (!videoId || !userId) throw new Error('Missing videoId or userId');
+    async function recordWatch(videoId: string, videoTime: number) {
+        const { data, error } = await supabase
+            .from('history')
+            .upsert(
+                {
+                    user_id: authStore.session.user.id,
+                    video_id: videoId,
+                    video_time: videoTime,
+                    watched_at: new Date().toISOString(),
+                },
+                { onConflict: 'user_id, video_id' }
+            )
+            .select()
+            .single();
 
-        const { error, data } = await supabase.from('history').upsert(
-            {
-                video_id: videoId,
-                watched_at: new Date().toISOString(),
-            },
-            { onConflict: 'user_id,video_id' }
-        );
         if (error) throw error;
 
-        await fetchHistory();
+        console.log(data);
+
+        // update local version
+        const updatedHistory: HistoryWithVideo = {
+            ...data,
+            video: videosStore.videos.find((v) => v.id === data.video_id),
+        };
+
+        const index = history.value.findIndex((h) => h.video_id === videoId);
+        if (index >= 0) {
+            history.value[index] = updatedHistory;
+        } else {
+            history.value.unshift(updatedHistory);
+        }
     }
 
     return {
         history,
-        videos,
 
         fetchHistory,
         deleteAll,
-        add,
+        recordWatch,
     };
 });

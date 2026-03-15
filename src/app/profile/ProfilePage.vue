@@ -39,44 +39,45 @@ const handleClick = async (item: any) => {
 </script>
 
 <template>
-    <Container>
-        <div v-if="authStore.session" class="bg-black-2f00 flex items-center gap-4 rounded-md p-4 pt-10">
-            <div class="border-primary rounded-full border-2 p-0.5">
-                <img
-                    :src="authStore.session.user.user_metadata.avatar_url"
-                    alt="Twitch Logo"
-                    class="h-14 rounded-full"
-                />
-            </div>
-            <div>
-                <div class="pb-0.5 text-xl leading-none font-bold">
-                    {{ authStore.session.user.user_metadata.nickname }}
-                </div>
-                <div class="text-muted flex items-center">
-                    <a
-                        v-if="!authStore.isSubbed"
-                        href="https://www.twitch.tv/lekkerspelen/"
-                        target="_blank"
-                        class="italic underline"
-                    >
-                        Not subscribed
-                    </a>
-
-                    <div v-else>Subscribed</div>
-                    <v-icon
-                        :icon="authStore.isSubbed ? 'mdi-check' : 'mdi-lock'"
-                        :color="authStore.isSubbed ? 'success' : 'var(--color-red-500)'"
-                        size="16"
-                        class="mt-0.5 ml-1 inline-block"
+    <div>
+        <Container>
+            <div v-if="authStore.session" class="bg-black-2f00 flex items-center gap-4 rounded-md p-4 pt-10">
+                <div class="border-primary rounded-full border-2 p-0.5">
+                    <img
+                        :src="authStore.session.user.user_metadata.avatar_url"
+                        alt="Twitch Logo"
+                        class="h-14 rounded-full"
                     />
                 </div>
-            </div>
-            <div class="ounded-full ml-auto flex items-center justify-center">
-                <v-icon icon="mdi-star-four-points" size="32" class="text-black-800 mr-2" />
-            </div>
-        </div>
+                <div>
+                    <div class="pb-0.5 text-xl leading-none font-bold">
+                        {{ authStore.session.user.user_metadata.nickname }}
+                    </div>
+                    <div class="text-muted flex items-center">
+                        <a
+                            v-if="!authStore.isSubbed"
+                            href="https://www.twitch.tv/lekkerspelen/"
+                            target="_blank"
+                            class="italic underline"
+                        >
+                            Not subscribed
+                        </a>
 
-        <!-- <div v-if="!authStore.isSubbed">
+                        <div v-else>Subscribed</div>
+                        <v-icon
+                            :icon="authStore.isSubbed ? 'mdi-check' : 'mdi-lock'"
+                            :color="authStore.isSubbed ? 'success' : 'var(--color-red-500)'"
+                            size="16"
+                            class="mt-0.5 ml-1 inline-block"
+                        />
+                    </div>
+                </div>
+                <div class="ounded-full ml-auto flex items-center justify-center">
+                    <v-icon icon="mdi-star-four-points" size="32" class="text-black-800 mr-2" />
+                </div>
+            </div>
+
+            <!-- <div v-if="!authStore.isSubbed">
             <div class="text-2xl font-bold">You are not subscribed,</div>
             <p class="text-muted">Subscribe to LekkerSpelen to start watching.</p>
 
@@ -91,14 +92,15 @@ const handleClick = async (item: any) => {
             </v-btn>
         </div> -->
 
-        <div v-else class="px-4 py-12">
-            <div class="text-2xl font-bold">You are not logged in,</div>
-            <p class="text-muted">Log in with Twitch to start watching streams</p>
-            <SignInButton />
-        </div>
+            <div v-else class="px-4 py-12">
+                <div class="text-2xl font-bold">You are not logged in,</div>
+                <p class="text-muted">Log in with Twitch to start watching streams</p>
+                <SignInButton />
+            </div>
+        </Container>
 
-        <Section title="History" v-if="authStore.session" class="-mx-4">
-            <template #actions v-if="historyStore.videos.length">
+        <Section v-if="authStore.session" title="History" class="w-screen!">
+            <template #actions v-if="historyStore.history.length">
                 <v-btn
                     :to="{ name: 'history' }"
                     class="text-primary! hover:text-primary-light!"
@@ -110,51 +112,56 @@ const handleClick = async (item: any) => {
                 </v-btn>
             </template>
 
-            <div v-if="historyStore.videos.length" class="-mx-4 flex gap-4 overflow-auto px-4">
+            <div
+                v-if="historyStore.history.length"
+                class="flex gap-4 overflow-x-auto flex-nowrap max-lg:-mx-4 max-lg:px-4"
+            >
                 <RouterLink
-                    :to="{ name: 'video', params: { id: video.video_id } }"
-                    v-for="video in historyStore.videos.slice(0, 10)"
-                    :key="video.id"
+                    v-for="history in historyStore.history.slice(0, 20)"
+                    :key="history.id"
+                    :to="{ name: 'video', params: { id: history.video.video_id } }"
                     class="w-[160px] shrink-0"
                 >
                     <VideoThumbnail
-                        :src="BucketHelper.getThumbnailUrl(video.video_id)"
+                        :src="BucketHelper.getThumbnailUrl(history.video.video_id)"
                         alt=""
                         class="w-full rounded-t-md!"
-                        :durationS="video.length_sec"
-                        :videoId="video.video_id"
+                        :durationS="history.video.length_sec"
+                        :videoId="history.video.video_id"
                     />
-                    <div class="my-2 line-clamp-2 font-bold">{{ video.title }}</div>
+                    <div class="my-2 line-clamp-2 font-bold">{{ history.video.title }}</div>
                 </RouterLink>
             </div>
 
             <Empty v-else title="No history" description="You haven't watched any videos yet." icon="mdi-history" />
         </Section>
 
-        <div class="flex flex-col gap-4">
-            <div v-for="(group, index) in groups" :key="index">
-                <div class="flex flex-col gap-0.5">
-                    <template v-for="item in group" :key="item.name">
-                        <Component
-                            :is="item.to ? RouterLink : 'button'"
-                            :to="item.to"
-                            v-if="!item.hidden"
-                            @click="handleClick(item)"
-                            :class="[
-                                'bg-black-300 text-normal flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition first:rounded-t-md last:rounded-b-md',
-                                {
-                                    'text-red-500': item.icon === 'mdi-logout',
-                                    'hover:bg-black-400': !item.disabled,
-                                    'cursor-default! bg-black-200! text-muted-more!': item.disabled,
-                                },
-                            ]"
-                        >
-                            <v-icon :icon="item.icon" size="16" />
-                            {{ item.name }}
-                        </Component>
-                    </template>
+        <Container>
+            <div class="flex flex-col gap-4">
+                <div v-for="(group, index) in groups" :key="index">
+                    <div class="flex flex-col gap-0.5">
+                        <template v-for="item in group" :key="item.name">
+                            <Component
+                                :is="item.to ? RouterLink : 'button'"
+                                :to="item.to"
+                                v-if="!item.hidden"
+                                @click="handleClick(item)"
+                                :class="[
+                                    'bg-black-300 text-normal flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition first:rounded-t-md last:rounded-b-md',
+                                    {
+                                        'text-red-500': item.icon === 'mdi-logout',
+                                        'hover:bg-black-400': !item.disabled,
+                                        'cursor-default! bg-black-200! text-muted-more!': item.disabled,
+                                    },
+                                ]"
+                            >
+                                <v-icon :icon="item.icon" size="16" />
+                                {{ item.name }}
+                            </Component>
+                        </template>
+                    </div>
                 </div>
             </div>
-        </div>
-    </Container>
+        </Container>
+    </div>
 </template>

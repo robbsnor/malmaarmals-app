@@ -3,36 +3,36 @@ import { computed } from 'vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { formatTimeAgo } from '@vueuse/core';
-import type { HistoryVideo } from '../../video/models/history-video.model';
+import type { HistoryWithVideo } from '../../video/models/history-video.model';
 
 const props = withDefaults(
     defineProps<{
-        video: HistoryVideo;
+        history: HistoryWithVideo;
     }>(),
     {}
 );
 
 const categories = computed(() => {
-    const cats = props.video?.chapters.map((chapter) => chapter.category.title);
+    const cats = props.history.video.chapters.map((chapter) => chapter.category.title);
     const uniqueCats = Array.from(new Set(cats));
     return uniqueCats;
 });
 </script>
 
 <template>
-    <RouterLink :to="{ name: 'video', params: { id: props.video.video_id } }" class="flex gap-4">
+    <RouterLink :to="{ name: 'video', params: { id: props.history.video.video_id } }" class="flex gap-4">
         <VideoThumbnail
             class="w-36 shrink-0"
-            :src="BucketHelper.getThumbnailUrl(video.video_id)"
-            :videoId="video.video_id"
-            :durationS="video.length_sec"
+            :src="BucketHelper.getThumbnailUrl(history.video.video_id)"
+            :videoId="history.video.video_id"
+            :durationS="history.video.length_sec"
         />
 
         <div>
             <h2 class="font-bold text-md line-clamp-2 leading-snug">
-                {{ props.video.title }}
+                {{ props.history.video.title }}
             </h2>
-            <div v-if="props.video?.chapters.length" class="text-muted text-sm font-medium line-clamp-2">
+            <div v-if="props.history.video.chapters.length" class="text-muted text-sm font-medium line-clamp-2">
                 {{ categories.join(', ') }}
             </div>
             <!-- <div class="text-muted-more text-sm font-medium">
