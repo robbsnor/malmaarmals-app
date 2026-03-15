@@ -81,9 +81,11 @@ function capitalizeFirstLetter(string: string): string {
     </div>
 
     <Section :style="{ paddingTop: `${height}px` }">
-        <v-tabs-window v-model="archiveStore.activeFilterType">
-            <v-tabs-window-item value="streams"><VideosTab /></v-tabs-window-item>
-            <v-tabs-window-item value="playlists"><PlaylistsTab /></v-tabs-window-item>
-        </v-tabs-window>
+        <div class="-mx-4">
+            <v-tabs-window v-model="archiveStore.activeFilterType">
+                <v-tabs-window-item value="streams"><VideosTab /></v-tabs-window-item>
+                <v-tabs-window-item value="playlists"><PlaylistsTab /></v-tabs-window-item>
+            </v-tabs-window>
+        </div>
     </Section>
 </template>

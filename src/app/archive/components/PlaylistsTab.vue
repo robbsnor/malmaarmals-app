@@ -14,7 +14,7 @@ const archiveStore = useArchiveStore();
 </script>
 
 <template>
-    <div class="max-lg:pt-2">
+    <div class="px-4 max-lg:pt-2">
         <FilterIndicator archiveType="PLAYLISTS" />
 
         <div class="grid grid-cols-1 gap-4 lg:gap-8 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" v-auto-animate>

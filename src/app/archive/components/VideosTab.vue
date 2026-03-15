@@ -16,7 +16,7 @@ const lekkerSpeurenUrl = computed(
 </script>
 
 <template>
-    <div class="pt-4">
+    <div class="pt-4 px-4">
         <FilterIndicator archiveType="STREAMS" />
 
         <div class="grid grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5" v-auto-animate>
