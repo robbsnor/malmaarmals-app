@@ -74,7 +74,7 @@ watch(
                 </button>
             </div>
 
-            <div v-if="props.showBody" :class="{ 'p-4': props.bodyPadding }" class="max-h-[70vh] overflow-auto">
+            <div v-if="props.showBody" :class="{ 'p-4': props.bodyPadding }" class="max-h-[60vh] overflow-auto">
                 <slot></slot>
             </div>
 
