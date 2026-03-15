@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 import { useArchiveStore } from '../../archive/stores/archive.store';
-import { videosQuery, type Video } from '../models/videos-with-chapters.model';
+import { videosQuery, type Video } from '../models/video.model';
 
 export const useVideosStore = defineStore('videos', () => {
     const archiveStore = useArchiveStore();

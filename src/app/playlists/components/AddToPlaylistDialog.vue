@@ -2,7 +2,7 @@
 import { supabase } from '../../../supabase';
 import { computed, ref } from 'vue';
 import { usePlaylistsStore } from '../stores/playlists.store';
-import type { Video } from '../../video/models/videos-with-chapters.model';
+import type { Video } from '../../video/models/video.model';
 import { sleep } from '../../shared/helpers/sleep';
 import VideoItem from '../../video/components/VideoItem.vue';
 import PlaylistItem from './PlaylistItem.vue';

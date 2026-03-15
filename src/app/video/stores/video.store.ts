@@ -1,16 +1,12 @@
-import { videosQuery } from './../models/videos-with-chapters.model';
 import { defineStore } from 'pinia';
-import { computed, onMounted, ref, watch, watchEffect, type ComputedRef } from 'vue';
+import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { supabase } from '../../../supabase';
-import type { Tables } from '../../shared/models/database.types';
 import type { VideoProgression } from '../models/video-progression.model';
-import { useCloned, useIdle, useMediaControls, useWindowSize } from '@vueuse/core';
+import { useIdle, useMediaControls, useWindowSize } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
-import { type ChaptersWithCategory } from '../models/chapters-with-category.model';
 import _ from 'lodash';
 import { messagesQueryStringSelect, type Messages } from '../models/messages.model';
-import { v4 } from 'uuid';
 import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
 import { useVideosStore } from './videos.store';
 import { useHistoryStore } from '../../history/stores/history.store';
