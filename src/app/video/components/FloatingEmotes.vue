@@ -26,7 +26,7 @@ const OPACITY_START = 1;
 
 /** Per-emote spawn delay (ms) */
 const DELAY_MIN = 0;
-const DELAY_MAX = 3000;
+const DELAY_MAX = 1200;
 
 /** Float animation duration (ms) */
 const DURATION_MIN = 3000;
