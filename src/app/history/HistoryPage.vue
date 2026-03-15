@@ -30,7 +30,7 @@ const dialog = ref(false);
 
         <Section title="History" class="pt-0">
             <div v-if="historyStore.history.length" class="flex flex-col gap-4">
-                <HistoryItem :history="history" v-for="history in historyStore.history" :key="history.id" />
+                <HistoryItem :video="video" v-for="video in historyStore.videos" :key="video.id" />
             </div>
 
             <Empty

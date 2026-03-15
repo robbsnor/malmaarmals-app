@@ -117,19 +117,19 @@ const handleClick = async (item: any) => {
                 class="flex gap-4 overflow-x-auto flex-nowrap max-lg:-mx-4 max-lg:px-4"
             >
                 <RouterLink
-                    v-for="history in historyStore.history.slice(0, 20)"
-                    :key="history.id"
-                    :to="{ name: 'video', params: { id: history.video.video_id } }"
+                    v-for="video in historyStore.videos.slice(0, 20)"
+                    :key="video.id"
+                    :to="{ name: 'video', params: { id: video.video_id } }"
                     class="w-[160px] shrink-0"
                 >
                     <VideoThumbnail
-                        :src="BucketHelper.getThumbnailUrl(history.video.video_id)"
+                        :src="BucketHelper.getThumbnailUrl(video.video_id)"
                         alt=""
                         class="w-full rounded-t-md!"
-                        :durationS="history.video.length_sec"
-                        :videoId="history.video.video_id"
+                        :durationS="video.length_sec"
+                        :videoId="video.video_id"
                     />
-                    <div class="my-2 line-clamp-2 font-bold">{{ history.video.title }}</div>
+                    <div class="my-2 line-clamp-2 font-bold">{{ video.title }}</div>
                 </RouterLink>
             </div>
 
