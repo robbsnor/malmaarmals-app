@@ -6,6 +6,7 @@ import type { Playlist } from '../../playlists/models/playlist.model';
 import { supabase } from '../../../supabase';
 import { sleep } from '../../shared/helpers/sleep';
 import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
+import { toast } from 'vue-sonner';
 
 const props = withDefaults(
     defineProps<{
@@ -30,6 +31,7 @@ async function removeFromPlaylist() {
         if (error) throw error;
 
         await playlistsStore.fetchPlaylists();
+        toast.success('Successfully removed video');
         await sleep(5500);
     } finally {
         removeDialog.value = false;

@@ -6,6 +6,7 @@ import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { supabase } from '../../../supabase';
 import { sleep } from '../../shared/helpers/sleep';
 import { useScroll } from '@vueuse/core';
+import { toast } from 'vue-sonner';
 
 type PlaylistOrderItem = {
     id?: string;
@@ -106,8 +107,10 @@ async function submit() {
         if (error) throw error;
         await sleep(500);
         await playlistsStore.fetchPlaylists();
+        toast.success(`Playlist "${form.value.title}" created`);
         emit('success', data.id);
     } catch (error) {
+        toast.error('Error creating playlist');
         emit('error', error as Error);
         throw error;
     } finally {
