@@ -68,8 +68,9 @@ watch(
         const windowMessages = videoStore.messages.filter((m) => m.offset_sec > windowStart && m.offset_sec <= time);
 
         for (const msg of windowMessages) {
-            if (seenMessageIds.has(msg.message_id)) continue;
-            seenMessageIds.add(msg.message_id);
+            const msgId = Number(msg.message_id);
+            if (seenMessageIds.has(msgId)) continue;
+            seenMessageIds.add(msgId);
 
             const words = msg.text.split(' ');
             for (const word of words) {
