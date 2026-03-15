@@ -163,9 +163,7 @@ export const useVideoStore = defineStore('video', () => {
     }
 
     const loadVideoProgression = () => {
-        console.log(info.value.id);
         const historyItem = historyStore.history.find((h) => h.video_id === info.value.id);
-        console.log(historyItem.video_time);
         if (!historyItem) return;
 
         currentTime.value = Number(historyItem.video_time);

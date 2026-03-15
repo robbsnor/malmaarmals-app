@@ -44,7 +44,7 @@ const updateCategories = useDebounceFn(async (query?: string) => {
     const { data, error } = await supabase.functions.invoke<SearchCategory[]>('search-categories', {
         body: { query: query },
     });
-    if (error) return console.log(error);
+    if (error) return console.error(error);
 
     categories.value = data.map((cat) => ({
         id: cat.id,
