@@ -22,6 +22,12 @@ const drawer = ref(false);
                 density="comfortable"
                 v-model="preferenceStore.preferences.showChapters"
             />
+            <v-switch
+                hide-details="auto"
+                label="Show floating emoji's"
+                density="comfortable"
+                v-model="preferenceStore.preferences.showEmojis"
+            />
 
             <!-- <div class="flex gap-4 ml-2">
                     <div class="mt-1.5 text-(--color-muted-more)">
