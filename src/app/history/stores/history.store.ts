@@ -7,12 +7,12 @@ import { useVideosStore } from '../../video/stores/videos.store';
 import type { HistoryVideo } from '../models/history-video.model';
 
 export const useHistoryStore = defineStore('history', () => {
-    const histories = ref<Tables<'history'>[]>([]);
+    const history = ref<Tables<'history'>[]>([]);
     const authStore = useAuthStore();
     const videosStore = useVideosStore();
 
     const videos = computed<HistoryVideo[]>(() => {
-        return histories.value.map((history) => {
+        return history.value.map((history) => {
             return {
                 ...videosStore.videos.find((v) => v.id === history.video_id),
                 history: history,
@@ -24,7 +24,7 @@ export const useHistoryStore = defineStore('history', () => {
         const { data, error } = await supabase.from('history').select().order('watched_at', { ascending: false });
         if (error) throw error;
 
-        histories.value = data;
+        history.value = data;
     }
 
     async function deleteAll() {
@@ -35,6 +35,9 @@ export const useHistoryStore = defineStore('history', () => {
     }
 
     async function recordWatch(videoId: string, videoTime: number) {
+        if (videoTime === 0) return;
+
+        console.log('Saving progression... ', videoId, videoTime);
         const { error } = await supabase.from('history').upsert(
             {
                 user_id: authStore.session.user.id,
@@ -50,7 +53,7 @@ export const useHistoryStore = defineStore('history', () => {
     }
 
     return {
-        history: histories,
+        history,
         videos,
 
         fetchHistory,
