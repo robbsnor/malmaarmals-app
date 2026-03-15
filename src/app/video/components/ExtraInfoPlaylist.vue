@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
-import VideoThumbnail from '../../shared/components/VideoThumbnail.vue';
+import Thumbnail from '../../shared/components/Thumbnail.vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { useVideoStore } from '../stores/video.store';
 import ExtraInfoItem from './ExtraInfoItem.vue';

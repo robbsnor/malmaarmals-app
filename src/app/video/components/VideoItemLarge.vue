@@ -6,6 +6,7 @@ import type { Video } from '../models/video.model';
 import type { Playlist } from '../../playlists/models/playlist.model';
 import VideoItemOptions from './VideoItemOptions.vue';
 import { useDisplay } from 'vuetify/lib/composables/display.mjs';
+import VideoThumbnail from './VideoThumbnail.vue';
 
 const props = withDefaults(
     defineProps<{
@@ -29,15 +30,7 @@ const categories = computed(() => {
 
 <template>
     <div v-if="lgAndUp">
-        <RouterLink :to="{ name: 'video', params: { id: props.video.video_id } }">
-            <VideoThumbnail
-                :to="{ name: 'video', params: { id: props.video.video_id } }"
-                :src="BucketHelper.getThumbnailUrl(props.video.video_id)"
-                :videoId="props.video.video_id"
-                :durationS="props.video.length_sec"
-            >
-            </VideoThumbnail>
-        </RouterLink>
+        <VideoThumbnail :video="props.video" />
 
         <div class="flex">
             <div class="grow">

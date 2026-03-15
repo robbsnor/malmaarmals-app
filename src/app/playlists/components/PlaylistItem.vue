@@ -35,7 +35,7 @@ const { lgAndUp } = useDisplay();
                 ]"
             ></div>
 
-            <VideoThumbnail
+            <Thumbnail
                 :src="BucketHelper.getThumbnailUrl(Number(playlist.videos?.[0]?.video_id))"
                 icon="mdi-playlist-play"
             />

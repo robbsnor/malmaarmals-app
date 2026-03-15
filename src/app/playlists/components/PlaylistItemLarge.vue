@@ -39,7 +39,7 @@ const categories = computed(() => {
                 ]"
             ></div>
 
-            <VideoThumbnail
+            <Thumbnail
                 :src="BucketHelper.getThumbnailUrl(Number(props.playlist.videos?.[0]?.video_id))"
                 icon="mdi-playlist-play"
             />

@@ -25,7 +25,7 @@ import Section from './app/shared/components/Section.vue';
 import SignInButton from './app/shared/components/SignInButton.vue';
 import Skeleton from './app/shared/components/Skeleton.vue';
 import SkeletonContainer from './app/shared/components/SkeletonContainer.vue';
-import VideoThumbnail from './app/shared/components/VideoThumbnail.vue';
+import Thumbnail from './app/shared/components/Thumbnail.vue';
 
 // directives
 import { visible } from './app/shared/directives/visible.directive';
@@ -62,7 +62,7 @@ app.component('Section', Section);
 app.component('SignInButton', SignInButton);
 app.component('Skeleton', Skeleton);
 app.component('SkeletonContainer', SkeletonContainer);
-app.component('VideoThumbnail', VideoThumbnail);
+app.component('Thumbnail', Thumbnail);
 
 // directives
 app.directive('visible', visible);
