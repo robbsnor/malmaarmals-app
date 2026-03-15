@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import type { VideoWithChapters } from '../models/videos-with-chapters.model';
+import type { Video } from '../models/videos-with-chapters.model';
 import AddToPlaylistDialog from '../../playlists/components/AddToPlaylistDialog.vue';
 import type { Playlist } from '../../playlists/models/playlist.model';
 import { supabase } from '../../../supabase';
@@ -10,7 +10,7 @@ import { toast } from 'vue-sonner';
 
 const props = withDefaults(
     defineProps<{
-        video: VideoWithChapters;
+        video: Video;
         playlist?: Playlist;
     }>(),
     {}

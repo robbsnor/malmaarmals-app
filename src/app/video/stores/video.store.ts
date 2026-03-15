@@ -1,4 +1,4 @@
-import { videosWithChaptersQuery } from './../models/videos-with-chapters.model';
+import { videosQuery } from './../models/videos-with-chapters.model';
 import { defineStore } from 'pinia';
 import { computed, onMounted, ref, watch, watchEffect, type ComputedRef } from 'vue';
 import { supabase } from '../../../supabase';
