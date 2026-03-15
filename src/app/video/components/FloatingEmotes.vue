@@ -7,7 +7,7 @@ import { usePreferenceStore } from '../../shared/stores/preference.store';
 // ─── Configuration ────────────────────────────────────────────────────────────
 
 /** Seconds of message history to scan each tick */
-const WINDOW_S = 10;
+const WINDOW_S = 8;
 
 /** Horizontal spawn range (% from left edge) */
 const LEFT_MIN = 5;
