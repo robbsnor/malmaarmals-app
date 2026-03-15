@@ -1,7 +1,7 @@
-import type { Playlist, Playlists } from '../models/playlist.model';
+import type { Playlist } from '../models/playlist.model';
 
 export class PlaylistHelper {
-    public static orderPlaylistsAndVideos(playlists: Playlists) {
+    public static orderPlaylistsAndVideos(playlists: Playlist[]) {
         return playlists.map((playlist) => ({
             ...playlist,
             videos: this.sortVideosByOrderType(playlist),

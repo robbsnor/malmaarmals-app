@@ -6,5 +6,5 @@ export const playlistsQuery = supabase
     .select(`*, videos:playlist_videos(...videos(*, chapters(*, category:categories(*))))`)
     .order('order', { ascending: true });
 
-export type Playlists = QueryData<typeof playlistsQuery>;
+type Playlists = QueryData<typeof playlistsQuery>;
 export type Playlist = Playlists[number];
