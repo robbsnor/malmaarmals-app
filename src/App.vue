@@ -39,20 +39,22 @@ onMounted(async () => {
         }
     }, 20_000);
 
-    await authStore.mirrorSession();
+    try {
+        await authStore.mirrorSession();
 
-    if (authStore.session) {
-        await authStore.updateIsSubscribed();
-    }
-
-    await Promise.all([videosStore.fetchVideos(), playlistsStore.fetchPlaylists(), historyStore.fetchHistory()]).catch(
-        async (err) => {
-            await sleep(800);
-            hasError.value = true;
+        if (authStore.session) {
+            await authStore.updateIsSubscribed();
         }
-    );
 
-    loading.value = false;
+        await Promise.all([videosStore.fetchVideos(), playlistsStore.fetchPlaylists()]);
+
+        await historyStore.fetchHistory();
+    } catch (error) {
+        error.value = true;
+        throw error;
+    } finally {
+        loading.value = false;
+    }
 });
 </script>
 

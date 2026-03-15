@@ -1,18 +1,30 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { supabase } from '../../../supabase';
 import { useAuthStore } from '../../auth/stores/auth.store';
-import { historyQuery, type Histories } from '../models/history.model';
+import type { Tables } from '../../shared/models/database.types';
+import { useVideosStore } from '../../video/stores/videos.store';
+import type { HistoryVideo } from '../models/history-video.model';
 
 export const useHistoryStore = defineStore('history', () => {
-    const history = ref<Histories>([]);
+    const histories = ref<Tables<'history'>[]>([]);
     const authStore = useAuthStore();
+    const videosStore = useVideosStore();
+
+    const videos = computed<HistoryVideo[]>(() => {
+        return histories.value.map((history) => {
+            return {
+                ...videosStore.videos.find((v) => v.id === history.video_id),
+                history: history,
+            };
+        });
+    });
 
     async function fetchHistory() {
-        const { data, error } = await historyQuery.limit(30);
+        const { data, error } = await supabase.from('history').select().order('watched_at', { ascending: false });
         if (error) throw error;
 
-        history.value = data;
+        histories.value = data;
     }
 
     async function deleteAll() {
@@ -38,7 +50,8 @@ export const useHistoryStore = defineStore('history', () => {
     }
 
     return {
-        history,
+        history: histories,
+        videos,
 
         fetchHistory,
         deleteAll,
