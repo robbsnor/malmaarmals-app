@@ -19,7 +19,7 @@ const { lgAndUp } = useDisplay();
 <template>
     <RouterLink
         v-if="!props.responsive || !lgAndUp"
-        :to="`/playlists/${props.playlist.id}`"
+        :to="{ name: 'playlist', params: { id: props.playlist.id } }"
         class="relative transition-all duration-200 rounded-md flex gap-4 pt-4"
     >
         <div class="relative transition-all duration-200 group w-36 shrink-0">

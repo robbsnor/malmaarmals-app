@@ -9,6 +9,8 @@ import PlaylistItem from './PlaylistItem.vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import type { Playlist } from '../models/playlist.model';
 import AddPlaylistForm from './AddPlaylistForm.vue';
+import { toast } from 'vue-sonner';
+import { useRouter } from 'vue-router';
 
 const props = defineProps<{ video: VideoWithChapters }>();
 
@@ -18,6 +20,7 @@ const formRef = ref<InstanceType<typeof AddPlaylistForm>>();
 
 const dialog = defineModel<boolean>();
 const tab = ref<'add' | 'create'>('add');
+const router = useRouter();
 const form = ref<{
     playlist: Playlist;
 }>();
@@ -58,6 +61,12 @@ async function submit() {
 
         await sleep(500);
         await playlistsStore.fetchPlaylists();
+        toast.success('Added video to playlist', {
+            action: {
+                label: 'View',
+                onClick: () => router.push({ name: 'playlist', params: { id: form.value.playlist.id } }),
+            },
+        });
         dialog.value = false;
     } catch (error) {
         throw error;
