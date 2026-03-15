@@ -9,7 +9,7 @@ const props = defineProps<{ to: any }>();
     >
         <slot></slot>
         <div
-            class="absolute bottom-0 rounded-xl h-1 w-0 bg-primary/80 opacity-0 group-hover:opacity-50 group-hover:w-full transition-all duration-100"
+            class="absolute bottom-0 rounded-xl h-1 w-0 bg-primary opacity-0 group-hover:opacity-50 group-hover:w-full transition-all duration-100"
         ></div>
         <div
             class="absolute bottom-0 h-[150%] translate-y-full opacity-0 aspect-square rounded-full bg-primary blur-xl -z-1 pointer-events-none transition-all duration-300 group-hover:translate-y-1/2 group-hover:opacity-60"

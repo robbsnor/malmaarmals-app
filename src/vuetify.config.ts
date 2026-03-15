@@ -31,6 +31,12 @@ export const vuetify = createVuetify({
             variant: 'solo',
             density: 'comfortable',
         },
+        VTextarea: {
+            clearable: true,
+            hideDetails: 'auto',
+            variant: 'solo',
+            density: 'comfortable',
+        },
         VNumberInput: {
             variant: 'solo',
             density: 'comfortable',
