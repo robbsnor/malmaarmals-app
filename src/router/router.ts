@@ -72,6 +72,11 @@ const router = createRouter({
             name: 'sign-out',
             component: () => import('../app/auth/SignOutPage.vue'),
         },
+        {
+            path: '/playground',
+            name: 'playground',
+            component: () => import('../app/layout/PlaygroundPage.vue'),
+        },
 
         //     path: '/:pathMatch(.*)*',
         //     name: 'NotFound',

@@ -42,7 +42,7 @@ watch(
         </template>
 
         <div
-            class="bg-black-200 rounded-md flex flex-col"
+            class="rounded-md flex flex-col bg-black/80 backdrop-blur-[100px]"
             :class="{
                 'border border-black-500': props.showBody || slots.footer,
             }"
