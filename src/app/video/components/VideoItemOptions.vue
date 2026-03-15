@@ -22,7 +22,6 @@ const removeDialog = ref(false);
 
 async function removeFromPlaylist() {
     try {
-        console.log('owwow');
         const { error } = await supabase
             .from('playlist_videos')
             .delete()
