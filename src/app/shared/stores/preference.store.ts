@@ -7,8 +7,8 @@ export const usePreferenceStore = defineStore('preferences', () => {
         showChapters: true,
         showChaptersPeterVsTimon: false,
         showFacecam: false,
+        showEmojis: true,
     });
-    const peterVsTimonDisabled = computed(() => !preferences.value.showChapters);
 
     watch(
         () => preferences.value.showChapters,
@@ -20,6 +20,5 @@ export const usePreferenceStore = defineStore('preferences', () => {
 
     return {
         preferences,
-        peterVsTimonDisabled,
     };
 });

@@ -4,6 +4,7 @@ import { useVideoStore } from '../stores/video.store';
 import MiniplayerControls from './MiniplayerControls.vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import PlayerControls from './PlayerControls.vue';
+import FloatingEmotes from './FloatingEmotes.vue';
 
 const videoStore = useVideoStore();
 const videoRef = useTemplateRef<HTMLVideoElement>('videoRef');
@@ -42,6 +43,9 @@ onMounted(async () => {
         </Transition>
 
         <div class="absolute inset-0" @click="videoStore.showControllsAndInfo = !videoStore.showControllsAndInfo"></div>
+
+        <!-- floating emotes -->
+        <FloatingEmotes />
 
         <!-- controls -->
         <PlayerControls />
