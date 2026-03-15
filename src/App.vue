@@ -4,6 +4,7 @@ import VideoContainer from './app/video/components/VideoContainer.vue';
 import { useVideosStore } from './app/video/stores/videos.store';
 import { usePlaylistsStore } from './app/playlists/stores/playlists.store';
 import { computed, onMounted, ref } from 'vue';
+import { Toaster } from 'vue-sonner';
 import { useAuthStore } from './app/auth/stores/auth.store';
 import { sleep } from './app/shared/helpers/sleep';
 import { useHistoryStore } from './app/history/stores/history.store';
@@ -75,4 +76,5 @@ onMounted(async () => {
 
     <Offline :loading="loading" :hasError="hasError" />
     <Analytics />
+    <Toaster position="top-center" closeButtonPosition="top-right" :expand="false" theme="dark" />
 </template>

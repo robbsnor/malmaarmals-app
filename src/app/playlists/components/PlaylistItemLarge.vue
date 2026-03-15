@@ -23,7 +23,7 @@ const categories = computed(() => {
 <template>
     <RouterLink
         v-if="lgAndUp"
-        :to="`/playlists/${props.playlist.id}`"
+        :to="{ name: 'playlist', params: { id: props.playlist.id } }"
         class="relative transition-all duration-200 mt-6"
     >
         <div class="relative transition-all duration-200 group">

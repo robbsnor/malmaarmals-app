@@ -3,7 +3,10 @@ import App from './App.vue';
 import router from './router/router';
 import { createPinia } from 'pinia';
 import { VueDraggable } from 'vue-draggable-plus';
+import { Toaster } from 'vue-sonner';
+import 'vue-sonner/style.css';
 
+// components
 import Auth from './app/shared/components/Auth.vue';
 import Card from './app/shared/components/Card.vue';
 import ConfirmDialog from './app/shared/components/ConfirmDialog.vue';
@@ -24,10 +27,12 @@ import Skeleton from './app/shared/components/Skeleton.vue';
 import SkeletonContainer from './app/shared/components/SkeletonContainer.vue';
 import VideoThumbnail from './app/shared/components/VideoThumbnail.vue';
 
+// directives
 import { visible } from './app/shared/directives/visible.directive';
 import { auth } from './app/shared/directives/auth.directive';
 import { z } from './app/shared/directives/z.directive';
 
+// vuetify
 import { vuetify } from './vuetify.config';
 import './style.css';
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue';

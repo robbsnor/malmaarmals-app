@@ -7,6 +7,7 @@ import { supabase } from '../../../supabase';
 import { sleep } from '../../shared/helpers/sleep';
 import { useCloned, useScroll } from '@vueuse/core';
 import type { Playlist } from '../models/playlist.model';
+import { toast } from 'vue-sonner';
 
 const props = defineProps<{
     playlist: Playlist;
@@ -55,7 +56,10 @@ async function submit() {
         await sleep(500);
         await playlistsStore.fetchPlaylists();
         dialog.value = false;
+
+        toast.success('Saved successfully');
     } catch (error) {
+        toast.error('Error updating playlist');
         throw error;
     } finally {
         loading.value = false;
