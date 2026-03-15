@@ -10,7 +10,7 @@ const playlistsStore = usePlaylistsStore();
     <Section title="Playlists" moreLink="/archive?type=playlists" moreText="All Playlists">
         <template v-if="playlistsStore.playlists.length">
             <div class="grid grid-cols-1 gap-4 lg:gap-8 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" v-auto-animate>
-                <template v-for="playlist in playlistsStore.playlists.slice(0, 10)" :key="playlist.id">
+                <template v-for="playlist in playlistsStore.playlists.slice(0, 8)" :key="playlist.id">
                     <PlaylistItem class="lg:hidden" :playlist="playlist" />
 
                     <PlaylistItemLarge class="max-lg:hidden" :playlist="playlist" />
