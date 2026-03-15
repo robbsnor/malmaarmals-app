@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeMount, onMounted, ref, useTemplateRef } from 'vue';
+import { computed, nextTick, onBeforeMount, ref, useTemplateRef } from 'vue';
 import { usePlaylistsStore } from '../stores/playlists.store';
-import type { Enums, Tables, TablesInsert } from '../../shared/models/database.types';
+import type { Enums, TablesInsert } from '../../shared/models/database.types';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { supabase } from '../../../supabase';
 import { sleep } from '../../shared/helpers/sleep';
@@ -28,7 +28,7 @@ const form = ref<TablesInsert<'playlists'>>();
 const valid = ref(false);
 const loading = ref(false);
 const playlistOrderRef = useTemplateRef<HTMLElement>('playlistOrderRef');
-const { y, arrivedState } = useScroll(playlistOrderRef);
+const { y } = useScroll(playlistOrderRef);
 
 function scrollToBottom() {
     console.log(playlistOrderRef.value);
@@ -66,7 +66,7 @@ async function resetForm() {
     form.value = {
         title: '',
         description: '',
-        order_type: null,
+        order_type: 'date_ascending',
         order: 0,
     };
 
