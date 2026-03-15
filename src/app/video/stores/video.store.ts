@@ -163,29 +163,17 @@ export const useVideoStore = defineStore('video', () => {
         return sec - TIME_PRIOR_OFFSET_S >= 0 ? sec - TIME_PRIOR_OFFSET_S : 0;
     }
 
-    const saveVideoProgression = () => {
-        if (!currentTimeRounded.value) return;
-
-        const obj: VideoProgression = {
-            current_time_s: currentTimeRounded.value,
-            total_time_s: info.value.length_sec,
-            percentage: Math.round((100 / info.value.length_sec) * currentTimeRounded.value),
-        };
-        localStorage.setItem(id.value.toString(), JSON.stringify(obj));
-    };
-
     const loadVideoProgression = () => {
-        const timeObj: VideoProgression = JSON.parse(localStorage.getItem(id.value.toString()));
-        if (!timeObj) return;
-        currentTime.value = Number(timeObj.current_time_s);
+        console.log(info.value.id);
+        const historyItem = historyStore.history.find((h) => h.video_id === info.value.id);
+        console.log(historyItem.video_time);
+        if (!historyItem) return;
+
+        currentTime.value = Number(historyItem.video_time);
     };
 
     onPlaybackError(async (e) => {
         playing.value = false;
-    });
-
-    watch(currentTimeRounded, () => {
-        saveVideoProgression();
     });
 
     // check if video exists

@@ -20,6 +20,8 @@ const props = withDefaults(
             aria-hidden="true"
         />
 
+        <slot></slot>
+
         <div
             class="absolute z-9 top-0 right-0 bottom-0 left-0 bg-black/0 opacity-0 group-hover:bg-black/50 group-hover:opacity-100 transition-all duration-200 flex justify-center items-center"
         >
