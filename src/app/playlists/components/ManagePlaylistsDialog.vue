@@ -7,6 +7,7 @@ import { supabase } from '../../../supabase';
 import { sleep } from '../../shared/helpers/sleep';
 import _ from 'lodash';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
+import { toast } from 'vue-sonner';
 
 const playlistsStore = usePlaylistsStore();
 
@@ -44,7 +45,9 @@ async function save() {
         await reorderPlaylists();
         await sleep(500);
         await playlistsStore.fetchPlaylists();
+        toast.success('Playlists updated');
     } catch (error) {
+        toast.error('Error updating playlists');
         throw error;
     } finally {
         loading.value = false;
