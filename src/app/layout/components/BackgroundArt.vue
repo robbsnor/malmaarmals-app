@@ -6,12 +6,15 @@ const { y } = useWindowScroll();
 
 const paralaxStyle = computed(() => ({
     transform: `translateY(${-y.value * 0.2}px)`,
-    filter: `blur(${Math.min(20, Math.max(5, y.value * 0.05))}px)`,
+    filter: `blur(${Math.min(20, Math.max(0, y.value * 0.05))}px)`,
 }));
 </script>
 
 <template>
-    <div :style="paralaxStyle" class="fixed h-4/6 w-full bg-black pointer-events-none -z-100 overflow-hidden">
+    <div
+        :style="paralaxStyle"
+        class="fixed h-4/6 w-full bg-black pointer-events-none -z-100 overflow-hidden opacity-50"
+    >
         <Container class="relative h-full">
             <div class="flex gap-4 absolute right-0 translate-x-1/6 h-full">
                 <div
