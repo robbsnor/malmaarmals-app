@@ -5,6 +5,7 @@ import type { Video } from '../models/video.model';
 import { formatTimeAgo } from '@vueuse/core';
 import VideoItemOptions from './VideoItemOptions.vue';
 import type { Playlist } from '../../playlists/models/playlist.model';
+import VideoThumbnail from './VideoThumbnail.vue';
 import { useDisplay } from 'vuetify';
 
 const props = withDefaults(
@@ -35,12 +36,7 @@ const categories = computed(() => {
         :to="{ name: 'video', params: { id: props.video.video_id } }"
         class="flex gap-4"
     >
-        <VideoThumbnail
-            class="w-36 shrink-0"
-            :src="BucketHelper.getThumbnailUrl(props.video.video_id)"
-            :videoId="props.video.video_id"
-            :durationS="props.video.length_sec"
-        />
+        <VideoThumbnail :video="props.video" class="w-36 shrink-0" />
 
         <div class="flex-1">
             <h2 class="font-bold text-md line-clamp-2 leading-snug">

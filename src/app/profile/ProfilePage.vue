@@ -3,8 +3,7 @@ import { computed } from 'vue';
 import { useAuthStore } from '../auth/stores/auth.store';
 import { RouterLink } from 'vue-router';
 import { useHistoryStore } from '../history/stores/history.store';
-import { BucketHelper } from '../shared/helpers/bucket.helper';
-import VideoThumbnail from '../shared/components/VideoThumbnail.vue';
+import VideoThumbnail from '../video/components/VideoThumbnail.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
 
 const authStore = useAuthStore();
@@ -122,13 +121,7 @@ const handleClick = async (item: any) => {
                     :to="{ name: 'video', params: { id: video.video_id } }"
                     class="w-[160px] shrink-0"
                 >
-                    <VideoThumbnail
-                        :src="BucketHelper.getThumbnailUrl(video.video_id)"
-                        alt=""
-                        class="w-full rounded-t-md!"
-                        :durationS="video.length_sec"
-                        :videoId="video.video_id"
-                    />
+                    <VideoThumbnail :video="video" class="w-full" />
                     <div class="my-2 line-clamp-2 font-bold">{{ video.title }}</div>
                 </RouterLink>
             </div>

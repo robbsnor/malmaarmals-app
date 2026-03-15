@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { BucketHelper } from '../../shared/helpers/bucket.helper';
+import VideoThumbnail from '../../video/components/VideoThumbnail.vue';
 import type { HistoryVideo } from '../models/history-video.model';
 
 const props = withDefaults(
@@ -19,12 +19,7 @@ const categories = computed(() => {
 
 <template>
     <RouterLink :to="{ name: 'video', params: { id: props.video.video_id } }" class="flex gap-4">
-        <VideoThumbnail
-            class="w-36 shrink-0"
-            :src="BucketHelper.getThumbnailUrl(video.video_id)"
-            :videoId="video.video_id"
-            :durationS="video.length_sec"
-        />
+        <VideoThumbnail :video="video" class="w-36 shrink-0" />
 
         <div>
             <h2 class="font-bold text-md line-clamp-2 leading-snug">
