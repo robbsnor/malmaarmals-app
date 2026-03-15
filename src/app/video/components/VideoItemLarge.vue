@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { formatTimeAgo } from '@vueuse/core';
-import type { Video } from '../models/videos-with-chapters.model';
+import type { Video } from '../models/video.model';
 import type { Playlist } from '../../playlists/models/playlist.model';
 import VideoItemOptions from './VideoItemOptions.vue';
 import { useDisplay } from 'vuetify/lib/composables/display.mjs';
