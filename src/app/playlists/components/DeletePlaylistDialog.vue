@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import type { Playlist } from '../models/playlist.model';
 import { usePlaylistsStore } from '../stores/playlists.store';
+import { toast } from 'vue-sonner';
 
 const props = defineProps<{
     playlist: Playlist;
@@ -14,11 +15,10 @@ const playlistStore = usePlaylistsStore();
 const deletePlaylist = async () => {
     const error = await playlistStore.deletePlaylist(props.playlist.id);
 
-    console.log(error);
-
     if (!error) {
         dialog.value = false;
         router.push({ name: 'archive', query: { type: 'playlists' } });
+        toast.success('Playlist deleted');
     }
 };
 </script>

@@ -7,6 +7,7 @@ import { sleep } from '../../shared/helpers/sleep';
 import { useVideoStore } from './video.store';
 import { useVideosStore } from './videos.store';
 import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
+import { toast } from 'vue-sonner';
 
 export const TIME_PRIOR_OFFSET_S = 2;
 
@@ -85,6 +86,7 @@ export const useManageChaptersStore = defineStore('manage-chapters', () => {
         await saveChapters();
         await videosStore.fetchVideos();
         await playlistsStore.fetchPlaylists();
+        toast.success('Saved chapters');
 
         loading.value = false;
         showDrawer.value = false;
