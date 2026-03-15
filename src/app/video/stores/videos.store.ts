@@ -1,14 +1,14 @@
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 import { useArchiveStore } from '../../archive/stores/archive.store';
-import { videosWithChaptersQuery, type VideoWithChapters } from '../models/videos-with-chapters.model';
+import { videosQuery, type Video } from '../models/videos-with-chapters.model';
 
 export const useVideosStore = defineStore('videos', () => {
     const archiveStore = useArchiveStore();
-    const videos = ref<VideoWithChapters[]>([]);
+    const videos = ref<Video[]>([]);
 
     const fetchVideos = async () => {
-        const { data, error } = await videosWithChaptersQuery;
+        const { data, error } = await videosQuery;
         if (error) throw error;
 
         const ordered = data.map((video) => ({

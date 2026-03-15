@@ -2,7 +2,7 @@
 import { supabase } from '../../../supabase';
 import { computed, ref } from 'vue';
 import { usePlaylistsStore } from '../stores/playlists.store';
-import type { VideoWithChapters } from '../../video/models/videos-with-chapters.model';
+import type { Video } from '../../video/models/videos-with-chapters.model';
 import { sleep } from '../../shared/helpers/sleep';
 import VideoItem from '../../video/components/VideoItem.vue';
 import PlaylistItem from './PlaylistItem.vue';
@@ -12,7 +12,7 @@ import AddPlaylistForm from './AddPlaylistForm.vue';
 import { toast } from 'vue-sonner';
 import { useRouter } from 'vue-router';
 
-const props = defineProps<{ video: VideoWithChapters }>();
+const props = defineProps<{ video: Video }>();
 
 const playlistsStore = usePlaylistsStore();
 

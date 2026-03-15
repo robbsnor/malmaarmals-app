@@ -2,14 +2,14 @@
 import { computed } from 'vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { formatTimeAgo } from '@vueuse/core';
-import type { VideoWithChapters } from '../models/videos-with-chapters.model';
+import type { Video } from '../models/videos-with-chapters.model';
 import type { Playlist } from '../../playlists/models/playlist.model';
 import VideoItemOptions from './VideoItemOptions.vue';
 import { useDisplay } from 'vuetify/lib/composables/display.mjs';
 
 const props = withDefaults(
     defineProps<{
-        video: VideoWithChapters;
+        video: Video;
         playlist?: Playlist;
         showOptions?: boolean;
     }>(),
