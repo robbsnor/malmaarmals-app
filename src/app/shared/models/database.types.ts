@@ -91,23 +91,23 @@ export type Database = {
             history: {
                 Row: {
                     id: string;
-                    time_s: number;
                     user_id: string;
-                    video_id: number;
+                    video_id: string;
+                    video_time: number;
                     watched_at: string;
                 };
                 Insert: {
                     id?: string;
-                    time_s?: number;
-                    user_id?: string;
-                    video_id: number;
+                    user_id: string;
+                    video_id: string;
+                    video_time?: number;
                     watched_at?: string;
                 };
                 Update: {
                     id?: string;
-                    time_s?: number;
                     user_id?: string;
-                    video_id?: number;
+                    video_id?: string;
+                    video_time?: number;
                     watched_at?: string;
                 };
                 Relationships: [
@@ -116,7 +116,7 @@ export type Database = {
                         columns: ['video_id'];
                         isOneToOne: false;
                         referencedRelation: 'videos';
-                        referencedColumns: ['video_id'];
+                        referencedColumns: ['id'];
                     },
                 ];
             };

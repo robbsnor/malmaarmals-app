@@ -15,7 +15,7 @@ const dialog = ref(false);
         <div class="flex py-2 items-center gap-4 justify-between">
             <v-btn variant="text" icon="mdi-chevron-left" :to="{ name: 'profile' }"></v-btn>
 
-            <v-menu v-if="historyStore.videos.length">
+            <v-menu v-if="historyStore.history.length">
                 <template v-slot:activator="{ props }">
                     <v-btn icon="mdi-dots-vertical" variant="text" v-bind="props"></v-btn>
                 </template>
@@ -29,8 +29,8 @@ const dialog = ref(false);
         </div>
 
         <Section title="History" class="pt-0">
-            <div v-if="historyStore.videos.length" class="flex flex-col gap-4">
-                <HistoryItem :video="video" v-for="video in historyStore.videos" :key="video.video_id" />
+            <div v-if="historyStore.history.length" class="flex flex-col gap-4">
+                <HistoryItem :history="history" v-for="history in historyStore.history" :key="history.id" />
             </div>
 
             <Empty
