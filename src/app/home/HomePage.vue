@@ -24,7 +24,7 @@ const videosStore = useVideosStore();
 
         <RecentStreams />
         <Playlists />
-        <!-- <History /> -->
+        <History />
 
         <Auth>
             <Section title="Chapters overview">
