@@ -11,6 +11,10 @@ const date = computed(() => {
         day: 'numeric',
     });
 });
+
+const lekkerSpeurenUrl = computed(() => {
+    return `https://www.lekkerspeuren.nl/?filter=type%3Dvideo%26search%3D${encodeURIComponent(videoStore.info.title)}`;
+});
 </script>
 
 <template>
@@ -19,7 +23,21 @@ const date = computed(() => {
     >
         <template v-if="videoStore.info">
             <div>
-                <div class="text-lg font-bold">{{ videoStore.info.title }}</div>
+                <div class="text-lg font-bold">
+                    {{ videoStore.info.title }}
+                    <div v-auth class="inline-block">
+                        <v-btn
+                            icon="mdi-open-in-new"
+                            variant="text"
+                            size="small"
+                            :href="lekkerSpeurenUrl"
+                            target="_blank"
+                            color="grey"
+                            rel="noopener noreferrer"
+                        />
+                    </div>
+                </div>
+
                 <div class="text-muted">{{ date }}</div>
             </div>
             <!-- <div class="md:hidden! transition-all" :class="{ 'rotate-180': videoStore.showExtraInfoMobile }">
