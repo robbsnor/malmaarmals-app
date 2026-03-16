@@ -53,8 +53,8 @@ const faqs = ref([
                         v-for="video in videosStore.videos"
                         :key="video.id"
                         :to="{ name: 'video', params: { id: video.video_id } }"
-                        class="aspect-square rounded"
-                        :class="[video.chapters.length ? 'bg-green-500' : ' bg-black-400']"
+                        class="aspect-square rounded transition-all"
+                        :class="[video.chapters.length ? 'bg-green-500 hover:bg-green-300' : ' bg-black-400']"
                     ></RouterLink>
 
                     <!-- <v-menu
