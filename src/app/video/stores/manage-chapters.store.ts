@@ -89,10 +89,10 @@ export const useManageChaptersStore = defineStore('manage-chapters', () => {
         toast.success('Saved chapters');
 
         loading.value = false;
-        showDrawer.value = false;
+        // showDrawer.value = false;
 
-        await sleep(500);
-        editMode.value = false;
+        // await sleep(500);
+        // editMode.value = false;
     };
 
     // sort chapters by start_s
