@@ -1,9 +1,19 @@
 <script setup lang="ts">
+import { useDisplay } from 'vuetify/lib/composables/display.mjs';
 import VideoItem from '../../video/components/VideoItem.vue';
 import VideoItemLarge from '../../video/components/VideoItemLarge.vue';
 import { useVideosStore } from '../../video/stores/videos.store';
+import { computed } from 'vue';
 
 const videosStore = useVideosStore();
+const { lgAndUp, xlAndUp } = useDisplay();
+
+const amount = computed(() => {
+    if (xlAndUp.value) return 10;
+    if (lgAndUp.value) return 6;
+
+    return 5;
+});
 </script>
 
 <template>
@@ -13,9 +23,9 @@ const videosStore = useVideosStore();
         </template>
 
         <template v-if="videosStore.videos.length">
-            <div class="grid grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-                <template v-for="(video, index) in videosStore.videos.slice(0, 10)" :key="video.video_id">
-                    <VideoItem :class="[index >= 6 ? 'hidden' : '']" c :video="video" />
+            <div class="grid grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-5">
+                <template v-for="video in videosStore.videos.slice(0, amount)" :key="video.video_id">
+                    <VideoItem :video="video" />
                     <VideoItemLarge :video="video" />
                 </template>
             </div>
