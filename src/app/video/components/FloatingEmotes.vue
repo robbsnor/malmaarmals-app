@@ -22,7 +22,7 @@ const TARGET_MIN = 20;
 const TARGET_MAX = 50;
 
 /** Start opacity (0–1) */
-const OPACITY_START = 0.6;
+const OPACITY_START = 1;
 
 /** Per-emote spawn delay (ms) */
 const DELAY_MIN = 0;
