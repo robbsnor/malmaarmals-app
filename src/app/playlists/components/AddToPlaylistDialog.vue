@@ -108,14 +108,14 @@ function onPlaylistCreateSuccess(playlistId: string) {
                             <VideoItem :video="props.video" :responsive="false" :show-options="false" class="w-full" />
                         </div>
 
-                        <div v-if="form.playlist" class="flex justify-center text-muted">
+                        <!-- <div v-if="form.playlist" class="flex justify-center text-muted">
                             <v-icon>mdi-arrow-down</v-icon>
                         </div>
 
                         <div v-if="form.playlist">
                             <div class="leading-tight pb-1">playlist</div>
                             <PlaylistItem :playlist="form.playlist" :responsive="false" class="w-full" />
-                        </div>
+                        </div> -->
                     </div>
 
                     <v-form v-model="valid" class="flex flex-col gap-4">
