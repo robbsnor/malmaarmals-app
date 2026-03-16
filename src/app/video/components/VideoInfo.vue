@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useClipboard } from '@vueuse/core';
 import { useVideoStore } from '../stores/video.store';
 
 const videoStore = useVideoStore();
+const { copy, copied, isSupported } = useClipboard();
 
 const date = computed(() => {
     return new Date(videoStore.info.recorded_at).toLocaleDateString('en-US', {
@@ -12,9 +14,10 @@ const date = computed(() => {
     });
 });
 
-const lekkerSpeurenUrl = computed(() => {
-    return `https://www.lekkerspeuren.nl/?filter=type%3Dvideo%26search%3D${encodeURIComponent(videoStore.info.title)}`;
-});
+function copyTitle() {
+    if (!isSupported.value || !videoStore.info?.title) return;
+    copy(videoStore.info.title);
+}
 </script>
 
 <template>
@@ -27,13 +30,13 @@ const lekkerSpeurenUrl = computed(() => {
                     {{ videoStore.info.title }}
                     <div v-auth class="inline-block">
                         <v-btn
-                            icon="mdi-open-in-new"
+                            :icon="copied ? 'mdi-check' : 'mdi-content-copy'"
                             variant="text"
                             size="small"
-                            :href="lekkerSpeurenUrl"
-                            target="_blank"
+                            :title="copied ? 'Copied' : 'Copy title'"
+                            :disabled="!isSupported"
+                            @click="copyTitle"
                             color="grey"
-                            rel="noopener noreferrer"
                         />
                     </div>
                 </div>
