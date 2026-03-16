@@ -4,19 +4,22 @@ import { TitleHelper } from '../shared/helpers/title.helper';
 import { useArchiveStore } from './stores/archive.store';
 import VideosTab from './components/VideosTab.vue';
 import PlaylistsTab from './components/PlaylistsTab.vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import AddPlaylistDialog from '../playlists/components/AddPlaylistDialog.vue';
 import ManagePlaylistsDialog from '../playlists/components/ManagePlaylistsDialog.vue';
 import { onStartTyping, useElementSize } from '@vueuse/core';
 import Search from '../layout/components/Search.vue';
+import { useVideosStore } from '../video/stores/videos.store';
 
 TitleHelper.setTitle('archive');
 
 const archiveStore = useArchiveStore();
+const videosStore = useVideosStore();
 const searchRef = useTemplateRef<HTMLInputElement>('searchRef');
 const headerRef = useTemplateRef<HTMLEmbedElement>('headerRef');
 const { height } = useElementSize(headerRef);
 const route = useRoute();
+const router = useRouter();
 
 onMounted(() => {
     archiveStore.setSearchEl(searchRef.value);
@@ -30,6 +33,12 @@ onMounted(() => {
 onStartTyping(() => {
     searchRef.value.focus();
 });
+
+async function randomStream() {
+    const randomIndex = Math.floor(Math.random() * videosStore.videos.length);
+    const randomVideo = videosStore.videos[randomIndex];
+    archiveStore.query = randomVideo.title;
+}
 
 function capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -49,11 +58,19 @@ function capitalizeFirstLetter(string: string): string {
                         <AddPlaylistDialog />
                     </div>
 
-                    <div
-                        v-auth
-                        v-visible="archiveStore.activeFilterType === 'playlists'"
-                        class="w-[1px] rounded-full bg-black-600 hidden lg:block"
-                    ></div>
+                    <div v-visible="archiveStore.activeFilterType === 'streams'" class="flex gap-2">
+                        <v-btn
+                            @click="randomStream"
+                            icon="mdi-dice-6-outline"
+                            class="rounded!"
+                            size="small"
+                            color="primary"
+                            variant="tonal"
+                        >
+                        </v-btn>
+                    </div>
+
+                    <div class="w-[1px] rounded-full bg-black-600 hidden lg:block"></div>
 
                     <div class="hidden lg:block">
                         <v-btn-toggle
