@@ -106,7 +106,7 @@ const hoursPlayed = computed(() => {
 
             <!-- shimmer border -->
             <div
-                class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10 group-hover:ring-primary/50 transition-all"
+                class="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-inset ring-white/5 group-hover:ring-primary/30 transition-all"
             />
         </div>
 
