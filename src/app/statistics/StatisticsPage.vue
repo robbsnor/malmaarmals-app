@@ -55,6 +55,7 @@ function selectCategory(title: string) {
             </template>
 
             <div
+                v-auto-animate
                 class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-3 lg:gap-4"
             >
                 <GameCard v-for="cat in displayed" :key="cat.id" v-bind="cat" @click="selectCategory(cat.title)" />
