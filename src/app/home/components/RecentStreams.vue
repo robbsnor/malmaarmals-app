@@ -17,7 +17,7 @@ const amount = computed(() => {
 </script>
 
 <template>
-    <Section title="Recent streams" moreLink="/streams" moreText="All Streams">
+    <Section title="Recent streams" :more-link="{ name: 'streams' }" moreText="All Streams">
         <template #actions>
             <div class="text-muted-more font-bold">{{ videosStore.videos.length }} streams</div>
         </template>

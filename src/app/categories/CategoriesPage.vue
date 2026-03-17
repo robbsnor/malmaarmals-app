@@ -31,7 +31,7 @@ const remaining = computed(() => Math.min(STEP, filtered.value.length - count.va
 
 function selectCategory(title: string) {
     archiveStore.query = title;
-    router.push('/streams');
+    router.push({ name: 'streams' });
 }
 
 function loadMore() {
@@ -60,47 +60,40 @@ function openCategory(title: string) {
 </script>
 
 <template>
-    <div class="pt-4 px-4">
+    <Section
+        title="Categories"
+        :more-text="!showAll && hasMore ? `Show ${remaining} more` : undefined"
+        more-icon="mdi-chevron-down"
+        v-on="!showAll && hasMore ? { moreClick: loadMore } : {}"
+    >
+        <template #actions>
+            <div class="flex justify-center gap-2 items-center max-lg:hidden">
+                <v-icon
+                    v-if="hasMore"
+                    color="grey"
+                    class="text-muted-more!"
+                    :icon="showAll ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+                    @click="showAll = !showAll"
+                >
+                </v-icon>
+
+                <div class="text-muted-more font-bold whitespace-nowrap">
+                    {{ videosStore.populairCategories.length }} categories
+                </div>
+            </div>
+        </template>
+
         <FilterIndicator archiveType="GAMES" :total-results="filteredCategories.length" />
 
-        <Section
-            title="Categories"
-            :more-text="!showAll && hasMore ? `Show ${remaining} more` : undefined"
-            more-icon="mdi-chevron-down"
-            v-on="!showAll && hasMore ? { moreClick: loadMore } : {}"
-        >
-            <template #actions>
-                <div class="flex justify-center gap-2 items-center py-4 max-lg:hidden">
-                    <v-icon
-                        v-if="hasMore"
-                        color="grey"
-                        class="text-muted-more!"
-                        :icon="showAll ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-                        @click="showAll = !showAll"
-                    >
-                    </v-icon>
+        <template v-if="filtered.length">
+            <div
+                v-auto-animate
+                class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-3 lg:gap-4"
+            >
+                <CategoryCard v-for="cat in displayed" :key="cat.id" v-bind="cat" @click="selectCategory(cat.title)" />
+            </div>
+        </template>
 
-                    <div class="text-muted-more font-bold whitespace-nowrap">
-                        {{ videosStore.populairCategories.length }} categories
-                    </div>
-                </div>
-            </template>
-
-            <template v-if="filtered.length">
-                <div
-                    v-auto-animate
-                    class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-3 lg:gap-4"
-                >
-                    <CategoryCard
-                        v-for="cat in displayed"
-                        :key="cat.id"
-                        v-bind="cat"
-                        @click="selectCategory(cat.title)"
-                    />
-                </div>
-            </template>
-
-            <Empty v-else title="No categories found" description="Try something else." icon="mdi-magnify" />
-        </Section>
-    </div>
+        <Empty v-else title="No categories found" description="Try something else." icon="mdi-magnify" />
+    </Section>
 </template>

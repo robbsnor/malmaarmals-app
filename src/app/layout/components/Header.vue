@@ -43,11 +43,11 @@ const videosStore = useVideosStore();
                 </div>
 
                 <div>
-                    <Search class="hidden! xl:block! w-110!" />
+                    <Search class="hidden! 3xl:block! w-110!" />
                 </div>
 
                 <div class="flex items-center justify-end gap-4">
-                    <div class="xl:hidden">
+                    <div class="3xl:hidden">
                         <Search class="w-80!" />
                     </div>
                     <HeaderAvatar v-if="authStore.session" />

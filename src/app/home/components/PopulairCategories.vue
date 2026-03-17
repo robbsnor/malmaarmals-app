@@ -13,7 +13,7 @@ const preview = computed(() => videosStore.populairCategories.slice(0, 8));
 
 function selectCategory(title: string) {
     archiveStore.query = title;
-    router.push('/streams');
+    router.push({ name: 'streams' });
 }
 </script>
 

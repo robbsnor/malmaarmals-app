@@ -14,7 +14,7 @@ const archiveStore = useArchiveStore();
 </script>
 
 <template>
-    <div class="px-4 max-lg:pt-2">
+    <Section title="Playlists">
         <FilterIndicator archiveType="PLAYLISTS" />
 
         <div class="grid grid-cols-1 gap-4 lg:gap-8 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" v-auto-animate>
@@ -44,5 +44,5 @@ const archiveStore = useArchiveStore();
                 <AddPlaylistDialog />
             </div>
         </Empty>
-    </div>
+    </Section>
 </template>
