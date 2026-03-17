@@ -19,15 +19,14 @@ const count = ref(INITIAL);
 const showAll = ref(false);
 const query = ref('');
 
-const filtered = computed(() => {
-    if (!query.value) return videosStore.populairCategories;
-    const q = query.value.toLowerCase();
-    return videosStore.populairCategories.filter((cat) => cat.title.toLowerCase().includes(q));
-});
+const hasMore = computed(() => count.value < filteredCategories.value.length);
+const remaining = computed(() => Math.min(STEP, filteredCategories.value.length - count.value));
 
-const displayed = computed(() => (showAll.value ? filtered.value : filtered.value.slice(0, count.value)));
-const hasMore = computed(() => count.value < filtered.value.length);
-const remaining = computed(() => Math.min(STEP, filtered.value.length - count.value));
+const filteredCategories = computed(() => {
+    if (!archiveStore.debouncedQuery) return videosStore.populairCategories;
+    const query = archiveStore.debouncedQuery.toLowerCase();
+    return videosStore.populairCategories.filter((category) => category.title.toLowerCase().includes(query));
+});
 
 function selectCategory(title: string) {
     archiveStore.query = title;
@@ -43,20 +42,6 @@ watch(query, () => {
     showAll.value = false;
     count.value = INITIAL;
 });
-
-const amountToShow = ref(50);
-
-const filteredCategories = computed(() => {
-    if (!archiveStore.debouncedQuery) return videosStore.populairCategories;
-
-    const query = archiveStore.debouncedQuery.toLowerCase();
-    return videosStore.populairCategories.filter((category) => category.title.toLowerCase().includes(query));
-});
-
-function openCategory(title: string) {
-    archiveStore.query = title;
-    router.push({ name: 'streams' });
-}
 </script>
 
 <template>
@@ -85,12 +70,17 @@ function openCategory(title: string) {
 
         <FilterIndicator archiveType="GAMES" :total-results="filteredCategories.length" />
 
-        <template v-if="filtered.length">
+        <template v-if="filteredCategories.length">
             <div
                 v-auto-animate
-                class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-3 lg:gap-4"
+                class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-3 lg:gap-4"
             >
-                <CategoryCard v-for="cat in displayed" :key="cat.id" v-bind="cat" @click="selectCategory(cat.title)" />
+                <CategoryCard
+                    v-for="cat in filteredCategories"
+                    :key="cat.id"
+                    v-bind="cat"
+                    @click="selectCategory(cat.title)"
+                />
             </div>
         </template>
 
