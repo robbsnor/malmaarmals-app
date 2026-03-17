@@ -31,7 +31,7 @@ const activeTab = computed(() => {
         </Container>
 
         <Container>
-            <div class="mt-4 rounded-xl border border-black-600 bg-black-500/50 p-1.5 backdrop-blur-xl">
+            <div class="mt-4 rounded-xl borderf border-black-600 bg-black-500/50 p-1.5 backdrop-blur-xl">
                 <div class="grid grid-cols-3 gap-2">
                     <RouterLink
                         v-for="tab in tabs"
