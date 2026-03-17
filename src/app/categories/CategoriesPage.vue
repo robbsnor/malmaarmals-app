@@ -13,7 +13,7 @@ const archiveStore = useArchiveStore();
 const videosStore = useVideosStore();
 const router = useRouter();
 
-const INITIAL = 20;
+const INITIAL = 40;
 const STEP = 50;
 const count = ref(INITIAL);
 const showAll = ref(false);
