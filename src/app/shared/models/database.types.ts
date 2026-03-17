@@ -259,7 +259,12 @@ export type Database = {
             [_ in never]: never;
         };
         Functions: {
-            [_ in never]: never;
+            get_videos_without_messages: {
+                Args: never;
+                Returns: {
+                    video_id: string;
+                }[];
+            };
         };
         Enums: {
             playlist_order_type: 'date_ascending' | 'date_descending' | 'custom';
