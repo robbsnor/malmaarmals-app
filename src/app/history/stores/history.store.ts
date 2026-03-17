@@ -25,7 +25,7 @@ export const useHistoryStore = defineStore('history', () => {
             .from('history')
             .select()
             .order('watched_at', { ascending: false })
-            .limit(30);
+            .limit(50);
         if (error) throw error;
 
         history.value = data;
