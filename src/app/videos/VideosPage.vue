@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import VideoItem from './components/VideoItem.vue';
 import VideoItemLarge from './components/VideoItemLarge.vue';
 import { useVideosStore } from './stores/videos.store';
@@ -12,18 +12,47 @@ TitleHelper.setTitle('streams');
 const videosStore = useVideosStore();
 const archiveStore = useArchiveStore();
 
-const amountToShow = ref(50);
+const INITIAL = 40;
+const STEP = 50;
+const count = ref(INITIAL);
+
+const displayed = computed(() => videosStore.filteredVideos.slice(0, count.value));
+const hasMore = computed(() => count.value < videosStore.filteredVideos.length);
+const remaining = computed(() => Math.min(STEP, videosStore.filteredVideos.length - count.value));
+
+function loadMore() {
+    count.value += STEP;
+}
+
+watch(
+    () => archiveStore.debouncedQuery,
+    () => {
+        count.value = INITIAL;
+    }
+);
+
 const lekkerSpeurenUrl = computed(
     () => `https://www.lekkerspeuren.nl/?filter=type%3Dvideo%26search%3D${archiveStore.query}`
 );
 </script>
 
 <template>
-    <Section title="Streams">
+    <Section
+        title="Streams"
+        :more-text="hasMore ? `Show ${remaining} more` : undefined"
+        more-icon="mdi-chevron-down"
+        v-on="hasMore ? { moreClick: loadMore } : {}"
+    >
+        <template #actions>
+            <div class="flex justify-center gap-2 items-center max-lg:hidden">
+                <div class="text-muted-more font-bold whitespace-nowrap">{{ videosStore.videos.length }} streams</div>
+            </div>
+        </template>
+
         <FilterIndicator archiveType="STREAMS" />
 
         <div class="grid grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5" v-auto-animate>
-            <template v-for="video in videosStore.filteredVideos.slice(0, amountToShow)" :key="video.video_id">
+            <template v-for="video in displayed" :key="video.video_id">
                 <VideoItem :video="video" />
                 <VideoItemLarge :video="video" />
             </template>
@@ -47,9 +76,5 @@ const lekkerSpeurenUrl = computed(
             </v-btn>
             <!-- <v-btn @click="archiveStore.resetQuery">Clear</v-btn> -->
         </Empty>
-
-        <div v-if="amountToShow < videosStore.filteredVideos.length" class="flex justify-center mt-8">
-            <v-btn :rounded="true" variant="tonal" color="primary" @click="amountToShow += 100"> Load More </v-btn>
-        </div>
     </Section>
 </template>
