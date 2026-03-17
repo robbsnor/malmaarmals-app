@@ -73,6 +73,11 @@ const router = createRouter({
             component: () => import('../app/auth/SignOutPage.vue'),
         },
         {
+            path: '/statistics',
+            name: 'statistics',
+            component: () => import('../app/statistics/StatisticsPage.vue'),
+        },
+        {
             path: '/playground',
             name: 'playground',
             component: () => import('../app/layout/PlaygroundPage.vue'),

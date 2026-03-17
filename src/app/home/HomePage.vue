@@ -3,6 +3,7 @@ import Playlists from './components/Playlists.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import RecentStreams from './components/RecentStreams.vue';
 import History from './components/History.vue';
+import PopulairCategories from './components/PopulairCategories.vue';
 
 TitleHelper.setTitle('home');
 </script>
@@ -19,5 +20,6 @@ TitleHelper.setTitle('home');
         <RecentStreams />
         <Playlists />
         <History />
+        <PopulairCategories />
     </div>
 </template>
