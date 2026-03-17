@@ -22,7 +22,7 @@ const activeTab = computed(() => {
 </script>
 
 <template>
-    <div v-if="!lgAndUp" class="pt-4">
+    <div v-if="!lgAndUp" class="pt-4 fixed w-full top-0 z-1">
         <Container>
             <Search density="comfortable" />
         </Container>
