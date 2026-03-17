@@ -2,7 +2,7 @@
 import HeaderAvatar from './HeaderAvatar.vue';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { useArchiveStore } from '../../archive/stores/archive.store';
-import { useVideosStore } from '../../video/stores/videos.store';
+import { useVideosStore } from '../../videos/stores/videos.store';
 import NavButton from './NavButton.vue';
 import { Z } from '../../shared/directives/z.directive';
 import Search from './Search.vue';
@@ -28,9 +28,11 @@ const videosStore = useVideosStore();
                     </RouterLink>
 
                     <NavButton :to="{ name: 'home' }">home</NavButton>
-                    <NavButton :to="{ name: 'archive' }">archive</NavButton>
-                    <NavButton :to="{ name: 'statistics' }">statistics</NavButton>
-                    <NavButton :to="{ name: 'about' }">about</NavButton>
+                    <NavButton :to="{ name: 'streams' }">streams</NavButton>
+                    <NavButton :to="{ name: 'playlists' }">playlists</NavButton>
+                    <NavButton :to="{ name: 'games' }">games</NavButton>
+                    <!-- <NavButton :to="{ name: 'statistics' }">statistics</NavButton> -->
+                    <!-- <NavButton :to="{ name: 'about' }">about</NavButton> -->
 
                     <!-- <v-btn color="primary" variant="text" :to="{ name: 'home' }">home</v-btn>
                     <v-btn color="primary" variant="text" :to="{ name: 'archive' }">videos</v-btn>

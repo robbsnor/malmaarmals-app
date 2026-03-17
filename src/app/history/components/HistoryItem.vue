@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import VideoThumbnail from '../../video/components/VideoThumbnail.vue';
+import VideoThumbnail from '../../videos/components/VideoThumbnail.vue';
 import type { HistoryVideo } from '../models/history-video.model';
 
 const props = withDefaults(

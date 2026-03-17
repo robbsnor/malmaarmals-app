@@ -2,9 +2,9 @@
 import { supabase } from '../../../supabase';
 import { computed, ref } from 'vue';
 import { usePlaylistsStore } from '../stores/playlists.store';
-import type { Video } from '../../video/models/video.model';
+import type { Video } from '../../videos/models/video.model';
 import { sleep } from '../../shared/helpers/sleep';
-import VideoItem from '../../video/components/VideoItem.vue';
+import VideoItem from '../../videos/components/VideoItem.vue';
 import PlaylistItem from './PlaylistItem.vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import type { Playlist } from '../models/playlist.model';

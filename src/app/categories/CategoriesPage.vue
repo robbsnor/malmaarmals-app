@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { useVideosStore } from '../videos/stores/videos.store';
 import { useArchiveStore } from '../archive/stores/archive.store';
-import CategoryCard from '../categories/components/CategoryCard.vue';
+import { useVideosStore } from '../videos/stores/videos.store';
+import CategoryCard from './components/CategoryCard.vue';
+import FilterIndicator from '../archive/components/FilterIndicator.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
-import Empty from '../shared/components/Empty.vue';
 
-TitleHelper.setTitle('statistics');
+TitleHelper.setTitle('games');
 
-const videosStore = useVideosStore();
 const archiveStore = useArchiveStore();
+const videosStore = useVideosStore();
 const router = useRouter();
 
 const INITIAL = 20;
@@ -43,10 +43,26 @@ watch(query, () => {
     showAll.value = false;
     count.value = INITIAL;
 });
+
+const amountToShow = ref(50);
+
+const filteredCategories = computed(() => {
+    if (!archiveStore.query) return videosStore.populairCategories;
+
+    const query = archiveStore.query.toLowerCase();
+    return videosStore.populairCategories.filter((category) => category.title.toLowerCase().includes(query));
+});
+
+function openCategory(title: string) {
+    archiveStore.query = title;
+    router.push({ name: 'streams' });
+}
 </script>
 
 <template>
-    <div>
+    <div class="pt-4 px-4">
+        <FilterIndicator archiveType="GAMES" :total-results="filteredCategories.length" />
+
         <Section
             title="Categories"
             :more-text="!showAll && hasMore ? `Show ${remaining} more` : undefined"
@@ -54,30 +70,19 @@ watch(query, () => {
             v-on="!showAll && hasMore ? { moreClick: loadMore } : {}"
         >
             <template #actions>
-                <div class="flex items-center gap-4">
-                    <div class="flex justify-center gap-2 items-center py-4 max-lg:hidden">
-                        <v-icon
-                            v-if="hasMore"
-                            color="grey"
-                            class="text-muted-more!"
-                            :icon="showAll ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-                            @click="showAll = !showAll"
-                        >
-                        </v-icon>
-
-                        <div class="text-muted-more font-bold whitespace-nowrap">
-                            {{ filtered.length }} categorie{{ filtered.length === 1 ? '' : 's' }}
-                        </div>
-                    </div>
-
-                    <v-text-field
-                        v-model="query"
-                        class="max-w-[200px] w-[999px]"
-                        placeholder="Search..."
-                        density="compact"
-                        variant="solo"
+                <div class="flex justify-center gap-2 items-center py-4 max-lg:hidden">
+                    <v-icon
+                        v-if="hasMore"
+                        color="grey"
+                        class="text-muted-more!"
+                        :icon="showAll ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+                        @click="showAll = !showAll"
                     >
-                    </v-text-field>
+                    </v-icon>
+
+                    <div class="text-muted-more font-bold whitespace-nowrap">
+                        {{ videosStore.populairCategories.length }} categories
+                    </div>
                 </div>
             </template>
 

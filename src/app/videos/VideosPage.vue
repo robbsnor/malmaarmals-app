@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import VideoItem from '../../video/components/VideoItem.vue';
-import VideoItemLarge from '../../video/components/VideoItemLarge.vue';
-import { useVideosStore } from '../../video/stores/videos.store';
-import { useArchiveStore } from '../stores/archive.store';
-import FilterIndicator from './FilterIndicator.vue';
+import VideoItem from './components/VideoItem.vue';
+import VideoItemLarge from './components/VideoItemLarge.vue';
+import { useVideosStore } from './stores/videos.store';
+import { useArchiveStore } from '../archive/stores/archive.store';
+import FilterIndicator from '../archive/components/FilterIndicator.vue';
+import { TitleHelper } from '../shared/helpers/title.helper';
+
+TitleHelper.setTitle('streams');
 
 const videosStore = useVideosStore();
 const archiveStore = useArchiveStore();

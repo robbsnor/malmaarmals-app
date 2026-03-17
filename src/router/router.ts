@@ -28,15 +28,24 @@ const router = createRouter({
             component: () => import('../app/home/HomePage.vue'),
         },
         {
-            path: '/archive',
-            name: 'archive',
-            meta: { showSearch: true, showTabs: true },
-            component: () => import('../app/archive/ArchivePage.vue'),
+            path: '/streams',
+            name: 'streams',
+            component: () => import('../app/videos/VideosPage.vue'),
+        },
+        {
+            path: '/playlists',
+            name: 'playlists',
+            component: () => import('../app/playlists/PlaylistsPage.vue'),
+        },
+        {
+            path: '/games',
+            name: 'games',
+            component: () => import('../app/categories/CategoriesPage.vue'),
         },
         {
             path: '/videos/:id',
             name: 'video',
-            component: () => import('../app/video/VideoPage.vue'),
+            component: () => import('../app/videos/VideoPage.vue'),
             meta: { showFooter: false },
         },
         {
@@ -71,11 +80,6 @@ const router = createRouter({
             path: '/auth/sign-out',
             name: 'sign-out',
             component: () => import('../app/auth/SignOutPage.vue'),
-        },
-        {
-            path: '/statistics',
-            name: 'statistics',
-            component: () => import('../app/statistics/StatisticsPage.vue'),
         },
         {
             path: '/playground',

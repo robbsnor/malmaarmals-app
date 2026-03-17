@@ -13,7 +13,7 @@ const appStore = useAppStore();
 const authStore = useAuthStore();
 const menuItems = ref([
     { title: 'home', icon: 'mdi-collage', to: '/' },
-    { title: 'archive', icon: 'mdi-magnify', to: '/archive', id: 'bottom-search' },
+    { title: 'streams', icon: 'mdi-magnify', to: '/streams', id: 'bottom-search' },
     { title: 'profile', icon: '', to: '/profile', id: 'bottom-profile' },
 ]);
 </script>

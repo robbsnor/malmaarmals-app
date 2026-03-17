@@ -4,8 +4,8 @@ import { TitleHelper } from '../shared/helpers/title.helper';
 import { usePlaylistsStore } from '../playlists/stores/playlists.store';
 import { useRouteParams } from '@vueuse/router';
 import { BucketHelper } from '../shared/helpers/bucket.helper';
-import VideoItem from '../video/components/VideoItem.vue';
-import VideoItemLarge from '../video/components/VideoItemLarge.vue';
+import VideoItem from '../videos/components/VideoItem.vue';
+import VideoItemLarge from '../videos/components/VideoItemLarge.vue';
 import DeletePlaylistDialog from './components/DeletePlaylistDialog.vue';
 import EditPlaylistDialog from './components/EditPlaylistDialog.vue';
 
@@ -31,11 +31,7 @@ const editDialog = ref(false);
                 <div class="to-black-100 absolute inset-0 bg-linear-to-b from-black/50"></div>
 
                 <div class="flex justify-between gap-4 p-4">
-                    <v-btn
-                        :to="{ name: 'archive', query: { type: 'playlists' } }"
-                        variant="tonal"
-                        prependIcon="mdi-chevron-left"
-                    >
+                    <v-btn :to="{ name: 'playlists' }" variant="tonal" prependIcon="mdi-chevron-left">
                         Playlists
                     </v-btn>
 

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { TitleHelper } from '../../shared/helpers/title.helper';
-import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
-import PlaylistItem from '../../playlists/components/PlaylistItem.vue';
-import PlaylistItemLarge from '../../playlists/components/PlaylistItemLarge.vue';
-import { useArchiveStore } from '../stores/archive.store';
-import FilterIndicator from './FilterIndicator.vue';
-import AddPlaylistDialog from '../../playlists/components/AddPlaylistDialog.vue';
+import { TitleHelper } from '../shared/helpers/title.helper';
+import { usePlaylistsStore } from './stores/playlists.store';
+import PlaylistItem from './components/PlaylistItem.vue';
+import PlaylistItemLarge from './components/PlaylistItemLarge.vue';
+import { useArchiveStore } from '../archive/stores/archive.store';
+import FilterIndicator from '../archive/components/FilterIndicator.vue';
+import AddPlaylistDialog from './components/AddPlaylistDialog.vue';
 
 TitleHelper.setTitle('playlists');
 
