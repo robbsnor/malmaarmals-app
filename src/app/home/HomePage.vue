@@ -4,8 +4,22 @@ import { TitleHelper } from '../shared/helpers/title.helper';
 import RecentStreams from './components/RecentStreams.vue';
 import History from './components/History.vue';
 import PopularCategories from './components/PopularCategories.vue';
+import { onMounted, ref } from 'vue';
+import { supabase } from '../../supabase';
 
 TitleHelper.setTitle('home');
+const missing = ref<any[]>();
+
+onMounted(async () => {
+    //@ts-ignore
+    const { data, error } = await supabase.rpc('get_videos_without_messages');
+    if (error) {
+        console.log('oopsie');
+        throw error;
+    }
+    console.log(data);
+    missing.value = data;
+});
 </script>
 
 <template>
