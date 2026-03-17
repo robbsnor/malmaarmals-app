@@ -19,7 +19,7 @@ const lekkerSpeurenUrl = computed(
 </script>
 
 <template>
-    <div class="pt-4 px-4">
+    <Section title="Streams">
         <FilterIndicator archiveType="STREAMS" />
 
         <div class="grid grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5" v-auto-animate>
@@ -51,5 +51,5 @@ const lekkerSpeurenUrl = computed(
         <div v-if="amountToShow < videosStore.filteredVideos.length" class="flex justify-center mt-8">
             <v-btn :rounded="true" variant="tonal" color="primary" @click="amountToShow += 100"> Load More </v-btn>
         </div>
-    </div>
+    </Section>
 </template>

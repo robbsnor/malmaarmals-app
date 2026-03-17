@@ -28,18 +28,22 @@ const router = createRouter({
             component: () => import('../app/home/HomePage.vue'),
         },
         {
-            path: '/streams',
+            path: '/videos',
+            alias: '/streams',
             name: 'streams',
+            meta: { showTabs: true },
             component: () => import('../app/videos/VideosPage.vue'),
         },
         {
             path: '/playlists',
             name: 'playlists',
+            meta: { showTabs: true },
             component: () => import('../app/playlists/PlaylistsPage.vue'),
         },
         {
             path: '/games',
             name: 'games',
+            meta: { showTabs: true },
             component: () => import('../app/categories/CategoriesPage.vue'),
         },
         {

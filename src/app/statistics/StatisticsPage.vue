@@ -31,7 +31,7 @@ const remaining = computed(() => Math.min(STEP, filtered.value.length - count.va
 
 function selectCategory(title: string) {
     archiveStore.query = title;
-    router.push('/streams');
+    router.push({ name: 'streams' });
 }
 
 function loadMore() {

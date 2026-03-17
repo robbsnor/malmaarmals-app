@@ -1,10 +1,18 @@
 <script setup lang="ts">
+import type { Density } from 'vuetify/lib/composables/density.mjs';
 import { useArchiveStore } from '../../archive/stores/archive.store';
 import { useVideosStore } from '../../videos/stores/videos.store';
 
 const archiveStore = useArchiveStore();
 const videosStore = useVideosStore();
-const props = defineProps<{}>();
+const props = withDefaults(
+    defineProps<{
+        density?: Density;
+    }>(),
+    {
+        density: 'compact',
+    }
+);
 
 const updateQuery = (value: string | { id: string; title: string } | null) => {
     archiveStore.query = typeof value === 'string' ? value : value?.title;
@@ -25,7 +33,6 @@ const updateQuery = (value: string | { id: string; title: string } | null) => {
         autocomplete="off"
         class="search w-full"
         variant="solo"
-        density="compact"
         prepend-inner-icon="mdi-magnify"
         @update:model-value="updateQuery"
         @click:append-inner="archiveStore.query ? (archiveStore.query = '') : null"
