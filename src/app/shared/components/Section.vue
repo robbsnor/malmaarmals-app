@@ -49,7 +49,7 @@ function onMoreClick() {
                     {{ props.moreText }}
                     <v-icon :icon="props.moreIcon" size="x-small" class="mt-[1px] -mr-[3px]" />
                 </component>
-                <div class="h-[2px] bg-black-400 grow"></div>
+                <div class="h-[1px] bg-black-400 grow"></div>
             </div>
         </Container>
     </section>
