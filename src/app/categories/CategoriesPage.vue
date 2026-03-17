@@ -61,7 +61,7 @@ function openCategory(title: string) {
 
 <template>
     <Section
-        title="Categories"
+        title="Games"
         :more-text="!showAll && hasMore ? `Show ${remaining} more` : undefined"
         more-icon="mdi-chevron-down"
         v-on="!showAll && hasMore ? { moreClick: loadMore } : {}"
@@ -78,7 +78,7 @@ function openCategory(title: string) {
                 </v-icon>
 
                 <div class="text-muted-more font-bold whitespace-nowrap">
-                    {{ videosStore.populairCategories.length }} categories
+                    {{ videosStore.populairCategories.length }} games
                 </div>
             </div>
         </template>
