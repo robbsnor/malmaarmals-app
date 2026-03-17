@@ -18,6 +18,10 @@ const amount = computed(() => {
 
 <template>
     <Section title="Playlists" moreLink="/archive?type=playlists" moreText="All Playlists">
+        <template #actions>
+            <div class="text-muted-more font-bold">{{ playlistsStore.playlists.length }} playlists</div>
+        </template>
+
         <template v-if="playlistsStore.playlists.length">
             <div class="grid grid-cols-1 gap-4 lg:gap-8 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4" v-auto-animate>
                 <template v-for="playlist in playlistsStore.playlists.slice(0, amount)" :key="playlist.id">
