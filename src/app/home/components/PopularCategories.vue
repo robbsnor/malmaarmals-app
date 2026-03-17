@@ -18,7 +18,7 @@ function selectCategory(title: string) {
 </script>
 
 <template>
-    <Section title="Populair games" :more-text="`All games`" :more-link="{ name: 'games' }">
+    <Section title="Popular games" :more-text="`All games`" :more-link="{ name: 'games' }">
         <template #actions>
             <div class="text-muted-more font-bold">{{ videosStore.populairCategories.length }} categories</div>
         </template>

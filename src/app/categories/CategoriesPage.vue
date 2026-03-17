@@ -17,7 +17,6 @@ const INITIAL = 40;
 const STEP = 50;
 const count = ref(INITIAL);
 const showAll = ref(false);
-const query = ref('');
 
 const hasMore = computed(() => count.value < filteredCategories.value.length);
 const remaining = computed(() => Math.min(STEP, filteredCategories.value.length - count.value));
@@ -27,6 +26,10 @@ const filteredCategories = computed(() => {
     const query = archiveStore.debouncedQuery.toLowerCase();
     return videosStore.populairCategories.filter((category) => category.title.toLowerCase().includes(query));
 });
+
+const visibleCategories = computed(() =>
+    showAll.value ? filteredCategories.value : filteredCategories.value.slice(0, count.value)
+);
 
 function selectCategory(title: string) {
     archiveStore.query = title;
@@ -38,10 +41,13 @@ function loadMore() {
 }
 
 // reset view whenever the search changes
-watch(query, () => {
-    showAll.value = false;
-    count.value = INITIAL;
-});
+watch(
+    () => archiveStore.debouncedQuery,
+    () => {
+        showAll.value = false;
+        count.value = INITIAL;
+    }
+);
 </script>
 
 <template>
@@ -76,7 +82,7 @@ watch(query, () => {
                 class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-3 lg:gap-4"
             >
                 <CategoryCard
-                    v-for="cat in filteredCategories"
+                    v-for="cat in visibleCategories"
                     :key="cat.id"
                     v-bind="cat"
                     @click="selectCategory(cat.title)"
