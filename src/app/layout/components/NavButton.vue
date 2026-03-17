@@ -13,7 +13,7 @@ const props = defineProps<{ to: RouteLocationRaw }>();
         <slot></slot>
 
         <div
-            class="absolute bottom-0 rounded-xl h-1 bg-primary transition-all duration-100 w-0 opacity-0 group-hover:opacity-50 group-hover:w-full in-[.is-active]:opacity-100 in-[.is-active]:w-full"
+            class="absolute bottom-0 rounded-xl h-1 bg-primary transition-all duration-100 w-0 opacity-0 group-hover:opacity-50 group-hover:w-4 in-[.is-active]:opacity-100! in-[.is-active]:w-full!"
         ></div>
 
         <div
