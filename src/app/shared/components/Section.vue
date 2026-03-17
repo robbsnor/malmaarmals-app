@@ -1,18 +1,31 @@
 <script setup lang="ts">
-import { useSlots } from 'vue';
+import { computed, useAttrs, useSlots } from 'vue';
 import type { RouteLocationAsPathGeneric, RouteLocationAsRelativeGeneric } from 'vue-router';
 
+const attrs = useAttrs();
 const slots = useSlots();
+
 const props = withDefaults(
     defineProps<{
         title?: string;
         moreLink?: string | RouteLocationAsRelativeGeneric | RouteLocationAsPathGeneric;
         moreText?: string;
+        moreIcon?: string;
     }>(),
     {
         moreText: 'view more',
+        moreIcon: 'mdi-chevron-right',
     }
 );
+
+const hasMoreClickListener = computed(() => typeof attrs.onMoreClick === 'function');
+const hasMore = computed(() => Boolean(props.moreLink) || hasMoreClickListener.value);
+
+function onMoreClick() {
+    if (typeof attrs.onMoreClick === 'function') {
+        attrs.onMoreClick();
+    }
+}
 </script>
 
 <template>
@@ -25,15 +38,17 @@ const props = withDefaults(
 
             <slot></slot>
 
-            <div v-if="props.moreLink" class="flex gap-4 items-center pt-6">
+            <div v-if="hasMore" class="flex gap-4 items-center pt-6">
                 <div class="h-[1px] bg-black-400 grow"></div>
-                <RouterLink
+                <component
+                    :is="props.moreLink ? 'RouterLink' : 'button'"
                     :to="props.moreLink"
+                    @click="onMoreClick"
                     class="flex items-center gap-1 transition-all lowercase text-primary! hover:text-primary-light! hover:bg-primary/10 rounded-full px-4 py-1"
                 >
                     {{ props.moreText }}
-                    <v-icon size="x-small" icon="mdi-chevron-right" class="mt-[3px] -mr-[3px]" />
-                </RouterLink>
+                    <v-icon :icon="props.moreIcon" size="x-small" class="mt-[3px] -mr-[3px]" />
+                </component>
                 <div class="h-[1px] bg-black-400 grow"></div>
             </div>
         </Container>
