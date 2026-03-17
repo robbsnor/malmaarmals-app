@@ -29,6 +29,7 @@ const videosStore = useVideosStore();
 
                     <NavButton :to="{ name: 'home' }">home</NavButton>
                     <NavButton :to="{ name: 'archive' }">archive</NavButton>
+                    <NavButton :to="{ name: 'statistics' }">statistics</NavButton>
                     <NavButton :to="{ name: 'about' }">about</NavButton>
 
                     <!-- <v-btn color="primary" variant="text" :to="{ name: 'home' }">home</v-btn>
