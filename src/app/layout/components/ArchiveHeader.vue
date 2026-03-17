@@ -23,7 +23,7 @@ const activeTab = computed(() => {
 
 <template>
     <div
-        v-if="!lgAndUp"
+        v-show="!lgAndUp"
         class="fixed w-full top-0 z-10 bg-gradient-to-b via-60% via-black/40 from-black to-black/0 py-4"
     >
         <Container>
