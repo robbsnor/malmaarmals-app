@@ -46,10 +46,12 @@ export const usePlaylistsStore = defineStore('playlists', () => {
     }
 
     const filteredPlaylists = computed(() => {
-        if (!archiveStore.query) return playlists.value;
+        if (!archiveStore.debouncedQuery) return playlists.value;
         return playlists.value.filter((playlist) => {
-            const titleMatch = playlist.title.toLowerCase().includes(archiveStore.query.toLowerCase());
-            const descriptionMatch = playlist.description.toLowerCase().includes(archiveStore.query.toLowerCase());
+            const titleMatch = playlist.title.toLowerCase().includes(archiveStore.debouncedQuery.toLowerCase());
+            const descriptionMatch = playlist.description
+                .toLowerCase()
+                .includes(archiveStore.debouncedQuery.toLowerCase());
             return titleMatch || descriptionMatch;
         });
     });

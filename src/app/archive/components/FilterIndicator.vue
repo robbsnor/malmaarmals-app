@@ -23,7 +23,7 @@ const resultsOrigon = computed(() => {
     } else if (props.archiveType === 'PLAYLISTS') {
         return playlistsStore.filteredPlaylists.length;
     } else if (props.archiveType === 'GAMES') {
-        const query = archiveStore.query?.toLowerCase();
+        const query = archiveStore.debouncedQuery?.toLowerCase();
         if (!query) return videosStore.populairCategories.length;
 
         return videosStore.populairCategories.filter((category) => category.title.toLowerCase().includes(query)).length;
