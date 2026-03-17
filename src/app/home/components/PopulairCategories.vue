@@ -19,7 +19,7 @@ function selectCategory(title: string) {
 
 <template>
     <Section title="Populair Categories" :more-text="`All categories`" :more-link="{ name: 'statistics' }">
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-8">
+        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 lg:gap-8">
             <GameCard v-for="cat in preview" :key="cat.id" v-bind="cat" @click="selectCategory(cat.title)" />
         </div>
     </Section>
