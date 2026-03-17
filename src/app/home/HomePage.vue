@@ -19,7 +19,6 @@ TitleHelper.setTitle('home');
 
         <RecentStreams />
         <Playlists />
-        <History />
         <PopulairCategories />
     </div>
 </template>
