@@ -21,7 +21,11 @@ export const useHistoryStore = defineStore('history', () => {
     });
 
     async function fetchHistory() {
-        const { data, error } = await supabase.from('history').select().order('watched_at', { ascending: false });
+        const { data, error } = await supabase
+            .from('history')
+            .select()
+            .order('watched_at', { ascending: false })
+            .limit(30);
         if (error) throw error;
 
         history.value = data;
