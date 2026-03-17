@@ -5,6 +5,7 @@ import { useVideosStore } from '../video/stores/videos.store';
 import { useArchiveStore } from '../archive/stores/archive.store';
 import GameCard from '../home/components/GameCard.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
+import Empty from '../shared/components/Empty.vue';
 
 TitleHelper.setTitle('statistics');
 
@@ -40,7 +41,7 @@ function selectCategory(title: string) {
         <Section title="Categories">
             <template #actions>
                 <div class="flex items-center gap-4">
-                    <div class="text-muted-more font-bold whitespace-nowrap">
+                    <div class="text-muted-more font-bold whitespace-nowrap max-lg:hidden">
                         {{ filtered.length }} categorie{{ filtered.length === 1 ? '' : 's' }}
                     </div>
                     <v-text-field
@@ -54,21 +55,25 @@ function selectCategory(title: string) {
                 </div>
             </template>
 
-            <div
-                v-auto-animate
-                class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-3 lg:gap-4"
-            >
-                <GameCard v-for="cat in displayed" :key="cat.id" v-bind="cat" @click="selectCategory(cat.title)" />
-            </div>
-
-            <div v-if="hasMore" class="mt-6 flex justify-center">
-                <button
-                    class="px-6 py-2 rounded-full border border-primary/30 text-muted text-sm font-semibold hover:border-primary hover:text-primary transition-all duration-200"
-                    @click="count += STEP"
+            <template v-if="filtered.length">
+                <div
+                    v-auto-animate
+                    class="grid grid-cols-3 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-3 lg:gap-4"
                 >
-                    Show {{ remaining }} more
-                </button>
-            </div>
+                    <GameCard v-for="cat in displayed" :key="cat.id" v-bind="cat" @click="selectCategory(cat.title)" />
+                </div>
+
+                <div v-if="hasMore" class="mt-6 flex justify-center">
+                    <button
+                        class="px-6 py-2 rounded-full border border-primary/30 text-muted text-sm font-semibold hover:border-primary hover:text-primary transition-all duration-200"
+                        @click="count += STEP"
+                    >
+                        Show {{ remaining }} more
+                    </button>
+                </div>
+            </template>
+
+            <Empty v-else title="No categories found" description="Try something else." icon="mdi-magnify" />
         </Section>
     </div>
 </template>
