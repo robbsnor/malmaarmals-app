@@ -20,7 +20,7 @@ const groups = computed(() => {
             { name: 'Prefferences', icon: 'mdi-cog', hidden: !isSignedIn, disabled: true },
         ],
         [
-            { name: 'Statistics', icon: 'mdi-chart-line', disabled: true },
+            { name: 'Statistics', to: '/statistics', icon: 'mdi-chart-line' },
             { name: 'About', to: '/about', icon: 'mdi-information' },
             // { name: 'Donate', icon: 'mdi-heart', hidden: !isSignedIn, disabled: true },
         ],
