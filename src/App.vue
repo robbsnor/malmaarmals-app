@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import BottomNav from './app/layout/components/BottomNav.vue';
-import VideoContainer from './app/video/components/VideoContainer.vue';
-import { useVideosStore } from './app/video/stores/videos.store';
+import VideoContainer from './app/videos/components/VideoContainer.vue';
+import { useVideosStore } from './app/videos/stores/videos.store';
 import { usePlaylistsStore } from './app/playlists/stores/playlists.store';
 import { computed, onMounted, ref } from 'vue';
 import { Toaster } from 'vue-sonner';

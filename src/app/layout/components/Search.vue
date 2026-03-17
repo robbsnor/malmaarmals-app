@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useArchiveStore } from '../../archive/stores/archive.store';
-import { useVideosStore } from '../../video/stores/videos.store';
+import { useVideosStore } from '../../videos/stores/videos.store';
 
 const archiveStore = useArchiveStore();
 const videosStore = useVideosStore();

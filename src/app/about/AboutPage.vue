@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
-import { useVideosStore } from '../video/stores/videos.store';
+import { useVideosStore } from '../videos/stores/videos.store';
 
 TitleHelper.setTitle('about');
 const videosStore = useVideosStore();

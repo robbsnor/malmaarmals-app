@@ -3,7 +3,7 @@ import { computed, ref } from 'vue';
 import { supabase } from '../../../supabase';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import type { Tables } from '../../shared/models/database.types';
-import { useVideosStore } from '../../video/stores/videos.store';
+import { useVideosStore } from '../../videos/stores/videos.store';
 import type { HistoryVideo } from '../models/history-video.model';
 
 export const useHistoryStore = defineStore('history', () => {

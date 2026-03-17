@@ -5,7 +5,7 @@ import type { Session } from '@supabase/supabase-js';
 import { useLocalStorage, useStorage } from '@vueuse/core';
 import { useTwitch } from '../../shared/composables/useTwitch.composable';
 import { useRouter } from 'vue-router';
-import { useVideoStore } from '../../video/stores/video.store';
+import { useVideoStore } from '../../videos/stores/video.store';
 
 export const LEKKER_SPELEN_USER_ID = 52385053;
 

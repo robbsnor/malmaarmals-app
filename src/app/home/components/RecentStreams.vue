@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useDisplay } from 'vuetify/lib/composables/display.mjs';
-import VideoItem from '../../video/components/VideoItem.vue';
-import VideoItemLarge from '../../video/components/VideoItemLarge.vue';
-import { useVideosStore } from '../../video/stores/videos.store';
+import VideoItem from '../../videos/components/VideoItem.vue';
+import VideoItemLarge from '../../videos/components/VideoItemLarge.vue';
+import { useVideosStore } from '../../videos/stores/videos.store';
 import { computed } from 'vue';
 
 const videosStore = useVideosStore();
@@ -17,7 +17,7 @@ const amount = computed(() => {
 </script>
 
 <template>
-    <Section title="Recent streams" moreLink="/archive?type=streams" moreText="All Streams">
+    <Section title="Recent streams" moreLink="/streams" moreText="All Streams">
         <template #actions>
             <div class="text-muted-more font-bold">{{ videosStore.videos.length }} streams</div>
         </template>

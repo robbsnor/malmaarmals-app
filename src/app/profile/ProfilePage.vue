@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import { useAuthStore } from '../auth/stores/auth.store';
 import { RouterLink } from 'vue-router';
 import { useHistoryStore } from '../history/stores/history.store';
-import VideoThumbnail from '../video/components/VideoThumbnail.vue';
+import VideoThumbnail from '../videos/components/VideoThumbnail.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
 
 const authStore = useAuthStore();
@@ -20,7 +20,7 @@ const groups = computed(() => {
             { name: 'Prefferences', icon: 'mdi-cog', hidden: !isSignedIn, disabled: true },
         ],
         [
-            { name: 'Statistics', to: '/statistics', icon: 'mdi-chart-line' },
+            { name: 'Statistics', to: '/games', icon: 'mdi-chart-line' },
             { name: 'About', to: '/about', icon: 'mdi-information' },
             // { name: 'Donate', icon: 'mdi-heart', hidden: !isSignedIn, disabled: true },
         ],

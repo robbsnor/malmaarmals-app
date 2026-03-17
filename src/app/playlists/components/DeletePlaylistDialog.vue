@@ -17,7 +17,7 @@ const deletePlaylist = async () => {
 
     if (!error) {
         dialog.value = false;
-        router.push({ name: 'archive', query: { type: 'playlists' } });
+        router.push({ name: 'playlists' });
         toast.success('Playlist deleted');
     }
 };

@@ -1,17 +1,19 @@
-import { useRouteQuery } from '@vueuse/router';
 import { defineStore } from 'pinia';
-import { useStorage } from '@vueuse/core';
-import { ref, watch, watchEffect } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
-export type FilterType = 'streams' | 'playlists';
+export type FilterType = 'streams' | 'playlists' | 'games';
 
 export const useArchiveStore = defineStore('archive', () => {
     const router = useRouter();
     const route = useRoute();
     const query = ref<string>();
     const searchEl = ref<HTMLInputElement>();
-    const activeFilterType = useRouteQuery<FilterType>('type', 'streams');
+    const activeFilterType = computed<FilterType>(() => {
+        if (route.name === 'playlists') return 'playlists';
+        if (route.name === 'games') return 'games';
+        return 'streams';
+    });
 
     function resetQuery() {
         query.value = null;
@@ -22,8 +24,8 @@ export const useArchiveStore = defineStore('archive', () => {
     };
 
     watch(query, () => {
-        if (route.name === 'archive') return;
-        router.push({ name: 'archive' });
+        if (route.name === 'streams' || route.name === 'playlists' || route.name === 'games') return;
+        router.push({ name: 'streams' });
     });
 
     return {
