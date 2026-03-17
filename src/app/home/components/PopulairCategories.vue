@@ -18,12 +18,12 @@ function selectCategory(title: string) {
 </script>
 
 <template>
-    <Section title="Populair Categories" :more-text="`All categories`" :more-link="{ name: 'games' }">
+    <Section title="Populair games" :more-text="`All games`" :more-link="{ name: 'games' }">
         <template #actions>
             <div class="text-muted-more font-bold">{{ videosStore.populairCategories.length }} categories</div>
         </template>
 
-        <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 lg:gap-8">
+        <div class="grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-8 gap-4 lg:gap-8">
             <CategoryCard v-for="cat in preview" :key="cat.id" v-bind="cat" @click="selectCategory(cat.title)" />
         </div>
     </Section>
