@@ -12,9 +12,7 @@ import Offline from './app/layout/components/Offline.vue';
 import Footer from './app/layout/components/Footer.vue';
 import Header from './app/layout/components/Header.vue';
 import BackgroundArt from './app/layout/components/BackgroundArt.vue';
-import ArchiveHeader from './app/layout/components/ArchiveHeader.vue';
 import { Analytics } from '@vercel/analytics/vue';
-import { useRoute } from 'vue-router';
 
 const videosStore = useVideosStore();
 const authStore = useAuthStore();
@@ -22,7 +20,6 @@ const playlistsStore = usePlaylistsStore();
 const historyStore = useHistoryStore();
 const loading = ref(true);
 const hasError = ref(false);
-const route = useRoute();
 
 onMounted(async () => {
     // const { data, error } = await supabase.functions.invoke('search-categories', {
@@ -69,7 +66,6 @@ onMounted(async () => {
 
         <div class="grid h-full pb-mobile-navbar lg:pt-header lg:pb-0" style="grid-template-rows: 1fr auto">
             <div>
-                <ArchiveHeader v-if="route.meta.showTabs" />
                 <RouterView />
             </div>
 

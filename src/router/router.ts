@@ -4,7 +4,6 @@ import { useAuthStore } from '../app/auth/stores/auth.store';
 declare module 'vue-router' {
     interface RouteMeta {
         showSearch?: boolean;
-        showTabs?: boolean;
         showFooter?: boolean;
     }
 }
@@ -28,23 +27,25 @@ const router = createRouter({
             component: () => import('../app/home/HomePage.vue'),
         },
         {
-            path: '/videos',
-            alias: '/streams',
-            name: 'streams',
-            meta: { showTabs: true },
-            component: () => import('../app/videos/VideosPage.vue'),
-        },
-        {
-            path: '/playlists',
-            name: 'playlists',
-            meta: { showTabs: true },
-            component: () => import('../app/playlists/PlaylistsPage.vue'),
-        },
-        {
-            path: '/games',
-            name: 'games',
-            meta: { showTabs: true },
-            component: () => import('../app/categories/CategoriesPage.vue'),
+            path: '/',
+            component: () => import('../app/archive/ArchivePage.vue'),
+            children: [
+                {
+                    path: 'videos',
+                    name: 'streams',
+                    component: () => import('../app/videos/VideosPage.vue'),
+                },
+                {
+                    path: 'playlists',
+                    name: 'playlists',
+                    component: () => import('../app/playlists/PlaylistsPage.vue'),
+                },
+                {
+                    path: 'games',
+                    name: 'games',
+                    component: () => import('../app/categories/CategoriesPage.vue'),
+                },
+            ],
         },
         {
             path: '/videos/:id',
