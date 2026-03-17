@@ -14,7 +14,7 @@ const archiveStore = useArchiveStore();
 const router = useRouter();
 
 const STEP = 50;
-const count = ref(30);
+const count = ref(20);
 const query = ref('');
 
 const filtered = computed(() => {
