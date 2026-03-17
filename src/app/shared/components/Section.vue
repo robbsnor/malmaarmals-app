@@ -44,12 +44,12 @@ function onMoreClick() {
                     :is="props.moreLink ? 'RouterLink' : 'button'"
                     :to="props.moreLink"
                     @click="onMoreClick"
-                    class="flex items-center gap-1 transition-all lowercase text-primary! hover:text-primary-light! hover:bg-primary/10 rounded-full px-4 py-1"
+                    class="flex items-center gap-1.5 transition-all lowercase text-primary! hover:text-primary-light! hover:bg-primary/10 rounded-full px-4 py-1"
                 >
                     {{ props.moreText }}
-                    <v-icon :icon="props.moreIcon" size="x-small" class="mt-[3px] -mr-[3px]" />
+                    <v-icon :icon="props.moreIcon" size="x-small" class="mt-[1px] -mr-[3px]" />
                 </component>
-                <div class="h-[1px] bg-black-400 grow"></div>
+                <div class="h-[2px] bg-black-400 grow"></div>
             </div>
         </Container>
     </section>
