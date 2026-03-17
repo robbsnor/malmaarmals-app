@@ -21,10 +21,10 @@ export const useVideosStore = defineStore('videos', () => {
     };
 
     const filteredVideos = computed(() => {
-        if (!archiveStore.query) return videos.value;
+        if (!archiveStore.debouncedQuery) return videos.value;
 
         return videos.value.filter((video) => {
-            const query = archiveStore.query.toLocaleLowerCase();
+            const query = archiveStore.debouncedQuery.toLocaleLowerCase();
 
             const titleMatch = video.title.toLowerCase().includes(query);
             const descriptionMatch = video.description && video.description.toLowerCase().includes(query);

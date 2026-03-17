@@ -47,9 +47,9 @@ watch(query, () => {
 const amountToShow = ref(50);
 
 const filteredCategories = computed(() => {
-    if (!archiveStore.query) return videosStore.populairCategories;
+    if (!archiveStore.debouncedQuery) return videosStore.populairCategories;
 
-    const query = archiveStore.query.toLowerCase();
+    const query = archiveStore.debouncedQuery.toLowerCase();
     return videosStore.populairCategories.filter((category) => category.title.toLowerCase().includes(query));
 });
 
