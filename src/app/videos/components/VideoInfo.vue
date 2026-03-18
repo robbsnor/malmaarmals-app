@@ -28,7 +28,7 @@ function copyTitle() {
             <div>
                 <div class="text-lg font-bold">
                     {{ videoStore.info.title }}
-                    <div v-auth class="inline-block">
+                    <!-- <div v-auth class="inline-block">
                         <v-btn
                             :icon="copied ? 'mdi-check' : 'mdi-content-copy'"
                             variant="text"
@@ -38,7 +38,7 @@ function copyTitle() {
                             @click="copyTitle"
                             color="grey"
                         />
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="text-muted">{{ date }}</div>
