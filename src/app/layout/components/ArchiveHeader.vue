@@ -29,19 +29,19 @@ const activeTab = computed(() => {
         <Container>
             <Search density="default" />
 
-            <div class="mt-2 rounded-xl borderf border-black-600 bg-black-500/50 p-1.5 backdrop-blur-xl">
+            <div class="mt-2 rounded borderf border-black-600 bg-black-500/50 p-1.5 backdrop-blur-xl">
                 <div class="grid grid-cols-3 gap-2">
                     <RouterLink
                         v-for="tab in tabs"
                         :key="tab.value"
                         :to="tab.to"
-                        class="group relative overflow-hidden rounded-lg px-2 py-2.5 text-center font-bold lowercase transition-colors"
+                        class="group relative overflow-hidden rounded px-2 py-2.5 text-center font-bold lowercase transition-colors"
                         :class="tab.value === activeTab ? 'text-primary' : 'text-muted hover:text-light'"
                     >
                         <span class="relative z-1 uppercase">{{ tab.label }}</span>
 
                         <div
-                            class="absolute inset-0 rounded-lg transition-all"
+                            class="absolute inset-0 rounded transition-all"
                             :class="
                                 tab.value === activeTab
                                     ? 'bg-primary/15 ring-1 ring-inset ring-primary/35'
