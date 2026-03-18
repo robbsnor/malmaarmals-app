@@ -1,21 +1,36 @@
-# Vue 3 + TypeScript + Vite
+# malmaarmals.nl
+The LekkerSpelen Twitch archive.
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Aims to be an archive website to archive lost media from the old and new Twitch streams of LekkerSpelen.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## Features
+- 99% of old and new Twitch streams archived
+- 98% of chat messages archived
+- Chat replay + partial emoticon support
+- Accurate chapters + timestamps
+- Statistics for chat and games played
+- Needs to be subscribed to LekkerSpelen on Twitch
+- Custom playlists
+
+*have more ideas? create a PR!*
 
 ## Todo
+- Missing sub-badges on messages. I simply do not have that data.
+- Better emote support
+- Playlist autoplay
+- Suggested video's below current video
+- Missing around 20 streams
+- Missing around 40 chat logs
 
-[ ] rebuild video player
-[ ] allow scroll in chat
-[ ] category search fix
-[ ] save chapers, dont delete all before save (maybe also credit per category?) remove end_time
-[ ] redirect to prev url after login (localstorage)
-[ ] better playlist creation
-[ ] create playlists
-[ ] creat chapters for all videos
+*Want to help? create a PR!*
 
-### Smaller todos
+*Questions? don't hesitate to contact via PR as well*
 
-[ ] scroll in chat
-[ ] all emote support
+## Development
+```bash
+npm run start:dev
+```
+
+### Notes:
+- You will see data from the production database, but cannot modify the data.
+- If you want to login locally, click the login button and copy the credentials from the url before being redirected to malmaarmals.nl and paste the `access_token` onto your localhost url ex: `http://localhost:5173/auth/callback#access_token=eyJhbGc...`
