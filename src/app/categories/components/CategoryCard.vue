@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef } from 'vue';
+import { computed, useTemplateRef } from 'vue';
 import { useMouseInElement } from '@vueuse/core';
 
 const props = defineProps<{
@@ -23,18 +23,24 @@ const tiltY = computed(() =>
     isOutside.value ? 0 : ((elementX.value - elementWidth.value / 2) / (elementWidth.value / 2)) * 8
 );
 
-const glareX = computed(() => Math.round((elementX.value / elementWidth.value) * 100));
-const glareY = computed(() => Math.round((elementY.value / elementHeight.value) * 100));
+const glareX = computed(() => {
+    if (!elementWidth.value) return 50;
+    return Math.round((elementX.value / elementWidth.value) * 100);
+});
+const glareY = computed(() => {
+    if (!elementHeight.value) return 50;
+    return Math.round((elementY.value / elementHeight.value) * 100);
+});
 
 const cardStyle = computed(() => ({
-    transform: `perspective(700px) rotateX(${tiltX.value}deg) rotateY(${tiltY.value}deg) scale(${isOutside.value ? 1 : 1.05})`,
-    transition: isOutside.value ? 'transform 0.6s cubic-bezier(0.23,1,0.32,1)' : 'transform 0.04s linear',
+    transform: `perspective(950px) rotateX(${tiltX.value}deg) rotateY(${tiltY.value}deg) scale(${isOutside.value ? 1 : 1.03})`,
+    transition: isOutside.value ? 'transform 0.55s cubic-bezier(0.23, 1, 0.32, 1)' : 'transform 0.05s linear',
 }));
 
 const glareStyle = computed(() => ({
-    background: `radial-gradient(circle at ${glareX.value}% ${glareY.value}%, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 40%, transparent 70%)`,
+    background: `radial-gradient(circle at ${glareX.value}% ${glareY.value}%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 35%, transparent 68%)`,
     opacity: isOutside.value ? 0 : 1,
-    transition: isOutside.value ? 'opacity 0.5s ease' : 'opacity 0.04s linear',
+    transition: isOutside.value ? 'opacity 0.5s ease' : 'opacity 0.05s linear',
 }));
 
 const hoursPlayed = computed(() => {
@@ -49,71 +55,83 @@ const hoursPlayed = computed(() => {
 <template>
     <button
         ref="cardRef"
-        class="card-wrapper group relative rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        class="card-wrapper group relative block w-full rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         :style="cardStyle"
         @click="emit('click')"
     >
-        <!-- card shell -->
-        <div class="relative overflow-hidden rounded-xl w-full aspect-[208/288]">
-            <!-- box art -->
+        <div
+            class="relative w-full aspect-[208/288] overflow-hidden rounded-2xl border border-white/10 bg-black/40 shadow-lg transition-all duration-500 group-hover:border-primary/40"
+        >
             <v-img
                 :src="`https://static-cdn.jtvnw.net/ttv-boxart/${id}_IGDB-208x288.jpg`"
                 :alt="title"
                 cover
-                class="absolute inset-0 w-full h-full"
+                class="absolute inset-0 h-full w-full scale-105 transition-all duration-700 ease-out group-hover:scale-110 group-hover:brightness-110"
             />
 
-            <!-- bottom title always visible -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/10" />
+
+            <div class="absolute inset-0 pointer-events-none" :style="glareStyle" />
+
             <div
-                class="absolute bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/90 via-black/40 to-transparent translate-y-0 transition-transform duration-400"
-            >
-                <div class="absolute bottom-0 inset-x-0 p-2 text-sm md:text-base">
-                    <p class="text-white font-bold leading-tight line-clamp-2">{{ title }}</p>
+                class="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 bg-gradient-to-r from-transparent via-white/35 to-transparent opacity-0 blur-sm transition-all duration-700 ease-out group-hover:translate-x-[280%] group-hover:opacity-100"
+            />
+
+            <div class="absolute top-3 left-3 right-3 flex items-start justify-between gap-2">
+                <div class="chip backdrop-blur-md">
+                    <v-icon icon="mdi-play-circle-outline" size="14" class="text-primary" />
+                    <span class="text-xs font-semibold text-primary">{{ streamCount }}</span>
+                </div>
+
+                <div class="chip backdrop-blur-md">
+                    <v-icon icon="mdi-bookmark-multiple-outline" size="14" class="text-primary" />
+                    <span class="text-xs font-semibold text-primary">{{ timesPlayed }}</span>
                 </div>
             </div>
 
-            <!-- hover stats overlay -->
             <div
-                class="stats-overlay absolute inset-0 flex flex-col justify-end p-4 gap-1 bg-gradient-to-t from-black/95 via-black/70 to-black/20 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all ease-out"
+                class="absolute inset-x-3 bottom-3 rounded-xl border border-white/10 bg-black/50 p-3 backdrop-blur-sm transition-all duration-500 ease-out group-hover:translate-y-1 group-hover:opacity-0"
             >
-                <p class="text-white font-bold leading-tight line-clamp-3 mb-4 drop-shadow-lg">
+                <p class="line-clamp-2 text-sm font-bold leading-tight text-white md:text-base">{{ title }}</p>
+                <p class="mt-2 text-xs text-muted">{{ hoursPlayed }} streamed</p>
+            </div>
+
+            <div
+                class="absolute inset-x-3 bottom-3 rounded-xl border border-primary/30 bg-black/65 p-3 backdrop-blur-md opacity-0 translate-y-3 transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100"
+            >
+                <p class="mb-3 line-clamp-2 text-base font-bold leading-tight text-white">
                     {{ title }}
                 </p>
 
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-2.5">
                     <div class="stat-row">
-                        <v-icon icon="mdi-clock-outline" size="16" class="text-primary opacity-80" />
+                        <v-icon icon="mdi-clock-outline" size="16" class="text-primary" />
                         <span class="text-primary font-bold text-sm">{{ hoursPlayed }}</span>
                         <span class="text-muted text-sm">played</span>
                     </div>
 
                     <div class="stat-row">
-                        <v-icon icon="mdi-play-circle-outline" size="16" class="text-primary opacity-80" />
+                        <v-icon icon="mdi-play-circle-outline" size="16" class="text-primary" />
                         <span class="text-primary font-bold text-sm">{{ streamCount }}</span>
                         <span class="text-muted text-sm">{{ streamCount === 1 ? 'stream' : 'streams' }}</span>
                     </div>
 
                     <div class="stat-row">
-                        <v-icon icon="mdi-bookmark-multiple-outline" size="16" class="text-primary opacity-80" />
+                        <v-icon icon="mdi-bookmark-multiple-outline" size="16" class="text-primary" />
                         <span class="text-primary font-bold text-sm">{{ timesPlayed }}</span>
                         <span class="text-muted text-sm">{{ timesPlayed === 1 ? 'chapter' : 'chapters' }}</span>
                     </div>
                 </div>
             </div>
 
-            <!-- specular glare -->
-            <div class="pointer-events-none absolute inset-0 rounded-xl" :style="glareStyle" />
-
-            <!-- shimmer border -->
+            <div class="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
             <div
-                class="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-inset ring-white/5 group-hover:ring-primary/30 transition-all"
+                class="pointer-events-none absolute inset-0 rounded-2xl ring-2 ring-inset ring-primary/0 transition-all duration-500 group-hover:ring-primary/35"
             />
         </div>
 
-        <!-- outer glow on hover -->
         <div
-            class="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"
-            style="box-shadow: 0 0 20px 4px rgba(148, 107, 255, 0.25)"
+            class="pointer-events-none absolute inset-0 rounded-2xl bg-primary/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
         />
     </button>
 </template>
@@ -124,9 +142,19 @@ const hoursPlayed = computed(() => {
     will-change: transform;
 }
 
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 9999px;
+    border: 1px solid rgb(255 255 255 / 0.14);
+    background: rgb(0 0 0 / 0.8);
+    padding: 4px 8px;
+}
+
 .stat-row {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
 }
 </style>
