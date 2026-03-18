@@ -3,22 +3,11 @@ import { computed, ref, watch } from 'vue';
 import { useStorage } from '@vueuse/core';
 
 export const usePreferenceStore = defineStore('preferences', () => {
-    const preferences = useStorage('preferences', {
-        showChapters: true,
-        showChaptersPeterVsTimon: false,
-        showFacecam: false,
-        showEmojis: true,
-    });
-
-    watch(
-        () => preferences.value.showChapters,
-        (newShowChapters) => {
-            if (newShowChapters) return;
-            preferences.value.showChaptersPeterVsTimon = false;
-        }
-    );
+    const showFloatingEmotes = useStorage('pref-show-floating-emotes', true);
+    const showFacecam = useStorage('pref-facecam', false);
 
     return {
-        preferences,
+        showFloatingEmotes,
+        showFacecam,
     };
 });

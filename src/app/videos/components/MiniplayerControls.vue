@@ -3,6 +3,7 @@ import { useVideoStore } from '../stores/video.store';
 import { useAppStore } from '../../shared/stores/app.store';
 import { RouterLink, useRouter } from 'vue-router';
 import MiniplayerButton from './MiniplayerButton.vue';
+import { Z } from '../../shared/directives/z.directive';
 
 const videoStore = useVideoStore();
 const router = useRouter();
@@ -25,6 +26,7 @@ function close() {
         v-if="videoStore.playerIsMini"
         class="absolute inset-0 flex justify-between items-start p-2"
         @click.self="maximizePlayer"
+        v-z="Z.VIDEO_CONTROLS_MINI"
     >
         <MiniplayerButton v-if="videoStore.waiting">
             <v-progress-circular v-if="videoStore.waiting" class="relative" indeterminate size="24" width="2" />

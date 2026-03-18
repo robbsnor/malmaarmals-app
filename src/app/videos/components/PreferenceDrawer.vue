@@ -18,46 +18,27 @@ const drawer = ref(false);
         <v-form>
             <v-switch
                 hide-details="auto"
-                label="Show chapters"
-                density="comfortable"
-                v-model="preferenceStore.preferences.showChapters"
-            />
-            <v-switch
-                hide-details="auto"
                 label="Show floating emoji's"
                 density="comfortable"
-                v-model="preferenceStore.preferences.showEmojis"
+                v-model="preferenceStore.showFloatingEmotes"
             />
 
-            <!-- <div class="flex gap-4 ml-2">
-                    <div class="mt-1.5 text-(--color-muted-more)">
-                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M1 1V10C1 12.2091 2.79086 14 5 14H14"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                            />
-                        </svg>
-                    </div>
-
-                    <div class="grow">
-                        <v-switch
-                            hide-details="auto"
-                            label="In PETER vs TIMON"
-                            density="comfortable"
-                            :disabled="preferenceStore.peterVsTimonDisabled"
-                            v-model="preferences.showChaptersPeterVsTimon"
-                        />
-                    </div>
-                </div> -->
-
-            <v-switch
-                hide-details="auto"
-                label="Facecam"
-                density="comfortable"
-                v-model="preferenceStore.preferences.showFacecam"
-            />
+            <div class="relative">
+                <v-switch
+                    hide-details="auto"
+                    label="Facecam"
+                    details="foofof"
+                    density="comfortable"
+                    v-model="preferenceStore.showFacecam"
+                />
+                <a
+                    class="absolute -bottom-[1px] text-muted hover:text-primary text-xs inline-block"
+                    href="https://www.reddit.com/r/lekkerspelen/comments/1lhp8vc/peter_koopt_een_spijkerbroek/"
+                    target="_blank"
+                >
+                    @braxshinoa - photo credit
+                </a>
+            </div>
         </v-form>
     </Drawer>
 </template>
