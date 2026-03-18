@@ -13,11 +13,12 @@ Na de aankondiging dat Twitch de streams zou verwijderen, voelde ik mij geroepen
 Het idee van malmaarmals.nl is ervoor te zorgen dat deze streams, en chat, niet verloren gaan.
 Ook is het zo dat grotendeels van deze App zelf is gehost, dus het laden van video's kan wat langer duren bij veel bezoekers.
 
-Dus veel kijkplezier, w/e
+Dusehhh, veel kijkplezier, w/e
 
 - Robbsnor
 
 PS: Heb jij toevallig de raw chatberichten MET sub-icons? lmk!
+PPS: Wil je helpen of heb je een vet idee? check de public repo
 
 malmaarmals.nl - github
 
