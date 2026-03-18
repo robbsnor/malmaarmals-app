@@ -52,7 +52,10 @@ export const usePlaylistsStore = defineStore('playlists', () => {
         return playlists.value.filter((playlist) => {
             const titleMatch = playlist.title.toLowerCase().includes(query);
             const descriptionMatch = playlist.description?.toLowerCase().includes(query);
-            return titleMatch || descriptionMatch;
+            const videoMatch = playlist.videos.some((video) =>
+                video.chapters.some((chapter) => chapter.category.title.toLocaleLowerCase().includes(query))
+            );
+            return titleMatch || descriptionMatch || videoMatch;
         });
     });
 
