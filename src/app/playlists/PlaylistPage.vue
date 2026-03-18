@@ -9,7 +9,7 @@ import VideoItemLarge from '../videos/components/VideoItemLarge.vue';
 import DeletePlaylistDialog from './components/DeletePlaylistDialog.vue';
 import EditPlaylistDialog from './components/EditPlaylistDialog.vue';
 
-TitleHelper.setTitle('videos');
+TitleHelper.setTitle('streams');
 
 const playlistStore = usePlaylistsStore();
 const id = useRouteParams('id') as Ref<string>;

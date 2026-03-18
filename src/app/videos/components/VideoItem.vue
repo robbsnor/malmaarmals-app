@@ -33,7 +33,7 @@ const categories = computed(() => {
 <template>
     <RouterLink
         v-if="!props.responsive || !lgAndUp"
-        :to="{ name: 'video', params: { id: props.video.video_id } }"
+        :to="{ name: 'stream', params: { id: props.video.video_id } }"
         class="flex gap-4"
     >
         <VideoThumbnail :video="props.video" class="w-36 shrink-0" />

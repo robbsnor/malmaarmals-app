@@ -16,7 +16,7 @@ const videoStore = useVideoStore();
                 class="px-4 py-2 hover:bg-black-400 transition-all"
                 v-for="video in videoStore.playlist.videos"
                 :key="video.video_id"
-                :to="{ name: 'video', params: { id: video.video_id }, query: { playlistId: videoStore.playlist.id } }"
+                :to="{ name: 'stream', params: { id: video.video_id }, query: { playlistId: videoStore.playlist.id } }"
                 :video="video"
                 :responsive="false"
             >

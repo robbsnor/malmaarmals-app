@@ -31,7 +31,7 @@ const router = createRouter({
             component: () => import('../app/archive/ArchivePage.vue'),
             children: [
                 {
-                    path: 'videos',
+                    path: 'streams',
                     name: 'streams',
                     component: () => import('../app/videos/VideosPage.vue'),
                 },
@@ -48,8 +48,8 @@ const router = createRouter({
             ],
         },
         {
-            path: '/videos/:id',
-            name: 'video',
+            path: '/streams/:id',
+            name: 'stream',
             component: () => import('../app/videos/VideoPage.vue'),
             meta: { showFooter: false },
         },
