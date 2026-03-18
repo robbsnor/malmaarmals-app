@@ -60,7 +60,7 @@ const hoursPlayed = computed(() => {
         @click="emit('click')"
     >
         <div
-            class="relative w-full aspect-[208/288] overflow-hidden rounded-2xl border border-white/10 bg-black/40 shadow-lg transition-all duration-500 group-hover:border-primary/40"
+            class="relative w-full aspect-[208/288] overflow-hidden rounded-2xl border border-white/10 bg-black/40 shadow-lg transition-all duration-300 group-hover:border-primary/40"
         >
             <v-img
                 :src="`https://static-cdn.jtvnw.net/ttv-boxart/${id}_IGDB-208x288.jpg`"
@@ -90,20 +90,20 @@ const hoursPlayed = computed(() => {
             </div>
 
             <div
-                class="absolute inset-x-3 bottom-3 rounded-xl border border-white/10 bg-black/50 p-3 backdrop-blur-sm transition-all duration-500 ease-out group-hover:translate-y-1 group-hover:opacity-0"
+                class="absolute inset-x-3 bottom-3 rounded-xl border border-white/10 bg-black/50 p-3 backdrop-blur-sm transition-all duration-300 ease-out group-hover:translate-y-1 group-hover:opacity-0"
             >
-                <p class="line-clamp-2 text-sm font-bold leading-tight text-white md:text-base">{{ title }}</p>
-                <p class="mt-2 text-xs text-muted">{{ hoursPlayed }} streamed</p>
+                <div class="line-clamp-2 text-sm font-bold leading-tight text-white md:text-base">{{ title }}</div>
+                <div class="text-xs mt-1 text-muted">{{ hoursPlayed }} streamed</div>
             </div>
 
             <div
-                class="absolute inset-x-3 bottom-3 rounded-xl border border-primary/30 bg-black/65 p-3 backdrop-blur-md opacity-0 translate-y-3 transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100"
+                class="absolute inset-x-3 bottom-3 rounded-xl border border-primary/30 bg-black/65 p-3 backdrop-blur-md opacity-0 translate-y-3 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100"
             >
-                <p class="mb-3 line-clamp-2 text-base font-bold leading-tight text-white">
+                <div class="mb-3 line-clamp-2 text-base font-bold leading-tight text-white">
                     {{ title }}
-                </p>
+                </div>
 
-                <div class="flex flex-col gap-2.5">
+                <div class="flex flex-col gap-2">
                     <div class="stat-row">
                         <v-icon icon="mdi-clock-outline" size="16" class="text-primary" />
                         <span class="text-primary font-bold text-sm">{{ hoursPlayed }}</span>
@@ -126,12 +126,12 @@ const hoursPlayed = computed(() => {
 
             <div class="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
             <div
-                class="pointer-events-none absolute inset-0 rounded-2xl ring-2 ring-inset ring-primary/0 transition-all duration-500 group-hover:ring-primary/35"
+                class="pointer-events-none absolute inset-0 rounded-2xl ring-2 ring-inset ring-primary/0 transition-all duration-300 group-hover:ring-primary/35"
             />
         </div>
 
         <div
-            class="pointer-events-none absolute inset-0 rounded-2xl bg-primary/10 opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
+            class="pointer-events-none absolute inset-0 rounded-2xl bg-primary/10 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
         />
     </button>
 </template>
