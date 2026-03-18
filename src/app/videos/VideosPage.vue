@@ -65,6 +65,7 @@ const lekkerSpeurenUrl = computed(
             icon="mdi-magnify"
             description="Try something else, or check lekkerspeuren.nl"
         >
+            <v-btn variant="text" color="primary" @click="archiveStore.resetQuery">Show all</v-btn>
             <v-btn
                 :href="lekkerSpeurenUrl"
                 variant="tonal"
@@ -74,7 +75,6 @@ const lekkerSpeurenUrl = computed(
             >
                 lekkerspeuren.nl
             </v-btn>
-            <!-- <v-btn @click="archiveStore.resetQuery">Clear</v-btn> -->
         </Empty>
     </Section>
 </template>

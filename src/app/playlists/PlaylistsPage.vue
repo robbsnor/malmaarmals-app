@@ -40,7 +40,7 @@ const archiveStore = useArchiveStore();
             description="Try something else."
         >
             <div class="flex flex-col gap-4 items-center">
-                <!-- <v-btn @click="archiveStore.resetQuery">Clear</v-btn> -->
+                <v-btn variant="text" color="primary" @click="archiveStore.resetQuery">Show all</v-btn>
                 <AddPlaylistDialog />
             </div>
         </Empty>
