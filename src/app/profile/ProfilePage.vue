@@ -118,7 +118,7 @@ const handleClick = async (item: any) => {
                 <RouterLink
                     v-for="video in historyStore.videos.slice(0, 20)"
                     :key="video.id"
-                    :to="{ name: 'video', params: { id: video.video_id } }"
+                    :to="{ name: 'stream', params: { id: video.video_id } }"
                     class="w-[160px] shrink-0"
                 >
                     <VideoThumbnail :video="video" class="w-full" />

@@ -18,7 +18,7 @@ const categories = computed(() => {
 </script>
 
 <template>
-    <RouterLink :to="{ name: 'video', params: { id: props.video.video_id } }" class="flex gap-4">
+    <RouterLink :to="{ name: 'stream', params: { id: props.video.video_id } }" class="flex gap-4">
         <VideoThumbnail :video="video" class="w-36 shrink-0" />
 
         <div>

@@ -60,7 +60,7 @@ async function goToNextVideo() {
     const nextId = videosStore.videos.findIndex((v) => v.video_id === videoStore.info.video_id) + 1;
 
     if (nextId) {
-        await router.push({ name: 'video', params: { id: videosStore.videos[nextId].video_id } });
+        await router.push({ name: 'stream', params: { id: videosStore.videos[nextId].video_id } });
         window.location.reload();
     }
 }
@@ -69,7 +69,7 @@ async function goToPreviousVideo() {
     const prevId = videosStore.videos.findIndex((v) => v.video_id === videoStore.info.video_id) - 1;
 
     if (prevId) {
-        await router.push({ name: 'video', params: { id: videosStore.videos[prevId].video_id } });
+        await router.push({ name: 'stream', params: { id: videosStore.videos[prevId].video_id } });
         window.location.reload();
     }
 }

@@ -52,7 +52,7 @@ const faqs = ref([
                     <RouterLink
                         v-for="video in videosStore.videos"
                         :key="video.id"
-                        :to="{ name: 'video', params: { id: video.video_id } }"
+                        :to="{ name: 'stream', params: { id: video.video_id } }"
                         class="aspect-square rounded transition-all"
                         :class="[video.chapters.length ? 'bg-green-500 hover:bg-green-300' : ' bg-black-400']"
                     ></RouterLink>
@@ -69,7 +69,7 @@ const faqs = ref([
                         <template v-slot:activator="{ props }">
                             <RouterLink
                                 v-bind="props"
-                                :to="{ name: 'video', params: { id: video.video_id } }"
+                                :to="{ name: 'stream', params: { id: video.video_id } }"
                                 class="aspect-square rounded"
                                 :class="[video.chapters.length ? 'bg-green-500' : ' bg-black-400']"
                             ></RouterLink>
