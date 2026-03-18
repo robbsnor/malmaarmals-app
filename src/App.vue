@@ -12,7 +12,6 @@ import Offline from './app/layout/components/Offline.vue';
 import Footer from './app/layout/components/Footer.vue';
 import Header from './app/layout/components/Header.vue';
 import BackgroundArt from './app/layout/components/BackgroundArt.vue';
-import SlowSiteBanner from './app/layout/components/SlowSiteBanner.vue';
 import { Analytics } from '@vercel/analytics/vue';
 
 const videosStore = useVideosStore();
@@ -67,7 +66,6 @@ onMounted(async () => {
 
         <div class="grid h-full pb-mobile-navbar lg:pt-header lg:pb-4" style="grid-template-rows: 1fr auto">
             <div>
-                <SlowSiteBanner />
                 <RouterView />
             </div>
 

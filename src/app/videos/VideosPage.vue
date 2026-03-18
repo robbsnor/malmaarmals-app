@@ -65,16 +65,18 @@ const lekkerSpeurenUrl = computed(
             icon="mdi-magnify"
             description="Try something else, or check lekkerspeuren.nl"
         >
-            <v-btn variant="text" color="primary" @click="archiveStore.resetQuery">Show all</v-btn>
-            <v-btn
-                :href="lekkerSpeurenUrl"
-                variant="tonal"
-                color="primary"
-                target="_blank"
-                append-icon="mdi-open-in-new"
-            >
-                lekkerspeuren.nl
-            </v-btn>
+            <div class="flex gap-4 flex-wrap items-center justify-center">
+                <v-btn variant="text" color="primary" @click="archiveStore.resetQuery">Show all</v-btn>
+                <v-btn
+                    :href="lekkerSpeurenUrl"
+                    variant="tonal"
+                    color="primary"
+                    target="_blank"
+                    append-icon="mdi-open-in-new"
+                >
+                    lekkerspeuren.nl
+                </v-btn>
+            </div>
         </Empty>
     </Section>
 </template>

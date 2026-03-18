@@ -4,12 +4,14 @@ import { TitleHelper } from '../shared/helpers/title.helper';
 import RecentStreams from './components/RecentStreams.vue';
 import History from './components/History.vue';
 import PopularCategories from './components/PopularCategories.vue';
+import SlowSiteBanner from '../layout/components/SlowSiteBanner.vue';
 
 TitleHelper.setTitle('home');
 </script>
 
 <template>
     <div>
+        <SlowSiteBanner />
         <!-- <div>accessToken: {{ authStore.twitchAccessToken }}</div>
         <div>refreshToken: {{ authStore.twitchRefreshToken }}</div> -->
 

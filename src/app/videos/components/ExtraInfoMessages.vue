@@ -85,7 +85,7 @@ const myMessages = computed(() => {
 
         <v-tabs v-model="tab" density="compact" color="primary" grow>
             <v-tab text="Top chatters" :value="1"></v-tab>
-            <v-tab text="Top emotes" :value="2"></v-tab>
+            <!-- <v-tab text="Top emotes" :value="2"></v-tab> -->
             <v-tab text="My messages" :value="3" v-if="myMessages.length"></v-tab>
         </v-tabs>
 
@@ -137,7 +137,7 @@ const myMessages = computed(() => {
 
                     <span class="text-muted font-bold">{{ myStats.count }}</span>
                 </div>
-                <div v-else class="px-4 py-2 text-muted italic">No recorded messages from you</div>
+                <div v-else class="px-4 py-2 text-muted text-sm italic">You haven't send any messages</div>
             </v-tabs-window-item>
 
             <v-tabs-window-item :value="2">
