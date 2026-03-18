@@ -7,7 +7,7 @@ const route = useRoute();
 <template>
     <div v-if="route.meta.showFooter !== false" class="border-t border-black-400">
         <Container>
-            <div class="flex flex-col gap-4 justify-center items-center py-10">
+            <div class="flex flex-col gap-5 justify-center items-center py-10">
                 <div class="inline-grid grid-cols-[1fr_auto_1fr] gap-1 items-center text-muted-more">
                     <div class="place-self-end">Made with</div>
 
