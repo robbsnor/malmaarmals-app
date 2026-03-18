@@ -30,7 +30,7 @@ const activeTab = computed(() => {
             <Search density="default" />
 
             <div class="mt-2 rounded borderf border-black-600 bg-black-500/50 p-1.5 backdrop-blur-xl">
-                <div class="grid grid-cols-3 gap-2">
+                <div class="grid grid-cols-3 gap-1">
                     <RouterLink
                         v-for="tab in tabs"
                         :key="tab.value"
