@@ -47,11 +47,11 @@ export const usePlaylistsStore = defineStore('playlists', () => {
 
     const filteredPlaylists = computed(() => {
         if (!archiveStore.debouncedQuery) return playlists.value;
+
+        const query = archiveStore.debouncedQuery.toLowerCase();
         return playlists.value.filter((playlist) => {
-            const titleMatch = playlist.title.toLowerCase().includes(archiveStore.debouncedQuery.toLowerCase());
-            const descriptionMatch = playlist.description
-                .toLowerCase()
-                .includes(archiveStore.debouncedQuery.toLowerCase());
+            const titleMatch = playlist.title.toLowerCase().includes(query);
+            const descriptionMatch = playlist.description?.toLowerCase().includes(query);
             return titleMatch || descriptionMatch;
         });
     });
