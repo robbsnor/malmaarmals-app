@@ -5,7 +5,7 @@ const route = useRoute();
 </script>
 
 <template>
-    <div v-if="route.meta.showFooter !== false" class="lg:bg-black border-t border-black-400">
+    <div v-if="route.meta.showFooter !== false" class="border-t border-black-400">
         <Container>
             <div class="flex justify-center items-center">
                 <div class="inline-grid grid-cols-[1fr_auto_1fr] gap-1 items-center text-muted-more py-10">
