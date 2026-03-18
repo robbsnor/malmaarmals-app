@@ -14,7 +14,7 @@ const videosStore = useVideosStore();
 const router = useRouter();
 
 const INITIAL = 40;
-const STEP = 50;
+const STEP = 40;
 const count = ref(INITIAL);
 const showAll = ref(false);
 
@@ -53,7 +53,7 @@ watch(
 <template>
     <Section
         title="Games"
-        :more-text="!showAll && hasMore ? `Show ${remaining} more` : undefined"
+        :more-text="!showAll && hasMore ? `Show more` : undefined"
         more-icon="mdi-chevron-down"
         v-on="!showAll && hasMore ? { moreClick: loadMore } : {}"
     >
@@ -79,7 +79,7 @@ watch(
         <template v-if="filteredCategories.length">
             <div
                 v-auto-animate
-                class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-3 lg:gap-4"
+                class="grid grid-cols-3 gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8"
             >
                 <CategoryCard
                     v-for="cat in visibleCategories"

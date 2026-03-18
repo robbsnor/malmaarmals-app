@@ -23,7 +23,7 @@ function selectCategory(title: string) {
             <div class="text-muted-more font-bold">{{ videosStore.populairCategories.length }} categories</div>
         </template>
 
-        <div class="grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-8 gap-4 lg:gap-8">
+        <div class="grid grid-cols-3 gap-3 md:grid-cols-4 lg:gap-8 xl:grid-cols-4 2xl:grid-cols-8">
             <CategoryCard v-for="cat in preview" :key="cat.id" v-bind="cat" @click="selectCategory(cat.title)" />
         </div>
     </Section>

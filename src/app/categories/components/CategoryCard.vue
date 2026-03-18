@@ -67,7 +67,7 @@ const hoursPlayed = computed(() => {
             <div
                 class="absolute bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/90 via-black/40 to-transparent translate-y-0 transition-transform duration-400"
             >
-                <div class="absolute bottom-0 inset-x-0 p-4">
+                <div class="absolute bottom-0 inset-x-0 p-2 text-sm md:text-base">
                     <p class="text-white font-bold leading-tight line-clamp-2">{{ title }}</p>
                 </div>
             </div>
