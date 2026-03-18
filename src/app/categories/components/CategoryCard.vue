@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed, useTemplateRef } from 'vue';
-import { useMouseInElement } from '@vueuse/core';
+import { computed } from 'vue';
 
 const props = defineProps<{
     id: string;
@@ -13,36 +12,6 @@ const props = defineProps<{
 
 const emit = defineEmits<{ click: [] }>();
 
-const cardRef = useTemplateRef<HTMLElement>('cardRef');
-const { elementX, elementY, isOutside, elementWidth, elementHeight } = useMouseInElement(cardRef);
-
-const tiltX = computed(() =>
-    isOutside.value ? 0 : ((elementY.value - elementHeight.value / 2) / (elementHeight.value / 2)) * -8
-);
-const tiltY = computed(() =>
-    isOutside.value ? 0 : ((elementX.value - elementWidth.value / 2) / (elementWidth.value / 2)) * 8
-);
-
-const glareX = computed(() => {
-    if (!elementWidth.value) return 50;
-    return Math.round((elementX.value / elementWidth.value) * 100);
-});
-const glareY = computed(() => {
-    if (!elementHeight.value) return 50;
-    return Math.round((elementY.value / elementHeight.value) * 100);
-});
-
-const cardStyle = computed(() => ({
-    transform: `perspective(950px) rotateX(${tiltX.value}deg) rotateY(${tiltY.value}deg) scale(${isOutside.value ? 1 : 1.03})`,
-    transition: isOutside.value ? 'transform 0.55s cubic-bezier(0.23, 1, 0.32, 1)' : 'transform 0.05s linear',
-}));
-
-const glareStyle = computed(() => ({
-    background: `radial-gradient(circle at ${glareX.value}% ${glareY.value}%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 35%, transparent 68%)`,
-    opacity: isOutside.value ? 0 : 1,
-    transition: isOutside.value ? 'opacity 0.5s ease' : 'opacity 0.05s linear',
-}));
-
 const hoursPlayed = computed(() => {
     const h = Math.floor(props.secPlayed / 3600);
     const m = Math.floor((props.secPlayed % 3600) / 60);
@@ -54,9 +23,7 @@ const hoursPlayed = computed(() => {
 
 <template>
     <button
-        ref="cardRef"
         class="card-wrapper group relative block w-full rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-        :style="cardStyle"
         @click="emit('click')"
     >
         <div
@@ -71,10 +38,10 @@ const hoursPlayed = computed(() => {
 
             <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/10" />
 
-            <div class="absolute inset-0 pointer-events-none" :style="glareStyle" />
+            <div class="glare pointer-events-none absolute inset-0" />
 
             <div
-                class="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 bg-gradient-to-r from-transparent via-white/35 to-transparent opacity-0 blur-sm transition-all duration-700 ease-out group-hover:translate-x-[280%] group-hover:opacity-100"
+                class="shine pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 bg-gradient-to-r from-transparent via-white/35 to-transparent opacity-0 blur-sm"
             />
 
             <div class="absolute top-3 left-3 right-3 flex items-start justify-between gap-2">
@@ -138,8 +105,39 @@ const hoursPlayed = computed(() => {
 
 <style scoped>
 .card-wrapper {
-    transform-style: preserve-3d;
-    will-change: transform;
+    transition:
+        transform 180ms ease,
+        filter 180ms ease;
+}
+
+.card-wrapper:hover {
+    transform: translateY(-4px) scale(1.015);
+}
+
+.glare {
+    background: radial-gradient(
+        circle at 50% 20%,
+        rgb(255 255 255 / 0.18) 0%,
+        rgb(255 255 255 / 0.06) 28%,
+        transparent 60%
+    );
+    opacity: 0.75;
+    transition: opacity 180ms ease;
+}
+
+.shine {
+    transition:
+        transform 500ms ease,
+        opacity 240ms ease;
+}
+
+.card-wrapper:hover .shine {
+    transform: translateX(280%);
+    opacity: 1;
+}
+
+.card-wrapper:hover .glare {
+    opacity: 1;
 }
 
 .chip {
@@ -156,5 +154,22 @@ const hoursPlayed = computed(() => {
     display: flex;
     align-items: center;
     gap: 6px;
+}
+
+@media (hover: none) {
+    .card-wrapper:hover {
+        transform: none;
+    }
+
+    .shine,
+    .card-wrapper:hover .shine {
+        transform: none;
+        opacity: 0;
+    }
+
+    .glare,
+    .card-wrapper:hover .glare {
+        opacity: 0.7;
+    }
 }
 </style>
