@@ -1,9 +1,5 @@
 @import 'tailwindcss';
 
-.v-bottom-sheet .v-overlay__scrim {
-    background: transparent !important;
-}
-
 @theme {
     /* fonts */
     --font-open-sans: 'Open Sans';

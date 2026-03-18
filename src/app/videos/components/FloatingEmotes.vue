@@ -7,7 +7,7 @@ import { usePreferenceStore } from '../../shared/stores/preference.store';
 // ─── Configuration ────────────────────────────────────────────────────────────
 
 /** Seconds of message history to scan each tick */
-const WINDOW_S = 8;
+const WINDOW_S = 12;
 
 /** Horizontal spawn range (% from left edge) */
 const LEFT_MIN = 5;
@@ -36,7 +36,7 @@ const DURATION_MAX = 6000;
 const SPAWN_BOTTOM = -10;
 
 /** Maximum number of emotes visible at the same time */
-const MAX_PARTICLES = 50;
+const MAX_PARTICLES = 200;
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -62,7 +62,7 @@ const rand = (min: number, max: number) => min + Math.random() * (max - min);
 watch(
     () => videoStore.currentTimeRounded,
     (time) => {
-        if (!preferenceStore.preferences.showEmojis) return;
+        if (!preferenceStore.showFloatingEmotes) return;
 
         const windowStart = time - WINDOW_S;
         const windowMessages = videoStore.messages.filter((m) => m.offset_sec > windowStart && m.offset_sec <= time);
@@ -101,7 +101,16 @@ watch(
 );
 
 watch(
-    () => preferenceStore.preferences.showEmojis,
+    () => videoStore.seeking,
+    (seeking) => {
+        if (seeking) {
+            seenMessageIds.clear();
+        }
+    }
+);
+
+watch(
+    () => preferenceStore.showFloatingEmotes,
     (show) => {
         if (!show) {
             particles.value = [];

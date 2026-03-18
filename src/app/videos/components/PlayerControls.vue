@@ -51,11 +51,6 @@ function changeOrientation() {
     }
 }
 
-const showMarkers = computed(() => {
-    // TODO: Respect PETER vs TIMON video preference
-    return preferenceStore.preferences.showChapters;
-});
-
 async function goToNextVideo() {
     const nextId = videosStore.videos.findIndex((v) => v.video_id === videoStore.info.video_id) + 1;
 
@@ -194,13 +189,11 @@ function toggleTheaterMode() {
                         :step="1"
                     />
 
-                    <template v-if="showMarkers">
-                        <ChapterMarker
-                            v-for="chapter in manageChaptersStore.chapters"
-                            :key="chapter.start_s"
-                            :chapter="chapter"
-                        />
-                    </template>
+                    <ChapterMarker
+                        v-for="chapter in manageChaptersStore.chapters"
+                        :key="chapter.start_s"
+                        :chapter="chapter"
+                    />
                 </div>
             </div>
         </div>
