@@ -71,7 +71,7 @@ async function submit() {
     <Dialog v-model="dialog" title="Edit playlist" icon="mdi-pencil" @open="onOpen()">
         <v-form v-model="valid" class="flex flex-col gap-4">
             <v-text-field label="Title" :rules="requiredRule" v-model="playlist.title"></v-text-field>
-            <v-text-field label="Description" v-model="playlist.description"></v-text-field>
+            <v-textarea label="Description" v-model="playlist.description" rows="1" auto-grow></v-textarea>
             <v-select
                 :clearable="false"
                 label="Video ordering"

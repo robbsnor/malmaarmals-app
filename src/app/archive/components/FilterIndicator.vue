@@ -32,13 +32,23 @@ const resultsOrigon = computed(() => {
 </script>
 
 <template>
-    <div v-if="archiveStore.query" class="pb-3">
-        <span class="text-muted">Filtering by: </span>
+    <div v-if="archiveStore.query" class="pb-3 text-muted">
+        <span>Filtering by: </span>
         <span class="text-primary font-bold">"{{ archiveStore.query }}" </span>
-        <span class="text-muted"
+        <span
             >-
             {{ resultsOrigon }}
-            result(s)</span
+            result(s)
+        </span>
+        <v-btn
+            variant="tonal"
+            color="primary"
+            size="small"
+            class="ml-2"
+            prepend-icon="mdi-close"
+            @click="archiveStore.resetQuery()"
         >
+            show all
+        </v-btn>
     </div>
 </template>

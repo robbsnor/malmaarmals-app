@@ -32,6 +32,7 @@ const updateQuery = (value: string | { id: string; title: string } | null) => {
         menu-icon="mdi-chevron-down"
         autocomplete="off"
         class="search w-full"
+        persistent-clear
         variant="solo"
         prepend-inner-icon="mdi-magnify"
         @update:model-value="updateQuery"
