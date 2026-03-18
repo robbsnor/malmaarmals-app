@@ -18,7 +18,9 @@ const videosStore = useVideosStore();
         class="h-header border-b border-black-400 bg-black/90 backdrop-blur-[100px] fixed top-0 right-0 left-0 hidden lg:block"
     >
         <Container width="100%" class="h-full">
-            <div class="grid grid-cols-[1fr_auto_1fr] h-full items-center justify-between gap-4">
+            <div
+                class="grid grid-cols-[1fr_auto] 3xl:grid-cols-[1fr_auto_1fr] h-full items-center justify-between gap-4"
+            >
                 <div class="flex h-full items-center gap-4 overflow-hidden">
                     <RouterLink :to="{ name: 'home' }">
                         <div class="hover:scale-102f transition-all">
@@ -32,7 +34,7 @@ const videosStore = useVideosStore();
                     <NavButton :to="{ name: 'playlists' }">playlists</NavButton>
                     <NavButton :to="{ name: 'games' }">games</NavButton>
                     <!-- <NavButton :to="{ name: 'statistics' }">statistics</NavButton> -->
-                    <!-- <NavButton :to="{ name: 'about' }">about</NavButton> -->
+                    <NavButton :to="{ name: 'about' }">about</NavButton>
 
                     <!-- <v-btn color="primary" variant="text" :to="{ name: 'home' }">home</v-btn>
                     <v-btn color="primary" variant="text" :to="{ name: 'archive' }">videos</v-btn>
@@ -42,8 +44,8 @@ const videosStore = useVideosStore();
                     </v-btn> -->
                 </div>
 
-                <div>
-                    <Search class="hidden! 3xl:block! w-110!" />
+                <div class="hidden! 3xl:block!">
+                    <Search class="w-110!" />
                 </div>
 
                 <div class="flex items-center justify-end gap-4">
