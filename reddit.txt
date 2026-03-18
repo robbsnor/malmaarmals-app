@@ -15,12 +15,12 @@ Ook is het zo dat grotendeels van deze App zelf is gehost, dus het laden van vid
 
 Ohja, de facecam is natuurlijk ook opgeslagen, check tandwieldje w/e
 
-Veel kijkplezier
+Veel kijkplezier!
 
 - Robbsnor
 
 PS: Heb jij toevallig de raw chatberichten MET sub-icons? lmk!
-PPS: Wil je helpen of heb je een vet idee? check de public repo
+PPS: Wil je helpen of heb je een vet idee? check de github repo
 
 malmaarmals.nl - github
 
