@@ -34,8 +34,8 @@ const categories = computed(() => {
                 :src="n"
                 aria-hidden="true"
                 :class="[
-                    n === 1 && '-top-4 scale-90 group-hover:-translate-y-2 bg-black-300',
-                    n === 2 && '-top-2 scale-95 group-hover:-translate-y-1 bg-black-400',
+                    n === 1 && '-top-4 scale-90 group-hover:-translate-y-3 bg-black-300',
+                    n === 2 && '-top-2 scale-95 group-hover:scale-98 group-hover:-translate-y-2 bg-black-400',
                 ]"
             ></div>
 
