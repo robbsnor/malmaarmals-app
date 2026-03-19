@@ -104,6 +104,7 @@ watch(
     () => videoStore.seeking,
     (seeking) => {
         if (seeking) {
+            particles.value = [];
             seenMessageIds.clear();
         }
     }
