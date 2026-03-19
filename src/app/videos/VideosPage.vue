@@ -64,7 +64,6 @@ const lekkerSpeurenUrl = computed(
             v-if="archiveStore.query && !hasMore && videosStore.filteredVideos.length"
             title="Not found what you are looking for?"
             description="It might be on lekkerspeuren.nl"
-            icon="mdi-turkey"
         >
             <v-btn
                 :href="lekkerSpeurenUrl"
