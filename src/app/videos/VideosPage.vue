@@ -13,8 +13,8 @@ TitleHelper.setTitle('streams');
 const videosStore = useVideosStore();
 const archiveStore = useArchiveStore();
 
-const INITIAL = 2;
-const STEP = 2;
+const INITIAL = 40;
+const STEP = 50;
 const count = ref(INITIAL);
 
 const displayed = computed(() => videosStore.filteredVideos.slice(0, count.value));
