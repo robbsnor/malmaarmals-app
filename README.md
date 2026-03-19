@@ -30,6 +30,13 @@ Aims to be an archive website to archive lost media from the old and new Twitch 
 *Questions? don't hesitate to contact via a issue as well*
 
 ## Development
+1. Fork and clone project
+2. Copy `.env.sample` to `.env`
+3. Install packages
+```bash
+npm ci
+```
+4. Run dev server
 ```bash
 npm run start:dev
 ```
