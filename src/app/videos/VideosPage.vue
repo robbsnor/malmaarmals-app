@@ -59,8 +59,9 @@ const lekkerSpeurenUrl = computed(
             </template>
         </div>
 
+        <!-- find more on lekkerspeuren  -->
         <Empty
-            v-if="archiveStore.query && !hasMore"
+            v-if="archiveStore.query && !hasMore && videosStore.filteredVideos.length"
             title="Not found what you are looking for?"
             description="It might be on lekkerspeuren.nl"
             icon="mdi-turkey"
