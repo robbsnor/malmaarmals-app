@@ -99,7 +99,7 @@ watch(renderedMessages, async () => {
             </div>
         </template>
 
-        <div class="flex h-full overflow-hidden flex-col gap-3 p-2">
+        <div v-else class="flex h-full overflow-hidden flex-col gap-3 p-2">
             <div v-for="n in 40" :key="n">
                 <Skeleton
                     class="h-6 bg-black-400 md:bg-black-600"
