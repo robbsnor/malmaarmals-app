@@ -6,14 +6,15 @@ import { useVideosStore } from './stores/videos.store';
 import { useArchiveStore } from '../archive/stores/archive.store';
 import FilterIndicator from '../archive/components/FilterIndicator.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
+import Empty from '../shared/components/Empty.vue';
 
 TitleHelper.setTitle('streams');
 
 const videosStore = useVideosStore();
 const archiveStore = useArchiveStore();
 
-const INITIAL = 40;
-const STEP = 50;
+const INITIAL = 2;
+const STEP = 2;
 const count = ref(INITIAL);
 
 const displayed = computed(() => videosStore.filteredVideos.slice(0, count.value));
@@ -57,6 +58,23 @@ const lekkerSpeurenUrl = computed(
                 <VideoItemLarge :video="video" />
             </template>
         </div>
+
+        <Empty
+            v-if="archiveStore.query && !hasMore"
+            title="Not found what you are looking for?"
+            description="It might be on lekkerspeuren.nl"
+            icon="mdi-turkey"
+        >
+            <v-btn
+                :href="lekkerSpeurenUrl"
+                variant="tonal"
+                color="primary"
+                target="_blank"
+                append-icon="mdi-open-in-new"
+            >
+                lekkerspeuren.nl
+            </v-btn>
+        </Empty>
 
         <!-- nothing found -->
         <Empty
