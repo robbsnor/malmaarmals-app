@@ -26,7 +26,7 @@ function selectCategory(title: string) {
 <template>
     <Section title="Most played games" :more-text="`All games`" :more-link="{ name: 'games' }">
         <template #actions>
-            <div class="text-muted-more font-bold">{{ videosStore.populairCategories.length }} categories</div>
+            <div class="text-muted-more font-bold">{{ videosStore.populairCategories.length }} games</div>
         </template>
 
         <div class="grid grid-cols-3 gap-3 md:grid-cols-4 lg:gap-8 xl:grid-cols-8">
