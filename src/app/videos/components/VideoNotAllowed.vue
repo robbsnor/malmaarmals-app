@@ -5,18 +5,22 @@ import { randomNumber } from '../../shared/helpers/randomNumber';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
+
+function refresh() {
+    window.location.reload();
+}
 </script>
 
 <template>
     <div
         v-if="videoStore.playerIsActive && !authStore.isSubbed"
-        class="flex flex-col gap-4 p-2 md:flex-row w-full h-available bg-black-100"
+        class="flex flex-col gap-4 p-4 md:flex-row w-full h-available bg-black-100 overflow-hidden"
     >
-        <SkeletonContainer class="flex flex-col gap-3 w-full md:flex-row">
+        <div class="flex flex-col gap-4 w-full md:flex-row">
             <Skeleton :pulse="false" class="aspect-video w-full md:aspect-auto"></Skeleton>
 
-            <div class="flex flex-col gap-3 md:w-[350px]">
-                <div v-for="n in 40" :key="n">
+            <div class="flex flex-col gap-3 md:w-[350px] overflow-hidden rounded-md">
+                <div v-for="n in 50" :key="n">
                     <Skeleton
                         class="h-6"
                         :pulse="false"
@@ -26,33 +30,38 @@ const authStore = useAuthStore();
                     ></Skeleton>
                 </div>
             </div>
-        </SkeletonContainer>
+        </div>
 
         <div class="absolute inset-0 p-8 flex items-center justify-center">
-            <div class="bg-black-400 border border-black-500 rounded-md p-4">
-                <template v-if="!authStore.session">
-                    <div class="text-2xl font-bold">You are not logged in,</div>
-                    <p class="text-muted">Log in with Twitch to start watching streams</p>
-                    <SignInButton />
-                </template>
+            <Alert
+                v-if="!authStore.session"
+                title="You are not logged in"
+                description="Log in with Twitch to start watching streams."
+            >
+                <SignInButton>Login with Twitch</SignInButton>
+            </Alert>
 
-                <template v-else>
-                    <template v-if="!authStore.isSubbed">
-                        <div class="text-2xl font-bold">You are not subscribed,</div>
-                        <p class="text-muted">Subscribe to LekkerSpelen to start watching.</p>
-
+            <template v-else>
+                <Alert
+                    v-if="!authStore.isSubbed"
+                    title="You are not subscribed to LekkerSpelen."
+                    description="Please subscribe to the malse males to watch streams"
+                >
+                    <div class="flex flex-col gap-2">
                         <v-btn
                             color="primary"
                             href="https://www.twitch.tv/lekkerspelen/"
                             target="_blank"
                             class="w-full"
                             variant="tonal"
+                            append-icon="mdi-open-in-new"
                         >
                             subscribe
                         </v-btn>
-                    </template>
-                </template>
-            </div>
+                        <v-btn color="primary" variant="text" @click="refresh()">refresh</v-btn>
+                    </div>
+                </Alert>
+            </template>
         </div>
     </div>
 </template>

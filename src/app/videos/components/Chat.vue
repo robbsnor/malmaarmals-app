@@ -95,23 +95,19 @@ watch(renderedMessages, async () => {
             </template>
 
             <div v-else class="flex h-full items-center justify-center">
-                <Empty title="No messages found" description="lekkerAppie" icon="mdi-chat">
-                    <!-- <v-btn color="primary" variant="tonal">submit messages</v-btn> -->
-                </Empty>
+                <Empty title="No messages found" description="lekkerAppie" icon="mdi-chat"> </Empty>
             </div>
         </template>
 
-        <SkeletonContainer v-else>
-            <div class="flex flex-col gap-3 p-2">
-                <div v-for="n in 40" :key="n">
-                    <Skeleton
-                        class="h-6"
-                        :style="{
-                            width: randomNumber(40, 100) + '%',
-                        }"
-                    ></Skeleton>
-                </div>
+        <div class="flex h-full overflow-hidden flex-col gap-3 p-2">
+            <div v-for="n in 40" :key="n">
+                <Skeleton
+                    class="h-6 bg-black-400 md:bg-black-600"
+                    :style="{
+                        width: randomNumber(40, 100) + '%',
+                    }"
+                ></Skeleton>
             </div>
-        </SkeletonContainer>
+        </div>
     </div>
 </template>

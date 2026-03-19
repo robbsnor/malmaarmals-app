@@ -66,9 +66,12 @@ watch(videoColRef, (el) => (videoStore.videoColRef = el));
                 <!-- info -->
                 <VideoInfo :class="videoStore.theaterMode ? 'md:hidden' : 'md:block'" class=" "></VideoInfo>
 
-                <Container :class="videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0'">
+                <Container
+                    :class="videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0'"
+                    :padding="false"
+                >
                     <div
-                        class="grid w-full grid-cols-[repeat(auto-fill,minmax(500px,1fr))] gap-4 p-4 transition-opacity max-md:absolute max-md:overflow-auto lg:gap-8 lg:p-8"
+                        class="grid w-full grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-4 p-4 transition-opacity items-start max-md:absolute max-md:overflow-auto lg:gap-8 lg:p-8"
                     >
                         <ExtraInfoChapters />
                         <ExtraInfoPlaylist />

@@ -17,14 +17,19 @@ const groups = computed(() => {
     return [
         [
             // { name: 'History', icon: 'mdi-history', to: '/history', hidden: !isSignedIn },
-            { name: 'Prefferences', icon: 'mdi-cog', hidden: !isSignedIn, disabled: true },
+            {
+                name: 'Statistics',
+                description: 'Have a cool idea? Create an issue!',
+                icon: 'mdi-chart-timeline-variant',
+                disabled: true,
+            },
+            { name: 'About', to: '/about', icon: 'mdi-information' },
+            { name: 'Logout', link: '/sign-out', icon: 'mdi-logout', hidden: !isSignedIn, action: 'sign-out' },
         ],
         [
             // { name: 'Statistics', to: { name: 'games' }, icon: 'mdi-chart-line' },
-            { name: 'About', to: '/about', icon: 'mdi-information' },
             // { name: 'Donate', icon: 'mdi-heart', hidden: !isSignedIn, disabled: true },
         ],
-        [{ name: 'Logout', link: '/sign-out', icon: 'mdi-logout', hidden: !isSignedIn, action: 'sign-out' }],
     ].filter((group) => group.some((item) => !item.hidden)) as any;
 });
 
@@ -39,7 +44,7 @@ const handleClick = async (item: any) => {
 
 <template>
     <div>
-        <Container>
+        <Container width="920px">
             <div v-if="authStore.session" class="bg-black-2f00 flex items-center gap-4 rounded-md p-4 pt-10">
                 <div class="border-primary rounded-full border-2 p-0.5">
                     <img
@@ -76,21 +81,6 @@ const handleClick = async (item: any) => {
                 </div>
             </div>
 
-            <!-- <div v-if="!authStore.isSubbed">
-            <div class="text-2xl font-bold">You are not subscribed,</div>
-            <p class="text-muted">Subscribe to LekkerSpelen to start watching.</p>
-
-            <v-btn
-                color="primary"
-                href="https://www.twitch.tv/lekkerspelen/"
-                target="_blank"
-                class="w-full"
-                variant="tonal"
-            >
-                subscribe
-            </v-btn>
-        </div> -->
-
             <div v-else class="px-4 py-12">
                 <div class="text-2xl font-bold">You are not logged in,</div>
                 <p class="text-muted">Log in with Twitch to start watching streams</p>
@@ -98,7 +88,7 @@ const handleClick = async (item: any) => {
             </div>
         </Container>
 
-        <Section v-if="authStore.session" title="History" class="w-screen!">
+        <Section v-if="authStore.session" title="History" width="920px">
             <template #actions v-if="historyStore.history.length">
                 <v-btn
                     :to="{ name: 'history' }"
@@ -111,15 +101,12 @@ const handleClick = async (item: any) => {
                 </v-btn>
             </template>
 
-            <div
-                v-if="historyStore.history.length"
-                class="flex gap-4 overflow-x-auto flex-nowrap max-lg:-mx-4 max-lg:px-4"
-            >
+            <div v-if="historyStore.history.length" class="flex overflow-x-auto gap-4 max-lg:-mx-4 max-lg:px-4 pb-2">
                 <RouterLink
                     v-for="video in historyStore.videos.slice(0, 20)"
                     :key="video.id"
                     :to="{ name: 'stream', params: { id: video.video_id } }"
-                    class="w-[160px] shrink-0"
+                    class="w-[180px] shrink-0"
                 >
                     <VideoThumbnail :video="video" class="w-full" />
                     <div class="my-2 line-clamp-2 font-bold">{{ video.title }}</div>
@@ -129,7 +116,7 @@ const handleClick = async (item: any) => {
             <Empty v-else title="No history" description="You haven't watched any videos yet." icon="mdi-history" />
         </Section>
 
-        <Container>
+        <Container width="920px">
             <div class="flex flex-col gap-4">
                 <div v-for="(group, index) in groups" :key="index">
                     <div class="flex flex-col gap-0.5">
@@ -149,7 +136,12 @@ const handleClick = async (item: any) => {
                                 ]"
                             >
                                 <v-icon :icon="item.icon" size="16" />
-                                {{ item.name }}
+                                <div>
+                                    <div>{{ item.name }}</div>
+                                    <div v-if="item.description" class="text-sm leading-tight italic">
+                                        {{ item.description }}
+                                    </div>
+                                </div>
                             </Component>
                         </template>
                     </div>

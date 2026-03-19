@@ -7,6 +7,7 @@ import { Toaster } from 'vue-sonner';
 import 'vue-sonner/style.css';
 
 // components
+import Alert from './app/shared/components/Alert.vue';
 import Auth from './app/shared/components/Auth.vue';
 import Card from './app/shared/components/Card.vue';
 import ConfirmDialog from './app/shared/components/ConfirmDialog.vue';
@@ -44,6 +45,7 @@ pinia.use(piniaPluginPersistedstate);
 
 // components
 app.component('VueDraggable', VueDraggable);
+app.component('Alert', Alert);
 app.component('Auth', Auth);
 app.component('Card', Card);
 app.component('ConfirmDialog', ConfirmDialog);

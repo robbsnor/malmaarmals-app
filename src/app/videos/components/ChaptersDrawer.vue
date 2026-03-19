@@ -14,14 +14,14 @@ const authStore = useAuthStore();
 const manageChaptersStore = useManageChaptersStore();
 const tab = ref();
 
-onKeyStroke('c', () => {
-    manageChaptersStore.showDrawer = true;
-    manageChaptersStore.editMode = true;
+// onKeyStroke('c', () => {
+//     manageChaptersStore.showDrawer = true;
+//     manageChaptersStore.editMode = true;
 
-    if (!manageChaptersStore.chapters.length) {
-        manageChaptersStore.addEmptyChapter();
-    }
-});
+//     if (!manageChaptersStore.chapters.length) {
+//         manageChaptersStore.addEmptyChapter();
+//     }
+// });
 
 watch(
     () => manageChaptersStore.editMode,
@@ -45,8 +45,9 @@ watch(
 
         <template #actions>
             <v-btn
-                v-if="!manageChaptersStore.editMode && videoStore.chapters.length && authStore.isAdmin"
+                v-if="!manageChaptersStore.editMode && videoStore.chapters.length"
                 @click="manageChaptersStore.editMode = true"
+                v-auth
                 append-icon="mdi-pencil"
                 variant="tonal"
                 size="small"
