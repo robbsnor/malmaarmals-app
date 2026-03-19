@@ -12,30 +12,19 @@ function toggleSettingsDialog() {
 </script>
 
 <template>
-    <v-menu v-if="authStore.session" location="bottom end" :offset="[4, 6]">
-        <template #activator="activator">
-            <a
-                v-bind="activator.props"
-                class="after:border-primary cursor-pointer relative inline-block h-7.5 w-7.5 after:absolute after:-inset-1 after:rounded-full after:border-2 after:content-['']"
-            >
-                <!-- <img :src="authStore.session.user.user_metadata.avatar_url" alt="" class="h-full w-full rounded-full" /> -->
-                <div v-if="!!authStore.session" class="relative">
-                    <img
-                        :src="authStore.session.user.user_metadata.avatar_url"
-                        alt=""
-                        class="h-8 cursor-pointer rounded-full"
-                    />
+    <RouterLink
+        :to="{ name: 'profile' }"
+        class="after:border-primary cursor-pointer relative inline-block h-7.5 w-7.5 after:absolute after:-inset-1 after:rounded-full after:border-2 after:content-['']"
+    >
+        <!-- <img :src="authStore.session.user.user_metadata.avatar_url" alt="" class="h-full w-full rounded-full" /> -->
+        <div v-if="!!authStore.session" class="relative">
+            <img
+                :src="authStore.session.user.user_metadata.avatar_url"
+                alt=""
+                class="h-8 cursor-pointer rounded-full"
+            />
 
-                    <NotSubscribedBadge class="-right-2 -bottom-2" />
-                </div>
-            </a>
-        </template>
-
-        <v-list min-width="160">
-            <v-list-item prepend-icon="mdi-cog" @click="toggleSettingsDialog">Preferences</v-list-item>
-            <Divider />
-            <v-list-item :to="{ name: 'history' }" prepend-icon="mdi-history">History</v-list-item>
-            <v-list-item :to="{ name: 'sign-out' }" prepend-icon="mdi-logout" class="text-red-500!">Logout</v-list-item>
-        </v-list>
-    </v-menu>
+            <NotSubscribedBadge class="-right-2 -bottom-2" />
+        </div>
+    </RouterLink>
 </template>

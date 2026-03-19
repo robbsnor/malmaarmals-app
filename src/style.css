@@ -82,7 +82,6 @@
 }
 
 html {
-    @apply overflow-y-scroll;
 }
 
 html,
@@ -91,7 +90,7 @@ body {
 }
 
 body {
-    @apply font-space-grotesk text-normal overflow-x-hidden;
+    @apply font-space-grotesk text-normal;
 }
 
 p:not(:last-child) {

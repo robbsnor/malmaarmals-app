@@ -60,7 +60,7 @@ const myMessages = computed(() => {
 </script>
 
 <template>
-    <ExtraInfoItem v-if="videoStore.messages.length" title="Top Chatters">
+    <ExtraInfoItem v-if="videoStore.messages.length" title="Chat statistics">
         <template #actions>
             <v-menu location="start" open-on-click open-delay="0">
                 <template v-slot:activator="{ props }">
@@ -151,7 +151,7 @@ const myMessages = computed(() => {
             </v-tabs-window-item>
 
             <v-tabs-window-item :value="3">
-                <div class="p-4 flex flex-col max-h-[500px] overflow-auto divide-y divide-black-600">
+                <div class="p-4 flex flex-col divide-y divide-black-600">
                     <div
                         v-for="message in myMessages"
                         :key="message.message_id"

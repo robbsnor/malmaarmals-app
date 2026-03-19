@@ -8,6 +8,7 @@ const slots = useSlots();
 const props = withDefaults(
     defineProps<{
         title?: string;
+        width?: string;
         moreLink?: string | RouteLocationAsRelativeGeneric | RouteLocationAsPathGeneric;
         moreText?: string;
         moreIcon?: string;
@@ -29,8 +30,8 @@ function onMoreClick() {
 </script>
 
 <template>
-    <section class="relative overflow-hidden py-6 border-bf border-black-500">
-        <Container class="relative">
+    <section class="relative py-6 border-bf border-black-500">
+        <Container class="relative" :width="props.width">
             <div v-if="slots.actions || props.title" class="flex justify-between items-end gap-4 pb-4">
                 <h2 class="text-2xl font-bold lg:text-3xl">{{ props.title }}</h2>
                 <slot name="actions"></slot>
