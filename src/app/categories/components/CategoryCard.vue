@@ -24,24 +24,33 @@ const tiltY = computed(() =>
 );
 
 const glareX = computed(() => {
+    if (isOutside.value) return;
     if (!elementWidth.value) return 50;
     return Math.round((elementX.value / elementWidth.value) * 100);
 });
+
 const glareY = computed(() => {
+    if (isOutside.value) return;
     if (!elementHeight.value) return 50;
     return Math.round((elementY.value / elementHeight.value) * 100);
 });
 
-const cardStyle = computed(() => ({
-    transform: `perspective(950px) rotateX(${tiltX.value}deg) rotateY(${tiltY.value}deg) scale(${isOutside.value ? 1 : 1.03})`,
-    transition: isOutside.value ? 'transform 0.55s cubic-bezier(0.23, 1, 0.32, 1)' : 'transform 0.05s linear',
-}));
+const cardStyle = computed(() => {
+    if (isOutside.value) return;
+    return {
+        transform: `perspective(950px) rotateX(${tiltX.value}deg) rotateY(${tiltY.value}deg) scale(${isOutside.value ? 1 : 1.03})`,
+        transition: isOutside.value ? 'transform 0.55s cubic-bezier(0.23, 1, 0.32, 1)' : 'transform 0.05s linear',
+    };
+});
 
-const glareStyle = computed(() => ({
-    background: `radial-gradient(circle at ${glareX.value}% ${glareY.value}%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 35%, transparent 68%)`,
-    opacity: isOutside.value ? 0 : 1,
-    transition: isOutside.value ? 'opacity 0.5s ease' : 'opacity 0.05s linear',
-}));
+const glareStyle = computed(() => {
+    if (isOutside.value) return;
+    return {
+        background: `radial-gradient(circle at ${glareX.value}% ${glareY.value}%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 35%, transparent 68%)`,
+        opacity: isOutside.value ? 0 : 1,
+        transition: isOutside.value ? 'opacity 0.5s ease' : 'opacity 0.05s linear',
+    };
+});
 
 const hoursPlayed = computed(() => {
     const h = Math.floor(props.secPlayed / 3600);
@@ -66,7 +75,7 @@ const hoursPlayed = computed(() => {
                 :src="`https://static-cdn.jtvnw.net/ttv-boxart/${id}_IGDB-208x288.jpg`"
                 :alt="title"
                 cover
-                class="absolute inset-0 h-full w-full scale-105 transition-all duration-700 ease-out group-hover:scale-110 group-hover:brightness-110"
+                class="absolute inset-0 h-full w-full transition-all duration-700 ease-out group-hover:scale-102 group-hover:brightness-110"
             />
 
             <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-black/10" />
