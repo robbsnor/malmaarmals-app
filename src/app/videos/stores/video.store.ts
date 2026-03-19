@@ -120,6 +120,7 @@ export const useVideoStore = defineStore('video', () => {
 
     function reset() {
         currentTime.value = 0;
+        src.value = '';
         duration.value = 0;
         messages.value = [];
         id.value = null;
