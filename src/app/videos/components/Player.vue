@@ -50,9 +50,8 @@ onMounted(async () => {
             @click="videoStore.showControllsAndInfo = !videoStore.showControllsAndInfo"
         ></div>
 
-        <!-- floating emotes -->
-        <FloatingEmotes />
         <Facecam />
+        <FloatingEmotes />
         <!-- controls -->
         <PlayerControls />
         <MiniplayerControls />
