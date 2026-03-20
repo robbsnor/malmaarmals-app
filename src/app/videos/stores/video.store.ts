@@ -201,13 +201,6 @@ export const useVideoStore = defineStore('video', () => {
         }
     });
 
-    // close mini player when video not found
-    watchEffect(() => {
-        if (playerIsMini.value && srcNotFound.value) {
-            playerIsActive.value = false;
-        }
-    });
-
     watch(volume, () => {
         muted.value = false;
     });
