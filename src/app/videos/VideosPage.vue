@@ -31,10 +31,6 @@ watch(
         count.value = INITIAL;
     }
 );
-
-const lekkerSpeurenUrl = computed(
-    () => `https://www.lekkerspeuren.nl/?filter=type%3Dvideo%26search%3D${archiveStore.query}`
-);
 </script>
 
 <template>
@@ -66,7 +62,7 @@ const lekkerSpeurenUrl = computed(
             description="It might be on lekkerspeuren.nl"
         >
             <v-btn
-                :href="lekkerSpeurenUrl"
+                href="https://www.lekkerspeuren.nl/"
                 variant="tonal"
                 color="primary"
                 target="_blank"
@@ -86,7 +82,7 @@ const lekkerSpeurenUrl = computed(
             <div class="flex gap-4 flex-wrap items-center justify-center">
                 <v-btn variant="text" color="primary" @click="archiveStore.resetQuery">Show all</v-btn>
                 <v-btn
-                    :href="lekkerSpeurenUrl"
+                    href="https://www.lekkerspeuren.nl/"
                     variant="tonal"
                     color="primary"
                     target="_blank"
