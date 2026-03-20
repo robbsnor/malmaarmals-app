@@ -65,10 +65,15 @@ watch(
                     <Chapters />
                 </div>
 
-                <Empty v-else title="No chapters yet..." icon="mdi-format-list-bulleted">
+                <Empty
+                    v-else
+                    title="No chapters..."
+                    icon="mdi-format-list-bulleted"
+                    description="LEKKERSPELEN vs ... don't have chapters to prevent spoilers"
+                >
                     <div class="flex flex-col gap-4">
                         <v-btn
-                            v-if="authStore.isAdmin"
+                            v-auth
                             @click="
                                 () => {
                                     manageChaptersStore.editMode = true;

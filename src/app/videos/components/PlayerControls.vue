@@ -105,12 +105,12 @@ function toggleTheaterMode() {
 
                     <Cast />
                     <PreferenceDrawer />
-                    <PlayerButton
+                    <!-- <PlayerButton
                         @click="videoStore.showChat = !videoStore.showChat"
                         :icon="videoStore.showChat ? 'mdi-arrow-expand-right' : 'mdi-arrow-expand-left'"
                         :size="20"
                         class="hidden md:block"
-                    />
+                    /> -->
                 </div>
             </div>
 
@@ -162,6 +162,12 @@ function toggleTheaterMode() {
                     </div>
 
                     <div class="relative flex items-center gap-2 -mb-2 z-1">
+                        <PlayerButton
+                            @click="videoStore.showChat = !videoStore.showChat"
+                            :icon="videoStore.showChat ? 'mdi-chat' : 'mdi-chat-outline'"
+                            :size="20"
+                            class="hidden md:block"
+                        />
                         <PlayerButton
                             @click="toggleTheaterMode()"
                             :icon="videoStore.theaterMode ? 'mdi-dock-bottom' : 'mdi-dock-right'"
