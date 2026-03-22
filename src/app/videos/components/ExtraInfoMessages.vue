@@ -60,7 +60,7 @@ const myMessages = computed(() => {
 </script>
 
 <template>
-    <ExtraInfoItem v-if="videoStore.messages.length" title="Chat statistics">
+    <ExtraInfoItem v-if="videoStore.messages.length" title="Chat stats">
         <template #actions>
             <v-menu location="start" open-on-click open-delay="0">
                 <template v-slot:activator="{ props }">
@@ -160,9 +160,12 @@ const myMessages = computed(() => {
                         <Message :message="message" :highlight-own-message="false" class="grow-1" />
                         <button
                             @click="videoStore.currentTime = message.offset_sec"
-                            class="hover:bg-black-600 rounded px-1 text-xs font-mono text-muted-more leading-tight pt-1"
+                            class="group relative rounded px-1 text-xs font-mono text-muted-more leading-tight pt-1"
                         >
-                            {{ formatTime(message.offset_sec) }}
+                            <div
+                                class="absolute inset-0 bg-black-600 rounded-md scale-0 group-hover:scale-100 transition-all"
+                            ></div>
+                            <div class="relative">{{ formatTime(message.offset_sec) }}</div>
                         </button>
                     </div>
                 </div>
