@@ -1,4 +1,4 @@
-import { useAuthStore } from '../../auth/stores/auth.store';
+import { LEKKER_SPELEN_USER_ID, useAuthStore } from '../../auth/stores/auth.store';
 import { supabase } from '../../../supabase';
 import type { TwitchFollowedStream, TwitchGetFollowedStreams } from '../models/twitch/followed-streams.model';
 import type { TwitchCheckUserSubscription } from '../models/twitch/check-user-subscription.model';
@@ -52,6 +52,19 @@ export function useTwitch() {
         url.searchParams.set('user_id', '23611469');
         url.searchParams.set('first', '1');
         return req<TwitchGetFollowedStreams>(url.toString());
+    }
+
+    function getGlobalChatBadges() {
+        const url = new URL('https://api.twitch.tv/helix/chat/badges/global');
+
+        return req<any>(url.toString());
+    }
+
+    function getChannelBadges() {
+        const url = new URL('https://api.twitch.tv/helix/chat/badges');
+        url.searchParams.set('broadcaster_id', LEKKER_SPELEN_USER_ID.toString());
+
+        return req<any>(url.toString());
     }
 
     const checkUserSubscription = (broadcasterId: number) => {
@@ -296,6 +309,8 @@ export function useTwitch() {
 
     return {
         getFollowedStreams,
+        getGlobalChatBadges,
+        getChannelBadges,
         checkUserSubscription,
     };
 }
