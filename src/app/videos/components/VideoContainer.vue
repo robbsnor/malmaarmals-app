@@ -4,32 +4,14 @@ import Chat from './Chat.vue';
 import { useVideoStore } from '../stores/video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { Z } from '../../shared/directives/z.directive';
-import { computed, nextTick, onMounted, useTemplateRef, watch } from 'vue';
-import { useElementSize } from '@vueuse/core';
-import { useWindowSize } from '@vueuse/core';
+import { computed } from 'vue';
 import VideoInfo from './VideoInfo.vue';
-import { useDisplay } from 'vuetify';
 import ExtraInfoPlaylist from './ExtraInfoPlaylist.vue';
 import ExtraInfoMessages from './ExtraInfoMessages.vue';
 import ExtraInfoChapters from './ExtraInfoChapters.vue';
-import ExtraInfoItem from './ExtraInfoItem.vue';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
-const { xs } = useDisplay();
-
-const containerRef = useTemplateRef<HTMLElement>('containerRef');
-const videoColRef = useTemplateRef<HTMLElement>('videoColRef');
-const videoRef = useTemplateRef<HTMLElement>('videoRef');
-const infoRef = useTemplateRef<HTMLElement>('infoRef');
-
-const { width: containerWidth, height: containerHeight } = useElementSize(containerRef);
-const { width: videoWidth, height: videoHeight } = useElementSize(videoRef);
-const { width: infoWidth, height: infoHeight } = useElementSize(infoRef);
-const { width: windowWidth, height: windowHeight } = useWindowSize();
-
-const isMaxHeight = computed(() => containerHeight.value + infoHeight.value >= windowHeight.value);
-const containerMaxHeight = computed(() => windowHeight.value - infoHeight.value);
 
 const containerClasses = computed(() => {
     if (videoStore.playerIsMini) {
@@ -40,9 +22,6 @@ const containerClasses = computed(() => {
     }
     return 'lg:top-header top-0 right-0 bottom-0 left-0';
 });
-
-watch(containerRef, (el) => (videoStore.videoContainerRef = el));
-watch(videoColRef, (el) => (videoStore.videoColRef = el));
 </script>
 
 <template>
