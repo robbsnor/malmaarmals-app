@@ -14,7 +14,7 @@ const { mdAndUp, lgAndUp, xlAndUp } = useDisplay();
 const amount = computed(() => {
     if (mdAndUp.value) return 8;
 
-    return 6;
+    return 9;
 });
 
 function selectCategory(title: string) {
