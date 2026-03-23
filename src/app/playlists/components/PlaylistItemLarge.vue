@@ -52,7 +52,7 @@ const categories = computed(() => {
             <div v-if="categories.length" class="text-muted text-md font-medium line-clamp-2">
                 {{ categories.join(', ') }}
             </div>
-            <div class="text-muted-more text-md font-medium">{{ props.playlist.videos.length }} Video's</div>
+            <div class="text-muted-more text-md font-medium">{{ props.playlist.videos.length }} Videos</div>
         </div>
     </RouterLink>
 </template>

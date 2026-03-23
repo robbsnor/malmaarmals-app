@@ -60,7 +60,7 @@ const lekkerSpeurenUrl = computed(
         <!-- nothing found -->
         <Empty
             v-if="archiveStore.query && !videosStore.filteredVideos.length"
-            :title="`No video's found...`"
+            :title="`No videos found...`"
             icon="mdi-magnify"
             description="Try something else, or check lekkerspeuren.nl"
         >

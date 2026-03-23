@@ -43,7 +43,7 @@ const { lgAndUp } = useDisplay();
 
         <div class="pt-2">
             <h2 class="font-bold text-md">{{ playlist.title }}</h2>
-            <div class="text-muted text-sm font-medium">{{ playlist.videos.length }} Video's</div>
+            <div class="text-muted text-sm font-medium">{{ playlist.videos.length }} Videos</div>
         </div>
     </RouterLink>
 </template>

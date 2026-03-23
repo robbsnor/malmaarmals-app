@@ -88,7 +88,7 @@ async function save() {
                             {{ playlist.title }}
                         </div>
 
-                        <div class="text-muted-more font-bold leading-tight">{{ playlist.videos.length }} Video's</div>
+                        <div class="text-muted-more font-bold leading-tight">{{ playlist.videos.length }} Videos</div>
                     </div>
                 </div>
 
