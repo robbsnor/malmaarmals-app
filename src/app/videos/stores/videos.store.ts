@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useArchiveStore } from '../../archive/stores/archive.store';
 import { videosQuery, type Video } from '../models/video.model';
 import { TimeHelper } from '../../shared/helpers/time.helper';
@@ -7,6 +7,17 @@ import { TimeHelper } from '../../shared/helpers/time.helper';
 export const useVideosStore = defineStore('videos', () => {
     const archiveStore = useArchiveStore();
     const videos = ref<Video[]>([]);
+
+    const INITIAL = 40;
+    const STEP = 50;
+    const count = ref(INITIAL);
+    const displayed = computed(() => filteredVideos.value.slice(0, count.value));
+    const hasMore = computed(() => count.value < filteredVideos.value.length);
+    const remaining = computed(() => Math.min(STEP, filteredVideos.value.length - count.value));
+
+    function loadMore() {
+        count.value += STEP;
+    }
 
     const fetchVideos = async () => {
         const { data, error } = await videosQuery;
@@ -114,12 +125,25 @@ export const useVideosStore = defineStore('videos', () => {
             .sort((a, b) => b.secPlayed - a.secPlayed);
     });
 
+    watch(
+        () => archiveStore.debouncedQuery,
+        () => {
+            count.value = INITIAL;
+        }
+    );
+
     return {
         videos,
         filteredVideos,
         categoriesList,
         chaptersOverview,
         populairCategories,
+
+        count,
+        displayed,
+        hasMore,
+        remaining,
+        loadMore,
 
         fetchVideos,
     };
