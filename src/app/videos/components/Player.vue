@@ -21,12 +21,6 @@ onMounted(async () => {
     videoStore.videoRef.addEventListener('loadeddata', async () => {
         videoStore.fetchMessages();
         videoStore.loadVideoProgression();
-        const globalBadges = await twitch.getGlobalChatBadges();
-        console.log('global badges');
-        console.log(globalBadges);
-
-        const ch = await twitch.getChannelBadges();
-        console.log(ch);
     });
 });
 </script>

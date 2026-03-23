@@ -9,9 +9,11 @@ const props = withDefaults(
     defineProps<{
         message: Message;
         highlightOwnMessage?: boolean;
+        showTwitchBadge?: boolean;
     }>(),
     {
         highlightOwnMessage: true,
+        showTwitchBadge: true,
     }
 );
 
@@ -30,13 +32,16 @@ const isLekkerSpelen = computed(() => props.message.user_id === LEKKER_SPELEN_US
         }"
         class="text-sm"
     >
-        <img
-            v-for="badge in props.message.badges"
-            :key="badge.image_id"
-            :src="`https://static-cdn.jtvnw.net/badges/v1/${badge.image_id}/2`"
-            alt=""
-            class="inline-block mr-1 h-5"
-        />
+        <template v-if="props.showTwitchBadge">
+            <img
+                v-for="badge in props.message.badges"
+                :key="badge.image_id"
+                :src="`https://static-cdn.jtvnw.net/badges/v1/${badge.image_id}/2`"
+                alt="Twitch badge"
+                class="inline-block mr-1 h-4.5"
+            />
+        </template>
+
         <span
             :style="{
                 color: message.user_color || '#2e8b57',
