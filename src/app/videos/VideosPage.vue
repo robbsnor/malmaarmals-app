@@ -61,11 +61,11 @@ const lekkerSpeurenUrl = computed(
         <Empty
             v-if="archiveStore.query && !videosStore.filteredVideos.length"
             :title="`No videos found...`"
-            icon="mdi-magnify"
+            icon="mdi-play"
             description="Try something else, or check lekkerspeuren.nl"
         >
             <div class="flex gap-4 flex-wrap items-center justify-center">
-                <v-btn variant="text" color="primary" @click="archiveStore.resetQuery">Show all</v-btn>
+                <v-btn variant="tonal" color="primary" @click="archiveStore.resetQuery">Clear filter</v-btn>
                 <v-btn
                     :href="lekkerSpeurenUrl"
                     variant="tonal"
