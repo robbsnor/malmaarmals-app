@@ -5,7 +5,7 @@ import { useIdle, useMediaControls, useWindowSize } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import _ from 'lodash';
-import { messagesQueryStringSelect, type Messages } from '../models/messages.model';
+import { messagesQueryStringSelect, type Message } from '../models/messages.model';
 import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
 import { useVideosStore } from './videos.store';
 import { useHistoryStore } from '../../history/stores/history.store';
@@ -130,16 +130,42 @@ export const useVideoStore = defineStore('video', () => {
     }
 
     async function fetchMessages() {
-        const { data, error } = await supabase
+        const videoId = Number(id.value);
+
+        // Fetch messages
+        const { data: messagesData, error: messagesError } = await supabase
             .from('messages')
             .select(messagesQueryStringSelect)
-            .eq('video_id', Number(id.value))
+            .eq('video_id', videoId)
             .order('offset_sec', { ascending: true });
 
-        messagesLoading.value = false;
+        if (messagesError) throw messagesError;
 
-        if (error) throw error;
-        messages.value = data;
+        // Fetch all badges for this video (one query gets all users' badges)
+        const { data: badgesData, error: badgesError } = await supabase
+            .from('message_twitch_badges')
+            .select('user_id, image_id')
+            .eq('video_id', videoId);
+
+        if (badgesError) throw badgesError;
+
+        // Create a lookup map: user_id -> array of badges
+        const badgesByUser = badgesData.reduce(
+            (acc, badge) => {
+                if (!acc[badge.user_id]) acc[badge.user_id] = [];
+                acc[badge.user_id].push({ image_id: badge.image_id });
+                return acc;
+            },
+            {} as Record<string, Array<{ image_id: string }>>
+        );
+
+        // Merge badges into messages
+        messages.value = messagesData.map((msg) => ({
+            ...msg,
+            badges: badgesByUser[msg.user_id] || [],
+        })) as Message[];
+
+        messagesLoading.value = false;
     }
 
     function setVideoRef(el: HTMLVideoElement) {

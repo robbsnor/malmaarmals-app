@@ -56,7 +56,6 @@ export function useTwitch() {
 
     function getGlobalChatBadges() {
         const url = new URL('https://api.twitch.tv/helix/chat/badges/global');
-
         return req<any>(url.toString());
     }
 

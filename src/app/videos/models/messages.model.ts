@@ -5,5 +5,9 @@ export const messagesQueryStringSelect = 'message_id, offset_sec, text, user_col
 
 const messagesQuery = supabase.from('messages').select(messagesQueryStringSelect);
 
-export type Messages = QueryData<typeof messagesQuery>;
-export type Message = Messages[number];
+type MessagesWithoutBadges = QueryData<typeof messagesQuery>;
+type MessageWithoutBadges = MessagesWithoutBadges[number];
+
+export type Message = MessageWithoutBadges & {
+    badges: Array<{ image_id: string }>;
+};
