@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, useTemplateRef, watch } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import { useVideoStore } from '../stores/video.store';
 import { randomNumber } from '../../shared/helpers/randomNumber';
-import { sleep } from '../../shared/helpers/sleep';
 import { useScroll } from '@vueuse/core';
-import type { Message } from '../models/messages.model';
+import Message from './Message.vue';
 
 const videoStore = useVideoStore();
 const chatRef = ref<HTMLElement>(null);
 const userHasScrolledUp = ref(false);
 const chatInfoDialog = defineModel();
 
-const renderedMessages = computed<Message[]>(() => {
+const renderedMessages = computed(() => {
     const idx = findLastIndexAtOrBefore(videoStore.currentTimeRounded);
     if (idx === -1) return [];
     const start = Math.max(0, idx - 399);
