@@ -59,7 +59,7 @@ export const useVideoStore = defineStore('video', () => {
     const { idle } = useIdle(4 * 1000);
 
     // messages
-    const messages = ref<Messages>([]);
+    const messages = ref<Message[]>([]);
     const messagesLoading = ref(true);
     const subCount = computed(
         () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
@@ -163,7 +163,7 @@ export const useVideoStore = defineStore('video', () => {
         messages.value = messagesData.map((msg) => ({
             ...msg,
             badges: badgesByUser[msg.user_id] || [],
-        })) as Message[];
+        }));
 
         messagesLoading.value = false;
     }
