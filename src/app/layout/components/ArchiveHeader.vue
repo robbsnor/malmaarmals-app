@@ -22,14 +22,11 @@ const activeTab = computed(() => {
 </script>
 
 <template>
-    <div
-        v-show="!lgAndUp"
-        class="fixed w-full top-0 z-10 bg-gradient-to-b via-60% via-black/40 from-black to-black/0 py-4"
-    >
+    <div v-show="!lgAndUp" class="fixed w-full top-0 z-10 bg-gradient-to-b from-black from-50% to-black/0 py-4">
         <Container>
-            <Search density="default" />
+            <Search density="default" class="relative z-1" />
 
-            <div class="mt-2 rounded borderf border-black-600 bg-black-500/50 p-1.5 backdrop-blur-xl">
+            <div class="rounded borderf border-black-600 bg-black-500/50 p-1.5 pt-4 -mt-2.5 backdrop-blur-xl">
                 <div class="grid grid-cols-3 gap-1">
                     <RouterLink
                         v-for="tab in tabs"

@@ -90,8 +90,8 @@ watch(
             </div>
         </template>
 
-        <Empty v-else title="No games found..." description="Try something else." icon="mdi-magnify">
-            <v-btn variant="text" color="primary" @click="archiveStore.resetQuery">Show all</v-btn>
+        <Empty v-else title="No games found..." description="Try something else." icon="mdi-controller">
+            <v-btn variant="tonal" color="primary" @click="archiveStore.resetQuery">Clear filter</v-btn>
         </Empty>
     </Section>
 </template>

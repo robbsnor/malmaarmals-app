@@ -36,11 +36,11 @@ const archiveStore = useArchiveStore();
         <Empty
             v-if="!playlistsStore.filteredPlaylists.length && archiveStore.query"
             :title="`No playlists found...`"
-            icon="mdi-magnify"
+            icon="mdi-format-list-bulleted"
             description="Try something else."
         >
             <div class="flex flex-col gap-4 items-center">
-                <v-btn variant="text" color="primary" @click="archiveStore.resetQuery">Show all</v-btn>
+                <v-btn variant="tonal" color="primary" @click="archiveStore.resetQuery">Clear filter</v-btn>
                 <AddPlaylistDialog />
             </div>
         </Empty>

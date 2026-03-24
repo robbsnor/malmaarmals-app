@@ -15,11 +15,11 @@ function dismiss() {
 <template>
     <Container v-if="!hidden">
         <div
-            class="relative mt-4 flex lg:items-center gap-4 rounded-md border border-primary/40 bg-primary/20 px-4 py-3"
+            class="relative mt-4 flex lg:items-center gap-4 rounded-md border border-primary/40 bg-primary-dark/20 px-4 py-3"
         >
             <v-icon color="primary" class="max-lg:hidden!">mdi-information-slab-circle-outline</v-icon>
             <div>
-                <div class="font-semibold uppercase">Slow video loading times</div>
+                <div class="font-bold uppercase">Slow video loading times</div>
                 <div class="text-muted">
                     Videos can take a little while to load. This app is partially self-hosted, so performance can be
                     slower when traffic is high.

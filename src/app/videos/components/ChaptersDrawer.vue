@@ -67,9 +67,9 @@ watch(
 
                 <Empty
                     v-else
-                    title="No chapters..."
+                    title="No chapters"
                     icon="mdi-format-list-bulleted"
-                    description="LEKKERSPELEN vs ... don't have chapters to prevent spoilers"
+                    description="PETER vs TIMON and similar streams don't have chapters to prevent spoilers."
                 >
                     <div class="flex flex-col gap-4">
                         <v-btn
