@@ -49,7 +49,7 @@ function onScroll() {
 function scrollBackDown() {
     if (!chatRef.value) return;
 
-    const { y } = useScroll(chatRef, { behavior: 'smooth' });
+    const { y } = useScroll(chatRef);
     y.value = chatRef.value.scrollHeight;
 
     userHasScrolledUp.value = false;
