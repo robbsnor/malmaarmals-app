@@ -10,7 +10,7 @@ import { usePreferenceStore } from '../../shared/stores/preference.store';
 const WINDOW_S = 8;
 
 /** Horizontal spawn range (% from left edge) */
-const LEFT_MIN = 5;
+const LEFT_MIN = 10;
 const LEFT_MAX = 90;
 
 /** Emote size in pixels */
@@ -36,7 +36,7 @@ const DURATION_MAX = 6000;
 const SPAWN_BOTTOM = -10;
 
 /** Maximum number of emotes visible at the same time */
-const MAX_PARTICLES = 100;
+const MAX_PARTICLES = 80;
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -73,7 +73,7 @@ watch(
 
             const words = msg.text.split(' ');
             for (const word of words) {
-                if (!word.startsWith(':emote-')) continue;
+                if (!word.startsWith(':emote')) continue;
                 if (particles.value.length >= MAX_PARTICLES) continue;
 
                 const id = particleId++;
