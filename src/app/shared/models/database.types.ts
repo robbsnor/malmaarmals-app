@@ -120,6 +120,35 @@ export type Database = {
                     },
                 ];
             };
+            message_twitch_badges: {
+                Row: {
+                    id: string;
+                    image_id: string;
+                    user_id: number;
+                    video_id: number;
+                };
+                Insert: {
+                    id?: string;
+                    image_id: string;
+                    user_id: number;
+                    video_id: number;
+                };
+                Update: {
+                    id?: string;
+                    image_id?: string;
+                    user_id?: number;
+                    video_id?: number;
+                };
+                Relationships: [
+                    {
+                        foreignKeyName: 'message_twitch_badges_video_id_fkey';
+                        columns: ['video_id'];
+                        isOneToOne: false;
+                        referencedRelation: 'videos';
+                        referencedColumns: ['video_id'];
+                    },
+                ];
+            };
             messages: {
                 Row: {
                     date: string;

@@ -7,9 +7,11 @@ import PlayerControls from './PlayerControls.vue';
 import FloatingEmotes from './FloatingEmotes.vue';
 import Facecam from './Facecam.vue';
 import { Z } from '../../shared/directives/z.directive';
+import { useTwitch } from '../../shared/composables/useTwitch.composable';
 
 const videoStore = useVideoStore();
 const videoRef = useTemplateRef<HTMLVideoElement>('videoRef');
+const twitch = useTwitch();
 
 onMounted(async () => {
     await nextTick();
