@@ -10,6 +10,7 @@ import { useScroll } from '@vueuse/core';
 const videoStore = useVideoStore();
 const chatRef = ref<HTMLElement>(null);
 const userHasScrolledUp = ref(false);
+const chatInfoDialog = defineModel();
 
 const renderedMessages = computed<Messages>(() => {
     const idx = findLastIndexAtOrBefore(videoStore.currentTimeRounded);
@@ -72,6 +73,27 @@ watch(renderedMessages, async () => {
     >
         <template v-if="!videoStore.messagesLoading">
             <template v-if="videoStore.messages.length">
+                <div class="absolute top-4 right-4">
+                    <v-btn
+                        icon="mdi-help-circle-outline"
+                        @click="chatInfoDialog = true"
+                        size="x-small"
+                        variant="tonal"
+                        color="grey"
+                    >
+                    </v-btn>
+                </div>
+
+                <Dialog v-model="chatInfoDialog" title="Chat info" icon="mdi-help-circle-outline">
+                    <div>
+                        <div class="font-bold">Q: Why do I not see my sub-badge?</div>
+                        <div class="text-muted">
+                            A: Not all users that should have a sub-badge have one, even on the original stream they are
+                            missing.
+                        </div>
+                    </div>
+                </Dialog>
+
                 <div
                     ref="chatRef"
                     class="bg-green-800f scroll-hidden flex h-full flex-col gap-1 overflow-auto px-2 py-2 pt-4 2xl:px-4"
