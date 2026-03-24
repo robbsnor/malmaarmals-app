@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, useTemplateRef, watch } from 'vue';
-import Message from './Message.vue';
 import { useVideoStore } from '../stores/video.store';
 import { randomNumber } from '../../shared/helpers/randomNumber';
 import { sleep } from '../../shared/helpers/sleep';
