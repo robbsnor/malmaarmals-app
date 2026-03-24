@@ -86,8 +86,8 @@ watch(renderedMessages, async () => {
                     <div>
                         <div class="font-bold">Q: Why do I not see my sub-badge?</div>
                         <div class="text-muted">
-                            A: Not all users that should have a sub-badge, show one. Even on the original stream they
-                            are missing.
+                            A: Not all users that should have a sub-badge, have one displayed. Even on the original
+                            stream replay they are missing.
                         </div>
                     </div>
                 </Dialog>
