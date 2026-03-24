@@ -45,37 +45,40 @@ const handleClick = async (item: any) => {
 <template>
     <div>
         <Container width="920px">
-            <div v-if="authStore.session" class="bg-black-2f00 flex items-center gap-4 rounded-md p-4 pt-10">
-                <div class="border-primary rounded-full border-2 p-0.5">
+            <div v-if="authStore.session" class="flex items-center gap-4 rounded-md pt-10">
+                <div class="shrink-0 border-primary rounded-full border-2 p-0.5">
                     <img
                         :src="authStore.session.user.user_metadata.avatar_url"
                         alt="Twitch Logo"
                         class="h-14 rounded-full"
                     />
                 </div>
+
                 <div>
-                    <div class="pb-0.5 text-xl leading-none font-bold">
+                    <div class="pb-0.5 text-xl font-bold">
                         {{ authStore.session.user.user_metadata.nickname }}
                     </div>
-                    <div class="text-muted flex items-center">
+
+                    <div class="text-muted text-sm flex items-center">
+                        <v-icon
+                            :icon="authStore.isSubbed ? 'mdi-check' : 'mdi-lock'"
+                            :color="authStore.isSubbed ? 'success' : 'var(--color-orange-500)'"
+                            size="16"
+                            class="mtf-0.5 mr-1 inline-block"
+                        />
                         <a
                             v-if="!authStore.isSubbed"
                             href="https://www.twitch.tv/lekkerspelen/"
                             target="_blank"
                             class="italic underline"
                         >
-                            Not subscribed
+                            Not subbed to LekkerSpelen
                         </a>
 
-                        <div v-else>Subscribed</div>
-                        <v-icon
-                            :icon="authStore.isSubbed ? 'mdi-check' : 'mdi-lock'"
-                            :color="authStore.isSubbed ? 'success' : 'var(--color-red-500)'"
-                            size="16"
-                            class="mt-0.5 ml-1 inline-block"
-                        />
+                        <div v-else>Subscribed to LekkerSpelen</div>
                     </div>
                 </div>
+
                 <div class="ounded-full ml-auto flex items-center justify-center">
                     <v-icon icon="mdi-star-four-points" size="32" class="text-black-800 mr-2" />
                 </div>
@@ -86,6 +89,32 @@ const handleClick = async (item: any) => {
                 <p class="text-muted">Log in with Twitch to start watching streams</p>
                 <SignInButton />
             </div>
+
+            <!-- <div v-if="authStore.isSubbed" class="p-4 mt-4 bg-green-300/10 border border-green-300/20 rounded-md">
+                <div class="flex gap-4 pb-2">
+                    <v-icon color="green" icon="mdi-cash-100" class="mr-1"></v-icon>
+                    <div>
+                        <div class="text-xl font-bold">Subscribed!</div>
+                        <div class="text-muted">You are subscribed to LekkerSpelen and can view streams.</div>
+                    </div>
+                </div>
+
+                <v-btn class="w-full" variant="tonal" color="green" target="_blank"> Watch streams </v-btn>
+            </div>
+
+            <div v-else class="p-4 mt-4 bg-orange-300/10 border border-orange-300/20 rounded-md">
+                <div class="flex gap-4 pb-2">
+                    <v-icon color="orange" icon="mdi-cash-100" class="mr-1"></v-icon>
+                    <div>
+                        <div class="text-xl font-bold">Not subscribed.</div>
+                        <div class="text-muted">You need to be subscribed to LekkerSpelen to watch streams.</div>
+                    </div>
+                </div>
+
+                <v-btn class="w-full" variant="tonal" color="primary" target="_blank" prepend-icon="mdi-twitch">
+                    Subscribe
+                </v-btn>
+            </div>  -->
         </Container>
 
         <Section v-if="authStore.session" title="History" width="920px">
@@ -103,7 +132,7 @@ const handleClick = async (item: any) => {
 
             <div v-if="historyStore.history.length" class="flex overflow-x-auto gap-4 max-lg:-mx-4 max-lg:px-4 pb-2">
                 <RouterLink
-                    v-for="video in historyStore.videos.slice(0, 20)"
+                    v-for="video in historyStore.videos.slice(0, 10)"
                     :key="video.id"
                     :to="{ name: 'stream', params: { id: video.video_id } }"
                     class="w-[180px] shrink-0"

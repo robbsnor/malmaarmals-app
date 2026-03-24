@@ -12,7 +12,7 @@ const authStore = useAuthStore();
                 v-bind="{ ...props, ...$attrs }"
                 class="absolute flex size-5 items-center justify-center rounded-full bg-black-100 z-1"
             >
-                <v-icon icon="mdi-lock" class="-mt-0.5" color="var(--color-red-500)" size="14" />
+                <v-icon icon="mdi-lock" class="-mt-0.5" color="var(--color-orange-500)" size="14" />
             </div>
         </template>
     </v-tooltip>
