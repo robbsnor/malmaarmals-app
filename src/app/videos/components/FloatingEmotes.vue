@@ -26,7 +26,7 @@ const OPACITY_START = 1;
 
 /** Per-emote spawn delay (ms) */
 const DELAY_MIN = 0;
-const DELAY_MAX = 1200;
+const DELAY_MAX = 2000;
 
 /** Float animation duration (ms) */
 const DURATION_MIN = 3000;
@@ -73,7 +73,7 @@ watch(
 
             const words = msg.text.split(' ');
             for (const word of words) {
-                if (!emotesMap[word as keyof typeof emotesMap]) continue;
+                if (!word.startsWith(':emote-')) continue;
                 if (particles.value.length >= MAX_PARTICLES) continue;
 
                 const id = particleId++;
@@ -81,7 +81,7 @@ watch(
 
                 particles.value.push({
                     id,
-                    src: emotesMap[word as keyof typeof emotesMap],
+                    src: word,
                     left: rand(LEFT_MIN, LEFT_MAX),
                     size: rand(SIZE_MIN, SIZE_MAX),
                     targetPercent: rand(TARGET_MIN, TARGET_MAX),
@@ -123,11 +123,11 @@ watch(
 
 <template>
     <div class="pointer-events-none absolute inset-0 overflow-hidden">
-        <img
+        <Emote
             v-for="particle in particles"
             :key="particle.id"
             alt="emote"
-            :src="particle.src"
+            :emoteString="particle.src"
             class="floating-emote absolute object-contain"
             :style="{
                 left: `${particle.left}%`,

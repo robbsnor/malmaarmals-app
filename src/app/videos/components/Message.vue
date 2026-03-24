@@ -55,7 +55,7 @@ const isLekkerSpelen = computed(() => props.message.user_id === LEKKER_SPELEN_US
         <span class="break-words text-gray-300"
             >:
             <template v-for="word in message.text.split(' ')" :key="word">
-                <img v-if="emotesMap[word]" alt="emote" :src="emotesMap[word]" class="inline h-7" />
+                <Emote v-if="word.startsWith(':emote-')" :emoteString="word" />
                 <b v-else-if="word.startsWith('@')">{{ word }}</b>
                 <a v-else-if="word.startsWith('http') || word.startsWith('https')" :href="word" target="_blank">
                     {{ word }}
