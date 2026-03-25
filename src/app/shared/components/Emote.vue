@@ -4,7 +4,6 @@ import { computed, ref } from 'vue';
 const props = withDefaults(
     defineProps<{
         emoteString?: string;
-        id?: number;
     }>(),
     {}
 );
@@ -20,15 +19,16 @@ const emote = computed(() => {
     };
 });
 
+const isNativeTwitchEmote = computed(() => emote.value.id.toString().startsWith('55555'));
+
 const emoteUrl = computed(() => {
-    let emoteId: string | number = props.id;
+    if (isNativeTwitchEmote.value) return;
+
+    let emoteId: string | number;
 
     if (props.emoteString) {
         emoteId = emote.value.id;
     }
-
-    const isTwitchNativeEmote = emoteId.toString().startsWith('55555');
-    if (isTwitchNativeEmote) emoteId = null;
 
     return `https://static-cdn.jtvnw.net/emoticons/v2/${emoteId}/default/dark/2.0`;
 });
@@ -40,13 +40,14 @@ const handleImageError = () => {
 
 <template>
     <img
-        v-if="!imageError"
+        v-if="!imageError && !isNativeTwitchEmote"
         :title="emote.name"
         :alt="emote.name"
         :src="emoteUrl"
         class="inline h-7"
         @error="handleImageError"
     />
+
     <div v-else class="inline h-7">
         {{ emote.name }}
     </div>
