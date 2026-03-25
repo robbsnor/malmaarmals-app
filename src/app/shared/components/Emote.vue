@@ -27,6 +27,9 @@ const emoteUrl = computed(() => {
         emoteId = emote.value.id;
     }
 
+    const isTwitchNativeEmote = emoteId.toString().startsWith('55555');
+    if (isTwitchNativeEmote) emoteId = null;
+
     return `https://static-cdn.jtvnw.net/emoticons/v2/${emoteId}/default/dark/2.0`;
 });
 
