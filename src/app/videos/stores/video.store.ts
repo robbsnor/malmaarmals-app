@@ -6,6 +6,7 @@ import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import _ from 'lodash';
 import { messagesQueryStringSelect, type Message } from '../models/messages.model';
+import { fetchAll } from '../../shared/helpers/supabase-fetch-all.helper';
 import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
 import { useVideosStore } from './videos.store';
 import { useHistoryStore } from '../../history/stores/history.store';
@@ -132,22 +133,19 @@ export const useVideoStore = defineStore('video', () => {
     async function fetchMessages() {
         const videoId = Number(id.value);
 
-        // Fetch messages
-        const { data: messagesData, error: messagesError } = await supabase
-            .from('messages')
-            .select(messagesQueryStringSelect)
-            .eq('video_id', videoId)
-            .order('offset_sec', { ascending: true });
+        // Fetch messages and badges in parallel, paginating until all rows are returned
+        const messagesData = await fetchAll((from, to) =>
+            supabase
+                .from('messages')
+                .select(messagesQueryStringSelect)
+                .eq('video_id', videoId)
+                .order('offset_sec', { ascending: true })
+                .range(from, to)
+        );
 
-        if (messagesError) throw messagesError;
-
-        // Fetch all badges for this video (one query gets all users' badges)
-        const { data: badgesData, error: badgesError } = await supabase
-            .from('message_twitch_badges')
-            .select('user_id, image_id')
-            .eq('video_id', videoId);
-
-        if (badgesError) throw badgesError;
+        const badgesData = await fetchAll((from, to) =>
+            supabase.from('message_twitch_badges').select('user_id, image_id').eq('video_id', videoId).range(from, to)
+        );
 
         // Create a lookup map: user_id -> array of badges
         const badgesByUser = badgesData.reduce(
