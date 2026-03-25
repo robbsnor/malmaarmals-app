@@ -100,7 +100,7 @@ function toggleTheaterMode() {
 
                     <ShareButton />
 
-                    <PlayerButton @click="addToPlaylistDialog = true" :size="24" icon="mdi-plus" />
+                    <PlayerButton v-auth @click="addToPlaylistDialog = true" :size="24" icon="mdi-plus" />
                     <AddToPlaylistDialog v-model="addToPlaylistDialog" :video="videoStore.info" />
 
                     <Cast />
