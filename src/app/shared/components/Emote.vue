@@ -27,7 +27,7 @@ const emoteUrl = computed(() => {
         emoteId = emote.value.id;
     }
 
-    return `https://static-cdn.jtvnw.net/emoticons/v2/${emoteId}/default/dark/1.0`;
+    return `https://static-cdn.jtvnw.net/emoticons/v2/${emoteId}/default/dark/2.0`;
 });
 
 const handleImageError = () => {
