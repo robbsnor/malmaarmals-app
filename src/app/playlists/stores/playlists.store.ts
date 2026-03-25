@@ -52,9 +52,15 @@ export const usePlaylistsStore = defineStore('playlists', () => {
         return playlists.value.filter((playlist) => {
             const titleMatch = playlist.title.toLowerCase().includes(query);
             const descriptionMatch = playlist.description?.toLowerCase().includes(query);
-            const videoMatch = playlist.videos.some((video) =>
-                video.chapters.some((chapter) => chapter.category.title.toLocaleLowerCase().includes(query))
-            );
+            const videoMatch = playlist.videos.some((video) => {
+                const categoryMatch = video.chapters.some((chapter) =>
+                    chapter.category.title.toLocaleLowerCase().includes(query)
+                );
+                const titleMatch = video.title.toLocaleLowerCase().includes(query);
+
+                return categoryMatch || titleMatch;
+            });
+
             return titleMatch || descriptionMatch || videoMatch;
         });
     });
