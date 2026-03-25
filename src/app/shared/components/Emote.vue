@@ -39,7 +39,14 @@ const handleImageError = () => {
 </script>
 
 <template>
-    <img v-if="!imageError" alt="emote" :src="emoteUrl" class="inline h-7" @error="handleImageError" />
+    <img
+        v-if="!imageError"
+        :title="emote.name"
+        :alt="emote.name"
+        :src="emoteUrl"
+        class="inline h-7"
+        @error="handleImageError"
+    />
     <div v-else class="inline h-7">
         {{ emote.name }}
     </div>
