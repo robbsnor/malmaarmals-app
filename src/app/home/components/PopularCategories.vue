@@ -31,7 +31,7 @@ function selectCategory(title: string) {
 
         <div v-if="lgAndUp" class="grid grid-cols-3 gap-3 md:grid-cols-4 lg:gap-8 xl:grid-cols-8">
             <CategoryCardLarge
-                v-for="cat in videosStore.populairCategories.slice(0, amount.value)"
+                v-for="cat in videosStore.populairCategories.slice(0, amount)"
                 :key="cat.id"
                 v-bind="cat"
                 @click="selectCategory(cat.title)"
