@@ -19,53 +19,55 @@ const lekkerSpeurenUrl = computed(
 </script>
 
 <template>
-    <Section
-        title="Streams"
-        :more-text="videosStore.hasMore ? `Show ${videosStore.remaining} more` : undefined"
-        more-icon="mdi-chevron-down"
-        v-on="videosStore.hasMore ? { moreClick: videosStore.loadMore } : {}"
-    >
-        <template #actions>
-            <div class="flex justify-center gap-2 items-center max-lg:hidden">
-                <div class="text-muted-more font-bold whitespace-nowrap">{{ videosStore.videos.length }} streams</div>
-            </div>
-        </template>
-
-        <FilterIndicator archiveType="STREAMS" />
-
-        <div class="grid grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5" v-auto-animate>
-            <template v-for="video in videosStore.displayed" :key="video.video_id">
-                <VideoItem :video="video" />
-                <VideoItemLarge :video="video" />
+    <div>
+        <Section
+            title="Streams"
+            :more-text="videosStore.hasMore ? `Show ${videosStore.remaining} more` : undefined"
+            more-icon="mdi-chevron-down"
+            v-on="videosStore.hasMore ? { moreClick: videosStore.loadMore } : {}"
+        >
+            <template #actions>
+                <div class="flex justify-center gap-2 items-center max-lg:hidden">
+                    <div class="text-muted-more font-bold whitespace-nowrap">
+                        {{ videosStore.videos.length }} streams
+                    </div>
+                </div>
             </template>
-        </div>
 
-        <!-- find more on lekkerspeuren  -->
-        <Empty
-            v-if="archiveStore.query && !videosStore.hasMore && videosStore.filteredVideos.length"
-            title="Not found what you are looking for?"
-            description="It might be on lekkerspeuren.nl"
-        >
-            <v-btn
-                :href="lekkerSpeurenUrl"
-                variant="tonal"
-                color="primary"
-                target="_blank"
-                append-icon="mdi-open-in-new"
+            <FilterIndicator archiveType="STREAMS" />
+
+            <div class="grid grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5" v-auto-animate>
+                <template v-for="video in videosStore.displayed" :key="video.video_id">
+                    <VideoItem :video="video" />
+                    <VideoItemLarge :video="video" />
+                </template>
+            </div>
+
+            <!-- nothing found -->
+            <Empty
+                v-if="archiveStore.query && !videosStore.filteredVideos.length"
+                :title="`No videos found...`"
+                icon="mdi-play"
+                description="Try something else, or check lekkerspeuren.nl"
             >
-                lekkerspeuren.nl
-            </v-btn>
-        </Empty>
+                <div class="flex gap-4 flex-wrap items-center justify-center">
+                    <v-btn variant="tonal" color="primary" @click="archiveStore.resetQuery">Clear filter</v-btn>
+                    <v-btn
+                        :href="lekkerSpeurenUrl"
+                        variant="tonal"
+                        color="primary"
+                        target="_blank"
+                        append-icon="mdi-open-in-new"
+                    >
+                        lekkerspeuren.nl
+                    </v-btn>
+                </div>
+            </Empty>
+        </Section>
 
-        <!-- nothing found -->
-        <Empty
-            v-if="archiveStore.query && !videosStore.filteredVideos.length"
-            :title="`No videos found...`"
-            icon="mdi-play"
-            description="Try something else, or check lekkerspeuren.nl"
-        >
-            <div class="flex gap-4 flex-wrap items-center justify-center">
-                <v-btn variant="tonal" color="primary" @click="archiveStore.resetQuery">Clear filter</v-btn>
+        <Section v-if="archiveStore.query && !videosStore.hasMore && videosStore.filteredVideos.length">
+            <!-- find more on lekkerspeuren  -->
+            <Empty title="Not found what you are looking for?" description="It might be on lekkerspeuren.nl">
                 <v-btn
                     :href="lekkerSpeurenUrl"
                     variant="tonal"
@@ -75,7 +77,7 @@ const lekkerSpeurenUrl = computed(
                 >
                     lekkerspeuren.nl
                 </v-btn>
-            </div>
-        </Empty>
-    </Section>
+            </Empty>
+        </Section>
+    </div>
 </template>
