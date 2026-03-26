@@ -26,7 +26,7 @@ const activeTab = computed(() => {
         <Container>
             <Search density="default" class="relative z-1" />
 
-            <div class="rounded borderf border-black-600 bg-black-500/50 p-1.5 pt-4 -mt-2.5 backdrop-blur-xl">
+            <div class="rounded border border-white/10 bg-black-500/50 p-1.5 pt-4 -mt-2.5 backdrop-blur-xl">
                 <div class="grid grid-cols-3 gap-1">
                     <RouterLink
                         v-for="tab in tabs"

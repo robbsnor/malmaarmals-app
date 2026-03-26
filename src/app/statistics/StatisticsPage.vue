@@ -3,7 +3,7 @@ import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useVideosStore } from '../videos/stores/videos.store';
 import { useArchiveStore } from '../archive/stores/archive.store';
-import CategoryCard from '../categories/components/CategoryCard.vue';
+import CategoryCard from '../categories/components/CategoryCardLarge.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import Empty from '../shared/components/Empty.vue';
 

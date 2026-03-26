@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useVideosStore } from '../../videos/stores/videos.store';
 import { useArchiveStore } from '../../archive/stores/archive.store';
-import CategoryCard from '../../categories/components/CategoryCard.vue';
+import CategoryCardLarge from '../../categories/components/CategoryCardLarge.vue';
 import { useDisplay } from 'vuetify';
 
 const videosStore = useVideosStore();
@@ -30,7 +30,7 @@ function selectCategory(title: string) {
         </template>
 
         <div class="grid grid-cols-3 gap-3 md:grid-cols-4 lg:gap-8 xl:grid-cols-8">
-            <CategoryCard
+            <CategoryCardLarge
                 v-for="cat in videosStore.populairCategories.slice(0, amount)"
                 :key="cat.id"
                 v-bind="cat"

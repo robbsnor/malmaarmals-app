@@ -121,8 +121,8 @@ export const useVideosStore = defineStore('videos', () => {
         });
 
         return Array.from(categoriesMap.values())
-
-            .sort((a, b) => b.secPlayed - a.secPlayed);
+            .sort((a, b) => b.secPlayed - a.secPlayed)
+            .map((c, i) => ({ ...c, position: i + 1 }));
     });
 
     watch(

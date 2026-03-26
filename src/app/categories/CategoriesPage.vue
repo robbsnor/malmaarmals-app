@@ -3,15 +3,18 @@ import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useArchiveStore } from '../archive/stores/archive.store';
 import { useVideosStore } from '../videos/stores/videos.store';
-import CategoryCard from './components/CategoryCard.vue';
+import CategoryCardLarge from './components/CategoryCardLarge.vue';
 import FilterIndicator from '../archive/components/FilterIndicator.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
+import { useDisplay } from 'vuetify';
+import CategoryCard from './components/CategoryCard.vue';
 
 TitleHelper.setTitle('games');
 
 const archiveStore = useArchiveStore();
 const videosStore = useVideosStore();
 const router = useRouter();
+const { lgAndUp } = useDisplay();
 
 const INITIAL = 40;
 const STEP = 40;
@@ -32,8 +35,8 @@ const visibleCategories = computed(() =>
 );
 
 function selectCategory(title: string) {
-    archiveStore.query = title;
     router.push({ name: 'streams' });
+    archiveStore.query = title;
 }
 
 function loadMore() {
@@ -78,13 +81,25 @@ watch(
 
         <template v-if="filteredCategories.length">
             <div
+                v-if="lgAndUp"
                 v-auto-animate
                 class="grid grid-cols-3 gap-3 md:grid-cols-4 md:gap-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8"
             >
+                <CategoryCardLarge
+                    v-for="cat in visibleCategories"
+                    :key="cat.id"
+                    v-bind="cat"
+                    @click="selectCategory(cat.title)"
+                />
+            </div>
+
+            <div v-else v-auto-animate class="flex flex-col gap-2">
                 <CategoryCard
                     v-for="cat in visibleCategories"
                     :key="cat.id"
                     v-bind="cat"
+                    :to="{ name: 'streams' }"
+                    class="relative flex gap-3.5 overflow-hidden p-2 rounded-lg"
                     @click="selectCategory(cat.title)"
                 />
             </div>
