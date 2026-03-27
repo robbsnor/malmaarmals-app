@@ -3,6 +3,7 @@ import { ref } from 'vue';
 
 export const useAppStore = defineStore('app', () => {
     const loading = ref(true);
+    const hasError = ref(false);
     const mainDrawer = ref(false);
     const headerShown = ref(true);
     const menuOpen = ref(false);
@@ -25,6 +26,7 @@ export const useAppStore = defineStore('app', () => {
         headerShown,
         mainDrawer,
         loading,
+        hasError,
 
         toggleMenu,
         closeMenu,
