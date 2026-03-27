@@ -22,7 +22,6 @@ const count = ref(INITIAL);
 const showAll = ref(false);
 
 const hasMore = computed(() => count.value < filteredCategories.value.length);
-const remaining = computed(() => Math.min(STEP, filteredCategories.value.length - count.value));
 
 const filteredCategories = computed(() => {
     if (!archiveStore.debouncedQuery) return videosStore.populairCategories;
@@ -42,21 +41,13 @@ function selectCategory(title: string) {
 function loadMore() {
     count.value += STEP;
 }
-
-// reset view whenever the search changes
-watch(
-    () => archiveStore.debouncedQuery,
-    () => {
-        showAll.value = false;
-        count.value = INITIAL;
-    }
-);
 </script>
 
 <template>
     <Section
         title="Games"
         :more-text="!showAll && hasMore ? `Show more` : undefined"
+        :show-header="lgAndUp"
         more-icon="mdi-chevron-down"
         v-on="!showAll && hasMore ? { moreClick: loadMore } : {}"
     >
@@ -93,13 +84,12 @@ watch(
                 />
             </div>
 
-            <div v-else v-auto-animate class="flex flex-col gap-2">
+            <div v-else v-auto-animate class="flex flex-col gap-4">
                 <CategoryCard
                     v-for="cat in visibleCategories"
                     :key="cat.id"
                     v-bind="cat"
                     :to="{ name: 'streams' }"
-                    class="relative flex gap-3.5 overflow-hidden p-2 rounded-lg"
                     @click="selectCategory(cat.title)"
                 />
             </div>

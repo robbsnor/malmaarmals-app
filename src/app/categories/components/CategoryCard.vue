@@ -25,11 +25,11 @@ const hoursPlayed = computed(() => {
         <v-img
             :src="`https://static-cdn.jtvnw.net/ttv-boxart/${props.id}_IGDB-208x288.jpg`"
             cover
-            class="absolute! inset-0! opacity-10! blur-xfs!"
+            class="absolute! inset-0! opacity-10f! blur-xfs!"
         />
-        <div class="absolute inset-0 bg-gradient-to-l from-black-100/20 to-black-100"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-black-100/75 to-black-100"></div>
 
-        <div class="w-14 rounded shrink-0 overflow-hidden bg-black-400">
+        <div class="relative w-14 rounded shrink-0 overflow-hidden bg-black-400 aspect-[208/288]">
             <v-img
                 :src="`https://static-cdn.jtvnw.net/ttv-boxart/${props.id}_IGDB-208x288.jpg`"
                 class="h-full! w-full!"
@@ -38,7 +38,7 @@ const hoursPlayed = computed(() => {
         </div>
 
         <div class="relative py-1 grow">
-            <div class="font-bold line-clamp-2 break-afll pb-1">
+            <div class="font-bold line-clamp-1 break-all pb-1">
                 {{ props.title }}
             </div>
             <div class="flex items-center gap-2">

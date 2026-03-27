@@ -12,10 +12,12 @@ const props = withDefaults(
         moreLink?: string | RouteLocationAsRelativeGeneric | RouteLocationAsPathGeneric;
         moreText?: string;
         moreIcon?: string;
+        showHeader?: boolean;
     }>(),
     {
         moreText: 'view more',
         moreIcon: 'mdi-chevron-right',
+        showHeader: true,
     }
 );
 
@@ -30,9 +32,12 @@ function onMoreClick() {
 </script>
 
 <template>
-    <section class="relative py-6 border-bf border-black-500">
+    <section class="relative py-4 lg:py-6 border-bf border-black-500">
         <Container class="relative" :width="props.width">
-            <div v-if="slots.actions || props.title" class="flex justify-between items-end gap-4 pb-4">
+            <div
+                v-if="(slots.actions || props.title) && props.showHeader"
+                class="flex justify-between items-end gap-4 pb-4"
+            >
                 <h2 class="text-2xl font-bold lg:text-3xl">{{ props.title }}</h2>
                 <slot name="actions"></slot>
             </div>

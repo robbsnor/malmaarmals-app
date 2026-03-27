@@ -7,11 +7,13 @@ import { useArchiveStore } from '../archive/stores/archive.store';
 import FilterIndicator from '../archive/components/FilterIndicator.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import Empty from '../shared/components/Empty.vue';
+import { useDisplay } from 'vuetify';
 
 TitleHelper.setTitle('streams');
 
 const videosStore = useVideosStore();
 const archiveStore = useArchiveStore();
+const { lgAndUp } = useDisplay();
 
 const lekkerSpeurenUrl = computed(
     () => `https://www.lekkerspeuren.nl/?filter=type%3Dstream%26search%3D${archiveStore.query}`
@@ -23,6 +25,7 @@ const lekkerSpeurenUrl = computed(
         <Section
             title="Streams"
             :more-text="videosStore.hasMore ? `Show ${videosStore.remaining} more` : undefined"
+            :show-header="lgAndUp"
             more-icon="mdi-chevron-down"
             v-on="videosStore.hasMore ? { moreClick: videosStore.loadMore } : {}"
         >

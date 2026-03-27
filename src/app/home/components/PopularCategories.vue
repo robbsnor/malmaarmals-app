@@ -43,7 +43,6 @@ function selectCategory(title: string) {
                 :key="cat.id"
                 v-bind="cat"
                 :to="{ name: 'streams' }"
-                class="relative flex gap-3.5 overflow-hidden p-2 rounded-lg"
                 @click="selectCategory(cat.title)"
             />
         </div>
