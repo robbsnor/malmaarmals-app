@@ -24,7 +24,7 @@ function refresh() {
         <Container class="flex flex-col gap-10 items-center">
             <!-- loading -->
             <div
-                class="transition-all duration-1000 w-9/12"
+                class="transition-all duration-1000 w-9/12 max-w-100"
                 :class="splashVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
             >
                 <Logo payoff />
@@ -33,7 +33,7 @@ function refresh() {
             <template v-if="appStore.loading">
                 <v-progress-linear
                     color="primary"
-                    class="transition-all duration-2000! w-6/12!"
+                    class="transition-all duration-2000! w-6/12! max-w-100!"
                     :class="loadingVisible ? 'opacity-100  ' : 'opacity-0 '"
                     indeterminate
                 />
