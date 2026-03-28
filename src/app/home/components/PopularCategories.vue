@@ -37,7 +37,7 @@ function selectCategory(title: string) {
                 @click="selectCategory(cat.title)"
             />
         </div>
-        <div v-else v-auto-animate class="flex flex-col gap-2">
+        <div v-else v-auto-animate class="flex flex-col gap-4">
             <CategoryCard
                 v-for="cat in videosStore.populairCategories.slice(0, 5)"
                 :key="cat.id"
