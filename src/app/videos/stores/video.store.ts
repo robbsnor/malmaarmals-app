@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { supabase } from '../../../supabase';
-import { useIdle, useMediaControls, useWindowSize } from '@vueuse/core';
+import { onKeyStroke, useIdle, useMediaControls, useWindowSize } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import _ from 'lodash';
@@ -193,6 +193,11 @@ export const useVideoStore = defineStore('video', () => {
 
         currentTime.value = Number(historyItem.video_time);
     };
+
+    onKeyStroke(' ', (e) => {
+        e.preventDefault();
+        playing.value = !playing.value;
+    });
 
     onPlaybackError(async (e) => {
         playing.value = false;
