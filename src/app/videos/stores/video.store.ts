@@ -194,9 +194,26 @@ export const useVideoStore = defineStore('video', () => {
         currentTime.value = Number(historyItem.video_time);
     };
 
-    onKeyStroke(' ', (e) => {
-        playing.value = !playing.value;
-    });
+    function isEditableTarget(target: EventTarget | null) {
+        if (!(target instanceof HTMLElement)) return false;
+
+        return Boolean(
+            target.isContentEditable ||
+            target.closest('input, textarea, select, [contenteditable="true"], [role="textbox"]')
+        );
+    }
+
+    onKeyStroke(
+        ' ',
+        (e) => {
+            if (e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
+            if (isEditableTarget(e.target)) return;
+
+            e.preventDefault();
+            playing.value = !playing.value;
+        },
+        { passive: false }
+    );
 
     onPlaybackError(async (e) => {
         playing.value = false;
