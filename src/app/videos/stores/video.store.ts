@@ -195,7 +195,6 @@ export const useVideoStore = defineStore('video', () => {
     };
 
     onKeyStroke(' ', (e) => {
-        e.preventDefault();
         playing.value = !playing.value;
     });
 
