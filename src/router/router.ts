@@ -28,6 +28,8 @@ const router = createRouter({
         },
         {
             path: '/',
+            name: 'archive',
+            redirect: { name: 'streams' },
             component: () => import('../app/archive/ArchivePage.vue'),
             children: [
                 {
