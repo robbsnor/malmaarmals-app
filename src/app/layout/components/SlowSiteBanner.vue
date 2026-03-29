@@ -2,7 +2,7 @@
 import { useLocalStorage } from '@vueuse/core';
 import { computed } from 'vue';
 
-const HIDE_DURATION_MS = 1 * 24 * 60 * 60 * 1000;
+const HIDE_DURATION_MS = 2 * 24 * 60 * 60 * 1000;
 const hiddenUntil = useLocalStorage<number | null>('slow-site-banner-hidden-until', null);
 
 const hidden = computed(() => hiddenUntil.value !== null && hiddenUntil.value > Date.now());
@@ -19,9 +19,9 @@ function dismiss() {
         >
             <v-icon color="primary" class="max-lg:hidden!">mdi-information-slab-circle-outline</v-icon>
             <div>
-                <div class="font-bold uppercase">Slow video loading times</div>
+                <div class="font-bold uppercase">Slow loading times</div>
                 <div class="text-muted">
-                    Videos can take a little while to load. This app is partially self-hosted, so performance can be
+                    Content can take a little while to load. This app is partially self-hosted, so performance can be
                     slower when traffic is high.
                 </div>
             </div>
