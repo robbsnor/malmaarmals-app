@@ -12,9 +12,9 @@ const { top, right, bottom, left } = useScreenSafeArea();
 const appStore = useAppStore();
 const authStore = useAuthStore();
 const menuItems = ref([
-    { title: 'home', icon: 'mdi-collage', to: '/' },
+    { title: 'home', icon: 'mdi-collage', to: { name: 'home' } },
     { title: 'streams', icon: 'mdi-magnify', to: { name: 'archive' }, id: 'bottom-search' },
-    { title: 'profile', icon: '', to: '/profile', id: 'bottom-profile' },
+    { title: 'profile', icon: '', to: { name: 'profile' }, id: 'bottom-profile' },
 ]);
 </script>
 
