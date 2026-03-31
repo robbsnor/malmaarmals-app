@@ -24,7 +24,7 @@ const lekkerSpeurenUrl = computed(
     <div>
         <Section
             title="Streams"
-            :more-text="videosStore.hasMore ? `Show ${videosStore.remaining} more` : undefined"
+            :more-text="videosStore.hasMore ? `Show more` : undefined"
             :show-header="lgAndUp"
             more-icon="mdi-chevron-down"
             v-on="videosStore.hasMore ? { moreClick: videosStore.loadMore } : {}"

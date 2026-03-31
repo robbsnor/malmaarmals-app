@@ -17,7 +17,7 @@ const router = useRouter();
 const { lgAndUp } = useDisplay();
 
 const INITIAL = 40;
-const STEP = 40;
+const STEP = 100;
 const count = ref(INITIAL);
 const showAll = ref(false);
 

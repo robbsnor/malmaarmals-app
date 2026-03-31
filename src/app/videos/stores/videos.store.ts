@@ -9,7 +9,7 @@ export const useVideosStore = defineStore('videos', () => {
     const videos = ref<Video[]>([]);
 
     const INITIAL = 40;
-    const STEP = 50;
+    const STEP = 100;
     const count = ref(INITIAL);
     const displayed = computed(() => filteredVideos.value.slice(0, count.value));
     const hasMore = computed(() => count.value < filteredVideos.value.length);
