@@ -1,21 +1,26 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useAppStore } from '../../shared/stores/app.store';
 import { useScreenSafeArea } from '@vueuse/core';
-import { useRouter, RouterLink } from 'vue-router';
+import { RouterLink, useRoute } from 'vue-router';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { Z } from '../../shared/directives/z.directive';
 import NotSubscribedBadge from './NotSubscribedBadge.vue';
 
-const router = useRouter();
+const route = useRoute();
 const { top, right, bottom, left } = useScreenSafeArea();
-const appStore = useAppStore();
 const authStore = useAuthStore();
 const menuItems = ref([
     { title: 'home', icon: 'mdi-collage', to: { name: 'home' } },
     { title: 'streams', icon: 'mdi-magnify', to: { name: 'archive' }, id: 'bottom-search' },
     { title: 'profile', icon: '', to: { name: 'profile' }, id: 'bottom-profile' },
 ]);
+
+function handleClick(item: any) {
+    if (item.id === 'bottom-search' && route.name === 'streams') {
+        const searchEl = document.querySelector<HTMLInputElement>('#mobileSearch');
+        searchEl?.focus();
+    }
+}
 </script>
 
 <template>
@@ -34,6 +39,7 @@ const menuItems = ref([
                     :id="item?.id"
                     activeClass="text-primary"
                     class="text-muted-more text-light hover:text-primary-light! flex cursor-pointer flex-col items-center justify-center gap-[2px] px-6 py-2 transition-all"
+                    @click="handleClick(item)"
                 >
                     <v-icon v-if="item.icon" :icon="item.icon" />
 
