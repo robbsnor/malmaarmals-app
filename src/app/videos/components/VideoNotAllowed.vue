@@ -44,7 +44,7 @@ function refresh() {
             <template v-else>
                 <Alert
                     v-if="!authStore.isSubbed"
-                    title="You are not subscribed to LekkerSpelen."
+                    title="You are not subscribed to Lekker Spelen."
                     description="Please subscribe to the malse males to watch streams"
                 >
                     <div class="flex flex-col gap-2">

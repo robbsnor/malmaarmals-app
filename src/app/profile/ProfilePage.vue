@@ -72,10 +72,10 @@ const handleClick = async (item: any) => {
                             target="_blank"
                             class="italic underline"
                         >
-                            Not subbed to LekkerSpelen
+                            Not subbed to Lekker Spelen
                         </a>
 
-                        <div v-else>Subscribed to LekkerSpelen</div>
+                        <div v-else>Subscribed to Lekker Spelen</div>
                     </div>
                 </div>
 
@@ -95,7 +95,7 @@ const handleClick = async (item: any) => {
                     <v-icon color="green" icon="mdi-cash-100" class="mr-1"></v-icon>
                     <div>
                         <div class="text-xl font-bold">Subscribed!</div>
-                        <div class="text-muted">You are subscribed to LekkerSpelen and can view streams.</div>
+                        <div class="text-muted">You are subscribed to Lekker Spelen and can view streams.</div>
                     </div>
                 </div>
 
@@ -107,7 +107,7 @@ const handleClick = async (item: any) => {
                     <v-icon color="orange" icon="mdi-cash-100" class="mr-1"></v-icon>
                     <div>
                         <div class="text-xl font-bold">Not subscribed.</div>
-                        <div class="text-muted">You need to be subscribed to LekkerSpelen to watch streams.</div>
+                        <div class="text-muted">You need to be subscribed to Lekker Spelen to watch streams.</div>
                     </div>
                 </div>
 

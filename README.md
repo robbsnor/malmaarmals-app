@@ -1,7 +1,7 @@
 # malmaarmals.nl
 
-The LekkerSpelen Twitch archive.\
-Aims to be an archive website to archive lost media from the old and new Twitch streams of LekkerSpelen.
+The Lekker Spelen Twitch archive.\
+Aims to be an archive website to archive lost media from the old and new Twitch streams of Lekker Spelen.
 
 _<sup>Build with: Vue 3, Vuetify 3, Tailwind 4 and VueUse</sup>_
 
@@ -12,7 +12,7 @@ _<sup>Build with: Vue 3, Vuetify 3, Tailwind 4 and VueUse</sup>_
 - Chat replay + partial emoticon support
 - Accurate chapters + timestamps
 - Statistics for chat and games played
-- Subscribtion to LekkerSpelen on Twitch required to watch videos
+- Subscribtion to Lekker Spelen on Twitch required to watch videos
 - Custom playlists
 
 _have more ideas? create an issue!_

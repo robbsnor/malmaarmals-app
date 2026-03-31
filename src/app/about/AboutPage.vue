@@ -13,7 +13,7 @@ const features = [
     'Chat replay with partial emote support',
     'Accurate chapters and timestamps',
     'Statistics for chat and games played',
-    'Subscriber-only access for LekkerSpelen Twitch subscribers',
+    'Subscriber-only access for Lekker Spelen Twitch subscribers',
     'Custom playlists',
 ];
 
@@ -46,10 +46,10 @@ const faqs = ref([
         <Container width="920px" class="py-4">
             <div class="fs">
                 <h2>About Malmaarmals</h2>
-                <p>The LekkerSpelen Twitch archive.</p>
+                <p>The Lekker Spelen Twitch archive.</p>
                 <p>
-                    Aims to be an archive website to archive lost media from the old and new Twitch streams of
-                    LekkerSpelen.
+                    Aims to be an archive website to archive lost media from the old and new Twitch streams of Lekker
+                    Spelen.
                 </p>
 
                 <h2>Features</h2>
@@ -78,7 +78,7 @@ const faqs = ref([
                 </p>
 
                 <p class="italic">
-                    If LekkerSpelen wants this project to be offline, I'll gladly do so. Contact me via
+                    If Lekker Spelen wants this project to be offline, I'll gladly do so. Contact me via
                     <a href="https://www.twitch.tv/robbsnor/" target="_blank">Twitch</a> or
                     <a :href="githubRepoUrl" target="_blank">GitHub</a>
                 </p>
