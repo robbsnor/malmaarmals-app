@@ -34,13 +34,34 @@ const router = createRouter({
             children: [
                 {
                     path: 'streams',
-                    name: 'streams',
-                    component: () => import('../app/videos/VideosPage.vue'),
+                    children: [
+                        {
+                            path: '',
+                            name: 'streams',
+                            component: () => import('../app/videos/VideosPage.vue'),
+                        },
+                        {
+                            path: ':id',
+                            name: 'stream',
+                            component: () => import('../app/videos/VideoPage.vue'),
+                            meta: { showFooter: false },
+                        },
+                    ],
                 },
                 {
                     path: 'playlists',
-                    name: 'playlists',
-                    component: () => import('../app/playlists/PlaylistsPage.vue'),
+                    children: [
+                        {
+                            path: '',
+                            name: 'playlists',
+                            component: () => import('../app/playlists/PlaylistsPage.vue'),
+                        },
+                        {
+                            path: ':id',
+                            name: 'playlist',
+                            component: () => import('../app/playlists/PlaylistPage.vue'),
+                        },
+                    ],
                 },
                 {
                     path: 'games',
@@ -48,17 +69,6 @@ const router = createRouter({
                     component: () => import('../app/categories/CategoriesPage.vue'),
                 },
             ],
-        },
-        {
-            path: '/streams/:id',
-            name: 'stream',
-            component: () => import('../app/videos/VideoPage.vue'),
-            meta: { showFooter: false },
-        },
-        {
-            path: '/playlists/:id',
-            name: 'playlist',
-            component: () => import('../app/playlists/PlaylistPage.vue'),
         },
         {
             path: '/about',
