@@ -71,7 +71,7 @@ const hoursPlayed = computed(() => {
         <div
             class="relative w-full aspect-[208/288] overflow-hidden rounded-2xl border border-white/10 bg-black/40 shadow-lg transition-all duration-500 group-hover:border-primary/40"
         >
-            <v-img
+            <img
                 :src="`https://static-cdn.jtvnw.net/ttv-boxart/${id}_IGDB-208x288.jpg`"
                 :alt="title"
                 cover
