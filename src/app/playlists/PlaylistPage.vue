@@ -39,7 +39,6 @@ const editDialog = ref(false);
 
                     <div v-auth class="flex gap-4">
                         <v-btn
-                            variant="tonal"
                             icon="mdi-trash-can-outline"
                             color="error"
                             size="small"
@@ -49,7 +48,6 @@ const editDialog = ref(false);
                         <DeletePlaylistDialog :playlist="playlist" v-model="deleteDialog" />
 
                         <v-btn
-                            variant="tonal"
                             icon="mdi-pencil"
                             size="small"
                             color="primary"
