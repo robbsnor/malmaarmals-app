@@ -72,7 +72,7 @@ const hoursPlayed = computed(() => {
             class="relative w-full aspect-[208/288] overflow-hidden rounded-2xl border border-white/10 bg-black/40 shadow-lg transition-all duration-500 group-hover:border-primary/40"
         >
             <img
-                :src="`https://static-cdn.jtvnw.net/ttv-boxart/${id}_IGDB-208x288.jpg`"
+                :src="`https://static-cdn.jtvnw.net/ttv-boxart/${id}_IGDB-285x380.jpg`"
                 :alt="title"
                 cover
                 class="absolute inset-0 h-full w-full transition-all duration-700 ease-out group-hover:scale-102 group-hover:brightness-110"

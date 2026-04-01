@@ -22,8 +22,8 @@ const hoursPlayed = computed(() => {
 
 <template>
     <div class="relative flex gap-3.5 overflow-hidden p-2 rounded-lg">
-        <img
-            :src="`https://static-cdn.jtvnw.net/ttv-boxart/${props.id}_IGDB-208x288.jpg`"
+        <v-img
+            :src="`https://static-cdn.jtvnw.net/ttv-boxart/${props.id}_IGDB-285x380.jpg`"
             cover
             class="absolute! inset-0! opacity-10f! blur-xfs!"
         />
@@ -31,7 +31,7 @@ const hoursPlayed = computed(() => {
 
         <div class="relative w-14 rounded shrink-0 overflow-hidden bg-black-400 aspect-[208/288]">
             <img
-                :src="`https://static-cdn.jtvnw.net/ttv-boxart/${props.id}_IGDB-208x288.jpg`"
+                :src="`https://static-cdn.jtvnw.net/ttv-boxart/${props.id}_IGDB-285x380.jpg`"
                 class="h-full! w-full!"
                 cover
             />
