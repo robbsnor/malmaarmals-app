@@ -2,13 +2,14 @@
 import { computed, nextTick, ref, watch } from 'vue';
 import { useVideoStore } from '../stores/video.store';
 import { randomNumber } from '../../shared/helpers/randomNumber';
-import { useScroll } from '@vueuse/core';
+import { useScroll, useWindowSize } from '@vueuse/core';
 import Message from './Message.vue';
 
 const videoStore = useVideoStore();
 const chatRef = ref<HTMLElement>(null);
 const userHasScrolledUp = ref(false);
 const chatInfoDialog = defineModel();
+const { width } = useWindowSize();
 
 const renderedMessages = computed(() => {
     const idx = findLastIndexAtOrBefore(videoStore.currentTimeRounded);
@@ -60,6 +61,10 @@ watch(renderedMessages, async () => {
     if (userHasScrolledUp.value) return;
     await nextTick();
     chatRef.value.scrollTop = chatRef.value.scrollHeight;
+});
+
+watch(width, () => {
+    scrollBackDown();
 });
 </script>
 
