@@ -5,6 +5,7 @@ declare module 'vue-router' {
     interface RouteMeta {
         showSearch?: boolean;
         showFooter?: boolean;
+        showArchiveHeader?: boolean;
     }
 }
 
@@ -60,6 +61,7 @@ const router = createRouter({
                             path: ':id',
                             name: 'playlist',
                             component: () => import('../app/playlists/PlaylistPage.vue'),
+                            meta: { showArchiveHeader: false },
                         },
                     ],
                 },

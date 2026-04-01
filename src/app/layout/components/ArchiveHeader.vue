@@ -22,7 +22,10 @@ const activeTab = computed(() => {
 </script>
 
 <template>
-    <div v-show="!lgAndUp" class="fixed w-full top-0 z-10 bg-gradient-to-b from-black from-50% to-black/0">
+    <div
+        v-show="!lgAndUp && route.meta.showArchiveHeader !== false"
+        class="fixed w-full top-0 z-10 bg-gradient-to-b from-black from-50% to-black/0"
+    >
         <Container class="pt-4">
             <Search id="mobileSearch" density="default" class="relative z-1" />
 

@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { refAutoReset } from '@vueuse/core';
+import { ref } from 'vue';
 
 const authStore = useAuthStore();
 const props = defineProps();
-const loading = refAutoReset(false, 7000);
+const loading = ref(false);
 
 async function signIn() {
     loading.value = true;
