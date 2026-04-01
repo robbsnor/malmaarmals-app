@@ -35,7 +35,7 @@ onMounted(async () => {
         await historyStore.fetchHistory();
         await sleep(500);
     } catch (error) {
-        await sleep(1000);
+        await sleep(1500);
         appStore.hasError = true;
         throw error;
     } finally {
