@@ -14,7 +14,7 @@ const props = withDefaults(
 
 <template>
     <div class="relative self-start group overflow-hidden rounded-md hover:scale-104 transition-all">
-        <v-img
+        <img
             :src="props.src"
             class="relative w-full aspect-video group-hover:scale-104 transition-all bg-black-600"
             aria-hidden="true"

@@ -8,11 +8,13 @@ import VideoItem from '../videos/components/VideoItem.vue';
 import VideoItemLarge from '../videos/components/VideoItemLarge.vue';
 import DeletePlaylistDialog from './components/DeletePlaylistDialog.vue';
 import EditPlaylistDialog from './components/EditPlaylistDialog.vue';
+import { useDisplay } from 'vuetify';
 
 TitleHelper.setTitle('streams');
 
 const playlistStore = usePlaylistsStore();
 const id = useRouteParams('id') as Ref<string>;
+const { lgAndUp } = useDisplay();
 const playlist = playlistStore.getPlaylistById(id);
 const deleteDialog = ref(false);
 const editDialog = ref(false);
@@ -68,8 +70,8 @@ const editDialog = ref(false);
         <Container>
             <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5" v-auto-animate>
                 <template v-for="video in playlist.videos" :key="video.video_id">
-                    <VideoItem :video="video" :playlist="playlist" />
-                    <VideoItemLarge :video="video" :playlist="playlist" />
+                    <VideoItem v-if="!lgAndUp" :video="video" :playlist="playlist" />
+                    <VideoItemLarge v-else :video="video" :playlist="playlist" />
                 </template>
             </div>
         </Container>

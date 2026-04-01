@@ -41,8 +41,8 @@ const lekkerSpeurenUrl = computed(
 
             <div class="grid grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5" v-auto-animate>
                 <template v-for="video in videosStore.displayed" :key="video.video_id">
-                    <VideoItem :video="video" />
-                    <VideoItemLarge :video="video" />
+                    <VideoItem v-if="!lgAndUp" :video="video" />
+                    <VideoItemLarge v-else :video="video" />
                 </template>
             </div>
 

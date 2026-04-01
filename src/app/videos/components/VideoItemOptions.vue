@@ -39,7 +39,7 @@ async function removeFromPlaylist() {
 </script>
 
 <template>
-    <div v-auth>
+    <Auth>
         <v-menu location="bottom end">
             <template #activator="{ props }">
                 <v-btn
@@ -82,5 +82,5 @@ async function removeFromPlaylist() {
                 </DeleteDialog>
             </v-list>
         </v-menu>
-    </div>
+    </Auth>
 </template>

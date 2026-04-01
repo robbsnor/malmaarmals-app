@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import { formatTimeAgo } from '@vueuse/core';
 import type { Video } from '../models/video.model';
 import type { Playlist } from '../../playlists/models/playlist.model';
 import VideoItemOptions from './VideoItemOptions.vue';
-import { useDisplay } from 'vuetify/lib/composables/display.mjs';
 import VideoThumbnail from './VideoThumbnail.vue';
 
 const props = withDefaults(
@@ -19,8 +17,6 @@ const props = withDefaults(
     }
 );
 
-const { lgAndUp } = useDisplay();
-
 const categories = computed(() => {
     const cats = props.video?.chapters.map((chapter) => chapter.category.title);
     const uniqueCats = Array.from(new Set(cats));
@@ -29,7 +25,7 @@ const categories = computed(() => {
 </script>
 
 <template>
-    <div v-if="lgAndUp">
+    <div>
         <VideoThumbnail :video="props.video" />
 
         <div class="flex">

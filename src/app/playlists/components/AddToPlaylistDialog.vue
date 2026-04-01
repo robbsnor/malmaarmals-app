@@ -105,7 +105,7 @@ function onPlaylistCreateSuccess(playlistId: string) {
                     <div class="flex flex-col gap-4 pointer-events-none">
                         <div>
                             <div class="leading-tight pb-1">video</div>
-                            <VideoItem :video="props.video" :responsive="false" :show-options="false" class="w-full" />
+                            <VideoItem :video="props.video" :show-options="false" class="w-full" />
                         </div>
 
                         <!-- <div v-if="form.playlist" class="flex justify-center text-muted">
@@ -114,7 +114,7 @@ function onPlaylistCreateSuccess(playlistId: string) {
 
                         <div v-if="form.playlist">
                             <div class="leading-tight pb-1">playlist</div>
-                            <PlaylistItem :playlist="form.playlist" :responsive="false" class="w-full" />
+                            <PlaylistItem :playlist="form.playlist" class="w-full" />
                         </div> -->
                     </div>
 

@@ -25,8 +25,8 @@ const amount = computed(() => {
         <template v-if="videosStore.videos.length">
             <div class="grid grid-cols-1 gap-4 lg:gap-8 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-5">
                 <template v-for="video in videosStore.videos.slice(0, amount)" :key="video.video_id">
-                    <VideoItem :video="video" />
-                    <VideoItemLarge :video="video" />
+                    <VideoItem v-if="!lgAndUp" :video="video" />
+                    <VideoItemLarge v-else :video="video" />
                 </template>
             </div>
         </template>
