@@ -41,7 +41,9 @@ const categories = computed(() => {
                 </div>
             </div>
 
-            <VideoItemOptions class="shrink-0 -mr-2" v-if="props.showOptions" :video="video" :playlist="playlist" />
+            <div class="shrink-0 -mr-2">
+                <VideoItemOptions v-if="props.showOptions" :video="video" :playlist="playlist" />
+            </div>
         </div>
     </div>
 </template>
