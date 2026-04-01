@@ -21,7 +21,7 @@ const hoursPlayed = computed(() => {
 </script>
 
 <template>
-    <div class="relative flex gap-3.5 overflow-hidden p-2 rounded-lg">
+    <button class="relative flex gap-3.5 overflow-hidden p-2 rounded-lg text-left">
         <v-img
             :src="`https://static-cdn.jtvnw.net/ttv-boxart/${props.id}_IGDB-285x380.jpg`"
             cover
@@ -52,5 +52,5 @@ const hoursPlayed = computed(() => {
         </div>
 
         <div class="relative text-2xl font-bold pt-1 text-muted-more">#{{ props.position }}</div>
-    </div>
+    </button>
 </template>
