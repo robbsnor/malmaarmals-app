@@ -13,12 +13,7 @@ const tabs = [
     { label: 'games', value: 'games', to: { name: 'games' } },
 ] as const;
 
-const activeTab = computed(() => {
-    if (route.name === 'playlists') return 'playlists';
-    if (route.name === 'games') return 'games';
-
-    return 'streams';
-});
+const activeTab = computed(() => route.name);
 </script>
 
 <template>
