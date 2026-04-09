@@ -203,17 +203,25 @@ export const useVideoStore = defineStore('video', () => {
         );
     }
 
-    onKeyStroke(
-        ' ',
-        (e) => {
-            if (e.repeat || e.ctrlKey || e.metaKey || e.altKey) return;
-            if (isEditableTarget(e.target)) return;
+    onKeyStroke([' ', 'ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'], (e) => {
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        if (isEditableTarget(e.target)) return;
 
-            e.preventDefault();
+        e.preventDefault();
+
+        if (e.key === ' ') {
+            if (e.repeat) return;
             playing.value = !playing.value;
-        },
-        { passive: false }
-    );
+        } else if (e.key === 'ArrowRight') {
+            currentTime.value += 10;
+        } else if (e.key === 'ArrowLeft') {
+            currentTime.value = Math.max(0, currentTime.value - 10);
+        } else if (e.key === 'ArrowUp') {
+            volume.value = Math.min(1, volume.value + 0.1);
+        } else if (e.key === 'ArrowDown') {
+            volume.value = Math.max(0, volume.value - 0.1);
+        }
+    });
 
     onPlaybackError(async (e) => {
         playing.value = false;
