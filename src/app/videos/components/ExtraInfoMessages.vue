@@ -9,7 +9,7 @@ import { formatTime } from 'vuetify/lib/util/timeUtils.mjs';
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
 
-const topChattersLength = ref(10);
+const topChattersLength = ref(25);
 
 const topChatters = computed(() => {
     const counts = new Map<number, { userId: number; userName: string; count: number; color: string }>();
