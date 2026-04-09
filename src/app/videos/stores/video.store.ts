@@ -203,7 +203,7 @@ export const useVideoStore = defineStore('video', () => {
         );
     }
 
-    onKeyStroke([' ', 'ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'], (e) => {
+    onKeyStroke([' ', 'ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'j', 'k', 'l'], (e) => {
         if (e.ctrlKey || e.metaKey || e.altKey) return;
         if (isEditableTarget(e.target)) return;
 
@@ -216,6 +216,12 @@ export const useVideoStore = defineStore('video', () => {
             currentTime.value += 10;
         } else if (e.key === 'ArrowLeft') {
             currentTime.value = Math.max(0, currentTime.value - 10);
+        } else if (e.key === 'j') {
+            currentTime.value = Math.max(0, currentTime.value - 10);
+        } else if (e.key === 'k') {
+            playing.value = !playing.value;
+        } else if (e.key === 'l') {
+            currentTime.value += 10;
         } else if (e.key === 'ArrowUp') {
             volume.value = Math.min(1, volume.value + 0.1);
         } else if (e.key === 'ArrowDown') {
