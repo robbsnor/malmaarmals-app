@@ -25,15 +25,15 @@ onMounted(async () => {
     try {
         appStore.loading = true;
         await authStore.mirrorSession();
+        await videosStore.fetchVideos();
+        await playlistsStore.fetchPlaylists();
 
         if (authStore.session) {
             await authStore.updateIsSubscribed();
+            await historyStore.fetchHistory();
         }
 
-        await videosStore.fetchVideos();
-        await playlistsStore.fetchPlaylists();
-        await historyStore.fetchHistory();
-        await sleep(500);
+        await sleep(900);
     } catch (error) {
         await sleep(1500);
         appStore.hasError = true;
