@@ -53,8 +53,7 @@ const lekkerSpeurenUrl = computed(
                 icon="mdi-play"
                 description="Try something else, or check lekkerspeuren.nl"
             >
-                <div class="flex gap-4 flex-wrap items-center justify-center">
-                    <v-btn variant="tonal" color="primary" @click="archiveStore.resetQuery">Clear filter</v-btn>
+                <div class="flex flex-row-reverse gap-4 flex-wrap items-center justify-center">
                     <v-btn
                         :href="lekkerSpeurenUrl"
                         variant="tonal"
@@ -64,13 +63,19 @@ const lekkerSpeurenUrl = computed(
                     >
                         lekkerspeuren.nl
                     </v-btn>
+                    <v-btn variant="tonal" color="primary" @click="archiveStore.resetQuery">Clear filter</v-btn>
                 </div>
             </Empty>
         </Section>
 
         <Section v-if="archiveStore.query && !videosStore.hasMore && videosStore.filteredVideos.length">
             <!-- find more on lekkerspeuren  -->
-            <Empty title="Not found what you are looking for?" description="It might be on lekkerspeuren.nl">
+            <Empty>
+                <template #description>
+                    <div>Not found what you are looking for?</div>
+                    <div>It might be on lekkerspeuren.nl</div>
+                </template>
+
                 <v-btn
                     :href="lekkerSpeurenUrl"
                     variant="tonal"

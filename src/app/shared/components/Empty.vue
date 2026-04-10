@@ -5,7 +5,7 @@ const slots = useSlots();
 
 const props = withDefaults(
     defineProps<{
-        title: string;
+        title?: string;
         description?: string;
         icon?: string;
     }>(),
@@ -21,7 +21,11 @@ const props = withDefaults(
             </div>
 
             <h3 v-if="props.title" class="text-center text-lg font-bold">{{ props.title }}</h3>
-            <div v-if="props.description" class="text-muted text-center text-base">{{ props.description }}</div>
+            <div class="text-muted text-center text-base">
+                <slot name="description">
+                    {{ props.description }}
+                </slot>
+            </div>
 
             <div v-if="slots.default" class="pt-4">
                 <slot></slot>
