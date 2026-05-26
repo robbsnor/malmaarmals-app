@@ -24,8 +24,7 @@ export const useHistoryStore = defineStore('history', () => {
         const { data, error } = await supabase
             .from('history')
             .select()
-            .order('watched_at', { ascending: false })
-            .limit(50);
+            .order('watched_at', { ascending: false });
         if (error) throw error;
 
         history.value = data;
