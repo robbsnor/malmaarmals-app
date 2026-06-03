@@ -87,7 +87,6 @@ export const useVideoStore = defineStore('video', () => {
         if (playlistId.value) {
             return playlistsStore.playlists.find((p) => p.id === playlistId.value);
         } else {
-            // find playlist that contains the video
             return playlistsStore.playlists.find((p) => p.videos.some((v) => v.video_id === id.value));
         }
     });
@@ -133,7 +132,6 @@ export const useVideoStore = defineStore('video', () => {
     async function fetchMessages() {
         const videoId = Number(id.value);
 
-        // Fetch messages and badges in parallel, paginating until all rows are returned
         const messagesData = await fetchAll((from, to) =>
             supabase
                 .from('messages')
@@ -147,7 +145,6 @@ export const useVideoStore = defineStore('video', () => {
             supabase.from('message_twitch_badges').select('user_id, image_id').eq('video_id', videoId).range(from, to)
         );
 
-        // Create a lookup map: user_id -> array of badges
         const badgesByUser = badgesData.reduce(
             (acc, badge) => {
                 if (!acc[badge.user_id]) acc[badge.user_id] = [];
@@ -157,7 +154,6 @@ export const useVideoStore = defineStore('video', () => {
             {} as Record<string, Array<{ image_id: string }>>
         );
 
-        // Merge badges into messages
         messages.value = messagesData.map((msg) => ({
             ...msg,
             badges: badgesByUser[msg.user_id] || [],
@@ -175,8 +171,6 @@ export const useVideoStore = defineStore('video', () => {
         if (error) throw error;
 
         src.value = data.signedUrl;
-        // src.value =
-        //     'https://backend.malmaarmals.nl/videos/2076579081?exp=1771763084231&sig=LdvBaZKyJqUzW2DzN8GhGr4Rz_1Rsu3S-bVcDPcdAO8';
     }
 
     function setTimePrior(sec: number) {
@@ -229,27 +223,24 @@ export const useVideoStore = defineStore('video', () => {
         }
     });
 
-    onPlaybackError(async (e) => {
+    onPlaybackError(async () => {
         playing.value = false;
     });
 
-    // check if video exists
     watch(videoRef, () => {
         if (!videoRef.value) return;
 
-        videoRef.value.onerror = (e) => {
+        videoRef.value.onerror = () => {
             srcNotFound.value = true;
         };
     });
 
-    // hide controls and info when idle
     watch(idle, (isIdle) => {
         if (!playing.value) return;
         if (!isIdle) return;
         showControllsAndInfo.value = false;
     });
 
-    // auto play when done loading
     watchEffect(() => {
         if (!waiting.value) playing.value = true;
     });

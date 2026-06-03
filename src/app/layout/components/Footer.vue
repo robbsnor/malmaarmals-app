@@ -14,7 +14,15 @@ const route = useRoute();
                     <v-icon icon="mdi-heart-outline" class="text-primary animate-pulse -mt-1 mx-1" />
 
                     <div class="self-start">
-                        by <a href="https://twitch.tv/robbsnor" target="_blank" rel="noopener noreferrer" class="hover:underline">Robbsnor</a>
+                        by
+                        <a
+                            href="https://twitch.tv/robbsnor"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="hover:underline"
+                        >
+                            Robbsnor
+                        </a>
                     </div>
                 </div>
 
@@ -26,9 +34,8 @@ const route = useRoute();
                         rel="noopener noreferrer"
                         class="hover:underline"
                     >
-                        mr_badstream
+                        incognikoter
                     </a>
-                    &amp; incognikoter
                 </div>
 
                 <a

@@ -2,7 +2,7 @@
 import { useElementSize, useFullscreen, useScroll } from '@vueuse/core';
 import { useRouter } from 'vue-router';
 import { useVideoStore } from '../stores/video.store';
-import { computed, ref, useTemplateRef } from 'vue';
+import { ref, useTemplateRef } from 'vue';
 import ChaptersDrawer from './ChaptersDrawer.vue';
 import AddToPlaylistDialog from '../../playlists/components/AddToPlaylistDialog.vue';
 import PlayerButton from './PlayerButton.vue';
@@ -25,17 +25,75 @@ const videosStore = useVideosStore();
 const manageChaptersStore = useManageChaptersStore();
 const preferenceStore = usePreferenceStore();
 const router = useRouter();
-const { isFullscreen, enter, exit, toggle } = useFullscreen();
+const { isFullscreen, enter, exit } = useFullscreen();
 const durationEl = useTemplateRef<HTMLDivElement>('durationEl');
-const { width, height } = useElementSize(durationEl);
-const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
+const { width } = useElementSize(durationEl);
+const { isSupported, orientation, lockOrientation, unlockOrientation } = useScreenOrientation();
 const addToPlaylistDialog = ref(false);
 
-const goBack = () => {
-    const prevUrl = _.findLast(routeHistory, (r) => r.name !== router.currentRoute.value.name); // also handles undefined
-    router.push(prevUrl);
+function requestPortraitFromNativeApp() {
+    if (typeof window === 'undefined') {
+        return;
+    }
+
+    const nativeFullscreenBridge = (window as any).MalMaarMalsFullscreen;
+
+    if (!nativeFullscreenBridge?.exitFullscreenToPortrait) {
+        return;
+    }
+
+    nativeFullscreenBridge.exitFullscreenToPortrait();
+}
+
+function forcePortraitAfterExit() {
+    requestPortraitFromNativeApp();
+
+    window.setTimeout(() => {
+        requestPortraitFromNativeApp();
+    }, 250);
+
+    window.setTimeout(() => {
+        requestPortraitFromNativeApp();
+    }, 800);
+}
+
+async function exitFullscreenAndReturnPortrait() {
+    try {
+        if (isFullscreen.value) {
+            await exit();
+        }
+    } catch (error) {
+        console.error('Failed to exit fullscreen:', error);
+    }
+
+    forcePortraitAfterExit();
+}
+
+const goBack = async () => {
+    await exitFullscreenAndReturnPortrait();
+
+    const prevUrl = _.findLast(routeHistory, (r) => r.name !== router.currentRoute.value.name);
+
+    if (prevUrl) {
+        await router.push(prevUrl);
+    }
+
     videoStore.playerIsMini = true;
+    forcePortraitAfterExit();
 };
+
+async function toggleFullscreen() {
+    if (isFullscreen.value) {
+        await exitFullscreenAndReturnPortrait();
+        return;
+    }
+
+    try {
+        await enter();
+    } catch (error) {
+        console.error('Failed to enter fullscreen:', error);
+    }
+}
 
 function changeOrientation() {
     if (!isSupported) return;
@@ -44,6 +102,7 @@ function changeOrientation() {
         console.log('isLandscape');
         unlockOrientation();
         lockOrientation('portrait-primary');
+        forcePortraitAfterExit();
     } else {
         console.log('isPortrait');
         unlockOrientation();
@@ -71,10 +130,12 @@ async function goToPreviousVideo() {
 
 function toggleTheaterMode() {
     videoStore.theaterMode = !videoStore.theaterMode;
-    // scroll
+
     const { y } = useScroll(videoStore.videoColRef, { behavior: 'smooth' });
+
     console.log(videoStore.videoColRef);
     console.log(y.value);
+
     y.value = 0;
 }
 </script>
@@ -154,7 +215,7 @@ function toggleTheaterMode() {
             <div class="flex flex-col px-4">
                 <div class="flex items-end justify-between gap-4">
                     <div class="relative flex items-center gap-2 leading-tight -mb-2">
-                        <div :style="{ width: `${width}pfx` }">{{ videoStore.prettyCurrentTime }}</div>
+                        <div :style="{ width: `${width}px` }">{{ videoStore.prettyCurrentTime }}</div>
                         /
                         <div ref="durationEl" class="text-right">{{ videoStore.prettyDuration }}</div>
 
@@ -175,10 +236,9 @@ function toggleTheaterMode() {
                         />
                         <ChaptersDrawer />
 
-                        <!-- :icon="isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'" -->
                         <PlayerButton
                             :icon="isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'"
-                            @click="toggle()"
+                            @click="toggleFullscreen()"
                         />
                     </div>
                 </div>
