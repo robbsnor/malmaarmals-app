@@ -22,7 +22,7 @@ const amount = computed(() => {
         </template>
 
         <template v-if="videosStore.videos.length">
-            <div class="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+            <div class="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                 <template v-for="video in videosStore.videos.slice(0, amount)" :key="video.video_id">
                     <VideoItem v-if="!breakpoints.greaterOrEqual('md').value" :video="video" />
                     <VideoItemLarge v-else :video="video" />
