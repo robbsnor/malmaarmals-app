@@ -15,12 +15,12 @@ const authStore = useAuthStore();
 
 const containerClasses = computed(() => {
     if (videoStore.playerIsMini) {
-        return 'border-black-500 right-4 bottom-[100px] aspect-video w-[200px] overflow-hidden rounded-md border shadow-[0_0_20px_rgba(0,0,0,1)] lg:w-[350px] 2xl:right-8 2xl:bottom-8';
+        return 'border-black-500 right-4 bottom-[100px] aspect-video min-w-[200px] w-5/12 overflow-hidden rounded-md border shadow-[0_0_20px_rgba(0,0,0,1)] lg:w-[400px] lg:bottom-8 2xl:right-8';
     }
     if (videoStore.theaterMode) {
         return 'top-0 right-0 bottom-0 left-0';
     }
-    return 'lg:top-header top-0 right-0 bottom-0 left-0';
+    return 'top-0 right-0 bottom-0 left-0 lg:top-header';
 });
 </script>
 
