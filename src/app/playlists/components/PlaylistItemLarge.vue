@@ -30,14 +30,21 @@ const categories = computed(() => {
             <div
                 v-for="n in 3"
                 :key="n"
-                class="absolute inset-0 rounded-md origin-top transition-all pointer-events-none"
-                :src="n"
+                class="absolute inset-0 rounded-md origin-top transition-all pointer-events-none overflow-hidden"
                 aria-hidden="true"
                 :class="[
-                    n === 1 && '-top-4 scale-90 group-hover:-translate-y-3 bg-black-300',
-                    n === 2 && '-top-2 scale-95 group-hover:scale-98 group-hover:-translate-y-2 bg-black-400',
+                    n === 1 &&
+                        `-top-2 scale-95 group-hover:scale-98 group-hover:-translate-y-3 bg-black-1500 brightness-40 z-0`,
+                    n === 2 && '-top-4 scale-90 group-hover:-translate-y-5 bg-black-1500 brightness-20 -z-1',
                 ]"
-            ></div>
+            >
+                <img
+                    v-if="n < props.playlist.videos.length"
+                    :src="BucketHelper.getThumbnailUrl(Number(props.playlist.videos?.[n]?.video_id))"
+                    alt=""
+                    class="cover w-full h-full"
+                />
+            </div>
 
             <Thumbnail
                 :src="BucketHelper.getThumbnailUrl(Number(props.playlist.videos?.[0]?.video_id))"
