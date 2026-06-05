@@ -4,14 +4,18 @@ import { TitleHelper } from '../shared/helpers/title.helper';
 import RecentStreams from './components/RecentStreams.vue';
 import History from './components/History.vue';
 import PopularCategories from './components/PopularCategories.vue';
+import ChaptersOverview from './components/ChaptersOverview.vue';
 import SlowSiteBanner from '../layout/components/SlowSiteBanner.vue';
+import { useVideosStore } from '../videos/stores/videos.store.ts';
 
 TitleHelper.setTitle('home');
+
+const videosStore = useVideosStore();
 </script>
 
 <template>
     <div>
-        <SlowSiteBanner />
+        <!-- <SlowSiteBanner /> -->
         <!-- <div>accessToken: {{ authStore.twitchAccessToken }}</div>
         <div>refreshToken: {{ authStore.twitchRefreshToken }}</div> -->
 
@@ -23,5 +27,6 @@ TitleHelper.setTitle('home');
         <Playlists />
         <!-- <History /> -->
         <PopularCategories />
+        <ChaptersOverview />
     </div>
 </template>

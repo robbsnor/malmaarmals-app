@@ -8,6 +8,7 @@ const slots = useSlots();
 const props = withDefaults(
     defineProps<{
         title?: string;
+        description?: string;
         width?: string;
         moreLink?: string | RouteLocationAsRelativeGeneric | RouteLocationAsPathGeneric;
         moreText?: string;
@@ -36,10 +37,16 @@ function onMoreClick() {
         <Container class="relative" :width="props.width">
             <div
                 v-if="(slots.actions || props.title) && props.showHeader"
-                class="flex justify-between items-end gap-4 pb-4"
+                class="flex justify-between items-end gap-8 pb-4"
             >
-                <h2 class="text-2xl font-bold lg:text-3xl">{{ props.title }}</h2>
-                <slot name="actions"></slot>
+                <div>
+                    <h2 class="text-2xl font-bold lg:text-3xl">{{ props.title }}</h2>
+                    <div class="text-muted">{{ props.description }}</div>
+                </div>
+
+                <div class="shrink-0">
+                    <slot name="actions"></slot>
+                </div>
             </div>
 
             <slot></slot>
