@@ -33,10 +33,10 @@ onMounted(async () => {
             await historyStore.fetchHistory();
         }
 
-       await sleep(300);
+        await sleep(300);
     } catch (error) {
         await sleep(1500);
-        await authStore.signOut()
+        await authStore.signOut();
         appStore.hasError = true;
         throw error;
     } finally {
@@ -64,6 +64,6 @@ onMounted(async () => {
     </v-app>
 
     <Splash />
-    <Analytics />
+    <Analytics v-if="!appStore.isDev" />
     <Toaster position="top-center" closeButtonPosition="top-right" :expand="false" theme="dark" />
 </template>

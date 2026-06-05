@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useAppStore = defineStore('app', () => {
+    const isDev = import.meta.env.DEV;
     const loading = ref(true);
     const hasError = ref(false);
     const mainDrawer = ref(false);
@@ -22,6 +23,7 @@ export const useAppStore = defineStore('app', () => {
     };
 
     return {
+        isDev,
         menuOpen,
         headerShown,
         mainDrawer,
