@@ -46,9 +46,9 @@ export const usePlaylistsStore = defineStore('playlists', () => {
     }
 
     const filteredPlaylists = computed(() => {
-        if (!archiveStore.debouncedQuery) return playlists.value;
+        if (!archiveStore.query) return playlists.value;
 
-        const query = archiveStore.debouncedQuery.toLowerCase();
+        const query = archiveStore.query.toLowerCase();
         return playlists.value.filter((playlist) => {
             const titleMatch = playlist.title.toLowerCase().includes(query);
             const descriptionMatch = playlist.description?.toLowerCase().includes(query);

@@ -2,6 +2,7 @@
 import type { Density } from 'vuetify/lib/composables/density.mjs';
 import { useArchiveStore } from '../../archive/stores/archive.store';
 import { useVideosStore } from '../../videos/stores/videos.store';
+import { useDebounceFn } from '@vueuse/core';
 
 const archiveStore = useArchiveStore();
 const videosStore = useVideosStore();
@@ -14,9 +15,9 @@ const props = withDefaults(
     }
 );
 
-const updateQuery = (value: string | { id: string; title: string } | null) => {
+const updateQuery = useDebounceFn((value: string | { id: string; title: string } | null) => {
     archiveStore.query = typeof value === 'string' ? value : value?.title;
-};
+}, 200);
 </script>
 
 <template>

@@ -9,7 +9,6 @@ export const useArchiveStore = defineStore('archive', () => {
     const router = useRouter();
     const route = useRoute();
     const query = ref<string>();
-    const debouncedQuery = refDebounced(query, 200);
     const searchEl = ref<HTMLInputElement>();
     const activeFilterType = computed<FilterType>(() => {
         if (route.name === 'playlists') return 'playlists';
@@ -25,14 +24,13 @@ export const useArchiveStore = defineStore('archive', () => {
         searchEl.value = el;
     };
 
-    watch(debouncedQuery, () => {
+    watch(query, () => {
         if (route.name === 'streams' || route.name === 'playlists' || route.name === 'games') return;
         router.push({ name: 'streams' });
     });
 
     return {
         query,
-        debouncedQuery,
         activeFilterType,
         searchEl,
 
