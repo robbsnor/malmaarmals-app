@@ -11,10 +11,7 @@ const paralaxStyle = computed(() => ({
 </script>
 
 <template>
-    <div
-        :style="paralaxStyle"
-        class="fixed h-4/6 w-full bg-black-100 pointer-events-none -z-100 overflow-hidden opacity-50"
-    >
+    <div class="fixed h-4/6 w-full bg-black-100 pointer-events-none -z-100 overflow-hidden opacity-30">
         <Container class="relative h-full">
             <div class="flex gap-4 absolute right-0 translate-x-1/6 h-full">
                 <div
