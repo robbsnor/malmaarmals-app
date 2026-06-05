@@ -46,7 +46,7 @@ const activeTab = computed(() => route.name);
 
                         <div
                             class="pointer-events-none absolute inset-x-5 bottom-0 h-1.5 rounded-full bg-primary blur-md transition-opacity"
-                            :class="tab.value === activeTab ? 'opacity-75' : 'opacity-0 group-hover:opacity-45'"
+                            :class="tab.value === activeTab ? 'opacity-75' : 'opacity-0 group-hover:opacity-100'"
                         ></div>
                     </RouterLink>
                 </div>
