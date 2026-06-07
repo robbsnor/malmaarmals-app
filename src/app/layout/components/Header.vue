@@ -15,21 +15,19 @@ const videosStore = useVideosStore();
 <template>
     <header
         v-z="Z.HEADER"
-        class="h-header border-b border-black-400 bg-black-100/80 backdrop-blur-[100px] fixed top-0 right-0 left-0 hidden lg:block"
+        class="h-header border-b border-black-400 bg-black-100/80 backdrop-blur-[100px] overflow-y-hidden fixed top-0 right-0 left-0 hidden lg:block"
     >
         <Container width="100%" class="h-full">
             <div
                 class="grid grid-cols-[1fr_auto] 3xl:grid-cols-[1fr_auto_1fr] h-full items-center justify-between gap-4"
             >
-                <div class="flex h-full items-center gap-4 overflow-hidden">
-                    <RouterLink :to="{ name: 'home' }">
+                <div class="flex h-full items-center gap-4">
+                    <NavButton :to="{ name: 'home' }">
                         <div class="hover:scale-102f transition-all">
                             <img src="/images/m.svg" class="w-6" alt="" />
                             <!-- <Logo class="w-45" :payoff="false" /> -->
                         </div>
-                    </RouterLink>
-
-                    <NavButton :to="{ name: 'home' }">home</NavButton>
+                    </NavButton>
                     <NavButton :to="{ name: 'streams' }">streams</NavButton>
                     <NavButton :to="{ name: 'playlists' }">playlists</NavButton>
                     <NavButton :to="{ name: 'games' }">games</NavButton>

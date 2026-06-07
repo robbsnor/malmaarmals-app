@@ -45,7 +45,7 @@ const hasMatchingQuery = computed(() => {
             <slot></slot>
 
             <div
-                class="absolute bottom-0 h-0.5 w-0 rounded-xl bg-primary opacity-0 transition-all duration-100 group-hover:w-4 group-hover:opacity-50 in-[.is-active]:!w-full in-[.is-active]:!opacity-100"
+                class="absolute bottom-0 h-0.5 w-0 rounded-xl bg-primary opacity-0 transition-all duration-300 group-hover:w-4 group-hover:opacity-50 in-[.is-active]:!w-full in-[.is-active]:!opacity-100"
             ></div>
 
             <div
