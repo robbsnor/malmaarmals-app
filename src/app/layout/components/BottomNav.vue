@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useScreenSafeArea } from '@vueuse/core';
 import { RouterLink, useRoute } from 'vue-router';
 import { useAuthStore } from '../../auth/stores/auth.store';
@@ -7,13 +7,27 @@ import { Z } from '../../shared/directives/z.directive';
 import NotSubscribedBadge from './NotSubscribedBadge.vue';
 
 const route = useRoute();
-const { top, right, bottom, left } = useScreenSafeArea();
+const { bottom } = useScreenSafeArea();
 const authStore = useAuthStore();
+
 const menuItems = ref([
     { title: 'home', icon: 'mdi-collage', to: { name: 'home' } },
     { title: 'streams', icon: 'mdi-magnify', to: { name: 'archive' }, id: 'bottom-search' },
     { title: 'profile', icon: '', to: { name: 'profile' }, id: 'bottom-profile' },
 ]);
+
+const mobileNavBottomInset = computed(() => {
+    if (!bottom.value || bottom.value === '0px') {
+        return '8px';
+    }
+
+    return `calc(${bottom.value} + 4px)`;
+});
+
+const mobileNavStyle = computed(() => ({
+    height: `calc(var(--height-mobile-navbar) + ${mobileNavBottomInset.value})`,
+    paddingBottom: mobileNavBottomInset.value,
+}));
 
 function handleClick(item: any) {
     if (item.id === 'bottom-search' && route.name === 'streams') {
@@ -26,17 +40,17 @@ function handleClick(item: any) {
 <template>
     <div
         ref="mobileNavRef"
-        :style="{ paddingBottom: bottom }"
-        class="border-black-300 bg-black/85 backdrop-blur-[100px] fixed right-0 bottom-0 left-0 h-[var(--height-mobile-navbar)] border-t lg:hidden"
+        :style="mobileNavStyle"
+        class="border-black-300 bg-black/85 backdrop-blur-[100px] fixed right-0 bottom-0 left-0 border-t lg:hidden"
         v-z="Z.MOBILE_NAV"
     >
-        <Container width="400px" class="h-full">
+        <Container width="400px" class="h-[var(--height-mobile-navbar)]">
             <div class="grid h-[var(--height-mobile-navbar)] grid-cols-3 items-center justify-evenly">
                 <RouterLink
                     v-for="item in menuItems"
+                    :id="item?.id"
                     :key="item.title"
                     :to="item.to"
-                    :id="item?.id"
                     activeClass="text-primary"
                     class="text-muted-more text-light hover:text-primary-light! flex cursor-pointer flex-col items-center justify-center gap-[2px] px-6 py-2 transition-all"
                     @click="handleClick(item)"
@@ -52,6 +66,7 @@ function handleClick(item: any) {
                             />
                             <NotSubscribedBadge class="-right-2 -bottom-2" location="top" />
                         </div>
+
                         <div
                             v-else
                             class="bg-black-400 flex size-8 cursor-pointer items-end justify-center overflow-hidden rounded-full text-white/50!"

@@ -36,12 +36,15 @@ import { z } from './app/shared/directives/z.directive';
 
 // vuetify
 import { vuetify } from './vuetify.config';
+
 import './style.css';
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
+import { setupNativeAuth } from './app/shared/utils/nativeAuth';
 
 const app = createApp(App);
 const pinia = createPinia();
+
 pinia.use(piniaPluginPersistedstate);
 
 // components
@@ -78,5 +81,7 @@ app.use(router);
 app.use(vuetify);
 app.use(pinia);
 app.use(autoAnimatePlugin);
+
+setupNativeAuth();
 
 app.mount('#app');

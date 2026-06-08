@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { Capacitor } from '@capacitor/core';
 import { useAuthStore } from '../auth/stores/auth.store';
 import { RouterLink } from 'vue-router';
 import { useHistoryStore } from '../history/stores/history.store';
@@ -11,18 +12,13 @@ const historyStore = useHistoryStore();
 
 TitleHelper.setTitle('profile');
 
+const showAppDownload = Capacitor.getPlatform() === 'web';
+
 const groups = computed(() => {
     const isSignedIn = !!authStore.session;
 
     return [
         [
-            // { name: 'History', icon: 'mdi-history', to: '/history', hidden: !isSignedIn },
-            // {
-            //     name: 'Statistics',
-            //     description: 'Have a cool idea? Create an issue!',
-            //     icon: 'mdi-chart-timeline-variant',
-            //     disabled: true,
-            // },
             { name: 'About', to: '/about', icon: 'mdi-information' },
             { name: 'Logout', link: '/sign-out', icon: 'mdi-logout', hidden: !isSignedIn, action: 'sign-out' },
         ],
@@ -54,9 +50,22 @@ const handleClick = async (item: any) => {
                     />
                 </div>
 
-                <div>
-                    <div class="pb-0.5 text-xl font-bold">
-                        {{ authStore.session.user.user_metadata.nickname }}
+                <div class="min-w-0">
+                    <div class="flex flex-wrap items-center gap-3 pb-0.5">
+                        <div class="text-xl font-bold">
+                            {{ authStore.session.user.user_metadata.nickname }}
+                        </div>
+
+                        <a
+                            v-if="showAppDownload"
+                            href="/downloads/MalMaarMals.apk"
+                            download="MalMaarMals.apk"
+                            class="bg-black-300 text-normal hover:bg-black-400 inline-flex cursor-pointer items-center gap-2 rounded-md px-3 py-1.5 text-sm font-bold transition"
+                        >
+                            <v-icon icon="mdi-android" size="16" class="text-primary" />
+                            <span>Download app</span>
+                            <v-icon icon="mdi-download" size="14" class="text-muted-more" />
+                        </a>
                     </div>
 
                     <div class="text-muted text-sm flex items-center">
@@ -66,10 +75,12 @@ const handleClick = async (item: any) => {
                             size="16"
                             class="mtf-0.5 mr-1 inline-block"
                         />
+
                         <a
                             v-if="!authStore.isSubbed"
                             href="https://www.twitch.tv/lekkerspelen/"
                             target="_blank"
+                            rel="noopener noreferrer"
                             class="italic underline"
                         >
                             Not subbed to Lekker Spelen
@@ -85,36 +96,24 @@ const handleClick = async (item: any) => {
             </div>
 
             <div v-else class="px-4 py-12">
-                <div class="text-2xl font-bold">You are not logged in,</div>
+                <div class="flex flex-wrap items-center gap-3">
+                    <div class="text-2xl font-bold">You are not logged in,</div>
+
+                    <a
+                        v-if="showAppDownload"
+                        href="/downloads/MalMaarMals.apk"
+                        download="MalMaarMals.apk"
+                        class="bg-black-300 text-normal hover:bg-black-400 inline-flex cursor-pointer items-center gap-2 rounded-md px-3 py-1.5 text-sm font-bold transition"
+                    >
+                        <v-icon icon="mdi-android" size="16" class="text-primary" />
+                        <span>Download app</span>
+                        <v-icon icon="mdi-download" size="14" class="text-muted-more" />
+                    </a>
+                </div>
+
                 <p class="text-muted">Log in with Twitch to start watching streams</p>
                 <SignInButton />
             </div>
-
-            <!-- <div v-if="authStore.isSubbed" class="p-4 mt-4 bg-green-300/10 border border-green-300/20 rounded-md">
-                <div class="flex gap-4 pb-2">
-                    <v-icon color="green" icon="mdi-cash-100" class="mr-1"></v-icon>
-                    <div>
-                        <div class="text-xl font-bold">Subscribed!</div>
-                        <div class="text-muted">You are subscribed to Lekker Spelen and can view streams.</div>
-                    </div>
-                </div>
-
-                <v-btn class="w-full" variant="tonal" color="green" target="_blank"> Watch streams </v-btn>
-            </div>
-
-            <div v-else class="p-4 mt-4 bg-orange-300/10 border border-orange-300/20 rounded-md">
-                <div class="flex gap-4 pb-2">
-                    <v-icon color="orange" icon="mdi-cash-100" class="mr-1"></v-icon>
-                    <div>
-                        <div class="text-xl font-bold">Not subscribed.</div>
-                        <div class="text-muted">You need to be subscribed to Lekker Spelen to watch streams.</div>
-                    </div>
-                </div>
-
-                <v-btn class="w-full" variant="tonal" color="primary" target="_blank" prepend-icon="mdi-twitch">
-                    Subscribe
-                </v-btn>
-            </div>  -->
         </Container>
 
         <Section v-if="authStore.session" title="History" width="920px">
@@ -152,9 +151,8 @@ const handleClick = async (item: any) => {
                         <template v-for="item in group" :key="item.name">
                             <Component
                                 :is="item.to ? RouterLink : 'button'"
-                                :to="item.to"
                                 v-if="!item.hidden"
-                                @click="handleClick(item)"
+                                :to="item.to"
                                 :class="[
                                     'bg-black-300 text-normal flex w-full cursor-pointer items-center gap-3 px-4 py-3 text-left transition first:rounded-t-md last:rounded-b-md',
                                     {
@@ -163,8 +161,10 @@ const handleClick = async (item: any) => {
                                         'cursor-default! bg-black-200! text-muted-more!': item.disabled,
                                     },
                                 ]"
+                                @click="handleClick(item)"
                             >
                                 <v-icon :icon="item.icon" size="16" />
+
                                 <div>
                                     <div>{{ item.name }}</div>
                                     <div v-if="item.description" class="text-sm leading-tight italic">

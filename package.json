@@ -11,6 +11,10 @@
         "generate-pwa-icons": "pwa-assets-generator --preset minimal-2023 public/logo.svg"
     },
     "dependencies": {
+        "@capacitor/android": "^8.3.4",
+        "@capacitor/app": "^8.1.0",
+        "@capacitor/browser": "^8.0.3",
+        "@capacitor/core": "^8.3.4",
         "@formkit/auto-animate": "^0.9.0",
         "@lottiefiles/dotlottie-vue": "^0.9.2",
         "@mdi/font": "^7.4.47",
@@ -35,6 +39,7 @@
         "vuetify": "^3.9.7"
     },
     "devDependencies": {
+        "@capacitor/cli": "^8.3.4",
         "@fortawesome/fontawesome-free": "^7.1.0",
         "@tailwindcss/typography": "^0.5.19",
         "@types/chromecast-caf-sender": "^1.0.11",

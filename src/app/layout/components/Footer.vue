@@ -7,20 +7,41 @@ const route = useRoute();
 <template>
     <div v-if="route.meta.showFooter !== false" class="border-t border-black-400">
         <Container>
-            <div class="flex flex-col gap-5 justify-center items-center py-10">
+            <div class="flex flex-col gap-3 justify-center items-center py-10">
                 <div class="inline-grid grid-cols-[1fr_auto_1fr] gap-1 items-center text-muted-more">
                     <div class="place-self-end">Made with</div>
 
                     <v-icon icon="mdi-heart-outline" class="text-primary animate-pulse -mt-1 mx-1" />
 
                     <div class="self-start">
-                        by <a href="https://twitch.tv/robbsnor" target="_blank" class="hover:underline">Robbsnor</a>
+                        by
+                        <a
+                            href="https://twitch.tv/robbsnor"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="hover:underline"
+                        >
+                            Robbsnor
+                        </a>
                     </div>
+                </div>
+
+                <div class="text-xs text-muted-more opacity-70">
+                    app development by
+                    <a
+                        href="https://twitch.tv/mr_badstream"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="hover:underline"
+                    >
+                        incognikoter
+                    </a>
                 </div>
 
                 <a
                     href="https://github.com/robbsnor/malmaarmals-app"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="text-muted-more hover:text-primary hover:scale-110"
                 >
                     <v-icon>mdi-github</v-icon>
