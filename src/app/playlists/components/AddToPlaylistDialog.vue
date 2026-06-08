@@ -104,18 +104,25 @@ function onPlaylistCreateSuccess(playlistId: string) {
                 <div class="flex flex-col gap-4 p-4">
                     <div class="flex flex-col gap-4 pointer-events-none">
                         <div>
-                            <div class="leading-tight pb-1">video</div>
+                            <div class="leading-tight text-muted pb-1">video</div>
                             <VideoItem :video="props.video" :show-options="false" class="w-full" />
                         </div>
 
-                        <!-- <div v-if="form.playlist" class="flex justify-center text-muted">
+                        <div v-if="form.playlist" class="flex justify-center text-muted">
                             <v-icon>mdi-arrow-down</v-icon>
                         </div>
 
                         <div v-if="form.playlist">
-                            <div class="leading-tight pb-1">playlist</div>
-                            <PlaylistItem :playlist="form.playlist" class="w-full" />
-                        </div> -->
+                            <div class="leading-tight text-muted pb-1">playlist</div>
+                            <PlaylistItem :playlist="form.playlist" :responsive="false" class="w-full" />
+                        </div>
+                        <div v-else class="flex gap-4">
+                            <div class="aspect-video h-[97px]"></div>
+                            <div class="flex flex-col gap-4">
+                                <Skeleton class="bg-amber-200 h-20"></Skeleton>
+                                <Skeleton></Skeleton>
+                            </div>
+                        </div>
                     </div>
 
                     <v-form v-model="valid" class="flex flex-col gap-4">

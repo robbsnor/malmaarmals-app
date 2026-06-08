@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { TwitchHelper } from '../../shared/helpers/twitch.helper';
 
 const props = defineProps<{
     id: string;
@@ -21,20 +22,18 @@ const hoursPlayed = computed(() => {
 </script>
 
 <template>
-    <button class="relative flex gap-3.5 overflow-hidden p-2 rounded-lg text-left">
-        <v-img
-            :src="`https://static-cdn.jtvnw.net/ttv-boxart/${props.id}_IGDB-285x380.jpg`"
+    <button
+        class="relative flex gap-3.5 overflow-hidden p-2 rounded-lg text-left bg-gradient-to-br from-white/20 to-white/10"
+    >
+        <!-- <v-img
+            :src="TwitchHelper.getCategoryThumbnail(props.id)"
             cover
             class="absolute! inset-0! opacity-10f! blur-xfs!"
-        />
+        /> -->
         <div class="absolute inset-0 bg-gradient-to-r from-black-100/75 to-black-100"></div>
 
         <div class="relative w-14 rounded shrink-0 overflow-hidden bg-black-400 aspect-[208/288]">
-            <img
-                :src="`https://static-cdn.jtvnw.net/ttv-boxart/${props.id}_IGDB-285x380.jpg`"
-                class="h-full! w-full!"
-                cover
-            />
+            <img :src="TwitchHelper.getCategoryThumbnail(props.id)" class="h-full! w-full!" alt="" cover />
         </div>
 
         <div class="relative py-1 grow">

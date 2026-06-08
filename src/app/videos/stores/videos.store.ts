@@ -27,11 +27,11 @@ export const useVideosStore = defineStore('videos', () => {
         if (error) throw error;
 
         videos.value = data
+            .filter((video) => !rawDuplicates.includes(video.video_id))
             .map((video) => ({
                 ...video,
                 video: video.chapters.sort((a, b) => a.start_s - b.start_s),
-            }))
-            .filter((video) => !rawDuplicates.includes(video.video_id));
+            }));
     };
 
     const filteredVideos = computed(() => {
