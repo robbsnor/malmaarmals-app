@@ -16,7 +16,8 @@ const props = withDefaults(
 <template>
     <div class="flex justify-center items-center">
         <div class="flex flex-col items-center justify-center p-8 rounded-md">
-            <div v-if="props.icon" class="bg-white/10 rounded-md p-3 mb-2">
+            <div v-if="props.icon" class="relative flex items-center justify-center w-12 aspect-square mb-2">
+                <div class="absolute inset-0 h-full w-full bg-white/5 rounded-md"></div>
                 <v-icon :icon="props.icon" />
             </div>
 

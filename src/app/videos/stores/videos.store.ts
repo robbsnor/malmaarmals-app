@@ -20,15 +20,18 @@ export const useVideosStore = defineStore('videos', () => {
     }
 
     const fetchVideos = async () => {
+        // temp hide videos that are duplicates from eachother
+        const rawDuplicates = [2705617403, 2787106351, 2789497459, 2791017025];
+
         const { data, error } = await videosQuery;
         if (error) throw error;
 
-        const ordered = data.map((video) => ({
-            ...video,
-            video: video.chapters.sort((a, b) => a.start_s - b.start_s),
-        }));
-
-        videos.value = ordered;
+        videos.value = data
+            .map((video) => ({
+                ...video,
+                video: video.chapters.sort((a, b) => a.start_s - b.start_s),
+            }))
+            .filter((video) => !rawDuplicates.includes(video.video_id));
     };
 
     const filteredVideos = computed(() => {
