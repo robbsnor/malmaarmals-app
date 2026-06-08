@@ -1,6 +1,8 @@
 export class TwitchHelper {
     static getCategoryThumbnail(id: string) {
-        if (id === '509658' || id === '491180' || id === '509577' || id === '509663') {
+        const newIds = ['509658', '491180', '509577', '509663', '495926', '495926', '497451', '743'];
+
+        if (newIds.includes(id)) {
             return `https://static-cdn.jtvnw.net/ttv-boxart/${id}-285x380.jpg`;
         }
 
