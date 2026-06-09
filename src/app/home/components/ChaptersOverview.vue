@@ -31,29 +31,6 @@ const videosStore = useVideosStore();
                 ]"
             >
             </RouterLink>
-
-            <!-- <v-menu
-                v-for="video in videosStore.videos"
-                :key="video.id"
-                open-on-click
-                open-on-hover
-                open-delay="0"
-                close-delay="0"
-                location="top"
-            >
-                <template v-slot:activator="{ props }">
-                    <RouterLink
-                        v-bind="props"
-                        :to="{ name: 'stream', params: { id: video.video_id } }"
-                        class="aspect-square rounded"
-                        :class="[video.chapters.length ? 'bg-green-500' : ' bg-black-400']"
-                    ></RouterLink>
-                </template>
-
-                <div class="bg-black-200 rounded border border-black-400 p-4">
-                    <div>{{ video.title }}</div>
-                </div>
-            </v-menu> -->
         </div>
     </Section>
 </template>
