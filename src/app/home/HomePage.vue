@@ -7,7 +7,7 @@ import PopularCategories from './components/PopularCategories.vue';
 import ChaptersOverview from './components/ChaptersOverview.vue';
 import SlowSiteBanner from '../layout/components/SlowSiteBanner.vue';
 import { useVideosStore } from '../videos/stores/videos.store.ts';
-import Foo from '../shared/components/Foo.vue';
+import StreamHistoryOverview from './components/StreamHistoryOverview.vue';
 
 TitleHelper.setTitle('home');
 
@@ -29,6 +29,6 @@ const videosStore = useVideosStore();
         <!-- <History /> -->
         <PopularCategories />
         <!-- <ChaptersOverview /> -->
-        <Foo />
+        <StreamHistoryOverview />
     </div>
 </template>

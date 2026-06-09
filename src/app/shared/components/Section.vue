@@ -41,7 +41,11 @@ function onMoreClick() {
             >
                 <div>
                     <h2 class="text-2xl font-bold lg:text-3xl">{{ props.title }}</h2>
-                    <div class="text-muted">{{ props.description }}</div>
+
+                    <div v-if="props.description || slots.description" class="text-muted">
+                        <slot name="description"> </slot>
+                        {{ props.description }}
+                    </div>
                 </div>
 
                 <div class="shrink-0">
