@@ -12,19 +12,21 @@ export const useHistoryStore = defineStore('history', () => {
     const videosStore = useVideosStore();
 
     const videos = computed<HistoryVideo[]>(() => {
-        return history.value.map((history) => {
-            return {
-                ...videosStore.videos.find((v) => v.id === history.video_id),
-                history: history,
-            };
-        });
+        return history.value
+            .map((history) => {
+                const video = videosStore.videos.find((v) => v.id === history.video_id);
+                if (!video) return;
+
+                return {
+                    ...video,
+                    history: history,
+                };
+            })
+            .filter((v) => v);
     });
 
     async function fetchHistory() {
-        const { data, error } = await supabase
-            .from('history')
-            .select()
-            .order('watched_at', { ascending: false });
+        const { data, error } = await supabase.from('history').select().order('watched_at', { ascending: false });
         if (error) throw error;
 
         history.value = data;
