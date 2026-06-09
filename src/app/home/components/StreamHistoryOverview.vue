@@ -57,7 +57,7 @@ const totalHoursStreamed = computed(() =>
 </script>
 
 <template>
-    <Section title="Stream overiew">
+    <Section title="Stream overview">
         <template #description>
             <span class="font-bold text-primary">{{ totalHoursStreamed }} hours</span> streamed over a total of
             <span class="font-bold text-primary">{{ videosStore.videos.length }} streams</span>.
