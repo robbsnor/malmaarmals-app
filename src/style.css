@@ -52,6 +52,8 @@
     --color-black-1900: hsl(0, 0%, 38%);
     --color-black-2000: hsl(0, 0%, 40%);
 
+    --color-v-input: #212121;
+
     --height-mobile-navbar: 64px;
     --height-header: 55px;
     --height-available: calc(100vh - var(--height-mobile-navbar));
