@@ -30,20 +30,10 @@ export const useArchiveStore = defineStore('archive', () => {
     };
 
     function random() {
-        let item: string;
+        const i = randomNumber(0, videosStore.videos.length);
+        query.value = videosStore.videos[i].title;
 
-        if (activeFilterType.value === 'streams') {
-            const i = randomNumber(0, videosStore.videos.length);
-            item = videosStore.videos[i].title;
-        } else if (activeFilterType.value === 'playlists') {
-            const i = randomNumber(0, playlistsStore.playlists.length);
-            item = playlistsStore.playlists[i].title;
-        } else {
-            const i = randomNumber(0, videosStore.categoriesList.length);
-            item = videosStore.categoriesList[i].title;
-        }
-
-        query.value = item;
+        router.push({ name: 'streams' });
     }
 
     watch(query, () => {
