@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useVideoStore } from '../stores/video.store';
-import { Z } from '../../shared/directives/z.directive';
 
 const videoStore = useVideoStore();
 

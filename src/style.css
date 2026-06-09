@@ -54,6 +54,19 @@
 
     --color-v-input: #212121;
 
+    --z-index-foo: 3;
+    --z-index-chapter-marker: 10;
+    --z-index-mobile-nav: 10;
+    --z-index-header: 10;
+    --z-index-archive-header: 10;
+    --z-index-video-not-allowed: 15;
+    --z-index-video-controls-bg: 45;
+    --z-index-video-container: 50;
+    --z-index-video-controls-mini: 50;
+    --z-index-video-controls: 50;
+    --z-index-video-src-error: 60;
+    --z-index-offline: 100;
+
     --height-mobile-navbar: 64px;
     --height-header: 55px;
     --height-available: calc(100vh - var(--height-mobile-navbar));

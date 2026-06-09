@@ -3,7 +3,6 @@ import { ref } from 'vue';
 import { useScreenSafeArea } from '@vueuse/core';
 import { RouterLink, useRoute } from 'vue-router';
 import { useAuthStore } from '../../auth/stores/auth.store';
-import { Z } from '../../shared/directives/z.directive';
 import NotSubscribedBadge from './NotSubscribedBadge.vue';
 
 const route = useRoute();
@@ -27,8 +26,7 @@ function handleClick(item: any) {
     <div
         ref="mobileNavRef"
         :style="{ paddingBottom: bottom }"
-        class="border-black-300 bg-black/85 backdrop-blur-[100px] fixed right-0 bottom-0 left-0 h-[var(--height-mobile-navbar)] border-t lg:hidden"
-        v-z="Z.MOBILE_NAV"
+        class="z-mobile-nav border-black-300 bg-black/85 backdrop-blur-[100px] fixed right-0 bottom-0 left-0 h-[var(--height-mobile-navbar)] border-t lg:hidden"
     >
         <Container width="400px" class="h-full">
             <div class="grid h-[var(--height-mobile-navbar)] grid-cols-3 items-center justify-evenly">

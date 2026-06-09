@@ -6,7 +6,6 @@ import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import PlayerControls from './PlayerControls.vue';
 import FloatingEmotes from './FloatingEmotes.vue';
 import Facecam from './Facecam.vue';
-import { Z } from '../../shared/directives/z.directive';
 import { useTwitch } from '../../shared/composables/useTwitch.composable';
 
 const videoStore = useVideoStore();
@@ -47,8 +46,7 @@ onMounted(async () => {
         </Transition>
 
         <div
-            class="absolute inset-0"
-            v-z="Z.VIDEO_CONTROLS_BG"
+            class="z-video-controls-bg absolute inset-0"
             @click="videoStore.showControllsAndInfo = !videoStore.showControllsAndInfo"
         ></div>
 

@@ -2,7 +2,6 @@
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { useVideoStore } from '../stores/video.store';
 import { randomNumber } from '../../shared/helpers/randomNumber';
-import { Z } from '../../shared/directives/z.directive';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
@@ -15,8 +14,7 @@ function refresh() {
 <template>
     <div
         v-if="videoStore.playerIsActive && !authStore.isSubbed"
-        v-z="Z.VIDEO_NOT_ALLOWED"
-        class="max-lg:fixed max-lg:inset-0 flex flex-col gap-4 p-4 md:flex-row w-full h-available bg-black-100 overflow-hidden"
+        class="z-video-not-allowed max-lg:fixed max-lg:inset-0 flex flex-col gap-4 p-4 md:flex-row w-full h-available bg-black-100 overflow-hidden"
     >
         <div class="flex flex-col gap-4 w-full md:flex-row">
             <Skeleton :pulse="false" class="aspect-video w-full md:aspect-auto"></Skeleton>

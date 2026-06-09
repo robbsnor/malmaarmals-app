@@ -4,7 +4,6 @@ import { useAuthStore } from '../../auth/stores/auth.store';
 import { useArchiveStore } from '../../archive/stores/archive.store';
 import { useVideosStore } from '../../videos/stores/videos.store';
 import NavButton from './NavButton.vue';
-import { Z } from '../../shared/directives/z.directive';
 import Search from './Search.vue';
 
 const authStore = useAuthStore();
@@ -14,8 +13,7 @@ const videosStore = useVideosStore();
 
 <template>
     <header
-        v-z="Z.HEADER"
-        class="h-header border-b border-black-400 bg-black-100/80 backdrop-blur-[100px] overflow-y-hidden fixed top-0 right-0 left-0 hidden lg:block"
+        class="z-header h-header border-b border-black-400 bg-black-100/80 backdrop-blur-[100px] overflow-y-hidden fixed top-0 right-0 left-0 hidden lg:block"
     >
         <Container width="100%" class="h-full">
             <div

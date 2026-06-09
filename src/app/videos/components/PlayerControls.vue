@@ -11,7 +11,6 @@ import { useScreenOrientation } from '@vueuse/core';
 import ChapterMarker from './ChapterMarker.vue';
 import PreferenceDrawer from './PreferenceDrawer.vue';
 import { usePreferenceStore } from '../../shared/stores/preference.store';
-import { Z } from '../../shared/directives/z.directive';
 import { routeHistory } from '../../../router/router';
 import { useVideosStore } from '../stores/videos.store';
 import VideoInfo from './VideoInfo.vue';
@@ -83,8 +82,7 @@ function toggleTheaterMode() {
     <div
         v-if="!videoStore.playerIsMini"
         v-visible="videoStore.showControllsAndInfo && !videoStore.playerIsMini"
-        class="absolute inset-0 flex flex-col"
-        v-z="Z.VIDEO_CONTROLS"
+        class="z-video-controls absolute inset-0 flex flex-col"
     >
         <div class="relative flex flex-col grow">
             <div class="absolute inset-0 bg-black/50" @click="videoStore.showControllsAndInfo = false"></div>

@@ -3,7 +3,6 @@ import Player from './Player.vue';
 import Chat from './Chat.vue';
 import { useVideoStore } from '../stores/video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
-import { Z } from '../../shared/directives/z.directive';
 import { computed } from 'vue';
 import VideoInfo from './VideoInfo.vue';
 import ExtraInfoPlaylist from './ExtraInfoPlaylist.vue';
@@ -28,8 +27,7 @@ const containerClasses = computed(() => {
     <div
         ref="videoContainerRef"
         v-if="videoStore.playerIsActive && authStore.isSubbed"
-        class="fixed flex flex-col flex-nowrap bg-black md:flex-row"
-        v-z="Z.VIDEO_CONTAINER"
+        class="z-video-container fixed flex flex-col flex-nowrap bg-black md:flex-row"
         :class="containerClasses"
     >
         <div ref="videoColRef" class="scroll-hidden bg-black-100 md:grow md:overflow-auto">
