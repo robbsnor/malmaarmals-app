@@ -15,7 +15,7 @@ const ratio = computed(() => props.month.streams.length / props.highestStreamPer
 const percentage = computed(() => Math.round(ratio.value * 100));
 
 const monthColorClass = computed(() => {
-    if (percentage.value === 100) return 'bg-gradient-to-br from-yellow-500 to-red-500';
+    if (percentage.value === 100) return 'bg-gradient-to-br from-[#a1ff0a]  to-[#2ea043]';
     else if (percentage.value >= 80) return 'bg-[#1ad339]';
     else if (percentage.value >= 60) return 'bg-[#56d364]';
     else if (percentage.value >= 40) return 'bg-[#2ea043]';
@@ -38,7 +38,7 @@ const isCurrentMonth = computed(() => {
             :title="`${props.month.monthName}: ${props.month.streams.length} stream${props.month.streams.length === 1 ? '' : 's'}`"
         >
             <v-icon v-if="isCurrentMonth" class="text-white" size="12">mdi-calendar-today</v-icon>
-            <v-icon v-else-if="percentage === 100" class="text-white" size="12">mdi-star</v-icon>
+            <v-icon v-else-if="percentage === 100" class="text-black-400" size="12">mdi-star-shooting</v-icon>
         </div>
 
         <div class="mt-1 text-[10px] uppercase tracking-[0.18em] text-muted-more">
