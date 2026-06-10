@@ -21,7 +21,7 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
 </script>
 
 <template>
-    <div class="flex items-center justify-center bg-v-input rounded-sm pr-4">
+    <div class="flex items-center justify-center bg-v-input rounded-sm pr-2">
         <v-combobox
             v-bind="props"
             :model-value="archiveStore.query"
@@ -54,9 +54,12 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
             </template>
         </v-combobox>
 
-        <div class="flex gap-4 shrink-0 text-[#BDBDBD]">
-            <button @click="archiveStore.random()">
-                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+        <div class="flex gap-2 shrink-0 text-[#BDBDBD] -ml-2">
+            <button
+                title="random stream"
+                class="hover:text-primary p-1 lbg-red-500 relative lg:hidden"
+                @click="archiveStore.random()"
+            >
                 <svg
                     fill="currentColor"
                     height="20px"

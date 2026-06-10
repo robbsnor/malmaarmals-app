@@ -40,7 +40,10 @@ function onMoreClick() {
                 class="flex justify-between items-end gap-8 pb-4"
             >
                 <div>
-                    <h2 class="text-2xl font-bold lg:text-3xl">{{ props.title }}</h2>
+                    <div class="flex gap-2 items-end">
+                        <h2 class="text-2xl font-bold lg:text-3xl">{{ props.title }}</h2>
+                        <slot name="append-title"></slot>
+                    </div>
 
                     <div v-if="props.description || slots.description" class="text-muted">
                         <slot name="description"> </slot>

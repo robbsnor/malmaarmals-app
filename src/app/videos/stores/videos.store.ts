@@ -14,7 +14,7 @@ export const useVideosStore = defineStore('videos', () => {
     const displayed = computed(() => filteredVideos.value.slice(0, count.value));
     const hasMore = computed(() => count.value < filteredVideos.value.length);
     const remaining = computed(() => Math.min(STEP, filteredVideos.value.length - count.value));
-    const rawDuplicates = [2705617403, 2787106351, 2789497459, 2791017025];
+    const rawDuplicates = [2705617403, 2787106351, 2789497459, 2791017025, 2792463526];
 
     function loadMore() {
         count.value += STEP;

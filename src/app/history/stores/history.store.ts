@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
 import { supabase } from '../../../supabase';
 import { useAuthStore } from '../../auth/stores/auth.store';
-import type { Tables } from '../../shared/models/database.types';
+import type { Tables, TablesInsert } from '../../shared/models/database.types';
 import { useVideosStore } from '../../videos/stores/videos.store';
 import type { HistoryVideo } from '../models/history-video.model';
 
@@ -42,18 +42,23 @@ export const useHistoryStore = defineStore('history', () => {
     async function recordWatch(videoId: string, videoTime: number) {
         if (videoTime === 0) return;
 
-        const { error } = await supabase.from('history').upsert(
-            {
-                user_id: authStore.session.user.id,
-                video_id: videoId,
-                video_time: videoTime,
-                watched_at: new Date().toISOString(),
-            },
-            { onConflict: 'user_id, video_id' }
-        );
+        const historyItem: TablesInsert<'history'> = {
+            user_id: authStore.session.user.id,
+            video_id: videoId,
+            video_time: videoTime,
+            watched_at: new Date().toISOString(),
+        };
+
+        const { error } = await supabase.from('history').upsert(historyItem, { onConflict: 'user_id, video_id' });
         if (error) throw error;
 
-        // await fetchHistory();
+        const existingIndex = history.value.findIndex((video) => video.video_id === historyItem.video_id);
+
+        if (existingIndex === -1) {
+            history.value.unshift(historyItem as Tables<'history'>);
+        } else {
+            history.value[existingIndex] = historyItem as Tables<'history'>;
+        }
     }
 
     return {

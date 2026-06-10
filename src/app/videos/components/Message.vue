@@ -22,6 +22,7 @@ const isMyMessage = computed(
 );
 const isLekkerSpelen = computed(() => props.message.user_id === LEKKER_SPELEN_USER_ID);
 const isSub = computed(() => props.message.text.includes(`They've subscribed for`));
+const isGifted = computed(() => props.message.text.includes(' gifted a '));
 </script>
 
 <template>
@@ -30,13 +31,14 @@ const isSub = computed(() => props.message.text.includes(`They've subscribed for
             'bg-black-300 rounded-sm py-1 -mx-1 px-1 md:bg-black-600 2xl:-mx-2 2xl:px-2':
                 (isMyMessage && props.highlightOwnMessage) || isLekkerSpelen,
             'bg-gradient-to-r from-white/5 to-white/0 rounded-r p-2! border-l-primary border-l-2 rounded-l-none!':
-                isSub,
+                isSub || isGifted,
         }"
         class="text-sm"
     >
         <img
             v-for="badge in props.message.badges"
             :key="badge.image_id"
+            alt=""
             :src="`https://static-cdn.jtvnw.net/badges/v1/${badge.image_id}/2`"
             class="inline-block mr-1 h-5"
         />
