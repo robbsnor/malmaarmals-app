@@ -53,7 +53,7 @@ export const useHistoryStore = defineStore('history', () => {
         );
         if (error) throw error;
 
-        await fetchHistory();
+        // await fetchHistory();
     }
 
     return {
