@@ -54,10 +54,10 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
             </template>
         </v-combobox>
 
-        <div class="flex gap-2 shrink-0 text-[#BDBDBD] -ml-2">
+        <div class="flex gap-2 shrink-0 text-[#BDBDBD] -ml-1">
             <button
                 title="random stream"
-                class="hover:text-primary p-1 lbg-red-500 relative lg:hidden"
+                class="hover:text-primary p-1 pr-2 lbg-red-500 relative lg:hidden"
                 @click="archiveStore.random()"
             >
                 <svg
