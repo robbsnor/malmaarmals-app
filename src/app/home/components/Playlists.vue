@@ -17,7 +17,7 @@ const amount = computed(() => {
 </script>
 
 <template>
-    <Section title="Playlists" :more-link="{ name: 'playlists' }" moreText="All Playlists" description=" ofoofosdof">
+    <Section title="Playlists" :more-link="{ name: 'playlists' }" moreText="All Playlists">
         <template #actions>
             <div class="text-muted-more font-bold">{{ playlistsStore.playlists.length }} playlists</div>
         </template>

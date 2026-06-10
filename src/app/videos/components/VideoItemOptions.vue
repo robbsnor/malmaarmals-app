@@ -7,6 +7,7 @@ import { supabase } from '../../../supabase';
 import { sleep } from '../../shared/helpers/sleep';
 import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
 import { toast } from 'vue-sonner';
+import { useClipboard } from '@vueuse/core';
 
 const props = withDefaults(
     defineProps<{
@@ -19,6 +20,7 @@ const props = withDefaults(
 const playlistsStore = usePlaylistsStore();
 const addDialog = ref(false);
 const removeDialog = ref(false);
+const { copy } = useClipboard();
 
 async function removeFromPlaylist() {
     try {
@@ -35,6 +37,11 @@ async function removeFromPlaylist() {
     } finally {
         removeDialog.value = false;
     }
+}
+
+function copyId() {
+    copy(props.video.video_id.toString());
+    toast.success(`Copied video ID!`);
 }
 </script>
 
@@ -80,6 +87,8 @@ async function removeFromPlaylist() {
                         </v-list-item>
                     </template>
                 </DeleteDialog>
+
+                <v-list-item prepend-icon="mdi-content-copy" class="" @click="copyId"> Copy video ID </v-list-item>
             </v-list>
         </v-menu>
     </Auth>
