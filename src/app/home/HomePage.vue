@@ -7,7 +7,8 @@ import PopularCategories from './components/PopularCategories.vue';
 import ChaptersOverview from './components/ChaptersOverview.vue';
 import SlowSiteBanner from '../layout/components/SlowSiteBanner.vue';
 import { useVideosStore } from '../videos/stores/videos.store.ts';
-import StreamHistoryOverview from './components/StreamHistoryOverview.vue';
+import StreamHistoryOverview from '../statistics/components/StreamHistoryOverview.vue';
+import WeekOverview from '../statistics/components/WeekOverview.vue';
 
 TitleHelper.setTitle('home');
 
@@ -26,9 +27,8 @@ const videosStore = useVideosStore();
 
         <RecentStreams />
         <Playlists />
-        <!-- <History /> -->
+        <WeekOverview />
         <PopularCategories />
-        <!-- <ChaptersOverview /> -->
-        <StreamHistoryOverview />
+        <!-- <History /> -->
     </div>
 </template>

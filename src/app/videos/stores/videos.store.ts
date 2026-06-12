@@ -30,7 +30,7 @@ export const useVideosStore = defineStore('videos', () => {
             .filter((video) => !rawDuplicates.includes(video.video_id))
             .map((video) => ({
                 ...video,
-                video: video.chapters.sort((a, b) => a.start_s - b.start_s),
+                chapters: video.chapters.sort((a, b) => a.start_s - b.start_s),
             }));
     };
 

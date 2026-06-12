@@ -78,6 +78,11 @@ const router = createRouter({
             component: () => import('../app/about/AboutPage.vue'),
         },
         {
+            path: '/statistics',
+            name: 'statistics',
+            component: () => import('../app/statistics/StatisticsPage.vue'),
+        },
+        {
             path: '/history',
             name: 'history',
             beforeEnter: (to, from) => {

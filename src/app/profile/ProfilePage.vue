@@ -17,12 +17,11 @@ const groups = computed(() => {
     return [
         [
             // { name: 'History', icon: 'mdi-history', to: '/history', hidden: !isSignedIn },
-            // {
-            //     name: 'Statistics',
-            //     description: 'Have a cool idea? Create an issue!',
-            //     icon: 'mdi-chart-timeline-variant',
-            //     disabled: true,
-            // },
+            {
+                name: 'Statistics',
+                to: '/statistics',
+                icon: 'mdi-chart-timeline-variant',
+            },
             { name: 'About', to: '/about', icon: 'mdi-information' },
             { name: 'Logout', link: '/sign-out', icon: 'mdi-logout', hidden: !isSignedIn, action: 'sign-out' },
         ],
