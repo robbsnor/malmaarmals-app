@@ -31,7 +31,7 @@ const colorClass = computed(() => {
     <v-menu location="top" max-width="420">
         <template #activator="{ props }">
             <div
-                class="rounded w-full aspect-square flex justify-center items-center"
+                class="rounded w-full aspect-square flex justify-center items-center cursor-pointer"
                 :class="colorClass"
                 v-bind="props"
             >
