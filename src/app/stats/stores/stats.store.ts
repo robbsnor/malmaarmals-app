@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import type { Video } from '../../videos/models/video.model';
 import { useVideosStore } from '../../videos/stores/videos.store';
+import { supabase } from '../../../supabase';
 
 const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -17,6 +18,20 @@ export interface Month {
 
 export const useStatsStore = defineStore('stats', () => {
     const videosStore = useVideosStore();
+    const chatStatsLoading = ref(true);
+    const chatStats = ref();
+
+    onMounted(async () => {
+        const { data, error } = await supabase.rpc('get_stats').select();
+
+        if (error) {
+            chatStatsLoading.value = false;
+            throw error;
+        }
+
+        chatStatsLoading.value = false;
+        chatStats.value = data;
+    });
 
     const videosByWeek = computed(() => {
         const _years: Year[] = [];
@@ -63,5 +78,11 @@ export const useStatsStore = defineStore('stats', () => {
         return Math.min(Math.floor((date.getDate() + firstDay - 1) / 7), 3);
     }
 
-    return { videosByWeek, highestStreamPerWeek };
+    return {
+        chatStatsLoading,
+        chatStats,
+
+        videosByWeek,
+        highestStreamPerWeek,
+    };
 });

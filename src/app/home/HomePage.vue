@@ -9,6 +9,7 @@ import SlowSiteBanner from '../layout/components/SlowSiteBanner.vue';
 import { useVideosStore } from '../videos/stores/videos.store.ts';
 import StreamHistoryOverview from '../statistics/components/StreamHistoryOverview.vue';
 import WeekOverview from '../statistics/components/WeekOverview.vue';
+import Stats from './components/Stats.vue';
 
 TitleHelper.setTitle('home');
 
@@ -27,6 +28,7 @@ const videosStore = useVideosStore();
 
         <RecentStreams />
         <Playlists />
+        <Stats />
         <WeekOverview />
         <PopularCategories />
         <!-- <History /> -->

@@ -285,10 +285,25 @@ export type Database = {
             };
         };
         Views: {
-            [_ in never]: never;
+            popular_emotes: {
+                Row: {
+                    emote_name: string | null;
+                    usage_count: number | null;
+                };
+                Relationships: [];
+            };
+            user_message_counts: {
+                Row: {
+                    message_count: number | null;
+                    user_id: number | null;
+                    user_name: string | null;
+                };
+                Relationships: [];
+            };
         };
         Functions: {
-            [_ in never]: never;
+            get_stats: { Args: { target_user_id?: number }; Returns: Json };
+            refresh_all_stats: { Args: never; Returns: undefined };
         };
         Enums: {
             playlist_order_type: 'date_ascending' | 'date_descending' | 'custom';
