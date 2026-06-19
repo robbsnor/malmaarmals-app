@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia';
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useArchiveStore } from '../../archive/stores/archive.store';
 import { videosQuery, type Video } from '../models/video.model';
 import { TimeHelper } from '../../shared/helpers/time.helper';
+import { supabase } from '../../../supabase';
 
 export const useVideosStore = defineStore('videos', () => {
     const archiveStore = useArchiveStore();
@@ -15,14 +16,17 @@ export const useVideosStore = defineStore('videos', () => {
     const hasMore = computed(() => count.value < filteredVideos.value.length);
     const remaining = computed(() => Math.min(STEP, filteredVideos.value.length - count.value));
     const rawDuplicates = [2705617403, 2787106351, 2789497459, 2791017025, 2792463526];
+    const whatOthersWatchIds = ref([]);
+
+    onMounted(async () => {
+        await fetchWhatOthersWatch();
+    });
 
     function loadMore() {
         count.value += STEP;
     }
 
     const fetchVideos = async () => {
-        // temp hide videos that are duplicates from eachother
-
         const { data, error } = await videosQuery;
         if (error) throw error;
 
@@ -33,6 +37,13 @@ export const useVideosStore = defineStore('videos', () => {
                 chapters: video.chapters.sort((a, b) => a.start_s - b.start_s),
             }));
     };
+
+    async function fetchWhatOthersWatch() {
+        const { data, error } = await supabase.functions.invoke('what-others-watch');
+        if (error) throw console.error('Error calling function:', error);
+
+        whatOthersWatchIds.value = data;
+    }
 
     const filteredVideos = computed(() => {
         if (!archiveStore.query) return videos.value;
@@ -128,6 +139,8 @@ export const useVideosStore = defineStore('videos', () => {
             .map((c, i) => ({ ...c, position: i + 1 }));
     });
 
+    const whatOthersWatch = computed(() => whatOthersWatchIds.value.map((id) => videos.value.find((v) => v.id === id)));
+
     watch(
         () => archiveStore.query,
         () => {
@@ -142,6 +155,7 @@ export const useVideosStore = defineStore('videos', () => {
         chaptersOverview,
         populairCategories,
         rawDuplicates,
+        whatOthersWatch,
 
         count,
         displayed,

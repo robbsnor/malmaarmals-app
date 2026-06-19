@@ -10,6 +10,7 @@ import { useVideosStore } from '../videos/stores/videos.store.ts';
 import StreamHistoryOverview from '../statistics/components/StreamHistoryOverview.vue';
 import WeekOverview from '../statistics/components/WeekOverview.vue';
 import Stats from './components/Stats.vue';
+import WhatOthersWatch from './components/WhatOthersWatch.vue';
 
 TitleHelper.setTitle('home');
 
@@ -30,6 +31,7 @@ const videosStore = useVideosStore();
         <Playlists />
         <Stats />
         <WeekOverview />
+        <WhatOthersWatch />
         <PopularCategories />
         <!-- <History /> -->
     </div>

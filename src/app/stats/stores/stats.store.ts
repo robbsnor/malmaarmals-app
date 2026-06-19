@@ -60,8 +60,6 @@ export const useStatsStore = defineStore('stats', () => {
             monthEntry.weeks[week].push(video);
         });
 
-        console.log(_years);
-
         return _years;
     });
 

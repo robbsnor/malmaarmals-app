@@ -14,8 +14,7 @@ const topUsers = computed(() => {
 </script>
 
 <template>
-    <!-- v-if="authStore.isAdmin" -->
-    <Section title="Top chatters">
+    <Section title="Top chatters" v-if="authStore.isAdmin">
         <template v-if="!statStore.chatStatsLoading">
             <div class="flex gap-4 justify-between items-end">
                 <div
