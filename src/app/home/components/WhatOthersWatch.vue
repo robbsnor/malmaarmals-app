@@ -18,11 +18,11 @@ const amount = computed(() => {
 </script>
 
 <template>
-    <Section title="What others watch" v-if="authStore.isAdmin && videosStore.whatOthersWatch.length">
+    <Section title="What others watch" v-if="videosStore.whatOthersWatch.length">
         <div class="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
             <template v-for="video in videosStore.whatOthersWatch.slice(0, amount)" :key="video.video_id">
-                <VideoItem v-if="!breakpoints.greaterOrEqual('md').value" :video="video" />
-                <VideoItemLarge v-else :video="video" />
+                <VideoItem v-if="!breakpoints.greaterOrEqual('md').value" :video="video" :show-time-ago="false" />
+                <VideoItemLarge v-else :video="video" :show-time-ago="false" />
             </template>
         </div>
     </Section>

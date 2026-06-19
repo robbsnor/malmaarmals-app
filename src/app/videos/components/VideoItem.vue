@@ -11,9 +11,11 @@ const props = withDefaults(
         video: Video;
         playlist?: Playlist;
         showOptions?: boolean;
+        showTimeAgo?: boolean;
     }>(),
     {
         showOptions: true,
+        showTimeAgo: true,
         responsive: true,
     }
 );
@@ -36,7 +38,7 @@ const categories = computed(() => {
             <div v-if="props.video.chapters.length" class="text-muted text-sm font-medium line-clamp-1">
                 {{ categories.join(', ') }}
             </div>
-            <div class="text-muted-more text-sm font-medium">
+            <div v-if="props.showTimeAgo" class="text-muted-more text-sm font-medium">
                 {{ formatTimeAgo(new Date(props.video.recorded_at)) }}
             </div>
         </div>
