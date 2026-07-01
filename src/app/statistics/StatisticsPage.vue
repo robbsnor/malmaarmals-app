@@ -10,6 +10,7 @@ import { useStatsStore } from '../stats/stores/stats.store.ts';
 import WeekOverview from './components/WeekOverview.vue';
 import StreamHistoryOverview from './components/StreamHistoryOverview.vue';
 import ChaptersOverview from '../home/components/ChaptersOverview.vue';
+import WatchHistoryChart from './components/WatchHistoryChart.vue';
 
 TitleHelper.setTitle('statistics');
 
@@ -20,8 +21,8 @@ const router = useRouter();
 </script>
 
 <template>
+    <WatchHistoryChart />
     <ChaptersOverview />
     <StreamHistoryOverview />
-    test
     <WeekOverview />
 </template>

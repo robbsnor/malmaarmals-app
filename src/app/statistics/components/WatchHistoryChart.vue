@@ -18,6 +18,7 @@ import {
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { useStatsStore } from '../../stats/stores/stats.store';
 import { DateHelper } from '../../shared/helpers/date.helper';
+import { useAuthStore } from '../../auth/stores/auth.store';
 
 ChartJS.register(
     Title,
@@ -32,6 +33,7 @@ ChartJS.register(
 );
 
 const statsStore = useStatsStore();
+const authStore = useAuthStore();
 
 const datasets = computed(() => {
     const datasetsByYear = new Map();
@@ -120,7 +122,7 @@ const chartOptions: ChartOptions<'line'> = {
 </script>
 
 <template>
-    <Section>
+    <Section v-if="authStore.isAdmin" title="Daily views">
         <Line :options="chartOptions" :data="chartData" />
     </Section>
 </template>

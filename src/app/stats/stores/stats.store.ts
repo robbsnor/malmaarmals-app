@@ -4,6 +4,7 @@ import type { Video } from '../../videos/models/video.model';
 import { useVideosStore } from '../../videos/stores/videos.store';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../../shared/models/database.types';
+import { useAuthStore } from '../../auth/stores/auth.store';
 
 const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -19,6 +20,7 @@ export interface Month {
 
 export const useStatsStore = defineStore('stats', () => {
     const videosStore = useVideosStore();
+    const authStore = useAuthStore();
     const chatStatsLoading = ref(true);
     const chatStats = ref();
     const historyStats = ref<Tables<'history'>[]>([]);
@@ -37,10 +39,11 @@ export const useStatsStore = defineStore('stats', () => {
     });
 
     async function getHistoryStats() {
+        if (!authStore.isAdmin) return;
+
         const { data, error } = await supabase.functions.invoke('history-stats');
         if (error) throw console.error('Error calling function:', error);
 
-        console.log(data);
         historyStats.value = data;
     }
 
