@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue';
 import type { Video } from '../../videos/models/video.model';
 import { useVideosStore } from '../../videos/stores/videos.store';
 import { supabase } from '../../../supabase';
+import type { Tables } from '../../shared/models/database.types';
 
 const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -20,8 +21,10 @@ export const useStatsStore = defineStore('stats', () => {
     const videosStore = useVideosStore();
     const chatStatsLoading = ref(true);
     const chatStats = ref();
+    const historyStats = ref<Tables<'history'>[]>([]);
 
     onMounted(async () => {
+        getHistoryStats();
         const { data, error } = await supabase.rpc('get_stats').select();
 
         if (error) {
@@ -32,6 +35,14 @@ export const useStatsStore = defineStore('stats', () => {
         chatStatsLoading.value = false;
         chatStats.value = data;
     });
+
+    async function getHistoryStats() {
+        const { data, error } = await supabase.functions.invoke('history-stats');
+        if (error) throw console.error('Error calling function:', error);
+
+        console.log(data);
+        historyStats.value = data;
+    }
 
     const videosByWeek = computed(() => {
         const _years: Year[] = [];
@@ -82,5 +93,6 @@ export const useStatsStore = defineStore('stats', () => {
 
         videosByWeek,
         highestStreamPerWeek,
+        historyStats,
     };
 });
