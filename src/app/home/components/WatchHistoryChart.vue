@@ -42,8 +42,8 @@ const datasets = computed(() => {
         .forEach((item) => {
             const date = new Date(item.watched_at);
             const year = date.getFullYear();
-            // const day = DateHelper.getDayOfYear(date);
-            const day = date.getMonth();
+            const day = DateHelper.getDayOfYear(date);
+            // const day = date.getMonth();
 
             if (!datasetsByYear.has(year)) {
                 datasetsByYear.set(year, {
@@ -62,13 +62,13 @@ const datasets = computed(() => {
 });
 
 const chartData = computed<ChartData<'line'>>(() => ({
-    // labels: Array.from({ length: 365 }, (_, i) => {
-    //     const date = new Date(Date.UTC(2026, 0, i));
-    //     const day = date.getUTCDate();
-    //     const month = date.toLocaleString('en-US', { month: 'short' }).toLowerCase();
-    //     return `${day} ${month}`;
-    // }),
-    labels: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'okt', 'nov', 'dec'],
+    labels: Array.from({ length: 365 }, (_, i) => {
+        const date = new Date(Date.UTC(2026, 0, i));
+        const day = date.getUTCDate();
+        const month = date.toLocaleString('en-US', { month: 'short' }).toLowerCase();
+        return `${day} ${month}`;
+    }),
+    // labels: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'okt', 'nov', 'dec'],
     datasets: datasets.value,
 }));
 
