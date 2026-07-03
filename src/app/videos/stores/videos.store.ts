@@ -113,6 +113,7 @@ export const useVideosStore = defineStore('videos', () => {
     });
 
     const whatOthersWatch = computed(() => whatOthersWatchIds.value.map((id) => videos.value.find((v) => v.id === id)));
+    const years = computed(() => [...new Set(videos.value.map((v) => new Date(v.recorded_at).getFullYear()))]);
 
     return {
         videos,
@@ -121,6 +122,7 @@ export const useVideosStore = defineStore('videos', () => {
         populairCategories,
         rawDuplicates,
         whatOthersWatch,
+        years,
 
         fetchVideos,
     };

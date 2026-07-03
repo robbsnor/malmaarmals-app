@@ -3,6 +3,7 @@ import type { Density } from 'vuetify/lib/composables/density.mjs';
 import { useArchiveStore } from '../../archive/stores/archive.store';
 import { useVideosStore } from '../../videos/stores/videos.store';
 import { useDebounceFn } from '@vueuse/core';
+import { computed, ref } from 'vue';
 
 const archiveStore = useArchiveStore();
 const videosStore = useVideosStore();
@@ -14,6 +15,8 @@ const props = withDefaults(
         density: 'compact',
     }
 );
+
+const dialog = ref(false);
 
 const updateQuery = useDebounceFn((value: string | { id: string; title: string } | null) => {
     archiveStore.query = typeof value === 'string' ? value : value?.title;
@@ -54,10 +57,10 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
             </template>
         </v-combobox>
 
-        <div class="flex gap-2 shrink-0 text-[#BDBDBD] -ml-1">
+        <div class="flex gap-2 shrink-0 text-[#BDBDBD] -ml-1 lg:hidden">
             <button
                 title="random stream"
-                class="hover:text-primary p-1 pr-2 lbg-red-500 relative lg:hidden"
+                class="hover:text-primary p-1 pr-2 lbg-red-500 relative"
                 @click="archiveStore.random()"
             >
                 <svg
@@ -98,5 +101,46 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
                 </svg>
             </button>
         </div>
+        <v-btn @click="dialog = true" icon="mdi-filter-variant"></v-btn>
+        <Dialog v-model="dialog" title="Filter">
+            <div class="grid grid-cols-2 gap-12">
+                <div class="max-h-60 overflow-auto">
+                    <div class="grid grid-cols-3">
+                        <v-checkbox
+                            v-for="year in videosStore.years"
+                            :key="year"
+                            :label="year.toString()"
+                            hide-details="auto"
+                            density="compact"
+                        ></v-checkbox>
+                    </div>
+                </div>
+
+                <div class="max-h-60 overflow-auto">
+                    <div class="grid grid-cols-3">
+                        <v-checkbox
+                            v-for="month in [
+                                'Jan',
+                                'Feb',
+                                'Mar',
+                                'Apr',
+                                'May',
+                                'Jun',
+                                'Jul',
+                                'Aug',
+                                'Sep',
+                                'Oct',
+                                'Nov',
+                                'Dec',
+                            ]"
+                            :key="month"
+                            :label="month.toString()"
+                            hide-details="auto"
+                            density="compact"
+                        ></v-checkbox>
+                    </div>
+                </div>
+            </div>
+        </Dialog>
     </div>
 </template>
