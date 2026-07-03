@@ -33,6 +33,10 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
 }, 200);
 
 const hasChanges = computed(() => !_.isEqual(form.value, FORM_BASE));
+
+function reset() {
+    form.value = _.cloneDeep(FORM_BASE);
+}
 </script>
 
 <template>
@@ -146,7 +150,9 @@ const hasChanges = computed(() => !_.isEqual(form.value, FORM_BASE));
             </div>
 
             <template #footer>
-                <v-btn class="mr-auto" color="primary" variant="tonal" :disabled="!hasChanges">reset</v-btn>
+                <v-btn class="mr-auto" color="primary" variant="tonal" :disabled="!hasChanges" @click="reset()"
+                    >reset</v-btn
+                >
             </template>
         </Dialog>
     </div>
