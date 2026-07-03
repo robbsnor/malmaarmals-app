@@ -23,6 +23,7 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
 <template>
     <div class="flex items-center justify-center bg-v-input rounded-sm pr-2">
         <v-combobox
+            id="mobileSearch"
             v-bind="props"
             :model-value="archiveStore.query"
             :items="videosStore.categoriesList"
