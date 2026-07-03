@@ -4,9 +4,12 @@ import { useArchiveStore } from '../../archive/stores/archive.store';
 import { useVideosStore } from '../../videos/stores/videos.store';
 import { useDebounceFn } from '@vueuse/core';
 import { computed, ref } from 'vue';
+import _ from 'lodash';
+import { useAuthStore } from '../../auth/stores/auth.store';
 
 const archiveStore = useArchiveStore();
 const videosStore = useVideosStore();
+const authStore = useAuthStore();
 const props = withDefaults(
     defineProps<{
         density?: Density;
@@ -15,12 +18,21 @@ const props = withDefaults(
         density: 'compact',
     }
 );
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 const dialog = ref(false);
+
+const FORM_BASE = {
+    years: [],
+    months: [],
+};
+const form = ref(_.cloneDeep(FORM_BASE));
 
 const updateQuery = useDebounceFn((value: string | { id: string; title: string } | null) => {
     archiveStore.query = typeof value === 'string' ? value : value?.title;
 }, 200);
+
+const hasChanges = computed(() => !_.isEqual(form.value, FORM_BASE));
 </script>
 
 <template>
@@ -101,46 +113,41 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
                 </svg>
             </button>
         </div>
-        <v-btn @click="dialog = true" icon="mdi-filter-variant"></v-btn>
-        <Dialog v-model="dialog" title="Filter">
+
+        <v-btn v-if="authStore.isAdmin" @click="dialog = true" icon="mdi-filter-variant"></v-btn>
+
+        <Dialog v-model="dialog" title="Filter" description="Options are applied to your current search term.">
             <div class="grid grid-cols-2 gap-12">
-                <div class="max-h-60 overflow-auto">
-                    <div class="grid grid-cols-3">
-                        <v-checkbox
-                            v-for="year in videosStore.years"
-                            :key="year"
-                            :label="year.toString()"
-                            hide-details="auto"
-                            density="compact"
-                        ></v-checkbox>
-                    </div>
+                <div>
+                    <v-checkbox
+                        v-for="year in videosStore.years"
+                        :key="year"
+                        :label="year.toString()"
+                        hide-details="auto"
+                        v-model="form.years"
+                        :value="year"
+                        color="primary"
+                        density="compact"
+                    ></v-checkbox>
                 </div>
 
-                <div class="max-h-60 overflow-auto">
-                    <div class="grid grid-cols-3">
-                        <v-checkbox
-                            v-for="month in [
-                                'Jan',
-                                'Feb',
-                                'Mar',
-                                'Apr',
-                                'May',
-                                'Jun',
-                                'Jul',
-                                'Aug',
-                                'Sep',
-                                'Oct',
-                                'Nov',
-                                'Dec',
-                            ]"
-                            :key="month"
-                            :label="month.toString()"
-                            hide-details="auto"
-                            density="compact"
-                        ></v-checkbox>
-                    </div>
+                <div>
+                    <v-checkbox
+                        v-for="month in months"
+                        :key="month"
+                        :label="month.toString()"
+                        :value="month"
+                        v-model="form.months"
+                        hide-details="auto"
+                        color="primary"
+                        density="compact"
+                    ></v-checkbox>
                 </div>
             </div>
+
+            <template #footer>
+                <v-btn class="mr-auto" color="primary" variant="tonal" :disabled="!hasChanges">reset</v-btn>
+            </template>
         </Dialog>
     </div>
 </template>
