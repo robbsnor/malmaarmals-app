@@ -19,7 +19,7 @@ const resultsOrigon = computed(() => {
     }
 
     if (props.archiveType === 'STREAMS') {
-        return videosStore.filteredVideos.length;
+        return archiveStore.filteredVideos.length;
     } else if (props.archiveType === 'PLAYLISTS') {
         return playlistsStore.filteredPlaylists.length;
     } else if (props.archiveType === 'GAMES') {

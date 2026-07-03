@@ -9,22 +9,12 @@ export const useVideosStore = defineStore('videos', () => {
     const archiveStore = useArchiveStore();
     const videos = ref<Video[]>([]);
 
-    const INITIAL = 40;
-    const STEP = 100;
-    const count = ref(INITIAL);
-    const displayed = computed(() => filteredVideos.value.slice(0, count.value));
-    const hasMore = computed(() => count.value < filteredVideos.value.length);
-    const remaining = computed(() => Math.min(STEP, filteredVideos.value.length - count.value));
     const rawDuplicates = [2705617403, 2787106351, 2789497459, 2791017025, 2792463526];
     const whatOthersWatchIds = ref([]);
 
     onMounted(async () => {
         await fetchWhatOthersWatch();
     });
-
-    function loadMore() {
-        count.value += STEP;
-    }
 
     const fetchVideos = async () => {
         const { data, error } = await videosQuery;
@@ -44,23 +34,6 @@ export const useVideosStore = defineStore('videos', () => {
 
         whatOthersWatchIds.value = data;
     }
-
-    const filteredVideos = computed(() => {
-        if (!archiveStore.query) return videos.value;
-
-        return videos.value.filter((video) => {
-            const query = archiveStore.query.toLocaleLowerCase();
-
-            const titleMatch = video.title.toLowerCase().includes(query);
-            const descriptionMatch = video.description && video.description.toLowerCase().includes(query);
-            const idMatch = video.video_id.toString().includes(query);
-            const categoryMatch = video.chapters?.some((chapter) =>
-                chapter.category?.title.toLowerCase().includes(query)
-            );
-
-            return titleMatch || descriptionMatch || idMatch || categoryMatch;
-        });
-    });
 
     const categoriesList = computed(() => {
         const categoriesMap = new Map<string, { id: string; title: string }>();
@@ -141,27 +114,13 @@ export const useVideosStore = defineStore('videos', () => {
 
     const whatOthersWatch = computed(() => whatOthersWatchIds.value.map((id) => videos.value.find((v) => v.id === id)));
 
-    watch(
-        () => archiveStore.query,
-        () => {
-            count.value = INITIAL;
-        }
-    );
-
     return {
         videos,
-        filteredVideos,
         categoriesList,
         chaptersOverview,
         populairCategories,
         rawDuplicates,
         whatOthersWatch,
-
-        count,
-        displayed,
-        hasMore,
-        remaining,
-        loadMore,
 
         fetchVideos,
     };

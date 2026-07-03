@@ -24,10 +24,10 @@ const lekkerSpeurenUrl = computed(
     <div>
         <Section
             title="Streams"
-            :more-text="videosStore.hasMore ? `Show more` : undefined"
+            :more-text="archiveStore.hasMore ? `Show more` : undefined"
             :show-header="lgAndUp"
             more-icon="mdi-chevron-down"
-            v-on="videosStore.hasMore ? { moreClick: videosStore.loadMore } : {}"
+            v-on="archiveStore.hasMore ? { moreClick: archiveStore.loadMore } : {}"
         >
             <template #append-title>
                 <button
@@ -85,7 +85,7 @@ const lekkerSpeurenUrl = computed(
             <FilterIndicator archiveType="STREAMS" />
 
             <div class="grid grid-cols-1 gap-4 lg:gap-6 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5" v-auto-animate>
-                <template v-for="video in videosStore.displayed" :key="video.video_id">
+                <template v-for="video in archiveStore.displayed" :key="video.video_id">
                     <VideoItem v-if="!lgAndUp" :video="video" />
                     <VideoItemLarge v-else :video="video" />
                 </template>
@@ -93,7 +93,7 @@ const lekkerSpeurenUrl = computed(
 
             <!-- nothing found -->
             <Empty
-                v-if="archiveStore.query && !videosStore.filteredVideos.length"
+                v-if="archiveStore.query && !archiveStore.filteredVideos.length"
                 :title="`No videos found...`"
                 icon="mdi-play"
                 description="Try something else, or check lekkerspeuren.nl"
@@ -113,7 +113,7 @@ const lekkerSpeurenUrl = computed(
             </Empty>
         </Section>
 
-        <Section v-if="archiveStore.query && !videosStore.hasMore && videosStore.filteredVideos.length">
+        <Section v-if="archiveStore.query && !archiveStore.hasMore && archiveStore.filteredVideos.length">
             <!-- find more on lekkerspeuren  -->
             <Empty>
                 <template #description>
