@@ -16,7 +16,8 @@ const menuItems = ref([
 
 function handleClick(item: any) {
     if (item.id === 'bottom-search' && route.name === 'streams') {
-        const searchEl = document.querySelector<HTMLInputElement>('#mobileSearch');
+        const parentEl = document.querySelector<HTMLInputElement>('#mobileSearch');
+        const searchEl = parentEl.querySelector('input');
         searchEl?.focus();
     }
 }

@@ -22,7 +22,7 @@ const activeTab = computed(() => route.name);
         class="fixed w-full top-0 z-10 bg-gradient-to-b from-black from-50% to-black/0"
     >
         <Container class="pt-4">
-            <Search class="relative z-1" density="default" />
+            <Search id="mobileSearch" class="relative z-1" density="default" />
 
             <div class="rounded border border-white/10 bg-black-500/50 p-1.5 pt-4 -mt-2.5 backdrop-blur-xl">
                 <div class="grid grid-cols-3 gap-1">
