@@ -40,12 +40,12 @@ export const useVideosStore = defineStore('videos', () => {
 
         videos.value.forEach((video) => {
             video.chapters?.forEach((chapter) => {
-                if (chapter.category) {
-                    categoriesMap.set(chapter.category.category_id, {
-                        id: chapter.category.category_id,
-                        title: chapter.category.title,
-                    });
-                }
+                if (!chapter.category) return;
+
+                categoriesMap.set(chapter.category.category_id, {
+                    id: chapter.category.category_id,
+                    title: chapter.category.title,
+                });
             });
         });
 

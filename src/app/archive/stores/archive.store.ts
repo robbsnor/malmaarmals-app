@@ -58,8 +58,9 @@ export const useArchiveStore = defineStore('archive', () => {
             const descriptionMatch = video.description && video.description.toLowerCase().includes(q);
             const idMatch = video.video_id.toString().includes(q);
             const categoryMatch = video.chapters?.some((chapter) => chapter.category?.title.toLowerCase().includes(q));
+            const yearMatch = new Date(video.recorded_at).getFullYear().toString() === q;
 
-            return titleMatch || descriptionMatch || idMatch || categoryMatch;
+            return titleMatch || descriptionMatch || idMatch || categoryMatch || yearMatch;
         });
     });
 
