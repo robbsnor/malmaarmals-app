@@ -22,7 +22,7 @@ const categories = computed(() => {
         <VideoThumbnail :video="video" class="w-36 shrink-0" />
 
         <div>
-            <h2 class="font-bold text-md line-clamp-2 leading-snug">
+            <h2 class="font-bold text-md line-clamp-2 leading-snug break-words">
                 {{ props.video.title }}
             </h2>
             <div v-if="props.video.chapters.length" class="text-muted text-sm font-medium line-clamp-2">
