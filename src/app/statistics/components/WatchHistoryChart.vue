@@ -38,7 +38,7 @@ const authStore = useAuthStore();
 const datasets = computed(() => {
     const datasetsByYear = new Map();
 
-    statsStore.historyStats
+    statsStore.history
         .slice()
         .reverse()
         .forEach((item) => {

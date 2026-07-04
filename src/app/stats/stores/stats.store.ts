@@ -23,7 +23,7 @@ export const useStatsStore = defineStore('stats', () => {
     const authStore = useAuthStore();
     const chatStatsLoading = ref(true);
     const chatStats = ref();
-    const historyStats = ref<Tables<'history'>[]>([]);
+    const history = ref<Tables<'history'>[]>([]);
 
     onMounted(async () => {
         getMainStats();
@@ -45,11 +45,11 @@ export const useStatsStore = defineStore('stats', () => {
         const { data, error } = await supabase.functions.invoke('history-stats');
         if (error) throw error;
 
-        historyStats.value = data;
+        history.value = data;
     }
 
     const videosByWeek = computed(() => {
-        const _years: Year[] = [];
+        const years: Year[] = [];
 
         videosStore.videos.forEach((video) => {
             const date = new Date(video.recorded_at);
@@ -57,7 +57,7 @@ export const useStatsStore = defineStore('stats', () => {
             const month = date.toLocaleString('default', { month: 'short' });
             const week = getWeekOfMonth(date);
 
-            let yearEntry = _years.find((y) => y.year === year);
+            let yearEntry = years.find((y) => y.year === year);
             if (!yearEntry) {
                 yearEntry = {
                     year: year,
@@ -67,7 +67,7 @@ export const useStatsStore = defineStore('stats', () => {
                     })),
                 };
 
-                _years.push(yearEntry);
+                years.push(yearEntry);
             }
 
             const monthEntry = yearEntry.months.find((m) => m.month === month);
@@ -75,7 +75,7 @@ export const useStatsStore = defineStore('stats', () => {
             monthEntry.weeks[week].push(video);
         });
 
-        return _years;
+        return years;
     });
 
     const highestStreamPerWeek = computed(() =>
@@ -97,6 +97,6 @@ export const useStatsStore = defineStore('stats', () => {
 
         videosByWeek,
         highestStreamPerWeek,
-        historyStats,
+        history,
     };
 });
