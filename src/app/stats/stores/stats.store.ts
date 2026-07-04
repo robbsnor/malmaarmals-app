@@ -26,23 +26,24 @@ export const useStatsStore = defineStore('stats', () => {
     const historyStats = ref<Tables<'history'>[]>([]);
 
     onMounted(async () => {
+        getMainStats();
         getHistoryStats();
+    });
+
+    async function getMainStats() {
         const { data, error } = await supabase.rpc('get_stats').select();
 
-        if (error) {
-            chatStatsLoading.value = false;
-            throw error;
-        }
-
         chatStatsLoading.value = false;
+        if (error) throw error;
+
         chatStats.value = data;
-    });
+    }
 
     async function getHistoryStats() {
         if (!authStore.isAdmin) return;
 
         const { data, error } = await supabase.functions.invoke('history-stats');
-        if (error) throw console.error('Error calling function:', error);
+        if (error) throw error;
 
         historyStats.value = data;
     }
