@@ -120,7 +120,11 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
             </div>
         </div>
 
-        <Dialog v-model="dialog" title="Filter" description="Options are applied to your current search term.">
+        <Dialog
+            v-model="dialog"
+            title="Advanced filters"
+            description="Options are applied to your current search term."
+        >
             <div class="grid grid-cols-2 gap-12">
                 <div>
                     <v-checkbox
