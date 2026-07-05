@@ -29,14 +29,14 @@ const { lgAndUp } = useDisplay();
 
         <!-- empty -->
         <Empty
-            v-if="!playlistsStore.filteredPlaylists.length && !archiveStore.query"
+            v-if="!playlistsStore.filteredPlaylists.length && !archiveStore.form.query"
             title="No playlists yet..."
             icon="mdi-format-list-bulleted"
         />
 
         <!-- nothing found -->
         <Empty
-            v-if="!playlistsStore.filteredPlaylists.length && archiveStore.query"
+            v-if="!playlistsStore.filteredPlaylists.length && archiveStore.form.query"
             :title="`No playlists found...`"
             icon="mdi-format-list-bulleted"
             description="Try something else."

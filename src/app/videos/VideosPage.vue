@@ -16,7 +16,7 @@ const archiveStore = useArchiveStore();
 const { lgAndUp } = useDisplay();
 
 const lekkerSpeurenUrl = computed(
-    () => `https://www.lekkerspeuren.nl/?filter=type%3Dstream%26search%3D${archiveStore.query}`
+    () => `https://www.lekkerspeuren.nl/?filter=type%3Dstream%26search%3D${archiveStore.form.query}`
 );
 </script>
 
@@ -93,7 +93,7 @@ const lekkerSpeurenUrl = computed(
 
             <!-- nothing found -->
             <Empty
-                v-if="archiveStore.query && !archiveStore.filteredVideos.length"
+                v-if="archiveStore.form.query && !archiveStore.filteredVideos.length"
                 :title="`No videos found...`"
                 icon="mdi-play"
                 description="Try something else, or check lekkerspeuren.nl"
@@ -113,7 +113,7 @@ const lekkerSpeurenUrl = computed(
             </Empty>
         </Section>
 
-        <Section v-if="archiveStore.query && !archiveStore.hasMore && archiveStore.filteredVideos.length">
+        <Section v-if="archiveStore.form.query && !archiveStore.hasMore && archiveStore.filteredVideos.length">
             <!-- find more on lekkerspeuren  -->
             <Empty>
                 <template #description>

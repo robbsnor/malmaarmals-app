@@ -23,7 +23,7 @@ const resultsOrigon = computed(() => {
     } else if (props.archiveType === 'PLAYLISTS') {
         return playlistsStore.filteredPlaylists.length;
     } else if (props.archiveType === 'GAMES') {
-        const query = archiveStore.query?.toLowerCase();
+        const query = archiveStore.form.query?.toLowerCase();
         if (!query) return videosStore.populairCategories.length;
 
         return videosStore.populairCategories.filter((category) => category.title.toLowerCase().includes(query)).length;
@@ -32,9 +32,9 @@ const resultsOrigon = computed(() => {
 </script>
 
 <template>
-    <div v-if="archiveStore.query" class="pb-3 text-muted max-lg:hidden">
+    <div v-if="archiveStore.form.query" class="pb-3 text-muted max-lg:hidden">
         <span>Filtering by: </span>
-        <span class="text-primary font-bold">"{{ archiveStore.query }}" </span>
+        <span class="text-primary font-bold">"{{ archiveStore.form.query }}" </span>
         <span
             >-
             {{ resultsOrigon }}

@@ -18,7 +18,7 @@ const amount = computed(() => {
 });
 
 function selectCategory(title: string) {
-    archiveStore.query = title;
+    archiveStore.form.query = title;
     router.push({ name: 'streams' });
 }
 </script>

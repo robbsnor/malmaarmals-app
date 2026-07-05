@@ -22,21 +22,9 @@ const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 
 const dialog = ref(false);
 
-const FORM_BASE = {
-    years: [],
-    months: [],
-};
-const form = ref(_.cloneDeep(FORM_BASE));
-
 const updateQuery = useDebounceFn((value: string | { id: string; title: string } | null) => {
-    archiveStore.query = typeof value === 'string' ? value : value?.title;
+    archiveStore.form.query = typeof value === 'string' ? value : value?.title;
 }, 200);
-
-const hasChanges = computed(() => !_.isEqual(form.value, FORM_BASE));
-
-function reset() {
-    form.value = _.cloneDeep(FORM_BASE);
-}
 </script>
 
 <template>
@@ -44,7 +32,7 @@ function reset() {
         <div class="flex items-center justify-center bg-v-input rounded-sm pr-2 w-full">
             <v-combobox
                 v-bind="props"
-                :model-value="archiveStore.query"
+                :model-value="archiveStore.form.query"
                 :items="videosStore.categoriesList"
                 item-title="title"
                 item-value="title"
@@ -58,7 +46,7 @@ function reset() {
                 variant="solo"
                 prepend-inner-icon="mdi-magnify"
                 @update:model-value="updateQuery"
-                @click:append-inner="archiveStore.query ? (archiveStore.query = '') : null"
+                @click:append-inner="archiveStore.form.query ? (archiveStore.form.query = '') : null"
             >
                 <template #item="{ props, item }">
                     <v-list-item v-bind="props">
@@ -137,7 +125,7 @@ function reset() {
                         :key="year"
                         :label="year.toString()"
                         hide-details="auto"
-                        v-model="form.years"
+                        v-model="archiveStore.form.years"
                         :value="year"
                         color="primary"
                         density="compact"
@@ -150,7 +138,7 @@ function reset() {
                         :key="month"
                         :label="month.toString()"
                         :value="month"
-                        v-model="form.months"
+                        v-model="archiveStore.form.months"
                         hide-details="auto"
                         color="primary"
                         density="compact"
@@ -158,11 +146,17 @@ function reset() {
                 </div>
             </div>
 
-            <template #footer>
-                <v-btn class="mr-auto" color="primary" variant="tonal" :disabled="!hasChanges" @click="reset()"
-                    >reset</v-btn
+            <!-- <template #footer>
+                <v-btn
+                    class="mr-auto"
+                    color="primary"
+                    variant="tonal"
+                    :disabled="!hasChanges"
+                    @click="archiveStore.resetDate()"
                 >
-            </template>
+                    reset
+                </v-btn>
+            </template> -->
         </Dialog>
     </div>
 </template>

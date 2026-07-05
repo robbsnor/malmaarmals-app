@@ -7,6 +7,11 @@ import { randomNumber } from '../../shared/helpers/randomNumber';
 import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
 
 export type FilterType = 'streams' | 'playlists' | 'games';
+export interface Form {
+    query: string;
+    years: number[];
+    months: number[];
+}
 
 export const useArchiveStore = defineStore('archive', () => {
     const router = useRouter();
@@ -21,7 +26,6 @@ export const useArchiveStore = defineStore('archive', () => {
     const hasMore = computed(() => count.value < filteredVideos.value.length);
     const remaining = computed(() => Math.min(STEP, filteredVideos.value.length - count.value));
 
-    const query = ref<string>();
     const searchEl = ref<HTMLInputElement>();
     const activeFilterType = computed<FilterType>(() => {
         if (route.name === 'playlists') return 'playlists';
@@ -29,12 +33,23 @@ export const useArchiveStore = defineStore('archive', () => {
         return 'streams';
     });
 
+    const form = ref<Form>({
+        query: '',
+        years: [],
+        months: [],
+    });
+
     function loadMore() {
         count.value += STEP;
     }
 
     function resetQuery() {
-        query.value = null;
+        form.value.query = null;
+    }
+
+    function resetDate() {
+        form.value.years = [];
+        form.value.months = [];
     }
 
     const setSearchEl = (el: HTMLInputElement) => {
@@ -43,16 +58,16 @@ export const useArchiveStore = defineStore('archive', () => {
 
     function random() {
         const i = randomNumber(0, videosStore.videos.length);
-        query.value = videosStore.videos[i].title;
+        form.value.query = videosStore.videos[i].title;
 
         router.push({ name: 'streams' });
     }
 
     const filteredVideos = computed(() => {
-        if (!query.value) return videosStore.videos;
+        if (!form.value.query) return videosStore.videos;
 
         return videosStore.videos.filter((video) => {
-            const q = query.value.toLocaleLowerCase();
+            const q = form.value.query.toLocaleLowerCase();
 
             const titleMatch = video.title.toLowerCase().includes(q);
             const descriptionMatch = video.description && video.description.toLowerCase().includes(q);
@@ -64,20 +79,23 @@ export const useArchiveStore = defineStore('archive', () => {
         });
     });
 
-    watch(query, () => {
-        if (route.name === 'streams' || route.name === 'playlists' || route.name === 'games') return;
-        router.push({ name: 'streams' });
-    });
+    watch(
+        () => form.value.query,
+        () => {
+            if (route.name === 'streams' || route.name === 'playlists' || route.name === 'games') return;
+            router.push({ name: 'streams' });
+        }
+    );
 
     watch(
-        () => query,
+        () => form.value.query,
         () => {
             count.value = INITIAL;
         }
     );
 
     return {
-        query,
+        form,
         activeFilterType,
         searchEl,
         filteredVideos,
@@ -89,6 +107,7 @@ export const useArchiveStore = defineStore('archive', () => {
         loadMore,
 
         resetQuery,
+        resetDate,
         setSearchEl,
         random,
     };

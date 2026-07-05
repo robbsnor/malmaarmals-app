@@ -24,8 +24,8 @@ const showAll = ref(false);
 const hasMore = computed(() => count.value < filteredCategories.value.length);
 
 const filteredCategories = computed(() => {
-    if (!archiveStore.query) return videosStore.populairCategories;
-    const query = archiveStore.query.toLowerCase();
+    if (!archiveStore.form.query) return videosStore.populairCategories;
+    const query = archiveStore.form.query.toLowerCase();
     return videosStore.populairCategories.filter((category) => category.title.toLowerCase().includes(query));
 });
 
@@ -35,7 +35,7 @@ const visibleCategories = computed(() =>
 
 function selectCategory(title: string) {
     router.push({ name: 'streams' });
-    archiveStore.query = title;
+    archiveStore.form.query = title;
 }
 
 function loadMore() {
