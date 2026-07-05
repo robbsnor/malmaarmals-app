@@ -39,7 +39,7 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
                 placeholder="Search..."
                 hide-details
                 clear-icon="mdi-close"
-                menu-icon="mdi-chevron-down"
+                menu-icon=""
                 autocomplete="off"
                 class="search w-full"
                 persistent-clear
@@ -105,17 +105,20 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
                         </g>
                     </svg>
                 </button>
+
+                <button
+                    v-if="authStore.isAdmin"
+                    class="hover:text-primary p-1 pr-2 lbg-red-500 relative"
+                    @click="dialog = true"
+                >
+                    <v-icon icon="mdi-filter-variant" />
+                    <div
+                        v-if="archiveStore.hasDateChanges"
+                        class="rounded-full bg-primary size-4 absolute right-1 top-1 border-3 border-v-input"
+                    ></div>
+                </button>
             </div>
         </div>
-
-        <v-btn
-            v-if="authStore.isAdmin"
-            size="small"
-            variant="text"
-            class="text-[#BDBDBD]!"
-            icon="mdi-filter-variant"
-            @click="dialog = true"
-        ></v-btn>
 
         <Dialog v-model="dialog" title="Filter" description="Options are applied to your current search term.">
             <div class="grid grid-cols-2 gap-12">
@@ -134,10 +137,10 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
 
                 <div>
                     <v-checkbox
-                        v-for="month in months"
+                        v-for="(month, i) in months"
                         :key="month"
                         :label="month.toString()"
-                        :value="month"
+                        :value="i"
                         v-model="archiveStore.form.months"
                         hide-details="auto"
                         color="primary"
@@ -146,17 +149,16 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
                 </div>
             </div>
 
-            <!-- <template #footer>
+            <template #footer>
                 <v-btn
                     class="mr-auto"
-                    color="primary"
-                    variant="tonal"
-                    :disabled="!hasChanges"
+                    variant="text"
+                    :disabled="!archiveStore.hasDateChanges"
                     @click="archiveStore.resetDate()"
                 >
                     reset
                 </v-btn>
-            </template> -->
+            </template>
         </Dialog>
     </div>
 </template>

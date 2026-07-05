@@ -34,7 +34,7 @@ export const useArchiveStore = defineStore('archive', () => {
     });
 
     const form = ref<Form>({
-        query: '',
+        query: undefined,
         years: [],
         months: [],
     });
@@ -63,17 +63,29 @@ export const useArchiveStore = defineStore('archive', () => {
         router.push({ name: 'streams' });
     }
 
+    const hasDateChanges = computed(() => form.value.years.length || form.value.months.length);
+
     const filteredVideos = computed(() => {
-        if (!form.value.query) return videosStore.videos;
+        const query = form.value.query?.trim().toLowerCase();
+        const hasMonths = form.value.months.length > 0;
+        const hasYears = form.value.years.length > 0;
 
         return videosStore.videos.filter((video) => {
-            const q = form.value.query.toLocaleLowerCase();
+            const date = new Date(video.recorded_at);
+            const month = date.getMonth();
+            const year = date.getFullYear();
 
-            const titleMatch = video.title.toLowerCase().includes(q);
-            const descriptionMatch = video.description && video.description.toLowerCase().includes(q);
-            const idMatch = video.video_id.toString().includes(q);
-            const categoryMatch = video.chapters?.some((chapter) => chapter.category?.title.toLowerCase().includes(q));
-            const yearMatch = new Date(video.recorded_at).getFullYear().toString() === q;
+            if (hasMonths && !form.value.months.includes(month)) return false;
+            if (hasYears && !form.value.years.includes(year)) return false;
+            if (!query) return true;
+
+            const titleMatch = video.title.toLowerCase().includes(query);
+            const descriptionMatch = video.description?.toLowerCase().includes(query);
+            const idMatch = video.video_id.toString().includes(query);
+            const categoryMatch = video.chapters?.some((chapter) =>
+                chapter.category?.title.toLowerCase().includes(query)
+            );
+            const yearMatch = year.toString().includes(query);
 
             return titleMatch || descriptionMatch || idMatch || categoryMatch || yearMatch;
         });
@@ -108,6 +120,7 @@ export const useArchiveStore = defineStore('archive', () => {
 
         resetQuery,
         resetDate,
+        hasDateChanges,
         setSearchEl,
         random,
     };
