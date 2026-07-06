@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { supabase } from '../../../supabase';
-import { onKeyStroke, useIdle, useMediaControls, useWindowSize } from '@vueuse/core';
+import { onKeyStroke, useIdle, useMediaControls, useWindowSize, useLocalStorage } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import _ from 'lodash';
@@ -52,12 +52,15 @@ export const useVideoStore = defineStore('video', () => {
         onSourceError,
         onPlaybackError,
     } = useMediaControls(videoRef);
+    // persist volume to localStorage and keep it in sync with the player
+    const persistedVolume = useLocalStorage<number>('video_volume', volume.value ?? 1);
+
     const currentTimeRounded = computed(() => Math.floor(currentTime.value));
     const prettyCurrentTime = computed(() => TimeHelper.formatTime(currentTime.value));
     const prettyDuration = computed(() => TimeHelper.formatTime(duration.value));
     const playerIsActive = ref(false);
     const playerIsMini = ref(true);
-    const { idle } = useIdle(4 * 1000);
+    const { idle } = useIdle(4 * 1_000);
 
     // messages
     const messages = ref<Message[]>([]);
@@ -109,6 +112,11 @@ export const useVideoStore = defineStore('video', () => {
     // functions
     onMounted(() => {
         if (windowWidth.value > 1024) theaterMode.value = false;
+
+        // sync volume
+        if (persistedVolume.value !== null && persistedVolume.value !== undefined) {
+            volume.value = persistedVolume.value;
+        }
     });
 
     async function init(videoId: number, _playlistId?: string) {
@@ -187,12 +195,12 @@ export const useVideoStore = defineStore('video', () => {
         return sec - TIME_PRIOR_OFFSET_S >= 0 ? sec - TIME_PRIOR_OFFSET_S : 0;
     }
 
-    const loadVideoProgression = () => {
+    function loadVideoProgression() {
         const historyItem = historyStore.history.find((h) => h.video_id === info.value.id);
         if (!historyItem) return;
 
         currentTime.value = Number(historyItem.video_time);
-    };
+    }
 
     function isEditableTarget(target: EventTarget | null) {
         if (!(target instanceof HTMLElement)) return false;
@@ -267,6 +275,15 @@ export const useVideoStore = defineStore('video', () => {
     watch(currentTimeRounded, (time) => {
         if (time % 5 !== 0) return;
         historyStore.recordWatch(info.value.id, time);
+    });
+
+    // sync volume
+    watch(volume, (v) => {
+        persistedVolume.value = v;
+    });
+
+    watch(persistedVolume, (v) => {
+        if (v !== volume.value) volume.value = v;
     });
 
     return {

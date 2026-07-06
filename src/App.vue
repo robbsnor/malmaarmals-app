@@ -26,7 +26,7 @@ onMounted(async () => {
         appStore.loading = true;
         await authStore.mirrorSession();
 
-        Promise.all([videosStore.fetchVideos(), playlistsStore.fetchPlaylists()]);
+        await Promise.all([videosStore.fetchVideos(), playlistsStore.fetchPlaylists()]);
 
         if (authStore.session) {
             await authStore.updateIsSubscribed();
