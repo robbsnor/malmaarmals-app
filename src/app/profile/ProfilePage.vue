@@ -48,7 +48,7 @@ const handleClick = async (item: any) => {
                 <div class="shrink-0 border-primary rounded-full border-2 p-0.5">
                     <img
                         :src="authStore.session.user.user_metadata.avatar_url"
-                        alt="Twitch Logo"
+                        alt="Profile picture"
                         class="h-14 rounded-full"
                     />
                 </div>

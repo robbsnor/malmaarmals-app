@@ -86,6 +86,7 @@ export const vuetify = createVuetify({
                     background: '#000',
                     primary: 'hsl(252, 100%, 74%)',
                     secondary: 'hsl(168, 100%, 70%)',
+                    error: '#fb2c36', // tailwind red-500
                 },
                 dark: true,
             },

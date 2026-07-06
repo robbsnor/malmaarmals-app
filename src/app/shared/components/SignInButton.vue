@@ -18,11 +18,11 @@ async function signIn() {
         v-bind="props"
         color="primary"
         variant="tonal"
-        prepend-icon="mdi-twitch"
+        append-icon="mdi-twitch"
         @click="signIn()"
         class="w-full"
         :loading="loading"
     >
-        <slot>Login</slot>
+        <slot>Login with Twitch</slot>
     </v-btn>
 </template>
