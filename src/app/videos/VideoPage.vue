@@ -6,10 +6,12 @@ import { useAuthStore } from '../auth/stores/auth.store';
 import VideoNotAllowed from './components/VideoNotAllowed.vue';
 import { useHistoryStore } from '../history/stores/history.store';
 import { TitleHelper } from '../shared/helpers/title.helper';
+import { usePreferenceStore } from '../shared/stores/preference.store.ts';
 
 const route = useRoute();
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
+const preferenceStore = usePreferenceStore();
 const historyStore = useHistoryStore();
 
 onMounted(async () => {
@@ -29,9 +31,11 @@ async function init() {
 
     if (!authStore.isSubbed) return;
 
-    console.log('init');
     await videoStore.init(videoId, playlistId);
     TitleHelper.setTitle(videoStore.info.title);
+
+    if (preferenceStore.autoFullscreen) videoStore.enterFullscreen();
+    if (preferenceStore.autoTheatre) videoStore.theaterMode = true;
 }
 
 watch(route, async () => {

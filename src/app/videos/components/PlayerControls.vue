@@ -24,7 +24,6 @@ const videosStore = useVideosStore();
 const manageChaptersStore = useManageChaptersStore();
 const preferenceStore = usePreferenceStore();
 const router = useRouter();
-const { isFullscreen, enter, exit, toggle } = useFullscreen();
 const durationEl = useTemplateRef<HTMLDivElement>('durationEl');
 const { width, height } = useElementSize(durationEl);
 const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
@@ -175,8 +174,8 @@ function toggleTheaterMode() {
 
                         <!-- :icon="isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'" -->
                         <PlayerButton
-                            :icon="isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'"
-                            @click="toggle()"
+                            :icon="videoStore.isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'"
+                            @click="videoStore.toggleFullscreen()"
                         />
                     </div>
                 </div>

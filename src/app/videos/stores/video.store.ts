@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { supabase } from '../../../supabase';
-import { onKeyStroke, useIdle, useMediaControls, useWindowSize, useLocalStorage } from '@vueuse/core';
+import { onKeyStroke, useIdle, useMediaControls, useWindowSize, useLocalStorage, useFullscreen } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import _ from 'lodash';
@@ -54,6 +54,7 @@ export const useVideoStore = defineStore('video', () => {
     } = useMediaControls(videoRef);
     // persist volume to localStorage and keep it in sync with the player
     const persistedVolume = useLocalStorage<number>('video_volume', volume.value ?? 1);
+    const { isFullscreen, enter: enterFullscreen, exit: exitFullscreen, toggle: toggleFullscreen } = useFullscreen();
 
     const currentTimeRounded = computed(() => Math.floor(currentTime.value));
     const prettyCurrentTime = computed(() => TimeHelper.formatTime(currentTime.value));
@@ -319,6 +320,10 @@ export const useVideoStore = defineStore('video', () => {
         prettyDuration,
         playerIsActive,
         playerIsMini,
+        isFullscreen,
+        toggleFullscreen,
+        enterFullscreen,
+        exitFullscreen,
 
         // chapters
         chapters,
