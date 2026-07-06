@@ -123,7 +123,8 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
         <Dialog
             v-model="dialog"
             title="Advanced filters"
-            description="Options are applied to your current search term."
+            icon="mdi-filter-variant"
+            description="Options are applied to your current search term and only affect stream results."
         >
             <div class="grid grid-cols-2 gap-12">
                 <div>

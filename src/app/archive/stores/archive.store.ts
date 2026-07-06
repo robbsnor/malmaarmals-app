@@ -92,18 +92,14 @@ export const useArchiveStore = defineStore('archive', () => {
     });
 
     watch(
-        () => form.value.query,
+        form,
         () => {
             if (route.name === 'streams' || route.name === 'playlists' || route.name === 'games') return;
             router.push({ name: 'streams' });
-        }
-    );
 
-    watch(
-        () => form.value.query,
-        () => {
             count.value = INITIAL;
-        }
+        },
+        { deep: true }
     );
 
     return {
