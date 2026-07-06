@@ -7,17 +7,23 @@ import { useArchiveStore } from '../archive/stores/archive.store';
 import FilterIndicator from '../archive/components/FilterIndicator.vue';
 import AddPlaylistDialog from './components/AddPlaylistDialog.vue';
 import { useDisplay } from 'vuetify';
+import ManagePlaylistsDialog from './components/ManagePlaylistsDialog.vue';
+import { useAuthStore } from '../auth/stores/auth.store.ts';
 
 TitleHelper.setTitle('playlists');
 
 const playlistsStore = usePlaylistsStore();
 const archiveStore = useArchiveStore();
+const authStore = useAuthStore();
 const { lgAndUp } = useDisplay();
 </script>
 
 <template>
     <Section title="Playlists" :show-header="lgAndUp">
         <FilterIndicator archiveType="PLAYLISTS" />
+        <template #actions v-if="authStore.isAdmin">
+            <ManagePlaylistsDialog />
+        </template>
 
         <div class="grid grid-cols-1 gap-4 lg:gap-8 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" v-auto-animate>
             <template v-for="playlist in playlistsStore.filteredPlaylists" :key="playlist.id">

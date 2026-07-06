@@ -27,6 +27,8 @@ const topUsers = computed(() => {
                         'pb-20': i === 2,
                     }"
                 >
+                    <div class="bg-gradient-to-b from-black-400 to-black absolute inset-0"></div>
+
                     <div
                         class="absolute w-[150%] bottom-0 left-1/2 -translate-x-1/2 opacity-10"
                         :class="{
@@ -37,8 +39,6 @@ const topUsers = computed(() => {
                     >
                         <Flower />
                     </div>
-
-                    <div class="bg-gradient-to-b from-black-400 to-black/0 absolute inset-0"></div>
 
                     <div class="relative">
                         <div class="text-center text-4xl font-bold uppercase">

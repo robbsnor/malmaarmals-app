@@ -10,12 +10,11 @@ import DeletePlaylistDialog from './components/DeletePlaylistDialog.vue';
 import EditPlaylistDialog from './components/EditPlaylistDialog.vue';
 import { useDisplay } from 'vuetify';
 
-TitleHelper.setTitle('streams');
-
 const playlistStore = usePlaylistsStore();
 const id = useRouteParams('id') as Ref<string>;
 const { lgAndUp } = useDisplay();
 const playlist = playlistStore.getPlaylistById(id);
+TitleHelper.setTitle(playlist.value.title);
 const deleteDialog = ref(false);
 const editDialog = ref(false);
 </script>
