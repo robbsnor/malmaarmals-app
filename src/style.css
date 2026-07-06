@@ -130,6 +130,12 @@ button {
 }
 
 /* vuetify overwrites */
+
+/* app */
+.v-application {
+    background: transparent;
+}
+
 /* expansion panel */
 .v-expansion-panel--active > .v-expansion-panel-title:not(.v-expansion-panel-title--static) {
     min-height: inherit !important;
@@ -152,4 +158,9 @@ button {
 /* dialog */
 .v-dialog > .v-overlay__content {
     @apply max-w-[calc(100%-32px)];
+}
+
+/* chip */
+.v-chip {
+    line-height: 1;
 }

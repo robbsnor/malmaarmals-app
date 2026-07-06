@@ -47,7 +47,7 @@ onMounted(async () => {
 
 <template>
     <v-app v-if="!appStore.loading && !appStore.hasError">
-        <BackgroundArt />
+        <!-- <BackgroundArt /> -->
 
         <Header />
 

@@ -59,22 +59,23 @@ const handleClick = async (item: any) => {
                     </div>
 
                     <div class="text-muted text-sm flex items-center">
-                        <v-icon
-                            :icon="authStore.isSubbed ? 'mdi-check' : 'mdi-lock'"
-                            :color="authStore.isSubbed ? 'success' : 'var(--color-orange-500)'"
-                            size="16"
-                            class="mtf-0.5 mr-1 inline-block"
-                        />
-                        <a
-                            v-if="!authStore.isSubbed"
-                            href="https://www.twitch.tv/lekkerspelen/"
-                            target="_blank"
-                            class="italic underline"
-                        >
-                            Not subbed to Lekker Spelen
-                        </a>
+                        <v-chip size="small" v-if="authStore.isSubbed" prepend-icon="mdi-check" color="success">
+                            Subscribed to Lekker Spelen
+                        </v-chip>
 
-                        <div v-else>Subscribed to Lekker Spelen</div>
+                        <div v-else>
+                            <v-chip
+                                size="small"
+                                href="https://www.twitch.tv/lekkerspelen/"
+                                prepend-icon="mdi-lock"
+                                color="error"
+                            >
+                                Not subscribed to Lekker Spelen
+                            </v-chip>
+                            <!-- <div>In order to watch streams, you need to be subscribed to Lekker Spelen on Twitch</div> -->
+                        </div>
+
+                        <div></div>
                     </div>
                 </div>
 
