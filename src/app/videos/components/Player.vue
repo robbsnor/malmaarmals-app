@@ -52,6 +52,7 @@ onMounted(async () => {
 
         <Facecam />
         <FloatingEmotes />
+
         <!-- controls -->
         <PlayerControls />
         <MiniplayerControls />
