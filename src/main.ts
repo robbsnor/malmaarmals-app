@@ -19,6 +19,7 @@ import Divider from './app/shared/components/Divider.vue';
 import Drawer from './app/shared/components/Drawer.vue';
 import Emote from './app/shared/components/Emote.vue';
 import Empty from './app/shared/components/Empty.vue';
+import FormGroup from './app/shared/components/FormGroup.vue';
 import GradientText from './app/shared/components/GradientText.vue';
 import GridSection from './app/shared/components/GridSection.vue';
 import Logo from './app/shared/components/Logo.vue';
@@ -28,6 +29,7 @@ import Section from './app/shared/components/Section.vue';
 import SignInButton from './app/shared/components/SignInButton.vue';
 import Skeleton from './app/shared/components/Skeleton.vue';
 import SkeletonContainer from './app/shared/components/SkeletonContainer.vue';
+import Switch from './app/shared/components/Switch.vue';
 import Thumbnail from './app/shared/components/Thumbnail.vue';
 
 // directives
@@ -58,6 +60,7 @@ app.component('Divider', Divider);
 app.component('Drawer', Drawer);
 app.component('Emote', Emote);
 app.component('Empty', Empty);
+app.component('FormGroup', FormGroup);
 app.component('GradientText', GradientText);
 app.component('GridSection', GridSection);
 app.component('Logo', Logo);
@@ -67,6 +70,7 @@ app.component('Section', Section);
 app.component('SignInButton', SignInButton);
 app.component('Skeleton', Skeleton);
 app.component('SkeletonContainer', SkeletonContainer);
+app.component('Switch', Switch);
 app.component('Thumbnail', Thumbnail);
 
 // directives
