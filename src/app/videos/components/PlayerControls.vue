@@ -160,6 +160,7 @@ function toggleTheaterMode() {
 
                     <div class="relative flex items-center gap-2 -mb-2 z-1">
                         <PlayerButton
+                            title="chat toggle"
                             @click="videoStore.showChat = !videoStore.showChat"
                             :icon="videoStore.showChat ? 'mdi-chat' : 'mdi-chat-outline'"
                             :size="20"
@@ -167,6 +168,7 @@ function toggleTheaterMode() {
                         />
                         <PlayerButton
                             @click="toggleTheaterMode()"
+                            title="theatre-mode toggle"
                             :icon="videoStore.theaterMode ? 'mdi-dock-bottom' : 'mdi-dock-right'"
                             class="hidden lg:block"
                         />
@@ -174,6 +176,7 @@ function toggleTheaterMode() {
 
                         <!-- :icon="isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'" -->
                         <PlayerButton
+                            title="fullscreen toggle"
                             :icon="videoStore.isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'"
                             @click="videoStore.toggleFullscreen()"
                         />

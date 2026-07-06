@@ -35,6 +35,7 @@ watch(
         <template #activator="{ props }">
             <PlayerButton
                 v-bind="props"
+                title="chapters toggle"
                 icon="mdi-format-list-bulleted"
                 :size="24"
                 :class="{
