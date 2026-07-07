@@ -16,7 +16,7 @@ const dialog = defineModel<boolean>();
         icon="mdi-calendar-month-outline"
         description="Options are applied to your current search term."
     >
-        <div class="flex gap-4 items-start">
+        <div class="grid grid-cols-2 gap-4">
             <FormGroup title="Years" class="w-full">
                 <div class="grid grid-cols-2 gap-2">
                     <BigCheckbox
@@ -28,8 +28,6 @@ const dialog = defineModel<boolean>();
                     />
                 </div>
             </FormGroup>
-
-            <div class="items self-stretch w-[2px] bg-black-500"></div>
 
             <FormGroup title="Months" class="w-full">
                 <div class="grid grid-cols-3 gap-2">
