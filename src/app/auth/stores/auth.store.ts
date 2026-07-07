@@ -19,7 +19,7 @@ export const useAuthStore = defineStore('auth', () => {
     const twitchUserId = computed(() => Number(session.value?.user?.user_metadata?.sub));
 
     const isSubbed = ref(false);
-    const isAdmin = computed(() => session.value?.user?.user_metadata.name !== 'robbsnor');
+    const isAdmin = computed(() => session.value?.user?.user_metadata.name === 'robbsnor');
     // const isAdmin = computed(() => session.value?.user?.user_metadata.name !== 'robbsnor');
 
     const mirrorSession = async () => {

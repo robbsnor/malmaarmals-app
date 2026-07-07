@@ -35,7 +35,7 @@ const videosStore = useVideosStore();
 
                 <div class="flex items-center justify-end gap-4">
                     <div class="3xl:hidden">
-                        <Search class="w-90 xl:w-110" />
+                        <Search class="w-90" />
                     </div>
                     <HeaderAvatar v-if="authStore.session" />
                     <SignInButton v-else class="w-auto!">Login with Twitch</SignInButton>
