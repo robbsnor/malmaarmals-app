@@ -48,7 +48,7 @@ const { lgAndUp } = useDisplay();
             description="Try something else."
         >
             <div class="flex flex-col gap-4 items-center">
-                <v-btn variant="tonal" color="primary" @click="archiveStore.resetQuery">Clear filter</v-btn>
+                <v-btn variant="tonal" color="primary" @click="archiveStore.formResetQuery">Clear filter</v-btn>
                 <AddPlaylistDialog />
             </div>
         </Empty>

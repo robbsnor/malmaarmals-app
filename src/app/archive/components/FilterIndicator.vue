@@ -46,7 +46,7 @@ const resultsOrigon = computed(() => {
             size="small"
             class="ml-2"
             prepend-icon="mdi-close"
-            @click="archiveStore.resetQuery()"
+            @click="archiveStore.formResetQuery()"
         >
             show all
         </v-btn>

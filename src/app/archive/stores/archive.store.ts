@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { refDebounced } from '@vueuse/core';
+import { refDebounced, useCloned } from '@vueuse/core';
 import { useVideosStore } from '../../videos/stores/videos.store';
 import { randomNumber } from '../../shared/helpers/randomNumber';
 import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
@@ -33,24 +33,38 @@ export const useArchiveStore = defineStore('archive', () => {
         return 'streams';
     });
 
-    const form = ref<Form>({
+    // form
+    const formOriginal = ref<Form>({
         query: undefined,
         years: [],
         months: [],
     });
+    const { cloned: form, sync: formReset, isModified: formHasChanges } = useCloned(() => formOriginal.value);
+    const hasDateChanges = computed(() => form.value.years.length || form.value.months.length);
 
     function loadMore() {
         count.value += STEP;
     }
 
-    function resetQuery() {
+    function formResetQuery() {
         form.value.query = null;
     }
 
-    function resetDate() {
+    function formResetDates() {
         form.value.years = [];
         form.value.months = [];
     }
+
+    watch(
+        form,
+        () => {
+            if (route.name === 'streams' || route.name === 'playlists' || route.name === 'games') return;
+            router.push({ name: 'streams' });
+
+            count.value = INITIAL;
+        },
+        { deep: true }
+    );
 
     const setSearchEl = (el: HTMLInputElement) => {
         searchEl.value = el;
@@ -62,8 +76,6 @@ export const useArchiveStore = defineStore('archive', () => {
 
         router.push({ name: 'streams' });
     }
-
-    const hasDateChanges = computed(() => form.value.years.length || form.value.months.length);
 
     const filteredVideos = computed(() => {
         const query = form.value.query?.trim().toLowerCase();
@@ -91,19 +103,13 @@ export const useArchiveStore = defineStore('archive', () => {
         });
     });
 
-    watch(
-        form,
-        () => {
-            if (route.name === 'streams' || route.name === 'playlists' || route.name === 'games') return;
-            router.push({ name: 'streams' });
-
-            count.value = INITIAL;
-        },
-        { deep: true }
-    );
-
     return {
         form,
+        formHasChanges,
+        formReset,
+        formResetQuery,
+        formResetDates,
+
         activeFilterType,
         searchEl,
         filteredVideos,
@@ -114,9 +120,8 @@ export const useArchiveStore = defineStore('archive', () => {
         remaining,
         loadMore,
 
-        resetQuery,
-        resetDate,
         hasDateChanges,
+
         setSearchEl,
         random,
     };

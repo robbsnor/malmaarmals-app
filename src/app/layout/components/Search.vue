@@ -162,7 +162,7 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
                     class="mr-auto"
                     variant="text"
                     :disabled="!archiveStore.hasDateChanges"
-                    @click="archiveStore.resetDate()"
+                    @click="archiveStore.formResetDates()"
                 >
                     reset
                 </v-btn>

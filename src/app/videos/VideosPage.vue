@@ -108,7 +108,7 @@ const lekkerSpeurenUrl = computed(
                     >
                         lekkerspeuren.nl
                     </v-btn>
-                    <v-btn variant="tonal" color="primary" @click="archiveStore.resetQuery">Clear filter</v-btn>
+                    <v-btn variant="tonal" color="primary" @click="archiveStore.formResetQuery">Clear filter</v-btn>
                 </div>
             </Empty>
         </Section>
