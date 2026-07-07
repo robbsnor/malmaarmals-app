@@ -63,6 +63,7 @@ watch(
     () => videoStore.currentTimeRounded,
     (time) => {
         if (!preferenceStore.showFloatingEmotes) return;
+        if (videoStore.seeking) return;
 
         const windowStart = time - WINDOW_S;
         const windowMessages = videoStore.messages.filter((m) => m.offset_sec > windowStart && m.offset_sec <= time);
