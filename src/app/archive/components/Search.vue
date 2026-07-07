@@ -116,7 +116,7 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
                     <v-icon icon="mdi-calendar-month-outline" size="22" />
                     <div
                         v-if="archiveStore.formHasDateChanges"
-                        class="rounded-full bg-primary size-4 absolute right-1 top-1 border-3 border-v-input"
+                        class="rounded-full bg-primary size-4 absolute right-0.5 top-0.5 border-3 border-v-input"
                     ></div>
                 </button>
             </div>
