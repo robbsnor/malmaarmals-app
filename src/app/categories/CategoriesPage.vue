@@ -96,7 +96,7 @@ function loadMore() {
         </template>
 
         <Empty v-else title="No games found..." description="Try something else." icon="mdi-controller">
-            <v-btn variant="tonal" color="primary" @click="archiveStore.formResetQuery">Clear filter</v-btn>
+            <v-btn variant="tonal" color="primary" @click="archiveStore.formReset()">Clear filters</v-btn>
         </Empty>
     </Section>
 </template>

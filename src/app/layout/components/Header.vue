@@ -4,7 +4,7 @@ import { useAuthStore } from '../../auth/stores/auth.store';
 import { useArchiveStore } from '../../archive/stores/archive.store';
 import { useVideosStore } from '../../videos/stores/videos.store';
 import NavButton from './NavButton.vue';
-import Search from './Search.vue';
+import Search from '../../archive/components/Search.vue';
 
 const authStore = useAuthStore();
 const archiveStore = useArchiveStore();

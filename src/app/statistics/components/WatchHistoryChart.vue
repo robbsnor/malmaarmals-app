@@ -70,7 +70,6 @@ const chartData = computed<ChartData<'line'>>(() => ({
         const month = date.toLocaleString('en-US', { month: 'short' }).toLowerCase();
         return `${day} ${month}`;
     }),
-    // labels: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sept', 'okt', 'nov', 'dec'],
     datasets: datasets.value,
 }));
 

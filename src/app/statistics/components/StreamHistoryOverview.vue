@@ -4,9 +4,9 @@ import { useVideosStore } from '../../videos/stores/videos.store.ts';
 import { BucketHelper } from '../../shared/helpers/bucket.helper.ts';
 import type { Video } from '../../videos/models/video.model.ts';
 import Month from './Month.vue';
+import { DateHelper } from '../../shared/helpers/date.helper.ts';
 
 const videosStore = useVideosStore();
-const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 export interface MonthOverview {
     monthName: string;
@@ -34,7 +34,11 @@ const years = computed<YearOverview[]>(() => {
         if (!yearEntry) {
             yearEntry = {
                 year,
-                months: monthNames.map((name, index) => ({ monthName: name, monthIndex: index, streams: [] })),
+                months: DateHelper.monthNames.map((name, index) => ({
+                    monthName: name,
+                    monthIndex: index,
+                    streams: [],
+                })),
                 totalStreams: 0,
             };
             yearMap.set(year, yearEntry);

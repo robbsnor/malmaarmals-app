@@ -4,4 +4,10 @@ export class DateHelper {
         const diff = date.getTime() - start.getTime();
         return Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;
     }
+
+    public static monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    public static getMonthName(index: number) {
+        return this.monthNames[index];
+    }
 }

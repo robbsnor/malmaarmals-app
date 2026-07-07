@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import Search from './Search.vue';
+import Search from '../../archive/components/Search.vue';
 import { useDisplay } from 'vuetify/lib/composables/display.mjs';
 
 const route = useRoute();

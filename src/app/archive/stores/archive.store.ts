@@ -34,17 +34,16 @@ export const useArchiveStore = defineStore('archive', () => {
     });
 
     // form
-    const formOriginal = ref<Form>({
-        query: undefined,
+    const {
+        cloned: form,
+        sync: formReset,
+        isModified: formHasChanges,
+    } = useCloned({
+        query: null,
         years: [],
         months: [],
     });
-    const { cloned: form, sync: formReset, isModified: formHasChanges } = useCloned(() => formOriginal.value);
-    const hasDateChanges = computed(() => form.value.years.length || form.value.months.length);
-
-    function loadMore() {
-        count.value += STEP;
-    }
+    const formHasDateChanges = computed(() => form.value.years.length || form.value.months.length);
 
     function formResetQuery() {
         form.value.query = null;
@@ -66,11 +65,10 @@ export const useArchiveStore = defineStore('archive', () => {
         { deep: true }
     );
 
-    const setSearchEl = (el: HTMLInputElement) => {
-        searchEl.value = el;
-    };
+    // videos
+    function setRandomVideo() {
+        formResetDates();
 
-    function random() {
         const i = randomNumber(0, videosStore.videos.length);
         form.value.query = videosStore.videos[i].title;
 
@@ -103,6 +101,15 @@ export const useArchiveStore = defineStore('archive', () => {
         });
     });
 
+    // other
+    const setSearchEl = (el: HTMLInputElement) => {
+        searchEl.value = el;
+    };
+
+    function loadMore() {
+        count.value += STEP;
+    }
+
     return {
         form,
         formHasChanges,
@@ -120,9 +127,9 @@ export const useArchiveStore = defineStore('archive', () => {
         remaining,
         loadMore,
 
-        hasDateChanges,
+        formHasDateChanges,
 
         setSearchEl,
-        random,
+        setRandomVideo,
     };
 });

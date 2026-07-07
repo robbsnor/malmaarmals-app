@@ -7,6 +7,8 @@ import { computed, ref } from 'vue';
 import _ from 'lodash';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { useRoute } from 'vue-router';
+import { DateHelper } from '../../shared/helpers/date.helper';
+import DateFilterDialog from '../../archive/components/DateFilterDialog.vue';
 
 const archiveStore = useArchiveStore();
 const videosStore = useVideosStore();
@@ -20,7 +22,6 @@ const props = withDefaults(
         density: 'compact',
     }
 );
-const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 const dialog = ref(false);
 
@@ -71,7 +72,7 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
                 <button
                     title="random stream"
                     class="hover:text-primary p-1 pr-2 lbg-red-500 relative"
-                    @click="archiveStore.random()"
+                    @click="archiveStore.setRandomVideo()"
                 >
                     <svg
                         fill="currentColor"
@@ -118,55 +119,13 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
                 >
                     <v-icon icon="mdi-calendar-month-outline" size="22" />
                     <div
-                        v-if="archiveStore.hasDateChanges"
+                        v-if="archiveStore.formHasDateChanges"
                         class="rounded-full bg-primary size-4 absolute right-1 top-1 border-3 border-v-input"
                     ></div>
                 </button>
             </div>
         </div>
 
-        <Dialog
-            v-model="dialog"
-            title="Date filters"
-            icon="mdi-calendar-month-outline"
-            description="Options are applied to your current search term and only affect streams."
-        >
-            <div class="grid grid-cols-2 gap-12 items-start">
-                <FormGroup title="Years">
-                    <div class="grid grid-cols-2 gap-2">
-                        <Checkbox
-                            v-for="year in videosStore.years"
-                            :key="year"
-                            :label="year.toString()"
-                            v-model="archiveStore.form.years"
-                            :value="year"
-                        />
-                    </div>
-                </FormGroup>
-
-                <FormGroup title="Months">
-                    <div class="grid grid-cols-3 gap-2">
-                        <Checkbox
-                            v-for="(month, i) in months"
-                            :key="month"
-                            v-model="archiveStore.form.months"
-                            :label="month.toUpperCase()"
-                            :value="i"
-                        />
-                    </div>
-                </FormGroup>
-            </div>
-
-            <template #footer>
-                <v-btn
-                    class="mr-auto"
-                    variant="text"
-                    :disabled="!archiveStore.hasDateChanges"
-                    @click="archiveStore.formResetDates()"
-                >
-                    reset
-                </v-btn>
-            </template>
-        </Dialog>
+        <DateFilterDialog />
     </div>
 </template>

@@ -5,8 +5,7 @@ import { useVideosStore } from '../../videos/stores/videos.store';
 import { supabase } from '../../../supabase';
 import type { Tables } from '../../shared/models/database.types';
 import { useAuthStore } from '../../auth/stores/auth.store';
-
-const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+import { DateHelper } from '../../shared/helpers/date.helper';
 
 export interface Year {
     year: number;
@@ -61,7 +60,7 @@ export const useStatsStore = defineStore('stats', () => {
             if (!yearEntry) {
                 yearEntry = {
                     year: year,
-                    months: monthNames.map((month) => ({
+                    months: DateHelper.monthNames.map((month) => ({
                         month,
                         weeks: Array.from({ length: 4 }, () => []),
                     })),

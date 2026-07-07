@@ -33,7 +33,7 @@ const lekkerSpeurenUrl = computed(
                 <button
                     title="random stream"
                     class="hover:text-primary p-1 py-1.5 lbg-red-500 relative text-muted"
-                    @click="archiveStore.random()"
+                    @click="archiveStore.setRandomVideo()"
                 >
                     <svg
                         fill="currentColor"
@@ -108,7 +108,7 @@ const lekkerSpeurenUrl = computed(
                     >
                         lekkerspeuren.nl
                     </v-btn>
-                    <v-btn variant="tonal" color="primary" @click="archiveStore.formResetQuery">Clear filter</v-btn>
+                    <v-btn variant="tonal" color="primary" @click="archiveStore.formReset()">Clear filters</v-btn>
                 </div>
             </Empty>
         </Section>
