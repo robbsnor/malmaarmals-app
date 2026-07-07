@@ -7,11 +7,11 @@
     --font-montserrat: 'Montserrat';
     --font-lato: 'Lato';
 
-    --color-purple-lighter: hsl(252, 100%, 94%);
-    --color-purple-light: hsl(252, 100%, 84%);
-    --color-purple: hsl(252, 100%, 74%);
-    --color-purple-dark: hsl(252, 100%, 64%);
-    --color-purple-darker: hsl(252, 100%, 54%);
+    --color-purple-lighter: hsl(252, 70%, 94%);
+    --color-purple-light: hsl(252, 70%, 84%);
+    --color-purple: hsl(252, 70%, 74%);
+    --color-purple-dark: hsl(252, 50%, 54%);
+    --color-purple-darker: hsl(252, 30%, 34%);
 
     --color-green-lighter: hsl(120, 40%, 73%);
     --color-green-light: hsl(120, 40%, 60%);

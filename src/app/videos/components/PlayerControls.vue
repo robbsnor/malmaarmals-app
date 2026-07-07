@@ -50,7 +50,7 @@ function changeOrientation() {
 }
 
 async function goToNextVideo() {
-    const nextId = videosStore.videos.findIndex((v) => v.video_id === videoStore.info.video_id) + 1;
+    const nextId = videosStore.videos.findIndex((v) => v.video_id === videoStore.video.video_id) + 1;
 
     if (nextId) {
         await router.push({ name: 'stream', params: { id: videosStore.videos[nextId].video_id } });
@@ -59,7 +59,7 @@ async function goToNextVideo() {
 }
 
 async function goToPreviousVideo() {
-    const prevId = videosStore.videos.findIndex((v) => v.video_id === videoStore.info.video_id) - 1;
+    const prevId = videosStore.videos.findIndex((v) => v.video_id === videoStore.video.video_id) - 1;
 
     if (prevId) {
         await router.push({ name: 'stream', params: { id: videosStore.videos[prevId].video_id } });
@@ -98,7 +98,7 @@ function toggleTheaterMode() {
                     <ShareButton />
 
                     <PlayerButton v-auth @click="addToPlaylistDialog = true" :size="24" icon="mdi-plus" />
-                    <AddToPlaylistDialog v-model="addToPlaylistDialog" :video="videoStore.info" />
+                    <AddToPlaylistDialog v-model="addToPlaylistDialog" :video="videoStore.video" />
 
                     <Cast />
                     <PreferenceDrawer />

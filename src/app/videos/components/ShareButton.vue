@@ -8,7 +8,7 @@ const videoStore = useVideoStore();
 
 function startShare() {
     share({
-        title: `Watch ${videoStore.info.title}`,
+        title: `Watch ${videoStore.video.title}`,
         // text: 'on malmaarmals.nl',
         url: location.href,
     });

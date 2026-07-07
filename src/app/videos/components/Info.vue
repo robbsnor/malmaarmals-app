@@ -5,7 +5,7 @@ import { useVideoStore } from '../stores/video.store';
 const videoStore = useVideoStore();
 
 const date = computed(() => {
-    return new Date(videoStore.info.recorded_at).toLocaleDateString('en-US', {
+    return new Date(videoStore.video.recorded_at).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -19,7 +19,7 @@ const date = computed(() => {
         :class="{ 'visible opacity-100': videoStore.showControllsAndInfo }"
     >
         <div>
-            <div class="font-bold text-lg">{{ videoStore.info.title }}</div>
+            <div class="font-bold text-lg">{{ videoStore.video.title }}</div>
             <div class="text-muted">{{ date }}</div>
         </div>
     </div>

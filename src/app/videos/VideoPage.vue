@@ -34,7 +34,7 @@ async function init() {
     if (preferenceStore.autoTheatre) videoStore.theaterMode = true;
 
     await videoStore.init(videoId, playlistId);
-    TitleHelper.setTitle(videoStore.info.title);
+    TitleHelper.setTitle(videoStore.video.title);
 }
 
 watch(route, async () => {

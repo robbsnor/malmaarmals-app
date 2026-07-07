@@ -7,7 +7,7 @@ const videoStore = useVideoStore();
 const { copy, copied, isSupported } = useClipboard();
 
 const date = computed(() => {
-    return new Date(videoStore.info.recorded_at).toLocaleDateString('en-US', {
+    return new Date(videoStore.video.recorded_at).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
@@ -15,8 +15,8 @@ const date = computed(() => {
 });
 
 function copyTitle() {
-    if (!isSupported.value || !videoStore.info?.title) return;
-    copy(videoStore.info.title);
+    if (!isSupported.value || !videoStore.video?.title) return;
+    copy(videoStore.video.title);
 }
 </script>
 
@@ -24,10 +24,10 @@ function copyTitle() {
     <div
         class="bg-black-100/80 backdrop-blur-[100px] border-black-400 flex min-h-[84px] justify-between gap-4 border-b p-4 lg:px-8"
     >
-        <template v-if="videoStore.info">
+        <template v-if="videoStore.video">
             <div>
                 <div class="text-lg font-bold">
-                    {{ videoStore.info.title }}
+                    {{ videoStore.video.title }}
                     <!-- <div v-auth class="inline-block">
                         <v-btn
                             :icon="copied ? 'mdi-check' : 'mdi-content-copy'"

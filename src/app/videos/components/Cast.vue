@@ -107,7 +107,7 @@ async function castWithSdk() {
         mediaInfo.streamType = chrome.cast.media.StreamType.BUFFERED;
 
         const metadata = new chrome.cast.media.GenericMediaMetadata();
-        metadata.title = videoStore.info?.title ?? 'Video';
+        metadata.title = videoStore.video?.title ?? 'Video';
         mediaInfo.metadata = metadata;
 
         const request = new chrome.cast.media.LoadRequest(mediaInfo);

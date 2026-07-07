@@ -28,8 +28,8 @@ export const useVideoStore = defineStore('video', () => {
     const videoColRef = ref<HTMLElement | null>(null);
 
     // video
-    const info = computed(() => videosStore.videos.find((v) => v.video_id === id.value));
-    const chapters = computed(() => info.value?.chapters);
+    const video = computed(() => videosStore.videos.find((v) => v.video_id === id.value));
+    const chapters = computed(() => video.value?.chapters);
     const id = ref<number>();
 
     // player
@@ -197,7 +197,7 @@ export const useVideoStore = defineStore('video', () => {
     }
 
     function loadVideoProgression() {
-        const historyItem = historyStore.history.find((h) => h.video_id === info.value.id);
+        const historyItem = historyStore.history.find((h) => h.video_id === video.value.id);
         if (!historyItem) return;
 
         currentTime.value = Number(historyItem.video_time);
@@ -275,7 +275,7 @@ export const useVideoStore = defineStore('video', () => {
 
     watch(currentTimeRounded, (time) => {
         if (time % 5 !== 0) return;
-        historyStore.recordWatch(info.value.id, time);
+        historyStore.recordWatch(video.value.id, time);
     });
 
     // sync volume
@@ -297,7 +297,7 @@ export const useVideoStore = defineStore('video', () => {
         videoColRef,
 
         // video
-        info,
+        video,
         id,
         src,
         srcNotFound,
