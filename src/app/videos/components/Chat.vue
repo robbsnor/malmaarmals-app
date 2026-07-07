@@ -12,8 +12,11 @@ const chatInfoDialog = defineModel();
 const { width } = useWindowSize();
 
 const renderedMessages = computed(() => {
+    if (videoStore.seeking) return;
+
     const idx = findLastIndexAtOrBefore(videoStore.currentTimeRounded);
     if (idx === -1) return [];
+
     const start = Math.max(0, idx - 399);
     return videoStore.messages.slice(start, idx + 1);
 });
@@ -114,7 +117,7 @@ watch(width, () => {
                         class="bg-primary relative flex items-center gap-1 rounded-md p-2 px-4 text-sm font-bold transition-all"
                     >
                         <v-icon icon="mdi-arrow-down"></v-icon>
-                        <div class="-mt-[1px] pl-1 pr-2">New messages</div>
+                        <div class="-mt-[1px] pl-1 pr-2">Resume</div>
                     </button>
                 </div>
             </template>

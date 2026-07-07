@@ -17,13 +17,14 @@ const videoStore = useVideoStore();
 const currentTime = computed(() => videoStore.currentTimeRounded + TIME_PRIOR_OFFSET_S);
 // @ts-ignore
 const isLastChapter = computed(() => props.chapter.id === videoStore.chapters.at(-1).id);
-const isPrevChapter = computed(() => currentTime.value >= props.chapter.end_s);
+const isOldChapter = computed(() => currentTime.value >= props.chapter.end_s);
 const isActiveChapter = computed(
     () => currentTime.value >= props.chapter.start_s && currentTime.value < props.chapter.end_s
 );
+const isLastBit = computed(() => currentTime.value > videoStore.video.length_sec - 60 * 3);
 
 const percentage = computed(() => {
-    if (isPrevChapter.value) return 100;
+    if (isOldChapter.value) return 100;
     if (!isActiveChapter.value) return 0;
 
     const offset = currentTime.value - props.chapter.start_s;
@@ -38,7 +39,7 @@ const percentage = computed(() => {
             <div
                 class="flex justify-center items-center size-4 rounded-full border-3 relative border-black-500"
                 :class="{
-                    'border-primary!': isActiveChapter || isPrevChapter,
+                    'border-primary!': isActiveChapter || isOldChapter,
                 }"
             >
                 <div
@@ -52,13 +53,17 @@ const percentage = computed(() => {
             <div
                 class="w-[3px] grow -mt-0.5 bg-black-500 rounded-full"
                 :class="{
-                    'bg-primary-darker!': isPrevChapter,
+                    'bg-primary-darker!': isOldChapter,
                 }"
             >
                 <div class="w-full bg-primary rounded-full" :style="{ height: `${percentage}%` }"></div>
             </div>
 
-            <div v-if="isLastChapter" class="w-3 h-1 mb-3 -mt-0.5 bg-black-500 rounded-full"></div>
+            <div
+                v-if="isLastChapter"
+                class="w-3 h-1 mb-3 -mt-[3px] bg-black-500 rounded-full"
+                :class="{ 'bg-primary!': isLastBit }"
+            ></div>
         </div>
 
         <div
