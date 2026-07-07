@@ -6,10 +6,12 @@ import { useDebounceFn } from '@vueuse/core';
 import { computed, ref } from 'vue';
 import _ from 'lodash';
 import { useAuthStore } from '../../auth/stores/auth.store';
+import { useRoute } from 'vue-router';
 
 const archiveStore = useArchiveStore();
 const videosStore = useVideosStore();
 const authStore = useAuthStore();
+const route = useRoute();
 const props = withDefaults(
     defineProps<{
         density?: Density;
@@ -62,7 +64,10 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
                 </template>
             </v-combobox>
 
-            <div class="flex gap-1 shrink-0 text-[#BDBDBD] -ml-1 lgf:hidden">
+            <div
+                v-if="route.name !== 'playlists' && route.name !== 'games'"
+                class="flex gap-1 shrink-0 text-[#BDBDBD] -ml-1 lgf:hidden"
+            >
                 <button
                     title="random stream"
                     class="hover:text-primary p-1 pr-2 lbg-red-500 relative"
