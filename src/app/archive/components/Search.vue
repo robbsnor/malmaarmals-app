@@ -8,7 +8,7 @@ import _ from 'lodash';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { useRoute } from 'vue-router';
 import { DateHelper } from '../../shared/helpers/date.helper';
-import DateFilterDialog from '../../archive/components/DateFilterDialog.vue';
+import DateFilterDialog from './DateFilterDialog.vue';
 
 const archiveStore = useArchiveStore();
 const videosStore = useVideosStore();
@@ -112,11 +112,7 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
                     </svg>
                 </button>
 
-                <button
-                    v-if="authStore.isAdmin"
-                    class="hover:text-primary p-1 pr-2 lbg-red-500 relative"
-                    @click="dialog = true"
-                >
+                <button class="hover:text-primary p-1 pr-2 lbg-red-500 relative" @click="dialog = true">
                     <v-icon icon="mdi-calendar-month-outline" size="22" />
                     <div
                         v-if="archiveStore.formHasDateChanges"
@@ -126,6 +122,6 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
             </div>
         </div>
 
-        <DateFilterDialog />
+        <DateFilterDialog v-model="dialog" />
     </div>
 </template>
