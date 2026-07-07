@@ -52,7 +52,7 @@ onMounted(async () => {
         <Header />
 
         <div class="grid h-full max-lg:pb-mobile-navbar lg:pt-header" style="grid-template-rows: 1fr auto">
-            <div class="min-w-0">
+            <div class="min-w-0 pb-4">
                 <RouterView />
             </div>
 
