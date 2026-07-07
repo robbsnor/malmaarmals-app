@@ -17,40 +17,36 @@ const drawer = ref(false);
             <PlayerButton v-bind="props" icon="mdi-cog-outline" />
         </template>
 
-        <FormGroup>
-            <Switch label="Show floating emoji's" v-model="preferenceStore.showFloatingEmotes" />
+        <Switch
+            label="Show floating emotes"
+            description="Emotes overlay on video"
+            v-model="preferenceStore.showFloatingEmotes"
+        />
 
-            <Switch
-                hide-details="auto"
-                label="Facecam"
-                details="foofof"
-                density="comfortable"
-                v-model="preferenceStore.showFacecam"
-            >
-                <template #description>
-                    <a
-                        class="hover:text-primary inline-block"
-                        href="https://www.reddit.com/r/lekkerspelen/comments/1lhp8vc/peter_koopt_een_spijkerbroek/"
-                        target="_blank"
-                    >
-                        @braxshinoa - photo credit
-                    </a>
-                </template>
-            </Switch>
-        </FormGroup>
+        <Switch hide-details="auto" label="Facecam" v-model="preferenceStore.showFacecam">
+            <template #description>
+                <a
+                    class="hover:text-primary inline-block"
+                    href="https://www.reddit.com/r/lekkerspelen/comments/1lhp8vc/peter_koopt_een_spijkerbroek/"
+                    target="_blank"
+                >
+                    @braxshinoa - photo credit
+                </a>
+            </template>
+        </Switch>
 
-        <FormGroup title="Auto stuff" v-if="authStore.isAdmin" class="pt-4">
-            <Switch
-                label="Auto Theather-mode"
-                v-model="preferenceStore.autoTheatre"
-                description="Go into theatre mode when selecting a stream"
-            />
-            <Switch
-                label="Auto Fullscreen"
-                v-model="preferenceStore.autoFullscreen"
-                description="Go into fullscreen mode when selecting a stream"
-            />
-        </FormGroup>
+        <Switch
+            label="Auto Theatre-mode"
+            v-model="preferenceStore.autoTheatre"
+            description="Go into theatre mode when selecting a stream (video fill height)"
+            class="max-md:hidden!"
+        />
+
+        <Switch
+            label="Auto Fullscreen"
+            v-model="preferenceStore.autoFullscreen"
+            description="Go into fullscreen mode when selecting a stream"
+        />
     </Drawer>
 </template>
 

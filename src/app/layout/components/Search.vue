@@ -62,7 +62,7 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
                 </template>
             </v-combobox>
 
-            <div class="flex gap-2 shrink-0 text-[#BDBDBD] -ml-1 lgf:hidden">
+            <div class="flex gap-1 shrink-0 text-[#BDBDBD] -ml-1 lgf:hidden">
                 <button
                     title="random stream"
                     class="hover:text-primary p-1 pr-2 lbg-red-500 relative"
@@ -111,7 +111,7 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
                     class="hover:text-primary p-1 pr-2 lbg-red-500 relative"
                     @click="dialog = true"
                 >
-                    <v-icon icon="mdi-filter-variant" />
+                    <v-icon icon="mdi-calendar-month-outline" size="22" />
                     <div
                         v-if="archiveStore.hasDateChanges"
                         class="rounded-full bg-primary size-4 absolute right-1 top-1 border-3 border-v-input"
@@ -122,36 +122,34 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
 
         <Dialog
             v-model="dialog"
-            title="Advanced filters"
-            icon="mdi-filter-variant"
-            description="Options are applied to your current search term and only affect stream results."
+            title="Date filters"
+            icon="mdi-calendar-month-outline"
+            description="Options are applied to your current search term and only affect streams."
         >
-            <div class="grid grid-cols-2 gap-12">
-                <div>
-                    <v-checkbox
-                        v-for="year in videosStore.years"
-                        :key="year"
-                        :label="year.toString()"
-                        hide-details="auto"
-                        v-model="archiveStore.form.years"
-                        :value="year"
-                        color="primary"
-                        density="compact"
-                    ></v-checkbox>
-                </div>
+            <div class="grid grid-cols-2 gap-12 items-start">
+                <FormGroup title="Years">
+                    <div class="grid grid-cols-2 gap-2">
+                        <Checkbox
+                            v-for="year in videosStore.years"
+                            :key="year"
+                            :label="year.toString()"
+                            v-model="archiveStore.form.years"
+                            :value="year"
+                        />
+                    </div>
+                </FormGroup>
 
-                <div>
-                    <v-checkbox
-                        v-for="(month, i) in months"
-                        :key="month"
-                        :label="month.toString()"
-                        :value="i"
-                        v-model="archiveStore.form.months"
-                        hide-details="auto"
-                        color="primary"
-                        density="compact"
-                    ></v-checkbox>
-                </div>
+                <FormGroup title="Months">
+                    <div class="grid grid-cols-3 gap-2">
+                        <Checkbox
+                            v-for="(month, i) in months"
+                            :key="month"
+                            v-model="archiveStore.form.months"
+                            :label="month.toUpperCase()"
+                            :value="i"
+                        />
+                    </div>
+                </FormGroup>
             </div>
 
             <template #footer>

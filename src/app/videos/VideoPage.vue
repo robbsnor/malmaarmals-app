@@ -28,14 +28,13 @@ async function init() {
     const isSameVideoId = videoId === videoStore.id;
     const isSamePlaylistId = playlistId === videoStore.playlistId;
     if (isSameVideoId && isSamePlaylistId) return;
-
     if (!authStore.isSubbed) return;
-
-    await videoStore.init(videoId, playlistId);
-    TitleHelper.setTitle(videoStore.info.title);
 
     if (preferenceStore.autoFullscreen) videoStore.enterFullscreen();
     if (preferenceStore.autoTheatre) videoStore.theaterMode = true;
+
+    await videoStore.init(videoId, playlistId);
+    TitleHelper.setTitle(videoStore.info.title);
 }
 
 watch(route, async () => {

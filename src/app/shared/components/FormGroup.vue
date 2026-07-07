@@ -11,7 +11,7 @@ const props = withDefaults(
 
 <template>
     <div>
-        <div class="text-xl uppercase font-bold">{{ props.title }}</div>
+        <div v-if="props.title" class="text-xl font-bold mb-2">{{ props.title }}</div>
         <slot></slot>
     </div>
 </template>
