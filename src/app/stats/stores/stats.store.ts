@@ -44,7 +44,7 @@ export const useStatsStore = defineStore('stats', () => {
         const { data, error } = await supabase.functions.invoke('history-stats');
         if (error) throw error;
 
-        history.value = data;
+        history.value = data.filter((d) => d.user_id !== 'ee135f14-95ac-48be-9a99-c301ec7796d5');
     }
 
     const videosByWeek = computed(() => {
