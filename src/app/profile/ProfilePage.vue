@@ -59,7 +59,12 @@ const handleClick = async (item: any) => {
                     </div>
 
                     <div class="text-muted text-sm flex items-center">
-                        <v-chip size="small" v-if="authStore.isSubbed" prepend-icon="mdi-check" color="success">
+                        <v-chip
+                            size="small"
+                            v-if="authStore.isSubbed"
+                            prepend-icon="mdi-lock-open-variant-outline"
+                            color="success"
+                        >
                             Subscribed to Lekker Spelen
                         </v-chip>
 
@@ -67,12 +72,14 @@ const handleClick = async (item: any) => {
                             <v-chip
                                 size="small"
                                 href="https://www.twitch.tv/lekkerspelen/"
+                                target="_blank"
                                 prepend-icon="mdi-lock"
                                 color="error"
                             >
-                                Not subscribed to Lekker Spelen
+                                Not subscribed to
+                                <span class="underline ml-1"> Lekker Spelen </span>
+                                <v-icon class="ml-[1px] mt-[1px]" size="12">mdi-open-in-new</v-icon>
                             </v-chip>
-                            <!-- <div>In order to watch streams, you need to be subscribed to Lekker Spelen on Twitch</div> -->
                         </div>
 
                         <div></div>

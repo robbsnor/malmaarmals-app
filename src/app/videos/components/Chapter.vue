@@ -43,7 +43,7 @@ const percentage = computed(() => {
                 }"
             >
                 <div
-                    class="size-1.5 rounded-full"
+                    class="size-1 rounded-full"
                     :class="{
                         'bg-primary-light': isActiveChapter,
                     }"

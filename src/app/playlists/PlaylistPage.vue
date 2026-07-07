@@ -32,9 +32,7 @@ const editDialog = ref(false);
                 <div class="to-black-100 absolute inset-0 bg-linear-to-b from-black/50"></div>
 
                 <div class="flex justify-between gap-4 p-4">
-                    <v-btn :to="{ name: 'playlists' }" variant="tonal" prependIcon="mdi-chevron-left">
-                        Playlists
-                    </v-btn>
+                    <v-btn :to="{ name: 'playlists' }" variant="text" prependIcon="mdi-chevron-left"> Playlists </v-btn>
 
                     <div v-auth class="flex gap-4">
                         <v-btn
