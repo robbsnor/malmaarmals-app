@@ -90,14 +90,14 @@ export const useArchiveStore = defineStore('archive', () => {
             if (!query) return true;
 
             const titleMatch = video.title.toLowerCase().includes(query);
-            const descriptionMatch = video.description?.toLowerCase().includes(query);
             const idMatch = video.video_id.toString().includes(query);
-            const categoryMatch = video.chapters?.some((chapter) =>
-                chapter.category?.title.toLowerCase().includes(query)
+            const categoryMatch = video.chapters?.some(
+                (chapter) =>
+                    chapter.category?.title.toLowerCase().includes(query) ||
+                    chapter.category_id.toLocaleLowerCase().includes(query)
             );
-            const yearMatch = year.toString().includes(query);
 
-            return titleMatch || descriptionMatch || idMatch || categoryMatch || yearMatch;
+            return titleMatch || idMatch || categoryMatch;
         });
     });
 
