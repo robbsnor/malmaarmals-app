@@ -40,14 +40,18 @@ const socials = [
                 </a>
 
                 <div class="text-center">
-                    <div class="inline-grid grid-cols-2 gap-4 items-center justify-end">
+                    <div class="inline-flex flex-wrap gap-4 items-center justify-center">
                         <div
                             v-for="social of socials"
                             :key="social.link"
                             class="flex items-center justify-end gap-1 bg-redf-300"
                         >
                             <v-icon size="18" class="text-muted-more">{{ social.icon }}</v-icon>
-                            <a :href="social.link" target="_blank" class="text-muted-more underline hover:text-primary">
+                            <a
+                                :href="social.link"
+                                target="_blank"
+                                class="text-muted-more underline hover:text-primary leading-tight"
+                            >
                                 {{ social.text }}
                             </a>
                         </div>
