@@ -13,7 +13,7 @@ const videosStore = useVideosStore();
 
 <template>
     <header
-        class="z-header h-header border-b border-black-400 bg-black-100/80 backdrop-blur-[100px] overflow-y-hidden fixed top-0 right-0 left-0 hidden lg:block"
+        class="z-header h-header border-b border-black-400 bg-black-100 backdrop-blufr-[100px] overflow-y-hidden fixed top-0 right-0 left-0 hidden lg:block"
     >
         <Container width="100%" class="h-full">
             <div
