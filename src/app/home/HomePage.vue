@@ -18,7 +18,7 @@ TitleHelper.setTitle('home');
 
         <RecentStreams />
         <Playlists />
-        <Stats />
+        <!-- <Stats /> -->
         <WhatOthersWatch />
         <WeekOverview />
         <PopularCategories />
