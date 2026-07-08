@@ -69,10 +69,7 @@ async function goToPreviousVideo() {
 
 function toggleTheaterMode() {
     videoStore.theaterMode = !videoStore.theaterMode;
-    // scroll
     const { y } = useScroll(videoStore.videoColRef, { behavior: 'smooth' });
-    console.log(videoStore.videoColRef);
-    console.log(y.value);
     y.value = 0;
 }
 </script>

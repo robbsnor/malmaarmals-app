@@ -39,14 +39,14 @@ export const useArchiveStore = defineStore('archive', () => {
         sync: formReset,
         isModified: formHasChanges,
     } = useCloned({
-        query: null,
+        query: undefined,
         years: [],
         months: [],
     });
     const formHasDateChanges = computed(() => form.value.years.length || form.value.months.length);
 
     function formResetQuery() {
-        form.value.query = null;
+        form.value.query = undefined;
     }
 
     function formResetDates() {

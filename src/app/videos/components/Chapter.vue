@@ -34,7 +34,7 @@ const percentage = computed(() => {
 </script>
 
 <template>
-    <div class="flex gap-2 cursor-pointer" @click="videoStore.setTimePrior(props.chapter.start_s)">
+    <div class="group flex gap-2 cursor-pointer" @click="videoStore.setTimePrior(props.chapter.start_s, true)">
         <div class="flex flex-col items-center">
             <div
                 class="flex justify-center items-center size-4 rounded-full border-3 relative border-black-500"
@@ -45,17 +45,12 @@ const percentage = computed(() => {
                 <div
                     class="size-1 rounded-full"
                     :class="{
-                        'bg-primary-light': isActiveChapter,
+                        'bg-primary': isActiveChapter,
                     }"
                 ></div>
             </div>
 
-            <div
-                class="w-[3px] grow -mt-0.5 bg-black-500 rounded-full"
-                :class="{
-                    'bg-primary-darker!': isOldChapter,
-                }"
-            >
+            <div class="w-[3px] grow -mt-0.5 bg-black-500 rounded-full">
                 <div class="w-full bg-primary rounded-full" :style="{ height: `${percentage}%` }"></div>
             </div>
 
@@ -67,8 +62,8 @@ const percentage = computed(() => {
         </div>
 
         <div
-            class="flex gap-4 mb-3 mt-1 hover:bg-black-40f0 grow transition-all hover:opacity-100!"
-            :class="{ 'opacity-40': !isActiveChapter }"
+            class="flex gap-4 mb-3 mt-1 grow transition-all hover:opacity-100! group-hover:ml-2"
+            :class="{ 'opacity-40f': !isActiveChapter }"
         >
             <CategoryThumbnail :category="props.chapter.category" />
 

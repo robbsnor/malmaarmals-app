@@ -3,7 +3,7 @@ import Player from './Player.vue';
 import Chat from './Chat.vue';
 import { useVideoStore } from '../stores/video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
-import { computed } from 'vue';
+import { computed, nextTick, onMounted, ref } from 'vue';
 import VideoInfo from './VideoInfo.vue';
 import ExtraInfoPlaylist from './ExtraInfoPlaylist.vue';
 import ExtraInfoMessages from './ExtraInfoMessages.vue';
@@ -11,6 +11,8 @@ import ExtraInfoChapters from './ExtraInfoChapters.vue';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
+
+const videoColRef = ref<HTMLElement>();
 
 const containerClasses = computed(() => {
     if (videoStore.playerIsMini) {
@@ -20,6 +22,11 @@ const containerClasses = computed(() => {
         return 'top-0 right-0 bottom-0 left-0';
     }
     return 'top-0 right-0 bottom-0 left-0 lg:top-header';
+});
+
+onMounted(async () => {
+    await nextTick();
+    videoStore.videoColRef = videoColRef.value;
 });
 </script>
 

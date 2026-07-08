@@ -1,7 +1,15 @@
 import { defineStore } from 'pinia';
 import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { supabase } from '../../../supabase';
-import { onKeyStroke, useIdle, useMediaControls, useWindowSize, useLocalStorage, useFullscreen } from '@vueuse/core';
+import {
+    onKeyStroke,
+    useIdle,
+    useMediaControls,
+    useWindowSize,
+    useLocalStorage,
+    useFullscreen,
+    useScroll,
+} from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
 import _ from 'lodash';
@@ -17,108 +25,28 @@ export const useVideoStore = defineStore('video', () => {
     const playlistsStore = usePlaylistsStore();
     const videosStore = useVideosStore();
     const historyStore = useHistoryStore();
+    const { width: windowWidth } = useWindowSize();
 
+    //
     // layout
+    //
     const theaterMode = ref(true);
     const showChat = ref(true);
     const casting = ref(false);
     const showExtraInfoMobile = ref(false);
-    const { width: windowWidth } = useWindowSize();
-    const videoContainerRef = ref<HTMLElement | null>(null);
     const videoColRef = ref<HTMLElement | null>(null);
+    const { y: videoColScrollY } = useScroll(videoColRef, { behavior: 'smooth' });
 
+    function videoColScrollToTop() {
+        videoColScrollY.value = 0;
+    }
+
+    //
     // video
+    //
+    const id = ref<number>();
     const video = computed(() => videosStore.videos.find((v) => v.video_id === id.value));
     const chapters = computed(() => video.value?.chapters);
-    const id = ref<number>();
-
-    // player
-    const showControllsAndInfo = ref(true);
-    const videoRef = ref<HTMLVideoElement | null>(null);
-    const src = ref<string>(null);
-    const srcNotFound = ref(false);
-    const {
-        currentTime,
-        duration,
-        waiting,
-        seeking,
-        ended,
-        stalled,
-        buffered,
-        playing,
-        rate,
-        volume,
-        muted,
-        onSourceError,
-        onPlaybackError,
-    } = useMediaControls(videoRef);
-    // persist volume to localStorage and keep it in sync with the player
-    const persistedVolume = useLocalStorage<number>('video_volume', volume.value ?? 1);
-    const { isFullscreen, enter: enterFullscreen, exit: exitFullscreen, toggle: toggleFullscreen } = useFullscreen();
-
-    const currentTimeRounded = computed(() => Math.floor(currentTime.value));
-    const prettyCurrentTime = computed(() => TimeHelper.formatTime(currentTime.value));
-    const prettyDuration = computed(() => TimeHelper.formatTime(duration.value));
-    const playerIsActive = ref(false);
-    const playerIsMini = ref(true);
-    const { idle } = useIdle(4 * 1_000);
-
-    // messages
-    const messages = ref<Message[]>([]);
-    const messagesLoading = ref(true);
-    const subCount = computed(
-        () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
-    );
-
-    const giftSubs = computed(() => {
-        return messages.value
-            .filter((m) => m.text.includes('gifted a'))
-            .reduce<{ username: string; amount: number }[]>((acc, m) => {
-                const existing = acc.find((item) => item.username === m.user_name);
-                if (existing) {
-                    existing.amount += 1;
-                } else {
-                    acc.push({ username: m.user_name, amount: 1 });
-                }
-                return acc;
-            }, [])
-            .sort((a, b) => b.amount - a.amount);
-    });
-
-    // playlist
-    const playlistId = ref<string>();
-    const playlist = computed(() => {
-        if (playlistId.value) {
-            return playlistsStore.playlists.find((p) => p.id === playlistId.value);
-        } else {
-            // find playlist that contains the video
-            return playlistsStore.playlists.find((p) => p.videos.some((v) => v.video_id === id.value));
-        }
-    });
-
-    const playlistNextVideo = computed(() => {
-        if (!playlist.value) return null;
-        const currentIndex = playlist.value.videos.findIndex((v) => v.video_id === id.value);
-        if (currentIndex === -1 || currentIndex === playlist.value.videos.length - 1) return null;
-        return playlist.value.videos[currentIndex + 1];
-    });
-
-    const playlistPrevVideo = computed(() => {
-        if (!playlist.value) return null;
-        const currentIndex = playlist.value.videos.findIndex((v) => v.video_id === id.value);
-        if (currentIndex <= 0) return null;
-        return playlist.value.videos[currentIndex - 1];
-    });
-
-    // functions
-    onMounted(() => {
-        if (windowWidth.value > 1024) theaterMode.value = false;
-
-        // sync volume
-        if (persistedVolume.value !== null && persistedVolume.value !== undefined) {
-            volume.value = persistedVolume.value;
-        }
-    });
 
     async function init(videoId: number, _playlistId?: string) {
         reset();
@@ -139,57 +67,49 @@ export const useVideoStore = defineStore('video', () => {
         srcNotFound.value = false;
     }
 
-    async function fetchMessages() {
-        const videoId = Number(id.value);
+    //
+    // player
+    //
+    const showControllsAndInfo = ref(true);
+    const videoRef = ref<HTMLVideoElement | null>(null);
+    const src = ref<string>(null);
+    const srcNotFound = ref(false);
+    const {
+        currentTime,
+        duration,
+        waiting,
+        seeking,
+        ended,
+        stalled,
+        buffered,
+        playing,
+        rate,
+        volume,
+        muted,
+        onSourceError,
+        onPlaybackError,
+    } = useMediaControls(videoRef);
+    const persistedVolume = useLocalStorage<number>('video_volume', volume.value ?? 1);
+    const { isFullscreen, enter: enterFullscreen, exit: exitFullscreen, toggle: toggleFullscreen } = useFullscreen();
 
-        // Fetch messages and badges in parallel, paginating until all rows are returned
-        const messagesData = await fetchAll((from, to) =>
-            supabase
-                .from('messages')
-                .select(messagesQueryStringSelect)
-                .eq('video_id', videoId)
-                .order('offset_sec', { ascending: true })
-                .range(from, to)
-        );
-
-        const badgesData = await fetchAll((from, to) =>
-            supabase.from('message_twitch_badges').select('user_id, image_id').eq('video_id', videoId).range(from, to)
-        );
-
-        // Create a lookup map: user_id -> array of badges
-        const badgesByUser = badgesData.reduce(
-            (acc, badge) => {
-                if (!acc[badge.user_id]) acc[badge.user_id] = [];
-                acc[badge.user_id].push({ image_id: badge.image_id });
-                return acc;
-            },
-            {} as Record<string, Array<{ image_id: string }>>
-        );
-
-        // Merge badges into messages
-        messages.value = messagesData.map((msg) => ({
-            ...msg,
-            badges: badgesByUser[msg.user_id] || [],
-        }));
-
-        messagesLoading.value = false;
-    }
-
-    function setVideoRef(el: HTMLVideoElement) {
-        videoRef.value = el;
-    }
+    const currentTimeRounded = computed(() => Math.floor(currentTime.value));
+    const prettyCurrentTime = computed(() => TimeHelper.formatTime(currentTime.value));
+    const prettyDuration = computed(() => TimeHelper.formatTime(duration.value));
+    const playerIsActive = ref(false);
+    const playerIsMini = ref(true);
+    const { idle } = useIdle(4 * 1_000);
 
     async function setSrc() {
         const { data, error } = await BucketHelper.getVideoUrl(id.value);
         if (error) throw error;
 
         src.value = data.signedUrl;
-        // src.value =
-        //     'https://backend.malmaarmals.nl/videos/2076579081?exp=1771763084231&sig=LdvBaZKyJqUzW2DzN8GhGr4Rz_1Rsu3S-bVcDPcdAO8';
     }
 
-    function setTimePrior(sec: number) {
+    function setTimePrior(sec: number, resume = false) {
         currentTime.value = sec - TIME_PRIOR_OFFSET_S >= 0 ? sec - TIME_PRIOR_OFFSET_S : 0;
+        if (resume) playing.value = true;
+        videoColScrollToTop();
     }
 
     function getTimePrior(sec: number) {
@@ -201,6 +121,10 @@ export const useVideoStore = defineStore('video', () => {
         if (!historyItem) return;
 
         currentTime.value = Number(historyItem.video_time);
+    }
+
+    function setVideoRef(el: HTMLVideoElement) {
+        videoRef.value = el;
     }
 
     function isEditableTarget(target: EventTarget | null) {
@@ -242,7 +166,6 @@ export const useVideoStore = defineStore('video', () => {
         playing.value = false;
     });
 
-    // check if video exists
     watch(videoRef, () => {
         if (!videoRef.value) return;
 
@@ -251,14 +174,13 @@ export const useVideoStore = defineStore('video', () => {
         };
     });
 
-    // hide controls and info when idle
     watch(idle, (isIdle) => {
         if (!playing.value) return;
         if (!isIdle) return;
+        if (videoColScrollY.value < 120) videoColScrollToTop();
         showControllsAndInfo.value = false;
     });
 
-    // auto play when done loading
     watchEffect(() => {
         if (!waiting.value) playing.value = true;
     });
@@ -273,36 +195,139 @@ export const useVideoStore = defineStore('video', () => {
         muted.value = false;
     });
 
+    watch(volume, (v) => {
+        persistedVolume.value = v;
+    });
+
     watch(currentTimeRounded, (time) => {
         if (time % 5 !== 0) return;
         historyStore.recordWatch(video.value.id, time);
-    });
-
-    // sync volume
-    watch(volume, (v) => {
-        persistedVolume.value = v;
     });
 
     watch(persistedVolume, (v) => {
         if (v !== volume.value) volume.value = v;
     });
 
+    //
+    // messages
+    //
+    const messages = ref<Message[]>([]);
+    const messagesLoading = ref(true);
+    const subCount = computed(
+        () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
+    );
+
+    const giftSubs = computed(() => {
+        return messages.value
+            .filter((m) => m.text.includes('gifted a'))
+            .reduce<{ username: string; amount: number }[]>((acc, m) => {
+                const existing = acc.find((item) => item.username === m.user_name);
+                if (existing) {
+                    existing.amount += 1;
+                } else {
+                    acc.push({ username: m.user_name, amount: 1 });
+                }
+                return acc;
+            }, [])
+            .sort((a, b) => b.amount - a.amount);
+    });
+
+    async function fetchMessages() {
+        const videoId = Number(id.value);
+
+        const messagesData = await fetchAll((from, to) =>
+            supabase
+                .from('messages')
+                .select(messagesQueryStringSelect)
+                .eq('video_id', videoId)
+                .order('offset_sec', { ascending: true })
+                .range(from, to)
+        );
+
+        const badgesData = await fetchAll((from, to) =>
+            supabase.from('message_twitch_badges').select('user_id, image_id').eq('video_id', videoId).range(from, to)
+        );
+
+        const badgesByUser = badgesData.reduce(
+            (acc, badge) => {
+                if (!acc[badge.user_id]) acc[badge.user_id] = [];
+                acc[badge.user_id].push({ image_id: badge.image_id });
+                return acc;
+            },
+            {} as Record<string, Array<{ image_id: string }>>
+        );
+
+        messages.value = messagesData.map((msg) => ({
+            ...msg,
+            badges: badgesByUser[msg.user_id] || [],
+        }));
+
+        messagesLoading.value = false;
+    }
+
+    //
+    // playlist
+    //
+    const playlistId = ref<string>();
+    const playlist = computed(() => {
+        if (playlistId.value) {
+            return playlistsStore.playlists.find((p) => p.id === playlistId.value);
+        } else {
+            return playlistsStore.playlists.find((p) => p.videos.some((v) => v.video_id === id.value));
+        }
+    });
+
+    const playlistNextVideo = computed(() => {
+        if (!playlist.value) return null;
+        const currentIndex = playlist.value.videos.findIndex((v) => v.video_id === id.value);
+        if (currentIndex === -1 || currentIndex === playlist.value.videos.length - 1) return null;
+        return playlist.value.videos[currentIndex + 1];
+    });
+
+    const playlistPrevVideo = computed(() => {
+        if (!playlist.value) return null;
+        const currentIndex = playlist.value.videos.findIndex((v) => v.video_id === id.value);
+        if (currentIndex <= 0) return null;
+        return playlist.value.videos[currentIndex - 1];
+    });
+
+    //
+    // lifecycle
+    //
+    onMounted(() => {
+        if (windowWidth.value > 1024) theaterMode.value = false;
+
+        if (persistedVolume.value !== null && persistedVolume.value !== undefined) {
+            volume.value = persistedVolume.value;
+        }
+    });
+
     return {
+        //
         // layout
+        //
         theaterMode,
         showChat,
         casting,
         showExtraInfoMobile,
-        videoContainerRef,
         videoColRef,
+        videoColScrollToTop,
 
+        //
         // video
+        //
         video,
         id,
         src,
         srcNotFound,
+        chapters,
+        init,
+        reset,
+        setVideoRef,
 
+        //
         // player
+        //
         showControllsAndInfo,
         videoRef,
         currentTime,
@@ -321,35 +346,31 @@ export const useVideoStore = defineStore('video', () => {
         playerIsActive,
         playerIsMini,
         isFullscreen,
+        setSrc,
+        loadVideoProgression,
         toggleFullscreen,
         enterFullscreen,
         exitFullscreen,
+        setTimePrior,
+        getTimePrior,
+        onSourceError,
+        onPlaybackError,
 
-        // chapters
-        chapters,
-
-        // playlist
-        playlistId,
-        playlist,
-        playlistNextVideo,
-        playlistPrevVideo,
-
+        //
         // messages
+        //
         messages,
         messagesLoading,
         subCount,
         giftSubs,
-
-        // functions
-        init,
-        setSrc,
         fetchMessages,
-        setVideoRef,
-        setTimePrior,
-        getTimePrior,
-        loadVideoProgression,
-        reset,
-        onSourceError,
-        onPlaybackError,
+
+        //
+        // playlist
+        //
+        playlistId,
+        playlist,
+        playlistNextVideo,
+        playlistPrevVideo,
     };
 });
