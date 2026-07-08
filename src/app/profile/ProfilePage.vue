@@ -59,12 +59,7 @@ const handleClick = async (item: any) => {
                     </div>
 
                     <div class="text-muted text-sm flex items-center">
-                        <v-chip
-                            size="small"
-                            v-if="authStore.isSubbed"
-                            prepend-icon="mdi-lock-open-variant-outline"
-                            color="success"
-                        >
+                        <v-chip size="small" v-if="authStore.isSubbed" prepend-icon="mdi-check" color="success">
                             Subscribed to Lekker Spelen
                         </v-chip>
 
