@@ -39,13 +39,13 @@ const socials = [
                     <v-icon>mdi-github</v-icon>
                 </a>
 
-                <div class="inline-flex flex-wrap gap-4 items-center justify-center px-4">
+                <div class="inline-flex flex-wrap gap-2 items-center justify-center text-xs">
                     <div
                         v-for="social of socials"
                         :key="social.link"
                         class="flex items-center justify-end gap-1 bg-redf-300"
                     >
-                        <v-icon size="18" class="text-muted-more">{{ social.icon }}</v-icon>
+                        <v-icon size="14" class="text-muted-more">{{ social.icon }}</v-icon>
                         <a
                             :href="social.link"
                             target="_blank"
