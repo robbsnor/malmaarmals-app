@@ -166,10 +166,10 @@ function toggleTheaterMode() {
                             :class="{ hidden: !appStore.isLandscape }"
                         />
                         <PlayerButton
+                            v-if="appStore.isLandscape"
                             @click="toggleTheaterMode()"
                             title="theatre-mode toggle"
                             :icon="videoStore.theaterMode ? 'mdi-dock-bottom' : 'mdi-dock-right'"
-                            class="hidden lg:block"
                         />
                         <ChaptersDrawer />
 
@@ -203,7 +203,7 @@ function toggleTheaterMode() {
             </div>
         </div>
 
-        <VideoInfo v-if="videoStore.theaterMode" class="hidden md:flex"> </VideoInfo>
+        <VideoInfo v-if="videoStore.theaterMode && appStore.isLandscape"> </VideoInfo>
     </div>
 </template>
 

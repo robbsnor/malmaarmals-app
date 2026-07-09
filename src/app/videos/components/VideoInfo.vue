@@ -2,8 +2,10 @@
 import { computed } from 'vue';
 import { useClipboard } from '@vueuse/core';
 import { useVideoStore } from '../stores/video.store';
+import { useAppStore } from '../../shared/stores/app.store';
 
 const videoStore = useVideoStore();
+const appStore = useAppStore();
 const { copy, copied, isSupported } = useClipboard();
 
 const date = computed(() => {
@@ -22,7 +24,8 @@ function copyTitle() {
 
 <template>
     <div
-        class="bg-black-100/80 backdrop-blur-[100px] border-black-400 flex min-h-[84px] justify-between gap-4 border-b p-4 lg:px-8"
+        class="bg-black-100/80 backdrop-blur-[100px] border-black-400 flex min-h-[84px] justify-between gap-4 border-b p-4"
+        :class="{ 'px-8': appStore.isLandscape }"
     >
         <template v-if="videoStore.video">
             <div>

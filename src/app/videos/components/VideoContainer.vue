@@ -39,23 +39,29 @@ onMounted(async () => {
         class="xxd z-video-container fixed flex flex-col flex-nowrap bg-black"
         :class="[containerLayoutClasses, { 'flex-row': appStore.isLandscape }]"
     >
-        <div ref="videoColRef" class="scroll-hidden bg-black-100" :class="{ 'w-full': appStore.isLandscape }">
+        <div
+            ref="videoColRef"
+            class="scroll-hidden bg-black-100"
+            :class="{ 'w-full overflow-auto': appStore.isLandscape }"
+        >
             <div
                 ref="containerRef"
-                class="max-h-screen overflow-hidden bg-black md:flex md:items-center md:justify-center"
-                :class="{ 'grow overflow-auto': appStore.isLandscape, 'md:h-full': videoStore.theaterMode }"
+                class="max-h-screen overflow-hidden bg-black"
+                :class="{
+                    'grow overflow-auto': appStore.isLandscape,
+                    'h-full': videoStore.theaterMode && appStore.isLandscape,
+                }"
             >
                 <Player ref="videoRef" />
             </div>
 
-            <template v-if="!videoStore.playerIsMini && appStore.isLandscape">
+            <template v-if="!videoStore.playerIsMini">
                 <!-- info -->
-                <VideoInfo :class="videoStore.theaterMode ? 'md:hidden' : 'md:block'" class=" "></VideoInfo>
+                <VideoInfo
+                    v-if="!appStore.isLandscape || (appStore.isLandscape && !videoStore.theaterMode)"
+                ></VideoInfo>
 
-                <Container
-                    :class="videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0'"
-                    :padding="false"
-                >
+                <Container v-if="appStore.isLandscape" :padding="false">
                     <div
                         class="grid w-full grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-4 p-4 transition-opacity items-start max-md:absolute max-md:overflow-auto lg:gap-8 lg:p-8"
                     >

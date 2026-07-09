@@ -25,12 +25,11 @@ export const useVideoStore = defineStore('video', () => {
     const playlistsStore = usePlaylistsStore();
     const videosStore = useVideosStore();
     const historyStore = useHistoryStore();
-    const { width: windowWidth } = useWindowSize();
 
     //
     // layout
     //
-    const theaterMode = ref(true);
+    const theaterMode = ref(false);
     const showChat = ref(true);
     const casting = ref(false);
     const showExtraInfoMobile = ref(false);
@@ -295,8 +294,6 @@ export const useVideoStore = defineStore('video', () => {
     // lifecycle
     //
     onMounted(() => {
-        if (windowWidth.value > 1024) theaterMode.value = false;
-
         if (persistedVolume.value !== null && persistedVolume.value !== undefined) {
             volume.value = persistedVolume.value;
         }
