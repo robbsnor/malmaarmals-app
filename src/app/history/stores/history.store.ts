@@ -53,7 +53,7 @@ export const useHistoryStore = defineStore('history', () => {
         if (error) throw error;
 
         const existingIndex = history.value.findIndex((video) => video.video_id === historyItem.video_id);
-        if (existingIndex) history.value.splice(existingIndex, 1);
+        if (existingIndex || existingIndex !== -1) history.value.splice(existingIndex, 1);
 
         history.value.unshift(historyItem as Tables<'history'>);
     }
