@@ -18,7 +18,9 @@ import _ from 'lodash';
 import { useManageChaptersStore } from '../stores/manage-chapters.store';
 import Cast from './Cast.vue';
 import ShareButton from './ShareButton.vue';
+import { useAppStore } from '../../shared/stores/app.store.ts';
 
+const appStore = useAppStore();
 const videoStore = useVideoStore();
 const videosStore = useVideosStore();
 const manageChaptersStore = useManageChaptersStore();
@@ -161,7 +163,7 @@ function toggleTheaterMode() {
                             @click="videoStore.showChat = !videoStore.showChat"
                             :icon="videoStore.showChat ? 'mdi-chat' : 'mdi-chat-outline'"
                             :size="20"
-                            class="hidden md:block"
+                            :class="{ hidden: !appStore.isLandscape }"
                         />
                         <PlayerButton
                             @click="toggleTheaterMode()"

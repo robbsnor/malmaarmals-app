@@ -4,8 +4,10 @@ import { useVideoStore } from '../stores/video.store';
 import { randomNumber } from '../../shared/helpers/randomNumber';
 import { useScroll, useWindowSize } from '@vueuse/core';
 import Message from './Message.vue';
+import { useAppStore } from '../../shared/stores/app.store.ts';
 
 const videoStore = useVideoStore();
+const appStore = useAppStore();
 const chatRef = ref<HTMLElement>(null);
 const userHasScrolledUp = ref(false);
 const chatInfoDialog = defineModel();
@@ -74,8 +76,14 @@ watch(width, () => {
 <template>
     <div
         v-if="!videoStore.playerIsMini"
-        :class="videoStore.showChat ? 'md:block' : 'md:hidden'"
-        class="relative h-full overflow-auto bg-black-100 md:bg-black-300 md:border-l md:border-black-600 md:bg-fuchsia-400f lg:bg-blue-500f xl:bg-red-500f lg:w-[300px] 2xl:w-[400px] 4xl:w-[500px] 4xl:bg-green-500f md:w-[250px] md:shrink-0"
+        class="relative h-full overflow-auto bg-black-100"
+        :class="[
+            videoStore.showChat || !appStore.isLandscape ? 'md:block' : 'md:hidden',
+            {
+                'md:bg-black-300 md:border-l md:border-black-600 md:bg-fuchsia-400f lg:bg-blue-500f xl:bg-red-500f lg:w-[300px] 2xl:w-[400px] 4xl:w-[500px] 4xl:bg-green-500f md:w-[250px] md:shrink-0':
+                    appStore.isLandscape,
+            },
+        ]"
     >
         <template v-if="!videoStore.messagesLoading">
             <template v-if="videoStore.messages.length">

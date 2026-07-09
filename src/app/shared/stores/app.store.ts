@@ -1,5 +1,6 @@
+import { useWindowSize } from '@vueuse/core';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 export const useAppStore = defineStore('app', () => {
     const isDev = import.meta.env.DEV;
@@ -8,19 +9,26 @@ export const useAppStore = defineStore('app', () => {
     const mainDrawer = ref(false);
     const headerShown = ref(true);
     const menuOpen = ref(false);
+    const { width: windowWidth, height: windowHeight } = useWindowSize();
+    const isLandscape = computed(() => windowWidth.value > windowHeight.value);
 
-    const toggleMenu = () => (menuOpen.value = !menuOpen.value);
-    const closeMenu = () => (menuOpen.value = false);
+    function toggleMenu() {
+        menuOpen.value = !menuOpen.value;
+    }
 
-    const hideHeader = () => {
+    function closeMenu() {
+        menuOpen.value = false;
+    }
+
+    function hideHeader() {
         headerShown.value = false;
         document.documentElement.style.setProperty('--height-header', '0px');
-    };
+    }
 
-    const showHeader = () => {
+    function showHeader() {
         headerShown.value = true;
         document.documentElement.style.setProperty('--height-header', '4rem');
-    };
+    }
 
     return {
         isDev,
@@ -29,6 +37,7 @@ export const useAppStore = defineStore('app', () => {
         mainDrawer,
         loading,
         hasError,
+        isLandscape,
 
         toggleMenu,
         closeMenu,
