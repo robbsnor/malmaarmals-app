@@ -57,12 +57,7 @@ const isLongerThanAYearAgo = computed(() => {
                     {{ categories.join(', ') }}
                 </div>
                 <div v-if="props.showTimeAgo" class="text-muted-more text-md font-medium">
-                    <template v-if="isLongerThanAYearAgo">
-                        {{ date }}
-                    </template>
-                    <template v-else>
-                        {{ formatTimeAgo(new Date(props.video.recorded_at)) }}
-                    </template>
+                    {{ isLongerThanAYearAgo ? date : formatTimeAgo(new Date(props.video.recorded_at)) }}
                 </div>
             </div>
 
