@@ -77,13 +77,10 @@ watch(width, () => {
     <div
         v-if="!videoStore.playerIsMini"
         class="relative h-full overflow-auto bg-black-100"
-        :class="[
-            videoStore.showChat || !appStore.isLandscape ? 'md:block' : 'md:hidden',
-            {
-                'md:bg-black-300 md:border-l md:border-black-600 md:bg-fuchsia-400f lg:bg-blue-500f xl:bg-red-500f lg:w-[300px] 2xl:w-[400px] 4xl:w-[500px] 4xl:bg-green-500f md:w-[250px] md:shrink-0':
-                    appStore.isLandscape,
-            },
-        ]"
+        :class="{
+            'w-[250px] shrink-0 bg-black-300 border-l border-black-600 lg:w-[300px] 2xl:w-[400px] 4xl:w-[500px]':
+                appStore.isLandscape,
+        }"
     >
         <template v-if="!videoStore.messagesLoading">
             <template v-if="videoStore.messages.length">
