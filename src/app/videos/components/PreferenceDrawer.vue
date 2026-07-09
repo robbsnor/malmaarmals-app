@@ -39,7 +39,7 @@ const drawer = ref(false);
             label="Auto Theatre-mode"
             v-model="preferenceStore.autoTheatre"
             description="Go into theatre mode when selecting a stream (video fill height)"
-            class="max-md:hidden!"
+            class="max-lg:hidden!"
         />
 
         <Switch
