@@ -214,7 +214,7 @@ export const useVideoStore = defineStore('video', () => {
 
     watch(currentTimeRounded, (time) => {
         if (time % 5 !== 0) return;
-        historyStore.recordWatch(video.value.id, time);
+        historyStore.upsert(video.value.id, time);
     });
 
     watch(persistedVolume, (v) => {

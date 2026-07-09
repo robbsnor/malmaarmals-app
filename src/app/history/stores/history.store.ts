@@ -39,7 +39,7 @@ export const useHistoryStore = defineStore('history', () => {
         await fetchHistory();
     }
 
-    async function recordWatch(videoId: string, videoTime: number) {
+    async function upsert(videoId: string, videoTime: number) {
         if (videoTime === 0) return;
 
         const historyItem: TablesInsert<'history'> = {
@@ -64,6 +64,6 @@ export const useHistoryStore = defineStore('history', () => {
 
         fetchHistory,
         deleteAll,
-        recordWatch,
+        upsert,
     };
 });

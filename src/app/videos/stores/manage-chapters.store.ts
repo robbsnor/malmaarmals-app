@@ -78,14 +78,17 @@ export const useManageChaptersStore = defineStore('manage-chapters', () => {
         if (error) throw error;
     }
 
-    const save = async () => {
+    async function save() {
         loading.value = true;
 
         await saveCategories();
+
         await deleteExistingChapters();
         await saveChapters();
+
         await videosStore.fetchVideos();
         await playlistsStore.fetchPlaylists();
+
         toast.success('Saved chapters');
 
         loading.value = false;
@@ -93,7 +96,7 @@ export const useManageChaptersStore = defineStore('manage-chapters', () => {
 
         await sleep(500);
         editMode.value = false;
-    };
+    }
 
     // sort chapters by start_s
     watch(
@@ -109,6 +112,7 @@ export const useManageChaptersStore = defineStore('manage-chapters', () => {
         () => videoStore.id,
         () => (editMode.value = false)
     );
+
     return {
         valid,
         loading,
