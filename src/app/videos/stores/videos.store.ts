@@ -9,7 +9,7 @@ export const useVideosStore = defineStore('videos', () => {
     const archiveStore = useArchiveStore();
     const videos = ref<Video[]>([]);
 
-    const rawDuplicates = [2705617403, 2787106351, 2789497459, 2791017025, 2792463526];
+    const rawDuplicates = [2705617403, 2787106351, 2789497459, 2791017025, 2792463526, 2815028259];
     const whatOthersWatchIds = ref([]);
 
     onMounted(async () => {
