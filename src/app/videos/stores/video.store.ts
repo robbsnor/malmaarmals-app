@@ -9,6 +9,7 @@ import {
     useLocalStorage,
     useFullscreen,
     useScroll,
+    useScreenOrientation,
 } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
@@ -25,16 +26,29 @@ export const useVideoStore = defineStore('video', () => {
     const playlistsStore = usePlaylistsStore();
     const videosStore = useVideosStore();
     const historyStore = useHistoryStore();
+    const { width: windowWidth, height: windowHeight } = useWindowSize();
 
     //
     // layout
     //
     const theaterMode = ref(false);
     const showChat = ref(true);
-    const casting = ref(false);
+    const { isFullscreen, enter: enterFullscreen, exit: exitFullscreen, toggle: toggleFullscreen } = useFullscreen();
     const showExtraInfoMobile = ref(false);
     const videoColRef = ref<HTMLElement | null>(null);
     const { y: videoColScrollY } = useScroll(videoColRef, { behavior: 'smooth' });
+    const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
+
+    watch(orientation, (e) => {
+        if (windowWidth.value > 1024) return;
+
+        if (e.includes('landscape')) {
+            theaterMode.value = true;
+            enterFullscreen();
+        } else {
+            exitFullscreen();
+        }
+    });
 
     function videoColScrollToTop() {
         videoColScrollY.value = 0;
@@ -73,6 +87,7 @@ export const useVideoStore = defineStore('video', () => {
     const videoRef = ref<HTMLVideoElement | null>(null);
     const src = ref<string>(null);
     const srcNotFound = ref(false);
+    const casting = ref(false);
     const {
         currentTime,
         duration,
@@ -89,7 +104,6 @@ export const useVideoStore = defineStore('video', () => {
         onPlaybackError,
     } = useMediaControls(videoRef);
     const persistedVolume = useLocalStorage<number>('video_volume', volume.value ?? 1);
-    const { isFullscreen, enter: enterFullscreen, exit: exitFullscreen, toggle: toggleFullscreen } = useFullscreen();
 
     const currentTimeRounded = computed(() => Math.floor(currentTime.value));
     const prettyCurrentTime = computed(() => TimeHelper.formatTime(currentTime.value));

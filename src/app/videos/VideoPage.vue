@@ -18,6 +18,10 @@ onMounted(async () => {
     await init();
 });
 
+onUnmounted(() => {
+    videoStore.playerIsMini = true;
+});
+
 async function init() {
     videoStore.playerIsActive = true;
     videoStore.playerIsMini = false;
@@ -39,10 +43,6 @@ async function init() {
 
 watch(route, async () => {
     await init();
-});
-
-onUnmounted(() => {
-    videoStore.playerIsMini = true;
 });
 </script>
 
