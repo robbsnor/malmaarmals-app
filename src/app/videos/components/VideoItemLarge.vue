@@ -5,6 +5,7 @@ import type { Video } from '../models/video.model';
 import type { Playlist } from '../../playlists/models/playlist.model';
 import VideoItemOptions from './VideoItemOptions.vue';
 import VideoThumbnail from './VideoThumbnail.vue';
+import { DateHelper } from '../../shared/helpers/date.helper.ts';
 
 const props = withDefaults(
     defineProps<{
@@ -25,6 +26,22 @@ const categories = computed(() => {
     const uniqueCats = Array.from(new Set(cats));
     return uniqueCats;
 });
+
+const date = computed(() => {
+    return new Date(props.video.recorded_at).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    });
+});
+
+const isLongerThanAYearAgo = computed(() => {
+    const recordedDate = new Date(props.video.recorded_at);
+    const oneYearAgo = new Date();
+    oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+    oneYearAgo.setMonth(oneYearAgo.getMonth() + 1);
+    return recordedDate < oneYearAgo;
+});
 </script>
 
 <template>
@@ -40,7 +57,12 @@ const categories = computed(() => {
                     {{ categories.join(', ') }}
                 </div>
                 <div v-if="props.showTimeAgo" class="text-muted-more text-md font-medium">
-                    {{ formatTimeAgo(new Date(props.video.recorded_at)) }}
+                    <template v-if="isLongerThanAYearAgo">
+                        {{ date }}
+                    </template>
+                    <template v-else>
+                        {{ formatTimeAgo(new Date(props.video.recorded_at)) }}
+                    </template>
                 </div>
             </div>
 
