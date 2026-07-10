@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { useAuthStore } from '../../auth/stores/auth.store';
-import { useVideoStore } from '../stores/video.store';
-import ExtraInfoItem from './ExtraInfoItem.vue';
-import Message from './Message.vue';
+import { useAuthStore } from '../../../auth/stores/auth.store.ts';
+import { useVideoStore } from '../../stores/video.store.ts';
+import Widget from './Widget.vue';
+import Message from '../Message.vue';
 import { formatTime } from 'vuetify/lib/util/timeUtils.mjs';
 
 const videoStore = useVideoStore();
@@ -60,7 +60,7 @@ const myMessages = computed(() => {
 </script>
 
 <template>
-    <ExtraInfoItem v-if="videoStore.messages.length" title="Chat stats">
+    <Widget v-if="videoStore.messages.length" title="Chat stats">
         <template #actions>
             <v-menu location="start" open-on-click open-delay="0">
                 <template v-slot:activator="{ props }">
@@ -171,5 +171,5 @@ const myMessages = computed(() => {
                 </div>
             </v-tabs-window-item>
         </v-tabs-window>
-    </ExtraInfoItem>
+    </Widget>
 </template>

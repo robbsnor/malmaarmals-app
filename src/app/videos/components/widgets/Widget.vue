@@ -8,10 +8,10 @@ const props = withDefaults(
 </script>
 
 <template>
-    <div class="bg-black-200 border-black-500 overflow-hidden rounded-lg border">
-        <div class="border-black-500 flex items-end justify-between border-b px-4 py-3">
+    <div class="overflow-hidden">
+        <div class="border-black-500 flex items-end justify-between border-b pb-2">
             <div class="text-2xl font-bold">
-                {{ title }}
+                {{ props.title }}
             </div>
             <slot name="actions"></slot>
         </div>

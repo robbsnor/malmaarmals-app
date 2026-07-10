@@ -5,10 +5,8 @@ import { useVideoStore } from '../stores/video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { computed, nextTick, onMounted, ref } from 'vue';
 import VideoInfo from './VideoInfo.vue';
-import ExtraInfoPlaylist from './ExtraInfoPlaylist.vue';
-import ExtraInfoMessages from './ExtraInfoMessages.vue';
-import ExtraInfoChapters from './ExtraInfoChapters.vue';
 import { useAppStore } from '../../shared/stores/app.store.ts';
+import Widgets from './Widgets.vue';
 
 const appStore = useAppStore();
 const videoStore = useVideoStore();
@@ -55,33 +53,7 @@ onMounted(async () => {
                 <Player ref="videoRef" />
             </div>
 
-            <template v-if="!videoStore.playerIsMini">
-                <!-- info -->
-                <VideoInfo
-                    v-if="!appStore.isLandscape || (appStore.isLandscape && !videoStore.theaterMode)"
-                ></VideoInfo>
-
-                <Container v-if="appStore.isLandscape" :padding="false">
-                    <div
-                        class="grid w-full grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-4 p-4 transition-opacity items-start max-md:absolute max-md:overflow-auto lg:gap-8 lg:p-8"
-                    >
-                        <ExtraInfoChapters />
-                        <ExtraInfoPlaylist />
-                        <ExtraInfoMessages />
-                    </div>
-                </Container>
-
-                <!-- <div
-                    :class="
-                        videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0 pointer-events-none'
-                    "
-                    class="max-md:absolute max-md:overflow-auto w-full bg-black-300 transition-opacity"
-                >
-                    <div class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 p-4">
-                        <div v-for="n in 100" :key="n" class="aspect-video bg-black-200 rounded"></div>
-                    </div>
-                </div> -->
-            </template>
+            <Widgets />
         </div>
 
         <Chat />
