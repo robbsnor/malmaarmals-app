@@ -29,9 +29,7 @@ const widgets = [InfoWidget, ChaptersWidget, PlaylistWidget, MessagesWidget];
                 :class="{ 'p-8': appStore.isLandscape }"
             >
                 <template #default="{ item: widget, index }">
-                    <div class="pb-[30px]">
-                        <component :is="widget" />
-                    </div>
+                    <component :is="widget" class="pb-[30px]" />
                 </template>
             </MasonryWall>
 
