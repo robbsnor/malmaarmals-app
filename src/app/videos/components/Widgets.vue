@@ -7,9 +7,12 @@ import { useAppStore } from '../../shared/stores/app.store.ts';
 import { useVideoStore } from '../stores/video.store.ts';
 import VideoInfo from './VideoInfo.vue';
 import InfoWidget from './widgets/InfoWidget.vue';
+import { MasonryWall } from '@yeger/vue-masonry-wall';
 
 const appStore = useAppStore();
 const videoStore = useVideoStore();
+
+const widgets = [InfoWidget, ChaptersWidget, PlaylistWidget, MessagesWidget];
 </script>
 
 <template>
@@ -18,14 +21,28 @@ const videoStore = useVideoStore();
         <VideoInfo v-if="!appStore.isLandscape || (appStore.isLandscape && !videoStore.theaterMode)"></VideoInfo>
 
         <Container v-if="appStore.isLandscape" :padding="false">
-            <div
+            <MasonryWall
+                :items="widgets"
+                :column-width="500"
+                :gap="60"
+                class="p-4"
+                :class="{ 'p-8': appStore.isLandscape }"
+            >
+                <template #default="{ item: widget, index }">
+                    <div class="pb-[30px]">
+                        <component :is="widget" />
+                    </div>
+                </template>
+            </MasonryWall>
+
+            <!-- <div
                 class="grid w-full grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-16 p-4 transition-opacity items-start max-md:absolute max-md:overflow-auto lg:p-8"
             >
                 <InfoWidget />
                 <ChaptersWidget />
                 <PlaylistWidget />
                 <MessagesWidget />
-            </div>
+            </div> -->
         </Container>
 
         <!-- <div

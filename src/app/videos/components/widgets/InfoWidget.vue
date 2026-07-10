@@ -31,13 +31,28 @@ const endTime = computed(() => {
         minute: '2-digit',
     });
 });
+
+const topChatters = computed(() => {
+    const counts = new Map<number, { userId: number; userName: string; count: number; color: string }>();
+
+    for (const msg of videoStore.messages) {
+        const existing = counts.get(msg.user_id);
+        if (existing) {
+            existing.count++;
+        } else {
+            counts.set(msg.user_id, { userId: msg.user_id, userName: msg.user_name, count: 1, color: msg.user_color });
+        }
+    }
+
+    return [...counts.values()].sort((a, b) => b.count - a.count);
+});
 </script>
 
 <template>
     <div class="relative rounded-md overflow-hidden">
-        <div class="absolute h-40 overflow-hidden flex items-center">
-            <img :src="BucketHelper.getThumbnailUrl(videoStore.video.video_id)" alt="" class="w-full aspect-video" />
-            <div class="absolute inset-0 bg-linear-to-b from-black/50 to-black"></div>
+        <div class="absolute h-30 overflow-hidden flex items-center">
+            <img :src="BucketHelper.getThumbnailUrl(videoStore.video.video_id)" alt="" class="w-full" />
+            <div class="absolute inset-0 bg-linear-to-b from-black/80 to-90% to-black-100"></div>
         </div>
 
         <div class="relative px-4">
@@ -49,17 +64,32 @@ const endTime = computed(() => {
             </div>
 
             <div class="pt-4 text-muted">
-                <div class="flex gap-2">
-                    <div class="tfext-white">Messages total:</div>
-                    <div class="fontf-bold text-primary-light">{{ videoStore.messages.length }}</div>
+                <div>
+                    <span class="tfext-white">Messages total: </span>
+                    <span class="font-bold text-primary-light">
+                        {{ videoStore.messagesLoading ? '...' : videoStore.messages.length }}
+                    </span>
                 </div>
-                <div class="flex gap-2">
-                    <div class="tfext-white">New subscribers:</div>
-                    <div class="fontf-bold text-primary-light">{{ videoStore.subCount }}</div>
+
+                <div>
+                    <span class="tfext-white">Unique chatters: </span>
+                    <span class="font-bold text-primary-light">
+                        {{ videoStore.messagesLoading ? '...' : topChatters.length }}
+                    </span>
                 </div>
-                <div class="flex gap-2">
-                    <div class="tfext-white">Gift-subs:</div>
-                    <div class="fontf-bold text-primary-light">{{ videoStore.giftSubs.length }}</div>
+
+                <div>
+                    <span class="tfext-white">New subscribers: </span>
+                    <span class="font-bold text-primary-light">
+                        {{ videoStore.messagesLoading ? '...' : videoStore.subCount }}
+                    </span>
+                </div>
+
+                <div>
+                    <span class="tfext-white">Gift-subs: </span>
+                    <span class="font-bold text-primary-light">
+                        {{ videoStore.messagesLoading ? '...' : videoStore.giftSubs.length }}
+                    </span>
                 </div>
             </div>
         </div>
