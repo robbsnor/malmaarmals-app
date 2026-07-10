@@ -55,3 +55,10 @@ const widgets = [InfoWidget, ChaptersWidget, PlaylistWidget, MessagesWidget];
                 </div> -->
     </template>
 </template>
+
+<style scoped>
+/* hide components that do not render due to v-if'd */
+:deep(.masonry-item:empty) {
+    display: none;
+}
+</style>
