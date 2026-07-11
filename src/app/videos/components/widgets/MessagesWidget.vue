@@ -55,7 +55,13 @@ const myStats = computed(() => {
 const tab = ref(1);
 
 const myMessages = computed(() => {
-    return videoStore.messages.filter((m) => m.user_id === authStore.twitchUserId);
+    return videoStore.messages.filter((m) => {
+        const isMention = m.text.includes(
+            authStore.session.user?.user_metadata?.nickname || authStore.session.user?.user_metadata?.name
+        );
+
+        return m.user_id === authStore.twitchUserId || isMention;
+    });
 });
 </script>
 
@@ -136,7 +142,7 @@ const myMessages = computed(() => {
                             :key="message.message_id"
                             class="flex gap-4 text-muted text-sm py-1.5 items-start"
                         >
-                            <Message :message="message" :highlight-own-message="false" class="grow-1" />
+                            <Message :message="message" :highlight="false" class="grow" />
                             <button
                                 @click="videoStore.currentTime = message.offset_sec"
                                 class="group relative rounded px-1 text-xs font-mono text-muted-more leading-tight pt-1"

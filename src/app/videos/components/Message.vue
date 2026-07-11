@@ -8,10 +8,10 @@ import { LEKKER_SPELEN_USER_ID, useAuthStore } from '../../auth/stores/auth.stor
 const props = withDefaults(
     defineProps<{
         message: Message;
-        highlightOwnMessage?: boolean;
+        highlight?: boolean;
     }>(),
     {
-        highlightOwnMessage: true,
+        highlight: true,
     }
 );
 
@@ -19,6 +19,11 @@ const authStore = useAuthStore();
 
 const isMyMessage = computed(
     () => props.message.user_id === Number(authStore.session.user?.user_metadata?.provider_id)
+);
+const isMention = computed(() =>
+    props.message.text.includes(
+        authStore.session.user?.user_metadata?.nickname || authStore.session.user?.user_metadata?.name
+    )
 );
 const isLekkerSpelen = computed(() => props.message.user_id === LEKKER_SPELEN_USER_ID);
 const isSub = computed(() => props.message.text.includes(`They've subscribed for`));
@@ -29,8 +34,8 @@ const isGifted = computed(() => props.message.text.includes(' gifted a '));
     <div
         :class="{
             'bg-black-300 rounded-sm py-1 -mx-1 px-1 md:bg-black-600 2xl:-mx-2 2xl:px-2':
-                (isMyMessage && props.highlightOwnMessage) || isLekkerSpelen,
-            'bg-gradient-to-r from-white/5 to-white/0 rounded-r p-2! border-l-primary border-l-2 rounded-l-none!':
+                (isMyMessage && props.highlight) || (isMention && props.highlight) || isLekkerSpelen,
+            'bg-linear-to-r from-white/5 to-white/0 rounded-r p-2! border-l-primary border-l-2 rounded-l-none!':
                 isSub || isGifted,
         }"
         class="text-sm"
