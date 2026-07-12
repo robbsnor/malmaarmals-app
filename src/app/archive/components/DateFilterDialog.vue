@@ -10,12 +10,7 @@ const dialog = defineModel<boolean>();
 </script>
 
 <template>
-    <Dialog
-        v-model="dialog"
-        title="Date filters"
-        icon="mdi-calendar-month-outline"
-        description="Options are applied to your current search term."
-    >
+    <Dialog v-model="dialog" title="Date filters" icon="mdi-calendar-month-outline">
         <div class="grid grid-cols-2 gap-4">
             <FormGroup title="Years" class="w-full">
                 <div class="grid grid-cols-2 gap-2">
