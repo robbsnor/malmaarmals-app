@@ -39,7 +39,7 @@ onMounted(async () => {
     >
         <div
             ref="videoColRef"
-            class="scroll-hidden bg-black-100"
+            class="relative scroll-hidden bg-black-100"
             :class="{ 'w-full overflow-auto': appStore.isLandscape }"
         >
             <div
@@ -54,6 +54,10 @@ onMounted(async () => {
             </div>
 
             <Widgets />
+
+            <div class="relative opacity-50">
+                <img class="relative left-4 -bottom-4 w-30" src="/images/painted-emotes/lekkerHoor.png" alt="" />
+            </div>
         </div>
 
         <Chat />
