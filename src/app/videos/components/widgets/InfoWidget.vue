@@ -57,12 +57,12 @@ const topChatters = computed(() => {
         </div>
 
         <div class="relative px-4">
-            <div class="pt-12">
+            <!-- <div class="pt-12">
                 <div class="text-lg font-bold">{{ videoStore.video.title }}</div>
                 <div class="text-muted">{{ videoStore.video.description }}</div>
                 <div class="text-muted">{{ dateRecorded }}</div>
                 <div class="text-muted">{{ statTime }} - {{ endTime }}</div>
-            </div>
+            </div> -->
 
             <div class="pt-4 text-muted">
                 <div>
