@@ -19,7 +19,7 @@ const { height: windowHeight } = useWindowSize();
 const el = useTemplateRef('el');
 // @ts-ignore
 const { top } = useElementBounding(el);
-const newElHeight = computed(() => windowHeight.value - top.value);
+const portraitHeight = computed(() => (appStore.isLandscape ? null : `${windowHeight.value - top.value}px`));
 </script>
 
 <template>
@@ -31,7 +31,7 @@ const newElHeight = computed(() => windowHeight.value - top.value);
             v-if="appStore.isLandscape || videoStore.showExtraInfoMobile"
             ref="el"
             class="bg-black-100"
-            :style="{ height: `${!appStore.isLandscape ? newElHeight : ''} px` }"
+            :style="{ height: portraitHeight }"
             :class="{ 'overflow-auto absolute z-10 w-full': !appStore.isLandscape }"
         >
             <Container :padding="false">
