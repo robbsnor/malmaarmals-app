@@ -45,7 +45,7 @@ const isGifted = computed(() => props.message.text.includes(' gifted a '));
             :key="badge.image_id"
             alt=""
             :src="`https://static-cdn.jtvnw.net/badges/v1/${badge.image_id}/2`"
-            class="inline-block mr-1 h-5"
+            class="inline-block mr-1 h-5 -mt-[2px]"
         />
 
         <span

@@ -5,6 +5,7 @@ import { BucketHelper } from '../../../shared/helpers/bucket.helper.ts';
 import { useVideoStore } from '../../stores/video.store.ts';
 import { DateHelper } from '../../../shared/helpers/date.helper.ts';
 import { formatDate } from '@vueuse/core';
+import { NumberHelper } from '../../../shared/helpers/number.helper.ts';
 
 const videoStore = useVideoStore();
 
@@ -67,28 +68,32 @@ const topChatters = computed(() => {
                 <div>
                     <span class="tfext-white">Messages total: </span>
                     <span class="font-bold text-primary-light">
-                        {{ videoStore.messagesLoading ? '...' : videoStore.messages.length }}
+                        {{
+                            videoStore.messagesLoading ? '...' : NumberHelper.formatWithDots(videoStore.messages.length)
+                        }}
                     </span>
                 </div>
 
                 <div>
                     <span class="tfext-white">Unique chatters: </span>
                     <span class="font-bold text-primary-light">
-                        {{ videoStore.messagesLoading ? '...' : topChatters.length }}
+                        {{ videoStore.messagesLoading ? '...' : NumberHelper.formatWithDots(topChatters.length) }}
                     </span>
                 </div>
 
                 <div>
                     <span class="tfext-white">New subscribers: </span>
                     <span class="font-bold text-primary-light">
-                        {{ videoStore.messagesLoading ? '...' : videoStore.subCount }}
+                        {{ videoStore.messagesLoading ? '...' : NumberHelper.formatWithDots(videoStore.subCount) }}
                     </span>
                 </div>
 
                 <div>
                     <span class="tfext-white">Gift-subs: </span>
                     <span class="font-bold text-primary-light">
-                        {{ videoStore.messagesLoading ? '...' : videoStore.giftSubs.length }}
+                        {{
+                            videoStore.messagesLoading ? '...' : NumberHelper.formatWithDots(videoStore.giftSubs.length)
+                        }}
                     </span>
                 </div>
             </div>
