@@ -63,7 +63,12 @@ watch(
         <v-window v-model="tab" :show-arrows="false" :touch="false">
             <v-window-item>
                 <div v-if="videoStore.chapters.length" class="p-4">
-                    <Chapter v-for="chapter in videoStore.chapters" :key="chapter.id" :chapter="chapter" />
+                    <Chapter
+                        v-for="chapter in videoStore.chapters"
+                        :key="chapter.id"
+                        :chapter="chapter"
+                        @click="manageChaptersStore.showDrawer = false"
+                    />
                 </div>
 
                 <Empty
