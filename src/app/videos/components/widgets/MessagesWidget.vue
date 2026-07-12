@@ -114,9 +114,9 @@ const myMessages = computed(() => {
                     </div>
 
                     <div class="bg-black-400 h-[1px]"></div>
-                    <div v-if="myStats" class="flex justify-between bg-linear-to-b to-primary/10 p-4 py-3">
+                    <div v-if="myStats" class="flex justify-between p-4 py-3">
                         <div>
-                            <span class="text-muted font-bold">{{ myStats.rank }}. </span>
+                            <span class="text-muted font-bold">#{{ myStats.rank }}. </span>
                             <span class="font-bold" :style="{ color: myStats.color }">{{ myStats.userName }}: </span>
                         </div>
 
