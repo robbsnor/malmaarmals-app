@@ -34,7 +34,7 @@ export const useVideoStore = defineStore('video', () => {
     const theaterMode = ref(false);
     const showChat = ref(true);
     const { isFullscreen, enter: enterFullscreen, exit: exitFullscreen, toggle: toggleFullscreen } = useFullscreen();
-    const showExtraInfoMobile = ref(false);
+    const showWidgetsMobile = ref(false);
     const videoColRef = ref<HTMLElement | null>(null);
     const { y: videoColScrollY } = useScroll(videoColRef, { behavior: 'smooth' });
     const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
@@ -320,7 +320,7 @@ export const useVideoStore = defineStore('video', () => {
         theaterMode,
         showChat,
         casting,
-        showExtraInfoMobile,
+        showWidgetsMobile,
         videoColRef,
         videoColScrollToTop,
 

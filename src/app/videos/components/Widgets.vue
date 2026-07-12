@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, useTemplateRef } from 'vue';
+import { computed, useTemplateRef } from 'vue';
 import ChaptersWidget from './widgets/ChaptersWidget.vue';
 import PlaylistWidget from './widgets/PlaylistWidget.vue';
 import MessagesWidget from './widgets/MessagesWidget.vue';
@@ -8,8 +8,7 @@ import { useVideoStore } from '../stores/video.store.ts';
 import VideoInfo from './VideoInfo.vue';
 import InfoWidget from './widgets/InfoWidget.vue';
 import { MasonryWall } from '@yeger/vue-masonry-wall';
-import { useElementSize, useWindowSize, useElementBounding } from '@vueuse/core';
-import { sleep } from '../../shared/helpers/sleep.ts';
+import { useWindowSize, useElementBounding } from '@vueuse/core';
 
 const appStore = useAppStore();
 const videoStore = useVideoStore();
@@ -25,10 +24,9 @@ const portraitHeight = computed(() => (appStore.isLandscape ? null : `${windowHe
 <template>
     <div v-if="!videoStore.playerIsMini" class="relative">
         <VideoInfo v-if="!appStore.isLandscape || (appStore.isLandscape && !videoStore.theaterMode)"></VideoInfo>
-        <!-- <VideoInfo v-if="!videoStore.theaterMode"></VideoInfo> -->
 
         <div
-            v-if="appStore.isLandscape || videoStore.showExtraInfoMobile"
+            v-if="appStore.isLandscape || videoStore.showWidgetsMobile"
             ref="el"
             class="bg-black-100"
             :style="{ height: portraitHeight }"
