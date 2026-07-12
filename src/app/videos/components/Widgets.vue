@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, nextTick, onMounted, ref, useTemplateRef } from 'vue';
 import ChaptersWidget from './widgets/ChaptersWidget.vue';
 import PlaylistWidget from './widgets/PlaylistWidget.vue';
 import MessagesWidget from './widgets/MessagesWidget.vue';
@@ -8,18 +8,32 @@ import { useVideoStore } from '../stores/video.store.ts';
 import VideoInfo from './VideoInfo.vue';
 import InfoWidget from './widgets/InfoWidget.vue';
 import { MasonryWall } from '@yeger/vue-masonry-wall';
+import { useElementSize, useWindowSize, useElementBounding } from '@vueuse/core';
+import { sleep } from '../../shared/helpers/sleep.ts';
 
 const appStore = useAppStore();
 const videoStore = useVideoStore();
 
 const widgets = [InfoWidget, ChaptersWidget, PlaylistWidget, MessagesWidget];
+const { height: windowHeight } = useWindowSize();
+const el = useTemplateRef('el');
+// @ts-ignore
+const { top } = useElementBounding(el);
+const newElHeight = computed(() => windowHeight.value - top.value);
 </script>
 
 <template>
-    <div v-if="!videoStore.playerIsMini">
+    <div v-if="!videoStore.playerIsMini" class="relative">
         <VideoInfo v-if="!appStore.isLandscape || (appStore.isLandscape && !videoStore.theaterMode)"></VideoInfo>
+        <!-- <VideoInfo v-if="!videoStore.theaterMode"></VideoInfo> -->
 
-        <template v-if="appStore.isLandscape">
+        <div
+            v-if="appStore.isLandscape || videoStore.showExtraInfoMobile"
+            ref="el"
+            class="bg-black-100"
+            :style="{ height: `${!appStore.isLandscape ? newElHeight : ''} px` }"
+            :class="{ 'overflow-auto absolute z-10 w-full': !appStore.isLandscape }"
+        >
             <Container :padding="false">
                 <MasonryWall
                     :items="widgets"
@@ -28,36 +42,16 @@ const widgets = [InfoWidget, ChaptersWidget, PlaylistWidget, MessagesWidget];
                     class="p-4"
                     :class="{ 'p-8': appStore.isLandscape }"
                 >
-                    <template #default="{ item: widget, index }">
+                    <template #default="{ item: widget }">
                         <component :is="widget" class="pb-[30px]" />
                     </template>
                 </MasonryWall>
-
-                <!-- <div
-                class="grid w-full grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-16 p-4 transition-opacity items-start max-md:absolute max-md:overflow-auto lg:p-8"
-            >
-                <InfoWidget />
-                <ChaptersWidget />
-                <PlaylistWidget />
-                <MessagesWidget />
-            </div> -->
             </Container>
 
             <div class="relative opacity-50">
                 <img class="relative left-4 -bottom-4 w-30" src="/images/painted-emotes/lekkerHoor.png" alt="" />
             </div>
-        </template>
-
-        <!-- <div
-                    :class="
-                        videoStore.showExtraInfoMobile ? 'max-md:opacity-100' : 'max-md:opacity-0 pointer-events-none'
-                    "
-                    class="max-md:absolute max-md:overflow-auto w-full bg-black-300 transition-opacity"
-                >
-                    <div class="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4 p-4">
-                        <div v-for="n in 100" :key="n" class="aspect-video bg-black-200 rounded"></div>
-                    </div>
-                </div> -->
+        </div>
     </div>
 </template>
 
