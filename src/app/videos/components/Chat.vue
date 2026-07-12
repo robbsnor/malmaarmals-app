@@ -74,6 +74,7 @@ watch(width, () => {
 </script>
 
 <template>
+    <!-- v-if="!videoStore.playerIsMini && (!videoStore.showChat || appStore.isLandscape)" -->
     <div
         v-if="!videoStore.playerIsMini"
         class="relative h-full overflow-auto bg-black-100"

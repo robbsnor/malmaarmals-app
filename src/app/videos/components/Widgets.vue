@@ -16,24 +16,24 @@ const widgets = [InfoWidget, ChaptersWidget, PlaylistWidget, MessagesWidget];
 </script>
 
 <template>
-    <template v-if="!videoStore.playerIsMini">
-        <!-- info -->
+    <div v-if="!videoStore.playerIsMini">
         <VideoInfo v-if="!appStore.isLandscape || (appStore.isLandscape && !videoStore.theaterMode)"></VideoInfo>
 
-        <Container v-if="appStore.isLandscape" :padding="false">
-            <MasonryWall
-                :items="widgets"
-                :column-width="500"
-                :gap="60"
-                class="p-4"
-                :class="{ 'p-8': appStore.isLandscape }"
-            >
-                <template #default="{ item: widget, index }">
-                    <component :is="widget" class="pb-[30px]" />
-                </template>
-            </MasonryWall>
+        <template v-if="appStore.isLandscape">
+            <Container :padding="false">
+                <MasonryWall
+                    :items="widgets"
+                    :column-width="500"
+                    :gap="60"
+                    class="p-4"
+                    :class="{ 'p-8': appStore.isLandscape }"
+                >
+                    <template #default="{ item: widget, index }">
+                        <component :is="widget" class="pb-[30px]" />
+                    </template>
+                </MasonryWall>
 
-            <!-- <div
+                <!-- <div
                 class="grid w-full grid-cols-[repeat(auto-fill,minmax(450px,1fr))] gap-16 p-4 transition-opacity items-start max-md:absolute max-md:overflow-auto lg:p-8"
             >
                 <InfoWidget />
@@ -41,7 +41,12 @@ const widgets = [InfoWidget, ChaptersWidget, PlaylistWidget, MessagesWidget];
                 <PlaylistWidget />
                 <MessagesWidget />
             </div> -->
-        </Container>
+            </Container>
+
+            <div class="relative opacity-50">
+                <img class="relative left-4 -bottom-4 w-30" src="/images/painted-emotes/lekkerHoor.png" alt="" />
+            </div>
+        </template>
 
         <!-- <div
                     :class="
@@ -53,7 +58,7 @@ const widgets = [InfoWidget, ChaptersWidget, PlaylistWidget, MessagesWidget];
                         <div v-for="n in 100" :key="n" class="aspect-video bg-black-200 rounded"></div>
                     </div>
                 </div> -->
-    </template>
+    </div>
 </template>
 
 <style scoped>

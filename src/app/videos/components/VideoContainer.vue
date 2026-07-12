@@ -54,10 +54,6 @@ onMounted(async () => {
             </div>
 
             <Widgets />
-
-            <div class="relative opacity-50">
-                <img class="relative left-4 -bottom-4 w-30" src="/images/painted-emotes/lekkerHoor.png" alt="" />
-            </div>
         </div>
 
         <Chat />
