@@ -7,7 +7,7 @@ import ManageChaptersInstructionsDialog from './ManageChaptersInstructionsDialog
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { onKeyStroke } from '@vueuse/core';
 import { useManageChaptersStore } from '../stores/manage-chapters.store';
-import Chapters from './Chapters.vue';
+import Chapter from './Chapter.vue';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
@@ -62,8 +62,8 @@ watch(
 
         <v-window v-model="tab" :show-arrows="false" :touch="false">
             <v-window-item>
-                <div v-if="videoStore.chapters.length" class="flex flex-col gap-2 p-4">
-                    <Chapters />
+                <div v-if="videoStore.chapters.length" class="p-4">
+                    <Chapter v-for="chapter in videoStore.chapters" :key="chapter.id" :chapter="chapter" />
                 </div>
 
                 <Empty

@@ -51,22 +51,15 @@ const topChatters = computed(() => {
 
 <template>
     <div class="relative rounded-md overflow-hidden">
-        <div class="absolute h-30 overflow-hidden flex items-center">
+        <div class="absolute h-full overflow-hidden flex items-center">
             <img :src="BucketHelper.getThumbnailUrl(videoStore.video.video_id)" alt="" class="w-full" />
             <div class="absolute inset-0 bg-linear-to-b from-black/80 to-90% to-black-100"></div>
         </div>
 
-        <div class="relative px-4">
-            <!-- <div class="pt-12">
-                <div class="text-lg font-bold">{{ videoStore.video.title }}</div>
-                <div class="text-muted">{{ videoStore.video.description }}</div>
-                <div class="text-muted">{{ dateRecorded }}</div>
-                <div class="text-muted">{{ statTime }} - {{ endTime }}</div>
-            </div> -->
-
-            <div class="pt-4 text-muted">
+        <div class="relative p-4">
+            <div class="text-muted">
                 <div>
-                    <span class="tfext-white">Messages total: </span>
+                    <span class="tfext-white">Total messages: </span>
                     <span class="font-bold text-primary-light">
                         {{
                             videoStore.messagesLoading ? '...' : NumberHelper.formatWithDots(videoStore.messages.length)

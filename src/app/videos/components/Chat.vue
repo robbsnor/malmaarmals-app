@@ -76,7 +76,7 @@ watch(width, () => {
 <template>
     <div
         v-if="!videoStore.playerIsMini && (videoStore.showChat || !appStore.isLandscape)"
-        class="fffa relative h-full overflow-auto bg-black-100"
+        class="relative h-full overflow-auto bg-black-100"
         :class="{
             'w-[250px] shrink-0 bg-black-300 border-l border-black-600 lg:w-[300px] 2xl:w-[400px] 4xl:w-[500px]':
                 appStore.isLandscape,
@@ -107,7 +107,7 @@ watch(width, () => {
 
                 <div
                     ref="chatRef"
-                    class="bg-green-800f scroll-hidden flex h-full flex-col gap-1 overflow-auto px-2 py-2 pt-4 2xl:px-4"
+                    class="bg-green-800f scroll-hidden flex h-full flex-col gap-1 overflow-auto px-4 py-2 pt-4 2xl:px-4"
                     @scroll="onScroll"
                 >
                     <Message v-for="message in renderedMessages" :key="message.message_id" :message="message" />
