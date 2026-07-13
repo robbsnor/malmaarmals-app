@@ -115,11 +115,7 @@ function copyId() {
                     </template>
                 </DeleteDialog>
 
-                <v-list-item
-                    prepend-icon="mdi-cancel"
-                    class="text-red-500!"
-                    @click="blacklistVideo(props.video.video_id)"
-                >
+                <v-list-item prepend-icon="mdi-cancel" class="text-red-500!" @click="blacklistVideo()">
                     Blacklist video
                 </v-list-item>
             </v-list>
