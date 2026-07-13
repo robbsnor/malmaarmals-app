@@ -119,7 +119,6 @@ export const useVideosStore = defineStore('videos', () => {
         categoriesList,
         chaptersOverview,
         populairCategories,
-        rawDuplicates,
         whatOthersWatch,
         years,
 
