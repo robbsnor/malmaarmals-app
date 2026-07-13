@@ -41,17 +41,27 @@ async function removeFromPlaylist() {
     }
 }
 
-async function blacklistVideo(id: number) {
+async function blacklistVideo() {
+    const id = props.video.video_id;
+
     // remove from videos table
     const { error: delError } = await supabase.from('videos').delete().eq('video_id', id);
-    if (delError) throw delError;
+    if (delError) {
+        toast.error(delError.message);
+        throw delError;
+    }
 
     // add id to blacklist table
-    const { error: blError } = await supabase.from('videos_blacklist').insert({ video_id: id });
-    if (blError) throw blError;
+    const { error: blError } = await supabase.from('videos_blacklist').insert({ id });
+    if (blError) {
+        toast.error(blError.message);
+        throw blError;
+    }
 
     // refetch videos
     await videosStore.fetchVideos();
+
+    toast.success(`Blacklisted video: ${props.video.title}`);
 }
 
 function copyId() {
@@ -83,6 +93,8 @@ function copyId() {
                     </template>
                 </AddToPlaylistDialog>
 
+                <v-list-item prepend-icon="mdi-content-copy" class="" @click="copyId"> Copy video ID </v-list-item>
+
                 <DeleteDialog
                     v-model="removeDialog"
                     @confirm="removeFromPlaylist"
@@ -103,9 +115,8 @@ function copyId() {
                     </template>
                 </DeleteDialog>
 
-                <v-list-item prepend-icon="mdi-content-copy" class="" @click="copyId"> Copy video ID </v-list-item>
                 <v-list-item
-                    prepend-icon="mdi-trash-can-outline"
+                    prepend-icon="mdi-cancel"
                     class="text-red-500!"
                     @click="blacklistVideo(props.video.video_id)"
                 >

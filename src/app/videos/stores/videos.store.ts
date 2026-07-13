@@ -9,7 +9,6 @@ export const useVideosStore = defineStore('videos', () => {
     const archiveStore = useArchiveStore();
     const videos = ref<Video[]>([]);
 
-    const rawDuplicates = [2705617403, 2787106351, 2789497459, 2791017025, 2792463526, 2815028259];
     const whatOthersWatchIds = ref([]);
 
     onMounted(async () => {
@@ -20,12 +19,10 @@ export const useVideosStore = defineStore('videos', () => {
         const { data, error } = await videosQuery;
         if (error) throw error;
 
-        videos.value = data
-            // .filter((video) => !rawDuplicates.includes(video.video_id))
-            .map((video) => ({
-                ...video,
-                chapters: video.chapters.sort((a, b) => a.start_s - b.start_s),
-            }));
+        videos.value = data.map((video) => ({
+            ...video,
+            chapters: video.chapters.sort((a, b) => a.start_s - b.start_s),
+        }));
     };
 
     async function fetchWhatOthersWatch() {
