@@ -285,12 +285,15 @@ export type Database = {
             };
             videos_blacklist: {
                 Row: {
+                    date: string;
                     id: number;
                 };
                 Insert: {
+                    date?: string;
                     id: number;
                 };
                 Update: {
+                    date?: string;
                     id?: number;
                 };
                 Relationships: [];

@@ -52,7 +52,8 @@ async function blacklistVideo() {
     }
 
     // add id to blacklist table
-    const { error: blError } = await supabase.from('videos_blacklist').insert({ id });
+    const now = new Date();
+    const { error: blError } = await supabase.from('videos_blacklist').insert({ id, date: now.toISOString() });
     if (blError) {
         toast.error(blError.message);
         throw blError;
