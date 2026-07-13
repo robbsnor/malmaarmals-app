@@ -283,6 +283,21 @@ export type Database = {
                 };
                 Relationships: [];
             };
+            videos_blacklist: {
+                Row: {
+                    id: string;
+                    video_id: number;
+                };
+                Insert: {
+                    id?: string;
+                    video_id: number;
+                };
+                Update: {
+                    id?: string;
+                    video_id?: number;
+                };
+                Relationships: [];
+            };
         };
         Views: {
             popular_emotes: {
