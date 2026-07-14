@@ -23,6 +23,7 @@ const playlistsStore = usePlaylistsStore();
 const videosStore = useVideosStore();
 const addDialog = ref(false);
 const removeDialog = ref(false);
+const blacklistDialog = ref(false);
 const { copy } = useClipboard();
 
 async function removeFromPlaylist() {
@@ -100,9 +101,9 @@ function copyId() {
                 <DeleteDialog
                     v-model="removeDialog"
                     @confirm="removeFromPlaylist"
-                    title="Remove video?"
-                    :description="`Are you sure you want to remove &quot;${props.video.title}&quot; from this playlist?`"
-                    :show-body="false"
+                    title="Remove video"
+                    :description="`Are you sure you want to remove this video from the playlist?`"
+                    :show-body="true"
                     confirmText="remove"
                 >
                     <template #activator="activator">
@@ -115,15 +116,19 @@ function copyId() {
                             Remove from playlist
                         </v-list-item>
                     </template>
+
+                    <div class="p-4">
+                        <VideoItem class="pointer-events-none" :video="props.video" :show-options="false" />
+                    </div>
                 </DeleteDialog>
 
                 <DeleteDialog
-                    v-model="removeDialog"
+                    v-model="blacklistDialog"
                     @confirm="blacklistVideo()"
-                    title="Blacklist video?"
+                    title="Blacklist video"
+                    :description="`Are you sure you want to blacklist this video?`"
                     icon="mdi-cancel"
                     :show-body="true"
-                    :description="`Are you sure you want to blacklist &quot;${props.video.title}&quot;?`"
                     confirmText="blacklist"
                 >
                     <template #activator="activator">
