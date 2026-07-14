@@ -9,6 +9,7 @@ import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
 import { toast } from 'vue-sonner';
 import { useClipboard } from '@vueuse/core';
 import { useVideosStore } from '../stores/videos.store.ts';
+import VideoItem from './VideoItem.vue';
 
 const props = withDefaults(
     defineProps<{
@@ -116,9 +117,25 @@ function copyId() {
                     </template>
                 </DeleteDialog>
 
-                <v-list-item prepend-icon="mdi-cancel" class="text-red-500!" @click="blacklistVideo()">
-                    Blacklist video
-                </v-list-item>
+                <DeleteDialog
+                    v-model="removeDialog"
+                    @confirm="blacklistVideo()"
+                    title="Blacklist video?"
+                    icon="mdi-cancel"
+                    :show-body="true"
+                    :description="`Are you sure you want to blacklist &quot;${props.video.title}&quot;?`"
+                    confirmText="blacklist"
+                >
+                    <template #activator="activator">
+                        <v-list-item v-bind="activator.props" prepend-icon="mdi-cancel" class="text-red-500!">
+                            Blacklist video
+                        </v-list-item>
+                    </template>
+
+                    <div class="p-4">
+                        <VideoItem class="pointer-events-none" :video="props.video" :show-options="false" />
+                    </div>
+                </DeleteDialog>
             </v-list>
         </v-menu>
     </Auth>

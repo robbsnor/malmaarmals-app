@@ -16,7 +16,6 @@ const props = withDefaults(
     {
         showOptions: true,
         showTimeAgo: true,
-        responsive: true,
     }
 );
 
