@@ -165,12 +165,29 @@ function toggleTheaterMode() {
                             :size="20"
                             :class="{ hidden: !appStore.isLandscape }"
                         />
+
+                        <Auth>
+                            <PlayerButton
+                                v-if="videoStore.supportsPictureInPicture"
+                                title="Picture-in-picture toggle"
+                                :size="22"
+                                :icon="
+                                    videoStore.isPictureInPicture
+                                        ? 'mdi-picture-in-picture-bottom-right-outline'
+                                        : 'mdi-picture-in-picture-bottom-right'
+                                "
+                                :color="videoStore.isPictureInPicture && 'primary'"
+                                @click="videoStore.togglePictureInPicture()"
+                            />
+                        </Auth>
+
                         <PlayerButton
                             v-if="appStore.isLandscape"
                             @click="toggleTheaterMode()"
                             title="theatre-mode toggle"
                             :icon="videoStore.theaterMode ? 'mdi-dock-bottom' : 'mdi-dock-right'"
                         />
+
                         <ChaptersDrawer />
 
                         <!-- :icon="isFullscreen ? 'mdi-fullscreen-exit' : 'mdi-fullscreen'" -->
