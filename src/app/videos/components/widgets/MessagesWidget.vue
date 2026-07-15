@@ -77,7 +77,7 @@ const myMessages = computed(() => {
 
             <v-tabs-window v-model="tab">
                 <v-tabs-window-item :value="1">
-                    <div class="overflow-auto p-4 py-2">
+                    <div class="overflow-auto pt-4 py-2">
                         <div
                             v-for="(chatter, i) in topChatters.slice(0, topChattersLength)"
                             :key="chatter.userName"
@@ -114,8 +114,8 @@ const myMessages = computed(() => {
                         </div>
                     </div>
 
-                    <div class="bg-black-400 h-[1px]"></div>
-                    <div v-if="myStats" class="flex justify-between p-4 py-3">
+                    <div class="bg-black-500 h-[1px]"></div>
+                    <div v-if="myStats" class="flex justify-between pl-0.5 py-2">
                         <div>
                             <span class="text-muted font-bold">#{{ myStats.rank }}. </span>
                             <span class="font-bold" :style="{ color: myStats.color }">{{ myStats.userName }}: </span>
@@ -137,11 +137,11 @@ const myMessages = computed(() => {
                 </v-tabs-window-item>
 
                 <v-tabs-window-item :value="3">
-                    <div class="p-4 flex flex-col divide-y divide-black-600">
+                    <div class="pt-4 flex flex-col divide-y divide-black-600 overflow-auto max-h-[450px]">
                         <div
                             v-for="message in myMessages"
                             :key="message.message_id"
-                            class="flex gap-4 text-muted text-sm py-1.5 items-start"
+                            class="flex gap-4 text-muted text-sm py-1.5 items-start pr-2"
                         >
                             <Message :message="message" :highlight="false" class="grow" />
                             <button
