@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { nextTick } from 'vue';
+import { sleep } from '../helpers/sleep';
 import type { ConfirmDialogProps } from '../models/dialog.models';
 
 const emits = defineEmits(['confirm', 'cancel']);
@@ -15,8 +17,11 @@ function cancel() {
     dialog.value = false;
 }
 
-function confirm() {
+async function confirm() {
     emits('confirm');
+    await nextTick();
+    if (props.loading) return;
+
     dialog.value = false;
 }
 </script>
