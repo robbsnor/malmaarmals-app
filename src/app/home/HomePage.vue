@@ -20,7 +20,7 @@ TitleHelper.setTitle('home');
         <Playlists />
         <!-- <Stats /> -->
         <WhatOthersWatch />
-        <WeekOverview />
+        <!-- <WeekOverview /> -->
         <PopularCategories />
     </div>
 </template>
