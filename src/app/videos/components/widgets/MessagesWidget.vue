@@ -5,6 +5,7 @@ import { useVideoStore } from '../../stores/video.store.ts';
 import Widget from './Widget.vue';
 import Message from '../Message.vue';
 import { formatTime } from 'vuetify/lib/util/timeUtils.mjs';
+import { randomNumber } from '../../../shared/helpers/randomNumber.ts';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
@@ -67,7 +68,7 @@ const myMessages = computed(() => {
 
 <template>
     <Widget title="Chat stats">
-        <template v-if="videoStore.messages.length">
+        <template v-if="!videoStore.messagesLoading">
             <v-tabs v-model="tab" density="compact" color="primary" grow>
                 <v-tab text="Top chatters" :value="1"></v-tab>
                 <!-- <v-tab text="Top emotes" :value="2"></v-tab> -->
@@ -158,6 +159,16 @@ const myMessages = computed(() => {
             </v-tabs-window>
         </template>
 
-        <div v-else class="p-4 text-muted">Loading...</div>
+        <div v-else class="pt-4 flex flex-col gap-4">
+            <div v-for="i in 8" class="flex gap-4">
+                <Skeleton class="bg-black-400 size-6" />
+                <Skeleton
+                    class="bg-black-400 h-6"
+                    :style="{
+                        width: randomNumber(30, 80) + '%',
+                    }"
+                />
+            </div>
+        </div>
     </Widget>
 </template>
