@@ -5,6 +5,7 @@ import { formatTimeAgo } from '@vueuse/core';
 import VideoItemOptions from './VideoItemOptions.vue';
 import type { Playlist } from '../../playlists/models/playlist.model';
 import VideoThumbnail from './VideoThumbnail.vue';
+import { VideoHelper } from '../helpers/video.helper.ts';
 
 const props = withDefaults(
     defineProps<{
@@ -19,11 +20,7 @@ const props = withDefaults(
     }
 );
 
-const categories = computed(() => {
-    const cats = props.video.chapters.map((chapter) => chapter.category.title);
-    const uniqueCats = Array.from(new Set(cats));
-    return uniqueCats;
-});
+const categories = computed(() => VideoHelper.getUniqueCategories(props.video.chapters));
 </script>
 
 <template>
@@ -34,7 +31,7 @@ const categories = computed(() => {
             <h2 class="font-bold text-md line-clamp-2 leading-snug break-words">
                 {{ props.video.title }}
             </h2>
-            <div v-if="props.video.chapters.length" class="text-muted text-sm font-medium line-clamp-1">
+            <div v-if="categories.length" class="text-muted text-sm font-medium line-clamp-1">
                 {{ categories.join(', ') }}
             </div>
             <div v-if="props.showTimeAgo" class="text-muted-more text-sm font-medium">
