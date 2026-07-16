@@ -260,7 +260,7 @@ export const useVideoStore = defineStore('video', () => {
 
         const foo = points.map((point) => {
             let percentage = Math.round((point / maxValue) * 100);
-            if (percentage < 33) percentage = percentage / 2.5;
+            if (percentage < 33) percentage = percentage / 2;
             return Math.round(percentage);
         });
         console.log(foo);
