@@ -230,8 +230,31 @@ export const useVideoStore = defineStore('video', () => {
     const messages = ref<Message[]>([]);
     const messagesLoading = ref(true);
     const subCount = computed(
-        () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
+        () =>
+            messages.value.filter(
+                (m) =>
+                    m.text.includes(`subscribed at`) ||
+                    m.text.includes('subscribed with') ||
+                    m.text.includes('gifted a') ||
+                    m.text.includes('is gifting')
+            ).length
     );
+
+    const giftSubs = computed(() => {
+        return messages.value
+            .filter((m) => m.text.includes('gifted a') || m.text.includes('is gifting'))
+            .reduce<{ username: string; amount: number }[]>((acc, m) => {
+                const existing = acc.find((item) => item.username === m.user_name);
+                if (existing) {
+                    existing.amount += 1;
+                } else {
+                    acc.push({ username: m.user_name, amount: 1 });
+                }
+                return acc;
+            }, [])
+            .sort((a, b) => b.amount - a.amount);
+    });
+
     const messagesPerPercent = computed(() => {
         const lengthSec = video.value?.length_sec;
         if (!lengthSec || !messages.value.length) return [];
@@ -259,26 +282,11 @@ export const useVideoStore = defineStore('video', () => {
 
         const foo = points.map((point) => {
             let percentage = Math.round((point / maxValue) * 100);
-            if (percentage < 33) percentage = percentage / 2;
+            // if (percentage < 33) percentage = percentage / 2;
             return Math.round(percentage);
         });
         console.log(foo);
         return foo;
-    });
-
-    const giftSubs = computed(() => {
-        return messages.value
-            .filter((m) => m.text.includes('gifted a'))
-            .reduce<{ username: string; amount: number }[]>((acc, m) => {
-                const existing = acc.find((item) => item.username === m.user_name);
-                if (existing) {
-                    existing.amount += 1;
-                } else {
-                    acc.push({ username: m.user_name, amount: 1 });
-                }
-                return acc;
-            }, [])
-            .sort((a, b) => b.amount - a.amount);
     });
 
     async function fetchMessages() {

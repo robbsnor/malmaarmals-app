@@ -27,7 +27,7 @@ export const useVideosStore = defineStore('videos', () => {
 
     async function fetchWhatOthersWatch() {
         const { data, error } = await supabase.functions.invoke('what-others-watch');
-        if (error) throw console.error('Error calling function:', error);
+        if (error) throw error;
 
         whatOthersWatchIds.value = data;
     }

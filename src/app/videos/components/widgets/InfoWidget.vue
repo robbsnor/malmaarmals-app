@@ -77,14 +77,14 @@ const topChatters = computed(() => {
                 <div>
                     <span class="tfext-white">New subscribers: </span>
                     <span class="font-bold text-primary-light">
-                        {{ videoStore.messagesLoading ? '...' : NumberHelper.formatWithDots(videoStore.subCount) }}
+                        ~{{ videoStore.messagesLoading ? '...' : NumberHelper.formatWithDots(videoStore.subCount) }}
                     </span>
                 </div>
 
                 <div>
                     <span class="tfext-white">Gift-subs: </span>
                     <span class="font-bold text-primary-light">
-                        {{
+                        ~{{
                             videoStore.messagesLoading ? '...' : NumberHelper.formatWithDots(videoStore.giftSubs.length)
                         }}
                     </span>

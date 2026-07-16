@@ -21,7 +21,7 @@ const isOldChapter = computed(() => currentTime.value >= props.chapter.end_s);
 const isActiveChapter = computed(
     () => currentTime.value >= props.chapter.start_s && currentTime.value < props.chapter.end_s
 );
-const isLastBit = computed(() => currentTime.value > videoStore.video.length_sec - 60 * 3);
+const isLastBit = computed(() => currentTime.value > videoStore.video.length_sec - 10);
 
 const percentage = computed(() => {
     if (isOldChapter.value) return 100;

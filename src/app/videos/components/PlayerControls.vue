@@ -201,7 +201,7 @@ function toggleTheaterMode() {
                     <Auth>
                         <div
                             v-if="videoStore.messagesPerPercent.length"
-                            class="absolute top-[13.5px] -translate-y-full w-full opacity-30"
+                            class="absolute top-[13.5px] -translate-y-full w-full opacity-30 pointer-events-none"
                         >
                             <v-sparkline
                                 class="-mb-[1px]"
