@@ -159,16 +159,6 @@ function toggleTheaterMode() {
 
                     <div class="relative flex items-center gap-2 -mb-2 z-1">
                         <PlayerButton
-                            title="chat toggle"
-                            @click="videoStore.showChat = !videoStore.showChat"
-                            :icon="videoStore.showChat ? 'mdi-chat' : 'mdi-chat-outline'"
-                            :size="20"
-                            :class="{ hidden: !appStore.isLandscape }"
-                        />
-
-                        <ChaptersDrawer />
-
-                        <PlayerButton
                             v-if="videoStore.supportsPictureInPicture"
                             title="Picture-in-picture toggle"
                             :size="22"
@@ -180,6 +170,16 @@ function toggleTheaterMode() {
                             :color="videoStore.isPictureInPicture ? 'primary' : ''"
                             @click="videoStore.togglePictureInPicture()"
                         />
+
+                        <PlayerButton
+                            title="chat toggle"
+                            @click="videoStore.showChat = !videoStore.showChat"
+                            :icon="videoStore.showChat ? 'mdi-chat' : 'mdi-chat-outline'"
+                            :size="20"
+                            :class="{ hidden: !appStore.isLandscape }"
+                        />
+
+                        <ChaptersDrawer />
 
                         <PlayerButton
                             v-if="appStore.isLandscape"
@@ -198,6 +198,26 @@ function toggleTheaterMode() {
                 </div>
 
                 <div class="relative">
+                    <Auth>
+                        <div
+                            v-if="videoStore.messagesPerPercent.length"
+                            class="absolute top-[13.5px] -translate-y-full w-full opacity-30"
+                        >
+                            <v-sparkline
+                                class="-mb-[1px]"
+                                color="white"
+                                :fill="true"
+                                :padding="0"
+                                :line-width="2"
+                                :smooth="8"
+                                :height="50"
+                                :width="1000"
+                                :model-value="videoStore.messagesPerPercent"
+                            />
+                            <div class="h-1 bg-white"></div>
+                        </div>
+                    </Auth>
+
                     <v-slider
                         v-model="videoStore.currentTime"
                         hide-details="auto"

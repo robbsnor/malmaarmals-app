@@ -13,12 +13,13 @@ import {
 } from '@vueuse/core';
 import { TimeHelper } from '../../shared/helpers/time.helper';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
-import _ from 'lodash';
+import _, { countBy } from 'lodash';
 import { messagesQueryStringSelect, type Message } from '../models/messages.model';
 import { fetchAll } from '../../shared/helpers/supabase-fetch-all.helper';
 import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
 import { useVideosStore } from './videos.store';
 import { useHistoryStore } from '../../history/stores/history.store';
+import Footer from '../../layout/components/Footer.vue';
 
 export const TIME_PRIOR_OFFSET_S = 2;
 
@@ -232,6 +233,39 @@ export const useVideoStore = defineStore('video', () => {
     const subCount = computed(
         () => messages.value.filter((m) => m.text.includes('subscribed') || m.text.includes('gifted a')).length
     );
+    const messagesPerPercent = computed(() => {
+        const lengthSec = video.value?.length_sec;
+        if (!lengthSec || !messages.value.length) return [];
+
+        const pointCount = 120;
+        const points = Array<number>(pointCount).fill(0);
+
+        if (!messages.value.length) return points;
+
+        for (const message of messages.value) {
+            if (!message.text.includes(':emote;')) continue;
+
+            const words = message.text.split(' ');
+            const emoteAmount = words.filter((word) => word.startsWith(':emote;')).length;
+            const messageWeigth = 3;
+            const offsetSec = Number(message.offset_sec);
+            const percent = (offsetSec / lengthSec) * pointCount;
+            const pointIndex = Math.min(pointCount - 1, Math.floor(percent));
+
+            if (pointIndex < 0 || pointIndex >= pointCount) continue;
+            points[pointIndex] += messageWeigth + emoteAmount;
+        }
+
+        const maxValue = Math.max(...points, 1);
+
+        const foo = points.map((point) => {
+            let percentage = Math.round((point / maxValue) * 100);
+            if (percentage < 33) percentage = percentage / 2.5;
+            return Math.round(percentage);
+        });
+        console.log(foo);
+        return foo;
+    });
 
     const giftSubs = computed(() => {
         return messages.value
@@ -380,6 +414,7 @@ export const useVideoStore = defineStore('video', () => {
         messagesLoading,
         subCount,
         giftSubs,
+        messagesPerPercent,
         fetchMessages,
 
         //

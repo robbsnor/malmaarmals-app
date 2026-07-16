@@ -8,7 +8,7 @@ const props = withDefaults(
 </script>
 
 <template>
-    <div class="overflow-hidden">
+    <div>
         <div class="border-black-500 flex items-end justify-between border-b pb-2">
             <div class="text-2xl font-bold">
                 {{ props.title }}
@@ -16,7 +16,7 @@ const props = withDefaults(
             <slot name="actions"></slot>
         </div>
 
-        <div class="max-h-[500px] overflow-auto">
+        <div class="max-h-[500px] overflow-y-auto">
             <slot></slot>
         </div>
     </div>
