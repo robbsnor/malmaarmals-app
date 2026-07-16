@@ -193,7 +193,6 @@ export const useVideoStore = defineStore('video', () => {
 
     watch(idle, (isIdle) => {
         if (!playing.value) return;
-        if (!isIdle) return;
         if (videoColScrollY.value < 120) videoColScrollToTop();
         showControllsAndInfo.value = false;
     });
