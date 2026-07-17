@@ -1,13 +1,15 @@
 <script setup lang="ts">
+import { usePreferenceStore } from '../../shared/stores/preference.store';
 import { useVideoStore } from '../stores/video.store';
 
 const videoStore = useVideoStore();
+const preferenceStore = usePreferenceStore();
 </script>
 
 <template>
     <Auth>
         <div
-            v-if="videoStore.showHypeGraph && videoStore.messagesPerPercent.length"
+            v-if="preferenceStore.showHypeGraph && videoStore.messagesPerPercent.length"
             class="absolute top-[13.5px] -translate-y-full w-full opacity-30 pointer-events-none"
         >
             <v-sparkline
