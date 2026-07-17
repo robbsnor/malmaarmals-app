@@ -19,6 +19,7 @@ import { useManageChaptersStore } from '../stores/manage-chapters.store';
 import Cast from './Cast.vue';
 import ShareButton from './ShareButton.vue';
 import { useAppStore } from '../../shared/stores/app.store.ts';
+import HypeGraph from './HypeGraph.vue';
 
 const appStore = useAppStore();
 const videoStore = useVideoStore();
@@ -198,25 +199,7 @@ function toggleTheaterMode() {
                 </div>
 
                 <div class="relative">
-                    <Auth>
-                        <div
-                            v-if="videoStore.messagesPerPercent.length"
-                            class="absolute top-[13.5px] -translate-y-full w-full opacity-30 pointer-events-none"
-                        >
-                            <v-sparkline
-                                class="-mb-[1px]"
-                                color="white"
-                                :fill="true"
-                                :padding="0"
-                                :line-width="2"
-                                :smooth="8"
-                                :height="50"
-                                :width="1000"
-                                :model-value="videoStore.messagesPerPercent"
-                            />
-                            <div class="h-1 bg-white"></div>
-                        </div>
-                    </Auth>
+                    <HypeGraph />
 
                     <v-slider
                         v-model="videoStore.currentTime"

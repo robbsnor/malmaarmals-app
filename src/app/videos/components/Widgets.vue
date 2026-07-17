@@ -23,33 +23,38 @@ const portraitHeight = computed(() => (appStore.isLandscape ? null : `${windowHe
 
 <template>
     <div v-if="!videoStore.playerIsMini" class="relative">
-        <VideoInfo v-if="!appStore.isLandscape || (appStore.isLandscape && !videoStore.theaterMode)"></VideoInfo>
+        <VideoInfo
+            v-if="!appStore.isLandscape || (appStore.isLandscape && !videoStore.theaterMode)"
+            class="relative z-2"
+        ></VideoInfo>
 
-        <div
-            v-if="appStore.isLandscape || videoStore.showWidgetsMobile"
-            ref="el"
-            class="bg-black-100"
-            :style="{ height: portraitHeight }"
-            :class="{ 'overflow-auto absolute z-10 w-full': !appStore.isLandscape }"
-        >
-            <Container :padding="false">
-                <MasonryWall
-                    :items="widgets"
-                    :column-width="500"
-                    :gap="60"
-                    class="p-4"
-                    :class="{ 'p-8': appStore.isLandscape }"
-                >
-                    <template #default="{ item: widget }">
-                        <component :is="widget" class="pb-[10px]" />
-                    </template>
-                </MasonryWall>
-            </Container>
+        <v-slide-y-transition>
+            <div
+                v-show="appStore.isLandscape || videoStore.showWidgetsMobile"
+                ref="el"
+                class="bg-black-100"
+                :style="{ height: portraitHeight }"
+                :class="{ 'overflow-auto absolute z-1 w-full': !appStore.isLandscape }"
+            >
+                <Container :padding="false">
+                    <MasonryWall
+                        :items="widgets"
+                        :column-width="500"
+                        :gap="60"
+                        class="p-4"
+                        :class="{ 'p-8': appStore.isLandscape }"
+                    >
+                        <template #default="{ item: widget }">
+                            <component :is="widget" class="pb-[10px]" />
+                        </template>
+                    </MasonryWall>
+                </Container>
 
-            <div class="relative opacity-50">
-                <img class="relative left-4 -bottom-4 w-30" src="/images/painted-emotes/lekkerHoor.png" alt="" />
+                <div class="relative opacity-50">
+                    <img class="relative left-4 -bottom-4 w-30" src="/images/painted-emotes/lekkerHoor.png" alt="" />
+                </div>
             </div>
-        </div>
+        </v-slide-y-transition>
     </div>
 </template>
 

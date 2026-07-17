@@ -38,7 +38,7 @@ function copyTitle() {
 
             <v-btn
                 v-if="!appStore.isLandscape"
-                class="transition-all"
+                class="transition-all!"
                 :class="{ 'rotate-180': videoStore.showWidgetsMobile }"
                 variant="text"
                 @click="videoStore.showWidgetsMobile = !videoStore.showWidgetsMobile"
