@@ -28,9 +28,9 @@ const categories = computed(() => {
     >
         <div class="relative transition-all duration-200 group">
             <div
-                v-for="n in 3"
+                v-for="n in 2"
                 :key="n"
-                class="absolute inset-0 rounded-md origin-top transition-all pointer-events-none overflow-hidden"
+                class="absolute inset-0 rounded-md origin-top transition-all pointer-events-none overflow-hidden aspect-video"
                 aria-hidden="true"
                 :class="[
                     n === 1 &&

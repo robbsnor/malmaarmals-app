@@ -30,14 +30,14 @@ const categories = computed(() => {
     >
         <div class="relative transition-all duration-200 group w-36 shrink-0">
             <div
-                v-for="n in 3"
+                v-for="n in 2"
                 :key="n"
-                class="absolute inset-0 rounded-md origin-top transition-all pointer-events-none overflow-hidden"
+                class="absolute inset-0 rounded-md origin-top transition-all pointer-events-none overflow-hidden aspect-video"
                 :src="n"
                 aria-hidden="true"
                 :class="[
-                    n === 1 && '-top-4 scale-90 group-hover:-translate-y-2 bg-black-1500 brightness-20 -z-1',
-                    n === 2 && '-top-2 scale-95 group-hover:-translate-y-1 bg-black-1500 brightness-40 z-0',
+                    n === 1 && '-top-4 scale-90 group-hover:-translate-y-2 bg-black-1500 brightness-20 -z-1 ',
+                    n === 2 && '-top-2 scale-95 group-hover:-translate-y-1 bg-black-1500 brightness-40 z-0 ',
                 ]"
             >
                 <img
