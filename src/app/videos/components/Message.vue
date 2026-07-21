@@ -4,6 +4,7 @@ import type { Tables } from '../../shared/models/database.types';
 import { emotesMap } from '../../shared/data/emotes.data';
 import type { Message } from '../models/messages.model';
 import { LEKKER_SPELEN_USER_ID, useAuthStore } from '../../auth/stores/auth.store';
+import { TwitchHelper } from '../../shared/helpers/twitch.helper';
 
 const props = withDefaults(
     defineProps<{
@@ -44,7 +45,7 @@ const isGifted = computed(() => props.message.text.includes(' gifted a '));
             v-for="badge in props.message.badges"
             :key="badge.image_id"
             alt=""
-            :src="`https://static-cdn.jtvnw.net/badges/v1/${badge.image_id}/2`"
+            :src="TwitchHelper.getBadgeUrl(badge.image_id)"
             class="inline-block mr-1 h-5 -mt-[2px]"
         />
 

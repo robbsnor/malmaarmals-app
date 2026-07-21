@@ -3,6 +3,7 @@ import Widget from './Widget.vue';
 import { useVideoStore } from '../../stores/video.store.ts';
 import { computed } from 'vue';
 import { ColorHelper } from '../../../shared/helpers/color.helper.ts';
+import { TwitchHelper } from '../../../shared/helpers/twitch.helper.ts';
 
 const videoStore = useVideoStore();
 const treshold = 88;
@@ -93,7 +94,7 @@ const teams = computed(() => {
                             v-for="badge in user.badges"
                             :key="badge.image_id"
                             alt=""
-                            :src="`https://static-cdn.jtvnw.net/badges/v1/${badge.image_id}/2`"
+                            :src="TwitchHelper.getBadgeUrl(badge.image_id)"
                             class="inline-block mr-1 h-5 -mt-[2px]"
                         />
                         <span
@@ -114,7 +115,7 @@ const teams = computed(() => {
                             v-for="badge in user.badges"
                             :key="badge.image_id"
                             alt=""
-                            :src="`https://static-cdn.jtvnw.net/badges/v1/${badge.image_id}/2`"
+                            :src="TwitchHelper.getBadgeUrl(badge.image_id)"
                             class="inline-block mr-1 h-5 -mt-[2px]"
                         />
                         <span

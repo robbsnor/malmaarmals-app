@@ -8,4 +8,8 @@ export class TwitchHelper {
 
         return `https://static-cdn.jtvnw.net/ttv-boxart/${id}_IGDB-285x380.jpg`;
     }
+
+    static getBadgeUrl(imageId: string) {
+        return `https://static-cdn.jtvnw.net/badges/v1/${imageId}/2`;
+    }
 }
