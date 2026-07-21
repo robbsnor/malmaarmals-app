@@ -22,19 +22,11 @@ const drawer = ref(false);
                     v-model="preferenceStore.showFloatingEmotes"
                 />
 
-                <Auth>
-                    <Switch
-                        label="Show Hype-Graph"
-                        description="Adds a graph above the timeline. Spikes are based on chat messages and emotes"
-                        v-model="preferenceStore.showHypeGraph"
-                    />
-                    <!-- <Switch
-                    :disabled="!videoStore.showHypeGraph"
-                    :isNested="true"
-                    label="Show on PETER vs TIMON streams"
-                    v-model="foo"
-                /> -->
-                </Auth>
+                <Switch
+                    label="Show Hype-Graph"
+                    description="Adds a graph above the timeline. Spikes are based on chat messages and emotes"
+                    v-model="preferenceStore.showHypeGraph"
+                />
 
                 <Switch hide-details="auto" label="Show Facecam" v-model="preferenceStore.showFacecam">
                     <template #description>
