@@ -255,6 +255,32 @@ export const useVideoStore = defineStore('video', () => {
             .sort((a, b) => b.amount - a.amount);
     });
 
+    const uniqueUsers = computed(() => {
+        const uniqueUsersMap = new Map<
+            number,
+            {
+                user_id: number;
+                user_name: string;
+                user_color?: string;
+                badges: Message['badges'];
+            }
+        >();
+
+        messages.value.forEach(({ user_id, user_name, user_color, badges }) => {
+            if (uniqueUsersMap.has(user_id)) return;
+            uniqueUsersMap.set(user_id, {
+                user_id,
+                user_name,
+                user_color,
+                badges,
+            });
+        });
+
+        return Array.from(uniqueUsersMap.values()).sort((a, b) =>
+            String(a.user_name).localeCompare(String(b.user_name), undefined, { sensitivity: 'base' })
+        );
+    });
+
     const messagesPerPercent = computed(() => {
         const lengthSec = video.value?.length_sec;
         if (!lengthSec || !messages.value.length) return [];
@@ -284,13 +310,10 @@ export const useVideoStore = defineStore('video', () => {
 
         const maxValue = Math.max(...points, 1);
 
-        const foo = points.map((point) => {
+        return points.map((point) => {
             let percentage = Math.round((point / maxValue) * 100);
-            // if (percentage < 33) percentage = percentage / 2;
             return Math.round(percentage);
         });
-        console.log(foo);
-        return foo;
     });
 
     async function fetchMessages() {
@@ -427,6 +450,7 @@ export const useVideoStore = defineStore('video', () => {
         messagesLoading,
         subCount,
         giftSubs,
+        uniqueUsers,
         messagesPerPercent,
         fetchMessages,
 

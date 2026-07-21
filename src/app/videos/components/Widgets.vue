@@ -3,6 +3,7 @@ import { computed, useTemplateRef } from 'vue';
 import ChaptersWidget from './widgets/ChaptersWidget.vue';
 import PlaylistWidget from './widgets/PlaylistWidget.vue';
 import MessagesWidget from './widgets/MessagesWidget.vue';
+import SubsWidget from './widgets/SubsWidget.vue';
 import { useAppStore } from '../../shared/stores/app.store.ts';
 import { useVideoStore } from '../stores/video.store.ts';
 import VideoInfo from './VideoInfo.vue';
@@ -13,7 +14,7 @@ import { useWindowSize, useElementBounding } from '@vueuse/core';
 const appStore = useAppStore();
 const videoStore = useVideoStore();
 
-const widgets = [InfoWidget, ChaptersWidget, PlaylistWidget, MessagesWidget];
+const widgets = [InfoWidget, ChaptersWidget, PlaylistWidget, MessagesWidget, SubsWidget];
 const { height: windowHeight } = useWindowSize();
 const el = useTemplateRef('el');
 // @ts-ignore
