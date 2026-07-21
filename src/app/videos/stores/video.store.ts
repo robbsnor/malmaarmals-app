@@ -266,6 +266,9 @@ export const useVideoStore = defineStore('video', () => {
 
         for (const message of messages.value) {
             if (!message.text.includes(':emote;')) continue;
+            if (message.text.includes(':emote;lekkerDag')) continue;
+            if (message.offset_sec < 60) continue;
+            if (video.value.length_sec - message.offset_sec < 60) continue;
 
             const words = message.text.split(' ');
             const emoteAmount = words.filter((word) => word.startsWith(':emote;')).length;
@@ -275,7 +278,8 @@ export const useVideoStore = defineStore('video', () => {
             const pointIndex = Math.min(pointCount - 1, Math.floor(percent));
 
             if (pointIndex < 0 || pointIndex >= pointCount) continue;
-            points[pointIndex] += messageWeigth + emoteAmount;
+            const score = messageWeigth + emoteAmount;
+            points[pointIndex] += score * score;
         }
 
         const maxValue = Math.max(...points, 1);
