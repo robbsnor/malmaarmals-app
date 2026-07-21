@@ -292,7 +292,7 @@ export const useVideoStore = defineStore('video', () => {
     async function fetchMessages() {
         const videoId = Number(id.value);
 
-        const messagesData = await fetchAll((from, to) =>
+        const { data: messagesData, error: messagesError } = await fetchAll((from, to) =>
             supabase
                 .from('messages')
                 .select(messagesQueryStringSelect)
@@ -300,10 +300,12 @@ export const useVideoStore = defineStore('video', () => {
                 .order('offset_sec', { ascending: true })
                 .range(from, to)
         );
+        if (messagesError) throw messagesError;
 
-        const badgesData = await fetchAll((from, to) =>
+        const { data: badgesData, error: badgesError } = await fetchAll((from, to) =>
             supabase.from('message_twitch_badges').select('user_id, image_id').eq('video_id', videoId).range(from, to)
         );
+        if (badgesError) throw badgesError;
 
         const badgesByUser = badgesData.reduce(
             (acc, badge) => {

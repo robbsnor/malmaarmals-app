@@ -86,7 +86,7 @@ watch(width, () => {
             <template v-if="videoStore.messages.length">
                 <div class="absolute top-4 right-4">
                     <v-btn
-                        icon="mdi-help-circle-outline"
+                        icon="mdi-information-outline"
                         @click="chatInfoDialog = true"
                         size="x-small"
                         variant="tonal"
@@ -95,12 +95,12 @@ watch(width, () => {
                     </v-btn>
                 </div>
 
-                <Dialog v-model="chatInfoDialog" title="Chat info" icon="mdi-help-circle-outline">
+                <Dialog v-model="chatInfoDialog" title="Chat info" icon="mdi-information-outline">
                     <div>
-                        <div class="font-bold">Q: Why do I not see my sub-badge?</div>
                         <div class="text-muted">
-                            A: Not all users that should have a sub-badge, have one displayed. Even on the original
-                            stream replay they are missing. My guess is that Prime subs don't get saved on Twitch VOD's
+                            Some sub-badges can be behind by a few versions, this is because of an estimated calculation
+                            based on your last sub-message. And some sub-badges do not show up because of no recorded
+                            data.
                         </div>
                     </div>
                 </Dialog>

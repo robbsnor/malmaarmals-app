@@ -9,5 +9,5 @@ type MessagesWithoutBadges = QueryData<typeof messagesQuery>;
 type MessageWithoutBadges = MessagesWithoutBadges[number];
 
 export type Message = MessageWithoutBadges & {
-    badges: Array<{ image_id: string }>;
+    badges: { image_id: string }[];
 };
