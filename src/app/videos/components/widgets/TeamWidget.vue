@@ -65,7 +65,7 @@ const teams = computed(() => {
                     </div>
                     <div class="relative z-1">
                         <div>{{ teams.red.percentage }}%</div>
-                        <div class="text-sm font-bold text-black/50">{{ teams.red.users.length }} chatters</div>
+                        <div class="text-sm font-bold text-black-800">{{ teams.red.users.length }} chatters</div>
                     </div>
                 </div>
 
@@ -79,7 +79,7 @@ const teams = computed(() => {
                     </div>
                     <div class="relative z-1">
                         <div>{{ teams.blue.percentage }}%</div>
-                        <div class="text-sm font-bold text-black/50">{{ teams.blue.users.length }} chatters</div>
+                        <div class="text-sm font-bold text-black-800">{{ teams.blue.users.length }} chatters</div>
                     </div>
                 </div>
             </div>
