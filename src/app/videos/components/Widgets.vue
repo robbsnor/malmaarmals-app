@@ -14,7 +14,7 @@ import { useWindowSize, useElementBounding } from '@vueuse/core';
 const appStore = useAppStore();
 const videoStore = useVideoStore();
 
-const widgets = [InfoWidget, ChaptersWidget, PlaylistWidget, MessagesWidget, TeamWidget];
+const widgets = [InfoWidget, ChaptersWidget, PlaylistWidget, TeamWidget, MessagesWidget];
 const { height: windowHeight } = useWindowSize();
 const el = useTemplateRef('el');
 // @ts-ignore

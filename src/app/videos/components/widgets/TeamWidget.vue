@@ -5,7 +5,7 @@ import { computed } from 'vue';
 import { ColorHelper } from '../../../shared/helpers/color.helper.ts';
 
 const videoStore = useVideoStore();
-const treshold = 100;
+const treshold = 88;
 
 function isBlue(hex: string): boolean {
     const rgb = ColorHelper.hexToRgb(hex);
@@ -84,17 +84,16 @@ const teams = computed(() => {
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-4 max-h-80 overflow-auto pt-4">
+            <div class="grid grid-cols-2 gap-4 max-h-[400px] overflow-auto pt-2 mt-2">
                 <div>
                     <div v-for="user in teams.red.users" :key="user.user_id">
-                        <span>
-                            <img
-                                v-for="badge in user.badges"
-                                :key="badge.image_id"
-                                alt=""
-                                :src="`https://static-cdn.jtvnw.net/badges/v1/${badge.image_id}/2`"
-                                class="inline-block mr-1 h-5 -mt-[2px]"
-                        /></span>
+                        <img
+                            v-for="badge in user.badges"
+                            :key="badge.image_id"
+                            alt=""
+                            :src="`https://static-cdn.jtvnw.net/badges/v1/${badge.image_id}/2`"
+                            class="inline-block mr-1 h-5 -mt-[2px]"
+                        />
                         <span
                             :style="{
                                 color: user.user_color || '#2e8b57',
@@ -109,14 +108,13 @@ const teams = computed(() => {
 
                 <div>
                     <div v-for="user in teams.blue.users" :key="user.user_id">
-                        <span>
-                            <img
-                                v-for="badge in user.badges"
-                                :key="badge.image_id"
-                                alt=""
-                                :src="`https://static-cdn.jtvnw.net/badges/v1/${badge.image_id}/2`"
-                                class="inline-block mr-1 h-5 -mt-[2px]"
-                        /></span>
+                        <img
+                            v-for="badge in user.badges"
+                            :key="badge.image_id"
+                            alt=""
+                            :src="`https://static-cdn.jtvnw.net/badges/v1/${badge.image_id}/2`"
+                            class="inline-block mr-1 h-5 -mt-[2px]"
+                        />
                         <span
                             :style="{
                                 color: user.user_color || '#2e8b57',

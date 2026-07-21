@@ -125,10 +125,6 @@ button {
     @apply cursor-pointer;
 }
 
-.scroll-hidden::-webkit-scrollbar {
-    display: none;
-}
-
 /* vuetify overwrites */
 
 /* app */
