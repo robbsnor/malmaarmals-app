@@ -57,29 +57,31 @@ const teams = computed(() => {
         <div v-if="teams" class="pt-4">
             <div class="relative flex rounded-md">
                 <div
-                    class="relative bg-red-500 shrink-0 px-4 py-2 font-bold leading-tight rounded-l-md overflow-hidden"
+                    class="relative bg-red-500 shrink-0 px-4 py-2 rounded-l-md overflow-hidden"
                     :style="{ width: `${teams.red.percentage}%` }"
                 >
-                    <div class="absolute font-bold opacity-8 -top-4 -left-6 leading-tight uppercase text-[100px]">
+                    <div class="absolute font-bold opacity-20 -top-4 -left-6 leading-tight uppercase text-[100px]">
                         peter
                     </div>
                     <div class="relative z-1">
-                        <div>{{ teams.red.percentage }}%</div>
-                        <div class="text-sm font-bold text-black-800">{{ teams.red.users.length }} chatters</div>
+                        <div class="text-xl leading-tight font-bold">{{ teams.red.percentage }}%</div>
+                        <div class="text-sm leading-tight font-bold text-black-800">
+                            {{ teams.red.users.length }} chatters
+                        </div>
                     </div>
                 </div>
 
                 <div class="absolute w-[4px] rounded-full -translate-x-1/2 -top-2 -bottom-2 bg-white/75 left-1/2"></div>
 
-                <div
-                    class="relative bg-blue-500 grow shrink-0 px-4 py-2 font-bold leading-tight rounded-r-md overflow-hidden"
-                >
-                    <div class="absolute font-bold opacity-8 -top-4 -left-6 leading-tight uppercase text-[100px]">
+                <div class="relative bg-blue-500 grow shrink-0 px-4 py-2 rounded-r-md overflow-hidden">
+                    <div class="absolute font-bold opacity-20 -top-4 -left-6 leading-tight uppercase text-[100px]">
                         timon
                     </div>
                     <div class="relative z-1">
-                        <div>{{ teams.blue.percentage }}%</div>
-                        <div class="text-sm font-bold text-black-800">{{ teams.blue.users.length }} chatters</div>
+                        <div class="text-xl leading-tight font-bold">{{ teams.blue.percentage }}%</div>
+                        <div class="text-sm leading-tight font-bold text-black-800">
+                            {{ teams.blue.users.length }} chatters
+                        </div>
                     </div>
                 </div>
             </div>
