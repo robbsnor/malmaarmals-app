@@ -1,38 +1,14 @@
 <script setup lang="ts">
 import Widget from './Widget.vue';
 import { useVideoStore } from '../../stores/video.store.ts';
-import VideoItem from '../VideoItem.vue';
 import { computed } from 'vue';
-import type { Message } from '../../models/messages.model.ts';
+import { ColorHelper } from '../../../shared/helpers/color.helper.ts';
 
 const videoStore = useVideoStore();
 const treshold = 100;
 
-function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
-    const cleaned = hex.replace('#', '').trim();
-
-    // Support shorthand hex (#f00 -> #ff0000)
-    const fullHex =
-        cleaned.length === 3
-            ? cleaned
-                  .split('')
-                  .map((c) => c + c)
-                  .join('')
-            : cleaned;
-
-    if (!/^[0-9a-fA-F]{6}$/.test(fullHex)) {
-        return null;
-    }
-
-    const r = parseInt(fullHex.substring(0, 2), 16);
-    const g = parseInt(fullHex.substring(2, 4), 16);
-    const b = parseInt(fullHex.substring(4, 6), 16);
-
-    return { r, g, b };
-}
-
 function isBlue(hex: string): boolean {
-    const rgb = hexToRgb(hex);
+    const rgb = ColorHelper.hexToRgb(hex);
     if (!rgb) return false;
 
     const { r, g, b } = rgb;
@@ -41,13 +17,14 @@ function isBlue(hex: string): boolean {
 }
 
 function isRed(hex: string): boolean {
-    const rgb = hexToRgb(hex);
+    const rgb = ColorHelper.hexToRgb(hex);
     if (!rgb) return false;
 
     const { r, g, b } = rgb;
     // Red channel clearly dominant over both green and blue
     return r > g + treshold && r > b + treshold;
 }
+
 const teams = computed(() => {
     if (!videoStore.uniqueUsers.length) return;
     let redUsers = [];
@@ -76,18 +53,39 @@ const teams = computed(() => {
 </script>
 
 <template>
-    <Widget title="Teams">
-        <div v-if="teams" class="pt-4 flex flex-col gap-4">
-            <div class="flex rounded-md overflow-hidden">
-                <div class="bg-red-500 shrink-0 p-4" :style="{ width: `${teams.red.percentage}%` }">
-                    {{ teams.red.percentage }}%
+    <Widget title="Team Red VS Blue">
+        <div v-if="teams" class="pt-4">
+            <div class="relative flex rounded-md">
+                <div
+                    class="relative bg-red-500 shrink-0 px-4 py-2 font-bold leading-tight rounded-l-md overflow-hidden"
+                    :style="{ width: `${teams.red.percentage}%` }"
+                >
+                    <div class="absolute font-bold opacity-8 -top-4 -left-6 leading-tight uppercase text-[100px]">
+                        peter
+                    </div>
+                    <div class="relative z-1">
+                        <div>{{ teams.red.percentage }}%</div>
+                        <div class="text-sm font-bold text-black/50">{{ teams.red.users.length }} chatters</div>
+                    </div>
                 </div>
-                <div class="bg-blue-500 w-full shrink-0 p-4">{{ teams.blue.percentage }}%</div>
+
+                <div class="absolute w-[4px] rounded-full -translate-x-1/2 -top-2 -bottom-2 bg-white/75 left-1/2"></div>
+
+                <div
+                    class="relative bg-blue-500 grow shrink-0 px-4 py-2 font-bold leading-tight rounded-r-md overflow-hidden"
+                >
+                    <div class="absolute font-bold opacity-8 -top-4 -left-6 leading-tight uppercase text-[100px]">
+                        timon
+                    </div>
+                    <div class="relative z-1">
+                        <div>{{ teams.blue.percentage }}%</div>
+                        <div class="text-sm font-bold text-black/50">{{ teams.blue.users.length }} chatters</div>
+                    </div>
+                </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-4 max-h-80 overflow-auto">
+            <div class="grid grid-cols-2 gap-4 max-h-80 overflow-auto pt-4">
                 <div>
-                    {{ teams.red.users.length }}
                     <div v-for="user in teams.red.users" :key="user.user_id">
                         <span>
                             <img
@@ -110,7 +108,6 @@ const teams = computed(() => {
                 </div>
 
                 <div>
-                    {{ teams.blue.users.length }}
                     <div v-for="user in teams.blue.users" :key="user.user_id">
                         <span>
                             <img

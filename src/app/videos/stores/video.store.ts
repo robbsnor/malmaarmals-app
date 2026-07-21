@@ -61,6 +61,9 @@ export const useVideoStore = defineStore('video', () => {
     const id = ref<number>();
     const video = computed(() => videosStore.videos.find((v) => v.video_id === id.value));
     const chapters = computed(() => video.value?.chapters);
+    const isPeterVsTimon = computed(() =>
+        ['peter vs timon', 'peter vs.timon'].some((match) => video.value?.title.toLocaleLowerCase().includes(match))
+    );
 
     async function init(videoId: number, _playlistId?: string) {
         reset();
@@ -405,6 +408,7 @@ export const useVideoStore = defineStore('video', () => {
         src,
         srcNotFound,
         chapters,
+        isPeterVsTimon,
         init,
         reset,
         setVideoRef,

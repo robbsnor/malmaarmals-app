@@ -29,10 +29,9 @@ function copyTitle() {
     >
         <template v-if="videoStore.video">
             <div>
-                <div class="text-lg font-bold">
-                    {{ videoStore.video.title }}
-                </div>
+                <div class="text-lg font-bold">{{ videoStore.video.title }}</div>
 
+                <div>{{ videoStore.isPeterVsTimon }}</div>
                 <div class="text-muted">{{ date }}</div>
             </div>
 
