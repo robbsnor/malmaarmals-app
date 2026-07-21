@@ -136,13 +136,13 @@ const teams = computed(() => {
 
         <div v-else class="pt-4 flex flex-col gap-4">
             <div class="flex gap-4">
-                <Skeleton class="h-14 w-2/3" />
-                <Skeleton class="h-14 grow" />
+                <Skeleton class="bg-black-400 h-14 w-2/3" />
+                <Skeleton class="bg-black-400 h-14 grow" />
             </div>
 
             <div class="grid grid-cols-2 gap-4">
                 <div v-for="i in 2" class="flex flex-col gap-4" :key="i">
-                    <Skeleton v-for="j in 8" class="h-6" :key="j" />
+                    <Skeleton v-for="j in 6" class="bg-black-400 h-6" :key="j" />
                 </div>
             </div>
         </div>
