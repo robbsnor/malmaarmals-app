@@ -53,7 +53,7 @@ const teams = computed(() => {
 </script>
 
 <template>
-    <Widget title="Team Red VS Blue">
+    <Widget title="PETER vs TIMON">
         <div v-if="teams" class="pt-4">
             <div class="relative flex rounded-md">
                 <div
