@@ -91,32 +91,6 @@ const handleClick = async (item: any) => {
                 <p class="text-muted">Log in with Twitch to start watching streams</p>
                 <SignInButton />
             </div>
-
-            <!-- <div v-if="authStore.isSubbed" class="p-4 mt-4 bg-green-300/10 border border-green-300/20 rounded-md">
-                <div class="flex gap-4 pb-2">
-                    <v-icon color="green" icon="mdi-cash-100" class="mr-1"></v-icon>
-                    <div>
-                        <div class="text-xl font-bold">Subscribed!</div>
-                        <div class="text-muted">You are subscribed to Lekker Spelen and can view streams.</div>
-                    </div>
-                </div>
-
-                <v-btn class="w-full" variant="tonal" color="green" target="_blank"> Watch streams </v-btn>
-            </div>
-
-            <div v-else class="p-4 mt-4 bg-orange-300/10 border border-orange-300/20 rounded-md">
-                <div class="flex gap-4 pb-2">
-                    <v-icon color="orange" icon="mdi-cash-100" class="mr-1"></v-icon>
-                    <div>
-                        <div class="text-xl font-bold">Not subscribed.</div>
-                        <div class="text-muted">You need to be subscribed to Lekker Spelen to watch streams.</div>
-                    </div>
-                </div>
-
-                <v-btn class="w-full" variant="tonal" color="primary" target="_blank" prepend-icon="mdi-twitch">
-                    Subscribe
-                </v-btn>
-            </div>  -->
         </Container>
 
         <Section v-if="authStore.session" title="History" width="920px">
@@ -178,6 +152,10 @@ const handleClick = async (item: any) => {
                     </div>
                 </div>
             </div>
+        </Container>
+
+        <Container>
+            <PWAInstallButton />
         </Container>
     </div>
 </template>
