@@ -11,7 +11,7 @@ function onCreateSuccess() {
 </script>
 
 <template>
-    <v-btn v-auth icon="mdi-plus" class="rounded!" size="small" color="primary" variant="tonal" @click="dialog = true">
+    <v-btn v-admin icon="mdi-plus" class="rounded!" size="small" color="primary" variant="tonal" @click="dialog = true">
     </v-btn>
 
     <Dialog v-model="dialog" icon="mdi-plus" title="Create playlist">

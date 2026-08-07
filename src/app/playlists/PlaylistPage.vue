@@ -34,7 +34,7 @@ const editDialog = ref(false);
                 <div class="flex justify-between gap-4 p-4">
                     <v-btn :to="{ name: 'playlists' }" variant="text" prependIcon="mdi-chevron-left"> Playlists </v-btn>
 
-                    <div v-auth class="flex gap-4">
+                    <div v-admin class="flex gap-4">
                         <v-btn
                             icon="mdi-trash-can-outline"
                             color="error"

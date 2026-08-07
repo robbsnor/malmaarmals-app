@@ -50,7 +50,7 @@ function copyId() {
 </script>
 
 <template>
-    <Auth>
+    <Admin>
         <v-menu location="bottom end">
             <template #activator="{ props }">
                 <v-btn
@@ -105,5 +105,5 @@ function copyId() {
         </v-menu>
 
         <BlacklistDialog v-model="blacklistDialog" :video="props.video" />
-    </Auth>
+    </Admin>
 </template>

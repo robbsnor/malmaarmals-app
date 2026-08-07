@@ -59,7 +59,7 @@ async function save() {
 <template>
     <v-btn
         v-if="playlistsStore.playlists.length"
-        v-auth
+        v-admin
         icon="mdi-sort-variant"
         class="rounded!"
         size="small"

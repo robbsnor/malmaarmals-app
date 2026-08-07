@@ -1,7 +1,7 @@
 import { useAuthStore } from '../../auth/stores/auth.store';
 import type { Directive } from 'vue';
 
-export const auth: Directive<HTMLElement> = {
+export const admin: Directive<HTMLElement> = {
     mounted(el) {
         const authStore = useAuthStore();
 

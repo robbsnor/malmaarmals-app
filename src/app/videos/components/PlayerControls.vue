@@ -90,14 +90,14 @@ function toggleTheaterMode() {
                 <PlayerButton @click="goBack()" icon="mdi-chevron-down" />
 
                 <div class="flex items-center gap-1">
-                    <Auth>
+                    <Admin>
                         <PlayerButton icon="mdi-skip-previous" @click="goToPreviousVideo()" />
                         <PlayerButton icon="mdi-skip-next" @click="goToNextVideo()" />
-                    </Auth>
+                    </Admin>
 
                     <ShareButton />
 
-                    <PlayerButton v-auth @click="addToPlaylistDialog = true" :size="24" icon="mdi-plus" />
+                    <PlayerButton v-admin @click="addToPlaylistDialog = true" :size="24" icon="mdi-plus" />
                     <AddToPlaylistDialog v-model="addToPlaylistDialog" :video="videoStore.video" />
 
                     <Cast />

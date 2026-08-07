@@ -7,8 +7,8 @@ import { Toaster } from 'vue-sonner';
 import 'vue-sonner/style.css';
 
 // components
+import Admin from './app/shared/components/Admin.vue';
 import Alert from './app/shared/components/Alert.vue';
-import Auth from './app/shared/components/Auth.vue';
 import BigCheckbox from './app/shared/components/BigCheckbox.vue';
 import Card from './app/shared/components/Card.vue';
 import ConfirmDialog from './app/shared/components/ConfirmDialog.vue';
@@ -35,8 +35,8 @@ import Switch from './app/shared/components/Switch.vue';
 import Thumbnail from './app/shared/components/Thumbnail.vue';
 
 // directives
+import { admin } from './app/shared/directives/admin.directive.ts';
 import { visible } from './app/shared/directives/visible.directive';
-import { auth } from './app/shared/directives/auth.directive';
 
 // vuetify
 import { vuetify } from './vuetify.config';
@@ -50,8 +50,8 @@ pinia.use(piniaPluginPersistedstate);
 
 // components
 app.component('VueDraggable', VueDraggable);
+app.component('Admin', Admin);
 app.component('Alert', Alert);
-app.component('Auth', Auth);
 app.component('BigCheckbox', BigCheckbox);
 app.component('Card', Card);
 app.component('ConfirmDialog', ConfirmDialog);
@@ -78,13 +78,13 @@ app.component('Switch', Switch);
 app.component('Thumbnail', Thumbnail);
 
 // directives
+app.directive('admin', admin);
 app.directive('visible', visible);
-app.directive('auth', auth);
 
 // plugins
+app.use(autoAnimatePlugin);
+app.use(pinia);
 app.use(router);
 app.use(vuetify);
-app.use(pinia);
-app.use(autoAnimatePlugin);
 
 app.mount('#app');

@@ -48,7 +48,7 @@ watch(
             <v-btn
                 v-if="!manageChaptersStore.editMode && videoStore.chapters.length"
                 @click="manageChaptersStore.editMode = true"
-                v-auth
+                v-admin
                 append-icon="mdi-pencil"
                 variant="tonal"
                 size="small"
@@ -79,7 +79,7 @@ watch(
                 >
                     <div class="flex flex-col gap-4">
                         <v-btn
-                            v-auth
+                            v-admin
                             @click="
                                 () => {
                                     manageChaptersStore.editMode = true;
