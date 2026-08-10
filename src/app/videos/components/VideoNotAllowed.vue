@@ -17,7 +17,7 @@ function refresh() {
         class="z-video-not-allowed max-lg:fixed max-lg:inset-0 flex flex-col gap-4 p-4 md:flex-row w-full h-available bg-black-100 overflow-hidden"
     >
         <div class="flex flex-col gap-4 w-full md:flex-row">
-            <Skeleton :pulse="false" class="aspect-video w-full md:aspect-auto"></Skeleton>
+            <Skeleton :pulse="false" class="aspect-video w-full h-full md:aspect-auto"></Skeleton>
 
             <div class="flex flex-col gap-3 md:w-[350px] overflow-hidden rounded-md">
                 <div v-for="n in 50" :key="n">
