@@ -64,7 +64,12 @@ const isGifted = computed(() => props.message.text.includes(' gifted a '));
             <template v-for="word in message.text.split(' ')" :key="word">
                 <Emote v-if="word.startsWith(':emote')" :emoteString="word" />
                 <b v-else-if="word.startsWith('@')">{{ word }}</b>
-                <a v-else-if="word.startsWith('http') || word.startsWith('https')" :href="word" target="_blank">
+                <a
+                    v-else-if="word.startsWith('http') || word.startsWith('https')"
+                    :href="word"
+                    target="_blank"
+                    class="link break-all"
+                >
                     {{ word }}
                 </a>
                 <b v-else-if="isSub && word === 'months'">{{ word }}</b>
