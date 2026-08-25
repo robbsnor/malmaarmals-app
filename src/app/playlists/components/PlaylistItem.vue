@@ -58,7 +58,7 @@ const categories = computed(() => {
             <h2 class="font-bold text-md">{{ playlist.title }}</h2>
             <div class="text-muted text-sm font-medium">{{ playlist.videos.length }} Videos</div>
 
-            <div v-if="categories.length" class="text-muted text-md font-medium line-clamp-2">
+            <div v-if="categories.length" class="text-muted text-md font-medium line-clamp-1">
                 {{ categories.join(', ') }}
             </div>
         </div>
