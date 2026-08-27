@@ -6,7 +6,7 @@ const { isInstalled, canInstall, promptInstall } = usePwaInstall();
 
 <template>
     <Admin>
-        <div class="flex gap-4 p-4 border border-black-600 rounded-md bg-black-100">
+        <!-- <div class="flex gap-4 p-4 border border-black-600 rounded-md bg-black-100">
             <div
                 class="bg-black-200 p-2 rounded-xl border border-black-600 aspect-square w-8f flex items-center justify-center shrink-0"
             >
@@ -28,6 +28,6 @@ const { isInstalled, canInstall, promptInstall } = usePwaInstall();
         <div>
             <div>isInstalled: {{ isInstalled }}</div>
             <div>canInstall: {{ canInstall }}</div>
-        </div>
+        </div> -->
     </Admin>
 </template>
