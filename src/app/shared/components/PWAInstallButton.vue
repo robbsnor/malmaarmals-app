@@ -1,12 +1,31 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
 import { usePwaInstall } from '../composables/usePWAInstall.composable';
 
-const { isInstalled, canInstall, promptInstall } = usePwaInstall();
+let installPrompt = null;
+let isInstalled = ref(false);
+
+onMounted(() => {
+    console.log('mounted');
+    window.addEventListener('beforeinstallprompt', (event) => {
+        event.preventDefault();
+        installPrompt = event;
+        isInstalled.value = true;
+    });
+});
+
+function install() {
+    installPrompt.prompt();
+}
+
+window.addEventListener('appinstalled', () => {
+    isInstalled.value = true;
+});
 </script>
 
 <template>
     <Admin>
-        <!-- <div class="flex gap-4 p-4 border border-black-600 rounded-md bg-black-100">
+        <div class="flex gap-4 p-4 border border-black-600 rounded-md bg-black-100">
             <div
                 class="bg-black-200 p-2 rounded-xl border border-black-600 aspect-square w-8f flex items-center justify-center shrink-0"
             >
@@ -23,11 +42,11 @@ const { isInstalled, canInstall, promptInstall } = usePwaInstall();
             </div>
         </div>
 
-        <v-btn @click="promptInstall()">install</v-btn>
+        <v-btn @click="install()">install</v-btn>
 
         <div>
             <div>isInstalled: {{ isInstalled }}</div>
-            <div>canInstall: {{ canInstall }}</div>
-        </div> -->
+            <div>installPrompt: {{ installPrompt }}</div>
+        </div>
     </Admin>
 </template>
