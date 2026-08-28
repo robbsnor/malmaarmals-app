@@ -154,7 +154,7 @@ const handleClick = async (item: any) => {
             </div>
         </Container>
 
-        <Container>
+        <Container width="920px">
             <PWAInstallButton />
         </Container>
     </div>
