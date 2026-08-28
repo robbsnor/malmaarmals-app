@@ -2,25 +2,28 @@
 import { onMounted, ref } from 'vue';
 import { usePwaInstall } from '../composables/usePWAInstall.composable';
 
-let installPrompt = null;
+let installPrompt = ref(null);
 let isInstalled = ref(false);
 
 onMounted(() => {
     console.log('mounted');
     window.addEventListener('beforeinstallprompt', (event) => {
+        console.log('event beforeinstallprompt');
         event.preventDefault();
-        installPrompt = event;
+        installPrompt.value = event;
+        isInstalled.value = true;
+    });
+
+    window.addEventListener('appinstalled', () => {
+        console.log('event appinstalled');
         isInstalled.value = true;
     });
 });
 
 function install() {
-    installPrompt.prompt();
+    console.log(installPrompt.value);
+    installPrompt.value.prompt();
 }
-
-window.addEventListener('appinstalled', () => {
-    isInstalled.value = true;
-});
 </script>
 
 <template>
