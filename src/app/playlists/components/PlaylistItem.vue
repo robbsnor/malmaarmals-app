@@ -42,7 +42,7 @@ const categories = computed(() => {
             >
                 <img
                     v-if="n < props.playlist.videos.length"
-                    :src="BucketHelper.getThumbnailUrl(Number(props.playlist.videos?.[n]?.video_id))"
+                    :src="BucketHelper.getThumbnailUrl(Number(props.playlist.videos?.[0]?.video_id))"
                     alt=""
                     class="cover w-full h-full"
                 />

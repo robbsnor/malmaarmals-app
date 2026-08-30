@@ -21,12 +21,11 @@ const categories = computed(() => {
 </script>
 
 <template>
-    <RouterLink
-        v-if="lgAndUp"
-        :to="{ name: 'playlist', params: { id: props.playlist.id } }"
-        class="relative transition-all duration-200 mt-6"
-    >
-        <div class="relative transition-all duration-200 group">
+    <div v-if="lgAndUp" class="relative transition-all duration-200 mt-6">
+        <RouterLink
+            :to="{ name: 'playlist', params: { id: props.playlist.id } }"
+            class="relative transition-all duration-200 group"
+        >
             <div
                 v-for="n in 2"
                 :key="n"
@@ -40,7 +39,7 @@ const categories = computed(() => {
             >
                 <img
                     v-if="n < props.playlist.videos.length"
-                    :src="BucketHelper.getThumbnailUrl(Number(props.playlist.videos?.[n]?.video_id))"
+                    :src="BucketHelper.getThumbnailUrl(Number(props.playlist.videos?.[0]?.video_id))"
                     alt=""
                     class="cover w-full h-full"
                 />
@@ -50,7 +49,7 @@ const categories = computed(() => {
                 :src="BucketHelper.getThumbnailUrl(Number(props.playlist.videos?.[0]?.video_id))"
                 icon="mdi-playlist-play"
             />
-        </div>
+        </RouterLink>
 
         <div>
             <h2 class="font-bold text-lg pt-2 line-clamp-2 leading-tight">
@@ -61,5 +60,5 @@ const categories = computed(() => {
             </div>
             <div class="text-muted-more text-md font-medium">{{ props.playlist.videos.length }} Videos</div>
         </div>
-    </RouterLink>
+    </div>
 </template>
