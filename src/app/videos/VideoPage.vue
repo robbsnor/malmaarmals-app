@@ -31,11 +31,13 @@ async function init() {
 
     const isSameVideoId = videoId === videoStore.id;
     const isSamePlaylistId = playlistId === videoStore.playlistId;
-    if (isSameVideoId && isSamePlaylistId) return;
+
     if (!authStore.isSubbed) return;
 
     if (preferenceStore.autoFullscreen) videoStore.enterFullscreen();
     if (preferenceStore.autoTheatre) videoStore.theaterMode = true;
+
+    if (isSameVideoId && isSamePlaylistId) return;
 
     await videoStore.init(videoId, playlistId);
     TitleHelper.setTitle(videoStore.video.title);

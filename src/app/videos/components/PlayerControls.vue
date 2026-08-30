@@ -155,7 +155,9 @@ function toggleTheaterMode() {
                         /
                         <div ref="durationEl" class="text-right">{{ videoStore.prettyDuration }}</div>
 
-                        <VolumeControl />
+                        <div class="hidden sm:block">
+                            <VolumeControl />
+                        </div>
                     </div>
 
                     <div class="relative flex items-center gap-2 -mb-2 z-1">

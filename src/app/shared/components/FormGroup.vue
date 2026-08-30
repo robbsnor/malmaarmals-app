@@ -11,7 +11,7 @@ const props = withDefaults(
 
 <template>
     <div>
-        <div v-if="props.title" class="text-xl font-bold fborder-l-2 border-primary-darker pl-2 -ml-2">
+        <div v-if="props.title" class="text-xl font-bold pb-2">
             {{ props.title }}
         </div>
         <slot></slot>
