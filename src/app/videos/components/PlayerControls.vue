@@ -20,6 +20,7 @@ import Cast from './Cast.vue';
 import ShareButton from './ShareButton.vue';
 import { useAppStore } from '../../shared/stores/app.store.ts';
 import HypeGraph from './HypeGraph.vue';
+import TimeJumpDialog from './TimeJumpDialog.vue';
 
 const appStore = useAppStore();
 const videoStore = useVideoStore();
@@ -31,6 +32,7 @@ const durationEl = useTemplateRef<HTMLDivElement>('durationEl');
 const { width, height } = useElementSize(durationEl);
 const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
 const addToPlaylistDialog = ref(false);
+const timeJumpDialog = ref(false);
 
 const goBack = () => {
     const prevUrl = _.findLast(routeHistory, (r) => r.name !== router.currentRoute.value.name); // also handles undefined
@@ -151,7 +153,13 @@ function toggleTheaterMode() {
             <div class="flex flex-col px-4">
                 <div class="flex items-end justify-between gap-4">
                     <div class="relative flex items-center gap-2 leading-tight -mb-2">
-                        <div :style="{ width: `${width}pfx` }">{{ videoStore.prettyCurrentTime }}</div>
+                        <button
+                            type="button"
+                            class="rounded-md px-2 py-1 text-left transition-colors hover:bg-black-400/80"
+                            @click="timeJumpDialog = true"
+                        >
+                            {{ videoStore.prettyCurrentTime }}
+                        </button>
                         /
                         <div ref="durationEl" class="text-right">{{ videoStore.prettyDuration }}</div>
 
@@ -159,6 +167,8 @@ function toggleTheaterMode() {
                             <VolumeControl />
                         </div>
                     </div>
+
+                    <TimeJumpDialog v-model="timeJumpDialog" />
 
                     <div class="relative flex items-center gap-2 -mb-2 z-1">
                         <PlayerButton
