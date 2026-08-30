@@ -18,7 +18,7 @@ const socials = [
 </script>
 
 <template>
-    <div v-if="route.meta.showFooter !== false" class="border-t border-black-400 mt-4">
+    <div v-if="route.meta.showFooter !== false" class="border-tf border-black-400 mt-4">
         <Container class="relative">
             <div class="flex flex-col gap-5 justify-center items-center py-10">
                 <div class="inline-grid grid-cols-[1fr_auto_1fr] gap-1 items-center text-muted-more">
