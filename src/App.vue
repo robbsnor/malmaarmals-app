@@ -33,7 +33,7 @@ onMounted(async () => {
             await historyStore.fetchHistory();
         }
 
-        await sleep(300);
+        await sleep(500);
     } catch (error) {
         await sleep(1500);
         await authStore.signOut();
@@ -46,24 +46,27 @@ onMounted(async () => {
 </script>
 
 <template>
-    <v-app v-if="!appStore.loading && !appStore.hasError">
-        <!-- <BackgroundArt /> -->
+    <v-slide-y-reverse-transition>
+        <v-app v-if="!appStore.loading && !appStore.hasError">
+            <!-- <BackgroundArt /> -->
 
-        <Header />
+            <Header />
 
-        <div class="grid h-full max-lg:pb-mobile-navbar lg:pt-header" style="grid-template-rows: 1fr auto">
-            <div class="min-w-0">
-                <RouterView />
+            <div class="grid h-full max-lg:pb-mobile-navbar lg:pt-header" style="grid-template-rows: 1fr auto">
+                <div class="min-w-0">
+                    <RouterView />
+                </div>
+
+                <Footer />
             </div>
 
-            <Footer />
-        </div>
+            <BottomNav />
+            <VideoContainer />
+        </v-app>
+    </v-slide-y-reverse-transition>
 
-        <BottomNav />
-        <VideoContainer />
-    </v-app>
+    <Splash v-if="appStore.loading || appStore.hasError" />
 
-    <Splash />
     <Analytics v-if="!appStore.isDev" />
     <Toaster position="top-center" closeButtonPosition="top-right" :expand="false" theme="dark" />
 </template>
