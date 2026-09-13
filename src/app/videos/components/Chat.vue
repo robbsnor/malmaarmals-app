@@ -113,18 +113,20 @@ watch(width, () => {
                     <Message v-for="message in renderedMessages" :key="message.message_id" :message="message" />
                 </div>
 
-                <div v-visible="userHasScrolledUp" class="absolute right-0 bottom-0 pb-4 left-0 flex justify-center">
-                    <div
-                        class="absolute bottom-0 left-0 right-0 h-[120px] pointer-events-none select-none bg-linear-to-b to-primary/20"
-                    ></div>
-                    <button
-                        @click="scrollBackDown()"
-                        class="bg-primary relative flex items-center gap-1 rounded-md p-2 px-4 text-sm font-bold transition-all"
-                    >
-                        <v-icon icon="mdi-arrow-down"></v-icon>
-                        <div class="-mt-[1px] pl-1 pr-2">Resume</div>
-                    </button>
-                </div>
+                <v-fade-transition>
+                    <div v-if="userHasScrolledUp" class="absolute right-0 bottom-0 pb-4 left-0 flex justify-center">
+                        <div
+                            class="absolute bottom-0 left-0 right-0 h-[120px] pointer-events-none select-none bg-linear-to-b to-primary/20"
+                        ></div>
+                        <button
+                            @click="scrollBackDown()"
+                            class="bg-primary relative flex items-center gap-1 rounded-md p-2 px-4 text-sm font-bold transition-all"
+                        >
+                            <v-icon icon="mdi-arrow-down"></v-icon>
+                            <div class="-mt-[1px] pl-1 pr-2">Resume</div>
+                        </button>
+                    </div>
+                </v-fade-transition>
             </template>
 
             <div v-else class="flex h-full items-center justify-center">
