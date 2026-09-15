@@ -29,7 +29,7 @@ onMounted(async () => {
         <video
             preload="metadata"
             class="w-full h-full object-contain aspect-video"
-            :class="videoStore.theaterMode ? '' : 'max-h-[82vh]'"
+            :class="{ 'max-h-[82vh]': !videoStore.theaterMode }"
             ref="videoRef"
             :src="videoStore.src"
             :poster="BucketHelper.getThumbnailUrl(Number(videoStore.id))"

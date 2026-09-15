@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 
 const props = withDefaults(
     defineProps<{
         modelValue: number;
         min?: number;
         max?: number;
+        availableMax?: number;
         step?: number;
         label?: string;
     }>(),
     {
         min: 0,
         max: 59,
+        availableMax: undefined,
         step: 1,
         label: '',
     }
@@ -33,78 +35,88 @@ const values = computed(() => {
 
 const normalizedValue = computed(() => {
     if (!Number.isFinite(props.modelValue)) return props.min;
-    return Math.min(Math.max(props.modelValue, props.min), props.max);
+    return Math.min(Math.max(props.modelValue, props.min), props.max, props.availableMax ?? props.max);
 });
 
 const currentIndex = computed(() => values.value.indexOf(normalizedValue.value));
+const wheelElement = ref<HTMLElement | null>(null);
+const rowHeight = 40;
+let scrollTimer: ReturnType<typeof setTimeout> | undefined;
 
 function setValue(index: number) {
     const nextIndex = Math.min(Math.max(index, 0), values.value.length - 1);
-    emit('update:modelValue', values.value[nextIndex]);
+    const nextValue = values.value[nextIndex];
+    const availableMax = props.availableMax ?? props.max;
+    const selectedValue = Math.min(nextValue, availableMax);
+    emit('update:modelValue', selectedValue);
 }
 
-function stepValue(step: number) {
-    setValue(currentIndex.value + step);
+function isAvailable(value: number) {
+    return value <= (props.availableMax ?? props.max);
 }
 
-function onWheel(event: WheelEvent) {
-    event.preventDefault();
-    if (event.deltaY > 0) stepValue(1);
-    if (event.deltaY < 0) stepValue(-1);
+function scrollToCurrent(behavior: ScrollBehavior = 'auto') {
+    wheelElement.value?.scrollTo({
+        top: currentIndex.value * rowHeight,
+        behavior,
+    });
 }
 
-let dragStartY = 0;
-let lastDragY = 0;
+function onScroll(event: Event) {
+    const element = event.currentTarget as HTMLElement;
+    const nextIndex = Math.min(Math.max(Math.round(element.scrollTop / rowHeight), 0), values.value.length - 1);
 
-function onPointerDown(event: PointerEvent) {
-    dragStartY = event.clientY;
-    lastDragY = event.clientY;
-    (event.currentTarget as HTMLElement | null)?.setPointerCapture?.(event.pointerId);
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => {
+        setValue(nextIndex);
+    }, 120);
 }
 
-function onPointerMove(event: PointerEvent) {
-    const delta = event.clientY - lastDragY;
-    if (Math.abs(delta) < 12) return;
-
-    if (delta > 0) stepValue(1);
-    if (delta < 0) stepValue(-1);
-
-    lastDragY = event.clientY;
-}
-
-function onPointerUp() {
-    dragStartY = 0;
-    lastDragY = 0;
-}
+watch(
+    normalizedValue,
+    async () => {
+        await nextTick();
+        scrollToCurrent();
+    },
+    { immediate: true }
+);
 </script>
 
 <template>
-    <div
-        class="flex w-20 flex-col items-center"
-        @wheel="onWheel"
-        @pointerdown="onPointerDown"
-        @pointermove="onPointerMove"
-        @pointerup="onPointerUp"
-        @pointerleave="onPointerUp"
-        @pointercancel="onPointerUp"
-    >
+    <div class="flex w-20 flex-col items-center">
         <div class="relative h-40 w-full overflow-hidden rounded-xl border border-black-500 bg-black-400 shadow-inner">
-            <div class="pointer-events-none absolute inset-x-0 top-1/2 z-10 h-10 -translate-y-1/2 border-y border-black-500 bg-black-300/80"></div>
+            <div
+                ref="wheelElement"
+                class="absolute inset-0 overflow-auto [scrollbar-width:none]"
+                @scroll.passive="onScroll"
+            >
+                <div class="relative z-20 flex flex-col items-center text-center">
+                    <div class="h-[60px] shrink-0"></div>
+                    <button
+                        v-for="(value, index) in values"
+                        :key="value"
+                        type="button"
+                        class="flex h-10 w-full shrink-0 items-center justify-center text-base font-medium transition-colors"
+                        :class="
+                            isAvailable(value)
+                                ? 'text-muted hover:bg-primary/10'
+                                : 'cursor-not-allowed text-muted-more opacity-40'
+                        "
+                        :disabled="!isAvailable(value)"
+                        @click="
+                            setValue(index);
+                            scrollToCurrent('smooth');
+                        "
+                    >
+                        {{ value.toString().padStart(2, '0') }}
+                    </button>
+                    <div class="h-[60px] shrink-0"></div>
+                </div>
+            </div>
 
-            <div class="relative z-20 flex h-full flex-col items-center justify-center gap-1 px-2 py-4 text-center">
-                <button
-                    v-for="value in values"
-                    :key="value"
-                    type="button"
-                    class="flex h-10 w-full items-center justify-center rounded-md text-base font-medium transition-colors"
-                    :class="{
-                        'bg-primary/20 text-normal': value === normalizedValue,
-                        'text-muted': value !== normalizedValue,
-                    }"
-                    @click="emit('update:modelValue', value)"
-                >
-                    {{ value.toString().padStart(2, '0') }}
-                </button>
+            <div class="pointer-events-none absolute inset-0 top-1/2 z-10 h-10 -translate-y-1/2 bg-primary/40">
+                <!-- <div class="absolute inset-x-0 top-0 h-px bg-black-500"></div>
+                <div class="absolute inset-x-0 bottom-0 h-px bg-black-500"></div> -->
             </div>
         </div>
 

@@ -28,8 +28,6 @@ const videosStore = useVideosStore();
 const manageChaptersStore = useManageChaptersStore();
 const preferenceStore = usePreferenceStore();
 const router = useRouter();
-const durationEl = useTemplateRef<HTMLDivElement>('durationEl');
-const { width, height } = useElementSize(durationEl);
 const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
 const addToPlaylistDialog = ref(false);
 const timeJumpDialog = ref(false);
@@ -118,7 +116,7 @@ function toggleTheaterMode() {
                 @click="videoStore.showControllsAndInfo = false"
             >
                 <div class="flex justify-center items-center">
-                    <button @click="videoStore.currentTime -= 10" class="relative p-4 rounded-full">
+                    <button @click.stop="videoStore.currentTime -= 10" class="relative p-4 rounded-full">
                         <v-icon size="24" icon="mdi-rewind-10" />
                     </button>
 
@@ -137,7 +135,7 @@ function toggleTheaterMode() {
                         />
                     </button>
 
-                    <button @click="videoStore.currentTime += 30" class="relative p-4 rounded-full">
+                    <button @click.stop="videoStore.currentTime += 30" class="relative p-4 rounded-full">
                         <v-icon size="24" icon="mdi-fast-forward-30" />
                     </button>
                 </div>
@@ -154,15 +152,14 @@ function toggleTheaterMode() {
                 <div class="flex items-end justify-between gap-4">
                     <div class="relative flex items-center gap-2 leading-tight -mb-2">
                         <button
-                            type="button"
-                            class="rounded-md px-2 py-1 text-left transition-colors hover:bg-black-400/80"
+                            class="flex h-full p-1 px-2 gap-2 items-center justify-center hover:bg-black-400/80 rounded-md"
                             @click="timeJumpDialog = true"
                         >
                             {{ videoStore.prettyCurrentTime }}
-                        </button>
-                        /
-                        <div ref="durationEl" class="text-right">{{ videoStore.prettyDuration }}</div>
 
+                            /
+                            {{ videoStore.prettyDuration }}
+                        </button>
                         <div class="hidden sm:block">
                             <VolumeControl />
                         </div>

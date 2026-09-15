@@ -8,7 +8,6 @@ const emits = defineEmits<{
     (e: 'close'): void;
 }>();
 const props = withDefaults(defineProps<DialogProps>(), {
-    title: 'Dialog',
     width: 600,
     showCloseButton: true,
     showBody: true,
