@@ -118,7 +118,7 @@ function toggleTheaterMode() {
                 @click="videoStore.showControllsAndInfo = false"
             >
                 <div class="flex justify-center items-center">
-                    <button @click="videoStore.currentTime -= 10" class="relative p-4 rounded-full">
+                    <button @click.stop="videoStore.currentTime -= 10" class="relative p-4 rounded-full">
                         <v-icon size="24" icon="mdi-rewind-10" />
                     </button>
 
@@ -137,7 +137,7 @@ function toggleTheaterMode() {
                         />
                     </button>
 
-                    <button @click="videoStore.currentTime += 30" class="relative p-4 rounded-full">
+                    <button @click.stop="videoStore.currentTime += 30" class="relative p-4 rounded-full">
                         <v-icon size="24" icon="mdi-fast-forward-30" />
                     </button>
                 </div>
