@@ -46,24 +46,22 @@ onMounted(async () => {
 </script>
 
 <template>
-    <v-slide-y-reverse-transition>
-        <v-app v-if="!appStore.loading && !appStore.hasError">
-            <!-- <BackgroundArt /> -->
+    <v-app v-if="!appStore.loading && !appStore.hasError">
+        <!-- <BackgroundArt /> -->
 
-            <Header />
+        <Header />
 
-            <div class="grid h-full max-lg:pb-mobile-navbar lg:pt-header" style="grid-template-rows: 1fr auto">
-                <div class="min-w-0">
-                    <RouterView />
-                </div>
-
-                <Footer />
+        <div class="grid h-full max-lg:pb-mobile-navbar lg:pt-header" style="grid-template-rows: 1fr auto">
+            <div class="min-w-0">
+                <RouterView />
             </div>
 
-            <BottomNav />
-            <VideoContainer />
-        </v-app>
-    </v-slide-y-reverse-transition>
+            <Footer />
+        </div>
+
+        <BottomNav />
+        <VideoContainer />
+    </v-app>
 
     <Splash v-if="appStore.loading || appStore.hasError" />
 
