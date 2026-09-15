@@ -72,8 +72,6 @@ const teams = computed(() => {
                     </div>
                 </div>
 
-                <div class="absolute w-[4px] rounded-full -translate-x-1/2 -top-2 -bottom-2 bg-white/75 left-1/2"></div>
-
                 <div class="relative bg-blue-500 grow shrink-0 px-4 py-3 rounded-r-md overflow-hidden">
                     <div class="absolute font-bold opacity-20 -top-4 -left-6 leading-tight uppercase text-[100px]">
                         timon
@@ -85,9 +83,11 @@ const teams = computed(() => {
                         </div>
                     </div>
                 </div>
+
+                <div class="absolute w-[4px] rounded-full -translate-x-1/2 -top-2 -bottom-2 bg-white/75 left-1/2"></div>
             </div>
 
-            <div class="grid grid-cols-2 gap-4 max-h-[400px] overflow-auto pt-2 mt-2">
+            <div class="grid grid-cols-2 gap-4 max-h-[420px] overflow-auto pt-2 mt-2">
                 <div>
                     <div v-for="user in teams.red.users" :key="user.user_id">
                         <img
