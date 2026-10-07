@@ -31,3 +31,15 @@ const [rootAttrs, controlAttrs] = filterInputAttrs(attrs);
         </div>
     </div>
 </template>
+
+<style scoped>
+:deep(.v-selection-control) {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+:deep(.v-label) {
+    padding-inline-start: 0 !important;
+    width: 100%;
+}
+</style>

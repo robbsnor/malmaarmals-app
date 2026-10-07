@@ -4,10 +4,12 @@ import { useVideoStore } from '../stores/video.store';
 import { randomNumber } from '../../shared/helpers/randomNumber';
 import { useScroll, useWindowSize } from '@vueuse/core';
 import Message from './Message.vue';
-import { useAppStore } from '../../shared/stores/app.store.ts';
+import { useAppStore } from '../../shared/stores/app.store';
+import { usePreferenceStore } from '../../shared/stores/preference.store';
 
 const videoStore = useVideoStore();
 const appStore = useAppStore();
+const preferenceStore = usePreferenceStore();
 const chatRef = ref<HTMLElement>(null);
 const userHasScrolledUp = ref(false);
 const chatInfoDialog = defineModel();
@@ -19,7 +21,7 @@ const renderedMessages = computed(() => {
     const idx = findLastIndexAtOrBefore(videoStore.currentTimeRounded);
     if (idx === -1) return [];
 
-    const start = Math.max(0, idx - 399);
+    const start = Math.max(0, idx - 199);
     return videoStore.messages.slice(start, idx + 1);
 });
 
@@ -110,7 +112,12 @@ watch(width, () => {
                     class="bg-green-800f scroll-hidden flex h-full flex-col gap-1 overflow-auto px-2 py-2 pt-4 2xl:px-4"
                     @scroll="onScroll"
                 >
-                    <Message v-for="message in renderedMessages" :key="message.message_id" :message="message" />
+                    <Message
+                        v-for="message in renderedMessages"
+                        :key="message.message_id"
+                        :message="message"
+                        :font-size="preferenceStore.chatFontSize"
+                    />
                 </div>
 
                 <v-fade-transition>

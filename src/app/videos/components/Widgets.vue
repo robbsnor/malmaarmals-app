@@ -10,12 +10,11 @@ import VideoInfo from './VideoInfo.vue';
 import InfoWidget from './widgets/InfoWidget.vue';
 import { MasonryWall } from '@yeger/vue-masonry-wall';
 import { useWindowSize, useElementBounding } from '@vueuse/core';
-import SubsWidget from './widgets/SubsWidget.vue';
 
 const appStore = useAppStore();
 const videoStore = useVideoStore();
 
-const widgets = [InfoWidget, ChaptersWidget, PlaylistWidget, SubsWidget, TeamWidget, MessagesWidget];
+const widgets = [InfoWidget, ChaptersWidget, PlaylistWidget, TeamWidget, MessagesWidget];
 const { height: windowHeight } = useWindowSize();
 const el = useTemplateRef('el');
 // @ts-ignore

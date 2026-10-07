@@ -10,6 +10,7 @@ const props = withDefaults(
     defineProps<{
         message: Message;
         highlight?: boolean;
+        fontSize?: number;
     }>(),
     {
         highlight: true,
@@ -40,6 +41,7 @@ const isGifted = computed(() => props.message.text.includes(' gifted a '));
                 isSub || isGifted,
         }"
         class="text-sm"
+        :style="{ fontSize: props.fontSize ? `${props.fontSize}px` : '' }"
     >
         <img
             v-for="badge in props.message.badges"

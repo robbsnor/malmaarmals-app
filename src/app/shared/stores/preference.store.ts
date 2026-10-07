@@ -6,14 +6,20 @@ export const usePreferenceStore = defineStore('preferences', () => {
     const showFloatingEmotes = useStorage('pref-show-floating-emotes', true);
     const showHypeGraph = useStorage('pref-show-hype-graph', true);
     const showFacecam = useStorage('pref-facecam', false);
+
     const autoTheatre = useStorage('pref-auto-theatre', false);
     const autoFullscreen = useStorage('pref-auto-fullscreen', false);
+
+    const chatFontSize = useStorage<number | null>('pref-chat-font-size', 0);
 
     return {
         showFloatingEmotes,
         showHypeGraph,
         showFacecam,
+
         autoTheatre,
         autoFullscreen,
+
+        chatFontSize,
     };
 });
