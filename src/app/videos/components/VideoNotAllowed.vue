@@ -14,12 +14,12 @@ function refresh() {
 <template>
     <div
         v-if="videoStore.playerIsActive && !authStore.isSubbed"
-        class="z-video-not-allowed max-lg:fixed max-lg:inset-0 flex flex-col gap-4 p-4 md:flex-row w-full h-available bg-black-100 overflow-hidden"
+        class="z-video-not-allowed max-lg:fixed max-lg:inset-0 flex flex-col gap-4 p-4 lg:flex-row w-full h-available bg-black-100 overflow-hidden"
     >
-        <div class="flex flex-col gap-4 w-full md:flex-row">
-            <Skeleton :pulse="false" class="aspect-video w-full h-full md:aspect-auto"></Skeleton>
+        <div class="flex flex-col gap-4 w-full lg:flex-row">
+            <Skeleton :pulse="false" class="flex-1 aspect-video lg:h-full lg:aspect-auto"></Skeleton>
 
-            <div class="flex flex-col gap-3 md:w-[350px] overflow-hidden rounded-md">
+            <div class="flex flex-col gap-3 overflow-hidden rounded-lg md:w-[350px]">
                 <div v-for="n in 50" :key="n">
                     <Skeleton
                         class="h-6"
@@ -44,8 +44,8 @@ function refresh() {
             <template v-else>
                 <Alert
                     v-if="!authStore.isSubbed"
-                    title="You are not subscribed to Lekker Spelen."
-                    description="Please subscribe to the malse males to watch streams"
+                    title="Oops, you are not subscribed"
+                    description="In order to watch videos please subscribe to Lekker Spelen on Twitch."
                 >
                     <div class="flex flex-col gap-2">
                         <v-btn
