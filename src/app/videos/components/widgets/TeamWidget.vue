@@ -54,8 +54,8 @@ const teams = computed(() => {
 </script>
 
 <template>
-    <Widget title="PETER vs TIMON">
-        <div v-if="teams" class="pt-4">
+    <div>
+        <div v-if="teams">
             <div class="relative flex rounded-md">
                 <div
                     class="relative bg-red-500 shrink-0 px-4 py-3 rounded-l-md overflow-hidden"
@@ -86,63 +86,19 @@ const teams = computed(() => {
 
                 <div class="absolute w-[4px] rounded-full -translate-x-1/2 -top-2 -bottom-2 bg-white/75 left-1/2"></div>
             </div>
-
-            <div class="grid grid-cols-2 gap-4 max-h-[420px] overflow-auto pt-2 mt-2">
-                <div>
-                    <div v-for="user in teams.red.users" :key="user.user_id">
-                        <img
-                            v-for="badge in user.badges"
-                            :key="badge.image_id"
-                            alt=""
-                            :src="TwitchHelper.getBadgeUrl(badge.image_id)"
-                            class="inline-block mr-1 h-5 -mt-[2px]"
-                        />
-                        <span
-                            :style="{
-                                color: user.user_color || '#2e8b57',
-                            }"
-                            class="font-bold"
-                            :data-user-id="user.user_id"
-                        >
-                            {{ user.user_name }}
-                        </span>
-                    </div>
-                </div>
-
-                <div>
-                    <div v-for="user in teams.blue.users" :key="user.user_id">
-                        <img
-                            v-for="badge in user.badges"
-                            :key="badge.image_id"
-                            alt=""
-                            :src="TwitchHelper.getBadgeUrl(badge.image_id)"
-                            class="inline-block mr-1 h-5 -mt-[2px]"
-                        />
-                        <span
-                            :style="{
-                                color: user.user_color || '#2e8b57',
-                            }"
-                            class="font-bold"
-                            :data-user-id="user.user_id"
-                        >
-                            {{ user.user_name }}
-                        </span>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div v-else class="pt-4 flex flex-col gap-4">
             <div class="flex gap-4">
-                <Skeleton class="bg-black-400 h-14 w-2/3" />
-                <Skeleton class="bg-black-400 h-14 grow" />
+                <Skeleton class="bg-black-400 h-[66px] w-2/3" />
+                <Skeleton class="bg-black-400 h-[66px] grow" />
             </div>
 
-            <div class="grid grid-cols-2 gap-4">
+            <!-- <div class="grid grid-cols-2 gap-4">
                 <div v-for="i in 2" class="flex flex-col gap-4" :key="i">
                     <Skeleton v-for="j in 6" class="bg-black-400 h-6" :key="j" />
                 </div>
-            </div>
+            </div> -->
         </div>
-    </Widget>
+    </div>
 </template>
