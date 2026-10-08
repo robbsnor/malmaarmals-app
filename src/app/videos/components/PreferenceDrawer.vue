@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { computed, nextTick, ref, useTemplateRef, watch } from 'vue';
+import { ref } from 'vue';
 import Drawer from '../../shared/components/Drawer.vue';
 import PlayerButton from './PlayerButton.vue';
 import { usePreferenceStore } from '../../shared/stores/preference.store';
 import VolumeControl from './VolumeControl.vue';
 import FontScale from './FontScale.vue';
+import ChatWidth from './ChatWidth.vue';
 
 const preferenceStore = usePreferenceStore();
 const drawer = ref(false);
-const fontScaleEl = ref<InstanceType<typeof FontScale>>();
 </script>
 
 <template>
@@ -23,7 +23,7 @@ const fontScaleEl = ref<InstanceType<typeof FontScale>>();
             </div>
 
             <div>
-                <FormHeader>Video</FormHeader>
+                <FormHeader>Player</FormHeader>
 
                 <Switch
                     label="Show Floating-Emotes"
@@ -69,7 +69,8 @@ const fontScaleEl = ref<InstanceType<typeof FontScale>>();
 
             <div>
                 <FormHeader>Chat</FormHeader>
-                <FontScale ref="fontScaleEl" />
+                <FontScale />
+                <ChatWidth />
             </div>
         </div>
     </Drawer>

@@ -11,6 +11,7 @@ export const usePreferenceStore = defineStore('preferences', () => {
     const autoFullscreen = useStorage('pref-auto-fullscreen', false);
 
     const chatFontScale = useStorage<number | null>('pref-chat-font-scale', 1);
+    const chatWidth = useStorage<number | null>('pref-chat-width', null);
 
     return {
         showFloatingEmotes,
@@ -21,5 +22,6 @@ export const usePreferenceStore = defineStore('preferences', () => {
         autoFullscreen,
 
         chatFontScale,
+        chatWidth,
     };
 });

@@ -83,6 +83,9 @@ watch(width, () => {
             'w-[250px] shrink-0 bg-black-300 border-l border-black-600 lg:w-[300px] 2xl:w-[400px] 4xl:w-[500px]':
                 appStore.isLandscape,
         }"
+        :style="{
+            width: preferenceStore.chatWidth && appStore.isLandscape ? `${preferenceStore.chatWidth}px` : '',
+        }"
     >
         <template v-if="!videoStore.messagesLoading">
             <template v-if="videoStore.messages.length">

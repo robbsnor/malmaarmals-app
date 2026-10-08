@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue';
 import { usePreferenceStore } from '../../shared/stores/preference.store.ts';
 import { ArrayHelper } from '../../shared/helpers/array.helper.ts';
+import ResetButton from './ResetButton.vue';
 
 const preferenceStore = usePreferenceStore();
 const defaultFontScale = 1;
@@ -32,13 +33,7 @@ watch(
     <div>
         <div class="flex justify-between items-center">
             <FormLabel class="-mb-3 relative z-1">Message size</FormLabel>
-            <v-icon
-                v-visible="preferenceStore.chatFontScale !== selectedTick"
-                icon="mdi-refresh"
-                class="text-muted-more! p-2.5 relative z-10 rounded-full transition-colors hover:bg-black-600"
-                size="xsmall"
-                @click="reset"
-            ></v-icon>
+            <ResetButton v-visible="preferenceStore.chatFontScale !== selectedTick" @click="reset"> </ResetButton>
         </div>
 
         <v-slider
