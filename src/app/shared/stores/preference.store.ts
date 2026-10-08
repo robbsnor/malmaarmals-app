@@ -10,8 +10,8 @@ export const usePreferenceStore = defineStore('preferences', () => {
     const autoTheatre = useStorage('pref-auto-theatre', false);
     const autoFullscreen = useStorage('pref-auto-fullscreen', false);
 
-    const chatFontScale = useStorage<number | null>('pref-chat-font-scale', 1);
-    const chatWidth = useStorage<number | null>('pref-chat-width', null);
+    const chatFontScale = useStorage<number>('pref-chat-font-scale', 1);
+    const chatWidth = useStorage<number>('pref-chat-width_0789544', 0);
 
     return {
         showFloatingEmotes,
