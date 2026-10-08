@@ -19,9 +19,9 @@ const [rootAttrs, controlAttrs] = filterInputAttrs(attrs);
 </script>
 
 <template>
-    <div v-bind="rootAttrs" class="relative flex gap-12 justify-between items-center">
+    <div v-bind="rootAttrs" class="relative flex gap-8 justify-between items-center">
         <FormLabel :description="props.description">{{ props.text }}</FormLabel>
-        <v-switch v-bind="controlAttrs" hide-details="auto" density="compact" v-model="model" />
+        <v-switch v-bind="controlAttrs" hide-details="auto" density="compact" v-model="model" class="shrink-0!" />
     </div>
 </template>
 
