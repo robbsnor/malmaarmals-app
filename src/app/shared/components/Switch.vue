@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { useAttrs } from 'vue';
+import { useAttrs, useSlots } from 'vue';
 import { filterInputAttrs } from 'vuetify/lib/util/helpers.mjs';
 
 defineOptions({ inheritAttrs: false });
-
-const model = defineModel();
 
 const props = withDefaults(
     defineProps<{
@@ -15,12 +13,21 @@ const props = withDefaults(
 );
 
 const attrs = useAttrs();
+const slots = useSlots();
 const [rootAttrs, controlAttrs] = filterInputAttrs(attrs);
+const model = defineModel();
 </script>
 
 <template>
     <div v-bind="rootAttrs" class="relative flex gap-8 justify-between items-center">
-        <FormLabel :description="props.description">{{ props.text }}</FormLabel>
+        <FormLabel :description="props.description">
+            {{ props.text }}
+
+            <template #description>
+                <slot name="description"></slot>
+            </template>
+        </FormLabel>
+
         <v-switch v-bind="controlAttrs" hide-details="auto" density="compact" v-model="model" class="shrink-0!" />
     </div>
 </template>

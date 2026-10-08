@@ -39,12 +39,13 @@ const drawer = ref(false);
 
                 <Switch hide-details="auto" text="Show Facecam" v-model="preferenceStore.showFacecam">
                     <template #description>
+                        With help from
                         <a
-                            class="hover:text-primary inline-block"
+                            class="hover:text-primary inline-block underline"
                             href="https://www.reddit.com/r/lekkerspelen/comments/1lhp8vc/peter_koopt_een_spijkerbroek/"
                             target="_blank"
                         >
-                            @braxshinoa - photo credit
+                            @braxshinoa
                         </a>
                     </template>
                 </Switch>
