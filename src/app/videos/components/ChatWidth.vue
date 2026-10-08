@@ -31,7 +31,7 @@ Badge.props = ['type'];
 
         <div
             class="relative flex flex-col gap-4 scale-100 transition-all"
-            :class="{ 'pointer-events-none scale-90!': !preferenceStore.overwriteChatWidth }"
+            :class="{ 'pointer-events-none scale-90f!': !preferenceStore.overwriteChatWidth }"
         >
             <div class="flex items-center gap-2">
                 <v-number-input
@@ -58,7 +58,7 @@ Badge.props = ['type'];
             </div>
 
             <div
-                class="absolute inset-0 bg-linear-to-b from-black-200/80 to-black-200 z-10 opacity-0 transition-all pointer-events-none"
+                class="absolute inset-0 bg-linear-to-b from-black-200/60 to-black-200/80 z-10 opacity-0 transition-all pointer-events-none"
                 :class="{
                     'opacity-100  ': !preferenceStore.overwriteChatWidth,
                 }"
