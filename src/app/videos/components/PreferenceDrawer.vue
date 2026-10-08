@@ -51,6 +51,12 @@ const drawer = ref(false);
             </div>
 
             <div>
+                <FormHeader>Chat</FormHeader>
+                <FontScale />
+                <ChatWidth />
+            </div>
+
+            <div>
                 <FormHeader>Video behaviour</FormHeader>
 
                 <Switch
@@ -65,12 +71,6 @@ const drawer = ref(false);
                     v-model="preferenceStore.autoFullscreen"
                     description="Go into fullscreen mode when selecting a stream"
                 />
-            </div>
-
-            <div>
-                <FormHeader>Chat</FormHeader>
-                <FontScale />
-                <ChatWidth />
             </div>
         </div>
     </Drawer>
