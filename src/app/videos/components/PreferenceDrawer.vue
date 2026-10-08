@@ -17,9 +17,15 @@ const drawer = ref(false);
             <PlayerButton v-bind="props" icon="mdi-cog-outline" />
         </template>
 
-        <div class="flex flex-col gap-6 pb-6">
+        <div class="flex flex-col gap-6 pb-12">
             <div class="sm:hidden px-1 pr-4 py-0.5 rounded-md bg-black-400 border border-black-500">
                 <VolumeControl />
+            </div>
+
+            <div class="space-y-3">
+                <FormHeader>Chat</FormHeader>
+                <FontScale />
+                <ChatWidth />
             </div>
 
             <div class="space-y-2">
@@ -49,12 +55,6 @@ const drawer = ref(false);
                         </a>
                     </template>
                 </Switch>
-            </div>
-
-            <div class="space-y-3">
-                <FormHeader>Chat</FormHeader>
-                <FontScale />
-                <ChatWidth />
             </div>
 
             <div class="space-y-2">

@@ -60,7 +60,10 @@ watch(
                 <slot name="actions"></slot>
             </div>
 
-            <div :class="props.padding ? 'p-4' : ''" class="max-h-[calc(100vh-80px)] overflow-auto overflow-x-hidden">
+            <div
+                :class="props.padding ? 'p-4' : ''"
+                class="max-h-[calc(100vh-80px)]f max-h-[70vh] overflow-auto overflow-x-hidden"
+            >
                 <slot></slot>
             </div>
 
