@@ -17,7 +17,6 @@ const preferenceStore = usePreferenceStore();
                 v-model="preferenceStore.chatWidth"
                 :reverse="false"
                 :hideInput="false"
-                :step="100"
                 control-variant="split"
                 :inset="false"
             ></v-number-input>
