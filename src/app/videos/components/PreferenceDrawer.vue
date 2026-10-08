@@ -51,7 +51,7 @@ const drawer = ref(false);
                 </Switch>
             </div>
 
-            <div class="space-y-2">
+            <div class="space-y-3">
                 <FormHeader>Chat</FormHeader>
                 <FontScale />
                 <ChatWidth />

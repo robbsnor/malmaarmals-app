@@ -2,9 +2,12 @@
 import { computed, ref, watch } from 'vue';
 import { usePreferenceStore } from '../../shared/stores/preference.store.ts';
 import { ArrayHelper } from '../../shared/helpers/array.helper.ts';
+import Message from './Message.vue';
 import ResetButton from './ResetButton.vue';
+import { useAuthStore } from '../../auth/stores/auth.store.ts';
 
 const preferenceStore = usePreferenceStore();
+const authStore = useAuthStore();
 const defaultFontScale = 1;
 const fontScales = ref([0.8, defaultFontScale, 1.2, 1.4, 1.6]);
 const labels = computed(() => fontScales.value.map((v) => `${v * 100}%`));
@@ -31,9 +34,26 @@ watch(
 
 <template>
     <div>
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center pb-2">
             <FormLabel class="-mb-3 relative z-1">Message size</FormLabel>
             <ResetButton v-visible="preferenceStore.chatFontScale !== selectedTick" @click="reset"> </ResetButton>
+        </div>
+
+        <div class="flex items-center px-4 py-3 min-h-14 rounded-md bg-black-400 border border-black-500">
+            <Message
+                :fontScale="preferenceStore.chatFontScale"
+                :message="{
+                    message_id: 'foo',
+                    offset_sec: 0,
+                    // text: 'There\'s a Sicko in my boot! :emote;lekkerSicko;304445721;0;10:',
+                    text: 'There\'s a Sicko in my boot!',
+                    // user_color: 'var(--color-primary-dark)',
+                    user_color: 'rgb(255, 105, 180)',
+                    user_name: authStore.session.user.user_metadata.nickname,
+                    user_id: 0,
+                    badges: [],
+                }"
+            ></Message>
         </div>
 
         <v-slider

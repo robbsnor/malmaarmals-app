@@ -4,61 +4,42 @@ import { usePreferenceStore } from '../../shared/stores/preference.store';
 import ResetButton from './ResetButton.vue';
 
 const preferenceStore = usePreferenceStore();
-
-const options = ref([1, 10, 50]);
-
-const Badge = (props, { slots }) =>
-    h(
-        'button',
-        {
-            class: [
-                ' p-1 border border-black-500 rounded-full hover:bg-primary-dark transition-all active:bg-primary flex-1 rounded',
-                props.type,
-            ],
-        },
-        slots.default?.()
-    );
-Badge.props = ['type'];
 </script>
 
 <template>
     <div class=" ">
         <Switch
             text="Overwrite chat width"
-            description="Applies only in landscape-mode"
+            description="Only applies in landscape-mode"
             v-model="preferenceStore.overwriteChatWidth"
         ></Switch>
 
         <div
-            class="relative flex flex-col gap-4 scale-100 transition-all"
+            class="relative -4 scale-100 transition-all"
             :class="{ 'pointer-events-none scale-90f!': !preferenceStore.overwriteChatWidth }"
         >
-            <div class="flex items-center gap-2">
-                <v-number-input
+            <div class="flex items-center justify-center -ml-2">
+                <v-btn icon="mdi-minus" size="small" variant="text" @click="preferenceStore.chatWidth -= 1"></v-btn>
+                <v-slider
+                    thumb-size="12"
                     v-model="preferenceStore.chatWidth"
-                    :reverse="true"
-                    controlVariant="hidden"
-                    :inset="true"
-                ></v-number-input>
-
-                <div class="text-lgf text-muted">px</div>
-            </div>
-
-            <div class="flex justify-between flex-row gap-2 grow">
-                <Badge
-                    v-for="option in [...options].reverse()"
-                    :key="option"
-                    @click="preferenceStore.chatWidth -= option"
+                    track-size="4"
+                    density="compact"
+                    :max="800"
+                    :hide-details="true"
+                    :min="100"
+                    color="primary"
+                    step="1"
+                    tick-size="4"
                 >
-                    -{{ option }}
-                </Badge>
-                <Badge v-for="option in options" :key="option" @click="preferenceStore.chatWidth += option">
-                    +{{ option }}
-                </Badge>
+                </v-slider>
+                <v-btn icon="mdi-plus" size="small" variant="text" @click="preferenceStore.chatWidth += 1"></v-btn>
+
+                <div class="text-sm font-mono text-muted">{{ preferenceStore.chatWidth }} px</div>
             </div>
 
             <div
-                class="absolute inset-0 bg-linear-to-b from-black-200/60 to-black-200/80 z-10 opacity-0 transition-all pointer-events-none"
+                class="absolute inset-0 bg-linear-to-t from-black-200/90 to-black-200/50 z-10 opacity-0 transition-all pointer-events-none"
                 :class="{
                     'opacity-100  ': !preferenceStore.overwriteChatWidth,
                 }"
