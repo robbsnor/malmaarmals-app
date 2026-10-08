@@ -65,7 +65,6 @@ export const useAuthStore = defineStore('auth', () => {
         twitchRefreshToken.value = null;
         videoStore.playerIsActive = false;
         await router.push({ name: 'home' });
-        window.location.reload();
     };
 
     return {
