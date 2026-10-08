@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useTemplateRef } from 'vue';
+import { computed, ref, useTemplateRef } from 'vue';
 import ChaptersWidget from './widgets/ChaptersWidget.vue';
 import PlaylistWidget from './widgets/PlaylistWidget.vue';
 import MessagesWidget from './widgets/MessagesWidget.vue';
@@ -16,7 +16,7 @@ const videoStore = useVideoStore();
 
 const widgets = [InfoWidget, ChaptersWidget, PlaylistWidget, TeamWidget, MessagesWidget];
 const { height: windowHeight } = useWindowSize();
-const el = useTemplateRef('el');
+const el = ref();
 // @ts-ignore
 const { top } = useElementBounding(el);
 const portraitHeight = computed(() => (appStore.isLandscape ? null : `${windowHeight.value - top.value}px`));

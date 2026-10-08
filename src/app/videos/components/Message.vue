@@ -10,7 +10,7 @@ const props = withDefaults(
     defineProps<{
         message: Message;
         highlight?: boolean;
-        fontSize?: number;
+        fontScale?: number;
     }>(),
     {
         highlight: true,
@@ -33,51 +33,52 @@ const isGifted = computed(() => props.message.text.includes(' gifted a '));
 </script>
 
 <template>
-    <div
-        :class="{
-            'bg-black-300 rounded-sm py-1 -mx-1 px-1 md:bg-black-600 2xl:-mx-2 2xl:px-2':
-                (isMyMessage && props.highlight) || (isMention && props.highlight) || isLekkerSpelen,
-            'bg-linear-to-r from-white/5 to-white/0 rounded-r p-2! border-l-primary border-l-2 rounded-l-none!':
-                isSub || isGifted,
-        }"
-        class="text-sm"
-        :style="{ fontSize: props.fontSize ? `${props.fontSize}px` : '' }"
-    >
-        <img
-            v-for="badge in props.message.badges"
-            :key="badge.image_id"
-            alt=""
-            :src="TwitchHelper.getBadgeUrl(badge.image_id)"
-            class="inline-block mr-1 h-5 -mt-[2px]"
-        />
-
-        <span
-            :style="{
-                color: message.user_color || '#2e8b57',
+    <div class="text-sm">
+        <div
+            :class="{
+                'bg-black-300 rounded-sm py-1 -mx-1 px-1 md:bg-black-600 2xl:-mx-2 2xl:px-2':
+                    (isMyMessage && props.highlight) || (isMention && props.highlight) || isLekkerSpelen,
+                'bg-linear-to-r from-white/5 to-white/0 rounded-r p-2! border-l-primary border-l-2 rounded-l-none!':
+                    isSub || isGifted,
             }"
-            class="font-bold"
-            :data-user-id="message.user_id"
+            :style="{ fontSize: props.fontScale ? `${props.fontScale}em` : '' }"
         >
-            {{ message.user_name }}
-        </span>
+            <img
+                v-for="badge in props.message.badges"
+                :key="badge.image_id"
+                alt=""
+                :src="TwitchHelper.getBadgeUrl(badge.image_id)"
+                class="inline-block mr-1 h-5 -mt-[2px]"
+            />
 
-        <span class="break-words text-gray-300"
-            >:
-            <template v-for="word in message.text.split(' ')" :key="word">
-                <Emote v-if="word.startsWith(':emote')" :emoteString="word" />
-                <b v-else-if="word.startsWith('@')">{{ word }}</b>
-                <a
-                    v-else-if="word.startsWith('http') || word.startsWith('https')"
-                    :href="word"
-                    target="_blank"
-                    class="link break-all"
-                >
-                    {{ word }}
-                </a>
-                <b v-else-if="isSub && word === 'months'">{{ word }}</b>
-                <template v-else>{{ word }}</template>
-                {{ ' ' }}
-            </template>
-        </span>
+            <span
+                :style="{
+                    color: message.user_color || '#2e8b57',
+                }"
+                class="font-bold"
+                :data-user-id="message.user_id"
+            >
+                {{ message.user_name }}
+            </span>
+
+            <span class="break-words text-gray-300"
+                >:
+                <template v-for="word in message.text.split(' ')" :key="word">
+                    <Emote v-if="word.startsWith(':emote')" :emoteString="word" />
+                    <b v-else-if="word.startsWith('@')">{{ word }}</b>
+                    <a
+                        v-else-if="word.startsWith('http') || word.startsWith('https')"
+                        :href="word"
+                        target="_blank"
+                        class="link break-all"
+                    >
+                        {{ word }}
+                    </a>
+                    <b v-else-if="isSub && word === 'months'">{{ word }}</b>
+                    <template v-else>{{ word }}</template>
+                    {{ ' ' }}
+                </template>
+            </span>
+        </div>
     </div>
 </template>

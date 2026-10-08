@@ -4,30 +4,27 @@ import Drawer from '../../shared/components/Drawer.vue';
 import PlayerButton from './PlayerButton.vue';
 import { usePreferenceStore } from '../../shared/stores/preference.store';
 import VolumeControl from './VolumeControl.vue';
-import FontSize from './FontSize.vue';
+import FontScale from './FontScale.vue';
 
 const preferenceStore = usePreferenceStore();
 const drawer = ref(false);
-const fontSizeEl = ref<InstanceType<typeof FontSize>>();
-
-async function onOpen() {
-    await nextTick();
-    fontSizeEl.value.syncSelectedTick();
-}
+const fontScaleEl = ref<InstanceType<typeof FontScale>>();
 </script>
 
 <template>
-    <Drawer v-model="drawer" @open="onOpen">
+    <Drawer v-model="drawer">
         <template #activator="{ props }">
             <PlayerButton v-bind="props" icon="mdi-cog-outline" />
         </template>
 
-        <div class="flex flex-col gap-2">
-            <div class="sm:hidden px-1 pr-3 rounded-md bg-black-400 border border-black-500">
+        <div class="flex flex-col gap-4 pb-4">
+            <div class="sm:hidden px-1 pr-4 py-0.5 rounded-md bg-black-400 border border-black-500">
                 <VolumeControl />
             </div>
 
             <div>
+                <FormHeader>Video</FormHeader>
+
                 <Switch
                     label="Show Floating-Emotes"
                     description="Emotes overlay on video"
@@ -51,6 +48,10 @@ async function onOpen() {
                         </a>
                     </template>
                 </Switch>
+            </div>
+
+            <div>
+                <FormHeader>Video behaviour</FormHeader>
 
                 <Switch
                     label="Auto Theatre-mode"
@@ -66,7 +67,10 @@ async function onOpen() {
                 />
             </div>
 
-            <FontSize ref="fontSizeEl" />
+            <div>
+                <FormHeader>Chat</FormHeader>
+                <FontScale ref="fontScaleEl" />
+            </div>
         </div>
     </Drawer>
 </template>

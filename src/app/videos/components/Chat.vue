@@ -116,7 +116,7 @@ watch(width, () => {
                         v-for="message in renderedMessages"
                         :key="message.message_id"
                         :message="message"
-                        :font-size="preferenceStore.chatFontSize"
+                        :font-scale="preferenceStore.chatFontScale"
                     />
                 </div>
 
