@@ -8,8 +8,8 @@ const model = defineModel();
 
 const props = withDefaults(
     defineProps<{
+        text?: string;
         description?: string;
-        isNested?: boolean;
     }>(),
     {}
 );
@@ -19,16 +19,9 @@ const [rootAttrs, controlAttrs] = filterInputAttrs(attrs);
 </script>
 
 <template>
-    <div v-bind="rootAttrs" class="relative flex gap-4" :class="{ 'pb-4': props.isNested }">
-        <div v-if="props.isNested" class="size-3 mt-2 border-b-2 border-l-2 border-black-600 rounded-bl-md"></div>
-
-        <div class="grow">
-            <v-switch v-bind="controlAttrs" hide-details="auto" density="compact" v-model="model" />
-
-            <div class="text-muted text-xs block relative -top-3 pr-16" :class="{ 'opacity-50': attrs.disabled }">
-                <slot name="description">{{ props.description }}</slot>
-            </div>
-        </div>
+    <div v-bind="rootAttrs" class="relative flex gap-12 justify-between items-center">
+        <FormLabel :description="props.description">{{ props.text }}</FormLabel>
+        <v-switch v-bind="controlAttrs" hide-details="auto" density="compact" v-model="model" />
     </div>
 </template>
 

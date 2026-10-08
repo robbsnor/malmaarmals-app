@@ -17,27 +17,27 @@ const drawer = ref(false);
             <PlayerButton v-bind="props" icon="mdi-cog-outline" />
         </template>
 
-        <div class="flex flex-col gap-4 pb-4">
+        <div class="flex flex-col gap-6 pb-6">
             <div class="sm:hidden px-1 pr-4 py-0.5 rounded-md bg-black-400 border border-black-500">
                 <VolumeControl />
             </div>
 
-            <div>
+            <div class="space-y-2">
                 <FormHeader>Player</FormHeader>
 
                 <Switch
-                    label="Show Floating-Emotes"
+                    text="Show Floating-Emotes"
                     description="Emotes overlay on video"
                     v-model="preferenceStore.showFloatingEmotes"
                 />
 
                 <Switch
-                    label="Show Hype-Graph"
+                    text="Show Hype-Graph"
                     description="Adds a graph above the timeline. Spikes are based on chat messages and emotes"
                     v-model="preferenceStore.showHypeGraph"
                 />
 
-                <Switch hide-details="auto" label="Show Facecam" v-model="preferenceStore.showFacecam">
+                <Switch hide-details="auto" text="Show Facecam" v-model="preferenceStore.showFacecam">
                     <template #description>
                         <a
                             class="hover:text-primary inline-block"
@@ -50,24 +50,24 @@ const drawer = ref(false);
                 </Switch>
             </div>
 
-            <div>
+            <div class="space-y-2">
                 <FormHeader>Chat</FormHeader>
                 <FontScale />
                 <ChatWidth />
             </div>
 
-            <div>
-                <FormHeader>Video behaviour</FormHeader>
+            <div class="space-y-2">
+                <FormHeader>Stream behaviour</FormHeader>
 
                 <Switch
-                    label="Auto Theatre-mode"
+                    text="Auto Theatre-mode"
                     v-model="preferenceStore.autoTheatre"
                     description="Go into theatre mode when selecting a stream (video fill height)"
                     class="max-lg:hidden!"
                 />
 
                 <Switch
-                    label="Auto Fullscreen"
+                    text="Auto Fullscreen"
                     v-model="preferenceStore.autoFullscreen"
                     description="Go into fullscreen mode when selecting a stream"
                 />
