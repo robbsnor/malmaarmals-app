@@ -115,7 +115,10 @@ watch(width, () => {
 
                 <div
                     ref="chatRef"
-                    class="bg-green-800f scroll-hidden flex h-full flex-col gap-1 overflow-auto px-2 py-2 pt-4 2xl:px-4"
+                    class="scroll-hidden flex h-full flex-col gap-1 overflow-auto p-2 2xl:px-4"
+                    :class="{
+                        'px-4!': !appStore.isLandscape,
+                    }"
                     @scroll="onScroll"
                 >
                     <Message
@@ -147,7 +150,7 @@ watch(width, () => {
             </div>
         </template>
 
-        <div v-else class="flex h-full overflow-hidden flex-col gap-3 p-2">
+        <div v-else class="flex h-full overflow-hidden flex-col gap-3 p-4">
             <div v-for="n in 40" :key="n">
                 <Skeleton
                     class="h-6 bg-black-400 md:bg-black-600"
