@@ -51,12 +51,11 @@ const drawer = ref(false);
                         </template>
                     </Switch>
 
-                    <Admin>
-                        <Switch
-                            text="Show Chapters"
-                            description="Show chapters on timeline"
-                            v-model="preferenceStore.showChapters"
-                    /></Admin>
+                    <Switch
+                        text="Show Chapters"
+                        description="Show chapters on timeline"
+                        v-model="preferenceStore.showChapters"
+                    />
                 </div>
 
                 <div class="space-y-3">

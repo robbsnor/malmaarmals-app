@@ -38,20 +38,6 @@ const goBack = () => {
     videoStore.playerIsMini = true;
 };
 
-function changeOrientation() {
-    if (!isSupported) return;
-
-    if (orientation.value === 'landscape-primary' || orientation.value === 'landscape-secondary') {
-        console.log('isLandscape');
-        unlockOrientation();
-        lockOrientation('portrait-primary');
-    } else {
-        console.log('isPortrait');
-        unlockOrientation();
-        lockOrientation('landscape-primary');
-    }
-}
-
 async function goToNextVideo() {
     const nextId = videosStore.videos.findIndex((v) => v.video_id === videoStore.video.video_id) + 1;
 
@@ -221,11 +207,13 @@ function toggleTheaterMode() {
                         :step="1"
                     />
 
-                    <ChapterMarker
-                        v-for="chapter in manageChaptersStore.chapters"
-                        :key="chapter.start_s"
-                        :chapter="chapter"
-                    />
+                    <template v-if="preferenceStore.showChapters || manageChaptersStore.editMode">
+                        <ChapterMarker
+                            v-for="chapter in manageChaptersStore.chapters"
+                            :key="chapter.start_s"
+                            :chapter="chapter"
+                        />
+                    </template>
                 </div>
             </div>
         </div>

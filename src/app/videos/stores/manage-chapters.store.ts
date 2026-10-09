@@ -1,7 +1,7 @@
 import { useCloned } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { v4 } from 'uuid';
-import { ref, toRaw, watch, watchEffect } from 'vue';
+import { ref, watch } from 'vue';
 import { supabase } from '../../../supabase';
 import { sleep } from '../../shared/helpers/sleep';
 import { useVideoStore } from './video.store';
