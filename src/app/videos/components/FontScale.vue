@@ -3,13 +3,11 @@ import { computed, ref, watch } from 'vue';
 import { usePreferenceStore } from '../../shared/stores/preference.store.ts';
 import { ArrayHelper } from '../../shared/helpers/array.helper.ts';
 import Message from './Message.vue';
-import ResetButton from './ResetButton.vue';
 import { useAuthStore } from '../../auth/stores/auth.store.ts';
 
 const preferenceStore = usePreferenceStore();
 const authStore = useAuthStore();
-const defaultFontScale = 1;
-const fontScales = ref([0.8, defaultFontScale, 1.2, 1.4, 1.6]);
+const fontScales = ref([0.8, 1, 1.2, 1.4, 1.6, 1.8]);
 const labels = computed(() => fontScales.value.map((v) => `${v * 100}%`));
 const selectedTick = ref(0);
 
@@ -19,10 +17,6 @@ function setFontScale(index: number) {
 
 function syncSelectedTick() {
     selectedTick.value = fontScales.value.findIndex((size) => size === preferenceStore.chatFontScale);
-}
-
-function reset() {
-    preferenceStore.chatFontScale = defaultFontScale;
 }
 
 watch(
