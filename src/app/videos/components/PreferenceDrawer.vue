@@ -22,6 +22,12 @@ const preferenceStore = usePreferenceStore();
             </div>
 
             <div class="space-y-8">
+                <div class="space-y-3">
+                    <FormHeader title="Chat"></FormHeader>
+                    <FontScale />
+                    <ChatWidth />
+                </div>
+
                 <div class="space-y-2">
                     <FormHeader title="Player"></FormHeader>
 
@@ -61,12 +67,6 @@ const preferenceStore = usePreferenceStore();
                         description="Same as above, but for only for PETER vs TIMON streams to prevent spoilers"
                         v-model="preferenceStore.showChaptersPVT"
                     />
-                </div>
-
-                <div class="space-y-3">
-                    <FormHeader title="Chat"></FormHeader>
-                    <FontScale />
-                    <ChatWidth />
                 </div>
 
                 <div class="space-y-2">
