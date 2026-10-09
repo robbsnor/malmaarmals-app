@@ -20,7 +20,7 @@ const socials = [
 <template>
     <div v-if="route.meta.showFooter !== false" class="border-tf border-black-400 mt-4">
         <Container class="relative">
-            <div class="flex flex-col gap-5 justify-center items-center py-10">
+            <div class="flex flex-col gap-4 justify-center items-center py-10">
                 <div class="inline-grid grid-cols-[1fr_auto_1fr] gap-1 items-center text-muted-more">
                     <div class="place-self-end">Made with</div>
 
@@ -39,18 +39,17 @@ const socials = [
                     <v-icon>mdi-github</v-icon>
                 </a>
 
-                <div class="inline-flex flex-wrap gap-2 items-center justify-center text-xs">
+                <!-- <div class="inline-flex flex-wrap gap-4 items-center justify-center text-xs">
                     <div
                         v-for="social of socials"
                         :key="social.link"
                         class="flex items-center justify-end gap-1 text-muted-more-more"
                     >
-                        <v-icon size="14">{{ social.icon }}</v-icon>
                         <a :href="social.link" target="_blank" class="hover:text-primary leading-tight">
-                            {{ social.text }}
+                            <v-icon size="14">{{ social.icon }}</v-icon>
                         </a>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <img class="absolute right-4 bottom-4 opacity-30 w-20" src="/images/painted-emotes/lekkerLief.png" alt="" />
