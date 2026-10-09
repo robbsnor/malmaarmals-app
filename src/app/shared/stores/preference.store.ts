@@ -6,6 +6,7 @@ export const usePreferenceStore = defineStore('preferences', () => {
     const showFloatingEmotes = useStorage('pref-show-floating-emotes', true);
     const showHypeGraph = useStorage('pref-show-hype-graph', true);
     const showFacecam = useStorage('pref-facecam', false);
+    const showChapters = useStorage('pref-chapters', true);
 
     const autoTheatre = useStorage('pref-auto-theatre', false);
     const autoFullscreen = useStorage('pref-auto-fullscreen', false);
@@ -19,6 +20,7 @@ export const usePreferenceStore = defineStore('preferences', () => {
         showFloatingEmotes,
         showHypeGraph,
         showFacecam,
+        showChapters,
 
         autoTheatre,
         autoFullscreen,
