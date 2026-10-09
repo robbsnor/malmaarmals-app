@@ -19,23 +19,23 @@ const preferenceStore = usePreferenceStore();
             :class="{ 'pointer-events-none scale-90f!': !preferenceStore.overwriteChatWidth }"
         >
             <div class="flex items-center justify-center -ml-2">
-                <v-btn icon="mdi-minus" size="small" variant="text" @click="preferenceStore.chatWidth -= 1"></v-btn>
+                <v-btn icon="mdi-minus" size="small" variant="text" @click="preferenceStore.chatWidth -= 0.1"></v-btn>
                 <v-slider
                     thumb-size="12"
                     v-model="preferenceStore.chatWidth"
                     track-size="4"
                     density="compact"
-                    :max="800"
+                    :max="50"
                     :hide-details="true"
-                    :min="100"
+                    :min="10"
                     color="primary"
-                    step="1"
+                    step=".1"
                     tick-size="4"
                 >
                 </v-slider>
-                <v-btn icon="mdi-plus" size="small" variant="text" @click="preferenceStore.chatWidth += 1"></v-btn>
+                <v-btn icon="mdi-plus" size="small" variant="text" @click="preferenceStore.chatWidth += 0.1"></v-btn>
 
-                <div class="text-sm font-mono text-muted">{{ preferenceStore.chatWidth }} px</div>
+                <div class="text-sm font-mono text-muted">{{ preferenceStore.chatWidth.toFixed(2) }}%</div>
             </div>
 
             <div
