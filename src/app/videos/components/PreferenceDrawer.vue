@@ -22,12 +22,6 @@ const drawer = ref(false);
                 <VolumeControl />
             </div>
 
-            <div class="space-y-3">
-                <FormHeader>Chat</FormHeader>
-                <FontScale />
-                <ChatWidth />
-            </div>
-
             <div class="space-y-2">
                 <FormHeader>Player</FormHeader>
 
@@ -55,6 +49,12 @@ const drawer = ref(false);
                         </a>
                     </template>
                 </Switch>
+            </div>
+
+            <div class="space-y-3">
+                <FormHeader>Chat</FormHeader>
+                <FontScale />
+                <ChatWidth />
             </div>
 
             <div class="space-y-2">
