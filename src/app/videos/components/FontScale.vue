@@ -35,8 +35,7 @@ watch(
 <template>
     <div class="space-y-4">
         <div>
-            <FormLabel class="pb-1!">Preview</FormLabel>
-            <div class="flex items-center px-4 py-3 min-h-14 rounded-md bg-black-400 border border-black-500">
+            <div class="flex items-center px-4 py-2 min-h-14 rounded-md bg-black-400 border border-black-500">
                 <Message
                     :fontScale="preferenceStore.chatFontScale"
                     :message="{
@@ -55,7 +54,7 @@ watch(
         </div>
 
         <div>
-            <FormLabel class="-mb-3">Message size</FormLabel>
+            <FormLabel class="-mb-3">Messages size</FormLabel>
 
             <v-slider
                 thumb-size="12"

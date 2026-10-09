@@ -8,11 +8,10 @@ import FontScale from './FontScale.vue';
 import ChatWidth from './ChatWidth.vue';
 
 const preferenceStore = usePreferenceStore();
-const drawer = ref(false);
 </script>
 
 <template>
-    <Drawer v-model="drawer">
+    <Drawer v-model="preferenceStore.drawer">
         <template #activator="{ props }">
             <PlayerButton v-bind="props" icon="mdi-cog-outline" />
         </template>
@@ -22,9 +21,9 @@ const drawer = ref(false);
                 <VolumeControl />
             </div>
 
-            <div class="space-y-6">
+            <div class="space-y-8">
                 <div class="space-y-2">
-                    <FormHeader>Player</FormHeader>
+                    <FormHeader title="Player"></FormHeader>
 
                     <Switch
                         text="Show Floating-Emotes"
@@ -53,19 +52,25 @@ const drawer = ref(false);
 
                     <Switch
                         text="Show Chapters"
-                        description="Show chapters on timeline"
+                        description="Show chapters on timeline and in widgets"
                         v-model="preferenceStore.showChapters"
+                    />
+
+                    <Switch
+                        text="Show Chapters for PETER vs TIMON"
+                        description="Same as above, but for only for PETER vs TIMON streams to prevent spoilers"
+                        v-model="preferenceStore.showChaptersPVT"
                     />
                 </div>
 
                 <div class="space-y-3">
-                    <FormHeader>Chat</FormHeader>
+                    <FormHeader title="Chat"></FormHeader>
                     <FontScale />
                     <ChatWidth />
                 </div>
 
                 <div class="space-y-2">
-                    <FormHeader>Stream behaviour</FormHeader>
+                    <FormHeader title="Stream behaviour"></FormHeader>
 
                     <Switch
                         text="Auto Theatre-mode"

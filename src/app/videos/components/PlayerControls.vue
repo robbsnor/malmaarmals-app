@@ -21,6 +21,7 @@ import ShareButton from './ShareButton.vue';
 import { useAppStore } from '../../shared/stores/app.store.ts';
 import HypeGraph from './HypeGraph.vue';
 import TimeJumpDialog from './TimeJumpDialog.vue';
+import { randomNumber } from '../../shared/helpers/randomNumber.ts';
 
 const appStore = useAppStore();
 const videoStore = useVideoStore();
@@ -61,6 +62,18 @@ function toggleTheaterMode() {
     const { y } = useScroll(videoStore.videoColRef, { behavior: 'smooth' });
     y.value = 0;
 }
+
+async function randomPVT() {
+    const ids = videosStore.videos
+        .filter((v) => !v.chapters.length)
+        .filter((v) => v.title.toLocaleLowerCase().includes('peter v'))
+        ?.map((v) => v.video_id);
+    const rn = randomNumber(0, ids.length);
+
+    console.log(ids.length);
+
+    await router.push({ name: 'stream', params: { id: ids[rn] } });
+}
 </script>
 
 <template>
@@ -88,12 +101,6 @@ function toggleTheaterMode() {
 
                     <Cast />
                     <PreferenceDrawer />
-                    <!-- <PlayerButton
-                        @click="videoStore.showChat = !videoStore.showChat"
-                        :icon="videoStore.showChat ? 'mdi-arrow-expand-right' : 'mdi-arrow-expand-left'"
-                        :size="20"
-                        class="hidden md:block"
-                    /> -->
                 </div>
             </div>
 
@@ -125,13 +132,6 @@ function toggleTheaterMode() {
                         <v-icon size="24" icon="mdi-fast-forward-30" />
                     </button>
                 </div>
-
-                <div
-                    class="absolute font-bold text-muted translate-y-full mt-2 text-center pointer-events-none select-none"
-                >
-                    Loading can take up to a minute, <br />
-                    please be patient.
-                </div>
             </div>
 
             <div class="flex flex-col px-4">
@@ -154,6 +154,10 @@ function toggleTheaterMode() {
                     <TimeJumpDialog v-model="timeJumpDialog" />
 
                     <div class="relative flex items-center gap-2 -mb-2 z-1">
+                        <Admin>
+                            <PlayerButton @click="randomPVT()" icon="mdi-sword-cross" :size="20" />
+                        </Admin>
+
                         <PlayerButton
                             v-if="videoStore.supportsPictureInPicture"
                             title="Picture-in-picture toggle"

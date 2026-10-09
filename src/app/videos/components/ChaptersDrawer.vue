@@ -71,12 +71,7 @@ watch(
                     />
                 </div>
 
-                <Empty
-                    v-else
-                    title="No chapters"
-                    icon="mdi-format-list-bulleted"
-                    description="PETER vs TIMON and similar streams don't have chapters to prevent spoilers."
-                >
+                <Empty v-else title="No chapters" icon="mdi-format-list-bulleted">
                     <div class="flex flex-col gap-4">
                         <v-btn
                             v-admin

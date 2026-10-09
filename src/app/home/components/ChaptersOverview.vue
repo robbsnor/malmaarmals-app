@@ -5,10 +5,7 @@ const videosStore = useVideosStore();
 </script>
 
 <template>
-    <Section
-        title="Chapters overview"
-        description="An overview of streams that have chapters. PETER vs TIMON and similar streams don't have chapters to prevent spoilers."
-    >
+    <Section title="Chapters overview">
         <template #actions>
             <div class="text-muted">
                 {{ videosStore.videos.filter((v) => v.chapters.length).length }} /
