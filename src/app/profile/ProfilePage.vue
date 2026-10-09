@@ -5,6 +5,7 @@ import { RouterLink } from 'vue-router';
 import { useHistoryStore } from '../history/stores/history.store';
 import VideoThumbnail from '../videos/components/VideoThumbnail.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
+import MyChats from './MyChats.vue';
 
 const authStore = useAuthStore();
 const historyStore = useHistoryStore();
@@ -152,6 +153,10 @@ const handleClick = async (item: any) => {
                     </div>
                 </div>
             </div>
+
+            <Admin>
+                <MyChats></MyChats>
+            </Admin>
         </Container>
 
         <Container width="920px">
