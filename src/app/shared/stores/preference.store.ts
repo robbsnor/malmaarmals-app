@@ -17,7 +17,7 @@ export const usePreferenceStore = defineStore('preferences', () => {
     const chatFontScale = useStorage<number>('pref-chat-font-scale', 1);
 
     const overwriteChatWidth = useStorage('pref-overwrite-chat-width', false);
-    const chatWidth = useStorage<number>('pref-chat-width_07895445', 500);
+    const chatWidth = useStorage<number>('pref-chat-width_92197', 25);
 
     return {
         drawer,
