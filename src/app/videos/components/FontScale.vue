@@ -7,7 +7,7 @@ import { useAuthStore } from '../../auth/stores/auth.store.ts';
 
 const preferenceStore = usePreferenceStore();
 const authStore = useAuthStore();
-const fontScales = ref([0.8, 1, 1.2, 1.4, 1.6, 1.8]);
+const fontScales = ref([0.8, 1, 1.2, 1.4, 1.6]);
 const labels = computed(() => fontScales.value.map((v) => `${v * 100}%`));
 const selectedTick = ref(0);
 
