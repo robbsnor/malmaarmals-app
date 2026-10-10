@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import { useStorage } from '@vueuse/core';
 import { useVideoStore } from '../../videos/stores/video.store';
 
