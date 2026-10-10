@@ -14,11 +14,13 @@ export const usePreferenceStore = defineStore('preferences', () => {
 
     const showChapters = useStorage('pref-chapters', true);
     const showChaptersPVT = useStorage('pref-chapters-pvt', true);
-    const showChaptersBoth = computed(() =>
-        videoStore.isPeterVsTimon
-            ? videoStore.isPeterVsTimon && showChapters.value && showChaptersPVT.value
-            : showChapters.value
-    );
+    const showChaptersBoth = computed(() => {
+        if (videoStore.isPeterVsTimon) {
+            return showChapters.value && showChaptersPVT.value;
+        }
+
+        return showChapters.value;
+    });
 
     const autoTheatre = useStorage('pref-auto-theatre', false);
     const autoFullscreen = useStorage('pref-auto-fullscreen', false);
