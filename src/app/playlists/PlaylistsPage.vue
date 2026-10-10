@@ -21,8 +21,14 @@ const { lgAndUp } = useDisplay();
 <template>
     <Section title="Playlists" :show-header="lgAndUp">
         <FilterIndicator archiveType="PLAYLISTS" />
+
         <template #actions v-if="authStore.isAdmin">
-            <ManagePlaylistsDialog />
+            <Admin>
+                <div class="flex gap-4">
+                    <ManagePlaylistsDialog />
+                    <AddPlaylistDialog />
+                </div>
+            </Admin>
         </template>
 
         <div class="grid grid-cols-1 gap-4 lg:gap-8 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4" v-auto-animate>

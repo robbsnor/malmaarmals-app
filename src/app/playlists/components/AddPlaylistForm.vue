@@ -31,7 +31,6 @@ const playlistOrderRef = useTemplateRef<HTMLElement>('playlistOrderRef');
 const { y } = useScroll(playlistOrderRef);
 
 function scrollToBottom() {
-    console.log(playlistOrderRef.value);
     y.value = playlistOrderRef.value.scrollHeight;
 }
 
