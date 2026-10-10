@@ -29,7 +29,7 @@ const model = defineModel();
             'pl-2': props.nested,
         }"
     >
-        <div class="flex gap-4">
+        <div v-if="props.text" class="flex gap-4">
             <div
                 v-if="props.nested"
                 class="self-start shrink-0 rounded-bl-md border-l-2 border-b-2 border-black-2000 aspect-square w-3.5"
@@ -64,5 +64,10 @@ const model = defineModel();
 :deep(.v-label) {
     padding-inline-start: 0 !important;
     width: 100%;
+}
+
+:deep(.v-selection-control--density-compact) {
+    /* reset width */
+    --v-selection-control-size: unset;
 }
 </style>
