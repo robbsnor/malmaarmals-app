@@ -25,7 +25,7 @@ const model = defineModel();
         v-bind="rootAttrs"
         class="relative flex gap-8 items-center justify-between transition-opacity"
         :class="{
-            'opacity-50': props.disabled,
+            'opacity-50 select-none': props.disabled,
             'pl-2': props.nested,
         }"
     >
