@@ -1,6 +1,6 @@
+import { useStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { computed, ref } from 'vue';
-import { useStorage } from '@vueuse/core';
 import { useVideoStore } from '../../videos/stores/video.store';
 
 export const usePreferenceStore = defineStore('preferences', () => {
@@ -12,14 +12,14 @@ export const usePreferenceStore = defineStore('preferences', () => {
     const showHypeGraph = useStorage('pref-show-hype-graph', true);
     const showFacecam = useStorage('pref-facecam', false);
 
-    const showChapters = useStorage('pref-chapters', true);
+    const showChaptersGeneral = useStorage('pref-chapters', true);
     const showChaptersPVT = useStorage('pref-chapters-pvt', true);
-    const showChaptersBoth = computed(() => {
+    const showChapters = computed(() => {
         if (videoStore.isPeterVsTimon) {
-            return showChapters.value && showChaptersPVT.value;
+            return showChaptersGeneral.value && showChaptersPVT.value;
         }
 
-        return showChapters.value;
+        return showChaptersGeneral.value;
     });
 
     const autoTheatre = useStorage('pref-auto-theatre', false);
@@ -37,9 +37,9 @@ export const usePreferenceStore = defineStore('preferences', () => {
         showHypeGraph,
         showFacecam,
 
-        showChapters,
+        showChaptersGeneral,
         showChaptersPVT,
-        showChaptersBoth,
+        showChapters,
 
         autoTheatre,
         autoFullscreen,

@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import type { Video } from '../models/video.model';
-import { useVideoStore } from '../stores/video.store';
-import { useVideosStore } from '../stores/videos.store';
-import { supabase } from '../../../supabase';
+import { defineModel, defineProps, ref, withDefaults } from 'vue';
 import { toast } from 'vue-sonner';
+import { supabase } from '../../../supabase';
+import type { Video } from '../models/video.model';
+import { useVideosStore } from '../stores/videos.store';
 import VideoItem from './VideoItem.vue';
-import { sleep } from '../../shared/helpers/sleep.ts';
 
 const props = withDefaults(
     defineProps<{

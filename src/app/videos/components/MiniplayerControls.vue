@@ -1,7 +1,6 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import { useVideoStore } from '../stores/video.store';
-import { useAppStore } from '../../shared/stores/app.store';
-import { RouterLink, useRouter } from 'vue-router';
 import MiniplayerButton from './MiniplayerButton.vue';
 
 const videoStore = useVideoStore();

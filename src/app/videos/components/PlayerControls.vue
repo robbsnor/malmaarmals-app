@@ -1,27 +1,26 @@
 <script setup lang="ts">
-import { useElementSize, useFullscreen, useScroll } from '@vueuse/core';
-import { useRouter } from 'vue-router';
-import { useVideoStore } from '../stores/video.store';
-import { computed, ref, useTemplateRef } from 'vue';
-import ChaptersDrawer from './ChaptersDrawer.vue';
-import AddToPlaylistDialog from '../../playlists/components/AddToPlaylistDialog.vue';
-import PlayerButton from './PlayerButton.vue';
-import VolumeControl from './VolumeControl.vue';
-import { useScreenOrientation } from '@vueuse/core';
-import ChapterMarker from './ChapterMarker.vue';
-import PreferenceDrawer from './PreferenceDrawer.vue';
-import { usePreferenceStore } from '../../shared/stores/preference.store';
-import { routeHistory } from '../../../router/router';
-import { useVideosStore } from '../stores/videos.store';
-import VideoInfo from './VideoInfo.vue';
+import { useScreenOrientation, useScroll } from '@vueuse/core';
 import _ from 'lodash';
-import { useManageChaptersStore } from '../stores/manage-chapters.store';
-import Cast from './Cast.vue';
-import ShareButton from './ShareButton.vue';
-import { useAppStore } from '../../shared/stores/app.store.ts';
-import HypeGraph from './HypeGraph.vue';
-import TimeJumpDialog from './TimeJumpDialog.vue';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { routeHistory } from '../../../router/router';
+import AddToPlaylistDialog from '../../playlists/components/AddToPlaylistDialog.vue';
 import { randomNumber } from '../../shared/helpers/randomNumber.ts';
+import { useAppStore } from '../../shared/stores/app.store.ts';
+import { usePreferenceStore } from '../../shared/stores/preference.store';
+import { useManageChaptersStore } from '../stores/manage-chapters.store';
+import { useVideoStore } from '../stores/video.store';
+import { useVideosStore } from '../stores/videos.store';
+import Cast from './Cast.vue';
+import ChapterMarker from './ChapterMarker.vue';
+import ChaptersDrawer from './ChaptersDrawer.vue';
+import HypeGraph from './HypeGraph.vue';
+import PlayerButton from './PlayerButton.vue';
+import PreferenceDrawer from './PreferenceDrawer.vue';
+import ShareButton from './ShareButton.vue';
+import TimeJumpDialog from './TimeJumpDialog.vue';
+import VideoInfo from './VideoInfo.vue';
+import VolumeControl from './VolumeControl.vue';
 
 const appStore = useAppStore();
 const videoStore = useVideoStore();
@@ -211,7 +210,7 @@ async function randomPVT() {
                         :step="1"
                     />
 
-                    <template v-if="preferenceStore.showChaptersBoth">
+                    <template v-if="preferenceStore.showChapters">
                         <ChapterMarker
                             v-for="chapter in manageChaptersStore.chapters"
                             :key="chapter.start_s"

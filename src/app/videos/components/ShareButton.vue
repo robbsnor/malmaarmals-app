@@ -2,9 +2,13 @@
 import { useShare } from '@vueuse/core';
 import PlayerButton from './PlayerButton.vue';
 import { useVideoStore } from '../stores/video.store';
+import { useRoute } from 'vue-router';
 
 const { share, isSupported } = useShare();
+const route = useRoute();
 const videoStore = useVideoStore();
+
+const dialog = defineModel();
 
 function startShare() {
     share({
@@ -16,5 +20,14 @@ function startShare() {
 </script>
 
 <template>
-    <PlayerButton v-if="isSupported" @click="startShare()" icon="mdi-share-variant" :size="20" />
+    <PlayerButton @click="dialog = true" icon="mdi-share-variant" :size="20" />
+
+    <Dialog v-model="dialog" title="Share" icon="mdi-share-variant">
+        <code>
+            <pre>
+        {{ route }}
+    </pre
+            >
+        </code>
+    </Dialog>
 </template>

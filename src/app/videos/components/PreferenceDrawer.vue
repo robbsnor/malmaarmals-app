@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import Drawer from '../../shared/components/Drawer.vue';
-import PlayerButton from './PlayerButton.vue';
 import { usePreferenceStore } from '../../shared/stores/preference.store';
-import VolumeControl from './VolumeControl.vue';
-import FontScale from './FontScale.vue';
 import ChatWidth from './ChatWidth.vue';
+import FontScale from './FontScale.vue';
+import PlayerButton from './PlayerButton.vue';
+import VolumeControl from './VolumeControl.vue';
 
 const preferenceStore = usePreferenceStore();
 </script>
@@ -53,14 +52,14 @@ const preferenceStore = usePreferenceStore();
                     <Switch
                         text="Show Chapters"
                         description="Show chapters on timeline and in widgets"
-                        v-model="preferenceStore.showChapters"
+                        v-model="preferenceStore.showChaptersGeneral"
                     />
 
                     <Switch
                         text="Show Chapters for PETER vs TIMON"
                         description="Specifically for PETER vs TIMON streams, to prevent spoilers. (not all streams have chapters added yet tho...)"
                         v-model="preferenceStore.showChaptersPVT"
-                        :disabled="!preferenceStore.showChapters"
+                        :disabled="!preferenceStore.showChaptersGeneral"
                         nested
                     />
                 </div>

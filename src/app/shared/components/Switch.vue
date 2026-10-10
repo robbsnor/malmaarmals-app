@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAttrs, useSlots } from 'vue';
+import { useAttrs } from 'vue';
 import { filterInputAttrs } from 'vuetify/lib/util/helpers.mjs';
 
 defineOptions({ inheritAttrs: false });
@@ -15,7 +15,6 @@ const props = withDefaults(
 );
 
 const attrs = useAttrs();
-const slots = useSlots();
 const [rootAttrs, controlAttrs] = filterInputAttrs(attrs);
 const model = defineModel();
 </script>
