@@ -10,7 +10,7 @@ const preferenceStore = usePreferenceStore();
 
 <template>
     <Widget v-if="videoStore.chapters.length" title="Chapters">
-        <template v-if="videoStore.isPeterVsTimon ? preferenceStore.showChaptersPVT : preferenceStore.showChapters">
+        <template v-if="preferenceStore.showChaptersBoth">
             <div v-if="videoStore.chapters?.length" class="pt-4">
                 <Chapter v-for="chapter in videoStore.chapters" :key="chapter.id" :chapter="chapter" />
             </div>

@@ -58,8 +58,10 @@ const preferenceStore = usePreferenceStore();
 
                     <Switch
                         text="Show Chapters for PETER vs TIMON"
-                        description="Same as above, but for only for PETER vs TIMON streams to prevent spoilers"
+                        description="Specifically for PETER vs TIMON streams, to prevent spoilers"
                         v-model="preferenceStore.showChaptersPVT"
+                        :disabled="!preferenceStore.showChapters"
+                        nested
                     />
                 </div>
 

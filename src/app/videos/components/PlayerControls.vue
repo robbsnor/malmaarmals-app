@@ -211,7 +211,7 @@ async function randomPVT() {
                         :step="1"
                     />
 
-                    <template v-if="preferenceStore.showChapters || manageChaptersStore.editMode">
+                    <template v-if="preferenceStore.showChaptersBoth">
                         <ChapterMarker
                             v-for="chapter in manageChaptersStore.chapters"
                             :key="chapter.start_s"

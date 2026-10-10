@@ -8,6 +8,8 @@ const props = withDefaults(
     defineProps<{
         text?: string;
         description?: string;
+        disabled?: boolean;
+        nested?: boolean;
     }>(),
     {}
 );
@@ -19,16 +21,37 @@ const model = defineModel();
 </script>
 
 <template>
-    <div v-bind="rootAttrs" class="relative flex gap-8 justify-between items-center">
-        <FormLabel :description="props.description">
-            {{ props.text }}
+    <div
+        v-bind="rootAttrs"
+        class="relative flex gap-8 items-center justify-between transition-opacity"
+        :class="{
+            'opacity-50': props.disabled,
+            'pl-2': props.nested,
+        }"
+    >
+        <div class="flex gap-4">
+            <div
+                v-if="props.nested"
+                class="self-start shrink-0 rounded-bl-md border-l-2 border-b-2 border-black-2000 aspect-square w-3.5"
+            ></div>
 
-            <template #description>
-                <slot name="description"></slot>
-            </template>
-        </FormLabel>
+            <FormLabel :description="props.description">
+                <div>{{ props.text }}</div>
 
-        <v-switch v-bind="controlAttrs" hide-details="auto" density="compact" v-model="model" class="shrink-0!" />
+                <template #description>
+                    <slot name="description"></slot>
+                </template>
+            </FormLabel>
+        </div>
+
+        <v-switch
+            :disabled="props.disabled"
+            v-bind="controlAttrs"
+            hide-details="auto"
+            density="compact"
+            v-model="model"
+            class="shrink-0!"
+        />
     </div>
 </template>
 
