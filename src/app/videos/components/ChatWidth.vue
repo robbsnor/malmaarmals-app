@@ -7,7 +7,7 @@ const preferenceStore = usePreferenceStore();
 </script>
 
 <template>
-    <div class=" ">
+    <div>
         <Switch
             text="Overwrite chat width"
             description="Only applies in landscape-mode"
@@ -15,12 +15,13 @@ const preferenceStore = usePreferenceStore();
         ></Switch>
 
         <div
-            class="relative -4 scale-100 transition-all"
-            :class="{ 'pointer-events-none scale-90f!': !preferenceStore.overwriteChatWidth }"
+            class="relative -4 transition-all"
+            :class="{ 'pointer-events-none opacity-50': !preferenceStore.overwriteChatWidth }"
         >
             <div class="flex items-center justify-center -ml-2">
                 <v-btn icon="mdi-minus" size="small" variant="text" @click="preferenceStore.chatWidth -= 0.1"></v-btn>
                 <v-slider
+                    :disabled="!preferenceStore.overwriteChatWidth"
                     thumb-size="12"
                     v-model="preferenceStore.chatWidth"
                     track-size="4"
@@ -37,13 +38,6 @@ const preferenceStore = usePreferenceStore();
 
                 <div class="text-sm font-mono text-muted">{{ preferenceStore.chatWidth.toFixed(2) }}%</div>
             </div>
-
-            <div
-                class="absolute inset-0 bg-linear-to-t from-black-200/90 to-black-200/50 z-10 opacity-0 transition-all pointer-events-none"
-                :class="{
-                    'opacity-100  ': !preferenceStore.overwriteChatWidth,
-                }"
-            ></div>
         </div>
     </div>
 </template>
