@@ -4,55 +4,32 @@ import { supabase } from '../../supabase';
 import { useAuthStore } from '../auth/stores/auth.store';
 import Emote from '../shared/components/Emote.vue';
 import { fetchAll } from '../shared/helpers/supabase-fetch-all.helper';
+import { useStatsStore } from '../stats/stores/stats.store.ts';
 
 const authStore = useAuthStore();
-const loading = ref(true);
-const messages = ref([]);
+const statsStore = useStatsStore();
 
-onMounted(async () => {
-    loading.value = true;
-
-    const ors = ['-peter', '- peter'];
-    try {
-        const { data, error } = await fetchAll((from, to) =>
-            supabase
-                .from('messages')
-                .select('text, video_id, offset_sec')
-                .or(ors.map((phrase) => `text.ilike.%${phrase}%`).join(','))
-                .order('date', { ascending: false })
-                .range(from, to)
-        );
-
-        if (error) throw error;
-
-        messages.value = data;
-    } catch (err) {
-        throw err;
-    } finally {
-        loading.value = false;
-    }
-});
+onMounted(async () => {});
 </script>
 
 <template>
-    <div class="flex gap-4 pt-4">
-        <template v-if="!loading">
-            <!-- <div
-                v-for="(emote, i) in emotes.slice(0, amount)"
-                :key="emote.id"
-                class="relative overflow-hidden grow flex aspect-square items-center justify-center bg-black-300 rounded-md"
+    <div class="pt-4">
+        <template v-for="message in statsStore.quotes">
+            <RouterLink
+                v-if="message.video_id"
+                :to="{
+                    name: 'stream',
+                    params: { id: message.video_id },
+                    query: { t: message.offset_sec - 30 },
+                }"
+                class="link block"
             >
-
-            </div> -->
-            <code>
-                <pre>
-                    {{ messages.map((m) => m.text) }}
-                </pre>
-            </code>
+                {{ message.text }}
+            </RouterLink>
         </template>
 
-        <template v-else class="flex gap-4">
-            <Skeleton v-for="i in 5" :key="i" class="aspect-square grow h-auto" />
-        </template>
+        <!-- <div v-else class="flex flex-col gap-4">
+            <Skeleton v-for="i in 10" :key="i" />
+        </div> -->
     </div>
 </template>

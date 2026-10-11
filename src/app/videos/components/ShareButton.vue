@@ -45,7 +45,7 @@ function onOpen() {
                 <div
                     class="flex justify-between items-center gap-4 p-2 pl-4 text-muted rounded-md bg-black-500 border border-black-800 self-stretch"
                 >
-                    <div>{{ url }}</div>
+                    <div class="truncate">{{ url }}</div>
                     <v-btn
                         v-if="isSupported"
                         @click="startShare()"

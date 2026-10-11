@@ -6,6 +6,7 @@ import { supabase } from '../../../supabase';
 import type { Tables } from '../../shared/models/database.types';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { DateHelper } from '../../shared/helpers/date.helper';
+import { fetchAll } from '../../shared/helpers/supabase-fetch-all.helper';
 
 export interface Year {
     year: number;
@@ -23,10 +24,18 @@ export const useStatsStore = defineStore('stats', () => {
     const chatStatsLoading = ref(true);
     const chatStats = ref();
     const history = ref<Tables<'history'>[]>([]);
+    const quotes = ref<
+        {
+            text: string;
+            video_id?: number;
+            offset_sec: number;
+        }[]
+    >();
 
     onMounted(async () => {
-        getMainStats();
-        getHistoryStats();
+        await getHistoryStats();
+        await getQuotes();
+        await getMainStats();
     });
 
     async function getMainStats() {
@@ -77,6 +86,24 @@ export const useStatsStore = defineStore('stats', () => {
         return years;
     });
 
+    async function getQuotes() {
+        // const ors = ['-peter', '- peter'];
+        const ors = ['-timon', '- timon'];
+
+        const { data, error } = await fetchAll((from, to) =>
+            supabase
+                .from('messages')
+                .select('text, video_id, offset_sec')
+                .or(ors.map((phrase) => `text.ilike.%${phrase}%`).join(','))
+                .order('date', { ascending: false })
+                .range(from, to)
+        );
+
+        if (error) throw error;
+
+        quotes.value = data;
+    }
+
     const highestStreamPerWeek = computed(() =>
         Math.max(
             ...videosByWeek.value.flatMap((year) =>
@@ -93,6 +120,7 @@ export const useStatsStore = defineStore('stats', () => {
     return {
         chatStatsLoading,
         chatStats,
+        quotes,
 
         videosByWeek,
         highestStreamPerWeek,
