@@ -89,15 +89,14 @@ export const useStatsStore = defineStore('stats', () => {
 
     async function getQuotes() {
         // const ors = ['-peter', '- peter'];
-        const ors = ['oei'];
+        const ors = ['kuk'];
         // const ors = ['-timon', '- timon'];
 
         const { data, error } = await fetchAll((from, to) =>
             supabase
                 .from('messages')
                 .select('text, video_id, offset_sec')
-                // .or(ors.map((phrase) => `text.ilike.%${phrase}%`).join(','))
-                .eq('text', 'oei')
+                .or(ors.map((phrase) => `text.ilike.%${phrase}%`).join(','))
                 .order('date', { ascending: false })
                 .range(from, to)
         );
