@@ -74,7 +74,7 @@ const startTime = computed(() => prettyTime(chapter.value.start_s));
 </script>
 
 <template>
-    <div :class="['flex gap-3', props.i !== videoStore.chapters.length - 1 ? 'border-b border-black-500 pb-4' : '']">
+    <div class="flex gap-3 border-b border-black-500 pb-4">
         <CategoryThumbnail :category="chapter.category" />
 
         <v-autocomplete
