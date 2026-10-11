@@ -88,7 +88,8 @@ export const useStatsStore = defineStore('stats', () => {
     });
 
     async function getQuotes() {
-        const ors = ['-peter', '- peter'];
+        // const ors = ['-peter', '- peter'];
+        const ors = ['oei'];
         // const ors = ['-timon', '- timon'];
 
         const { data, error } = await fetchAll((from, to) =>
