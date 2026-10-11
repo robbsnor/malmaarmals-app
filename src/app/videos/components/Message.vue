@@ -63,20 +63,34 @@ const isGifted = computed(() => props.message.text.includes(' gifted a '));
 
             <span class="break-words text-gray-300"
                 >:
-                <template v-for="word in message.text.split(' ')" :key="word">
-                    <Emote v-if="word.startsWith(':emote')" :emoteString="word" />
-                    <b v-else-if="word.startsWith('@')">{{ word }}</b>
-                    <a
-                        v-else-if="word.startsWith('http') || word.startsWith('https')"
-                        :href="word"
-                        target="_blank"
-                        class="link break-all"
-                    >
-                        {{ word }}
-                    </a>
-                    <b v-else-if="isSub && word === 'months'">{{ word }}</b>
-                    <template v-else>{{ word }}</template>
-                    {{ ' ' }}
+                <template v-if="isSub">
+                    <template v-for="(sentence, i) in message.text.split('!')" :key="sentence">
+                        <template v-if="i === 0"> {{ sentence }}! </template>
+                        <b v-else>
+                            <template v-for="word in sentence.split(' ')" :key="word">
+                                <Emote v-if="word.startsWith(':emote')" :emoteString="word" />
+                                <template v-else>{{ word }}</template>
+                                {{ ' ' }}
+                            </template>
+                        </b>
+                    </template>
+                </template>
+
+                <template v-else>
+                    <template v-for="word in message.text.split(' ')" :key="word">
+                        <Emote v-if="word.startsWith(':emote')" :emoteString="word" />
+                        <b v-else-if="word.startsWith('@')">{{ word }}</b>
+                        <a
+                            v-else-if="word.startsWith('http') || word.startsWith('https')"
+                            :href="word"
+                            target="_blank"
+                            class="link break-all"
+                        >
+                            {{ word }}
+                        </a>
+                        <template v-else>{{ word }}</template>
+                        {{ ' ' }}
+                    </template>
                 </template>
             </span>
         </div>
