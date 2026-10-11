@@ -18,8 +18,19 @@ const preferenceStore = usePreferenceStore();
             <Empty v-else title="No chapters yet..." icon="mdi-format-list-bulleted"> </Empty>
         </template>
 
-        <Empty v-else icon="mdi-eye-off-outline" description="Chapters have been hidden in settings.">
-            <v-btn @click="preferenceStore.drawer = true" variant="text" color="primary">settings</v-btn>
-        </Empty>
+        <div v-else class="relative">
+            <div class="absolute inset-0 pt-4">
+                <SkeletonContainer class="space-y-4">
+                    <div v-for="i in 5" class="flex gap-4">
+                        <Skeleton :pulse="false" class="w-12 h-16 shrink-0" />
+                        <Skeleton :pulse="false" class="grow h-16" />
+                    </div>
+                </SkeletonContainer>
+            </div>
+
+            <Empty class="relative" icon="mdi-eye-off-outline" description="Chapters have been hidden in settings.">
+                <v-btn @click="preferenceStore.drawer = true" variant="text" color="primary">settings</v-btn>
+            </Empty>
+        </div>
     </Widget>
 </template>
