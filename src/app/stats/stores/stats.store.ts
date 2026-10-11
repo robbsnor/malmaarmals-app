@@ -7,6 +7,7 @@ import type { Tables } from '../../shared/models/database.types';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { DateHelper } from '../../shared/helpers/date.helper';
 import { fetchAll } from '../../shared/helpers/supabase-fetch-all.helper';
+import { useStorage } from '@vueuse/core';
 
 export interface Year {
     year: number;
@@ -24,13 +25,13 @@ export const useStatsStore = defineStore('stats', () => {
     const chatStatsLoading = ref(true);
     const chatStats = ref();
     const history = ref<Tables<'history'>[]>([]);
-    const quotes = ref<
+    const quotes = useStorage<
         {
             text: string;
             video_id?: number;
             offset_sec: number;
         }[]
-    >();
+    >('ewuirouweroiurweuorwe', []);
 
     onMounted(async () => {
         await getHistoryStats();
@@ -87,8 +88,8 @@ export const useStatsStore = defineStore('stats', () => {
     });
 
     async function getQuotes() {
-        // const ors = ['-peter', '- peter'];
-        const ors = ['-timon', '- timon'];
+        const ors = ['-peter', '- peter'];
+        // const ors = ['-timon', '- timon'];
 
         const { data, error } = await fetchAll((from, to) =>
             supabase
