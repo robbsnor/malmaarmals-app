@@ -96,7 +96,8 @@ export const useStatsStore = defineStore('stats', () => {
             supabase
                 .from('messages')
                 .select('text, video_id, offset_sec')
-                .or(ors.map((phrase) => `text.ilike.%${phrase}%`).join(','))
+                // .or(ors.map((phrase) => `text.ilike.%${phrase}%`).join(','))
+                .eq('text', 'oei')
                 .order('date', { ascending: false })
                 .range(from, to)
         );

@@ -23,6 +23,7 @@ onMounted(async () => {
 async function onLoadedData() {
     videoStore.loadVideoProgression(time.value);
     videoStore.showControllsAndInfo = false;
+
     await videoStore.fetchMessages();
 }
 </script>
