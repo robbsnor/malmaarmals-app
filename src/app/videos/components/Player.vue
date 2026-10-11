@@ -1,27 +1,29 @@
 <script setup lang="ts">
+import { useRouteQuery } from '@vueuse/router';
 import { nextTick, onMounted, useTemplateRef } from 'vue';
-import { useVideoStore } from '../stores/video.store';
-import MiniplayerControls from './MiniplayerControls.vue';
 import { BucketHelper } from '../../shared/helpers/bucket.helper';
-import PlayerControls from './PlayerControls.vue';
-import FloatingEmotes from './FloatingEmotes.vue';
+import { useVideoStore } from '../stores/video.store';
+import CastingPoster from './CastingPoster.vue';
 import Facecam from './Facecam.vue';
-import { useTwitch } from '../../shared/composables/useTwitch.composable';
+import FloatingEmotes from './FloatingEmotes.vue';
+import MiniplayerControls from './MiniplayerControls.vue';
+import PlayerControls from './PlayerControls.vue';
 
 const videoStore = useVideoStore();
 const videoRef = useTemplateRef<HTMLVideoElement>('videoRef');
-const twitch = useTwitch();
+const time = useRouteQuery<number>('t');
 
 onMounted(async () => {
     await nextTick();
+
     videoStore.setVideoRef(videoRef.value);
     videoStore.showControllsAndInfo = true;
-
-    videoStore.videoRef.addEventListener('loadeddata', async () => {
-        videoStore.fetchMessages();
-        videoStore.loadVideoProgression();
-    });
 });
+
+async function onLoadedData() {
+    videoStore.loadVideoProgression(time.value);
+    await videoStore.fetchMessages();
+}
 </script>
 
 <template>
@@ -33,17 +35,10 @@ onMounted(async () => {
             ref="videoRef"
             :src="videoStore.src"
             :poster="BucketHelper.getThumbnailUrl(Number(videoStore.id))"
+            @loadeddata="onLoadedData"
         ></video>
 
-        <!-- poster overlay while casting -->
-        <Transition name="fade">
-            <img
-                v-if="videoStore.casting"
-                :src="BucketHelper.getThumbnailUrl(Number(videoStore.id))"
-                class="absolute inset-0 w-full h-full object-contain"
-                :class="videoStore.theaterMode ? '' : 'max-h-[82vh]'"
-            />
-        </Transition>
+        <CastingPoster />
 
         <div
             class="z-video-controls-bg absolute inset-0"
@@ -53,19 +48,7 @@ onMounted(async () => {
         <Facecam />
         <FloatingEmotes />
 
-        <!-- controls -->
         <PlayerControls />
         <MiniplayerControls />
     </div>
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.4s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-}
-</style>

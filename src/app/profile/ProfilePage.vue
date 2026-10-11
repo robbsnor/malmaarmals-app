@@ -6,6 +6,7 @@ import { useHistoryStore } from '../history/stores/history.store';
 import VideoThumbnail from '../videos/components/VideoThumbnail.vue';
 import { TitleHelper } from '../shared/helpers/title.helper';
 import MyChats from './MyChats.vue';
+import Quotes from './Quotes.vue';
 
 const authStore = useAuthStore();
 const historyStore = useHistoryStore();
@@ -160,6 +161,7 @@ const handleClick = async (item: any) => {
 
             <Admin>
                 <MyChats></MyChats>
+                <Quotes></Quotes>
             </Admin>
         </Container>
 

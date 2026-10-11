@@ -48,7 +48,7 @@ const isGifted = computed(() => props.message.text.includes(' gifted a '));
                 :key="badge.image_id"
                 alt=""
                 :src="TwitchHelper.getBadgeUrl(badge.image_id)"
-                class="inline-block mr-1 h-5 -mt-[2px]"
+                class="inline-block mr-[0.4em]! h-[1.4em] -mt-[2px]"
             />
 
             <span

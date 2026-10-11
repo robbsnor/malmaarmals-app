@@ -44,7 +44,7 @@ const handleImageError = () => {
         :title="emote.name"
         :alt="emote.name"
         :src="emoteUrl"
-        class="inline h-7"
+        class="inline h-[1.75em]"
         @error="handleImageError"
     />
 

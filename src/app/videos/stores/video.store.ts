@@ -1,25 +1,23 @@
+import {
+    onKeyStroke,
+    useFullscreen,
+    useIdle,
+    useLocalStorage,
+    useMediaControls,
+    useScreenOrientation,
+    useScroll,
+    useWindowSize,
+} from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { computed, onMounted, ref, watch, watchEffect } from 'vue';
 import { supabase } from '../../../supabase';
-import {
-    onKeyStroke,
-    useIdle,
-    useMediaControls,
-    useWindowSize,
-    useLocalStorage,
-    useFullscreen,
-    useScroll,
-    useScreenOrientation,
-} from '@vueuse/core';
-import { TimeHelper } from '../../shared/helpers/time.helper';
-import { BucketHelper } from '../../shared/helpers/bucket.helper';
-import _, { countBy } from 'lodash';
-import { messagesQueryStringSelect, type Message } from '../models/messages.model';
-import { fetchAll } from '../../shared/helpers/supabase-fetch-all.helper';
-import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
-import { useVideosStore } from './videos.store';
 import { useHistoryStore } from '../../history/stores/history.store';
-import Footer from '../../layout/components/Footer.vue';
+import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
+import { BucketHelper } from '../../shared/helpers/bucket.helper';
+import { fetchAll } from '../../shared/helpers/supabase-fetch-all.helper';
+import { TimeHelper } from '../../shared/helpers/time.helper';
+import { messagesQueryStringSelect, type Message } from '../models/messages.model';
+import { useVideosStore } from './videos.store';
 
 export const TIME_PRIOR_OFFSET_S = 2;
 
@@ -70,6 +68,7 @@ export const useVideoStore = defineStore('video', () => {
 
         id.value = videoId;
         playlistId.value = _playlistId;
+
         await setSrc();
     }
 
@@ -136,11 +135,15 @@ export const useVideoStore = defineStore('video', () => {
         return sec - TIME_PRIOR_OFFSET_S >= 0 ? sec - TIME_PRIOR_OFFSET_S : 0;
     }
 
-    function loadVideoProgression() {
-        const historyItem = historyStore.history.find((h) => h.video_id === video.value.id);
-        if (!historyItem) return;
+    function loadVideoProgression(forceTime: number) {
+        if (forceTime) {
+            currentTime.value = Number(forceTime);
+        } else {
+            const historyItem = historyStore.history.find((h) => h.video_id === video.value.id);
+            if (!historyItem) return;
 
-        currentTime.value = Number(historyItem.video_time);
+            currentTime.value = Number(historyItem.video_time);
+        }
     }
 
     function setVideoRef(el: HTMLVideoElement) {

@@ -36,9 +36,7 @@ const emotes = computed(() => {
         });
     });
 
-    const foo = [...list.values()].sort((a, b) => b.count - a.count);
-    console.log(foo);
-    return foo;
+    return [...list.values()].sort((a, b) => b.count - a.count);
 });
 
 onMounted(async () => {

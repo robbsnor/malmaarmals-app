@@ -7,11 +7,14 @@ defineOptions({ inheritAttrs: false });
 const props = withDefaults(
     defineProps<{
         text?: string;
+        headerPadding?: boolean;
         description?: string;
         disabled?: boolean;
         nested?: boolean;
     }>(),
-    {}
+    {
+        headerPadding: true,
+    }
 );
 
 const attrs = useAttrs();
@@ -22,7 +25,7 @@ const model = defineModel();
 <template>
     <div
         v-bind="rootAttrs"
-        class="relative flex gap-8 items-center justify-between transition-opacity"
+        class="relative flex gap-4 items-center justify-between transition-opacity"
         :class="{
             'opacity-50 select-none': props.disabled,
             'pl-2': props.nested,
@@ -34,7 +37,7 @@ const model = defineModel();
                 class="self-start shrink-0 rounded-bl-md border-l-2 border-b-2 border-black-2000 aspect-square w-3.5"
             ></div>
 
-            <FormLabel :description="props.description">
+            <FormLabel :description="props.description" :class="{ 'pb-0!': !props.headerPadding }">
                 <div>{{ props.text }}</div>
 
                 <template #description>

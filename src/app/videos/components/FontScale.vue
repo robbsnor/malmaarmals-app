@@ -35,13 +35,18 @@ watch(
                     :message="{
                         message_id: 'foo',
                         offset_sec: 0,
-                        // text: 'There\'s a Sicko in my boot! :emote;lekkerSicko;304445721;0;10:',
-                        text: 'There\'s a Sicko in my boot!',
+                        text: 'There\'s a Sicko in my boot! :emote;lekkerSicko;304445721;0;10:',
+                        // text: 'There\'s a Sicko in my boot!',
                         // user_color: 'var(--color-primary-dark)',
                         user_color: 'rgb(255, 105, 180)',
-                        user_name: authStore.session.user.user_metadata.nickname,
+                        // user_name: authStore.session.user.user_metadata.nickname,
+                        user_name: 'SickoMale24',
                         user_id: 0,
-                        badges: [],
+                        badges: [
+                            {
+                                image_id: '42e05b9a-b6ce-4ef3-8710-c2796b52ab9b',
+                            },
+                        ],
                     }"
                 ></Message>
             </div>
