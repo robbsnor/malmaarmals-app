@@ -46,6 +46,7 @@ onMounted(async () => {
             .select('text')
             .ilike('text', '%:emote;lekker%')
             .eq('user_id', Number(authStore.session.user.user_metadata.provider_id))
+            .order('date', { ascending: false })
             .range(from, to)
     );
 
