@@ -21,7 +21,6 @@ const { text, copy, copied } = useClipboard({ source: url });
 function startShare() {
     share({
         title: `Watch ${videoStore.video.title}`,
-        // text: 'on malmaarmals.nl',
         url: url.value,
     });
 }
@@ -49,6 +48,7 @@ function onOpen() {
                     <div>{{ url }}</div>
                     <v-btn
                         v-if="isSupported"
+                        @click="startShare()"
                         size="small"
                         color="primary"
                         variant="tonal"
