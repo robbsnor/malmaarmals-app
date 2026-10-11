@@ -68,7 +68,7 @@ const percentage = computed(() => {
             <CategoryThumbnail :category="props.chapter.category" />
 
             <div class="overflow-hidden">
-                <div class="font-bold pr-2 truncate">{{ chapter.category.title }}</div>
+                <div class="font-bold pr-2 line-clamp-1">{{ chapter.category.title }}</div>
                 <div class="text-muted text-sm">
                     {{ prettyTime(videoStore.getTimePrior(chapter.start_s)) }}
                 </div>
