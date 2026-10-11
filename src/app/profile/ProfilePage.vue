@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useAuthStore } from '../auth/stores/auth.store';
 import { RouterLink } from 'vue-router';
 import { useHistoryStore } from '../history/stores/history.store';
@@ -11,6 +11,10 @@ const authStore = useAuthStore();
 const historyStore = useHistoryStore();
 
 TitleHelper.setTitle('profile');
+
+onMounted(async () => {
+    await historyStore.fetchHistory();
+});
 
 const groups = computed(() => {
     const isSignedIn = !!authStore.session;
