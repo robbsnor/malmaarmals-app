@@ -29,37 +29,39 @@ const renderedMessages = computed(() => {
 });
 
 const classes = computed(() => {
-    const list: string[] = [];
+    const classes: string[] = [];
+
+    if (appStore.isLandscape) {
+        classes.push('w-[250px] lg:w-[300px] 2xl:w-[400px] 4xl:w-[500px]');
+    }
 
     if (props.isOverlay) {
-        list.push('absolute py-10 h-full top-0 bottom-0 w-60 from-black/40 to-black/0');
-        if (preferenceStore.chatSide === CHAT_SIDE.LEFT) list.push('left-0 bg-linear-to-r');
-        if (preferenceStore.chatSide === CHAT_SIDE.RIGHT) list.push('right-0 bg-linear-to-l');
+        classes.push('absolute py-10 h-full top-0 bottom-0 w-60 from-black/40 to-black/0');
+        if (preferenceStore.chatSide === CHAT_SIDE.LEFT) classes.push('left-0 bg-linear-to-r');
+        if (preferenceStore.chatSide === CHAT_SIDE.RIGHT) classes.push('right-0 bg-linear-to-l');
     } else {
         if (appStore.isLandscape) {
-            list.push(
-                'relative h-full bg-black-100 w-[250px] shrink-0 bg-black-300 border-black-600 lg:w-[300px] 2xl:w-[400px] 4xl:w-[500px]'
-            );
+            classes.push('relative h-full bg-black-100 shrink-0 bg-black-300 border-black-600');
 
             if (preferenceStore.chatSide === CHAT_SIDE.LEFT) {
-                list.push('border-r');
+                classes.push('border-r');
             } else {
-                list.push('border-l');
+                classes.push('border-l');
             }
         }
     }
 
-    return list;
+    return classes;
 });
 
 const styles = computed(() => {
-    const list: StyleValue[] = [];
+    const styles: StyleValue[] = [];
 
     if (preferenceStore.overwriteChatWidth && appStore.isLandscape) {
-        list.push({ width: `${preferenceStore.chatWidth}%` });
+        styles.push({ width: `${preferenceStore.chatWidth}%` });
     }
 
-    return list;
+    return styles;
 });
 
 function findLastIndexAtOrBefore(sec: number): number {
