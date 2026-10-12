@@ -36,7 +36,7 @@ const classes = computed(() => {
     }
 
     if (props.isOverlay) {
-        classes.push('absolute py-10 h-full top-0 bottom-0 w-60 from-black/40 to-black/0');
+        classes.push('absolute py-[6%] h-full top-0 bottom-0 w-60 from-black/40 to-black/0');
         if (preferenceStore.chatSide === CHAT_SIDE.LEFT) classes.push('left-0 bg-linear-to-r');
         if (preferenceStore.chatSide === CHAT_SIDE.RIGHT) classes.push('right-0 bg-linear-to-l');
     } else {
