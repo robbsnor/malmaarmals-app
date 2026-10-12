@@ -10,12 +10,13 @@ import Message from './Message.vue';
 const videoStore = useVideoStore();
 const appStore = useAppStore();
 const preferenceStore = usePreferenceStore();
+
+const props = defineProps<{ isOverlay?: boolean }>();
+
 const chatRef = ref<HTMLElement>(null);
 const userHasScrolledUp = ref(false);
 const chatInfoDialog = defineModel();
 const { width } = useWindowSize();
-
-const props = defineProps<{ isOverlay?: boolean }>();
 
 const renderedMessages = computed(() => {
     if (videoStore.seeking) return;
@@ -25,6 +26,40 @@ const renderedMessages = computed(() => {
 
     const start = Math.max(0, idx - 199);
     return videoStore.messages.slice(start, idx + 1);
+});
+
+const classes = computed(() => {
+    const list: string[] = [];
+
+    if (props.isOverlay) {
+        list.push('absolute py-10 h-full top-0 bottom-0 w-60 from-black/40 to-black/0');
+        if (preferenceStore.chatSide === CHAT_SIDE.LEFT) list.push('left-0 bg-linear-to-r');
+        if (preferenceStore.chatSide === CHAT_SIDE.RIGHT) list.push('right-0 bg-linear-to-l');
+    } else {
+        if (appStore.isLandscape) {
+            list.push(
+                'relative h-full bg-black-100 w-[250px] shrink-0 bg-black-300 border-black-600 lg:w-[300px] 2xl:w-[400px] 4xl:w-[500px]'
+            );
+
+            if (preferenceStore.chatSide === CHAT_SIDE.LEFT) {
+                list.push('border-r');
+            } else {
+                list.push('border-l');
+            }
+        }
+    }
+
+    return list;
+});
+
+const styles = computed(() => {
+    const list: StyleValue[] = [];
+
+    if (preferenceStore.overwriteChatWidth && appStore.isLandscape) {
+        list.push({ width: `${preferenceStore.chatWidth}%` });
+    }
+
+    return list;
 });
 
 function findLastIndexAtOrBefore(sec: number): number {
@@ -74,43 +109,6 @@ watch(renderedMessages, async () => {
 
 watch(width, () => {
     scrollBackDown();
-});
-
-const classes = computed(() => {
-    const list: string[] = [];
-
-    if (props.isOverlay) {
-        list.push('absolute py-10 h-full top-0 bottom-0 w-60  from-black/40 to-black/0 ');
-        if (preferenceStore.chatSide === CHAT_SIDE.LEFT) list.push('left-0 bg-linear-to-r');
-        if (preferenceStore.chatSide === CHAT_SIDE.RIGHT) list.push('right-0 bg-linear-to-l');
-    } else {
-        if (appStore.isLandscape) {
-            list.push(
-                'relative h-full bg-black-100 w-[250px] shrink-0 bg-black-300 border-black-600 lg:w-[300px] 2xl:w-[400px] 4xl:w-[500px]'
-            );
-
-            if (preferenceStore.chatSide === CHAT_SIDE.LEFT) {
-                list.push('border-r');
-            } else {
-                list.push('border-l');
-            }
-        }
-    }
-
-    return list;
-});
-
-const styles = computed(() => {
-    const list: StyleValue[] = [];
-
-    if (preferenceStore.overwriteChatWidth && appStore.isLandscape) {
-        list.push({ width: `${preferenceStore.chatWidth}%` });
-    }
-    if (props.isOverlay) {
-    } else {
-    }
-
-    return list;
 });
 </script>
 
