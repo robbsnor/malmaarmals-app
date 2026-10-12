@@ -5,7 +5,7 @@ import { randomNumber } from '../../shared/helpers/randomNumber';
 import { useScroll, useWindowSize } from '@vueuse/core';
 import Message from './Message.vue';
 import { useAppStore } from '../../shared/stores/app.store';
-import { usePreferenceStore } from '../../shared/stores/preference.store';
+import { CHAT_SIDE, usePreferenceStore } from '../../shared/stores/preference.store';
 
 const videoStore = useVideoStore();
 const appStore = useAppStore();
@@ -79,10 +79,13 @@ watch(width, () => {
     <div
         v-if="!videoStore.playerIsMini && (videoStore.showChat || !appStore.isLandscape)"
         class="relative h-full overflow-auto bg-black-100"
-        :class="{
-            'w-[250px] shrink-0 bg-black-300 border-l border-black-600 lg:w-[300px] 2xl:w-[400px] 4xl:w-[500px]':
-                appStore.isLandscape,
-        }"
+        :class="[
+            preferenceStore.chatSide === CHAT_SIDE.LEFT ? 'border-r' : 'border-l',
+            {
+                'w-[250px] shrink-0 bg-black-300 border-black-600 lg:w-[300px] 2xl:w-[400px] 4xl:w-[500px]':
+                    appStore.isLandscape,
+            },
+        ]"
         :style="{
             width: preferenceStore.overwriteChatWidth && appStore.isLandscape ? `${preferenceStore.chatWidth}%` : '',
         }"

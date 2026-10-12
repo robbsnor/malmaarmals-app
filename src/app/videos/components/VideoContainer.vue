@@ -7,10 +7,12 @@ import { computed, nextTick, onMounted, ref } from 'vue';
 import VideoInfo from './VideoInfo.vue';
 import { useAppStore } from '../../shared/stores/app.store.ts';
 import Widgets from './Widgets.vue';
+import { CHAT_SIDE, usePreferenceStore } from '../../shared/stores/preference.store.ts';
 
 const appStore = useAppStore();
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
+const preferenceStore = usePreferenceStore();
 
 const videoColRef = ref<HTMLElement>();
 
@@ -34,8 +36,12 @@ onMounted(async () => {
     <div
         ref="videoContainerRef"
         v-if="videoStore.playerIsActive && authStore.isSubbed"
-        class="xxd z-video-container fixed flex flex-col flex-nowrap bg-black"
-        :class="[containerLayoutClasses, { 'flex-row': appStore.isLandscape }]"
+        class="z-video-container fixed flex flex-col flex-nowrap bg-black"
+        :class="[
+            containerLayoutClasses,
+            { 'flex-row': appStore.isLandscape },
+            { 'flex-row-reverse': preferenceStore.chatSide === CHAT_SIDE.LEFT && appStore.isLandscape },
+        ]"
     >
         <div
             ref="videoColRef"
