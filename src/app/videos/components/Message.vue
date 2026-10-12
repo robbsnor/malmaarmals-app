@@ -61,7 +61,7 @@ const isGifted = computed(() => props.message.text.includes(' gifted a '));
                 {{ message.user_name }}
             </span>
 
-            <span class="break-words text-gray-300"
+            <span class="break-words text-gray-300 text-shadow-[0_0_4px] text-shadow-black"
                 >:
                 <template v-if="isSub">
                     <template v-for="(sentence, i) in message.text.split('!')" :key="sentence">

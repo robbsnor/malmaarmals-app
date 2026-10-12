@@ -21,6 +21,12 @@ import { useVideosStore } from './videos.store';
 
 export const TIME_PRIOR_OFFSET_S = 2;
 
+export enum CHAT_MODE {
+    SHOWN = 'SHOWN',
+    OVERLAY = 'OVERLAY',
+    HIDDEN = 'HIDDEN',
+}
+
 export const useVideoStore = defineStore('video', () => {
     const playlistsStore = usePlaylistsStore();
     const videosStore = useVideosStore();
@@ -31,12 +37,22 @@ export const useVideoStore = defineStore('video', () => {
     // layout
     //
     const theaterMode = ref(false);
-    const showChat = ref(true);
+    const chatMode = ref(CHAT_MODE.SHOWN);
     const { isFullscreen, enter: enterFullscreen, exit: exitFullscreen, toggle: toggleFullscreen } = useFullscreen();
     const showWidgetsMobile = ref(false);
     const videoColRef = ref<HTMLElement | null>(null);
     const { y: videoColScrollY } = useScroll(videoColRef, { behavior: 'smooth' });
     const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
+
+    function toggleChatMode() {
+        if (chatMode.value === CHAT_MODE.SHOWN) {
+            chatMode.value = CHAT_MODE.OVERLAY;
+        } else if (chatMode.value === CHAT_MODE.OVERLAY) {
+            chatMode.value = CHAT_MODE.HIDDEN;
+        } else {
+            chatMode.value = CHAT_MODE.SHOWN;
+        }
+    }
 
     watch(orientation, (e) => {
         if (windowWidth.value > 1024) return;
@@ -397,11 +413,12 @@ export const useVideoStore = defineStore('video', () => {
         // layout
         //
         theaterMode,
-        showChat,
+        chatMode,
         casting,
         showWidgetsMobile,
         videoColRef,
         videoColScrollToTop,
+        toggleChatMode,
 
         //
         // video

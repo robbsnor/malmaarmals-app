@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useScreenOrientation, useScroll } from '@vueuse/core';
+import { useScroll } from '@vueuse/core';
 import _ from 'lodash';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { routeHistory } from '../../../router/router';
 import AddToPlaylistDialog from '../../playlists/components/AddToPlaylistDialog.vue';
@@ -9,7 +9,7 @@ import { randomNumber } from '../../shared/helpers/randomNumber.ts';
 import { useAppStore } from '../../shared/stores/app.store.ts';
 import { usePreferenceStore } from '../../shared/stores/preference.store';
 import { useManageChaptersStore } from '../stores/manage-chapters.store';
-import { useVideoStore } from '../stores/video.store';
+import { CHAT_MODE, useVideoStore } from '../stores/video.store';
 import { useVideosStore } from '../stores/videos.store';
 import Cast from './Cast.vue';
 import ChapterMarker from './ChapterMarker.vue';
@@ -28,9 +28,13 @@ const videosStore = useVideosStore();
 const manageChaptersStore = useManageChaptersStore();
 const preferenceStore = usePreferenceStore();
 const router = useRouter();
-const { isSupported, orientation, angle, lockOrientation, unlockOrientation } = useScreenOrientation();
 const addToPlaylistDialog = ref(false);
 const timeJumpDialog = ref(false);
+const chatIcon = computed(() => {
+    if (videoStore.chatMode === CHAT_MODE.HIDDEN) return 'mdi-chat-outline';
+    if (videoStore.chatMode === CHAT_MODE.OVERLAY) return 'mdi-chat-outline';
+    if (videoStore.chatMode === CHAT_MODE.SHOWN) return 'mdi-chat';
+});
 
 const goBack = () => {
     const prevUrl = _.findLast(routeHistory, (r) => r.name !== router.currentRoute.value.name); // also handles undefined
@@ -68,8 +72,6 @@ async function randomPVT() {
         .filter((v) => v.title.toLocaleLowerCase().includes('peter v'))
         ?.map((v) => v.video_id);
     const rn = randomNumber(0, ids.length);
-
-    console.log(ids.length);
 
     await router.push({ name: 'stream', params: { id: ids[rn] } });
 }
@@ -171,11 +173,11 @@ async function randomPVT() {
                         />
 
                         <PlayerButton
+                            v-if="appStore.isLandscape"
                             title="chat toggle"
-                            @click="videoStore.showChat = !videoStore.showChat"
-                            :icon="videoStore.showChat ? 'mdi-chat' : 'mdi-chat-outline'"
+                            @click="videoStore.toggleChatMode()"
+                            :icon="chatIcon"
                             :size="20"
-                            :class="{ hidden: !appStore.isLandscape }"
                         />
 
                         <ChaptersDrawer />

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Player from './Player.vue';
 import Chat from './Chat.vue';
-import { useVideoStore } from '../stores/video.store';
+import { CHAT_MODE, useVideoStore } from '../stores/video.store';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { computed, nextTick, onMounted, ref } from 'vue';
 import VideoInfo from './VideoInfo.vue';
@@ -50,18 +50,19 @@ onMounted(async () => {
         >
             <div
                 ref="containerRef"
-                class="max-h-screen overflow-hidden bg-black"
+                class="relative max-h-screen overflow-hidden bg-black"
                 :class="{
                     'grow overflow-auto': appStore.isLandscape,
                     'h-full': videoStore.theaterMode && appStore.isLandscape,
                 }"
             >
                 <Player ref="videoRef" />
+                <Chat v-if="videoStore.chatMode === CHAT_MODE.OVERLAY && appStore.isLandscape" :is-overlay="true" />
             </div>
 
             <Widgets />
         </div>
 
-        <Chat />
+        <Chat v-if="!appStore.isLandscape || (appStore.isLandscape && videoStore.chatMode === CHAT_MODE.SHOWN)" />
     </div>
 </template>
