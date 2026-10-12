@@ -20,7 +20,7 @@ const preferenceStore = usePreferenceStore();
                 <VolumeControl />
             </div>
 
-            <div class="space-y-8">
+            <div class="space-y-10">
                 <div class="space-y-3">
                     <FormHeader title="Chat"></FormHeader>
                     <FontScale />
