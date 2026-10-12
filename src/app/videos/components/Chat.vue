@@ -149,6 +149,7 @@ const styles = computed(() => {
                         :key="message.message_id"
                         :message="message"
                         :font-scale="preferenceStore.chatFontScale"
+                        :text-shadow="true"
                     />
                 </div>
 

@@ -11,6 +11,7 @@ const props = withDefaults(
         message: Message;
         highlight?: boolean;
         fontScale?: number;
+        textShadow?: boolean;
     }>(),
     {
         highlight: true,
@@ -40,6 +41,7 @@ const isGifted = computed(() => props.message.text.includes(' gifted a '));
                     (isMyMessage && props.highlight) || (isMention && props.highlight) || isLekkerSpelen,
                 'bg-linear-to-r from-white/5 to-white/0 rounded-r p-2! border-l-primary border-l-2 rounded-l-none!':
                     isSub || isGifted,
+                'text-shadow-[0_0_4px] text-shadow-black': props.textShadow,
             }"
             :style="{ fontSize: props.fontScale ? `${props.fontScale}em` : '' }"
         >
@@ -61,7 +63,7 @@ const isGifted = computed(() => props.message.text.includes(' gifted a '));
                 {{ message.user_name }}
             </span>
 
-            <span class="break-words text-gray-300 text-shadow-[0_0_4px] text-shadow-black"
+            <span class="break-words text-gray-300"
                 >:
                 <template v-if="isSub">
                     <template v-for="(sentence, i) in message.text.split('!')" :key="sentence">
