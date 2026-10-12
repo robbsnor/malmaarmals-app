@@ -91,6 +91,7 @@ async function randomPVT() {
 
                 <div class="flex items-center gap-1">
                     <Admin>
+                        <PlayerButton @click="randomPVT()" icon="mdi-sword-cross" :size="20" />
                         <PlayerButton icon="mdi-skip-previous" @click="goToPreviousVideo()" />
                         <PlayerButton icon="mdi-skip-next" @click="goToNextVideo()" />
                     </Admin>
@@ -155,10 +156,6 @@ async function randomPVT() {
                     <TimeJumpDialog v-model="timeJumpDialog" />
 
                     <div class="relative flex items-center gap-2 -mb-2 z-1">
-                        <Admin>
-                            <PlayerButton @click="randomPVT()" icon="mdi-sword-cross" :size="20" />
-                        </Admin>
-
                         <PlayerButton
                             v-if="videoStore.supportsPictureInPicture"
                             title="Picture-in-picture toggle"
