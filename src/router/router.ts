@@ -111,10 +111,7 @@ const router = createRouter({
             component: () => import('../app/layout/PlaygroundPage.vue'),
         },
 
-        //     path: '/:pathMatch(.*)*',
-        //     name: 'NotFound',
-        //     component: () => import('@/app/base/containers/404.vue'),
-        // },
+        { path: '/:pathMatch(.*)*', redirect: '/' },
     ],
     scrollBehavior(to, from, savedPosition) {
         // always scroll to top
