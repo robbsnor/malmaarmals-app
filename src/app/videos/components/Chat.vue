@@ -24,7 +24,8 @@ const renderedMessages = computed(() => {
     const idx = findLastIndexAtOrBefore(videoStore.currentTimeRounded);
     if (idx === -1) return [];
 
-    const start = Math.max(0, idx - 199);
+    const amount = props.isOverlay ? 50 : 200;
+    const start = Math.max(0, idx - amount);
     return videoStore.messages.slice(start, idx + 1);
 });
 
