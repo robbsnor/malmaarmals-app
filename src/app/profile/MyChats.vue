@@ -4,11 +4,11 @@ import { supabase } from '../../supabase';
 import { useAuthStore } from '../auth/stores/auth.store';
 import Emote from '../shared/components/Emote.vue';
 import { fetchAll } from '../shared/helpers/supabase-fetch-all.helper';
+import { useStorage } from '@vueuse/core';
 
 const authStore = useAuthStore();
 const amount = ref(5);
-const messages = ref<string[]>([]);
-const loading = ref(true);
+const messages = useStorage<string[]>('-2130+-123+0123', []);
 
 const emotes = computed(() => {
     const list = new Map<string, { count: number; name: string; id: string; string: string }>();
@@ -40,51 +40,37 @@ const emotes = computed(() => {
 });
 
 onMounted(async () => {
-    loading.value = true;
+    const { data, error } = await fetchAll((from, to) =>
+        supabase
+            .from('messages')
+            .select('text')
+            .ilike('text', '%:emote;lekker%')
+            .eq('user_id', Number(authStore.session.user.user_metadata.provider_id))
+            .order('date', { ascending: false })
+            .range(from, to)
+    );
 
-    try {
-        const { data, error } = await fetchAll((from, to) =>
-            supabase
-                .from('messages')
-                .select('text')
-                .ilike('text', '%:emote;lekker%')
-                .eq('user_id', Number(authStore.session.user.user_metadata.provider_id))
-                .order('date', { ascending: false })
-                .range(from, to)
-        );
+    if (error) throw error;
 
-        if (error) throw error;
-
-        messages.value = data.map((d) => d.text);
-    } catch (err) {
-        throw err;
-    } finally {
-        loading.value = false;
-    }
+    messages.value = data.map((d) => d.text);
 });
 </script>
 
 <template>
     <div class="flex gap-4 pt-4">
-        <template v-if="!loading">
-            <div
-                v-for="(emote, i) in emotes.slice(0, amount)"
-                :key="emote.id"
-                class="relative overflow-hidden grow flex aspect-square items-center justify-center bg-black-300 rounded-md"
-            >
-                <div class="absolute text-[8rem] font-bold opacity-10 text-muted">#{{ i + 1 }}</div>
-                <div class="absolute inset-0 bg-linear-to-r from-black-300/90 to-black-300/20"></div>
-                <div class="relative flex flex-col items-center justify-center gap-0.5">
-                    <Emote :emote-string="emote.string" class="h-14"></Emote>
-                    <div class="text-muted text-sm">
-                        {{ emote.count }}
-                    </div>
+        <div
+            v-for="(emote, i) in emotes.slice(0, amount)"
+            :key="emote.id"
+            class="relative overflow-hidden grow flex aspect-square items-center justify-center bg-black-300 rounded-md"
+        >
+            <div class="absolute text-[8rem] font-bold opacity-10 text-muted">#{{ i + 1 }}</div>
+            <div class="absolute inset-0 bg-linear-to-r from-black-300/90 to-black-300/20"></div>
+            <div class="relative flex flex-col items-center justify-center gap-0.5">
+                <Emote :emote-string="emote.string" class="h-14"></Emote>
+                <div class="text-muted text-sm">
+                    {{ emote.count }}
                 </div>
             </div>
-        </template>
-
-        <template v-else class="flex gap-4">
-            <Skeleton v-for="i in amount" :key="i" class="aspect-square grow h-auto" />
-        </template>
+        </div>
     </div>
 </template>
