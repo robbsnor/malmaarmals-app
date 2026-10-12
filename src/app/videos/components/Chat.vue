@@ -80,7 +80,7 @@ watch(width, () => {
         v-if="!videoStore.playerIsMini && (videoStore.showChat || !appStore.isLandscape)"
         class="relative h-full overflow-auto bg-black-100"
         :class="[
-            preferenceStore.chatSide === CHAT_SIDE.LEFT ? 'border-r' : 'border-l',
+            appStore.isLandscape ? (preferenceStore.chatSide === CHAT_SIDE.LEFT ? 'border-r' : 'border-l') : null,
             {
                 'w-[250px] shrink-0 bg-black-300 border-black-600 lg:w-[300px] 2xl:w-[400px] 4xl:w-[500px]':
                     appStore.isLandscape,
