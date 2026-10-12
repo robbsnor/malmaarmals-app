@@ -75,6 +75,7 @@ const preferenceStore = usePreferenceStore();
                             v-model="preferenceStore.chatSide"
                             color="deep-purple-accent-3"
                             density="compact"
+                            class="shrink-0"
                             group
                         >
                             <v-btn :value="CHAT_SIDE.LEFT"> Left </v-btn>
