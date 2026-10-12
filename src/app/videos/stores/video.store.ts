@@ -6,6 +6,7 @@ import {
     useMediaControls,
     useScreenOrientation,
     useScroll,
+    useStorage,
     useWindowSize,
 } from '@vueuse/core';
 import { defineStore } from 'pinia';
@@ -37,7 +38,7 @@ export const useVideoStore = defineStore('video', () => {
     // layout
     //
     const theaterMode = ref(false);
-    const chatMode = ref(CHAT_MODE.SHOWN);
+    const chatMode = useStorage('pref-chat-mode', CHAT_MODE.SHOWN);
     const { isFullscreen, enter: enterFullscreen, exit: exitFullscreen, toggle: toggleFullscreen } = useFullscreen();
     const showWidgetsMobile = ref(false);
     const videoColRef = ref<HTMLElement | null>(null);
