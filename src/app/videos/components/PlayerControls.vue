@@ -172,7 +172,7 @@ async function randomPVT() {
                         <div class="relative">
                             <PlayerButton
                                 v-if="appStore.isLandscape"
-                                title="chat toggle"
+                                title="chat toggle (C)"
                                 @click="videoStore.toggleChatMode()"
                                 :icon="chatIcon"
                                 :size="20"
@@ -190,7 +190,7 @@ async function randomPVT() {
                         <PlayerButton
                             v-if="appStore.isLandscape"
                             @click="toggleTheaterMode()"
-                            title="theatre-mode toggle"
+                            title="theatre-mode toggle (T)"
                             :icon="videoStore.theaterMode ? 'mdi-dock-bottom' : 'mdi-dock-right'"
                         />
 

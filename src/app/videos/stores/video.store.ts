@@ -176,29 +176,35 @@ export const useVideoStore = defineStore('video', () => {
         );
     }
 
-    onKeyStroke([' ', 'ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'j', 'k', 'l'], (e) => {
+    onKeyStroke([' ', 'ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'j', 'k', 'l', 'c', 't', 'f'], (e) => {
+        const key = e.key;
         if (e.ctrlKey || e.metaKey || e.altKey) return;
         if (isEditableTarget(e.target)) return;
-
         e.preventDefault();
 
-        if (e.key === ' ') {
+        if (key === ' ') {
             if (e.repeat) return;
             playing.value = !playing.value;
-        } else if (e.key === 'ArrowRight') {
+        } else if (key === 'ArrowRight') {
             currentTime.value += 10;
-        } else if (e.key === 'ArrowLeft') {
+        } else if (key === 'ArrowLeft') {
             currentTime.value = Math.max(0, currentTime.value - 10);
-        } else if (e.key === 'j') {
+        } else if (key === 'j') {
             currentTime.value = Math.max(0, currentTime.value - 10);
-        } else if (e.key === 'k') {
+        } else if (key === 'k') {
             playing.value = !playing.value;
-        } else if (e.key === 'l') {
+        } else if (key === 'l') {
             currentTime.value += 10;
-        } else if (e.key === 'ArrowUp') {
+        } else if (key === 'ArrowUp') {
             volume.value = Math.min(1, volume.value + 0.1);
-        } else if (e.key === 'ArrowDown') {
+        } else if (key === 'ArrowDown') {
             volume.value = Math.max(0, volume.value - 0.1);
+        } else if (key === 'c') {
+            toggleChatMode();
+        } else if (key === 't') {
+            theaterMode.value = !theaterMode.value;
+        } else if (key === 'f') {
+            toggleFullscreen();
         }
     });
 
