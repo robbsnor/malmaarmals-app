@@ -143,7 +143,7 @@ const myMessages = computed(() => {
                             :key="message.message_id"
                             class="flex gap-4 text-muted text-sm py-1.5 items-start pr-2"
                         >
-                            <Message :message="message" :highlight="false" class="grow" />
+                            <Message :message="message" :text-highlight="false" class="grow" />
                             <button
                                 @click="videoStore.currentTime = message.offset_sec"
                                 class="group relative rounded px-1 text-xs font-mono text-muted-more leading-tight pt-1"

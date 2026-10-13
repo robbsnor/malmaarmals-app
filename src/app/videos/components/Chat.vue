@@ -4,7 +4,7 @@ import { computed, nextTick, ref, watch, type StyleValue } from 'vue';
 import { randomNumber } from '../../shared/helpers/randomNumber';
 import { useAppStore } from '../../shared/stores/app.store';
 import { CHAT_SIDE, usePreferenceStore } from '../../shared/stores/preference.store';
-import { useVideoStore } from '../stores/video.store';
+import { CHAT_MODE, useVideoStore } from '../stores/video.store';
 import Message from './Message.vue';
 
 const videoStore = useVideoStore();
@@ -37,7 +37,7 @@ const classes = computed(() => {
     }
 
     if (props.isOverlay) {
-        classes.push('absolute py-[6%] h-full top-0 bottom-0 w-60 from-black/40 to-black/0');
+        classes.push('absolute py-[8%] h-full top-0 bottom-0 w-60 from-black/50 to-black/0');
         if (preferenceStore.chatSide === CHAT_SIDE.LEFT) classes.push('left-0 bg-linear-to-r');
         if (preferenceStore.chatSide === CHAT_SIDE.RIGHT) classes.push('right-0 bg-linear-to-l');
     } else {
@@ -58,7 +58,7 @@ const classes = computed(() => {
 const styles = computed(() => {
     const styles: StyleValue[] = [];
 
-    if (preferenceStore.overwriteChatWidth && appStore.isLandscape) {
+    if (preferenceStore.overwriteChatWidth && appStore.isLandscape && videoStore.chatMode === CHAT_MODE.SHOWN) {
         styles.push({ width: `${preferenceStore.chatWidth}%` });
     }
 
@@ -105,7 +105,9 @@ function scrollBackDown() {
 
 watch(renderedMessages, async () => {
     if (!chatRef.value) return;
+    if (props.isOverlay) scrollBackDown();
     if (userHasScrolledUp.value) return;
+
     await nextTick();
     chatRef.value.scrollTop = chatRef.value.scrollHeight;
 });
@@ -149,8 +151,10 @@ watch(width, () => {
                         v-for="message in renderedMessages"
                         :key="message.message_id"
                         :message="message"
-                        :font-scale="preferenceStore.chatFontScale"
+                        :font-scale="props.isOverlay ? 1.2 : preferenceStore.chatFontScale"
                         :text-shadow="true"
+                        :text-highlight="!props.isOverlay"
+                        :sub-highlight="!props.isOverlay"
                     />
                 </div>
 

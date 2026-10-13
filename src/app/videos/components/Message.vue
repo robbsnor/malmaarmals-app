@@ -9,12 +9,13 @@ import { TwitchHelper } from '../../shared/helpers/twitch.helper';
 const props = withDefaults(
     defineProps<{
         message: Message;
-        highlight?: boolean;
+        textHighlight?: boolean;
+        subHighlight?: boolean;
         fontScale?: number;
         textShadow?: boolean;
     }>(),
     {
-        highlight: true,
+        textHighlight: true,
     }
 );
 
@@ -38,9 +39,11 @@ const isGifted = computed(() => props.message.text.includes(' gifted a '));
         <div
             :class="{
                 'bg-black-300 rounded-sm py-1 -mx-1 px-1 md:bg-black-600 2xl:-mx-2 2xl:px-2':
-                    (isMyMessage && props.highlight) || (isMention && props.highlight) || isLekkerSpelen,
+                    (props.textHighlight && isMyMessage) ||
+                    (props.textHighlight && isMention) ||
+                    (props.textHighlight && isLekkerSpelen),
                 'bg-linear-to-r from-white/5 to-white/0 rounded-r p-2! border-l-primary border-l-2 rounded-l-none!':
-                    isSub || isGifted,
+                    props.subHighlight && (isSub || isGifted),
                 'text-shadow-[0_0_4px] text-shadow-black': props.textShadow,
             }"
             :style="{ fontSize: props.fontScale ? `${props.fontScale}em` : '' }"

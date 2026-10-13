@@ -31,7 +31,7 @@ watch(
         <div>
             <div class="flex items-center px-4 py-2 min-h-14 rounded-md bg-black-400 border border-black-500">
                 <Message
-                    :fontScale="preferenceStore.chatFontScale"
+                    :font-scale="preferenceStore.chatFontScale"
                     :message="{
                         message_id: 'foo',
                         offset_sec: 0,

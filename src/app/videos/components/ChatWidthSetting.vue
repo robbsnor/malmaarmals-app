@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { h, ref } from 'vue';
 import { usePreferenceStore } from '../../shared/stores/preference.store';
-import ResetButton from './ResetButton.vue';
 
 const preferenceStore = usePreferenceStore();
 </script>
@@ -10,7 +8,7 @@ const preferenceStore = usePreferenceStore();
     <div>
         <Switch
             text="Overwrite chat width"
-            description="Only applies in landscape-mode"
+            description="Only applies to the chat in the sidebar"
             v-model="preferenceStore.overwriteChatWidth"
         ></Switch>
 

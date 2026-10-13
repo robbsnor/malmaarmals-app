@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import Drawer from '../../shared/components/Drawer.vue';
 import { CHAT_SIDE, usePreferenceStore } from '../../shared/stores/preference.store';
-import ChatWidth from './ChatWidth.vue';
-import FontScale from './FontScale.vue';
+import ChatWidthSetting from './ChatWidthSetting.vue';
+import FontScaleSetting from './FontScaleSetting.vue';
 import PlayerButton from './PlayerButton.vue';
 import VolumeControl from './VolumeControl.vue';
 
@@ -23,8 +23,8 @@ const preferenceStore = usePreferenceStore();
             <div class="space-y-10">
                 <div class="space-y-3">
                     <FormHeader title="Chat"></FormHeader>
-                    <FontScale />
-                    <ChatWidth />
+                    <FontScaleSetting />
+                    <ChatWidthSetting />
 
                     <div class="flex justify-between items-center gap-4">
                         <FormLabel description="Display chat on left or right side of stream">Chat side</FormLabel>

@@ -63,6 +63,12 @@ onMounted(async () => {
             <Widgets />
         </div>
 
-        <Chat v-if="!appStore.isLandscape || (appStore.isLandscape && videoStore.chatMode === CHAT_MODE.SHOWN)" />
+        <Chat
+            v-if="
+                !appStore.isLandscape ||
+                (appStore.isLandscape && videoStore.chatMode === CHAT_MODE.SHOWN) ||
+                !videoStore.chatMode // undefined / default
+            "
+        />
     </div>
 </template>

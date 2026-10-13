@@ -31,9 +31,9 @@ const router = useRouter();
 const addToPlaylistDialog = ref(false);
 const timeJumpDialog = ref(false);
 const chatIcon = computed(() => {
-    if (videoStore.chatMode === CHAT_MODE.HIDDEN) return 'mdi-chat-outline';
-    if (videoStore.chatMode === CHAT_MODE.OVERLAY) return 'mdi-chat-outline';
-    if (videoStore.chatMode === CHAT_MODE.SHOWN) return 'mdi-chat';
+    if (videoStore.chatMode === CHAT_MODE.OVERLAY) return 'mdi-chat';
+    if (videoStore.chatMode === CHAT_MODE.HIDDEN) return 'mdi-chat';
+    return 'mdi-chat-outline';
 });
 
 const goBack = () => {
@@ -169,13 +169,21 @@ async function randomPVT() {
                             @click="videoStore.togglePictureInPicture()"
                         />
 
-                        <PlayerButton
-                            v-if="appStore.isLandscape"
-                            title="chat toggle"
-                            @click="videoStore.toggleChatMode()"
-                            :icon="chatIcon"
-                            :size="20"
-                        />
+                        <div class="relative">
+                            <PlayerButton
+                                v-if="appStore.isLandscape"
+                                title="chat toggle"
+                                @click="videoStore.toggleChatMode()"
+                                :icon="chatIcon"
+                                :size="20"
+                            />
+                            <v-icon
+                                v-if="videoStore.chatMode === CHAT_MODE.OVERLAY"
+                                icon="mdi-close"
+                                size="14"
+                                class="absolute! left-[11px] top-[13px] mix-blend-difference pointer-events-none text-white"
+                            ></v-icon>
+                        </div>
 
                         <ChaptersDrawer />
 
