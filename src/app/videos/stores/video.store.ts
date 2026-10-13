@@ -177,6 +177,8 @@ export const useVideoStore = defineStore('video', () => {
     }
 
     onKeyStroke([' ', 'ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'j', 'k', 'l', 'c', 't', 'f'], (e) => {
+        if (playerIsMini.value || !playerIsActive.value) return;
+
         const key = e.key;
         if (e.ctrlKey || e.metaKey || e.altKey) return;
         if (isEditableTarget(e.target)) return;

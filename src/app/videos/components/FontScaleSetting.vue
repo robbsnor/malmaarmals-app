@@ -33,7 +33,7 @@ watch(
                 <Message
                     :font-scale="preferenceStore.chatFontScale"
                     :message="{
-                        message_id: 'foo',
+                        message_id: '67',
                         offset_sec: 0,
                         text: 'There\'s a Sicko in my boot! :emote;lekkerSicko;304445721;0;10:',
                         // text: 'There\'s a Sicko in my boot!',
