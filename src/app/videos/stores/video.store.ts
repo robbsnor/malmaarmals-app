@@ -316,10 +316,9 @@ export const useVideoStore = defineStore('video', () => {
         const lengthSec = video.value?.length_sec;
         if (!lengthSec || !messages.value.length) return [];
 
-        const pointCount = 120;
+        const pointDurationSec = 40;
+        const pointCount = Math.ceil(lengthSec / pointDurationSec);
         const points = Array<number>(pointCount).fill(0);
-
-        if (!messages.value.length) return points;
 
         for (const message of messages.value) {
             if (!message.text.includes(':emote;')) continue;
@@ -331,12 +330,11 @@ export const useVideoStore = defineStore('video', () => {
             const emoteAmount = words.filter((word) => word.startsWith(':emote;')).length;
             const messageWeigth = 3;
             const offsetSec = Number(message.offset_sec);
-            const percent = (offsetSec / lengthSec) * pointCount;
-            const pointIndex = Math.min(pointCount - 1, Math.floor(percent));
+            const pointIndex = Math.floor(offsetSec / pointDurationSec);
 
             if (pointIndex < 0 || pointIndex >= pointCount) continue;
             const score = messageWeigth + emoteAmount;
-            points[pointIndex] += score * score;
+            points[pointIndex] += score;
         }
 
         const maxValue = Math.max(...points, 1);

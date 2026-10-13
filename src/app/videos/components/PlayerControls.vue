@@ -169,9 +169,8 @@ async function randomPVT() {
                             @click="videoStore.togglePictureInPicture()"
                         />
 
-                        <div class="relative">
+                        <div v-if="appStore.isLandscape" class="relative">
                             <PlayerButton
-                                v-if="appStore.isLandscape"
                                 title="chat toggle (C)"
                                 @click="videoStore.toggleChatMode()"
                                 :icon="chatIcon"
