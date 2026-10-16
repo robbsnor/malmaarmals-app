@@ -58,7 +58,7 @@ const classes = computed(() => {
 const styles = computed(() => {
     const styles: StyleValue[] = [];
 
-    if (preferenceStore.overwriteChatWidth && appStore.isLandscape && videoStore.chatMode === CHAT_MODE.SHOWN) {
+    if (preferenceStore.overwriteChatWidth && appStore.isLandscape && videoStore.chatMode != CHAT_MODE.HIDDEN) {
         styles.push({ width: `${preferenceStore.chatWidth}%` });
     }
 

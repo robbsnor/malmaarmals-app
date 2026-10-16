@@ -10,7 +10,7 @@ const preferenceStore = usePreferenceStore();
 </script>
 
 <template>
-    <Drawer v-model="preferenceStore.drawer">
+    <Drawer v-model="preferenceStore.drawer" :eager="true">
         <template #activator="{ props }">
             <PlayerButton v-bind="props" icon="mdi-cog-outline" />
         </template>
@@ -22,7 +22,7 @@ const preferenceStore = usePreferenceStore();
 
             <div class="space-y-10">
                 <div class="space-y-3">
-                    <FormHeader title="Chat"></FormHeader>
+                    <FormHeader title="Chat (beta)"></FormHeader>
                     <FontScaleSetting />
                     <ChatWidthSetting />
 
