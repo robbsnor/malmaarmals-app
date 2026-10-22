@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { useAppStore } from '../stores/app.store';
 
-const isDev = ref(false);
+const appStore = useAppStore();
 </script>
 
 <template>
-    <template v-if="isDev">
+    <template v-if="appStore.isDev">
         <slot></slot>
     </template>
 </template>

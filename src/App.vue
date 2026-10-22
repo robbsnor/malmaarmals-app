@@ -22,16 +22,16 @@ const playlistsStore = usePlaylistsStore();
 const historyStore = useHistoryStore();
 
 onMounted(async () => {
+    appStore.loading = true;
+    await authStore.mirrorSession();
+
+    if (authStore.session) {
+        await authStore.updateIsSubscribed();
+        await historyStore.fetchHistory();
+    }
+
     try {
-        appStore.loading = true;
-        await authStore.mirrorSession();
-
         await Promise.all([videosStore.fetchVideos(), playlistsStore.fetchPlaylists()]);
-
-        if (authStore.session) {
-            await authStore.updateIsSubscribed();
-            await historyStore.fetchHistory();
-        }
 
         await sleep(500);
     } catch (error) {
