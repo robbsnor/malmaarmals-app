@@ -65,7 +65,7 @@ const topChatters = computed(() => {
                             value: NumberHelper.formatWithDots(videoStore.messages.length),
                         },
                         {
-                            title: 'Unique chatters',
+                            title: 'Chatters',
                             value: NumberHelper.formatWithDots(topChatters.length),
                         },
                         {
