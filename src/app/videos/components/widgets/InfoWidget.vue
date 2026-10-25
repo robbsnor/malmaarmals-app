@@ -79,7 +79,7 @@ const topChatters = computed(() => {
                     ]"
                 >
                     <div class="text-muted">{{ stat.title }}:</div>
-                    <div class="font-bold">
+                    <div class="font-bold text-primary-light">
                         {{ videoStore.messagesLoading ? '...' : stat.value }}
                     </div>
                 </div>
