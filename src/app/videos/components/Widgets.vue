@@ -46,7 +46,7 @@ const portraitHeight = computed(() => (appStore.isLandscape ? null : `${windowHe
                         :class="{ 'p-8': appStore.isLandscape }"
                     >
                         <template #default="{ item: widget }">
-                            <component :is="widget" class="pb-[10px]" />
+                            <component :is="widget" class="mb-[10px]" />
                         </template>
                     </MasonryWall>
                 </Container>

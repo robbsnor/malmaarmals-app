@@ -50,44 +50,38 @@ const topChatters = computed(() => {
 </script>
 
 <template>
-    <div class="relative rounded-md overflow-hidden">
+    <div class="@container relative rounded-md overflow-hidden">
         <div class="absolute h-full overflow-hidden flex items-center">
             <img :src="BucketHelper.getThumbnailUrl(videoStore.video.video_id)" alt="" class="w-full" />
             <div class="absolute inset-0 bg-linear-to-b from-black/80 to-90% to-black-100"></div>
         </div>
 
         <div class="relative p-4">
-            <div class="text-muted">
-                <div>
-                    <span class="tfext-white">Total messages: </span>
-                    <span class="font-bold text-primary-light">
-                        {{
-                            videoStore.messagesLoading ? '...' : NumberHelper.formatWithDots(videoStore.messages.length)
-                        }}
-                    </span>
-                </div>
-
-                <div>
-                    <span class="tfext-white">Unique chatters: </span>
-                    <span class="font-bold text-primary-light">
-                        {{ videoStore.messagesLoading ? '...' : NumberHelper.formatWithDots(topChatters.length) }}
-                    </span>
-                </div>
-
-                <div>
-                    <span class="tfext-white">New subscribers: </span>
-                    <span class="font-bold text-primary-light">
-                        ~{{ videoStore.messagesLoading ? '...' : NumberHelper.formatWithDots(videoStore.subCount) }}
-                    </span>
-                </div>
-
-                <div>
-                    <span class="tfext-white">Gift-subs: </span>
-                    <span class="font-bold text-primary-light">
-                        ~{{
-                            videoStore.messagesLoading ? '...' : NumberHelper.formatWithDots(videoStore.giftSubs.length)
-                        }}
-                    </span>
+            <div class="grid grid-cols-2 gap-4 @xl:grid-cols-4">
+                <div
+                    v-for="stat in [
+                        {
+                            title: 'Messages',
+                            value: NumberHelper.formatWithDots(videoStore.messages.length),
+                        },
+                        {
+                            title: 'Unique chatters',
+                            value: NumberHelper.formatWithDots(topChatters.length),
+                        },
+                        {
+                            title: 'New subs',
+                            value: `~${NumberHelper.formatWithDots(videoStore.subCount)}`,
+                        },
+                        {
+                            title: 'Gift-subs',
+                            value: `~${NumberHelper.formatWithDots(videoStore.giftSubs.length)}`,
+                        },
+                    ]"
+                >
+                    <div class="text-muted">{{ stat.title }}:</div>
+                    <div class="font-bold">
+                        {{ videoStore.messagesLoading ? '...' : stat.value }}
+                    </div>
                 </div>
             </div>
         </div>
