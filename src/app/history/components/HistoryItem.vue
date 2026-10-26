@@ -19,7 +19,7 @@ const categories = computed(() => VideoHelper.getUniqueCategories(props.video.ch
         <VideoThumbnail :video="video" class="w-36 shrink-0" />
 
         <div>
-            <h2 class="font-bold text-md line-clamp-2 leading-snug break-words">
+            <h2 class="font-bold text-md line-clamp-2 leading-snug" style="word-break: break-word">
                 {{ props.video.title }}
             </h2>
             <div v-if="categories.length" class="text-muted text-sm font-medium line-clamp-2">
