@@ -49,7 +49,7 @@ async function blacklistVideo() {
         v-model="dialog"
         @confirm="blacklistVideo()"
         title="Blacklist video"
-        :description="`Are you sure you want to blacklist this video?`"
+        description="Blacklisting a video means remove it from the database, and prevent it from being uploaded again. Do this if there is a raw stream and a clipped stream, then blacklist the raw stream."
         icon="mdi-cancel"
         :show-body="true"
         confirmText="blacklist"
