@@ -43,7 +43,7 @@ const window = ref<'home' | 'chat' | 'player' | 'stream' | string>('home');
             <PlayerButton v-bind="props" icon="mdi-cog-outline" />
         </template>
 
-        <v-window v-model="window" class="min-h-60">
+        <v-window v-model="window" class="min-h-60" :touch="false">
             <v-window-item value="home">
                 <!-- <div class="sm:hidden px-1 pr-4 py-0.5 rounded-md bg-black-400 border border-black-500">
                     <VolumeControl />
