@@ -44,7 +44,7 @@ const window = ref<'home' | 'chat' | 'player' | 'stream' | string>('home');
         </template>
 
         <v-window v-model="window">
-            <v-window-item value="home" class="pb-4">
+            <v-window-item value="home" class="pb-8">
                 <!-- <div class="sm:hidden px-1 pr-4 py-0.5 rounded-md bg-black-400 border border-black-500">
                     <VolumeControl />
                 </div> -->
@@ -56,7 +56,7 @@ const window = ref<'home' | 'chat' | 'player' | 'stream' | string>('home');
                 <div class="flex flex-col py-2">
                     <button
                         v-for="item in items"
-                        class="px-5 py-3 hover:bg-black-400 cursor-pointer flex items-center gap-4 font-bold"
+                        class="px-5 py-3 hover:bg-black-400 cursor-pointer flex items-center gap-4"
                         @click="window = item.value"
                     >
                         <v-icon :icon="item.icon" :size="20"></v-icon>
