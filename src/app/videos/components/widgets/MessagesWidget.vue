@@ -67,7 +67,7 @@ const myMessages = computed(() => {
 </script>
 
 <template>
-    <Widget title="Chat stats">
+    <Widget title="Message stats">
         <template v-if="!videoStore.messagesLoading">
             <v-tabs v-model="tab" density="compact" color="primary" grow>
                 <v-tab text="Top chatters" :value="1"></v-tab>
@@ -77,7 +77,7 @@ const myMessages = computed(() => {
 
             <v-tabs-window v-model="tab">
                 <v-tabs-window-item :value="1">
-                    <div class="overflow-auto pt-4 py-2">
+                    <div class="overflow-auto py-4">
                         <div
                             v-for="(chatter, i) in topChatters.slice(0, topChattersLength)"
                             :key="chatter.userName"
@@ -89,35 +89,23 @@ const myMessages = computed(() => {
                             }"
                         >
                             <div class="shrink-0">
-                                <span
-                                    class="text-muted-more font-bold"
-                                    :class="{
-                                        // 'text-white': i === 0 || i === 1 || i === 2,
-                                    }"
-                                >
-                                    #{{ i + 1 }}.
-                                </span>
-                                <span
-                                    class="text-muted font-bold"
-                                    :style="{
-                                        // color: chatter.color,
-                                        // textShadow: '0 0 5px ' + chatter.color,
-                                    }"
-                                >
+                                <span class="text-muted-more font-bold pr-1"> #{{ i + 1 }}. </span>
+                                <span class="text-muted font-bold">
                                     {{ chatter.userName }}
                                 </span>
                             </div>
 
-                            <div class="border-b-2 border-muted-more mb-[7px] border-dotted w-full"></div>
+                            <div class="border-b-2 border-black-600 mb-[7px] border-dotted w-full"></div>
 
                             <span class="text-muted font-bold">{{ chatter.count }}</span>
                         </div>
                     </div>
 
                     <div class="bg-black-500 h-[1px]"></div>
-                    <div v-if="myStats" class="flex justify-between pl-0.5 py-2">
+
+                    <div v-if="myStats" class="flex justify-between pl-0.5 pt-4">
                         <div>
-                            <span class="text-muted font-bold">#{{ myStats.rank }}. </span>
+                            <span class="text-muted-more font-bold">#{{ myStats.rank }}. </span>
                             <span class="font-bold" :style="{ color: myStats.color }">{{ myStats.userName }}: </span>
                         </div>
 

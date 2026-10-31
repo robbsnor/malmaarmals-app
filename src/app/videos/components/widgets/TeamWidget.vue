@@ -54,8 +54,8 @@ const teams = computed(() => {
 </script>
 
 <template>
-    <div>
-        <div v-if="teams">
+    <Widget title="PETER vs TIMON">
+        <div v-if="teams" class="py-4">
             <div class="relative flex rounded-md">
                 <div
                     class="relative bg-red-500 shrink-0 px-4 py-3 rounded-l-md overflow-hidden"
@@ -100,5 +100,5 @@ const teams = computed(() => {
                 </div>
             </div> -->
         </div>
-    </div>
+    </Widget>
 </template>

@@ -50,40 +50,42 @@ const topChatters = computed(() => {
 </script>
 
 <template>
-    <div class="@container relative rounded-md overflow-hidden">
-        <div class="absolute h-full overflow-hidden flex items-center">
-            <img :src="BucketHelper.getThumbnailUrl(videoStore.video.video_id)" alt="" class="w-full" />
-            <div class="absolute inset-0 bg-linear-to-b from-black-100/80 to-black-100"></div>
-        </div>
+    <Widget title="Chat stats" class="@container relative rounded-md overflow-hidden">
+        <div class="pt-4">
+            <div class="absolute h-full overflow-hidden flex items-center">
+                <img :src="BucketHelper.getThumbnailUrl(videoStore.video.video_id)" alt="" class="w-full" />
+                <div class="absolute inset-0 bg-linear-to-b from-black-100/80 to-black-100"></div>
+            </div>
 
-        <div class="relative p-4 pb-6">
-            <div class="grid grid-cols-2 gap-4 @xl:grid-cols-4">
-                <div
-                    v-for="stat in [
-                        {
-                            title: 'Messages',
-                            value: NumberHelper.formatWithDots(videoStore.messages.length),
-                        },
-                        {
-                            title: 'Chatters',
-                            value: NumberHelper.formatWithDots(topChatters.length),
-                        },
-                        {
-                            title: 'New subs',
-                            value: `~${NumberHelper.formatWithDots(videoStore.subCount)}`,
-                        },
-                        {
-                            title: 'Gift-subs',
-                            value: `~${NumberHelper.formatWithDots(videoStore.giftSubs.length)}`,
-                        },
-                    ]"
-                >
-                    <div class="text-muted">{{ stat.title }}:</div>
-                    <div class="font-bold text-primary-light">
-                        {{ videoStore.messagesLoading ? '...' : stat.value }}
+            <div class="relative p-4 pb-6">
+                <div class="grid grid-cols-2 gap-4 @xl:grid-cols-4">
+                    <div
+                        v-for="stat in [
+                            {
+                                title: 'Messages',
+                                value: NumberHelper.formatWithDots(videoStore.messages.length),
+                            },
+                            {
+                                title: 'Chatters',
+                                value: NumberHelper.formatWithDots(topChatters.length),
+                            },
+                            {
+                                title: 'New subs',
+                                value: `~${NumberHelper.formatWithDots(videoStore.subCount)}`,
+                            },
+                            {
+                                title: 'Gift-subs',
+                                value: `~${NumberHelper.formatWithDots(videoStore.giftSubs.length)}`,
+                            },
+                        ]"
+                    >
+                        <div class="text-muted">{{ stat.title }}:</div>
+                        <div class="font-bold text-primary-light">
+                            {{ videoStore.messagesLoading ? '...' : stat.value }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </Widget>
 </template>

@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { computed, ref, useTemplateRef } from 'vue';
-import ChaptersWidget from './widgets/ChaptersWidget.vue';
-import PlaylistWidget from './widgets/PlaylistWidget.vue';
-import MessagesWidget from './widgets/MessagesWidget.vue';
-import TeamWidget from './widgets/TeamWidget.vue';
+import { useElementBounding, useWindowSize } from '@vueuse/core';
+import { MasonryWall } from '@yeger/vue-masonry-wall';
+import { computed, ref } from 'vue';
 import { useAppStore } from '../../shared/stores/app.store.ts';
 import { useVideoStore } from '../stores/video.store.ts';
 import VideoInfo from './VideoInfo.vue';
-import InfoWidget from './widgets/InfoWidget.vue';
-import { MasonryWall } from '@yeger/vue-masonry-wall';
-import { useWindowSize, useElementBounding } from '@vueuse/core';
+import ChaptersWidget from './widgets/ChaptersWidget.vue';
+import ChatStatsWidget from './widgets/ChatStatsWidget.vue';
+import MessagesWidget from './widgets/MessagesWidget.vue';
+import PlaylistWidget from './widgets/PlaylistWidget.vue';
+import TeamWidget from './widgets/TeamWidget.vue';
 
 const appStore = useAppStore();
 const videoStore = useVideoStore();
 
-const widgets = [InfoWidget, ChaptersWidget, PlaylistWidget, TeamWidget, MessagesWidget];
+const widgets = [ChatStatsWidget, ChaptersWidget, PlaylistWidget, TeamWidget, MessagesWidget];
 const { height: windowHeight } = useWindowSize();
 const el = ref();
 // @ts-ignore
