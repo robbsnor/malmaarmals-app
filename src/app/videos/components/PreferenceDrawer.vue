@@ -1,106 +1,74 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import Drawer from '../../shared/components/Drawer.vue';
 import { CHAT_SIDE, usePreferenceStore } from '../../shared/stores/preference.store';
 import ChatWidthSetting from './ChatWidthSetting.vue';
 import FontScaleSetting from './FontScaleSetting.vue';
 import PlayerButton from './PlayerButton.vue';
 import VolumeControl from './VolumeControl.vue';
+import SettingsHeader from './SettingsHeader.vue';
+import ChatSettings from './ChatSettings.vue';
+import PlayerSettings from './PlayerSettings.vue';
+import StreamSettings from './StreamSettings.vue';
 
 const preferenceStore = usePreferenceStore();
+
+const items = [
+    {
+        title: 'Chat (beta)',
+        icon: 'mdi-chat',
+        component: ChatSettings,
+        value: 'chat',
+    },
+    {
+        title: 'Player',
+        icon: 'mdi-television',
+        component: PlayerSettings,
+        value: 'player',
+    },
+    {
+        title: 'Stream behaviour',
+        icon: 'mdi-auto-fix',
+        component: StreamSettings,
+        value: 'stream',
+    },
+];
+
+const window = ref<'home' | 'chat' | 'player' | 'stream' | string>('home');
 </script>
 
 <template>
-    <Drawer v-model="preferenceStore.drawer" :eager="true">
+    <Drawer v-model="preferenceStore.drawer" :eager="true" :padding="false">
         <template #activator="{ props }">
             <PlayerButton v-bind="props" icon="mdi-cog-outline" />
         </template>
 
-        <div class="space-y-4 pb-12">
-            <div class="sm:hidden px-1 pr-4 py-0.5 rounded-md bg-black-400 border border-black-500">
-                <VolumeControl />
-            </div>
+        <v-window v-model="window">
+            <v-window-item value="home" class="pb-4">
+                <!-- <div class="sm:hidden px-1 pr-4 py-0.5 rounded-md bg-black-400 border border-black-500">
+                    <VolumeControl />
+                </div> -->
 
-            <div class="space-y-10">
-                <div class="space-y-3">
-                    <FormHeader title="Chat (beta)"></FormHeader>
-                    <FontScaleSetting />
-                    <ChatWidthSetting />
-
-                    <div class="flex justify-between items-center gap-4">
-                        <FormLabel description="Display chat on left or right side of stream">Chat side</FormLabel>
-                        <v-btn-toggle
-                            v-model="preferenceStore.chatSide"
-                            color="deep-purple-accent-3"
-                            density="compact"
-                            class="shrink-0"
-                            group
-                        >
-                            <v-btn :value="CHAT_SIDE.LEFT"> Left </v-btn>
-                            <v-btn :value="CHAT_SIDE.RIGHT"> Right </v-btn>
-                        </v-btn-toggle>
-                    </div>
+                <div class="px-4 py-3 border-b border-black-500">
+                    <h3 class="font-bold text-xl">Preferences</h3>
                 </div>
 
-                <div class="space-y-2">
-                    <FormHeader title="Player"></FormHeader>
-
-                    <Switch
-                        text="Show Floating-Emotes"
-                        description="Emotes overlay on video"
-                        v-model="preferenceStore.showFloatingEmotes"
-                    />
-
-                    <Switch
-                        text="Show Hype-Graph"
-                        description="Adds a graph above the timeline. Spikes are based on chat messages and emotes"
-                        v-model="preferenceStore.showHypeGraph"
-                    />
-
-                    <Switch hide-details="auto" text="Show Facecam" v-model="preferenceStore.showFacecam">
-                        <template #description>
-                            With help from
-                            <a
-                                class="hover:text-primary inline-block underline"
-                                href="https://www.reddit.com/r/lekkerspelen/comments/1lhp8vc/peter_koopt_een_spijkerbroek/"
-                                target="_blank"
-                            >
-                                @braxshinoa
-                            </a>
-                        </template>
-                    </Switch>
-
-                    <Switch
-                        text="Show Chapters"
-                        description="Show chapters on timeline and in widgets"
-                        v-model="preferenceStore.showChaptersGeneral"
-                    />
-
-                    <Switch
-                        text="Show Chapters for PETER vs TIMON"
-                        description="Specifically for PETER vs TIMON streams, to prevent spoilers. (not all streams have chapters added yet tho...)"
-                        v-model="preferenceStore.showChaptersPVT"
-                        :disabled="!preferenceStore.showChaptersGeneral"
-                        nested
-                    />
+                <div class="flex flex-col py-2">
+                    <button
+                        v-for="item in items"
+                        class="px-5 py-3 hover:bg-black-400 cursor-pointer flex items-center gap-4 font-bold"
+                        @click="window = item.value"
+                    >
+                        <v-icon :icon="item.icon" :size="20"></v-icon>
+                        {{ item.title }}
+                    </button>
                 </div>
+            </v-window-item>
 
-                <div class="space-y-2">
-                    <FormHeader title="Stream behaviour"></FormHeader>
-
-                    <Switch
-                        text="Auto Theatre-mode"
-                        v-model="preferenceStore.autoTheatre"
-                        description="Go into theatre mode when selecting a stream (video fill height)"
-                        class="max-lg:hidden!"
-                    />
-
-                    <Switch
-                        text="Auto Fullscreen"
-                        v-model="preferenceStore.autoFullscreen"
-                        description="Go into fullscreen mode when selecting a stream"
-                    />
-                </div>
-            </div>
-        </div>
+            <v-window-item v-for="item in items" :key="item.title" :value="item.value" class="p-4 pb-12">
+                <SettingsHeader @back="window = 'home'" :title="item.title" class="mb-4" :icon="item.icon" />
+                <component :is="item.component" />
+            </v-window-item>
+        </v-window>
     </Drawer>
 </template>

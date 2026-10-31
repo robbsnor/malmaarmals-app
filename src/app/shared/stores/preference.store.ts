@@ -11,7 +11,7 @@ export enum CHAT_SIDE {
 export const usePreferenceStore = defineStore('preferences', () => {
     const videoStore = useVideoStore();
 
-    const drawer = ref(false);
+    const drawer = ref(true);
 
     const showFloatingEmotes = useStorage('pref-show-floating-emotes', true);
     const showHypeGraph = useStorage('pref-show-hype-graph', true);

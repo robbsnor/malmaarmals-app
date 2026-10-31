@@ -52,7 +52,7 @@ const model = defineModel();
             hide-details="auto"
             density="compact"
             v-model="model"
-            class="shrink-0!"
+            class="shrink-0! pr-[2px]"
         />
     </div>
 </template>
