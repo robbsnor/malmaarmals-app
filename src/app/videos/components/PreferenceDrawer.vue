@@ -14,7 +14,7 @@ const preferenceStore = usePreferenceStore();
 const items = [
     {
         title: 'Chat (beta)',
-        icon: 'mdi-chat',
+        icon: 'mdi-chat-outline',
         component: ChatSettings,
         value: 'chat',
     },
