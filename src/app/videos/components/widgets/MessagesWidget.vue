@@ -125,7 +125,7 @@ const myMessages = computed(() => {
                 </v-tabs-window-item>
 
                 <v-tabs-window-item :value="3">
-                    <div class="pt-4 flex flex-col divide-y divide-black-600 overflow-auto max-h-[450px]">
+                    <div class="pt-4 overflow-auto max-h-[450px]">
                         <div
                             v-for="message in myMessages"
                             :key="message.message_id"
