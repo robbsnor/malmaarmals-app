@@ -13,7 +13,7 @@ const preferenceStore = usePreferenceStore();
         ></Switch>
 
         <div
-            class="relative -4 transition-all"
+            class="relative transition-all"
             :class="{ 'pointer-events-none opacity-50': !preferenceStore.overwriteChatWidth }"
         >
             <div class="flex items-center justify-center -ml-2">
@@ -34,7 +34,7 @@ const preferenceStore = usePreferenceStore();
                 </v-slider>
                 <v-btn icon="mdi-plus" size="small" variant="text" @click="preferenceStore.chatWidth += 0.1"></v-btn>
 
-                <div class="text-sm font-mono text-muted">{{ preferenceStore.chatWidth.toFixed(2) }}%</div>
+                <div class="text-sm font-mono text-muted pl-2">{{ preferenceStore.chatWidth.toFixed(2) }}%</div>
             </div>
         </div>
     </div>

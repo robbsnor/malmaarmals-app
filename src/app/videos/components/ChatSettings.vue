@@ -13,13 +13,7 @@ const preferenceStore = usePreferenceStore();
 
         <div class="flex justify-between items-center gap-4">
             <FormLabel description="Display chat on left or right side of stream">Chat side</FormLabel>
-            <v-btn-toggle
-                v-model="preferenceStore.chatSide"
-                color="deep-purple-accent-3"
-                density="compact"
-                class="shrink-0"
-                group
-            >
+            <v-btn-toggle v-model="preferenceStore.chatSide" color="primary" density="compact" class="shrink-0" group>
                 <v-btn :value="CHAT_SIDE.LEFT"> Left </v-btn>
                 <v-btn :value="CHAT_SIDE.RIGHT"> Right </v-btn>
             </v-btn-toggle>
