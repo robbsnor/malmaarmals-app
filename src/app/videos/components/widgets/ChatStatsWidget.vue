@@ -50,9 +50,9 @@ const topChatters = computed(() => {
 </script>
 
 <template>
-    <Widget title="Chat stats" class="@container relative rounded-md overflow-hidden">
-        <div class="pt-4">
-            <div class="absolute h-full overflow-hidden flex items-center">
+    <Widget title="Chat stats" class="@container">
+        <div class="relative mt-4 rounded-md overflow-hidden">
+            <div class="absolute inset-0 overflow-hidden flex items-center">
                 <img :src="BucketHelper.getThumbnailUrl(videoStore.video.video_id)" alt="" class="w-full" />
                 <div class="absolute inset-0 bg-linear-to-b from-black-100/80 to-black-100"></div>
             </div>
@@ -79,7 +79,7 @@ const topChatters = computed(() => {
                             },
                         ]"
                     >
-                        <div class="text-muted">{{ stat.title }}:</div>
+                        <div class="text-muted">{{ stat.title }}</div>
                         <div class="font-bold text-primary-light">
                             {{ videoStore.messagesLoading ? '...' : stat.value }}
                         </div>
