@@ -3,7 +3,8 @@ import { computed, ref } from 'vue';
 
 const props = defineProps<{
     title: string;
-    icon: string;
+    icon?: string;
+    showBackIcon?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -12,11 +13,11 @@ const emit = defineEmits<{
 </script>
 
 <template>
-    <div @click="emit('back')" class="flex items-center gap-0">
-        <button class="relative shrink-0 p-4 pr-6 -m-4">
+    <div @click="emit('back')" class="flex items-center gap-0 px-4 py-4 border-b border-black-500">
+        <button v-if="props.showBackIcon" class="relative shrink-0 p-4 pr-6 -m-4">
             <v-icon icon="mdi-chevron-left"></v-icon>
         </button>
 
-        <div class="font-bold text-xl">{{ props.title }}</div>
+        <h3 class="font-bold text-xl">{{ props.title }}</h3>
     </div>
 </template>
