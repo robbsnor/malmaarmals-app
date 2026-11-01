@@ -16,7 +16,7 @@ const props = withDefaults(
             <slot name="actions"></slot>
         </div>
 
-        <div class="overflow-y-auto">
+        <div>
             <slot></slot>
         </div>
     </div>
