@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useStatsStore } from '../../stats/stores/stats.store';
+import { useStatsStore } from '../../statistics/stores/stats.store.ts';
 import { useAuthStore } from '../../auth/stores/auth.store';
 import Flower from './Flower.vue';
 

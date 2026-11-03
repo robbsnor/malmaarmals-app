@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Week from './Week.vue';
-import { useStatsStore } from '../../stats/stores/stats.store.ts';
+import { useStatsStore } from '../stores/stats.store.ts';
 
 const statsStore = useStatsStore();
 </script>

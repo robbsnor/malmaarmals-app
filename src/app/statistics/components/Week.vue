@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import type { Video } from '../../videos/models/video.model.ts';
-import { useStatsStore } from '../../stats/stores/stats.store.ts';
+import { useStatsStore } from '../stores/stats.store.ts';
 import { BucketHelper } from '../../shared/helpers/bucket.helper.ts';
 
 const props = withDefaults(

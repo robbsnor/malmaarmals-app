@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useStatsStore } from '../stats/stores/stats.store.ts';
+import { useStatsStore } from '../statistics/stores/stats.store.ts';
 import { useVideosStore } from '../videos/stores/videos.store.ts';
 import { TimeHelper } from '../shared/helpers/time.helper.ts';
 

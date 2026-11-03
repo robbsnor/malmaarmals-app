@@ -16,7 +16,7 @@ import {
     type TooltipItem,
 } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
-import { useStatsStore } from '../../stats/stores/stats.store';
+import { useStatsStore } from '../stores/stats.store';
 import { DateHelper } from '../../shared/helpers/date.helper';
 import { useAuthStore } from '../../auth/stores/auth.store';
 
