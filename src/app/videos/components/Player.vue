@@ -8,8 +8,11 @@ import Facecam from './Facecam.vue';
 import FloatingEmotes from './FloatingEmotes.vue';
 import MiniplayerControls from './MiniplayerControls.vue';
 import PlayerControls from './PlayerControls.vue';
+import { useMessagesStore } from '../stores/messages.store.ts';
 
 const videoStore = useVideoStore();
+const messagesStore = useMessagesStore();
+
 const videoRef = useTemplateRef<HTMLVideoElement>('videoRef');
 const time = useRouteQuery<number>('t');
 
@@ -24,7 +27,7 @@ async function onLoadedData() {
     videoStore.loadVideoProgression(time.value);
     videoStore.showControllsAndInfo = false;
 
-    await videoStore.fetchMessages();
+    await messagesStore.fetchMessages();
 }
 </script>
 

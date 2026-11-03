@@ -8,6 +8,7 @@
         "host": "vite --host",
         "build": "vue-tsc -b && vite build",
         "preview": "vite preview",
+        "type-check": "clear && vue-tsc --build --force",
         "generate-pwa-icons": "pwa-assets-generator --preset minimal-2023 public/logo.svg"
     },
     "dependencies": {

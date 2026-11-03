@@ -6,8 +6,10 @@ import { useVideoStore } from '../../stores/video.store.ts';
 import { DateHelper } from '../../../shared/helpers/date.helper.ts';
 import { formatDate } from '@vueuse/core';
 import { NumberHelper } from '../../../shared/helpers/number.helper.ts';
+import { useMessagesStore } from '../../stores/messages.store.ts';
 
 const videoStore = useVideoStore();
+const messagesStore = useMessagesStore();
 
 const dateRecorded = computed(() => {
     return new Date(videoStore.video.recorded_at).toLocaleDateString('en-EN', {
@@ -36,7 +38,7 @@ const endTime = computed(() => {
 const topChatters = computed(() => {
     const counts = new Map<number, { userId: number; userName: string; count: number; color: string }>();
 
-    for (const msg of videoStore.messages) {
+    for (const msg of messagesStore.messages) {
         const existing = counts.get(msg.user_id);
         if (existing) {
             existing.count++;
@@ -63,7 +65,7 @@ const topChatters = computed(() => {
                         v-for="stat in [
                             {
                                 title: 'Messages',
-                                value: NumberHelper.formatWithDots(videoStore.messages.length),
+                                value: NumberHelper.formatWithDots(messagesStore.messages.length),
                             },
                             {
                                 title: 'Chatters',
@@ -71,17 +73,17 @@ const topChatters = computed(() => {
                             },
                             {
                                 title: 'Subs',
-                                value: `~${NumberHelper.formatWithDots(videoStore.subCount)}`,
+                                value: `~${NumberHelper.formatWithDots(messagesStore.subCount)}`,
                             },
                             {
                                 title: 'Gift-subs',
-                                value: `~${NumberHelper.formatWithDots(videoStore.giftSubs.length)}`,
+                                value: `~${NumberHelper.formatWithDots(messagesStore.giftSubs.length)}`,
                             },
                         ]"
                     >
                         <div class="text-muted">{{ stat.title }}</div>
                         <div class="font-bold text-primary-light">
-                            {{ videoStore.messagesLoading ? '...' : stat.value }}
+                            {{ messagesStore.messagesLoading ? '...' : stat.value }}
                         </div>
                     </div>
                 </div>

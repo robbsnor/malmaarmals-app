@@ -6,16 +6,18 @@ import Widget from './Widget.vue';
 import Message from '../Message.vue';
 import { formatTime } from 'vuetify/lib/util/timeUtils.mjs';
 import { randomNumber } from '../../../shared/helpers/randomNumber.ts';
+import { useMessagesStore } from '../../stores/messages.store.ts';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
+const messagesStore = useMessagesStore();
 
 const topChattersLength = ref(15);
 
 const topChatters = computed(() => {
     const counts = new Map<number, { userId: number; userName: string; count: number; color: string }>();
 
-    for (const msg of videoStore.messages) {
+    for (const msg of messagesStore.messages) {
         const existing = counts.get(msg.user_id);
         if (existing) {
             existing.count++;
@@ -30,7 +32,7 @@ const topChatters = computed(() => {
 const topEmotes = computed(() => {
     const counts = new Map<string, number>();
 
-    for (const msg of videoStore.messages) {
+    for (const msg of messagesStore.messages) {
         const text = msg.text.trim();
         if (!text.toLowerCase().startsWith('lekker')) {
             continue;
@@ -45,7 +47,7 @@ const topEmotes = computed(() => {
 });
 
 const broCounter = computed(() => {
-    return videoStore.messages.filter((msg) => msg.text.toLowerCase().includes('bro')).length;
+    return messagesStore.messages.filter((msg) => msg.text.toLowerCase().includes('bro')).length;
 });
 
 const myStats = computed(() => {
@@ -56,7 +58,7 @@ const myStats = computed(() => {
 const tab = ref(1);
 
 const myMessages = computed(() => {
-    return videoStore.messages.filter((m) => {
+    return messagesStore.messages.filter((m) => {
         const isMention = m.text.includes(
             authStore.session.user?.user_metadata?.nickname || authStore.session.user?.user_metadata?.name
         );
@@ -68,7 +70,7 @@ const myMessages = computed(() => {
 
 <template>
     <Widget title="Message stats">
-        <template v-if="!videoStore.messagesLoading">
+        <template v-if="!messagesStore.messagesLoading">
             <v-tabs v-model="tab" density="compact" color="primary" grow>
                 <v-tab text="Top chatters" :value="1"></v-tab>
                 <!-- <v-tab text="Top emotes" :value="2"></v-tab> -->

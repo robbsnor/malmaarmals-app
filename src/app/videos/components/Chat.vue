@@ -6,10 +6,12 @@ import { useAppStore } from '../../shared/stores/app.store';
 import { CHAT_SIDE, usePreferenceStore } from '../../shared/stores/preference.store';
 import { CHAT_MODE, useVideoStore } from '../stores/video.store';
 import Message from './Message.vue';
+import { useMessagesStore } from '../stores/messages.store.ts';
 
 const videoStore = useVideoStore();
 const appStore = useAppStore();
 const preferenceStore = usePreferenceStore();
+const messagesStore = useMessagesStore();
 
 const props = defineProps<{ isOverlay?: boolean }>();
 
@@ -26,7 +28,7 @@ const renderedMessages = computed(() => {
 
     const amount = props.isOverlay ? 50 : 200;
     const start = Math.max(0, idx - amount);
-    return videoStore.messages.slice(start, idx + 1);
+    return messagesStore.messages.slice(start, idx + 1);
 });
 
 const classes = computed(() => {
@@ -66,7 +68,7 @@ const styles = computed(() => {
 });
 
 function findLastIndexAtOrBefore(sec: number): number {
-    const msgs = videoStore.messages;
+    const msgs = messagesStore.messages;
     let left = 0;
     let right = msgs.length - 1;
     let idx = -1;
@@ -119,8 +121,8 @@ watch(width, () => {
 
 <template>
     <div v-if="!videoStore.playerIsMini" class="relative overflow-auto" :class="classes" :style="styles">
-        <template v-if="!videoStore.messagesLoading">
-            <template v-if="videoStore.messages.length">
+        <template v-if="!messagesStore.messagesLoading">
+            <template v-if="messagesStore.messages.length">
                 <div v-if="!props.isOverlay" class="absolute top-4 right-4">
                     <v-btn
                         icon="mdi-information-outline"

@@ -6,8 +6,11 @@ import { ColorHelper } from '../../../shared/helpers/color.helper.ts';
 import { TwitchHelper } from '../../../shared/helpers/twitch.helper.ts';
 import { BADGE_IMAGE_IDS } from '../../../shared/data/subbadges.data.ts';
 import Admin from '../../../shared/components/Admin.vue';
+import { useMessagesStore } from '../../stores/messages.store.ts';
 
 const videoStore = useVideoStore();
+const messagesStore = useMessagesStore();
+
 const groups = computed(() => {
     const groups: {
         badge: string;
@@ -17,7 +20,7 @@ const groups = computed(() => {
         }[];
     }[] = [];
 
-    videoStore.uniqueUsers.forEach((message) => {
+    messagesStore.uniqueUsers.forEach((message) => {
         const badge = message.badges[0]?.image_id;
         if (!badge) return;
 
@@ -44,7 +47,7 @@ const groups = computed(() => {
 <template>
     <Admin>
         <Widget title="Subscribers">
-            <div v-if="!videoStore.messagesLoading" class="flex gap-4">
+            <div v-if="!messagesStore.messagesLoading" class="flex gap-4">
                 <div v-for="group in groups" :key="group.badge">
                     <div>
                         <img alt="" :src="TwitchHelper.getBadgeUrl(group.badge)" class="h-8" />

@@ -4,8 +4,10 @@ import { useVideoStore } from '../../stores/video.store.ts';
 import { computed } from 'vue';
 import { ColorHelper } from '../../../shared/helpers/color.helper.ts';
 import { TwitchHelper } from '../../../shared/helpers/twitch.helper.ts';
+import { useMessagesStore } from '../../stores/messages.store.ts';
 
 const videoStore = useVideoStore();
+const messagesStore = useMessagesStore();
 const treshold = 88;
 
 function isBlue(hex: string): boolean {
@@ -27,11 +29,11 @@ function isRed(hex: string): boolean {
 }
 
 const teams = computed(() => {
-    if (!videoStore.uniqueUsers.length) return;
+    if (!messagesStore.uniqueUsers.length) return;
     let redUsers = [];
     let blueUsers = [];
 
-    videoStore.uniqueUsers.forEach((user) => {
+    messagesStore.uniqueUsers.forEach((user) => {
         if (!user.user_color) return;
         if (isRed(user.user_color)) redUsers.push(user);
         if (isBlue(user.user_color)) blueUsers.push(user);

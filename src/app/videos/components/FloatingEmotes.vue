@@ -3,6 +3,7 @@ import { ref, watch } from 'vue';
 import { useVideoStore } from '../stores/video.store';
 import { emotesMap } from '../../shared/data/emotes.data';
 import { usePreferenceStore } from '../../shared/stores/preference.store';
+import { useMessagesStore } from '../stores/messages.store';
 
 // ─── Configuration ────────────────────────────────────────────────────────────
 
@@ -52,6 +53,7 @@ interface Particle {
 
 const videoStore = useVideoStore();
 const preferenceStore = usePreferenceStore();
+const messagesStore = useMessagesStore();
 
 let particleId = 0;
 const particles = ref<Particle[]>([]);
@@ -66,7 +68,7 @@ watch(
         if (videoStore.seeking) return;
 
         const windowStart = time - WINDOW_S;
-        const windowMessages = videoStore.messages.filter((m) => m.offset_sec > windowStart && m.offset_sec <= time);
+        const windowMessages = messagesStore.messages.filter((m) => m.offset_sec > windowStart && m.offset_sec <= time);
 
         for (const msg of windowMessages) {
             if (seenMessageIds.has(msg.message_id)) continue;
