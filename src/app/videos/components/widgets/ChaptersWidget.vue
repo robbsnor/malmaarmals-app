@@ -29,7 +29,16 @@ const preferenceStore = usePreferenceStore();
             </div>
 
             <Empty class="relative" icon="mdi-eye-off-outline" description="Chapters have been hidden in settings.">
-                <v-btn @click="preferenceStore.drawer = true" variant="text" color="primary">settings</v-btn>
+                <v-btn
+                    @click="
+                        preferenceStore.drawer = true;
+                        preferenceStore.activeSettingsTab = 'chapters';
+                    "
+                    variant="text"
+                    color="primary"
+                >
+                    settings
+                </v-btn>
             </Empty>
         </div>
     </Widget>

@@ -7,7 +7,7 @@ const videoStore = useVideoStore();
 </script>
 
 <template>
-    <Widget v-if="videoStore.playlist" title="Playlist">
+    <Widget v-if="videoStore.playlist" description="Playlist" :title="videoStore.playlist.title">
         <div class="flex flex-col pt-4 gap-4">
             <VideoItem
                 v-for="video in videoStore.playlist.videos"

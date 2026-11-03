@@ -70,7 +70,7 @@ const topChatters = computed(() => {
                                 value: NumberHelper.formatWithDots(topChatters.length),
                             },
                             {
-                                title: 'New subs',
+                                title: 'Subs',
                                 value: `~${NumberHelper.formatWithDots(videoStore.subCount)}`,
                             },
                             {

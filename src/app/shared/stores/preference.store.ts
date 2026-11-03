@@ -35,6 +35,8 @@ export const usePreferenceStore = defineStore('preferences', () => {
     const chatWidth = useStorage<number>('pref-chat-width_92197', 25);
     const chatSide = useStorage('pref-chat-side', CHAT_SIDE.RIGHT);
 
+    const activeSettingsTab = ref<'home' | 'chat' | 'general' | 'stream' | 'chapters' | string>('home');
+
     return {
         drawer,
 
@@ -54,5 +56,7 @@ export const usePreferenceStore = defineStore('preferences', () => {
         overwriteChatWidth,
         chatWidth,
         chatSide,
+
+        activeSettingsTab,
     };
 });

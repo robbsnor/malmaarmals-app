@@ -118,7 +118,7 @@ watch(width, () => {
 </script>
 
 <template>
-    <div v-if="!videoStore.playerIsMini" class="overflow-auto" :class="classes" :style="styles">
+    <div v-if="!videoStore.playerIsMini" class="relative overflow-auto" :class="classes" :style="styles">
         <template v-if="!videoStore.messagesLoading">
             <template v-if="videoStore.messages.length">
                 <div v-if="!props.isOverlay" class="absolute top-4 right-4">
