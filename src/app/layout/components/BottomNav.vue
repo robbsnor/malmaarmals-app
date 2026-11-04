@@ -30,7 +30,7 @@ function handleClick(item: any) {
         class="z-mobile-nav fixed right-0 bottom-0 left-0 h-(--height-mobile-navbar) lg:hidden"
     >
         <div
-            class="absolute inset-0 -top-8 pointer-events-none bg-linear-to-t from-black/95 from-40% to-black/0 backdrop-blur-[1fpx] bfg-orange-400!"
+            class="absolute inset-0 -top-8 pointer-events-none bg-linear-to-t from-black/90 from-40% to-black/0 backdrop-blur-[1fpx] bfg-orange-400!"
         ></div>
 
         <Container width="400px" class="h-full">
