@@ -39,12 +39,14 @@ const classes = computed(() => {
     }
 
     if (props.isOverlay) {
-        classes.push('absolute py-[8%] h-full top-0 bottom-0 w-60 from-black/50 to-black/0');
+        classes.push('absolute py-[8%] h-full top-0 bottom-0 from-black/50 to-black/0');
         if (preferenceStore.chatSide === CHAT_SIDE.LEFT) classes.push('left-0 bg-linear-to-r');
         if (preferenceStore.chatSide === CHAT_SIDE.RIGHT) classes.push('right-0 bg-linear-to-l');
     } else {
+        classes.push('relative');
+
         if (appStore.isLandscape) {
-            classes.push('relative h-full bg-black-100 shrink-0 bg-black-300 border-black-600');
+            classes.push('h-full bg-black-100 shrink-0 bg-black-300 border-black-600');
 
             if (preferenceStore.chatSide === CHAT_SIDE.LEFT) {
                 classes.push('border-r');
@@ -120,7 +122,7 @@ watch(width, () => {
 </script>
 
 <template>
-    <div v-if="!videoStore.playerIsMini" class="relative overflow-auto" :class="classes" :style="styles">
+    <div v-if="!videoStore.playerIsMini" class="overflow-auto" :class="classes" :style="styles">
         <template v-if="!messagesStore.messagesLoading">
             <template v-if="messagesStore.messages.length">
                 <div v-if="!props.isOverlay" class="absolute top-4 right-4">
