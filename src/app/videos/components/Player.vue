@@ -51,7 +51,7 @@ async function onLoadedData() {
         ></div>
 
         <Facecam />
-        <FloatingEmotes />
+        <FloatingEmotes v-if="!videoStore.playerIsMini" />
 
         <PlayerControls />
         <MiniplayerControls />

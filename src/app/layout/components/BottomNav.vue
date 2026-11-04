@@ -27,10 +27,14 @@ function handleClick(item: any) {
     <div
         ref="mobileNavRef"
         :style="{ paddingBottom: bottom }"
-        class="z-mobile-nav border-black-300 bg-black/85 backdrop-blur-[100px] fixed right-0 bottom-0 left-0 h-[var(--height-mobile-navbar)] border-t lg:hidden"
+        class="z-mobile-nav fixed right-0 bottom-0 left-0 h-(--height-mobile-navbar) lg:hidden"
     >
+        <div
+            class="absolute inset-0 -top-8 pointer-events-none bg-linear-to-t from-black/95 from-40% to-black/0 backdrop-blur-[1fpx] bfg-orange-400!"
+        ></div>
+
         <Container width="400px" class="h-full">
-            <div class="grid h-[var(--height-mobile-navbar)] grid-cols-3 items-center justify-evenly">
+            <div class="grid h-full grid-cols-3 items-center justify-evenly">
                 <RouterLink
                     v-for="item in menuItems"
                     :key="item.title"

@@ -67,7 +67,7 @@
     --z-index-video-src-error: 60;
     --z-index-offline: 100;
 
-    --spacing-available: var(--height-mobile-navbar);
+    --spacing-available: var(--height-mobile-navbar); /* changes on desktop (lg) */
     --spacing-mobile-navbar: var(--height-mobile-navbar);
     --spacing-header: var(--height-header);
 
