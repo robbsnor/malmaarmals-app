@@ -12,9 +12,11 @@ const videosStore = useVideosStore();
 </script>
 
 <template>
-    <header
-        class="z-header h-header border-b border-black-400 bg-black-100 backdrop-blufr-[100px] overflow-y-hidden fixed top-0 right-0 left-0 hidden lg:block"
-    >
+    <header class="z-header h-header via-black/70 via-60% to-black/0 fixed top-0 right-0 left-0 hidden lg:block">
+        <div
+            class="absolute inset-0 -bottom-8 pointer-events-none bg-linear-to-b bg-fred-300! from-black via-black/70 via-60% to-black/0 backdrop-blur-[1fpx] bfg-orange-400!"
+        ></div>
+
         <Container width="100%" class="h-full">
             <div
                 class="grid grid-cols-[1fr_auto] 3xl:grid-cols-[1fr_auto_1fr] h-full items-center justify-between gap-4"
@@ -35,7 +37,7 @@ const videosStore = useVideosStore();
 
                 <div class="flex items-center justify-end gap-4">
                     <div class="3xl:hidden">
-                        <Search class="w-60 xl:w-80" />
+                        <Search class="w-80 xl:w-90" />
                     </div>
                     <HeaderAvatar v-if="authStore.session" />
                     <SignInButton v-else class="w-auto!">Login with Twitch</SignInButton>
@@ -44,11 +46,3 @@ const videosStore = useVideosStore();
         </Container>
     </header>
 </template>
-
-<style scoped>
-.search :deep(.v-field) {
-    /* border-radius: 12px;
-    --v-field-border-width: 4px;
-    --v-input-padding-top: 12px;  */
-}
-</style>

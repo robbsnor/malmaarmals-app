@@ -45,11 +45,11 @@ const hasMatchingQuery = computed(() => {
             <slot></slot>
 
             <div
-                class="absolute bottom-0 h-0.5 w-0 rounded-xl bg-primary opacity-0 transition-all duration-300 group-hover:w-4 group-hover:opacity-50 in-[.is-active]:!w-full in-[.is-active]:!opacity-100"
+                class="absolute top-0 h-0.5 w-0 rounded-full bg-primary opacity-0 transition-all group-hover:w-4 group-hover:opacity-50 in-[.is-active]:!w-4/12 in-[.is-active]:!opacity-100"
             ></div>
 
             <div
-                class="pointer-events-none absolute bottom-0 -z-1 aspect-square h-[100%] translate-y-full rounded-full bg-primary opacity-0 blur-xl transition-all duration-300 group-hover:translate-y-2/3 group-hover:opacity-30 in-[.is-active]:!translate-y-1/2 in-[.is-active]:!opacity-60"
+                class="pointer-events-none absolute opacity-0 aspect-square h-full rounded-full -translate-y-full bg-primary blur-xl transition-all duration-300 scale-150 group-hover:-translate-y-6 group-hover:opacity-30 in-[.is-active]:-translate-y-full! in-[.is-active]:opacity-80!"
             ></div>
         </a>
     </RouterLink>
