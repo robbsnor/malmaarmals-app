@@ -15,7 +15,7 @@ const props = withDefaults(
 const historyStore = useHistoryStore();
 const history = computed(() => historyStore.history.find((v) => v.video_id === props.video.id));
 const progressionPercentage = computed(() => {
-    const videoTime = Number(history.value?.video_time ?? 0);
+    const videoTime = history.value?.video_time ?? 0;
     if (!videoTime) return 0;
 
     return (100 / props.video.length_sec) * videoTime;
