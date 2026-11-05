@@ -31,7 +31,7 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
 </script>
 
 <template>
-    <div class="flex items-center gap-2">
+    <div class="relative flex items-center gap-2">
         <div class="flex items-center justify-center bg-v-input rounded-sm pr-2 w-full">
             <v-combobox
                 v-bind="props"
@@ -67,11 +67,11 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
 
             <div
                 v-if="route.name !== 'playlists' && route.name !== 'games'"
-                class="flex gap-1 shrink-0 text-[#BDBDBD] -ml-1 lgf:hidden"
+                class="flex gap-1 shrink-0 text-[#BDBDBD] -ml-1"
             >
                 <button
                     title="random stream"
-                    class="hover:text-primary p-1 pr-2 lbg-red-500 relative"
+                    class="relative p-1 pr-2 hover:text-primary"
                     @click="archiveStore.setRandomVideo()"
                 >
                     <svg
@@ -113,7 +113,7 @@ const updateQuery = useDebounceFn((value: string | { id: string; title: string }
                 </button>
 
                 <button
-                    class="hover:text-primary p-1 pr-2 lbg-red-500 relative"
+                    class="relative p-1 pr-2 hover:text-primary"
                     :class="{ 'text-primary': archiveStore.formHasDateChanges }"
                     @click="dialog = true"
                 >
