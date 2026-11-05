@@ -112,7 +112,7 @@ body {
     @apply font-space-grotesk text-normal;
 }
 
-p:not(:last-child) {
+p {
     @apply mb-3;
 }
 
