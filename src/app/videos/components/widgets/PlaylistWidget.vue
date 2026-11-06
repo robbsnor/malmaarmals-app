@@ -12,7 +12,6 @@ const videoStore = useVideoStore();
             <VideoItem
                 v-for="video in videoStore.playlist.videos"
                 :key="video.video_id"
-                :to="{ name: 'stream', params: { id: video.video_id }, query: { playlistId: videoStore.playlist.id } }"
                 :video="video"
                 :playlist="videoStore.playlist"
             >

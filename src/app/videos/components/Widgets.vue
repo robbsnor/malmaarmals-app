@@ -9,12 +9,13 @@ import ChaptersWidget from './widgets/ChaptersWidget.vue';
 import ChatStatsWidget from './widgets/ChatStatsWidget.vue';
 import MessagesWidget from './widgets/MessagesWidget.vue';
 import PlaylistWidget from './widgets/PlaylistWidget.vue';
+import SuggestedVideosWidget from './widgets/SuggestedVideosWidget.vue';
 import TeamWidget from './widgets/TeamWidget.vue';
 
 const appStore = useAppStore();
 const videoStore = useVideoStore();
 
-const widgets = [ChatStatsWidget, ChaptersWidget, PlaylistWidget, TeamWidget, MessagesWidget];
+const widgets = [ChatStatsWidget, ChaptersWidget, PlaylistWidget, TeamWidget, MessagesWidget, SuggestedVideosWidget];
 const { height: windowHeight } = useWindowSize();
 const el = ref();
 // @ts-ignore

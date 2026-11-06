@@ -47,17 +47,20 @@ async function blacklistVideo() {
 <template>
     <DeleteDialog
         v-model="dialog"
-        @confirm="blacklistVideo()"
         title="Blacklist video"
         icon="mdi-cancel"
         :show-body="true"
         confirmText="blacklist"
         :loading="loading"
+        @confirm="blacklistVideo()"
     >
-        <div class="p-4 fs">
-            <div class="pb-4">
+        <div class="p-4">
+            <div class="pb-4 fs">
                 <p>Blacklisting a video means remove it from the database, and prevent it from being uploaded again.</p>
-                <p>Do this if there is a raw stream and a clipped stream, then blacklist the raw stream.</p>
+                <p>
+                    Do this if there is a raw stream and a clipped stream,
+                    <b class="italic underline text-lgf block">then blacklist the raw stream.</b>
+                </p>
             </div>
             <VideoItem class="pointer-events-none" :video="props.video" :show-options="false" />
         </div>
