@@ -26,7 +26,7 @@ onMounted(async () => {
     await authStore.mirrorSession();
 
     if (authStore.session) {
-        await authStore.updateIsSubscribed();
+        await authStore.checkSubscription();
         await historyStore.fetchHistory();
     }
 

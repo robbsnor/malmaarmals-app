@@ -89,7 +89,7 @@ async function randomPVT() {
             <div class="flex items-center justify-between gap-4 pt-2 px-4">
                 <PlayerButton @click="goBack()" icon="mdi-chevron-down" />
 
-                <div class="flex items-center gap-1">
+                <div class="flex items-center gap-2">
                     <Admin>
                         <PlayerButton @click="randomPVT()" icon="mdi-sword-cross" :size="20" />
                         <PlayerButton icon="mdi-skip-previous" @click="goToPreviousVideo()" />
