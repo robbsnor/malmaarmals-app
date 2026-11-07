@@ -33,7 +33,7 @@ const hoursPlayed = computed(() => {
         <div class="absolute inset-0 bg-gradient-to-r from-black-100/75 to-black-100"></div>
 
         <div class="relative w-14 rounded shrink-0 overflow-hidden bg-black-400 aspect-[208/288]">
-            <img :src="TwitchHelper.getCategoryThumbnail(props.id)" class="h-full! w-full!" alt="" cover />
+            <v-img :src="TwitchHelper.getCategoryThumbnail(props.id)" class="h-full! w-full!" alt="" cover />
         </div>
 
         <div class="relative py-1 grow">

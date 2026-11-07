@@ -11,7 +11,7 @@ const props = withDefaults(
 
 <template>
     <div class="h-[56px] aspect-[8/11] bg-black-500 rounded-sm overflow-hidden shrink-0">
-        <img
+        <v-img
             v-if="props.category.image_url"
             :src="props.category.image_url"
             :alt="props.category.title"

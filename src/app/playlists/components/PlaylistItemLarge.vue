@@ -32,7 +32,7 @@ const categories = computed(() => {
                     n === 2 && '-top-4 scale-90 group-hover:-translate-y-5 bg-black-1500 brightness-20 -z-1 delay-50',
                 ]"
             >
-                <img
+                <v-img
                     :src="BucketHelper.getThumbnailUrl(Number(props.playlist.videos?.[0]?.video_id))"
                     alt=""
                     class="cover w-full h-full"
