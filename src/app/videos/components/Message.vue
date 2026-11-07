@@ -38,7 +38,7 @@ const isGifted = computed(() => props.message.text.includes(' gifted a '));
     <div class="text-sm">
         <div
             :class="{
-                'bg-black-300 rounded-sm py-1 -mx-1 px-1 md:bg-black-600 2xl:-mx-2 2xl:px-2':
+                'bg-black-300 rounded-sm py-1 -mx-1 px-1 2xl:-mx-2 2xl:px-2':
                     (props.textHighlight && isMyMessage) ||
                     (props.textHighlight && isMention) ||
                     (props.textHighlight && isLekkerSpelen),

@@ -148,7 +148,7 @@ watch(width, () => {
 
                 <div
                     ref="chatRef"
-                    class="scroll-hidden flex h-full flex-col gap-1 overflow-auto p-2 2xl:px-4"
+                    class="scroll-hidden flex h-full flex-col gap-1 overflow-auto p-2 2xl:px-4 bg-black-100"
                     @scroll="onScroll"
                 >
                     <Message
