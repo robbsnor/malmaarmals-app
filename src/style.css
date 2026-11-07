@@ -31,6 +31,10 @@
     --color-muted-more: hsl(0, 0%, 35%);
     --color-muted-more-more: hsl(0, 0%, 20%);
 
+    /* other */
+    --color-body-bg: var(--color-black-100);
+    --color-v-input: #212121;
+
     /* black */
     --color-black-100: hsl(0, 0%, 2%);
     --color-black-200: hsl(0, 0%, 4%);
@@ -52,8 +56,6 @@
     --color-black-1800: hsl(0, 0%, 36%);
     --color-black-1900: hsl(0, 0%, 38%);
     --color-black-2000: hsl(0, 0%, 40%);
-
-    --color-v-input: #212121;
 
     --z-index-chapter-marker: 10;
     --z-index-mobile-nav: 10;
@@ -84,6 +86,12 @@
     --ring-color-default: var(--color-black);
 }
 
+@screen lg {
+    :root {
+        --spacing-available: var(--height-header);
+    }
+}
+
 .fs h1,
 .fs h2,
 .fs h3,
@@ -93,23 +101,13 @@
     @apply text-normal mb-1 text-2xl font-bold not-first:mt-8;
 }
 
-@screen lg {
-    :root {
-        --spacing-available: var(--height-header);
-    }
-}
-
 .fs p {
     @apply text-muted;
 }
 
 html,
 body {
-    @apply bg-black-100;
-}
-
-body {
-    @apply font-space-grotesk text-normal;
+    @apply bg-body-bg font-space-grotesk text-normal;
 }
 
 p {
@@ -121,13 +119,13 @@ a:not([class]) {
     @apply text-primary hover:text-primary-light underline;
 }
 
+button {
+    @apply cursor-pointer;
+}
+
 @utility scroll-hidden {
     scrollbar-width: none;
     -ms-overflow-style: none;
-}
-
-button {
-    @apply cursor-pointer;
 }
 
 /* vuetify overwrites */

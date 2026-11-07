@@ -12,9 +12,9 @@ const videosStore = useVideosStore();
 </script>
 
 <template>
-    <header class="z-header h-header via-black/70 via-60% to-black/0 fixed top-0 right-0 left-0 hidden lg:block">
+    <header class="z-header h-header fixed top-0 right-0 left-0 hidden lg:block">
         <div
-            class="absolute inset-0 -bottom-8 pointer-events-none bg-linear-to-b bg-fred-300! from-black via-black/70 via-60% to-black/0 backdrop-blur-[1fpx] bfg-orange-400!"
+            class="absolute inset-0 -bottom-8 pointer-events-none bg-linear-to-b bg-fred-300! from-body-bg via-body-bg/70 via-60% to-body-bg/0 backdrop-blur-[1fpx] bfg-orange-400!"
         ></div>
 
         <Container width="100%" class="h-full">
