@@ -53,6 +53,14 @@ onMounted(async () => {
 
         <div class="grid h-full max-lg:pb-mobile-navbar lg:pt-header" style="grid-template-rows: 1fr auto">
             <div class="min-w-0">
+                <xmass>
+                    <img
+                        class="-z-100 top-0 opacity-50 w-200 absolute lg:fixed"
+                        src="/images/events/xmass/foo.png"
+                        alt=""
+                    />
+                </xmass>
+
                 <RouterView />
             </div>
 

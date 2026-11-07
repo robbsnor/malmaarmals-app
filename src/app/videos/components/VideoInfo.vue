@@ -32,6 +32,9 @@ function copyTitle() {
                 <div class="text-lg font-bold">{{ videoStore.video.title }}</div>
                 <div class="text-muted">{{ date }}</div>
             </div>
+            <xmass>
+                <img class="absolute -left-2 -top-2 z-[2000] h-10" src="/images/events/xmass/cap.svg" alt="" />
+            </xmass>
 
             <v-btn
                 v-if="!appStore.isLandscape"

@@ -43,6 +43,10 @@ onMounted(async () => {
             { 'flex-row-reverse': preferenceStore.chatSide === CHAT_SIDE.LEFT && appStore.isLandscape },
         ]"
     >
+        <xmass v-if="videoStore.playerIsMini">
+            <img class="absolute -left-2 z-1 w-full -top-0.5" src="/images/events/xmass/cap.svg" alt="" />
+        </xmass>
+
         <div
             ref="videoColRef"
             class="relative scroll-hidden bg-black-100"

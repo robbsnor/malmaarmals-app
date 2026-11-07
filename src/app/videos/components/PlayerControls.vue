@@ -83,6 +83,12 @@ async function randomPVT() {
         v-visible="videoStore.showControllsAndInfo && !videoStore.playerIsMini"
         class="z-video-controls absolute inset-0 flex flex-col"
     >
+        <xmass>
+            <div
+                class="absolute w-full h-full bg-repeat-x bg-size-[500px] bg-[url(/images/events/xmass/snow.svg)]"
+            ></div>
+        </xmass>
+
         <div class="relative flex flex-col grow">
             <div class="absolute inset-0 bg-black/50" @click="videoStore.showControllsAndInfo = false"></div>
 

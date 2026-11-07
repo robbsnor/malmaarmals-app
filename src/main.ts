@@ -36,6 +36,7 @@ import Skeleton from './app/shared/components/Skeleton.vue';
 import SkeletonContainer from './app/shared/components/SkeletonContainer.vue';
 import Switch from './app/shared/components/Switch.vue';
 import Thumbnail from './app/shared/components/Thumbnail.vue';
+import xmass from './app/shared/components/xmass.vue';
 
 // directives
 import { admin } from './app/shared/directives/admin.directive.ts';
@@ -82,6 +83,7 @@ app.component('Skeleton', Skeleton);
 app.component('SkeletonContainer', SkeletonContainer);
 app.component('Switch', Switch);
 app.component('Thumbnail', Thumbnail);
+app.component('xmass', xmass);
 
 // directives
 app.directive('admin', admin);
