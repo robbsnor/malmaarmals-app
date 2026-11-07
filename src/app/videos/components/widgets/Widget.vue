@@ -11,7 +11,7 @@ const props = withDefaults(
 
 <template>
     <div>
-        <div class="border-black-500 flex items-end justify-between border-b pb-2">
+        <div class="border-black-400 flex items-end justify-between border-b pb-2">
             <div>
                 <div class="text-2xl font-bold">
                     {{ props.title }}

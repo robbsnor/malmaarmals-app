@@ -46,7 +46,7 @@ const classes = computed(() => {
         classes.push('relative');
 
         if (appStore.isLandscape) {
-            classes.push('h-full bg-black-100 shrink-0 bg-black-300 border-black-600');
+            classes.push('h-full bg-black-100 shrink-0 border-black-400');
 
             if (preferenceStore.chatSide === CHAT_SIDE.LEFT) {
                 classes.push('border-r');
