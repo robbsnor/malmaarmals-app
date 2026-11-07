@@ -13,10 +13,10 @@ const props = withDefaults(
 </script>
 
 <template>
-    <div class="relative self-start group overflow-hidden rounded-md hover:scale-104 transition-all">
+    <div class="relative self-start group overflow-hidden rounded-md hover:scale-102 transition-all">
         <img
             :src="props.src"
-            class="relative w-full aspect-video group-hover:scale-104 transition-all bg-black-600"
+            class="relative w-full aspect-video group-hover:scale-102 transition-all bg-black-600"
             aria-hidden="true"
         />
 
