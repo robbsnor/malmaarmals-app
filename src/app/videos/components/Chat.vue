@@ -43,10 +43,10 @@ const classes = computed(() => {
         if (preferenceStore.chatSide === CHAT_SIDE.LEFT) classes.push('left-0 bg-linear-to-r');
         if (preferenceStore.chatSide === CHAT_SIDE.RIGHT) classes.push('right-0 bg-linear-to-l');
     } else {
-        classes.push('relative');
+        classes.push('relative bg-black-100');
 
         if (appStore.isLandscape) {
-            classes.push('h-full bg-black-100 shrink-0 border-black-400');
+            classes.push('h-full shrink-0 border-black-400');
 
             if (preferenceStore.chatSide === CHAT_SIDE.LEFT) {
                 classes.push('border-r');
@@ -148,7 +148,7 @@ watch(width, () => {
 
                 <div
                     ref="chatRef"
-                    class="scroll-hidden flex h-full flex-col gap-1 overflow-auto p-2 2xl:px-4 bg-black-100"
+                    class="scroll-hidden flex h-full flex-col gap-1 overflow-auto p-2 2xl:px-4"
                     @scroll="onScroll"
                 >
                     <Message
