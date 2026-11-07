@@ -29,9 +29,7 @@ function handleClick(item: any) {
         :style="{ paddingBottom: bottom }"
         class="z-mobile-nav fixed right-0 bottom-0 left-0 h-(--height-mobile-navbar) lg:hidden"
     >
-        <div
-            class="absolute inset-0 -top-8 pointer-events-none bg-linear-to-t from-body-bg via-body-bg/70 via-60% to-body-bg/0 backdrop-blur-[1fpx] bfg-orange-400!"
-        ></div>
+        <GradientBg side="bottom" />
 
         <Container width="400px" class="h-full">
             <div class="grid h-full grid-cols-3 items-center justify-evenly">
