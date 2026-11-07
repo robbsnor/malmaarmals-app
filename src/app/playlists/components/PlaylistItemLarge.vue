@@ -11,8 +11,6 @@ const props = withDefaults(
     {}
 );
 
-const { lgAndUp } = useDisplay();
-
 const categories = computed(() => {
     const cats = props.playlist.videos.flatMap((video) => video.chapters.map((chapter) => chapter.category.title));
     const uniqueCats = Array.from(new Set(cats));
@@ -21,11 +19,8 @@ const categories = computed(() => {
 </script>
 
 <template>
-    <div v-if="lgAndUp" class="relative transition-all duration-200 mt-6">
-        <RouterLink
-            :to="{ name: 'playlist', params: { id: props.playlist.id } }"
-            class="relative transition-all duration-200 group"
-        >
+    <div class="relative transition-all mt-6">
+        <RouterLink :to="{ name: 'playlist', params: { id: props.playlist.id } }" class="relative transition-all group">
             <div
                 v-for="n in 2"
                 :key="n"

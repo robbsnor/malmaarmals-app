@@ -6,11 +6,11 @@ import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
 import { computed } from 'vue';
 
 const playlistsStore = usePlaylistsStore();
-const { lgAndUp, xlAndUp } = useDisplay();
+const { xlAndUp, mdAndUp } = useDisplay();
 
 const amount = computed(() => {
-    if (xlAndUp.value) return 4;
-    if (lgAndUp.value) return 4;
+    if (xlAndUp.value) return 8;
+    if (mdAndUp.value) return 6;
 
     return 5;
 });
@@ -23,11 +23,13 @@ const amount = computed(() => {
         </template>
 
         <template v-if="playlistsStore.playlists.length">
-            <div class="grid grid-cols-1 gap-4 lg:gap-8 lg:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4" v-auto-animate>
+            <div
+                class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4"
+                v-auto-animate
+            >
                 <template v-for="playlist in playlistsStore.playlists.slice(0, amount)" :key="playlist.id">
-                    <PlaylistItem class="lg:hidden" :playlist="playlist" />
-
-                    <PlaylistItemLarge class="max-lg:hidden" :playlist="playlist" />
+                    <PlaylistItem class="md:hidden" :playlist="playlist" />
+                    <PlaylistItemLarge class="max-md:hidden" :playlist="playlist" />
                 </template>
             </div>
         </template>

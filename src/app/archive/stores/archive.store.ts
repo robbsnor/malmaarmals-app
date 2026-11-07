@@ -1,10 +1,9 @@
+import { useCloned } from '@vueuse/core';
 import { defineStore } from 'pinia';
 import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { refDebounced, useCloned } from '@vueuse/core';
-import { useVideosStore } from '../../videos/stores/videos.store';
 import { randomNumber } from '../../shared/helpers/randomNumber';
-import { usePlaylistsStore } from '../../playlists/stores/playlists.store';
+import { useVideosStore } from '../../videos/stores/videos.store';
 
 export type FilterType = 'streams' | 'playlists' | 'games';
 export interface Form {
@@ -17,7 +16,6 @@ export const useArchiveStore = defineStore('archive', () => {
     const router = useRouter();
     const route = useRoute();
     const videosStore = useVideosStore();
-    const playlistsStore = usePlaylistsStore();
 
     const INITIAL = 40;
     const STEP = 100;
