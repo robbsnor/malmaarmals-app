@@ -58,9 +58,9 @@ const teams = computed(() => {
 <template>
     <Widget title="PETER vs TIMON">
         <div v-if="teams" class="py-4">
-            <div class="relative flex rounded-md">
+            <div class="relative flex">
                 <div
-                    class="relative bg-red-500 shrink-0 px-4 py-3 rounded-l-md overflow-hidden"
+                    class="relative bg-red-500 shrink-0 px-4 py-3 rounded-l-lg overflow-hidden"
                     :style="{ width: `${teams.red.percentage}%` }"
                 >
                     <div class="absolute font-bold opacity-20 -top-4 -left-6 leading-tight uppercase text-[100px]">
@@ -74,7 +74,7 @@ const teams = computed(() => {
                     </div>
                 </div>
 
-                <div class="relative bg-blue-500 grow shrink-0 px-4 py-3 rounded-r-md overflow-hidden">
+                <div class="relative bg-blue-500 grow shrink-0 px-4 py-3 rounded-r-lg overflow-hidden">
                     <div class="absolute font-bold opacity-20 -top-4 -left-6 leading-tight uppercase text-[100px]">
                         timon
                     </div>
@@ -86,7 +86,7 @@ const teams = computed(() => {
                     </div>
                 </div>
 
-                <div class="absolute w-[4px] rounded-full -translate-x-1/2 -top-2 -bottom-2 bg-white/75 left-1/2"></div>
+                <div class="absolute w-[4px] rounded-full -translate-x-1/2 -top-2 -bottom-2 bg-white left-1/2"></div>
             </div>
         </div>
 
