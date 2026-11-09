@@ -20,7 +20,7 @@ async function signIn() {
         variant="tonal"
         append-icon="mdi-twitch"
         @click="signIn()"
-        class="w-full"
+        class="w-full h-10!"
         :loading="loading"
     >
         <slot>Login with Twitch</slot>
