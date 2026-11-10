@@ -36,7 +36,7 @@ onMounted(async () => {
     <div
         ref="videoContainerRef"
         v-if="videoStore.playerIsActive && authStore.isSubbed"
-        class="z-video-container fixed flex flex-col flex-nowrap border-t border-black-400"
+        class="z-video-container fixed flex flex-col flex-nowrap bg-body-bg border-t border-black-400"
         :class="[
             containerLayoutClasses,
             { 'flex-row': appStore.isLandscape },
