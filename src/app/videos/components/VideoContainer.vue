@@ -36,7 +36,7 @@ onMounted(async () => {
     <div
         ref="videoContainerRef"
         v-if="videoStore.playerIsActive && authStore.isSubbed"
-        class="z-video-container fixed flex flex-col flex-nowrap bg-black"
+        class="z-video-container fixed flex flex-col flex-nowrap"
         :class="[
             containerLayoutClasses,
             { 'flex-row': appStore.isLandscape },
@@ -47,11 +47,7 @@ onMounted(async () => {
             <img class="absolute -left-2 z-1 w-full -top-0.5" src="/images/events/xmass/cap.svg" alt="" />
         </xmass>
 
-        <div
-            ref="videoColRef"
-            class="relative scroll-hidden bg-black-100"
-            :class="{ 'w-full overflow-auto': appStore.isLandscape }"
-        >
+        <div ref="videoColRef" class="relative scroll-hidden" :class="{ 'w-full overflow-auto': appStore.isLandscape }">
             <div
                 ref="containerRef"
                 class="relative max-h-screen overflow-hidden bg-black"

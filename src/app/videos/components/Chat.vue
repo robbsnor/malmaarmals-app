@@ -43,7 +43,7 @@ const classes = computed(() => {
         if (preferenceStore.chatSide === CHAT_SIDE.LEFT) classes.push('left-0 bg-linear-to-r');
         if (preferenceStore.chatSide === CHAT_SIDE.RIGHT) classes.push('right-0 bg-linear-to-l');
     } else {
-        classes.push('relative bg-black-100');
+        classes.push('relative h-full');
 
         if (appStore.isLandscape) {
             classes.push('h-full shrink-0 border-black-400');
