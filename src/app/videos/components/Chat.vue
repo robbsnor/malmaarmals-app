@@ -32,7 +32,7 @@ const renderedMessages = computed(() => {
 });
 
 const classes = computed(() => {
-    const classes: string[] = ['relative'];
+    const classes: string[] = [];
 
     if (appStore.isLandscape) {
         classes.push('w-[250px] lg:w-[300px] 2xl:w-[400px] 4xl:w-[500px]');
