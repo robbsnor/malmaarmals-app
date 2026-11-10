@@ -19,14 +19,12 @@ _have more ideas? create an issue!_
 
 ## Todo
 
-- ~~Missing sub-badges on messages. I simply do not have that data.~~
-- ~~More emote support, now only supporting some emotes based on strings~~
 - Desktop video controls
 - Playlist autoplay
-- Suggested videos below current video
 - History page resoponsive
-- Missing around 20 streams
-- Missing around 40 chat logs
+- ~~Missing sub-badges on messages. I simply do not have that data.~~
+- ~~More emote support, now only supporting some emotes based on strings~~
+- ~~Suggested videos below current video~~
 
 _Want to help? create an issue!_
 
@@ -47,7 +45,3 @@ npm ci
 ```bash
 npm run start:dev
 ```
-
-### Notes:
-
-- You will see data from the production database, but cannot modify the data.
