@@ -51,5 +51,3 @@ npm run start:dev
 ### Notes:
 
 - You will see data from the production database, but cannot modify the data.
-- If you want to login locally, click the login button and copy the credentials from the url before being redirected to malmaarmals.nl and paste the `access_token` onto your localhost url ex: `http://localhost:5173/auth/callback#access_token=eyJhbGc...`.\
-  Session stays active for 30 min.
