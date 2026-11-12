@@ -14,8 +14,10 @@ const props = withDefaults(
 <template>
     <Container width="920px">
         <div
-            class="max-lg:fixed h-14 z-10 top-0 left-0 right-0 flex py-2 items-center gap-4 justify-between max-lg:bg-gradient-to-b from-black to-black/20 lg:-mx-4"
+            class="max-lg:fixed relative h-14 z-10 top-0 left-0 right-0 flex py-2 items-center gap-4 justify-between lg:-mx-4"
         >
+            <GradientBg />
+
             <div class="flex items-center gap-2">
                 <v-btn variant="text" icon="mdi-chevron-left" :to="props.to"></v-btn>
                 <div class="font-bold text-xl">{{ props.title }}</div>

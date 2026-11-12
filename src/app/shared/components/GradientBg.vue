@@ -21,6 +21,6 @@ const cssClass = computed(() => {
 <template>
     <div
         :class="cssClass"
-        class="absolute inset-0 pointer-events-none bfg-red-300! from-body-bg via-body-bg/70 via-60% to-body-bg/0 backdrop-blur-[1fpx] bfg-orange-400!"
+        class="absolute inset-0 pointer-events-none -z-1 from-body-bg via-body-bg/70 via-60% to-body-bg/0 backdrop-blur-[1fpx]"
     ></div>
 </template>
