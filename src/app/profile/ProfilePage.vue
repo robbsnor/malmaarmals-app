@@ -161,7 +161,7 @@ const handleClick = async (item: any) => {
 
             <Admin>
                 <MyChats></MyChats>
-                <Quotes></Quotes>
+                <!-- <Quotes></Quotes> -->
             </Admin>
         </Container>
 
