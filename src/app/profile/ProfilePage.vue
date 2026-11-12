@@ -117,7 +117,7 @@ const handleClick = async (item: any) => {
                     v-for="video in historyStore.videos.slice(0, 10)"
                     :key="video.id"
                     :to="{ name: 'stream', params: { id: video.video_id } }"
-                    class="w-[180px] shrink-0"
+                    class="w-[170px] shrink-0"
                 >
                     <VideoThumbnail :video="video" class="w-full" />
                     <div class="my-2 line-clamp-2 font-bold">{{ video.title }}</div>
