@@ -6,8 +6,16 @@ import PopularCategories from './components/PopularCategories.vue';
 import WeekOverview from '../statistics/components/WeekOverview.vue';
 import Stats from './components/Stats.vue';
 import WhatOthersWatch from './components/WhatOthersWatch.vue';
+import { onMounted } from 'vue';
+import { useVideosStore } from '../videos/stores/videos.store.ts';
 
 TitleHelper.setTitle('home');
+
+const videosStore = useVideosStore();
+
+onMounted(async () => {
+    await videosStore.fetchWhatOthersWatch();
+});
 </script>
 
 <template>

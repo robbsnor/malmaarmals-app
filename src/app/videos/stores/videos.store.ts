@@ -11,10 +11,6 @@ export const useVideosStore = defineStore('videos', () => {
 
     const whatOthersWatchIds = ref([]);
 
-    onMounted(async () => {
-        await fetchWhatOthersWatch();
-    });
-
     const fetchVideos = async () => {
         const { data, error } = await videosQuery;
         if (error) throw error;
@@ -123,5 +119,6 @@ export const useVideosStore = defineStore('videos', () => {
         years,
 
         fetchVideos,
+        fetchWhatOthersWatch,
     };
 });
