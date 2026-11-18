@@ -20,6 +20,15 @@ onMounted(async () => {
 
 <template>
     <div>
+        <Container>
+            <Alert
+                class="mt-4"
+                icon="mdi-wrench"
+                title="Ongoing maintenance"
+                description="Loading times can be longer than usual or we can be offline for a couple of minutes."
+            ></Alert>
+        </Container>
+
         <Container class="flex items-center justify-center flex-col pt-18 pb-8 lg:pt-20 lg:pb-12">
             <Logo payoff class="relative z-1 w-[80%] lg:w-150" />
 

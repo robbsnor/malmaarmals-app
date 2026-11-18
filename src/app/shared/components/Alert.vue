@@ -5,15 +5,19 @@ const props = withDefaults(
     defineProps<{
         title: string;
         description?: string;
+        icon?: string;
     }>(),
     {}
 );
 </script>
 
 <template>
-    <div class="rounded-md p-4 flex flex-col bg-black-400 border border-black-600">
-        <div v-if="props.title" class="text-2xl font-bold pb-1">{{ props.title }}</div>
-        <p v-if="props.description" class="text-muted pb-2">{{ props.description }}</p>
-        <slot></slot>
+    <div class="flex gap-4 p-4 rounded-md bg-primary-dark/15">
+        <v-icon v-if="props.icon" :icon="props.icon" class="mt-1" size="22"></v-icon>
+
+        <div class="grow">
+            <div v-if="props.title" class="text-lg font-bold pb-1">{{ props.title }}</div>
+            <p v-if="props.description" class="text-muted m-0!">{{ props.description }}</p>
+        </div>
     </div>
 </template>
