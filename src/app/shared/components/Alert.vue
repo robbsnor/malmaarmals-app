@@ -12,7 +12,7 @@ const props = withDefaults(
 </script>
 
 <template>
-    <div class="flex gap-4 p-4 rounded-md bg-primary-dark/15">
+    <div class="flex gap-4 p-4 rounded-md bg-primary-dark/15 border border-primary-dark/50">
         <v-icon v-if="props.icon" :icon="props.icon" class="mt-1" size="22"></v-icon>
 
         <div class="grow">
