@@ -2,6 +2,7 @@
 import { useAuthStore } from '../../auth/stores/auth.store';
 import { useVideoStore } from '../stores/video.store';
 import { randomNumber } from '../../shared/helpers/randomNumber';
+import Warning from './Warning.vue';
 
 const videoStore = useVideoStore();
 const authStore = useAuthStore();
@@ -33,16 +34,16 @@ function refresh() {
         </div>
 
         <div class="absolute inset-0 p-8 flex items-center justify-center">
-            <Alert
+            <Warning
                 v-if="!authStore.session"
                 title="You are not logged in"
                 description="Log in with Twitch to start watching streams."
             >
                 <SignInButton>Login with Twitch</SignInButton>
-            </Alert>
+            </Warning>
 
             <template v-else>
-                <Alert
+                <Warning
                     v-if="!authStore.isSubbed"
                     title="Oops, you are not subscribed"
                     description="In order to watch videos please subscribe to Lekker Spelen on Twitch."
@@ -60,7 +61,7 @@ function refresh() {
                         </v-btn>
                         <v-btn color="primary" variant="text" @click="refresh()">refresh</v-btn>
                     </div>
-                </Alert>
+                </Warning>
             </template>
         </div>
     </div>

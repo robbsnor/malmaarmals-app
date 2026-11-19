@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-
 const props = withDefaults(
     defineProps<{
-        title: string;
+        title?: string;
         description?: string;
         icon?: string;
     }>(),
